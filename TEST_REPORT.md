@@ -43,7 +43,10 @@ Vizuálně prohlédnuty snímky `test-output/visual-server-room.png`,
 LED vadného disku zůstává viditelná před novým rámečkem, panel dveří nabízí
 Zavřít při otevřeném křídle a nová HUD výzva je celá v obraze.
 
-Závěrečný Test-All nyní obsahuje17 sad a běží do `test-output/visual-test-all.log`.
+Závěrečný Test-All: všech17 sad PASS, exit0, bez runtime chyb a varování.
+Zahrnuje65/65 misí v modelu i UI,21 lekcí ve všech3 režimech (1075 kontrol),
+336 výukových UI akcí,474 kontrol save a nové opakované ovládání dveří.
+Úplný log je v `test-output/visual-test-all.log`.
 Ostatní aktuální důkazy: `visual-capture-final.log`, `visual-benchmark.json`,
 `visual-display.log`, `visual-fonts.log`, `visual-package.log`,
 `visual-door-package.log`, `visual-compatibility.log` a `visual-build.log`.
