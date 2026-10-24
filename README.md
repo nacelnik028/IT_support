@@ -284,8 +284,11 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 
 - 3D budova a zařízení jsou vlastní procedurální modely se stylizovaným technickým
   vzhledem. Statické díly využívají MultiMesh a sdílené materiály; žádné externí
-  modely či velké textury nejsou potřeba. Renderování používá Godot4 Compatibility
-  se4× MSAA; hra nevyžaduje ray tracing.
+  modely či velké textury nejsou potřeba. Renderování používá Godot4 Forward+
+  (Vulkan),4× MSAA, měkké stíny, ambientní zastínění a odlesky. Monitory ve3D
+  zobrazují skutečná data infrastruktury. Hra nevyžaduje ray tracing.
+  Úspornější renderer lze spustit argumentem `--rendering-method gl_compatibility`;
+  ten ponechá modely, interakce a materiály s omezenými obrazovými efekty.
 - Poloha hráče, fyzické přívody, inventář a rozpracovaný servis patří do stavu
   aktuální relace. Poloha se ukládá také při přechodu do aplikace a periodicky
   během chůze. Změny poškozeného pole se nevracejí pouhou animací; pro opakování

@@ -2,6 +2,7 @@ extends Node3D
 
 const Geo = preload("res://scripts/world/Geometry.gd")
 const Item = preload("res://scripts/world/Interactable3D.gd")
+const Visuals = preload("res://scripts/world/WorldVisuals.gd")
 var game
 var devices: Dictionary = {}
 var player
@@ -18,6 +19,10 @@ var academy_targets: Dictionary = {}
 var batched_instances = 0
 var carried_disk: Node3D
 var carried_label: Label3D
+var racks: Array = []
+var workstations: Array = []
+var visuals = Visuals.new()
+var screen_time = 0.0
 
 func _ready():
 	build_room()
@@ -51,6 +56,7 @@ func _ready():
 	var screen = item("MONITOR","Monitorovací konzole — živý stav","monitor",Vector3(4.5,2.5,-6.65),Vector3(5.1,1.5,0.12),"Storage")
 	Geo.box(screen.visual,Vector3(0,0,0.07),Vector3(4.95,1.35,0.03),Color("07313b"),0,0.25)
 	monitoring = Geo.text(screen.visual,"NORTHSTAR / PROVOZNÍ DOHLED",Vector3(0,0,0.095),38,0.003)
+	visuals.build(self)
 	batched_instances = Geo.batch_static(self)
 
 func build_room():
@@ -61,7 +67,10 @@ func build_room():
 	Geo.solid(self,Vector3(9,2,-2.5),Vector3(0.25,4,9),Color("374753"))
 	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))
 	Geo.solid(self,Vector3(9,3.5,3.5),Vector3(0.25,1,3),Color("374753"))
-	Geo.solid(self,Vector3(0,2,7),Vector3(18,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-8.5,2,7),Vector3(1,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(4,2,7),Vector3(10,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-4.5,3.65,7),Vector3(7,0.7,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-4.5,0.45,7),Vector3(7,0.9,0.25),Color("293844"))
 	Geo.box(self,Vector3(0,4,0),Vector3(18,0.15,14),Color("192530"))
 	for x in range(-9,10): Geo.box(self,Vector3(x,0.002,0),Vector3(0.012,0.005,14),Color("1a2933"))
 	for z in range(-7,8): Geo.box(self,Vector3(0,0.002,z),Vector3(18,0.005,0.012),Color("1a2933"))
@@ -106,6 +115,8 @@ func build_rack(at: Vector3, id: String):
 	var rack = Node3D.new()
 	rack.position = at
 	add_child(rack)
+	rack.set_meta("rack_id",id)
+	racks.append(rack)
 	for x in [-0.73,0.73]: Geo.solid(rack,Vector3(x,1.35,0),Vector3(0.1,2.7,1.25),Color("0e1821"),0.8)
 	for y in [0.1,2.65]: Geo.solid(rack,Vector3(0,y,0),Vector3(1.55,0.14,1.25),Color("1a2531"),0.8)
 	Geo.solid(rack,Vector3(0,1.35,-0.61),Vector3(1.55,2.6,0.05),Color("131f29"),0.8)
@@ -119,6 +130,7 @@ func build_rack(at: Vector3, id: String):
 	Geo.box(rack,Vector3(-0.78,1.35,0.6),Vector3(0.018,2.6,0.02),Color("308caa"),0,0.8)
 
 func build_workstation(at: Vector3, id: String, console: String):
+	workstations.append({"at":at,"id":id,"console":console})
 	Geo.solid(self,at+Vector3(0,0.78,0),Vector3(2,0.1,1.1),Color("536374"),0.3)
 	for x in [-0.85,0.85]: Geo.solid(self,at+Vector3(x,0.38,0),Vector3(0.08,0.76,0.8),Color("192731"),0.6)
 	Geo.box(self,at+Vector3(0,1.02,-0.2),Vector3(0.08,0.4,0.1),Color("111c26"),0.6)
@@ -189,7 +201,7 @@ func build_details():
 	Geo.box(self,Vector3(0.7,0.012,0),Vector3(13,0.008,0.045),Color("d4ad54"))
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
-	for x in range(-8,9):
+	for x in range(0,9):
 		Geo.box(self,Vector3(x,1.55,6.84),Vector3(0.045,3.1,0.06),Color("5e788a"),0.7)
 	Geo.box(self,Vector3(0,0.38,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
 	Geo.box(self,Vector3(0,2.9,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
@@ -346,5 +358,15 @@ func sync_state():
 
 func _process(delta):
 	if game == null or game.sim.state.is_empty(): return
+	screen_time += delta
+	if screen_time>=0.5:
+		screen_time = 0.0
+		visuals.sync(game)
 	for fan in fans:
 		if game.sim.state.hosts[fan.host].online: fan.node.rotate_z(delta*4.5)
+
+func _exit_tree():
+	visuals.release()
+	Geo.materials.clear()
+	Geo.meshes.clear()
+	Geo.metal_normal = null

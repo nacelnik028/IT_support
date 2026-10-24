@@ -21,7 +21,7 @@ func configure(id: String, title: String, type: String, dimensions: Vector3, col
 	Geo.collision(self, dimensions)
 	visual = Node3D.new()
 	add_child(visual)
-	Geo.box(visual, Vector3.ZERO, dimensions, color, 0.65)
+	Geo.bevel(visual, Vector3.ZERO, dimensions, color, 0.55,0.012)
 	outline = Geo.frame(self, dimensions+Vector3.ONE*0.025, Color("59f5dc"))
 	outline.visible = false
 	guide = Geo.frame(self, dimensions+Vector3.ONE*0.055, Color("ffd579"))

@@ -18,6 +18,9 @@ var pose_revision = -1
 var message = ""
 var instruction: Label
 var direction: Label
+var reticle: Control
+var context_plate: Panel
+var instruction_plate: Panel
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -41,7 +44,9 @@ func _ready():
 	ui.lesson_launched.connect(func(): enter_world("Trénink"))
 	world.player.interaction_requested.connect(interact)
 	world.player.focus_changed.connect(func(target):
-		if is_instance_valid(prompt): prompt.text = "Stiskni E pro interakci\n"+target.caption if is_instance_valid(target) else "")
+		if is_instance_valid(prompt): prompt.text = "Stiskni E pro interakci\n"+target.caption if is_instance_valid(target) else ""
+		if is_instance_valid(reticle): reticle.set_focus(is_instance_valid(target))
+		if is_instance_valid(context_plate): context_plate.visible = is_instance_valid(target))
 	chrome = Control.new()
 	layer.add_child(chrome)
 	chrome.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -52,15 +57,24 @@ func _ready():
 	chrome.add_child(hud)
 	hud.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	hud.theme = ui.theme
-	var crosshair = ui.label("+",22,ui.CYAN)
-	hud.add_child(crosshair)
-	crosshair.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	crosshair.position -= Vector2(7,15)
+	reticle = preload("res://scripts/world/Reticle.gd").new()
+	hud.add_child(reticle)
+	var status_plate = hud_plate(Vector2(22,20),Vector2(535,158),Color("335565"))
+	status_plate.name = "StatusPlate"
+	var brand = ui.label("NORTHSTAR  /  IT OPERATIONS",11,ui.CYAN)
+	hud.add_child(brand)
+	brand.position = Vector2(40,32)
+	brand.size = Vector2(490,18)
+	context_plate = hud_plate(Vector2(530,753),Vector2(540,78),Color("4bb9b0"))
+	context_plate.visible = false
+	instruction_plate = hud_plate(Vector2(1055,20),Vector2(522,282),Color("9a8157"))
+	instruction_plate.visible = false
+	hud_plate(Vector2(22,850),Vector2(1556,35),Color("253f50"))
 	prompt = ui.label("",18)
 	hud.add_child(prompt)
-	prompt.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	prompt.position = Vector2(-250,-145)
-	prompt.size = Vector2(500,90)
+	prompt.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	prompt.position = Vector2(550,766)
+	prompt.size = Vector2(500,64)
 	prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var controls = ui.label("WASD pohyb   •   myš rozhlížení   •   E interakce   •   Shift rychlá chůze   •   Tab úkoly   •   F baterka   •   Esc pauza",14)
 	hud.add_child(controls)
@@ -69,8 +83,8 @@ func _ready():
 	controls.offset_top = -40
 	status_label = ui.label("",16,ui.CYAN)
 	hud.add_child(status_label)
-	status_label.position = Vector2(28,24)
-	status_label.size = Vector2(950,120)
+	status_label.position = Vector2(40,57)
+	status_label.size = Vector2(495,115)
 	instruction = ui.label("",18)
 	hud.add_child(instruction)
 	instruction.position = Vector2(1070,24)
@@ -93,6 +107,15 @@ func _ready():
 	overlay.theme = ui.theme
 	set_mode("menu")
 
+func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
+	var plate = Panel.new()
+	plate.position = at
+	plate.size = dimensions
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.add_theme_stylebox_override("panel",ui.box(Color(0.023,0.042,0.065,0.87),border,8))
+	hud.add_child(plate)
+	return plate
+
 func _process(delta):
 	chrome.scale = get_viewport().get_visible_rect().size/Vector2(1600,900)
 	if mode == "app" and ui.page == "menu": set_mode("menu")
@@ -102,11 +125,12 @@ func _process(delta):
 		update_time = 0.0
 		world.sync_state()
 		if ui.game.active:
-			status_label.text = ("IT TRAINING ACADEMY" if world.player.position.x>9 else "NORTHSTAR  /  SERVEROVNA 01")+"\n"+ui.game.current.title
+			status_label.text = ("IT TRAINING ACADEMY" if world.player.position.x>9 else "SERVEROVNA 01")+"\n"+ui.game.current.title
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
 			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
 			update_guidance()
+			instruction_plate.visible = instruction.text!=""
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
