@@ -22,6 +22,8 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			return sim.success("Restart dokončen; VMMS " + ("Running" if h.vmms else "Stopped") + ".")
 		"switch":
 			if p.name.strip_edges().is_empty(): return sim.reject("Switch potřebuje název.")
+			if s.network.switches.has(p.name) and s.network.switches[p.name].get("owner","") != "Hyper-V":
+				return sim.reject("Název %s už používá síťový objekt jiné platformy. Pro Hyper-V zvol jiný název." % p.name)
 			var external = p.type == "External"
 			if external and p.adapter != "Ethernet2": return sim.reject("External switch vyžaduje správný fyzický uplink Ethernet2.")
 			s.network.switches[p.name] = {"type":p.type,"uplink":external,"vlan_aware":true,"management":p.management,"host":"HV-01","owner":"Hyper-V","adapter":p.adapter}

@@ -2,6 +2,69 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+## Opravy po auditu: relace, ukládání a formuláře
+
+Samostatné auditovací reprodukce byly převedeny do standardních regresí
+v `tests/`; všechny tři nové skripty spouští také `tools/Test-All.ps1`.
+Ověřuje se skutečný úspěch zápisu, nejen úspěch operace v simulátoru.
+
+| Kontrola aktuálních oprav | Výsledek |
+|---|---|
+| `session_safety.gd`: restart série, indexy, undo a kolize `vmbr0` | 112/112 PASS |
+| `save_safety.gd`: chyby souborů, struktura, migrace, zápisy všech misí | 387/387 PASS |
+| `ui_safety.gd`: skutečná tlačítka, koncepty a stav uložení | 31/31 PASS headless i GPU |
+| `display_settings.gd` na GPU: všech6 rozlišení, fullscreen, F11 | 49/49 PASS |
+| `render_quality.gd`: skutečné pixely textu a DPITexture ve4K | 8/8 PASS |
+| Godot MCP: izolovaná testovací scéna | Spuštěna, debug `errors=[]` |
+| Úplný závěrečný `Test-All.ps1` | 13/13 sad PASS, kód0, bez runtime chyb a varování |
+| Všechny mise v modelu i přes formuláře | 50/50 PASS, shoda původních24 definic PASS |
+| Všechny lekce ve všech3 režimech včetně zápisů | 1075/1075 kontrol PASS |
+| Lekce přes UI ve všech3 režimech | 336 akcí,0 chyb |
+| Generátor a dřívější regrese | 199 +88 +35 kontrol PASS |
+| Nastavení obrazu headless | 41/41 PASS |
+| Přegenerovaný Windows EXE+PCK, grafické spuštění bez editoru | PASS, kód0, čistý log |
+
+Regrese přechodů zahrnují kampaň → sérii → lekci → změněnou kampaň → obnovenou
+sérii → obnovenou lekci → kampaň, všechny3 režimy lekcí a opakované vytvoření
+GameManageru jako po restartu aplikace. Testují i přímé obnovení relace mimo UI.
+Restart druhé úlohy zachovává předchozí výsledek, frontu, pozici a odloženou
+kampaň. Neplatné indexy ponechají paměť i uložený soubor beze změny.
+
+Chyba zápisu je vyvolána adresářem v izolované cestě dočasného souboru.
+Zásah i dokončení ticketu přesto uspějí v paměti, vracejí `saved=false`,
+poslední platný soubor zůstane beze změny a opakování uloží aktuální stav.
+UI nabídne opakování a zablokuje neúspěšný návrat s uložením i ukončení.
+Vadné JSON a strukturální varianty (včetně `scores:null`, chybného ID,
+indexu série, kroku lekce a chybějící větve) nevyvolají chybu startu a nejsou
+automaticky přepsány. Výslovná obnova uchová přesné původní bajty v záloze.
+Schema1 fixture včetně dodatečné VM bez nových polí ověřuje XP, normalizaci
+skóre, infrastrukturu a přesnou migrační zálohu. Testují se i desetinné klíče
+lekcí ze staršího schema2 a záloha posledního platného souboru.
+
+Graficky prohlédnuty `test-output/safety-draft-720p.png`, `safety-draft-4k.png`,
+`safety-save-failed.png` a `safety-invalid-save.png`: skutečná rozepsaná RAM6144,
+správné zvýraznění pole, čitelné upozornění, opakování zápisu a posuvné menu.
+Test ověřuje i odeslání zachovaného nepotvrzeného čísla, koncepty různých VM,
+disky, nabídky, checkboxy a terminál. Ostrost hran zvětšeného/nativního atlasu:
+menu0,197/0,402, rack0,180/0,412, terminál0,123/0,257; SVG má38×38px.
+
+Hráčův save ani nastavení nebyly zapisovány. Testy používají vlastní
+`SaveManager.path_override`; grafické testy a MCP i `DisplaySettings.path_override`.
+Obsahové katalogy, generátory a původních24 misí zůstaly nezměněné.
+Koncepty a undo jsou úmyslně pouze v paměti relace; po restartu aplikace
+se obnovuje potvrzená konfigurace. Automatická oprava vadného souboru ani
+simulace fyzického výpadku disku či napájení nejsou součástí těchto testů.
+
+Úplný závěrečný log je v `test-output/fixes-test-all-final.log`, grafický běh
+nových UI regresí v `fixes-ui-graphics.log`. Windows build je v `build/`;
+samostatný balíček byl testován externím skriptem s vlastními save/settings
+cestami, včetně restartu série a obnovení VLAN39 v kampani. Logy sestavení
+a balíčku: `fixes-build.log`, `fixes-package-engine.log`; prohlédnut snímek
+`package-safety.png`. Test-output i sestavené binární soubory jsou ignorované
+Gitem; samotné regrese a jejich zapojení do Test-All jsou verzované.
+
+Následují záznamy předchozích etap.
+
 Oprava ostrosti4K: `tests/render_quality.gd` prošel8 grafickými kontrolami.
 Test porovnává skutečně vykreslené pixely při3840×2160, nejen velikost okna
 či framebufferu. Ukazatel kontrastu hran původního zvětšeného atlasu / nativního

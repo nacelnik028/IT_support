@@ -8,6 +8,7 @@ func check(ok, text):
 		push_error(text)
 
 func _init():
+	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_campaign.json"
 	var Sim = preload("res://scripts/simulation/InfrastructureSimulator.gd")
 	var Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 	var missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))

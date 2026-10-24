@@ -36,6 +36,13 @@ var ui_targets: Dictionary={}
 var training_category="Všechny lekce"
 var training_view="lessons"
 var mission_filter="Vše"
+var content_box: VBoxContainer
+var persistence_box: VBoxContainer
+var form_drafts: Dictionary={}
+var form_scopes: Dictionary={}
+var form_defaults: Dictionary={}
+var draft_revision=-1
+var save_caption: Label
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -57,6 +64,7 @@ func _ready():
 	get_window().close_requested.connect(quit_game)
 	theme = make_theme()
 	create_sound()
+	game.persistence_changed.connect(refresh_persistence_status)
 	draw_ui()
 	if "--capture" in OS.get_cmdline_user_args(): capture_later()
 
@@ -153,6 +161,8 @@ func clear_ui():
 	if transition and transition.is_valid(): transition.kill()
 	form_controls.clear()
 	form_buttons.clear()
+	form_scopes.clear()
+	form_defaults.clear()
 	settings_controls.clear()
 	if is_instance_valid(root_box):
 		remove_child(root_box)
@@ -161,19 +171,49 @@ func clear_ui():
 	root_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: root_box.add_theme_constant_override("margin_"+side,20)
 	add_child(root_box)
+	var layout=vbox(root_box,10)
+	persistence_box=vbox(layout,0)
+	content_box=vbox(layout,0)
+	content_box.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	refresh_persistence_status()
+
+func refresh_persistence_status():
+	if is_instance_valid(save_caption): save_caption.text="Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen."
+	if not is_instance_valid(persistence_box): return
+	for child in persistence_box.get_children():
+		persistence_box.remove_child(child)
+		child.queue_free()
+	if game.load_warning=="" and not game.unsaved: return
+	var panel=card(persistence_box,"Změny čekají na uložení" if game.unsaved else "Uložený postup nebyl načten",game.save_message if game.unsaved else game.load_warning)
+	panel.get_parent().add_theme_stylebox_override("panel",box(Color("29231e"),ORANGE,10))
+	var row=hbox(panel)
+	row.add_child(button("Zkusit uložit znovu",func(): game.save()))
+	if game.last_save_error==ERR_FILE_CORRUPT or game.load_warning!="":
+		row.add_child(button("Zálohovat vadný soubor a uložit",func(): game.save(true)))
+
+func save_and_menu():
+	if game.save()!=OK: return
+	page="menu"
+	draw_ui()
 
 func draw_ui():
+	if draft_revision==game.session_revision: capture_form_drafts()
+	else:
+		form_drafts.clear()
+		selected_vm=""
+		draft_revision=game.session_revision
 	clear_ui()
 	if page == "menu": draw_menu(); return
 	if page == "Nastavení": draw_settings(); return
-	var whole = vbox(root_box,16)
+	var whole = vbox(content_box,16)
+	whole.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var top = hbox(whole)
 	var brand = vbox(top,2)
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	brand.add_child(label("◈  DATACENTER ACADEMY",21,CYAN))
 	brand.add_child(label("NORTHSTAR IT  /  OPERATIONS CENTER",10,MUTED))
 	top.add_child(label("ÚROVEŇ %d   •   %d XP" % [1+int(float(game.progress.xp)/600.0),int(game.progress.xp)],15))
-	top.add_child(button("Uložit a menu",func(): game.save(); page="menu"; draw_ui()))
+	top.add_child(button("Uložit a menu",save_and_menu))
 	var body = hbox(whole,18)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var sidebar = vbox(body,8)
@@ -224,7 +264,10 @@ func draw_ui():
 	call_deferred("focus_tutorial")
 
 func draw_menu():
-	var all = vbox(root_box,24)
+	# A load warning must not push the exit/settings buttons below the viewport.
+	var all = scroll(content_box) if game.load_warning!="" or game.unsaved else vbox(content_box,24)
+	all.add_theme_constant_override("separation",24)
+	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	all.add_child(label("◈   DATACENTER ACADEMY",22,CYAN))
 	var body = hbox(all,44)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -247,7 +290,7 @@ func draw_menu():
 	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink"),true))
 	left.add_child(button("Volný trénink  •  všechny laboratoře",func():
 		if not game.active: game.start_mission(0,true)
-		game.training=true
+		game.set_campaign_mode(true)
 		navigate("Tickety")))
 	var system_buttons=hbox(left,12)
 	var settings_button=button("Nastavení",func(): page="Nastavení"; notice=""; bad_notice=false; draw_ui())
@@ -282,7 +325,7 @@ func sync_display_layout():
 
 func draw_settings():
 	settings_controls.clear()
-	var all=vbox(root_box,24)
+	var all=vbox(content_box,24)
 	var header=hbox(all)
 	header.add_child(label("◈  DATACENTER ACADEMY",22,CYAN))
 	header.add_child(button("← Hlavní menu",func(): page="menu"; draw_ui()))
@@ -403,16 +446,22 @@ func draw_ticket(parent: Node):
 	if game.session_kind!="random" or game.education.random.get("hints_allowed",true): c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
 	c.add_child(button("Restartovat laboratoř",restart_confirm))
 	if game.finished: c.add_child(button("Krátké opakování znalostí",show_review))
-	if game.training: c.add_child(button("Vrátit poslední zásah",func(): game.undo(); notice="Poslední zásah vrácen."; draw_ui()))
+	if game.training:
+		var undo_button=button("Vrátit poslední zásah",func():
+			if game.undo(): notice="Poslední zásah vrácen."
+			draw_ui())
+		undo_button.disabled=game.undo_states.is_empty()
+		c.add_child(undo_button)
 	if game.finished and game.session_kind=="random": c.add_child(button("Další úloha / souhrn série",next_random_task,true))
 	elif game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
-	c.add_child(label("Postup se ukládá po každém zásahu.",11,MUTED))
+	save_caption=label("Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen.",11,MUTED)
+	c.add_child(save_caption)
 
 func draw_tickets():
 	var v = scroll(center)
 	var mode = hbox(v)
-	mode.add_child(button("Kampaň",func(): game.training=false; game.save(); draw_ui(),not game.training))
-	mode.add_child(button("Volný trénink",func(): game.training=true; game.save(); draw_ui(),game.training))
+	mode.add_child(button("Kampaň",func(): game.set_campaign_mode(false); draw_ui(),not game.training))
+	mode.add_child(button("Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
 	v.add_child(label("Kapitoly se v kampani otevírají postupně. Trénink zpřístupní všechny situace bez změny XP.",14,MUTED))
 	var category_picker=OptionButton.new()
 	for category in ["Vše","Proxmox","Hyper-V","Storage"]: category_picker.add_item(category)
@@ -432,7 +481,7 @@ func draw_tickets():
 		row.add_child(b)
 
 func start_ticket(index: int):
-	game.start_mission(index,game.training)
+	if not game.start_mission(index,game.training): return
 	host=game.current.server
 	navigate(game.current.category)
 
@@ -539,6 +588,10 @@ func draw_form(parent: Node, action: Dictionary):
 	for field in action.fields:
 		c.add_child(label(field.label,12,MUTED))
 		var value=Eval.read_path(game.sim.state,field.get("path",""),field.get("default","")) if field.has("path") else field.get("default","")
+		if selected_vm!="" and field.get("path","").begins_with("vms."):
+			var parts=field.path.split(".")
+			parts[1]=selected_vm
+			value=Eval.read_path(game.sim.state,".".join(parts),value)
 		if field.key=="vm" and selected_vm!="": value=selected_vm
 		var input: Control
 		match field.get("type","text"):
@@ -575,6 +628,7 @@ func draw_form(parent: Node, action: Dictionary):
 					var check=CheckBox.new()
 					check.text="Slot%s  %s  %sGB\n%s" % [disk_id,disk.serial,disk.capacity,"VOLNÝ" if disk.pool=="" else "POOL: "+disk.pool]
 					check.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+					check.set_meta("disk_id",disk_id)
 					disk_grid.add_child(check)
 					var target=input
 					check.toggled.connect(func(on):
@@ -598,6 +652,16 @@ func draw_form(parent: Node, action: Dictionary):
 		inputs["_preview"]=preview
 		inputs.level.item_selected.connect(func(_i): update_raid_preview(inputs))
 	form_controls[action.id]=inputs
+	var target_vm=inputs.vm.get_item_text(inputs.vm.selected) if inputs.has("vm") and inputs.vm is OptionButton else selected_vm
+	var scope=page+"|"+host+"|"+target_vm+"|"+str(action.id)
+	form_scopes[action.id]=scope
+	form_defaults[action.id]=read_form(inputs)
+	if form_drafts.has(scope): restore_form(inputs,form_drafts[scope])
+	if inputs.has("vm") and inputs.vm is OptionButton:
+		var vm_picker=inputs.vm
+		vm_picker.item_selected.connect(func(i):
+			selected_vm=vm_picker.get_item_text(i)
+			draw_ui())
 	var action_button=button(action.label,func():
 		var params={}
 		for key in inputs:
@@ -605,7 +669,9 @@ func draw_form(parent: Node, action: Dictionary):
 			var input=inputs[key]
 			if input is CheckButton: params[key]=input.button_pressed
 			elif input is OptionButton: params[key]=input.get_item_text(input.selected)
-			elif input is SpinBox: params[key]=input.value
+			elif input is SpinBox:
+				commit_number(input)
+				params[key]=input.value
 			elif input.has_meta("selection"): params[key]=input.get_meta("selection").duplicate()
 			else: params[key]=input.text.strip_edges()
 		if action.get("danger",false):
@@ -614,6 +680,51 @@ func draw_form(parent: Node, action: Dictionary):
 	c.add_child(action_button)
 	form_buttons[action.id]=action_button
 	register_target("action:"+str(action.id),action_button)
+
+func read_form(inputs: Dictionary) -> Dictionary:
+	var values={}
+	for key in inputs:
+		if key.begins_with("_"): continue
+		var input=inputs[key]
+		if input is CheckButton: values[key]=input.button_pressed
+		elif input is OptionButton: values[key]=input.get_item_text(input.selected)
+		elif input is SpinBox: values[key]={"value":input.value,"text":input.get_line_edit().text}
+		elif input.has_meta("selection"): values[key]=input.get_meta("selection").duplicate()
+		else: values[key]=input.text
+	return values
+
+func capture_form_drafts():
+	for action in form_controls:
+		var values=read_form(form_controls[action])
+		var edits={}
+		for key in values:
+			if key=="vm": continue # The target belongs to the scope, never to edits.
+			if values[key]!=form_defaults[action].get(key): edits[key]=values[key]
+		form_drafts[form_scopes[action]]=edits
+
+func restore_form(inputs: Dictionary, values: Dictionary):
+	for key in values:
+		if not inputs.has(key): continue
+		var input=inputs[key]
+		var value=values[key]
+		if input is CheckButton: input.button_pressed=value
+		elif input is OptionButton:
+			for i in input.item_count:
+				if input.get_item_text(i)==value: input.select(i); break
+		elif input is SpinBox:
+			input.value=value.value
+			input.set_meta("restored_value",input.value)
+			input.get_line_edit().text=value.text
+		elif input.has_meta("selection"):
+			for check in input.get_child(0).get_children(): check.button_pressed=check.get_meta("disk_id") in value
+		else: input.text=value
+	update_raid_preview(inputs)
+
+func commit_number(input: SpinBox):
+	# Restored text can still be uncommitted. An explicit value change since
+	# restoration takes precedence (e.g. arrow keys or an automated UI driver).
+	if input.get_line_edit().has_focus() or (input.has_meta("restored_value") and input.value==input.get_meta("restored_value")):
+		input.apply()
 
 func update_raid_preview(inputs: Dictionary):
 	if not inputs.has("_preview"): return
@@ -638,6 +749,9 @@ func confirm_action(action: Dictionary, params: Dictionary):
 
 func perform(action: String, params: Dictionary):
 	var result=game.apply(action,params)
+	if result.ok and form_scopes.has(action):
+		form_drafts.erase(form_scopes[action])
+		form_controls.erase(action)
 	full_notice=result.text
 	notice=result.text.left(600)
 	bad_notice=not result.ok
@@ -721,14 +835,21 @@ func draw_random_setup(parent: Node):
 	var hints=CheckButton.new()
 	hints.text="Povolit nápovědu"; hints.button_pressed=true
 	c.add_child(hints)
+	var inputs={"area":area,"difficulty":difficulty,"count":count,"hints":hints}
+	form_controls._random_setup=inputs
+	form_scopes._random_setup="random_setup"
+	form_defaults._random_setup=read_form(inputs)
+	if form_drafts.has("random_setup"): restore_form(inputs,form_drafts.random_setup)
 	c.add_child(button("Sestavit a spustit trénink",func():
+		commit_number(count)
 		if game.start_random(area.get_item_text(area.selected),difficulty.get_item_text(difficulty.selected),int(count.value),hints.button_pressed):
 			host=game.current.server
 			navigate(game.current.category)
 		else: show_message("Nelze sestavit sérii","Pro tuto kombinaci nejsou dostupné řešitelné scénáře. Zvol širší oblast nebo jinou obtížnost."),true))
 	if game.session_kind=="random": c.add_child(button("Pokračovat v rozehrané sérii",func(): navigate(game.current.category)))
 	var batch=game.education.random
-	if not batch.get("session",{}).is_empty() and game.session_kind!="random": c.add_child(button("Obnovit uloženou sérii",func(): game.restore_session(batch.session); navigate(game.current.category)))
+	if not batch.get("session",{}).is_empty() and game.session_kind!="random": c.add_child(button("Obnovit uloženou sérii",func():
+		if game.resume_random(): host=game.current.server; navigate(game.current.category)))
 	if not batch.is_empty():
 		c.add_child(label("Poslední série: %d / %d vyhodnocených úloh" % [batch.results.size(),batch.queue.size()],15,CYAN))
 		for result in batch.results: c.add_child(label("%s: %d / 100" % [result.title,int(result.score)],13,MUTED))
@@ -792,7 +913,8 @@ func draw_lesson_panel(parent: Node):
 	c.add_child(button("Vyhodnotit lekci",close_ticket,true))
 	if t.session.mode!="exam": c.add_child(button("Nápověda",hint))
 	c.add_child(button("Restartovat lekci",func(): begin_lesson(int(game.current.id),t.session.mode,false)))
-	c.add_child(button("Uložit a opustit lekci",func(): game.save(); navigate("Trénink")))
+	c.add_child(button("Uložit a opustit lekci",func():
+		if game.save()==OK: navigate("Trénink")))
 	c.add_child(label("Krok i konfigurace se ukládají samostatně. Kampaň zůstává odložená.",11,MUTED))
 
 func focus_tutorial():
@@ -876,9 +998,10 @@ func show_review():
 func restart_confirm():
 	var d=ConfirmationDialog.new()
 	d.title="Restart laboratorní situace"
-	d.dialog_text="Konfigurace této mise se vrátí do výchozího stavu. Získané XP zůstanou uložené."
+	d.dialog_text="Konfigurace aktuální úlohy se vrátí do výchozího stavu. Získané XP zůstanou zachované."
+	if game.session_kind=="random": d.dialog_text+="\nPozice série, dosavadní výsledky i odložená kampaň zůstanou zachované."
 	add_child(d)
-	d.confirmed.connect(func(): game.start_mission(int(game.current.id)-1,game.training); notice=""; draw_ui(); d.queue_free())
+	d.confirmed.connect(func(): game.restart_current(); notice=""; draw_ui(); d.queue_free())
 	d.canceled.connect(d.queue_free)
 	d.popup_centered()
 
@@ -936,12 +1059,18 @@ func draw_terminal():
 	input.placeholder_text="help"
 	input.custom_minimum_size.y=42
 	c.add_child(input)
+	form_controls._terminal={"command":input}
+	form_scopes._terminal="terminal|"+terminal_host
+	form_defaults._terminal={"command":""}
+	if form_drafts.has(form_scopes._terminal): restore_form(form_controls._terminal,form_drafts[form_scopes._terminal])
 	input.text_submitted.connect(func(command):
 		command_history.append(command)
 		history_position=command_history.size()
 		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+preload("res://scripts/simulation/TerminalParser.gd").execute(game.sim,command,terminal_host)+"\n"
 		terminal_history=terminal_history.right(14000)
 		game.save()
+		form_drafts.erase(form_scopes._terminal)
+		form_controls.erase("_terminal")
 		draw_ui())
 	input.gui_input.connect(func(event):
 		if event is InputEventKey and event.pressed and event.keycode in [KEY_UP,KEY_DOWN] and not command_history.is_empty():

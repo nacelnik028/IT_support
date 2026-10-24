@@ -2,6 +2,23 @@
 
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
+## Cílené opravy ochrany postupu (2026-10-24)
+- Restart je řízen typem relace přes `restart_current()`. Náhodná úloha obnoví jen svůj scénář; fronta, pozice, dosavadní výsledky i odložená kampaň zůstávají zachované. Neplatný index mise se odmítá před změnou paměti i souboru.
+- Přechody používají společné odložení kampaně, lekce či série. `resume_random()` i přímé `restore_session()` nejprve zachovají aktuální relaci. Opakovaný návrat do již aktivní kampaně ji nerestartuje.
+- Undo se čistí při startu, obnovení a změně režimu. Prázdné undo je v UI neaktivní. Historie se mezi misemi a relacemi nepřenáší.
+- `apply()` a `complete()` rozlišují úspěch zásahu (`ok`) a zápisu (`saved`, `save_error`). Ostatní operace zveřejňují společný stav ukládání. Trvalé upozornění s opakováním zápisu funguje i v menu; návrat s uložením a ukončení při chybě nepokračují.
+- Nový `SaveValidator.gd` kontroluje větve, typy, ID, skóre, kroky lekcí, indexy série a shodu scénáře s frontou. Zachována schema1/schema2 včetně starších desetinných klíčů lekcí a skóre. Platné uložené relace mají cache s kontrolou hluboké shody; autosave zbytečně znovu neprochází celé archivované lekce.
+- Vadný save se nenačte ani automaticky nepřepíše. Výslovné tlačítko obnovy nejprve zachová původní bajty v `.invalid-*.bak`. Zápis kontroluje chybu po flush i znovunačtený dočasný soubor, ponechává `.last-good.bak` a při selhání nahrazení zkouší obnovit původní soubor. Migrační `.v1.bak` zůstává zachovaná.
+- Hyper-V odmítá jméno síťového objektu jiné platformy, konkrétně `vmbr0`; síť a VM zůstávají při odmítnutí beze změny.
+- Koncepty formulářů jsou oddělené podle relace, konzole, hostitele, VM a akce. Zvuk, rozlišení a F11 zachovají text, nepotvrzená čísla, nabídky, checkboxy a disky; zachované číslo se při odeslání použije. Zahrnut i rozepsaný terminál a nastavení série. Potvrzený formulář a nová/obnovená relace koncept vyčistí.
+- UI má výrazné a srozumitelné hlášení ukládání, bezpečnou obnovu a posuvné menu při chybě načtení. Zachovány oversampling písma, DPITexture ikony, měřítko i původní vzhled.
+- Nové standardní regrese: `session_safety.gd` 112 kontrol PASS, `save_safety.gd` 387 PASS, `ui_safety.gd` 31 PASS headless i graficky. Test-All je obsahuje; původní testy misí/lekcí nyní ověřují také úspěšné ukládání.
+- Graficky: `display_settings.gd` 49 PASS; `render_quality.gd` 8 PASS, SVG ve4K skutečně38×38px. Prohlédnuty snímky výukové RAM6144 v720p/4K, chyby zápisu i vadného save v menu. MCP spustil izolovanou testovací scénu a vrátil `errors=[]`.
+- Úplný závěrečný `tools/Test-All.ps1` PASS, kód0, všech13 sad bez runtime chyb a varování:50/50 misí v modelu i UI,21×3 lekcí (1075 kontrol),336 výukových UI akcí,199 kontrol generátoru,88+35 původních regresí,112+387+31 nových kontrol a41 kontrol nastavení headless. Závěrečný log: `test-output/fixes-test-all-final.log`.
+- Windows balíček v `build/` přegenerován. Samostatné EXE+PCK přes externí izolovaný ověřovací skript graficky spustilo konzoli, sérii, restart a návrat ke kampani; uložená VLAN39 zachována, kód0, čistý log. Prohlédnut i snímek balíčku. Build a jeho ověřovací logy jsou v `test-output/fixes-build.log` a `fixes-package-engine.log`.
+- Všechny testy používají `SaveManager.path_override`; grafické testy a MCP i vlastní cestu nastavení. Hráčův save ani jeho nastavení nebyly zapisovány. Žádné změny katalogů ani generátorů; prvních24 definic a legacy soubory zůstávají původní.
+- Meze: koncepty a undo se neukládají přes restart aplikace. Vadná data se automaticky neopravují; obnova s novým postupem vyžaduje výslovné tlačítko a zálohu. Selhání zápisu je reprodukované skutečnou překážkou v testovací cestě, nikoli zaplněním hráčova disku.
+
 ## Ostrá grafika a textury ve4K (dokončeno)
 - Opravena příčina rozmazání: framebuffer již měl4K, ale transformace Control zvětšovala malý fontový atlas. Na kořeni UIController je nyní zapnutý oversampling_with_scale; glyphy se rasterizují podle skutečné velikosti na obrazovce včetně racků a samostatného systémového fontu terminálu.
 - Nový scripts/ui/VectorIcons.gd dodává škálovatelné SVG/DPITexture ikony pro přepínače, checkboxy, seznamy, SpinBox, Tree a PopupMenu. Nahrazují drobné bitmapové ikony výchozího tématu. Detaily racků mají vyhlazené hrany.

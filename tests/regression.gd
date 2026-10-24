@@ -15,6 +15,8 @@ func check(ok, message):
 
 func _init():
 	Saves.path_override="user://academy_test_regression.json"
+	# The last assertion intentionally corrupts this file; each run starts fresh.
+	Saves.save_game({},true)
 	var evaluator=preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 	var mixed=evaluator.evaluate({"value":[]},[{"path":"value","value":"SYS-A + SYS-B","label":"Instalační cíl"}])
 	check(not mixed[0].passed,"Počáteční Array proti cílovému String nesmí vyvolat runtime chybu")

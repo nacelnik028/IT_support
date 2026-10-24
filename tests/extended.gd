@@ -9,6 +9,7 @@ func check(ok,message):
 	if not ok: failures+=1; push_error(message)
 
 func _init():
+	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_extended.json"
 	var sim=Sim.new()
 	sim.reset({})
 	check(sim.act("create_ct",{"id":"300","name":"MON01","template":"debian-12.tar.zst","cpu":1,"ram":1,"disk":8,"unprivileged":true,"mount":"Bind","backup_mount":false}).ok,"LXC unprivileged")

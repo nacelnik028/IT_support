@@ -42,6 +42,9 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   obnoví původní ticket a jeho konfiguraci. Režimy lekce mají vlastní uložené relace.
 - Náhodné procvičování nabízí oblast, obtížnost,1–20 úloh a nápovědu zapnutou/vypnutou.
   Generátor obměňuje skutečné parametry a před spuštěním ověřuje řešitelnost.
+- Restart náhodné úlohy obnoví pouze aktuální scénář. Pozice série, výsledky
+  a odložená kampaň zůstanou zachované. Obnovení uložené série nejprve odloží
+  aktuální kampaň nebo lekci včetně posledních změn.
 - Serverovna: klikni na rack. Levý panel otevírá Proxmox, Hyper-V, Storage,
   síťovou mapu, terminál, Akademii a statistiky.
 - V konzoli vyber sekci v horní nabídce. **Podle ticketu** soustředí související
@@ -58,6 +61,9 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   restartovat laboratoř a používat i operace mimo příslušný ticket.
 - Zrušit rizikový zásah lze v potvrzovacím dialogu. Chyby mají vysvětlení;
   původní datové disky nelze bezpečnostními zkratkami přepsat.
+- Přepnutí zvuku, rozlišení a F11 zachová rozepsané formuláře, včetně
+  nepotvrzeného čísla, nabídek a výběru disků. Každá VM má vlastní koncept.
+  Koncepty jsou v paměti; změna mise, režimu, obnova či restart relace je vyčistí.
 
 První mise vyžaduje VT-x/AMD-V, HBA pro ZFS, UPS, vzdálenou konzoli,
 hostname `pve01.lab.example`, IP `192.168.10.10/24`, gateway `192.168.10.1`
@@ -115,12 +121,22 @@ Po každém zásahu se atomicky ukládá rozehraná konfigurace, ticket, použit
 nápověda, skóre, XP a statistiky do `user://academy_save.json`.
 Na tomto počítači odpovídá cesta adresáři
 `%APPDATA%/Godot/app_userdata/IT Support Simulator- Datacenter Academy/`.
-Poškozený JSON je ošetřen. Testy používají oddělené `academy_test_*.json`.
+Před načtením se kontroluje struktura, typy, identifikátory, skóre, kroky lekcí
+i pozice série. Vadný soubor se nenačte a automatické ukládání jej nepřepíše.
+Upozornění je viditelné i v menu. **Zálohovat vadný soubor a uložit** výslovně
+zahájí nový postup po zachování původních bajtů v `.invalid-*.bak`.
+Testy používají oddělené `academy_test_*.json` i oddělená nastavení.
 Schema2 načte původní schema1, zachová XP, skóre, achievementy i rozehranou
 infrastrukturu. Před prvním přepsáním schema1 vytvoří `academy_save.json.v1.bak`.
+Před nahrazením save se ověří dočasný soubor a zachová předchozí platná verze
+v `.last-good.bak`. Při chybě zápisu zůstane zásah provedený v paměti a objeví
+se **Změny čekají na uložení** s tlačítkem **Zkusit uložit znovu**.
+Uložení a návrat do menu, odchod z lekce ani ukončení v takovém případě
+neslibují úspěch. Po opakování zápisu se uloží poslední stav celé relace.
 Výukové relace, odložená kampaň, série a historie výsledků mají oddělené datové větve.
 Undo je lokální historie aktuální tréninkové relace; po restartu programu
-zůstává uložena konfigurace, nikoli zásobník předchozích zásahů.
+zůstává uložena konfigurace, nikoli zásobník předchozích zásahů. Přechod do jiné
+mise či režimu a obnova relace undo vyčistí; prázdné undo má neaktivní tlačítko.
 
 ## Struktura
 
@@ -206,6 +222,13 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - `lessons.gd`: všechny lekce v režimech Učím se / Procvičování / Zkouška.
 - `training_features.gd`: parametrizace, všechny kombinace filtrů, obnova série,
   migrace původního save a doporučení slabých oblastí.
+- `session_safety.gd`: restart série, odmítnutí indexů bez změn, přechody
+  kampaně/lekcí/série se znovuspuštěním aplikace, izolace undo a kolize `vmbr0`.
+- `save_safety.gd`: skutečné selhání zápisu a opakování, ochrana vadných souborů,
+  strukturální validace, migrace a uložitelnost všech misí po každém zásahu.
+- `ui_safety.gd`: skutečná tlačítka restartu/obnovy, koncepty formulářů,
+  zvuk/F11/rozlišení, odeslání zachovaného čísla a hlášení chyb uložení.
+  Grafický běh s `-- --screenshots` vytváří `test-output/safety-*.png`.
 - `training_ui.gd -- --all-modes`: skutečné formuláře a navigace všech lekcí
   ve všech3 režimech, včetně kontroly, že zkouška nemá zvýraznění.
 - Vizuální snímky vytvoří grafický běh

@@ -61,6 +61,7 @@ func run():
 						node.confirmed.emit()
 			await process_frame
 			check(not ui.bad_notice,"UI mise %d, %s: %s" % [i+1,step[0],ui.notice])
+			check(not ui.game.unsaved,"Uložení UI mise %d, %s: %s" % [i+1,step[0],ui.game.save_message])
 		for goal in ui.game.goals(): check(goal.passed,"UI mise %d: %s" % [i+1,goal.label])
 		check(ui.game.complete().ok,"UI dokončení mise %d" % (i+1))
 		ui.show_review()

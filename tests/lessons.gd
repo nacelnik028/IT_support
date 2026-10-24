@@ -17,16 +17,18 @@ func _init():
 		for definition in game.tutorial.lessons:
 			var id=int(definition.id)
 			check(game.start_lesson(id,mode,false),"Spuštění lekce")
+			check(not game.unsaved,"Uložení výchozí lekce%d %s: %s" % [id,mode,game.save_message])
 			check(not game.complete().ok,"Výchozí stav nesplňuje lekci%d" % id)
 			for entry in solutions[str(id)]:
 				if entry is Dictionary:
 					game.notify_event(entry.event)
 				else:
 					var result=game.apply(entry[0],entry[1])
-					check(result.ok,"Lekce%d %s krok%s: %s" % [id,mode,entry[0],result.text])
+					check(result.ok and result.saved,"Lekce%d %s krok%s: %s / %s" % [id,mode,entry[0],result.text,game.save_message])
 			if mode=="learn": check(int(game.tutorial.session.step)==definition.steps.size(),"Všechny kroky lekce%d: %s/%s" % [id,game.tutorial.session.step,definition.steps.size()])
 			for goal in game.goals(): check(goal.passed,"Lekce%d %s: %s / %s" % [id,mode,goal.label,str(goal.actual)])
 			check(game.complete().ok,"Dokončení lekce%d %s" % [id,mode])
+			check(not game.unsaved,"Uložení výsledku lekce%d %s: %s" % [id,mode,game.save_message])
 			if mode=="exam":
 				var before=game.hints_used
 				game.lesson_hint()
