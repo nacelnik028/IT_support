@@ -26,13 +26,15 @@ func run():
 	if DisplayServer.get_name()=="headless":
 		print("RENDER QUALITY: requires a graphical renderer; use Godot without --headless")
 		quit(1); return
+	if "--screenshots" in OS.get_cmdline_user_args():
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://test-output"))
 	Settings.new().save_settings()
 	ui=load("res://scenes/main_menu/Main.tscn").instantiate()
 	root.add_child(ui)
 	await process_frame
 	ui.apply_display_settings(Vector2i(3840,2160),false)
 	await settle()
-	check(root.get_texture().get_size()==Vector2(3840,2160),"Skutečný4K framebuffer")
+	check(root.get_texture().get_image().get_size()==Vector2i(3840,2160),"Skutečný4K framebuffer")
 	check(ui.oversampling_with_scale==CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED,"Ostré vykreslování zapnuté při běžném startu")
 	# Compare pixels of actual game text, not merely framebuffer dimensions.
 	var heading=find_label(ui,"Tvá první směna\nzačíná tady.")

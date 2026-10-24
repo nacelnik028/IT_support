@@ -2,6 +2,17 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+Oprava ostrosti4K: `tests/render_quality.gd` prošel8 grafickými kontrolami.
+Test porovnává skutečně vykreslené pixely při3840×2160, nejen velikost okna
+či framebufferu. Ukazatel kontrastu hran původního zvětšeného atlasu / nativního
+vykreslení byl0,197/0,402 pro nadpis menu,0,180/0,412 pro popisky racku a přibližně
+0,125/0,261 pro systémový font terminálu.16px SVG ikona dostala skutečnou GPU
+texturu38×38 při měřítku2,4. Zachováno přepínání rozlišení a stav simulace.
+Grafický test nastavení znovu49/49 PASS a první interaktivní VM lekce PASS.
+Všech50 misí znovu prošlo UI smoke testem včetně potvrzovacích dialogů bez
+chyb. Aktualizovaný Windows balíček spuštěn bez editoru, kód0, čistý log;
+MCP hlásí prázdný seznam chyb. Výřezy porovnání jsou v místním test-output/.
+
 Dodatečné ověření nastavení obrazu a ukončení: `tests/display_settings.gd`
 prošel graficky49 kontrolami a headless41 kontrolami. Grafický test skutečně
 vykreslil všech6 nabízených rozlišení až3840×2160, přepnul nativní fullscreen

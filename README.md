@@ -23,6 +23,9 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   také během hraní. Rozhraní zachovává proporce a čitelnou velikost prvků.
 - Vybrané rozlišení určuje skutečný počet vykreslovaných pixelů. V režimu okna
   se okno na menším monitoru vejde do pracovní plochy; vykreslovací rozlišení zůstává zvolené.
+- Písmo v menu, konzolích, racku i terminálu se přepočítává pro zvolené rozlišení.
+  Ikony ovládání používají vektorové SVG textury, které se také rasterizují
+  podle velikosti na obrazovce. Ve4K se zachovává ostrost i poměr stran16:9.
 - **Ukončit hru** v hlavním menu uloží rozehraný stav a zavře aplikaci.
   Stejné uložení probíhá při zavření okna křížkem.
 - Myš: výběr serveru, panelu, polí a operací. Kolečko: posun obsahu konzole
@@ -179,6 +182,19 @@ V PowerShellu s cestou ke console variantě Godotu:
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ./tools/Build-Windows.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
+
+Ostrost skutečného obrazu ověřuje grafický test (vyžaduje grafickou kartu,
+spouštěj bez `--headless`):
+
+```powershell
+Godot_console.exe --path . --script tests/render_quality.gd -- --screenshots
+```
+
+Porovnává pixelové hrany textu v menu, racku a terminálu ve4K proti zvětšenému
+původnímu atlasu a kontroluje skutečnou GPU velikost SVG textury. Výřezy jsou
+v `test-output/*-4k-native.png` a `*-4k-magnified.png`. Při úpravách UI zachovej
+`oversampling_with_scale` na kořeni UIController a používej DPITexture pro ikony;
+viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html#font-and-image-oversampling).
 
 - `stage1.gd`: první mise, chyba, ověření a uložení.
 - `campaign.gd`: všech50 misí proti skutečnému stavu a shoda původních24 definic.
