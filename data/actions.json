@@ -1,0 +1,6 @@
+[
+{"id":"inspect","label":"Prohlédnout diagnostiku","panel":"Příprava","fields":[{"key":"scope","label":"Oblast kontroly","type":"choice","options":["Inventory","Network","Storage","Backup","Cluster","Events"],"default":"Inventory"}]},
+{"id":"prepare","label":"Uložit firmware a přípravu","panel":"Příprava","fields":[{"key":"vt","label":"VT-x / AMD-V","type":"bool","path":"hosts.PVE-01.vt"},{"key":"iommu","label":"IOMMU (pro passthrough)","type":"bool","path":"hosts.PVE-01.iommu"},{"key":"mode","label":"Diskový řadič","type":"choice","options":["RAID","HBA"],"path":"hosts.PVE-01.mode"},{"key":"ups","label":"UPS ověřena","type":"bool","path":"hosts.PVE-01.ups"},{"key":"console","label":"Vzdálená konzole ověřena","type":"bool","path":"hosts.PVE-01.console"}]},
+{"id":"management","label":"Uložit management síť","panel":"Příprava","fields":[{"key":"hostname","label":"Hostname","path":"hosts.PVE-01.hostname"},{"key":"ip","label":"IP /24 na vmbr0","path":"hosts.PVE-01.ip"},{"key":"gateway","label":"Gateway","path":"hosts.PVE-01.gateway"},{"key":"dns","label":"DNS","path":"hosts.PVE-01.dns"}]},
+{"id":"verify","label":"Ověřit infrastrukturu a aplikace","panel":"Ověření","fields":[]}
+]
