@@ -1,12 +1,14 @@
 # Datacenter Academy — stav vývoje
 
-## Přestavba do3D — závěrečné ověřování etapy9 (2026-10-24)
-- Etapy1–8 implementované a commitované. Finální scéna `scenes/world/Game.tscn`; zachováno původních50 misí/21 lekcí a doplněno15 praktických misí. Procedurální serverovna i akademie jsou skutečné3D, administrace používá původní UI a společný model.
+## Přestavba do3D — dokončené etapy1–9 (2026-10-24)
+- Etapy1–9 implementované, otestované a uložené v Gitu. Finální scéna `scenes/world/Game.tscn`; zachováno původních50 misí/21 lekcí a doplněno15 praktických misí. Procedurální serverovna i akademie jsou skutečné3D, administrace používá původní UI a společný model.
 - Akademie má nyní také vlastní funkční fyzický switch, servisní skříň a ZFS sloty. V produkční3D hře fyzické zásahy vyžadují přístup k zařízení; pomocné nové formulářové popisy zůstávají jen v samostatném původním UI pro ověření všech akcí.
 - Závěrečný audit: změna konfigurace zneplatní předchozí přejímku, odpojený PBS kabel blokuje backup/restore, odpojený uplink dovolí lokální start VM a výpadek se projeví při síťovém ověření. Start/restart HV respektuje automatické spuštění hypervisoru.
 - Physical3D41 PASS; World3D35 PASS; World playthrough34 headless/39 GPU PASS. MCP77 objektů, raycast/E/Proxmox/save/návrat PASS, errors=[]. GPU nastavení76 PASS a ostrost8 PASS. EXE+PCK v build/ provedlo externí izolovaný34kontrolový průchod graficky, exit0, čistý log `test-output/3d-package.log`.
 - Doplňkové regrese závěrečného auditu: identifikační značka disku se nepřenáší do nové lekce (včetně zkoušky); tlačítko Kampaň po volném tréninku obnoví běžné odemykání a XP. Porovnání proti862f8da potvrdilo shodu všech původních50 misí, jejich50 referenčních řešení i21 lekcí.
-- První úplný Test-All (15 sad) PASS; finální Test-All se všemi16 sadami běží do `test-output/3d-test-all-final.log`. Před předáním doplnit skutečný výsledek, přegenerovat kopie dokumentace v build/ a vytvořit závěrečný commit. Hráčův save ani config nebyly použity.
+- Závěrečný Test-All: všech16 sad PASS, exit0, žádné runtime chyby ani varování.65/65 misí v modelu i UI,21 lekcí ve všech3 režimech (1075 kontrol),336 výukových UI akcí,474 kontrol save a původní regrese. Log `test-output/3d-test-all-final.log`; následné cílené testy posledních dvou oprav35/34 headless a39 GPU PASS. Hráčův save ani config nebyly použity.
+- Windows EXE+PCK v `build/` jsou aktualizované, samostatně ověřené a doplněné aktuální dokumentací. Spuštění: F5 v původním projektu nebo `build/ITSupportSimulator.exe`. Menu nabízí pokračování ve3D i přímý přístup k15 novým úkolům ve volném tréninku.
+- Pro další obsah navazovat na `tools/world_catalog.py` → extension_catalog/build_extension/build_content; katalogy byly ověřeny jako reprodukovatelné. Při změnách3D spouštět také world3d/physical3d/world_playthrough a grafický průchod. Známé meze: vlastní stylizované procedurální modely, připravená topologie, laboratorně zrychlený rebuild. Žádný známý blokátor hraní.
 
 ## Přestavba do 3D — etapa 1 (2026-10-24)
 - Výchozí čistý commit `862f8da`; záložní Git tag `pre-3d-20261024` zachovává celou funkční 2D hru.

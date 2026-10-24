@@ -12,6 +12,7 @@ výhradně SaveManager.path_override, grafické testy také vlastní konfiguraci
 | Ověření | Výsledek |
 |---|---|
 | První úplný Test-All po přidání misí |15 sad PASS;65/65 misí v modelu i původním UI;21×3 lekcí,1075 kontrol;336 výukových UI akcí |
+| Závěrečný Test-All |Všech16 sad PASS, exit0, bez runtime chyb a varování;65 misí v modelu/UI,21×3 lekcí,474 kontrol uložení a původní regresní sady |
 | Physical3D po závěrečném auditu |41 kontrol PASS: identita, backup, hot-swap, kapacita/rozhraní, vytažený slot/save/rebuild, selhání RAID10, síť, napájení, oddělení všech3 režimů |
 | World3D |35 kontrol PASS: pohyb a kolize, raycast a skutečné E, dveře a chůze do akademie, režimy vedení, konzole, konkrétní disk a LED; identifikační značka nepřejde do nové relace |
 | World playthrough |34 headless /39 GPU kontrol PASS: servisní mise přes skutečné3D cíle, formuláře a potvrzení, výběr náhrady, rebuild a dokončení; fyzický switch port; stěna blokuje interakci; UHD škálování; návrat do kampaně a přímý vstup do15 misí |
@@ -21,8 +22,9 @@ výhradně SaveManager.path_override, grafické testy také vlastní konfiguraci
 | Generátory |build_content.py včetně build_extension/world_catalog vytvoří bajtově shodné JSON; původních24 definic a21 lekcí nezměněno |
 | Windows balíček |Samostatné EXE+PCK graficky provedlo stejný34kontrolový3D průchod; exit0, log bez chyb |
 
-Závěrečný Test-All se všemi16 sadami (včetně World playthrough) ještě běží;
-jeho výsledek bude doplněn před dokončením. Log: `test-output/3d-test-all-final.log`.
+Závěrečný Test-All se všemi16 sadami (včetně World playthrough) skončil úspěšně.
+Poslední dvě opravy menu a izolace zvýraznění navíc ověřily cílené testy
+World3D35 a World playthrough34/39 kontrol. Log: `test-output/3d-test-all-final.log`.
 Další logy: `3d-test-all.log`, `3d-playthrough-gpu-final.log`, `3d-package.log`,
 `3d-display-gpu.log`, `3d-quality-gpu.log` a `3d-build-final.log`.
 
