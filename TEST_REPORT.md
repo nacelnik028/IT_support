@@ -13,13 +13,13 @@ výhradně SaveManager.path_override, grafické testy také vlastní konfiguraci
 |---|---|
 | První úplný Test-All po přidání misí |15 sad PASS;65/65 misí v modelu i původním UI;21×3 lekcí,1075 kontrol;336 výukových UI akcí |
 | Physical3D po závěrečném auditu |41 kontrol PASS: identita, backup, hot-swap, kapacita/rozhraní, vytažený slot/save/rebuild, selhání RAID10, síť, napájení, oddělení všech3 režimů |
-| World3D |31 kontrol PASS: pohyb a kolize, raycast a skutečné E, dveře a chůze do akademie, režimy vedení, konzole, konkrétní disk a LED |
-| World playthrough |32 headless /37 GPU kontrol PASS: servisní mise přes skutečné3D cíle, formuláře a potvrzení, výběr náhrady, rebuild a dokončení; fyzický switch port; stěna blokuje interakci; UHD škálování |
+| World3D |35 kontrol PASS: pohyb a kolize, raycast a skutečné E, dveře a chůze do akademie, režimy vedení, konzole, konkrétní disk a LED; identifikační značka nepřejde do nové relace |
+| World playthrough |34 headless /39 GPU kontrol PASS: servisní mise přes skutečné3D cíle, formuláře a potvrzení, výběr náhrady, rebuild a dokončení; fyzický switch port; stěna blokuje interakci; UHD škálování; návrat do kampaně a přímý vstup do15 misí |
 | Godot MCP |77 interaktivních objektů; raycast/E/detail/Proxmox formuláře/změna/save/návrat PASS; errors=[] |
 | Nastavení obrazu |76 kontrol GPU PASS; všech6 rozlišení včetně4K a upozornění na save |
 | Ostrost původního UI |8 kontrol GPU PASS; nativní glyphy a38×38px SVG ve4K |
 | Generátory |build_content.py včetně build_extension/world_catalog vytvoří bajtově shodné JSON; původních24 definic a21 lekcí nezměněno |
-| Windows balíček |Samostatné EXE+PCK graficky provedlo stejný32kontrolový3D průchod; exit0, log bez chyb |
+| Windows balíček |Samostatné EXE+PCK graficky provedlo stejný34kontrolový3D průchod; exit0, log bez chyb |
 
 Závěrečný Test-All se všemi16 sadami (včetně World playthrough) ještě běží;
 jeho výsledek bude doplněn před dokončením. Log: `test-output/3d-test-all-final.log`.

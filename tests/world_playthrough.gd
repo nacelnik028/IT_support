@@ -139,6 +139,14 @@ func run():
 	p.poll_target()
 	check(p.target==null,"Stěna blokuje paprsek a interakci")
 	check(shell.world.batched_instances>300,"Opakovaná statická geometrie se dávkuje")
+	shell.ui.page = "menu"
+	shell.ui.draw_ui()
+	find_button(shell.ui,"Kampaň a přehled").pressed.emit()
+	check(not shell.ui.game.training and shell.ui.page=="Tickety","Kampaň po volném tréninku znovu zapne odemykání a XP")
+	shell.ui.page = "menu"
+	shell.ui.draw_ui()
+	find_button(shell.ui,"15 praktických").pressed.emit()
+	check(shell.ui.game.training and shell.ui.mission_filter=="3D praxe","Přímý vstup do15 otevřených3D úkolů")
 	if DisplayServer.get_name()!="headless": print("GPU METRICS: draw calls %d, visible objects %d; batched %d" % [Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),shell.world.batched_instances])
 	shell.queue_free()
 	await process_frame

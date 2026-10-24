@@ -290,6 +290,7 @@ func draw_menu():
 	left.add_child(button("Kampaň a přehled ticketů",func():
 		if game.session_kind!="campaign": game.resume_campaign()
 		elif not game.active: game.start_mission(0)
+		game.set_campaign_mode(false)
 		navigate("Tickety")))
 	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink"),true))
 	left.add_child(button("Volný trénink  •  všechny laboratoře",func():

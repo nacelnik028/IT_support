@@ -81,8 +81,13 @@ func run():
 	for i in 65: await physics_frame
 	Input.action_release("walk_forward")
 	check(p.position.x>9.3,"Do akademie lze fyzicky dojít bez teleportu")
+	shell.ui.game.sim.state.world.identified["RAID:2"] = true
+	shell.world.sync_state()
+	check(shell.world.devices["RAID:2"].outline.visible,"Ruční identifikace zapne fyzickou značku slotu")
 	for lesson_mode in ["learn","practice","exam"]:
 		shell.ui.begin_lesson(1002,lesson_mode,false)
+		shell.world.sync_state()
+		check(not shell.world.devices["RAID:2"].outline.visible,"Identifikace z předchozí relace nepřejde do lekce: "+lesson_mode)
 		shell.update_guidance()
 		check(p.enabled and p.position.x>9,"Lekce začíná ve skutečné akademii: "+lesson_mode)
 		var highlighted = false

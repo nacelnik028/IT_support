@@ -4,7 +4,8 @@
 - Etapy1–8 implementované a commitované. Finální scéna `scenes/world/Game.tscn`; zachováno původních50 misí/21 lekcí a doplněno15 praktických misí. Procedurální serverovna i akademie jsou skutečné3D, administrace používá původní UI a společný model.
 - Akademie má nyní také vlastní funkční fyzický switch, servisní skříň a ZFS sloty. V produkční3D hře fyzické zásahy vyžadují přístup k zařízení; pomocné nové formulářové popisy zůstávají jen v samostatném původním UI pro ověření všech akcí.
 - Závěrečný audit: změna konfigurace zneplatní předchozí přejímku, odpojený PBS kabel blokuje backup/restore, odpojený uplink dovolí lokální start VM a výpadek se projeví při síťovém ověření. Start/restart HV respektuje automatické spuštění hypervisoru.
-- Physical3D41 PASS; World3D31 PASS; World playthrough32 headless/37 GPU PASS. MCP77 objektů, raycast/E/Proxmox/save/návrat PASS, errors=[]. GPU nastavení76 PASS a ostrost8 PASS. EXE+PCK v build/ provedlo externí izolovaný32kontrolový průchod graficky, exit0, čistý log `test-output/3d-package.log`.
+- Physical3D41 PASS; World3D35 PASS; World playthrough34 headless/39 GPU PASS. MCP77 objektů, raycast/E/Proxmox/save/návrat PASS, errors=[]. GPU nastavení76 PASS a ostrost8 PASS. EXE+PCK v build/ provedlo externí izolovaný34kontrolový průchod graficky, exit0, čistý log `test-output/3d-package.log`.
+- Doplňkové regrese závěrečného auditu: identifikační značka disku se nepřenáší do nové lekce (včetně zkoušky); tlačítko Kampaň po volném tréninku obnoví běžné odemykání a XP. Porovnání proti862f8da potvrdilo shodu všech původních50 misí, jejich50 referenčních řešení i21 lekcí.
 - První úplný Test-All (15 sad) PASS; finální Test-All se všemi16 sadami běží do `test-output/3d-test-all-final.log`. Před předáním doplnit skutečný výsledek, přegenerovat kopie dokumentace v build/ a vytvořit závěrečný commit. Hráčův save ani config nebyly použity.
 
 ## Přestavba do 3D — etapa 1 (2026-10-24)
