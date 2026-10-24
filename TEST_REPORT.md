@@ -2,6 +2,15 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+Dodatečné ověření nastavení obrazu a ukončení: `tests/display_settings.gd`
+prošel graficky49 kontrolami a headless41 kontrolami. Grafický test skutečně
+vykreslil všech6 nabízených rozlišení až3840×2160, přepnul nativní fullscreen
+i okno, ověřil F11, načtení uložených voleb a viditelnost výukového cíle ve4K.
+Samostatný běh vyvolal skutečné tlačítko Ukončit hru a skončil s kódem0 bez
+chyb i varování. Ověřeno zachování rozehrané konfigurace. Znovu prošla první
+interaktivní VM lekce a všech88 regresních kontrol. Předchozí kompletní průchod
+obsahu je uveden níže; toto je cílená kontrola změn obrazu a menu.
+
 | Kontrola | Výsledek |
 |---|---|
 | Godot MCP: verze, metadata, tvorba scény centra a spuštění | Provedeno; monitor později vrací „No active Godot process“ |

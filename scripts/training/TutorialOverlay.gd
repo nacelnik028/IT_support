@@ -16,12 +16,13 @@ func _process(delta):
 func _draw():
 	if not is_instance_valid(target) or not target.is_visible_in_tree(): return
 	var rect=target.get_global_rect()
-	if local_rect.has_area(): rect=Rect2(target.global_position+local_rect.position,local_rect.size)
+	if local_rect.has_area(): rect=target.get_global_transform()*local_rect
 	var ancestor=target.get_parent()
 	while ancestor is Control:
 		if ancestor is ScrollContainer: rect=rect.intersection(ancestor.get_global_rect())
 		ancestor=ancestor.get_parent()
 	if not rect.has_area(): return
+	rect=get_global_transform().affine_inverse()*rect
 	var color=Color(0.25,1.0,0.84,0.65+sin(time*4.0)*0.25)
 	draw_rect(rect.grow(3),color,false,3)
 	var point=Vector2(rect.position.x+minf(rect.size.x*0.5,120),rect.position.y-5)

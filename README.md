@@ -17,6 +17,14 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 
 ## Ovládání a první směna
 
+- Hlavní menu: **Nastavení** otevírá přepínač celé obrazovky a rozlišení16:9:
+  1280×720,1600×900,1920×1080,2560×1440,3200×1800 a3840×2160 (4K UHD).
+  Změnu potvrď tlačítkem **Použít nastavení**. **F11** přepíná celou obrazovku
+  také během hraní. Rozhraní zachovává proporce a čitelnou velikost prvků.
+- Vybrané rozlišení určuje skutečný počet vykreslovaných pixelů. V režimu okna
+  se okno na menším monitoru vejde do pracovní plochy; vykreslovací rozlišení zůstává zvolené.
+- **Ukončit hru** v hlavním menu uloží rozehraný stav a zavře aplikaci.
+  Stejné uložení probíhá při zavření okna křížkem.
 - Myš: výběr serveru, panelu, polí a operací. Kolečko: posun obsahu konzole
   nebo ticketu v samostatných sloupcích. Tab: přesun mezi formulářovými poli.
 - Menu → Zahájit směnu nebo Tickety → první laboratoř.
@@ -96,6 +104,9 @@ Parser nevytváří procesy. Bash/PowerShell nejsou skutečně spuštěny.
 Řetězení, pipe, přesměrování a expanze jsou odmítnuty.
 
 ## Uložení
+
+Volby obrazu se ukládají samostatně do `user://display_settings.cfg` a použijí
+se při příštím spuštění. Nemění formát ani obsah uloženého herního postupu.
 
 Po každém zásahu se atomicky ukládá rozehraná konfigurace, ticket, použitá
 nápověda, skóre, XP a statistiky do `user://academy_save.json`.

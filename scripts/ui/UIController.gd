@@ -3,6 +3,11 @@ extends Control
 const Game = preload("res://scripts/core/GameManager.gd")
 const Racks = preload("res://scripts/ui/RackView.gd")
 const Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
+const Display=preload("res://scripts/core/DisplaySettings.gd")
+var display_settings=Display.new()
+var manage_display=true
+var settings_controls: Dictionary={}
+var quitting=false
 var game = Game.new()
 var page = "menu"
 var tab = ""
@@ -38,6 +43,14 @@ const ORANGE = Color("ffb65c")
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# Existing simulation tests retain their own window and never read player settings.
+	manage_display=Game.Saves.path_override=="" or Display.path_override!=""
+	if manage_display:
+		display_settings.load_settings()
+		display_settings.apply(get_window())
+		sync_display_layout()
+	get_tree().auto_accept_quit=false
+	get_window().close_requested.connect(quit_game)
 	theme = make_theme()
 	create_sound()
 	draw_ui()
@@ -135,6 +148,7 @@ func clear_ui():
 	if transition and transition.is_valid(): transition.kill()
 	form_controls.clear()
 	form_buttons.clear()
+	settings_controls.clear()
 	if is_instance_valid(root_box):
 		remove_child(root_box)
 		root_box.queue_free()
@@ -146,6 +160,7 @@ func clear_ui():
 func draw_ui():
 	clear_ui()
 	if page == "menu": draw_menu(); return
+	if page == "Nastavení": draw_settings(); return
 	var whole = vbox(root_box,16)
 	var top = hbox(whole)
 	var brand = vbox(top,2)
@@ -229,6 +244,13 @@ func draw_menu():
 		if not game.active: game.start_mission(0,true)
 		game.training=true
 		navigate("Tickety")))
+	var system_buttons=hbox(left,12)
+	var settings_button=button("Nastavení",func(): page="Nastavení"; notice=""; bad_notice=false; draw_ui())
+	settings_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	system_buttons.add_child(settings_button)
+	var exit_button=button("Ukončit hru",quit_game)
+	exit_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	system_buttons.add_child(exit_button)
 	left.add_child(label("PROXMOX VE     /     HYPER-V     /     RAID & STORAGE",12,CYAN))
 	var right = vbox(body,18)
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -246,6 +268,80 @@ func draw_menu():
 	var info = card(right,"Praktická laboratoř", "Konfiguruj virtuální stroje, opravuj sítě a obnovuj data. Hra funguje offline a ukládá každý zásah.")
 	info.add_child(label("%d TICKETŮ     •     %d LEKCÍ     •     TVÉ TEMPO" % [game.missions.size(),game.tutorial.lessons.size()],12,CYAN))
 	all.add_child(label("Výuková simulace správy serverů  /  Čeština  /  Godot 4",12,MUTED))
+
+func sync_display_layout():
+	set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	position=Vector2.ZERO
+	size=Vector2(Display.DESIGN_SIZE)
+	scale=Vector2(display_settings.resolution)/Vector2(Display.DESIGN_SIZE)
+
+func draw_settings():
+	settings_controls.clear()
+	var all=vbox(root_box,24)
+	var header=hbox(all)
+	header.add_child(label("◈  DATACENTER ACADEMY",22,CYAN))
+	header.add_child(button("← Hlavní menu",func(): page="menu"; draw_ui()))
+	var content=scroll(all)
+	content.add_child(label("Nastavení",36))
+	content.add_child(label("OBRAZ  /  poměr stran 16:9",12,MUTED))
+	var panel=card(content,"Zobrazení","Volby se použijí okamžitě po stisknutí tlačítka a zůstanou uložené pro příští spuštění.")
+	var toggle=CheckButton.new()
+	toggle.text="Celá obrazovka"
+	toggle.button_pressed=display_settings.fullscreen
+	toggle.custom_minimum_size.y=44
+	panel.add_child(toggle)
+	settings_controls.fullscreen=toggle
+	panel.add_child(label("Rozlišení hry (16:9)",14,MUTED))
+	var picker=OptionButton.new()
+	picker.custom_minimum_size.y=44
+	for resolution in Display.RESOLUTIONS:
+		picker.add_item("%d × %d%s" % [resolution.x,resolution.y,"  •  4K UHD" if resolution==Vector2i(3840,2160) else ""])
+	picker.select(Display.RESOLUTIONS.find(display_settings.resolution))
+	panel.add_child(picker)
+	settings_controls.resolution=picker
+	panel.add_child(label("V režimu okna určuje volba také jeho velikost. Na menším monitoru se okno přizpůsobí pracovní ploše; zvolené herní rozlišení zůstane zachované.",14,MUTED))
+	var apply_button=button("Použít nastavení",func(): apply_display_settings(Display.RESOLUTIONS[picker.selected],toggle.button_pressed),true)
+	panel.add_child(apply_button)
+	settings_controls.apply=apply_button
+	if notice!="": panel.add_child(label(notice,14,CYAN if not bad_notice else ORANGE))
+	panel.add_child(label("F11 přepíná celou obrazovku.",12,MUTED))
+
+func apply_display_settings(resolution: Vector2i,fullscreen: bool):
+	if not resolution in Display.RESOLUTIONS: return
+	var previous_resolution=display_settings.resolution
+	var previous_fullscreen=display_settings.fullscreen
+	display_settings.resolution=resolution
+	display_settings.fullscreen=fullscreen
+	var error=display_settings.save_settings()
+	if error!=OK:
+		display_settings.resolution=previous_resolution
+		display_settings.fullscreen=previous_fullscreen
+		notice="Nastavení se nepodařilo uložit. Zkontroluj přístup k uživatelské složce."
+		bad_notice=true
+	else:
+		display_settings.apply(get_window())
+		sync_display_layout()
+		notice="Uloženo: %d × %d • %s" % [resolution.x,resolution.y,"celá obrazovka" if fullscreen else "okno"]
+		bad_notice=false
+	draw_ui()
+
+func _unhandled_key_input(event):
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F11:
+		apply_display_settings(display_settings.resolution,not display_settings.fullscreen)
+		get_viewport().set_input_as_handled()
+
+func quit_game():
+	if quitting: return
+	if game.save()!=OK:
+		show_message("Hru se nepodařilo uložit","Před ukončením zkontroluj přístup k uživatelské složce a zkus uložení znovu.")
+		return
+	quitting=true
+	player.stop()
+	player.stream=null
+	click_sound=null
+	# Let the audio thread release the final button sound before shutting down.
+	await get_tree().create_timer(0.06).timeout
+	get_tree().quit()
 
 func navigate(target: String):
 	page=target
@@ -709,7 +805,14 @@ func focus_tutorial():
 	if not is_instance_valid(control): return
 	var ancestor=control.get_parent()
 	while ancestor is Control:
-		if ancestor is ScrollContainer: ancestor.ensure_control_visible(control)
+		if ancestor is ScrollContainer:
+			# Convert into scroll-local coordinates; native ensure_control_visible
+			# mixes global pixels with local offsets when the interface is scaled.
+			var rect=ancestor.get_global_transform().affine_inverse()*control.get_global_rect()
+			if rect.position.y<0 or rect.end.y>ancestor.size.y:
+				var content=ancestor.get_child(0) as Control
+				var content_rect=content.get_global_transform().affine_inverse()*control.get_global_rect()
+				ancestor.scroll_vertical=roundi(content_rect.get_center().y-ancestor.size.y*0.5)
 		ancestor=ancestor.get_parent()
 	if is_instance_valid(tutorial_overlay): tutorial_overlay.queue_free()
 	tutorial_overlay=preload("res://scripts/training/TutorialOverlay.gd").new()
