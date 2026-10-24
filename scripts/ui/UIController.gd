@@ -318,6 +318,12 @@ func draw_menu():
 		if not game.active: game.start_mission(0)
 		navigate("Serverovna"))
 	var info = card(right,"Praktická laboratoř", "Konfiguruj virtuální stroje, opravuj sítě a obnovuj data. Hra funguje offline a ukládá každý zásah.")
+	if world_enabled:
+		info.add_child(button("15 praktických úkolů ve 3D",func():
+			if not game.active: game.start_mission(0,true)
+			game.set_campaign_mode(true)
+			mission_filter="3D praxe"
+			navigate("Tickety"),true))
 	info.add_child(label("%d TICKETŮ     •     %d LEKCÍ     •     TVÉ TEMPO" % [game.missions.size(),game.tutorial.lessons.size()],12,CYAN))
 	all.add_child(label("Výuková simulace správy serverů  /  Čeština  /  Godot 4",12,MUTED))
 
@@ -472,13 +478,16 @@ func draw_tickets():
 	mode.add_child(button("Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
 	v.add_child(label("Kapitoly se v kampani otevírají postupně. Trénink zpřístupní všechny situace bez změny XP.",14,MUTED))
 	var category_picker=OptionButton.new()
-	for category in ["Vše","Proxmox","Hyper-V","Storage"]: category_picker.add_item(category)
-	category_picker.select(["Vše","Proxmox","Hyper-V","Storage"].find(mission_filter))
+	var categories=["Vše","Proxmox","Hyper-V","Storage","3D praxe"]
+	for category in categories: category_picker.add_item(category)
+	category_picker.select(maxi(0,categories.find(mission_filter)))
 	category_picker.item_selected.connect(func(i): mission_filter=category_picker.get_item_text(i); draw_ui())
 	v.add_child(category_picker)
 	for i in game.missions.size():
 		var m = game.missions[i]
-		if mission_filter!="Vše" and m.category!=mission_filter: continue
+		if mission_filter=="3D praxe":
+			if not m.get("world_task",false): continue
+		elif mission_filter!="Vše" and m.category!=mission_filter: continue
 		if int(m.id)==25: v.add_child(label("NOVÉ INCIDENTY  /  rozšířená praxe",15,CYAN))
 		var c = card(v,"%02d  /  %s" % [int(m.id),m.title],m.category+"  •  "+m.difficulty+"  •  "+m.server)
 		var row=hbox(c)

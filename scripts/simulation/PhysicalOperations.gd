@@ -67,6 +67,15 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			w.stock[w.held].available = true
 			w.held = ""
 			return sim.success("Náhradní disk vrácen do servisní skříně.",false)
+		"physical_identify":
+			var pool_name = str(p.get("pool","RAID"))
+			if not pool_name in ["RAID","ZFS"]: return sim.reject("Neznámý řadič.")
+			var disks = disks_for(s,pool_name)
+			var slot = str(p.get("slot",""))
+			if not disks.has(slot) or disks[slot].serial!=str(p.get("serial","")): return sim.reject("Slot a sériové číslo nesouhlasí.",true)
+			w.identified[pool_name+":"+slot] = true
+			s.diagnostic.viewed = true
+			return sim.success("Identifikační LED: %s / slot%s / %s / %s." % [pool_name,slot,disks[slot].serial,disks[slot].health],false)
 		"physical_remove", "physical_insert":
 			var pool_name = str(p.get("pool","RAID"))
 			if not pool_name in ["RAID","ZFS"]: return sim.reject("Neznámý řadič.")
@@ -109,6 +118,9 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			return result
 		"physical_monitor":
 			w.monitor_checked = true
+			w.observed_vms = {}
+			for vm in s.vms.values():
+				if vm.get("exists",false): w.observed_vms[vm.id] = vm.status
 			return sim.success("Monitorovací konzole načetla skutečné hostitele, VM, kapacitu a stav polí.",false)
 		"physical_commission":
 			for device_id in s.hosts:

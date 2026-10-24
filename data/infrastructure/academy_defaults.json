@@ -76,10 +76,12 @@
       }
     },
     "inspected": {},
+    "identified": {},
     "removed": {},
     "replaced": {},
     "restarted": {},
     "data_loss": {},
+    "observed_vms": {},
     "stock": {
       "SPARE-2T": {
         "serial": "SP-SAS-2000",

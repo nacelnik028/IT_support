@@ -25,6 +25,12 @@
 - Učím se má zlatý 3D rám, směr/vzdálenost a instrukce. Procvičování a Zkouška neukazují správný cíl; zkouška zachovává původní zákaz nápovědy. Laboratorní stanice vyžadují samostatnou výukovou relaci, takže návštěva místnosti nezačne měnit kampaň.
 - `tests/world3d.gd`:31 PASS: původní FPS kontroly, zaměření dveří, otevření přes E a skutečná chůze do sousední místnosti, všechny3 režimy, validace příchodu/serveru, návrat z konzole, cílení konkrétního disku a synchronizace LED. Původní baseline Test-All doběhl bez chyb (50 misí/21×3 lekcí); log `test-output/3d-baseline.log`.
 
+## Přestavba do 3D — etapa 7 (2026-10-24)
+- Přidáno15 praktických misí51–65 v `tools/world_catalog.py`: inventář racku, identifikace LED/serial, RAID hot-swap, odpojený kabel, konkrétní switch port, VLAN v UI, vypnutý hostitel, SATA náhrada ZFS, storage obchůzka, instalace PVE, bezpečný restart, nová VM a fyzický monitoring, kapacitní incident, výpadek napájení a přejímka.
+- Cíle kontrolují stav zařízení a služeb; monitoring ukládá skutečně přečtené VM a jejich stav. Přidány referenční postupy včetně administrátorských formulářů. Generování navazuje na oba původní generátory. Definice21 lekcí, legacy24 i jejich řešení zůstaly beze změny.
+- Menu umožňuje přímo vybrat15 nových situací přes volný trénink a filtr3D praxe; kampaň zachovává postupné odemykání a XP. Nové fyzické testy jsou součástí Test-All.
+- Campaign65/65 PASS; Save safety474 kontrol PASS včetně každého kroku všech65 misí. Physical3D38 PASS, World3D31 PASS. Kompletní Test-All dále běží do původních výukových/UI sad; průběžný log `test-output/3d-test-all.log`.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)

@@ -36,6 +36,7 @@ func _ready():
 	ui.world_enabled = true
 	layer.add_child(ui)
 	world.game = ui.game
+	world.player.sensitivity = ui.display_settings.mouse_sensitivity
 	ui.world_requested.connect(enter_world)
 	ui.lesson_launched.connect(func(): enter_world("Trénink"))
 	world.player.interaction_requested.connect(interact)
@@ -256,6 +257,9 @@ func show_disk(object):
 	var backup = CheckButton.new()
 	backup.text = "Ověřil jsem nezávislou zálohu a servisní postup"
 	v.add_child(backup)
+	v.add_child(ui.button("Rozsvítit identifikační LED podle serial",func():
+		message = ui.game.apply("physical_identify",{"pool":object.pool,"slot":object.slot,"serial":identity.text}).text
+		show_disk(object)))
 	if d.health!="Missing":
 		v.add_child(ui.button("Vytáhnout vybraný disk",func():
 			var confirm = ConfirmationDialog.new()
@@ -343,7 +347,10 @@ func pause_menu():
 	slider.step = 0.0001
 	slider.value = world.player.sensitivity
 	v.add_child(slider)
-	slider.value_changed.connect(func(value): world.player.sensitivity = value)
+	slider.value_changed.connect(func(value):
+		world.player.sensitivity = value
+		ui.display_settings.mouse_sensitivity = value
+		if ui.manage_display: ui.display_settings.save_settings())
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Nastavení obrazu",func(): open_app("Nastavení")))
@@ -363,7 +370,10 @@ func show_tasks():
 		show_tasks()))
 	v.add_child(ui.button("Předat vyřešený ticket",func():
 		var result = ui.game.complete()
-		v.add_child(ui.label(("Hodnocení: %d / 100\n" % result.score if result.ok else "")+result.text,18))))
+		v.add_child(ui.label(("Hodnocení: %d / 100\n" % result.score if result.ok else "")+result.text+("\n\n"+ui.game.assessment() if result.ok else ""),18))
+		if result.ok: v.add_child(ui.button("Další úkol / přehled misí",func(): open_app("Tickety")))))
+	if ui.game.session_kind=="lesson" and ui.game.tutorial.session.mode!="exam": v.add_child(ui.button("Nápověda",func(): v.add_child(ui.label(ui.game.lesson_hint(),17))))
+	if ui.game.session_kind=="lesson": v.add_child(ui.button("Opakovat lekci",func(): ui.begin_lesson(int(ui.game.current.id),ui.game.tutorial.session.mode,false)))
 	v.add_child(ui.button("Zpět  [Tab / Esc]",return_to_world))
 
 func _unhandled_key_input(event):

@@ -1802,5 +1802,502 @@
       "verify",
       {}
     ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-02"
+      }
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "NAS-01"
+      }
+    ],
+    [
+      "physical_identify",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002"
+      }
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "NAS-01"
+      }
+    ],
+    [
+      "physical_identify",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002"
+      }
+    ],
+    [
+      "physical_remove",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002",
+        "backup_checked": true,
+        "confirmed": true
+      }
+    ],
+    [
+      "physical_spare",
+      {
+        "spare": "SPARE-2T"
+      }
+    ],
+    [
+      "physical_insert",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "physical_cable",
+      {
+        "device": "PVE-01",
+        "connected": true,
+        "port": 1
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "HV-01"
+      }
+    ],
+    [
+      "physical_cable",
+      {
+        "device": "HV-01",
+        "connected": true,
+        "port": 3
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "100",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "HV-01"
+      }
+    ],
+    [
+      "physical_power",
+      {
+        "device": "HV-01",
+        "operation": "Start"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "physical_identify",
+      {
+        "pool": "ZFS",
+        "slot": "B",
+        "serial": "PVE-B"
+      }
+    ],
+    [
+      "physical_remove",
+      {
+        "pool": "ZFS",
+        "slot": "B",
+        "serial": "PVE-B",
+        "backup_checked": true,
+        "confirmed": true
+      }
+    ],
+    [
+      "physical_spare",
+      {
+        "spare": "SPARE-SATA"
+      }
+    ],
+    [
+      "physical_insert",
+      {
+        "pool": "ZFS",
+        "slot": "B",
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "ZFS"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "ZFS"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "NAS-01"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "BACKUP-01"
+      }
+    ],
+    [
+      "physical_monitor",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "install",
+      {
+        "disks": "SYS-A + SYS-B",
+        "type": "ZFS mirror",
+        "hostname": "pve01.lab.example",
+        "ip": "192.168.10.10",
+        "gateway": "192.168.10.1",
+        "dns": "192.168.10.2",
+        "nic": "eno1"
+      }
+    ],
+    [
+      "web",
+      {
+        "url": "https://192.168.10.10:8006"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "physical_power",
+      {
+        "device": "PVE-01",
+        "operation": "Restart"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "create_vm",
+      {
+        "id": "101",
+        "name": "WEB-3D",
+        "iso": "debian.iso",
+        "os": "Linux",
+        "firmware": "UEFI",
+        "cpu": 2,
+        "ram": 4,
+        "storage": "local-lvm",
+        "disk": 32,
+        "nic": "VirtIO",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "boot": "Disk",
+        "agent": true
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "101",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.101",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "101",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ],
+    [
+      "physical_monitor",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "NAS-01"
+      }
+    ],
+    [
+      "physical_monitor",
+      {}
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Orphan snapshots",
+        "checked": true
+      }
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Thin metadata",
+        "checked": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "HV-01"
+      }
+    ],
+    [
+      "physical_supply",
+      {
+        "device": "HV-01",
+        "connected": true
+      }
+    ],
+    [
+      "physical_power",
+      {
+        "device": "HV-01",
+        "operation": "Start"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-01"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "PVE-02"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "HV-01"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "HV-02"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "NAS-01"
+      }
+    ],
+    [
+      "physical_inspect",
+      {
+        "device": "BACKUP-01"
+      }
+    ],
+    [
+      "physical_cable",
+      {
+        "device": "PVE-01",
+        "connected": true,
+        "port": 1
+      }
+    ],
+    [
+      "physical_power",
+      {
+        "device": "HV-01",
+        "operation": "Start"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ],
+    [
+      "physical_monitor",
+      {}
+    ],
+    [
+      "physical_commission",
+      {}
+    ]
   ]
 ]

@@ -243,6 +243,7 @@ func sync_state():
 				object.set_status(disk.health if s.hosts[host_id].online else "Offline")
 				object.visual.position.z = -0.08 if disk.health=="Missing" else 0.0
 				object.visual.get_child(0).visible = disk.health!="Missing"
+				if s.world.identified.get(object.pool+":"+object.slot,false): object.outline.visible = true
 			"cable":
 				var plugged = s.world.devices[object.slot].cable_connected
 				cable_meshes[object.slot].visible = plugged

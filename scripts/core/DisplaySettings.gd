@@ -6,6 +6,7 @@ const RESOLUTIONS=[Vector2i(1280,720),Vector2i(1600,900),Vector2i(1920,1080),Vec
 static var path_override=""
 var resolution=DESIGN_SIZE
 var fullscreen=false
+var mouse_sensitivity=0.0022
 
 func load_settings():
 	var config=ConfigFile.new()
@@ -17,12 +18,15 @@ func load_settings():
 		var saved=Vector2i(int(width),int(height))
 		if saved in RESOLUTIONS: resolution=saved
 	if enabled is bool: fullscreen=enabled
+	var sensitivity=config.get_value("input","mouse_sensitivity",0.0022)
+	if typeof(sensitivity) in [TYPE_INT,TYPE_FLOAT] and is_finite(sensitivity) and sensitivity>=0.0005 and sensitivity<=0.005: mouse_sensitivity=sensitivity
 
 func save_settings() -> Error:
 	var config=ConfigFile.new()
 	config.set_value("display","width",resolution.x)
 	config.set_value("display","height",resolution.y)
 	config.set_value("display","fullscreen",fullscreen)
+	config.set_value("input","mouse_sensitivity",mouse_sensitivity)
 	return config.save(settings_path())
 
 func apply(window: Window):

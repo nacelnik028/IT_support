@@ -4491,5 +4491,981 @@
       "correct": 0,
       "explanation": "Minimální oprávnění, MFA a omezené tokeny chrání odlišné části přístupu. Management patří do oddělené správcovské sítě."
     }
+  },
+  {
+    "id": 51,
+    "title": "A01: najdi správný server",
+    "category": "Storage",
+    "server": "PVE-02",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "V racku A01 najdi PVE-02 podle označení a proveď jeho fyzickou diagnostiku.",
+    "symptoms": "V racku A01 najdi PVE-02 podle označení a proveď jeho fyzickou diagnostiku.",
+    "initial_state": {},
+    "available_actions": [
+      "physical_inspect"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.PVE-02",
+        "value": true,
+        "label": "Ověřen konkrétní server PVE-02",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "V racku A01 najdi PVE-02 podle označení a proveď jeho fyzickou diagnostiku.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PVE-02",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 52,
+    "title": "Vadný disk: LED a sériové číslo",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "V NAS-01 najdi vadný slot2, ověř DC-002 a rozsviť identifikační LED. Disk zatím nevytahuj.",
+    "symptoms": "V NAS-01 najdi vadný slot2, ověř DC-002 a rozsviť identifikační LED. Disk zatím nevytahuj.",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_identify"
+    ],
+    "objectives": [
+      {
+        "path": "world.identified.RAID:2",
+        "value": true,
+        "label": "Slot2 / DC-002 fyzicky identifikován",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "V NAS-01 najdi vadný slot2, ověř DC-002 a rozsviť identifikační LED. Disk zatím nevytahuj.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "RAID:2",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 53,
+    "title": "Hot-swap a dokončený rebuild",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+    "symptoms": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_identify",
+      "physical_remove",
+      "physical_spare",
+      "physical_insert",
+      "rebuild",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.replaced.RAID:2",
+        "value": true,
+        "label": "Fyzická náhrada vložena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.raid",
+        "value": true,
+        "label": "Rebuild dokončen a pole ověřeno",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "RAID:2",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 54,
+    "title": "Přerušený fyzický uplink",
+    "category": "Storage",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "APP01 neodpovídá. Zkontroluj PVE-01 a odnes jeho odpojený konektor k portu1 SW-CORE. Ověř aplikaci.",
+    "symptoms": "APP01 neodpovídá. Zkontroluj PVE-01 a odnes jeho odpojený konektor k portu1 SW-CORE. Ověř aplikaci.",
+    "initial_state": {
+      "world": {
+        "devices": {
+          "PVE-01": {
+            "cable_connected": false
+          }
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_cable",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.PVE-01",
+        "value": true,
+        "label": "Hostitel prohlédnut",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "Služba po fyzickém zapojení běží",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "APP01 neodpovídá. Zkontroluj PVE-01 a odnes jeho odpojený konektor k portu1 SW-CORE. Ověř aplikaci.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PVE-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 55,
+    "title": "Správný port podle štítku",
+    "category": "Storage",
+    "server": "HV-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "HV-01 je připojen do nesprávného portu8. Na štítku je SW-CORE port3. Přepoj kabel a ověř FS01.",
+    "symptoms": "HV-01 je připojen do nesprávného portu8. Na štítku je SW-CORE port3. Přepoj kabel a ověř FS01.",
+    "initial_state": {
+      "world": {
+        "devices": {
+          "HV-01": {
+            "port": 8
+          }
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_cable",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.HV-01",
+        "value": true,
+        "label": "Identita HV-01 ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Správná síťová cesta FS01",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "HV-01 je připojen do nesprávného portu8. Na štítku je SW-CORE port3. Přepoj kabel a ověř FS01.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "NIC:HV-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 56,
+    "title": "Fyzická linka funguje, VLAN ne",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "Proxmox"
+    ],
+    "description": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+    "symptoms": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+    "initial_state": {
+      "vms": {
+        "100": {
+          "vlan": 30
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "network",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.PVE-01",
+        "value": true,
+        "label": "Fyzická linka zkontrolována",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "VLAN i služba opraveny",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PVE-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 57,
+    "title": "Server se po údržbě nespustil",
+    "category": "Storage",
+    "server": "HV-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "Najdi vypnutý HV-01, zkontroluj jeho přívody a zapni jej. Potom v Hyper-V spusť FS01 a ověř službu.",
+    "symptoms": "Najdi vypnutý HV-01, zkontroluj jeho přívody a zapni jej. Potom v Hyper-V spusť FS01 a ověř službu.",
+    "initial_state": {
+      "hosts": {
+        "HV-01": {
+          "online": false
+        }
+      },
+      "vms": {
+        "200": {
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_power",
+      "power",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.HV-01",
+        "value": true,
+        "label": "Hostitel identifikován",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Hostitel i FS01 fungují",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Najdi vypnutý HV-01, zkontroluj jeho přívody a zapni jej. Potom v Hyper-V spusť FS01 a ověř službu.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "HV-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 58,
+    "title": "Kompatibilní náhrada ZFS disku",
+    "category": "Storage",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
+    "symptoms": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
+    "initial_state": {
+      "zfs": {
+        "health": "Degraded",
+        "disks": {
+          "B": {
+            "health": "Failed"
+          }
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_identify",
+      "physical_remove",
+      "physical_spare",
+      "physical_insert",
+      "rebuild",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.replaced.ZFS:B",
+        "value": true,
+        "label": "SATA disk fyzicky vložen",
+        "op": "eq"
+      },
+      {
+        "path": "verified.zfs",
+        "value": true,
+        "label": "Resilver dokončen",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "ZFS:B",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 59,
+    "title": "Obchůzka úložišť a záloh",
+    "category": "Storage",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "Prohlédni PVE-01, NAS-01 a BACKUP-01. Zkontroluj jejich kapacitu a stav na monitorovací konzoli za racky.",
+    "symptoms": "Prohlédni PVE-01, NAS-01 a BACKUP-01. Zkontroluj jejich kapacitu a stav na monitorovací konzoli za racky.",
+    "initial_state": {},
+    "available_actions": [
+      "physical_inspect",
+      "physical_monitor"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.PVE-01",
+        "value": true,
+        "label": "PVE-01 zkontrolován",
+        "op": "eq"
+      },
+      {
+        "path": "world.inspected.NAS-01",
+        "value": true,
+        "label": "NAS-01 zkontrolován",
+        "op": "eq"
+      },
+      {
+        "path": "world.inspected.BACKUP-01",
+        "value": true,
+        "label": "BACKUP-01 zkontrolován",
+        "op": "eq"
+      },
+      {
+        "path": "world.monitor_checked",
+        "value": true,
+        "label": "Živý monitoring přečten",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Prohlédni PVE-01, NAS-01 a BACKUP-01. Zkontroluj jejich kapacitu a stav na monitorovací konzoli za racky.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "MONITOR",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 60,
+    "title": "Připrav zařízení k instalaci PVE",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "Proxmox"
+    ],
+    "description": "Fyzicky zkontroluj PVE-01. Na ADMIN-01 nainstaluj Proxmox na prázdná SYS-A+SYS-B jako ZFS mirror; management192.168.10.10, brána192.168.10.1, DNS192.168.10.2, eno1. Otevři HTTPS:8006.",
+    "symptoms": "Fyzicky zkontroluj PVE-01. Na ADMIN-01 nainstaluj Proxmox na prázdná SYS-A+SYS-B jako ZFS mirror; management192.168.10.10, brána192.168.10.1, DNS192.168.10.2, eno1. Otevři HTTPS:8006.",
+    "initial_state": {
+      "hosts": {
+        "PVE-01": {
+          "installed": false
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "install",
+      "web",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.PVE-01",
+        "value": true,
+        "label": "Fyzická příprava ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.installed",
+        "value": true,
+        "label": "Proxmox nainstalován",
+        "op": "eq"
+      },
+      {
+        "path": "install.web",
+        "value": true,
+        "label": "Web konzole dostupná",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Fyzicky zkontroluj PVE-01. Na ADMIN-01 nainstaluj Proxmox na prázdná SYS-A+SYS-B jako ZFS mirror; management192.168.10.10, brána192.168.10.1, DNS192.168.10.2, eno1. Otevři HTTPS:8006.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PVE-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 61,
+    "title": "Bezpečný restart infrastruktury",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "Proxmox"
+    ],
+    "description": "Po aktualizaci bezpečně restartuj PVE-01. Potom z administračního pracoviště spusť APP01 a ověř její službu.",
+    "symptoms": "Po aktualizaci bezpečně restartuj PVE-01. Potom z administračního pracoviště spusť APP01 a ověř její službu.",
+    "initial_state": {},
+    "available_actions": [
+      "physical_inspect",
+      "physical_power",
+      "power",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.restarted.PVE-01",
+        "value": true,
+        "label": "Hostitel bezpečně restartován",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "APP01 znovu ověřena",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Po aktualizaci bezpečně restartuj PVE-01. Potom z administračního pracoviště spusť APP01 a ověř její službu.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PVE-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 62,
+    "title": "Nová VM a fyzický monitoring",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "Proxmox"
+    ],
+    "description": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+    "symptoms": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+    "initial_state": {},
+    "available_actions": [
+      "physical_inspect",
+      "create_vm",
+      "network",
+      "power",
+      "verify",
+      "physical_monitor"
+    ],
+    "objectives": [
+      {
+        "path": "vms.101.name",
+        "value": "WEB-3D",
+        "label": "VM správně vytvořena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.vms.101",
+        "value": true,
+        "label": "Aplikace ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "world.observed_vms.101",
+        "value": "Running",
+        "label": "Monitoring přečetl novou běžící VM",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "ADMIN-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 63,
+    "title": "Kritická kapacita ve fyzické serverovně",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "3D provoz",
+    "difficulty": "Pokročilý",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "Zkontroluj NAS-01 a monitoring. Po ověření vlastníka a záloh odstraň osiřelé snapshoty a uvolni thin metadata. Znovu ověř kapacitní rezervu.",
+    "symptoms": "Zkontroluj NAS-01 a monitoring. Po ověření vlastníka a záloh odstraň osiřelé snapshoty a uvolni thin metadata. Znovu ověř kapacitní rezervu.",
+    "initial_state": {
+      "storage": {
+        "used": 495,
+        "metadata": 96
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_monitor",
+      "storage_cleanup",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.NAS-01",
+        "value": true,
+        "label": "NAS prohlédnut",
+        "op": "eq"
+      },
+      {
+        "path": "world.monitor_checked",
+        "value": true,
+        "label": "Monitoring navštíven",
+        "op": "eq"
+      },
+      {
+        "path": "verified.capacity",
+        "value": true,
+        "label": "Bezpečná rezerva obnovena",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Zkontroluj NAS-01 a monitoring. Po ověření vlastníka a záloh odstraň osiřelé snapshoty a uvolni thin metadata. Znovu ověř kapacitní rezervu.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "MONITOR",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 64,
+    "title": "Obnova služby po výpadku napájení",
+    "category": "Storage",
+    "server": "HV-01",
+    "topic": "3D provoz",
+    "difficulty": "Začátečník",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "HV-01 je bez napájení a FS01 stojí. Připoj jeho PSU, zapni hostitele, v Hyper-V spusť FS01 a ověř aplikaci.",
+    "symptoms": "HV-01 je bez napájení a FS01 stojí. Připoj jeho PSU, zapni hostitele, v Hyper-V spusť FS01 a ověř aplikaci.",
+    "initial_state": {
+      "hosts": {
+        "HV-01": {
+          "online": false
+        }
+      },
+      "vms": {
+        "200": {
+          "status": "Off"
+        }
+      },
+      "world": {
+        "devices": {
+          "HV-01": {
+            "power_connected": false
+          }
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_supply",
+      "physical_power",
+      "power",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "world.inspected.HV-01",
+        "value": true,
+        "label": "Příčina diagnostikována",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Služba po výpadku funguje",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "HV-01 je bez napájení a FS01 stojí. Připoj jeho PSU, zapni hostitele, v Hyper-V spusť FS01 a ověř aplikaci.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "PSU:HV-01",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
+  },
+  {
+    "id": 65,
+    "title": "Kompletní přejímka serverovny",
+    "category": "Storage",
+    "server": "PVE-01",
+    "topic": "3D provoz",
+    "difficulty": "Expert",
+    "priority": "Praktická směna",
+    "tags": [
+      "Diagnostika",
+      "RAID"
+    ],
+    "description": "Proveď fyzickou kontrolu všech6 zařízení. Oprav odpojený kabel PVE-01 do portu1 a spusť HV-01 i FS01. Ověř obě služby a na monitorovací konzoli dokonči přejímku.",
+    "symptoms": "Proveď fyzickou kontrolu všech6 zařízení. Oprav odpojený kabel PVE-01 do portu1 a spusť HV-01 i FS01. Ověř obě služby a na monitorovací konzoli dokonči přejímku.",
+    "initial_state": {
+      "world": {
+        "devices": {
+          "PVE-01": {
+            "cable_connected": false
+          }
+        }
+      },
+      "hosts": {
+        "HV-01": {
+          "online": false
+        }
+      },
+      "vms": {
+        "200": {
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "physical_inspect",
+      "physical_cable",
+      "physical_power",
+      "power",
+      "verify",
+      "physical_monitor",
+      "physical_commission"
+    ],
+    "objectives": [
+      {
+        "path": "world.commissioned",
+        "value": true,
+        "label": "Přejímka všech zařízení a služeb dokončena",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [],
+    "hints": [
+      "Proveď fyzickou kontrolu všech6 zařízení. Oprav odpojený kabel PVE-01 do portu1 a spusť HV-01 i FS01. Ověř obě služby a na monitorovací konzoli dokonči přejímku.",
+      "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
+      "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
+    ],
+    "explanations": "Fyzická a softwarová část sdílejí jeden model. Vyřešení potvrzují stavové cíle a kontrola skutečné služby.",
+    "rewards": {
+      "xp": 300
+    },
+    "world_task": true,
+    "world_focus": "MONITOR",
+    "review": {
+      "question": "Co potvrzuje dokončený servis?",
+      "options": [
+        "Aktuální fyzický stav a ověřená služba.",
+        "Pouhé stisknutí servisního tlačítka."
+      ],
+      "correct": 0,
+      "explanation": "Po zásahu ověř pole, síť a aplikaci; samotné zapnutí či vložení disku nestačí."
+    }
   }
 ]
