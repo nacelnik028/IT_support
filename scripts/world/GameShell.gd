@@ -16,6 +16,8 @@ var pending_cable = ""
 var save_time = 0.0
 var pose_revision = -1
 var message = ""
+var instruction: Label
+var direction: Label
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -67,6 +69,15 @@ func _ready():
 	hud.add_child(status_label)
 	status_label.position = Vector2(28,24)
 	status_label.size = Vector2(950,120)
+	instruction = ui.label("",18)
+	hud.add_child(instruction)
+	instruction.position = Vector2(1070,24)
+	instruction.size = Vector2(500,250)
+	direction = ui.label("",20,ui.ORANGE)
+	hud.add_child(direction)
+	direction.position = Vector2(520,730)
+	direction.size = Vector2(560,80)
+	direction.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	app_bar = HBoxContainer.new()
 	chrome.add_child(app_bar)
 	app_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
@@ -93,6 +104,7 @@ func _process(delta):
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
 			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
+			update_guidance()
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
@@ -116,8 +128,10 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.camera.rotation.x = pose.pitch
 		pose_revision = ui.game.session_revision
 	if destination == "Trénink":
-		# Academy room is added in the next stage; preserve the route contract.
 		pending_cable = ""
+		world.player.position = Vector3(15,0.02,5.5)
+		world.player.rotation.y = 0
+		world.player.camera.rotation.x = 0
 	world.sync_state()
 	set_mode("world")
 
@@ -162,12 +176,19 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 func interact(object):
 	selected = object
 	match object.kind:
-		"computer": open_app(object.console); return
+		"computer":
+			if object.laboratory and not ui.game.session_kind in ["lesson","random"]: open_app("Trénink"); return
+			open_app(object.console)
+			if object.laboratory and ui.game.tutorial.guided(): ui.recover_tutorial_target()
+			return
 		"server":
+			if object.laboratory and not ui.game.session_kind in ["lesson","random"]: open_app("Trénink"); return
 			ui.game.apply("physical_inspect",{"device":object.device_id})
 			ui.game.notify_event({"type":"server_selected","host":object.device_id})
 			show_device(object)
-		"disk": show_disk(object)
+		"disk":
+			if object.laboratory and not ui.game.session_kind in ["lesson","random"]: open_app("Trénink"); return
+			show_disk(object)
 		"spares": show_spares()
 		"cable", "supply": show_connection(object)
 		"switch": open_app("Síť")
@@ -183,6 +204,8 @@ func interact(object):
 				var v = panel(object.caption,result.text)
 				v.add_child(ui.button("Zpět",return_to_world))
 		"monitor": show_monitor()
+		"door": world.toggle_door()
+		"instructor": open_app("Trénink")
 
 func show_device(object):
 	set_mode("detail")
@@ -196,8 +219,8 @@ func show_device(object):
 		if vm.get("exists",false) and vm.host==object.device_id: vm_lines.append("%s / %s: %d vCPU, %s GB RAM — %s" % [vm.id,vm.name,vm.cpu,vm.ram,"běží" if vm.status=="Running" else "vypnuto"])
 	if not vm_lines.is_empty(): v.add_child(ui.label("\n".join(vm_lines),17))
 	v.add_child(ui.button("Otevřít management",func():
-		ui.game.notify_event({"type":"node_selected","host":object.device_id,"vm":""})
-		open_app(object.console,object.device_id),true))
+		open_app(object.console,object.device_id)
+		if object.laboratory and ui.game.tutorial.guided(): ui.recover_tutorial_target(),true))
 	var power = ui.hbox(v)
 	for operation in ["Start","Shutdown","Restart"]:
 		var chosen = operation
@@ -322,6 +345,7 @@ func pause_menu():
 	v.add_child(slider)
 	slider.value_changed.connect(func(value): world.player.sensitivity = value)
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
+	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Nastavení obrazu",func(): open_app("Nastavení")))
 	v.add_child(ui.button("Uložit a hlavní menu",func():
 		if ui.game.save() == OK:
@@ -352,3 +376,35 @@ func _unhandled_key_input(event):
 		if mode == "world": show_tasks()
 		else: return_to_world()
 		get_viewport().set_input_as_handled()
+
+func update_guidance():
+	for object in world.devices.values(): object.set_guided(false)
+	instruction.text = ""
+	direction.text = ""
+	var game = ui.game
+	if game.session_kind!="lesson": return
+	var t = game.tutorial
+	if not t.guided():
+		instruction.text = ("ZKOUŠKA" if t.session.mode=="exam" else "PROCVIČOVÁNÍ")+"\n"+game.current.description
+		return
+	var step = t.current_step()
+	var target = world.academy_targets.get(game.current.server,world.academy_targets["PVE-01"])
+	if not game.sim.state.world.tutorial_arrived:
+		instruction.text = "INSTRUKTOR\nPřejdi k "+target.caption+"."
+		if world.player.global_position.distance_to(target.global_position)<2.7:
+			game.sim.state.world.tutorial_arrived = true
+			game.save()
+	else:
+		instruction.text = "INSTRUKTOR  /  krok %d z %d\n%s\n%s" % [int(t.session.step)+1,t.lesson.steps.size(),step.get("title","Hotovo"),step.get("text","Všechny kroky jsou ověřené. Tab → předat lekci.")]
+		if not t.target(game.sim.state).begins_with("rack:"):
+			var key = "TRAIN-PC-HV" if game.current.get("module","")=="Hyper-V" else "TRAIN-PC-PVE"
+			if game.current.get("module","")=="Storage": key = "RAID-TRAIN-01"
+			target = world.devices[key]
+		instruction.text += "\nStiskni E u zařízení a otevři administrační konzoli."
+	target.set_guided(true)
+	var offset = target.global_position-world.player.global_position
+	var local = world.player.global_basis.inverse()*offset
+	var angle = atan2(local.x,-local.z)
+	var arrow = "↑ Před tebou" if absf(angle)<0.35 else ("→ Vpravo" if angle>0 else "← Vlevo")
+	if absf(angle)>2.4: arrow = "↓ Za tebou"
+	direction.text = "%s  /  %.1f m\n%s" % [arrow,offset.length(),target.caption]

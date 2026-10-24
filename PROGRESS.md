@@ -19,6 +19,12 @@
 - Stav fyzických zařízení, inventář, rozpracovaná výměna a poloha hráče jsou součástí každé uložené relace. SaveValidator kontroluje jejich strukturu/ID/rozsahy. Starší save získává výchozí hodnoty bez změny schématu2. Generátor `tools/world_catalog.py` je zapojený do build_extension/extension_catalog.
 - `tests/physical3d.gd`:38 PASS, včetně malého/nesprávného disku, hot-swap, obnovy prázdného slotu i rebuild po restartu, skutečného selhání RAID10, síťového výpadku a oddělení všech3 režimů lekcí od kampaně. `tests/world3d.gd`:12 PASS. Grafický start/GPU a MCP ověřeny na první etapě; zaznamenané nepoužité destination už má návaznost a bude směrovat do akademie.
 
+## Přestavba do 3D — etapa 6 (2026-10-24)
+- Připojena skutečná samostatná místnost IT Training Academy, posuvné dveře s kolizí, tři laboratorní racky, RAID stanoviště se stejnými sloty, cvičné počítače, místo pro zkoušky a virtuální instruktor. Vstup pěšky i z hlavního menu/pauzy.
+- Všech21 definic lekcí a dosavadní výsledky zůstaly původní. Fyzický příchod se validuje vzdáleností hráče, E na správném serveru předává původní server_selected. Výběr uzlu a konfigurace se nadále ověřují skutečnými událostmi a stavem konzolí.
+- Učím se má zlatý 3D rám, směr/vzdálenost a instrukce. Procvičování a Zkouška neukazují správný cíl; zkouška zachovává původní zákaz nápovědy. Laboratorní stanice vyžadují samostatnou výukovou relaci, takže návštěva místnosti nezačne měnit kampaň.
+- `tests/world3d.gd`:31 PASS: původní FPS kontroly, zaměření dveří, otevření přes E a skutečná chůze do sousední místnosti, všechny3 režimy, validace příchodu/serveru, návrat z konzole, cílení konkrétního disku a synchronizace LED. Původní baseline Test-All doběhl bez chyb (50 misí/21×3 lekcí); log `test-output/3d-baseline.log`.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)

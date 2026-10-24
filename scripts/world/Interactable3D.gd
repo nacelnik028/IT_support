@@ -12,6 +12,7 @@ var guide: Node3D
 var indicator: MeshInstance3D
 var visual: Node3D
 var status = "Healthy"
+var laboratory = false
 
 func configure(id: String, title: String, type: String, dimensions: Vector3, color: Color):
 	device_id = id

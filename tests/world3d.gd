@@ -66,6 +66,55 @@ func run():
 	Input.action_release("walk_forward")
 	check(p.position == fixed and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE,"Pauza zastaví chůzi a uvolní kurzor")
 	check(shell.ui.game.save() == OK,"3D relace se ukládá izolovaně")
+	# The academy is connected by a real doorway with a moving collider.
+	shell.return_to_world()
+	p.position = Vector3(7,0.02,3.5)
+	p.rotation.y = -PI/2
+	p.camera.rotation.x = 0
+	for i in 3: await physics_frame
+	p.poll_target()
+	check(p.target==shell.world.devices["ACADEMY-DOOR"],"Dveře akademie lze zaměřit fyzickým raycastem")
+	root.push_input(key,true)
+	for i in 45: await physics_frame
+	check(shell.world.door_open,"E skutečně otevře průchozí dveře")
+	Input.action_press("walk_forward")
+	for i in 65: await physics_frame
+	Input.action_release("walk_forward")
+	check(p.position.x>9.3,"Do akademie lze fyzicky dojít bez teleportu")
+	for lesson_mode in ["learn","practice","exam"]:
+		shell.ui.begin_lesson(1002,lesson_mode,false)
+		shell.update_guidance()
+		check(p.enabled and p.position.x>9,"Lekce začíná ve skutečné akademii: "+lesson_mode)
+		var highlighted = false
+		for object in shell.world.devices.values(): highlighted = highlighted or object.guide.visible
+		check(highlighted==(lesson_mode=="learn"),"3D vedení pouze v režimu Učím se: "+lesson_mode)
+		check((shell.direction.text!="")== (lesson_mode=="learn"),"Směrový ukazatel respektuje režim: "+lesson_mode)
+		if lesson_mode=="learn":
+			check(not shell.ui.game.sim.state.world.tutorial_arrived and int(shell.ui.game.tutorial.session.step)==0,"Pouhé zahájení neprovede kroky")
+			p.position = Vector3(11.5,0.02,-1.6)
+			shell.update_guidance()
+			check(shell.ui.game.sim.state.world.tutorial_arrived,"Příchod je ověřen vzdáleností skutečného hráče")
+			shell.interact(shell.world.devices["PVE-TRAIN-01"])
+			check(int(shell.ui.game.tutorial.session.step)==1,"Interakce se skutečným cvičným serverem validuje původní krok")
+			shell.open_app("Proxmox")
+			await process_frame
+			check(shell.ui.game.tutorial.guided() and not p.enabled,"Průvodce pokračuje do původního administračního UI")
+			shell.return_to_world()
+	# Direct disk targeting and LEDs use the same simulator that the UI uses.
+	shell.ui.game.start_mission(0,true)
+	shell.ui.game.sim.reset({"disks":{"2":{"health":"Failed"}},"raid":{"health":"Degraded"}})
+	shell.enter_world()
+	shell.world.sync_state()
+	check(shell.world.devices["RAID:2"].status=="Failed" and shell.world.devices["NAS-01"].status=="Degraded","LED disku i zařízení odpovídají modelu")
+	p.position = Vector3(3.35,0.02,-0.8)
+	p.rotation = Vector3.ZERO
+	p.camera.look_at(shell.world.devices["RAID:2"].global_position)
+	for i in 3: await physics_frame
+	p.poll_target()
+	check(p.target==shell.world.devices["RAID:2"],"Konkrétní diskový slot je skutečný raycast cíl")
+	root.push_input(key,true)
+	await process_frame
+	check(shell.mode=="detail" and shell.selected.slot=="2","E otevře servis správného slotu")
 	if "--screenshots" in OS.get_cmdline_user_args() and DisplayServer.get_name() != "headless":
 		shell.return_to_world()
 		p.position = Vector3(3,0.02,4)

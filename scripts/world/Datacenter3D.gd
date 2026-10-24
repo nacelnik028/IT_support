@@ -9,6 +9,9 @@ var monitoring: Label3D
 var fans: Array = []
 var cable_meshes: Dictionary = {}
 var port_objects: Array = []
+var door_open = false
+var door_tween: Tween
+var academy_targets: Dictionary = {}
 
 func _ready():
 	build_room()
@@ -26,6 +29,7 @@ func _ready():
 	item("SPARES","Servisní skříň — náhradní disky","spares",Vector3(-7.6,0.9,-2),Vector3(1,1.8,0.65),"Storage")
 	Geo.text(devices.SPARES.visual,"SERVIS\nNÁHRADNÍ DISKY",Vector3(0,0.5,0.34),38,0.003)
 	build_details()
+	build_academy()
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
@@ -37,7 +41,10 @@ func build_room():
 	Geo.solid(self,Vector3(0,-0.16,0),Vector3(18,0.3,14),Color("343f4b"),0.25)
 	Geo.solid(self,Vector3(0,2,-7),Vector3(18,4,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-9,2,0),Vector3(0.25,4,14),Color("374753"))
-	Geo.solid(self,Vector3(9,2,0),Vector3(0.25,4,14),Color("374753"))
+	# A real opening joins the server room and the training room.
+	Geo.solid(self,Vector3(9,2,-2.5),Vector3(0.25,4,9),Color("374753"))
+	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))
+	Geo.solid(self,Vector3(9,3.5,3.5),Vector3(0.25,1,3),Color("374753"))
 	Geo.solid(self,Vector3(0,2,7),Vector3(18,4,0.25),Color("293844"))
 	Geo.box(self,Vector3(0,4,0),Vector3(18,0.15,14),Color("192530"))
 	for x in range(-9,10): Geo.box(self,Vector3(x,0.002,0),Vector3(0.012,0.005,14),Color("1a2933"))
@@ -162,6 +169,59 @@ func build_details():
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
 
+func build_academy():
+	Geo.solid(self,Vector3(15,-0.16,0),Vector3(12,0.3,14),Color("586271"),0.15)
+	Geo.solid(self,Vector3(21,2,0),Vector3(0.25,4,14),Color("354b58"))
+	for z in [-7,7]: Geo.solid(self,Vector3(15,2,z),Vector3(12,4,0.25),Color("405768"))
+	Geo.box(self,Vector3(15,4,0),Vector3(12,0.15,14),Color("24333c"))
+	for x in range(10,21): Geo.box(self,Vector3(x,0.002,0),Vector3(0.01,0.005,14),Color("354551"))
+	for z in range(-7,8): Geo.box(self,Vector3(15,0.002,z),Vector3(12,0.005,0.01),Color("354551"))
+	var door = item("ACADEMY-DOOR","Dveře — IT Training Academy","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
+	var sign = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
+	sign.rotation.y = -PI/2
+	Geo.box(self,Vector3(8.82,2.95,3.5),Vector3(0.035,0.06,3.15),Color("f4c472"),0,1)
+	Geo.text(self,"IT TRAINING ACADEMY",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
+	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
+	for x in [12,18]:
+		Geo.box(self,Vector3(x,3.85,0),Vector3(0.7,0.05,8),Color("fff0cf"),0,0.8)
+		var light = OmniLight3D.new()
+		light.position = Vector3(x,3,0)
+		light.light_color = Color("ffe5bb")
+		light.light_energy = 2
+		light.omni_range = 9
+		add_child(light)
+	build_workstation(Vector3(11.2,0,0.6),"TRAIN-PC-PVE","Proxmox")
+	build_workstation(Vector3(14,0,0.6),"TRAIN-PC-HV","Hyper-V")
+	build_workstation(Vector3(18,0,3.5),"EXAM-PC","Trénink")
+	for id in ["TRAIN-PC-PVE","TRAIN-PC-HV"]: devices[id].laboratory = true
+	for entry in [[11.5,"PVE-TRAIN-01","PVE-01","Proxmox"],[14.7,"HV-TRAIN-01","HV-01","Hyper-V"],[18.0,"RAID-TRAIN-01","NAS-01","Storage"]]:
+		build_rack(Vector3(entry[0],0,-3.5),"LAB")
+		var object = item(entry[1],entry[1]+" — cvičný server","server",Vector3(entry[0],1.4,-3.5),Vector3(1.25,0.4,0.95),entry[3])
+		object.device_id = entry[2]
+		object.laboratory = true
+		Geo.text(object.visual,entry[1],Vector3(0,0.03,0.49),32,0.002)
+		academy_targets[entry[2]] = object
+	# RAID station uses the exact same physical slots of the lesson's model.
+	for i in 8:
+		var disk = item("TRAIN-RAID:"+str(i),"Cvičný NAS — slot"+str(i),"disk",Vector3(17.55+(i%4)*0.3,1.38-floorf(float(i)/4)*0.23,-2.96),Vector3(0.26,0.18,0.1),"Storage")
+		disk.slot = str(i)
+		disk.pool = "RAID"
+		disk.laboratory = true
+		Geo.text(disk.visual,str(i),Vector3(0,0,0.06),26,0.0015)
+	var instructor = item("INSTRUCTOR","Virtuální instruktor — lekce a výsledky","instructor",Vector3(19.7,1.5,-0.3),Vector3(0.8,1.5,0.25),"Trénink")
+	Geo.box(instructor.visual,Vector3(0,0.55,0.15),Vector3(0.4,0.3,0.06),Color("5de6d1"),0,0.8)
+	Geo.text(instructor.visual,"INSTRUKTOR\n[E] LEKCE",Vector3(0,0,0.14),36,0.0025)
+	Geo.text(self,"SÍŤOVÁ LABORATOŘ  /  SW-CORE V SERVEROVNĚ",Vector3(14,2.2,0.3),32,0.003)
+	Geo.text(self,"ZKUŠEBNÍ PRACOVIŠTĚ",Vector3(18,2.4,3.4),40,0.003)
+
+func toggle_door():
+	var door = devices["ACADEMY-DOOR"]
+	if door_tween and door_tween.is_running(): return
+	if door_open and player.position.distance_to(Vector3(9,0,3.5))<1.8: return
+	door_open = not door_open
+	door_tween = create_tween()
+	door_tween.tween_property(door,"position:z",6.5 if door_open else 3.5,0.6).set_trans(Tween.TRANS_SINE)
+
 func sync_state():
 	if game == null or game.sim.state.is_empty(): return
 	for id in devices:
@@ -169,6 +229,7 @@ func sync_state():
 		var s = game.sim.state
 		match object.kind:
 			"server":
+				id = object.device_id
 				var status = "Healthy"
 				if not s.hosts[id].online: status = "Offline"
 				elif not preload("res://scripts/simulation/PhysicalOperations.gd").link_ok(s,id): status = "Warning"
