@@ -30,6 +30,7 @@ static func probe(s: Dictionary, id: String, destination: String = "application"
 		if other.get("exists",false) and other.id!=id and other.status=="Running" and other.ip==vm.ip and other.vlan==vm.vlan and not other.get("isolated",false):
 			return result(true,false,false,false,"Konflikt IP: další aktivní produkční VM používá stejnou adresu.")
 	var disk_ok = vm.disk_present and s.storage.used < s.storage.capacity and s.storage.metadata < 100 and s.raid.health != "Failed"
+	if vm.host=="PVE-02" and s.cluster.failed_over: disk_ok=disk_ok and s.cluster.shared
 	if vm.get("storage","")=="local-zfs": disk_ok = disk_ok and s.zfs.health!="Failed"
 	var app_ok = dns_ok and vm.service and vm.firewall and disk_ok and vm.get("data","")=="ACADEMY-DATA-v1"
 	return result(true, true, dns_ok, app_ok, "HTTPS 443 a data aplikace ověřeny." if app_ok else ("DNS server nepřekládá app.lab.example." if not dns_ok else "Ping odpovídá; aplikace selhává. Zkontroluj službu, disk, pool a cílené pravidlo firewallu."))

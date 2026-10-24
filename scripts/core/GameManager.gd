@@ -26,7 +26,7 @@ func _init():
 			if index >= 0 and index < missions.size():
 				current = missions[index]
 				sim.reset(current.initial_state)
-				if session.get("state") is Dictionary: sim.merge(sim.state,session.state)
+				if session.get("state") is Dictionary: Simulator.merge(sim.state,session.state)
 				sim.refresh_incidents()
 				training = session.get("training",false)
 				hints_used = int(session.get("hints",0))

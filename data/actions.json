@@ -1542,10 +1542,142 @@
           "Dynamic",
           "Differencing"
         ]
+      },
+      {
+        "key": "parent",
+        "label": "Rodič pro Differencing",
+        "type": "choice",
+        "default": "Žádný",
+        "options": [
+          "Žádný",
+          "BASE-WINDOWS.vhdx"
+        ]
       }
     ],
     "console": "Hyper-V",
-    "description": "Differencing vyžaduje neměnný rodičovský disk; v této laboratoři vytvářej samostatný datový disk.",
+    "description": "Differencing závisí na neměnném rodiči. BASE-WINDOWS.vhdx je ověřený read-only 80GB základ.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "guest_volume",
+    "label": "Připravit nový datový disk uvnitř VM",
+    "panel": "VHDX",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "style",
+        "label": "Partition style",
+        "type": "choice",
+        "default": "GPT",
+        "options": [
+          "GPT",
+          "MBR"
+        ]
+      },
+      {
+        "key": "fs",
+        "label": "Filesystem",
+        "type": "choice",
+        "default": "NTFS",
+        "options": [
+          "NTFS",
+          "ReFS"
+        ]
+      },
+      {
+        "key": "letter",
+        "label": "Písmeno",
+        "type": "choice",
+        "default": "E",
+        "options": [
+          "E",
+          "F"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Pouze nově vytvořený prázdný Fixed/Dynamic datový VHDX. Obsah differencing obrazu se nesmí formátovat.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "replica",
+    "label": "Hyper-V Replica",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Replica target",
+        "type": "choice",
+        "default": "HV-02",
+        "options": [
+          "HV-02",
+          "PVE-02"
+        ]
+      },
+      {
+        "key": "interval",
+        "label": "Interval replikace (sekundy)",
+        "type": "number",
+        "default": 300,
+        "min": 30,
+        "max": 900
+      },
+      {
+        "key": "points",
+        "label": "Historické recovery points",
+        "type": "number",
+        "default": 6,
+        "min": 0,
+        "max": 24
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Asynchronní replika na samostatném Hyper-V hostiteli. Neslouží jako nativní Failover Cluster ani nezávislá historie záloh.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "replica_test",
+    "label": "Test Failover do Private sítě",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Vytvoří izolovanou kopii902 ze skutečně synchronizovaného stavu repliky. Produkce může pokračovat.",
     "danger": false,
     "warning": ""
   },
@@ -2298,6 +2430,25 @@
     ],
     "console": "Storage",
     "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "quota_test",
+    "label": "Otestovat zápis proti kvótě",
+    "panel": "SMB / kvóty",
+    "fields": [
+      {
+        "key": "amount",
+        "label": "Simulovaný nový zápis (GB)",
+        "type": "number",
+        "default": 10,
+        "min": 1,
+        "max": 1000
+      }
+    ],
+    "console": "Storage",
+    "description": "Hard quota odmítne překročení limitu, Soft upozorní a dovolí zápis, pokud je fyzická rezerva.",
     "danger": false,
     "warning": ""
   },

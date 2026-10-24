@@ -44,6 +44,9 @@ func _draw():
 		var color = Color("3ddbc6") if i < 2 else (Color("609cff") if i < 4 else Color("aa99ff"))
 		var online = state.get("hosts",{}).get(names_list[i],{}).get("online",true)
 		var warning = (i == 4 and state.get("raid",{}).get("health","Healthy") != "Healthy")
+		if i==0 and state.get("zfs",{}).get("health","Healthy")!="Healthy": warning=true
+		for incident in state.get("incidents",[]):
+			if incident.device==("APP01" if i<2 else "FS01") and incident.state in ["Warning","Critical"] and ((i<2 and i==0) or (i>=2 and i==2)): warning=true
 		var led = Color("48df9b") if online else Color("ff6178")
 		if warning: led = Color("ffb65c")
 		draw_style_box(style(Color("101e30") if hovered != i else Color("192f45"),color if hovered == i else Color("263a50")),box)

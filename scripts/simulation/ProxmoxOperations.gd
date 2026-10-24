@@ -37,8 +37,10 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if not sim.get_vm(id).is_empty() or s.ct.has(id): return sim.reject("ID už používá existující VM nebo CT.")
 			if p.name.strip_edges().is_empty(): return sim.reject("Název nesmí být prázdný.")
 			var hv = action == "hv_create"
+			if hv and str(p.generation)=="1" and p.secure_boot: return sim.reject("Generation1 používá BIOS a Secure Boot nepodporuje. Použij vhodný Gen2 obraz nebo vypni tuto volbu u Gen1.")
 			if hv and not s.hosts["HV-01"].vmms: return sim.reject("Nejdřív nainstaluj roli a restartuj hostitele.")
 			if not hv and not s.hosts["PVE-01"].installed: return sim.reject("Na hostiteli není nainstalován Proxmox.")
+			if not hv and not s.hosts["PVE-01"].vt: return sim.reject("KVM VM vyžaduje dostupnou CPU virtualizaci VT-x/AMD-V.")
 			if not hv and p.storage == "PBS": return sim.reject("PBS je backup storage, nikoli diskové úložiště běžící VM.")
 			if not hv and ((p.os == "Linux" and p.iso != "debian.iso") or (p.os == "Windows Server" and p.iso != "windows-server.iso")): return sim.reject("Typ OS a instalační ISO si neodpovídají.")
 			if hv and (p.minimum > p.ram or p.ram > p.maximum): return sim.reject("Minimum ≤ Startup ≤ Maximum RAM.")
@@ -62,7 +64,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if hv: vm.generation = int(p.generation); vm.firmware = "UEFI" if vm.generation == 2 else "BIOS"
 			s.vms[id] = vm
 			s.storage.provisioned += p.disk
-			s.storage.used += minf(p.disk,8.0)
+			s.storage.used += float(p.disk) if hv and p.vhd_type=="Fixed" else minf(p.disk,8.0)
 			return sim.success("VM %s / %s vytvořena; instalace OS simulována. Nyní spusť VM a ověř aplikaci." % [id,p.name])
 		"power":
 			var vm = sim.get_vm(str(p.vm))
@@ -85,6 +87,8 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			var vm = sim.get_vm(str(p.vm))
 			if vm.is_empty(): return sim.reject("VM neexistuje.")
 			if not s.network.switches.has(p.bridge): return sim.reject("Zvolený switch ještě neexistuje. Vytvoř jej ve Switch Manageru.")
+			var owner=s.network.switches[p.bridge].get("owner","Hyper-V")
+			if owner!="SharedLab" and ((vm.host.begins_with("PVE") and owner!="Proxmox") or (vm.host.begins_with("HV") and owner!="Hyper-V")): return sim.reject("Virtuální switch patří jinému hypervisoru. Platformy propojuje fyzická síť, nikoli jeden nativní bridge.")
 			for key in ["ip","gateway","dns"]:
 				if not sim.valid_ip(str(p[key])): return sim.reject("Neplatná IPv4 adresa v poli " + key)
 			if not p.firewall: return sim.reject("Vypnutí ochrany není oprava VLAN. Nastav cílené povolení služby 443.",true)
@@ -144,6 +148,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			var copy = sim.get_vm(str(p.id))
 			var old = sim.get_vm(str(p.vm))
 			if copy.is_empty() or copy.id == str(p.vm): return sim.reject("Ověřená kopie a cílová produkční identita musí být odlišné.")
+			if str(copy.identity)!=str(p.vm): return sim.reject("Obnova pochází z jiné služby/identity. Ověř zdrojový backup; APP01 nelze vydávat za FS01.",true)
 			if not old.is_empty() and old.status == "Running": return sim.reject("Původní instance ještě běží. Dvě stejné identity nesmějí do produkce.",true)
 			copy = copy.duplicate(true)
 			copy.id = str(p.vm)

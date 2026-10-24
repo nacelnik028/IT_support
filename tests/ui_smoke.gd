@@ -11,6 +11,7 @@ func check(ok, message):
 	if not ok: failures+=1; push_error(message)
 
 func run():
+	if "--small" in OS.get_cmdline_user_args(): root.size=Vector2i(1280,720)
 	ui=load("res://scenes/main_menu/Main.tscn").instantiate()
 	root.add_child(ui)
 	await process_frame
@@ -62,15 +63,34 @@ func run():
 			check(not ui.bad_notice,"UI mise %d, %s: %s" % [i+1,step[0],ui.notice])
 		for goal in ui.game.goals(): check(goal.passed,"UI mise %d: %s" % [i+1,goal.label])
 		check(ui.game.complete().ok,"UI dokončení mise %d" % (i+1))
+		ui.show_review()
+		await process_frame
+		var correct_text=ui.game.current.review.options[int(ui.game.current.review.correct)]
+		var answer=find_button(ui,correct_text)
+		check(answer!=null,"UI otázka má odpověď")
+		if answer: answer.pressed.emit()
+		await process_frame
+		check(ui.game.sim.state.get("review_answered",false),"Odpověď na kontextovou otázku uložena")
+		for dialog in ui.get_children():
+			if dialog is AcceptDialog and not dialog.is_queued_for_deletion(): dialog.confirmed.emit()
+		await process_frame
 		print("UI MISSION %02d PASS" % (i+1))
+	await create_timer(0.2).timeout
 	ui.queue_free()
 	await process_frame
 	print("UI SMOKE: 24 missions through form signals; %d failures" % failures)
 	quit(0 if failures==0 else 1)
+
+func find_button(node: Node, text: String):
+	if node is Button and node.text==text: return node
+	for child in node.get_children():
+		var found=find_button(child,text)
+		if found: return found
+	return null
 
 func capture(title):
 	await process_frame
 	await process_frame
 	if DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://test-output/"+title+".png")
+		root.get_texture().get_image().save_png("res://test-output/"+("small-" if "--small" in OS.get_cmdline_user_args() else "")+title+".png")

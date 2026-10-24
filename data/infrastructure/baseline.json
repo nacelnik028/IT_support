@@ -23,7 +23,22 @@
     "PVE-02": {
       "kind": "Proxmox",
       "online": true,
-      "ram": 64
+      "ram": 64,
+      "vt": true,
+      "iommu": false,
+      "mode": "HBA",
+      "ups": true,
+      "console": true,
+      "ip": "192.168.10.11",
+      "gateway": "192.168.10.1",
+      "dns": "192.168.10.2",
+      "hostname": "pve02.lab.example",
+      "installed": true,
+      "repo": "No-subscription",
+      "environment": "Lab",
+      "updated": false,
+      "mfa": false,
+      "role": "Administrator"
     },
     "HV-01": {
       "kind": "Hyper-V",
@@ -41,7 +56,15 @@
     "HV-02": {
       "kind": "Hyper-V",
       "online": true,
-      "ram": 32
+      "ram": 32,
+      "reserve": 4,
+      "other_ram": 8,
+      "vt": true,
+      "slat": true,
+      "dep": true,
+      "role": true,
+      "rebooted": true,
+      "vmms": true
     },
     "NAS-01": {
       "kind": "Storage",
@@ -133,17 +156,20 @@
       "vmbr0": {
         "type": "External",
         "uplink": true,
-        "vlan_aware": true
+        "vlan_aware": true,
+        "owner": "Proxmox"
       },
       "vSwitch-LAN": {
         "type": "External",
         "uplink": true,
-        "vlan_aware": true
+        "vlan_aware": true,
+        "owner": "Hyper-V"
       },
       "LAB": {
         "type": "Private",
         "uplink": false,
-        "vlan_aware": true
+        "vlan_aware": true,
+        "owner": "SharedLab"
       }
     }
   },
@@ -417,5 +443,12 @@
     "authenticated": false,
     "export": {},
     "completed": false
+  },
+  "images": {
+    "BASE-WINDOWS.vhdx": {
+      "capacity": 80,
+      "read_only": true,
+      "data": "BASE-OS"
+    }
   }
 }

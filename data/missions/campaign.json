@@ -73,6 +73,15 @@
     "explanations": "Hostitel poskytuje CPU, RAM a storage hostům. VM má vlastní kernel; LXC jej sdílí. HBA poskytne ZFS přístup k diskům. Rezerva RAM patří i hostiteli a ZFS. UPS a konzole zjednoduší bezpečný zásah při výpadku sítě.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Kdy potřebuješ IOMMU?",
+      "options": [
+        "Pro PCIe passthrough.",
+        "Povinně pro každou běžnou VM."
+      ],
+      "correct": 0,
+      "explanation": "IOMMU není totéž co CPU virtualizace VT-x/AMD-V."
     }
   },
   {
@@ -128,6 +137,36 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.hostname",
+        "value": "pve01.lab.example",
+        "label": "Management: hostname",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.ip",
+        "value": "192.168.10.10",
+        "label": "Management: ip",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.gateway",
+        "value": "192.168.10.1",
+        "label": "Management: gateway",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.dns",
+        "value": "192.168.10.2",
+        "label": "Management: dns",
+        "op": "eq"
+      },
+      {
+        "path": "install.disks",
+        "value": "SYS-A + SYS-B",
+        "label": "Správné instalační disky",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -142,6 +181,15 @@
     "explanations": "Instalátor smaže cílové disky. ZFS mirror chrání proti výpadku člena, nikoli proti smazání nebo ztrátě serveru.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Co ověřit před instalací PVE?",
+      "options": [
+        "Jen součet kapacit.",
+        "Identitu cílových disků a zálohu původních dat."
+      ],
+      "correct": 1,
+      "explanation": "Instalátor přepíše vybrané disky."
     }
   },
   {
@@ -228,6 +276,42 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "vms.100.name",
+        "value": "APP01",
+        "label": "APP01: name",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.iso",
+        "value": "debian.iso",
+        "label": "APP01: iso",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.os",
+        "value": "Linux",
+        "label": "APP01: os",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.storage",
+        "value": "local-lvm",
+        "label": "APP01: storage",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.bridge",
+        "value": "vmbr0",
+        "label": "APP01: bridge",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.vlan",
+        "value": 20,
+        "label": "APP01: vlan",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -242,6 +326,15 @@
     "explanations": "VM má vlastní kernel. Guest Agent pomáhá korektnímu vypnutí a konzistenci záloh; není sám zálohovacím nástrojem.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Čím se LXC liší od VM?",
+      "options": [
+        "Sdílí kernel hostitele.",
+        "Má vždy vlastní Windows kernel."
+      ],
+      "correct": 0,
+      "explanation": "LXC je linuxový kontejner; VM má vlastní kernel."
     }
   },
   {
@@ -290,6 +383,12 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "vms.100.ip",
+        "value": "192.168.20.100",
+        "label": "Původní správná IP zachována",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -304,6 +403,15 @@
     "explanations": "Nesprávný VLAN tag přeruší L2 cestu jediné VM. IP, DNS i aplikace mají vlastní kontroly; plošné vypnutí firewallu příčinu neopraví.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Ping odpovídá. Je aplikace ověřená?",
+      "options": [
+        "Ano, ping dokazuje funkci HTTPS.",
+        "Ještě je nutné ověřit DNS, port a aplikaci."
+      ],
+      "correct": 1,
+      "explanation": "ICMP neověří službu ani její data."
     }
   },
   {
@@ -365,6 +473,15 @@
     "explanations": "Thin provisioning přislíbí více kapacity, než je fyzicky dostupné. Hlídej data i metadata; LVM-thin samo není redundantní.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Je 800GB přislíbených disků 800GB fyzického místa?",
+      "options": [
+        "Ne, thin pool může mít menší skutečnou kapacitu.",
+        "Ano, kapacita se alokuje vždy celá."
+      ],
+      "correct": 0,
+      "explanation": "U thin kontroluj data, metadata a provozní rezervu."
     }
   },
   {
@@ -429,6 +546,18 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "vms.900.identity",
+        "value": "100",
+        "label": "Otestována záloha správné APP01",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.100.name",
+        "value": "APP01",
+        "label": "Záloha správné služby",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -443,6 +572,15 @@
     "explanations": "Snapshot zůstává závislý na stejném poolu. Verify kontroluje integritu; až test aplikace a dat prokáže obnovitelnost. RPO je ztráta dat, RTO čas obnovy.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Nahrazuje PBS Verify test aplikace po obnově?",
+      "options": [
+        "Ano, potvrzuje přihlášení do aplikace.",
+        "Ne, kontroluje integritu zálohy."
+      ],
+      "correct": 1,
+      "explanation": "Test obnovy musí ověřit OS, službu a aplikační data."
     }
   },
   {
@@ -509,6 +647,15 @@
     "explanations": "Resilver obnovuje chybějící kopii. Vytažení druhého zdravého člena by mohlo zastavit celý pool. Jde o datový mirror; systémový rpool navíc vyžaduje bootloader.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Obnoví samotný scrub vadný fyzický disk?",
+      "options": [
+        "Ne, vadný člen se musí bezpečně vyměnit.",
+        "Ano, scrub vytvoří nový hardware."
+      ],
+      "correct": 0,
+      "explanation": "Scrub kontroluje data; resilver obnovuje redundanci na náhradním členu."
     }
   },
   {
@@ -588,6 +735,15 @@
     "explanations": "HA potřebuje quorum, fencing, data i prostředky. Po havárii VM restartuje a ztratí RAM. QDevice není další výpočetní uzel. Hyper-V do PVE clusteru nepatří.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Zachová HA po havárii hostitele jeho RAM?",
+      "options": [
+        "Ano, pokračuje bez ztráty běžící paměti.",
+        "Ne, VM se zpravidla restartuje."
+      ],
+      "correct": 1,
+      "explanation": "HA potřebuje quorum, fencing, dostupná data a kapacitu."
     }
   },
   {
@@ -656,6 +812,15 @@
     "explanations": "Hyper-V je hypervisor typu 1. Samotné management tools neznamenají běžící hypervisor; VMMS kontroluj až po dokončeném restartu.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Stačí nainstalovat Hyper-V Manager?",
+      "options": [
+        "Ne, hostitel potřebuje roli a dokončený restart.",
+        "Ano, Manager sám spouští hypervisor."
+      ],
+      "correct": 0,
+      "explanation": "Správní nástroje a hypervisor jsou odlišné komponenty."
     }
   },
   {
@@ -712,6 +877,12 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "vms.200.ip",
+        "value": "192.168.20.200",
+        "label": "Správná IP FS01",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -726,6 +897,15 @@
     "explanations": "External propojuje VM s fyzickou sítí. Internal přidává hostitelský OS; Private pouze VM na témže hostiteli. Žádný typ sám nevytvoří IP konfiguraci.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Má Internal switch automaticky přístup do internetu?",
+      "options": [
+        "Ano, vždy využije internet hostitele.",
+        "Ne, NAT nebo routing se nastavuje zvlášť."
+      ],
+      "correct": 1,
+      "explanation": "Internal propojuje VM a hostitelský OS; Private jen VM na stejném hostiteli."
     }
   },
   {
@@ -812,6 +992,48 @@
         "value": true,
         "label": "Provedena diagnostika",
         "op": "eq"
+      },
+      {
+        "path": "vms.200.name",
+        "value": "FS01",
+        "label": "FS01: name",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.iso",
+        "value": "windows-server.iso",
+        "label": "FS01: iso",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.dynamic",
+        "value": true,
+        "label": "FS01: dynamic",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vhd_type",
+        "value": "Dynamic",
+        "label": "FS01: vhd_type",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.agent",
+        "value": true,
+        "label": "FS01: agent",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.bridge",
+        "value": "vSwitch-LAN",
+        "label": "FS01: bridge",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vlan",
+        "value": 20,
+        "label": "FS01: vlan",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -826,6 +1048,15 @@
     "explanations": "Generaci nelze běžně přepnout existující VM. Secure Boot vyžaduje šablonu vhodnou pro OS; u tohoto Windows obrazu je podporovaný.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Jaký firmware používá Generation 2?",
+      "options": [
+        "UEFI.",
+        "Klasický BIOS jako jedinou možnost."
+      ],
+      "correct": 0,
+      "explanation": "Generation 2 podporuje Secure Boot pro vhodný guest OS."
     }
   },
   {
@@ -898,6 +1129,15 @@
     "explanations": "Startup RAM je nutná při startu. Maximum je horní mez, nikoli fyzická rezerva. Přidání vCPU tento problém neřeší.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Je maximum Dynamic Memory rezervovaná fyzická RAM?",
+      "options": [
+        "Ano, každý host ji vždy plně rezervuje.",
+        "Ne, je to horní mez přidělení."
+      ],
+      "correct": 1,
+      "explanation": "Při startu potřebuje VM startup RAM a hostitel vlastní rezervu."
     }
   },
   {
@@ -955,6 +1195,15 @@
     "explanations": "Resize VHDX nezvětší oddíl. Online resize závisí na typu řadiče; zde procvičuješ konzervativní postup s vypnutím.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Zvětší Resize-VHD i oddíl uvnitř VM?",
+      "options": [
+        "Ne, oddíl/filesystem rozšiř samostatně.",
+        "Ano, oba kroky jsou automaticky totožné."
+      ],
+      "correct": 0,
+      "explanation": "Každá kapacitní vrstva má vlastní velikost a podmínky růstu."
     }
   },
   {
@@ -1028,6 +1277,15 @@
     "explanations": "Production checkpoint používá VSS / filesystem freeze; není nezávislý backup. Delete checkpoint přes Manager slučuje data. Ruční smazání AVHDX může zničit celý řetězec.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Je Production checkpoint nezávislý backup?",
+      "options": [
+        "Ano, automaticky leží na jiném serveru.",
+        "Ne, závisí na původním storage."
+      ],
+      "correct": 1,
+      "explanation": "Production checkpoint využívá VSS; nemaž ručně AVHDX."
     }
   },
   {
@@ -1090,6 +1348,15 @@
     "explanations": "Live Migration je plánovaný přesun běžící VM. HA po havárii VM restartuje. Export/import Restore zachovává VM ID; Copy nevytvoří novou identitu OS.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Změní import Copy i IP a identitu OS?",
+      "options": [
+        "Ne, nové je Hyper-V VM ID.",
+        "Ano, přegeneruje celou identitu Windows."
+      ],
+      "correct": 0,
+      "explanation": "Kopii se stejnou OS identitou nejprve izoluj."
     }
   },
   {
@@ -1157,6 +1424,15 @@
     "explanations": "Existence backupu nestačí. Obnova musí obsahovat aktuální aplikační data a správnou identitu. Hyper-V Replica není totéž co historická záloha.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Co prokazuje úspěšnou obnovu?",
+      "options": [
+        "Pouhá existence zálohového souboru.",
+        "Funkční aplikace se správnými daty."
+      ],
+      "correct": 1,
+      "explanation": "Testuj obnovenou kopii izolovaně a pak bezpečně přepni provoz."
     }
   },
   {
@@ -1275,6 +1551,15 @@
     "explanations": "RAID6 přežije dvě poruchy členů; RAID5 jen jednu. 8TB není 8TiB. RAID neposkytuje historii ani ochranu proti smazání.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Kolik běžných selhání členů toleruje RAID6?",
+      "options": [
+        "Dva.",
+        "Libovolné tři."
+      ],
+      "correct": 0,
+      "explanation": "RAID6 má dvě parity; RAID5 jednu."
     }
   },
   {
@@ -1354,6 +1639,15 @@
     "explanations": "Příkaz Create není oprava existujícího pole. Výběr podle identity je zásadní; nepoužívej automaticky všechny dostupné disky.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Zvyšuje hot spare běžnou datovou kapacitu?",
+      "options": [
+        "Ano, připočítá se jako datový člen.",
+        "Ne, slouží jako náhrada pro obnovu redundance."
+      ],
+      "correct": 1,
+      "explanation": "Rebuild stále trvá a pole během něj nemá plnou odolnost."
     }
   },
   {
@@ -1424,6 +1718,15 @@
     "explanations": "RAW na novém prázdném disku je jiný případ než RAW na původním datovém disku. Ten se bez diagnostiky neformátuje.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Původní disk je náhle RAW. Co nejdřív?",
+      "options": [
+        "Diagnostika logů, spojení a plán obnovy.",
+        "Okamžitý formát na NTFS."
+      ],
+      "correct": 0,
+      "explanation": "Inicializace patří novému prázdnému disku, ne neznámým původním datům."
     }
   },
   {
@@ -1502,6 +1805,15 @@
     "explanations": "Efektivní práva omezují share i NTFS ACL. FSRM nepodporuje ReFS. Kvóta chrání kapacitu, ale nezvětšuje pool ani nenahrazuje monitoring.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Podporuje FSRM kvóty na ReFS?",
+      "options": [
+        "Ano, NTFS a ReFS jsou ve všem stejné.",
+        "Ne, FSRM vyžaduje NTFS."
+      ],
+      "correct": 1,
+      "explanation": "Hard quota blokuje další zápis; Soft jen sleduje a upozorňuje."
     }
   },
   {
@@ -1568,6 +1880,15 @@
     "explanations": "RAID10 může přežít dva výpadky v různých párech, ale dva ve stejném páru znamenají selhání. Náhradní disk ještě není obnovená redundance.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Přežije RAID10 libovolné dvě poruchy?",
+      "options": [
+        "Ne, oba členové stejného mirror páru znamenají selhání.",
+        "Ano, každou dvojici stejně jako RAID6."
+      ],
+      "correct": 0,
+      "explanation": "Záleží na konkrétních členech a rozložení párů."
     }
   },
   {
@@ -1653,6 +1974,15 @@
     "explanations": "Volné místo ve VM nezaručuje rezervu na hostiteli. Jednotlivé kapacitní vrstvy se nezvětšují automaticky.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Dokazuje volné místo ve VM rezervu na SAN?",
+      "options": [
+        "Ano, číslo ve VM popisuje celé pole.",
+        "Ne, kontroluj všechny podkladové vrstvy."
+      ],
+      "correct": 1,
+      "explanation": "Thin může být na více vrstvách současně."
     }
   },
   {
@@ -1718,6 +2048,15 @@
     "explanations": "Více neclusterovaných hostitelů nesmí nezávisle zapisovat na tentýž běžný NTFS/ReFS LUN. MPIO neřeší konzistenci více zapisovatelů.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Vytváří MPIO druhou kopii dat?",
+      "options": [
+        "Ne, více cest k jednomu LUN.",
+        "Ano, je to RAID přes síťové karty."
+      ],
+      "correct": 0,
+      "explanation": "Více neclusterovaných zapisovatelů může poškodit běžný NTFS/ReFS LUN."
     }
   },
   {
@@ -1813,6 +2152,18 @@
         "value": true,
         "label": "Nová nezávislá záloha po zásahu",
         "op": "eq"
+      },
+      {
+        "path": "vms.900.identity",
+        "value": "100",
+        "label": "Otestována záloha správné APP01",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.100.name",
+        "value": "APP01",
+        "label": "Záloha správné služby",
+        "op": "eq"
       }
     ],
     "failure_conditions": [
@@ -1827,6 +2178,15 @@
     "explanations": "Jedna zelená LED nestačí. Ověř RAID, fyzickou kapacitu, obě sítě, aplikační službu i skutečnou obnovu dat. Různé hypervisory sdílejí služby, ne nativní cluster.",
     "rewards": {
       "xp": 300
+    },
+    "review": {
+      "question": "Nahradí cluster historické zálohy?",
+      "options": [
+        "Ano, HA automaticky vyřeší smazání i ransomware.",
+        "Ne, dostupnost a historie obnovy jsou samostatné vlastnosti."
+      ],
+      "correct": 1,
+      "explanation": "RAID, HA, replikace, snapshot a backup řeší různé typy selhání."
     }
   }
 ]

@@ -8,7 +8,9 @@ static func save_path() -> String:
 
 static func load_game() -> Dictionary:
 	if not FileAccess.file_exists(save_path()): return {}
-	var result = JSON.parse_string(FileAccess.get_file_as_string(save_path()))
+	var parser=JSON.new()
+	if parser.parse(FileAccess.get_file_as_string(save_path()))!=OK: return {}
+	var result = parser.data
 	return result if result is Dictionary and result.get("schema",0) == 1 else {}
 
 static func save_game(data: Dictionary) -> Error:

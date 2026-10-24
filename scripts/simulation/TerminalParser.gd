@@ -87,7 +87,9 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 			match verb:
 				"get-vm": rows.append("%s %s %s Gen%s %s GB %s" % [id,vm.name,vm.status,vm.get("generation",2),vm.ram,vm.host])
 				"get-vmnetworkadapter": rows.append("%s Switch=%s VLAN=%s IP=%s" % [vm.name,vm.bridge,vm.vlan,vm.ip])
-				"get-vmharddiskdrive": rows.append("%s SCSI VHDX %s GB | guest FS %s GB | available=%s" % [vm.name,vm.disk,vm.filesystem,vm.disk_present])
+				"get-vmharddiskdrive":
+					rows.append("%s SCSI VHDX %s GB | guest FS %s GB | available=%s" % [vm.name,vm.disk,vm.filesystem,vm.disk_present])
+					if vm.has("data_disk"): rows.append("Datový disk: "+JSON.stringify(vm.data_disk))
 				"get-vmmemory": rows.append("%s Startup=%sGB Min=%sGB Max=%sGB Dynamic=%s" % [vm.name,vm.ram,vm.get("minimum",vm.ram),vm.get("maximum",vm.ram),vm.get("dynamic",false)])
 				"get-vmintegrationservice": rows.append("%s Heartbeat=%s VSS=%s" % [vm.name,vm.agent,vm.get("vss",false)])
 				"get-vmsnapshot": rows.append(vm.name+": "+JSON.stringify(vm.get("checkpoints",[])))

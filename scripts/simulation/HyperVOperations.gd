@@ -24,7 +24,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if p.name.strip_edges().is_empty(): return sim.reject("Switch potřebuje název.")
 			var external = p.type == "External"
 			if external and p.adapter != "Ethernet2": return sim.reject("External switch vyžaduje správný fyzický uplink Ethernet2.")
-			s.network.switches[p.name] = {"type":p.type,"uplink":external,"vlan_aware":true,"management":p.management,"host":"HV-01"}
+			s.network.switches[p.name] = {"type":p.type,"uplink":external,"vlan_aware":true,"management":p.management,"host":"HV-01","owner":"Hyper-V"}
 			return sim.success("vSwitch %s (%s) vytvořen. Neposkytuje automaticky DHCP ani NAT." % [p.name,p.type])
 		"memory":
 			var vm = sim.get_vm(str(p.vm))
@@ -43,11 +43,52 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 		"attach_vhd":
 			var vm = sim.get_vm(str(p.vm))
 			if vm.is_empty(): return sim.reject("VM neexistuje.")
-			if p.type == "Differencing": return sim.reject("Pro nový datový disk chybí neměnný rodič. Použij Fixed nebo Dynamic.")
+			var parent=str(p.get("parent","Žádný"))
+			if p.type == "Differencing" and (not s.images.has(parent) or not s.images[parent].read_only or p.size!=s.images[parent].capacity): return sim.reject("Differencing vyžaduje existující neměnný rodič a jeho logickou kapacitu (BASE-WINDOWS.vhdx:80GB).")
 			if vm.get("data_disk",{}).get("path","") == p.path: return sim.reject("Cesta už existuje. Nepřepisuj aktivní VHDX.",true)
 			if p.size > s.storage.host_fs-s.storage.used: return sim.reject("Hostitelský filesystem nemá potřebnou rezervu.")
-			vm.data_disk = {"path":p.path,"capacity":p.size,"type":p.type,"filesystem":0,"new":true}
-			return sim.success("Datový VHDX připojen na SCSI. Uvnitř VM je zatím bez oddílu.")
+			if vm.has("data_disk"): return sim.reject("Tento datový slot už je obsazený. Nepřepisuj existující VHDX.",true)
+			var footprint=float(p.size) if p.type=="Fixed" else 1.0
+			if footprint>s.storage.capacity-s.storage.used: return sim.reject("Pool nemá fyzické místo pro tuto alokaci.")
+			vm.data_disk = {"path":p.path,"capacity":p.size,"type":p.type,"filesystem":0,"new":p.type!="Differencing","parent":parent,"used":footprint}
+			s.storage.used+=footprint
+			s.storage.provisioned+=p.size
+			return sim.success("Differencing disk připojen; data závisí na neměnném rodiči, který nesmíš smazat." if p.type=="Differencing" else "Datový VHDX připojen na SCSI. Uvnitř VM je zatím bez oddílu.")
+		"guest_volume":
+			var vm=sim.get_vm(str(p.vm))
+			if vm.is_empty() or not vm.has("data_disk"): return sim.reject("Nejprve připoj nový datový VHDX.")
+			if vm.status!="Running": return sim.reject("Disk Management uvnitř guest OS potřebuje běžící VM.")
+			if not vm.data_disk.new: return sim.reject("Disk už obsahuje oddíl nebo původní data. Formátování není diagnostika.",true)
+			vm.data_disk.filesystem=vm.data_disk.capacity
+			vm.data_disk.style=p.style
+			vm.data_disk.fs=p.fs
+			vm.data_disk.letter=p.letter
+			vm.data_disk.new=false
+			return sim.success("Nový datový disk uvnitř VM připraven: %s: / %s / %s GB." % [p.letter,p.fs,vm.data_disk.capacity])
+		"replica":
+			var vm=sim.get_vm(str(p.vm))
+			if vm.is_empty() or not vm.host.begins_with("HV"): return sim.reject("Replica vyžaduje Hyper-V VM.")
+			if p.target!="HV-02" or vm.host==p.target: return sim.reject("Cílem musí být jiný kompatibilní Hyper-V hostitel; PVE není nativní Replica target.")
+			if not s.hosts[p.target].online or not vm.disk_present: return sim.reject("Chybí dostupný cílový hostitel nebo zdrojový disk.")
+			if not int(p.interval) in [30,300,900]: return sim.reject("Podporované intervaly v laboratoři:30,300,900 sekund.")
+			var snapshot=vm.duplicate(true)
+			snapshot.erase("replica")
+			vm.replica={"target":p.target,"interval":p.interval,"points":p.points,"health":"Healthy","snapshot":snapshot}
+			return sim.success("Prvotní synchronizace Replica dokončena. RPO závisí na intervalu i poslední úspěšné synchronizaci.")
+		"replica_test":
+			var vm=sim.get_vm(str(p.vm))
+			if vm.is_empty() or not vm.has("replica"): return sim.reject("Nejprve nakonfiguruj a synchronizuj repliku.")
+			if not sim.get_vm("902").is_empty(): return sim.reject("Testovací902 už existuje; nejprve restartuj laboratoř nebo použij existující kopii.")
+			var copy=vm.replica.snapshot.duplicate(true)
+			copy.id="902"
+			copy.name+="-REPLICA-TEST"
+			copy.host=vm.replica.target
+			copy.bridge="LAB"
+			copy.isolated=true
+			copy.status="Off"
+			s.vms["902"]=copy
+			s.restored_id="902"
+			return sim.success("Test Failover vytvořil izolovanou902. Spusť ji a ověř data; produkce běží dál. Replika není nezávislá záloha.")
 		"checkpoint":
 			var vm = sim.get_vm(str(p.vm))
 			if vm.is_empty(): return sim.reject("VM neexistuje.")

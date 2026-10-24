@@ -12,6 +12,10 @@ base['hosts']['PVE-01'].update(vt=True,mode='HBA',ups=True,console=True,ip='192.
 for vm in base['vms'].values():
     vm.update(exists=True,iso='debian.iso' if vm['id']=='100' else 'windows-server.iso',os='Linux' if vm['id']=='100' else 'Windows Server',firmware='UEFI',nic='VirtIO' if vm['id']=='100' else 'Synthetic',storage='local-lvm',boot='Disk',data='ACADEMY-DATA-v1',isolated=False,identity=vm['id'],vhd_type='Dynamic',auto_start='StartIfRunning',auto_stop='ShutDown')
 base['storage'].update(reclaimable=80,metadata=20)
+base['hosts']['PVE-02'].update({**base['hosts']['PVE-01'],'ip':'192.168.10.11','hostname':'pve02.lab.example'})
+base['hosts']['HV-02'].update(base['hosts']['HV-01'])
+base['images']={'BASE-WINDOWS.vhdx':{'capacity':80,'read_only':True,'data':'BASE-OS'}}
+for sw,owner in [('vmbr0','Proxmox'),('vSwitch-LAN','Hyper-V'),('LAB','SharedLab')]: base['network']['switches'][sw]['owner']=owner
 base.update(install={'disks':[],'type':'','nic':'','web':False},zfs={'level':'ZFS mirror','health':'Healthy','members':['A','B'],'capacity':1000,'progress':100,'rebuilding':False,'disks':{'A':{'serial':'PVE-A','capacity':1000,'health':'Healthy'},'B':{'serial':'PVE-B','capacity':1000,'health':'Healthy'}}},backup={'configured':True,'target':'PBS','fingerprint':'AA:42','interval':24,'retention':7,'verified':False,'gc':False,'records':{k:v.copy() for k,v in base['vms'].items()}},cluster={'configured':True,'qdevice':True,'peer_online':True,'fenced':False,'shared':True,'ha':True,'failed_over':False},disk={'id':'DISK1','serial':'VOL-NEW-01','capacity':1000,'size':0,'used':0,'online':False,'style':'RAW','fs':'','letter':'','new':True,'old_data':False,'adjacent':True},share={'name':'','group':'','ntfs':'','access':'','quota':0,'mode':'Soft','filesystem':'NTFS','tested':False},san={'target':'','initiator':'','lun':'LUN-01','paths':0,'mpio':False,'writers':[],'clustered':False,'tested':False},ct={},foreign={'present':True,'complete':True,'origin':'Původní pole'},restored_id='',created_raid={},checkpoint_applied='',migration={'cpu_compatible':True,'authenticated':False,'export':{},'completed':False})
 write('data/infrastructure/baseline.json',base)
 
@@ -73,7 +77,10 @@ H('power','Start / Shut Down','Virtuální stroje',[vm_field('200'),choice('powe
 H('memory','Nastavit Dynamic Memory','Virtuální stroje',[vm_field('200'),yes('dynamic','Dynamic Memory',True),num('minimum','Minimum (GB)',2,min=1,max=32),num('ram','Startup (GB)',4,min=1,max=32),num('maximum','Maximum (GB)',8,min=1,max=32)],description='Konfiguruj vypnutou VM. Minimum ≤ Startup ≤ Maximum. Počítej s rezervou 4 GB pro hostitele a dalšími VM.')
 H('integration','Integration Services a VSS','Virtuální stroje',[vm_field('200'),yes('agent','Integration Services / heartbeat',True),yes('vss','Opravený VSS writer',True),choice('auto_start','Automatic start',['StartIfRunning','Nothing'],'StartIfRunning'),choice('auto_stop','Automatic stop',['ShutDown','TurnOff'],'ShutDown')])
 H('capacity','Resize VHDX / Extend Volume','VHDX',[choice('layer','Vrstva',['VM disk','Guest filesystem','Pool','Logical disk','Host filesystem']),num('size','Cílová velikost (GB)',150,min=1,max=16000),vm_field('200')],description='Před resize kontroluj zálohu, prostor a checkpointový řetězec. Zde používej jednoduchý postup s vypnutou VM.')
-H('attach_vhd','Přidat nový datový VHDX','VHDX',[vm_field('200'),F('path','Nová cesta',default='D:/HyperV/FS01-data.vhdx'),num('size','Velikost (GB)',100,min=1,max=1000),choice('type','Typ',['Fixed','Dynamic','Differencing'],'Dynamic')],description='Differencing vyžaduje neměnný rodičovský disk; v této laboratoři vytvářej samostatný datový disk.')
+H('attach_vhd','Přidat nový datový VHDX','VHDX',[vm_field('200'),F('path','Nová cesta',default='D:/HyperV/FS01-data.vhdx'),num('size','Velikost (GB)',100,min=1,max=1000),choice('type','Typ',['Fixed','Dynamic','Differencing'],'Dynamic'),choice('parent','Rodič pro Differencing',['Žádný','BASE-WINDOWS.vhdx'])],description='Differencing závisí na neměnném rodiči. BASE-WINDOWS.vhdx je ověřený read-only 80GB základ.')
+H('guest_volume','Připravit nový datový disk uvnitř VM','VHDX',[vm_field('200'),choice('style','Partition style',['GPT','MBR']),choice('fs','Filesystem',['NTFS','ReFS']),choice('letter','Písmeno',['E','F'])],description='Pouze nově vytvořený prázdný Fixed/Dynamic datový VHDX. Obsah differencing obrazu se nesmí formátovat.')
+H('replica','Hyper-V Replica','Migrace',[vm_field('200'),choice('target','Replica target',['HV-02','PVE-02']),num('interval','Interval replikace (sekundy)',300,min=30,max=900),num('points','Historické recovery points',6,min=0,max=24)],description='Asynchronní replika na samostatném Hyper-V hostiteli. Neslouží jako nativní Failover Cluster ani nezávislá historie záloh.')
+H('replica_test','Test Failover do Private sítě','Migrace',[vm_field('200')],description='Vytvoří izolovanou kopii902 ze skutečně synchronizovaného stavu repliky. Produkce může pokračovat.')
 H('checkpoint','Create checkpoint','Checkpointy',[vm_field('200'),F('name','Název',default='Pred-zmenou'),choice('type','Typ',['Production','Standard'],'Production')],description='Production používá VSS a nezachycuje RAM. Standard zachycuje RAM, ale není aplikačně konzistentní záloha.')
 H('checkpoint_action','Apply / Delete checkpoint','Checkpointy',[vm_field('200'),F('name','Název checkpointu',default='Pred-zmenou'),choice('operation','Operace',['Apply','Delete (merge)','Ruční smazání AVHDX'])],danger=True,warning='Apply vrací data do minulého stavu. Delete přes Manager sloučí AVHDX; ruční mazání poruší řetězec.')
 H('live_migrate','Live Migration','Migrace',[vm_field('200'),choice('target','Cílový hostitel',['HV-02','PVE-02']),choice('auth','Ověřování',['Kerberos','CredSSP'],'Kerberos'),yes('storage','Přenést / zpřístupnit kompletní disky',True)],description='Pouze mezi kompatibilními Hyper-V hostiteli. V laboratoři WS2025 s Credential Guard použij Kerberos.')
@@ -98,6 +105,7 @@ S('volume','New Simple Volume','Disk Management',[num('size','Velikost (GB)',100
 S('volume_extend','Extend Volume','Disk Management',[num('size','Cílová velikost (GB)',1500,min=1,max=16000)],description='Potřebuje souvislé nepřidělené místo za oddílem na stejném basic disku.')
 S('share','SMB a oprávnění','SMB / kvóty',[F('name','Share',default='Projekty'),F('group','Povolená AD skupina',default='GG_Projekty_RW'),choice('ntfs','NTFS ACL',['Modify','Read','Everyone Full'],'Modify'),choice('access','Share permissions',['Change','Read','Everyone Full'],'Change'),num('quota','Kvóta (GB)',300,min=1,max=1000),choice('mode','FSRM quota',['Soft','Hard'],'Hard')],description='FSRM vyžaduje NTFS. Oprávnění share i NTFS se omezují navzájem; testuj běžným i nepovoleným účtem.')
 S('share_test','Testovat přístup běžným uživatelem','SMB / kvóty',[choice('group','Skupina účtu',['GG_Projekty_RW','GG_Hoste'])])
+S('quota_test','Otestovat zápis proti kvótě','SMB / kvóty',[num('amount','Simulovaný nový zápis (GB)',10,min=1,max=1000)],description='Hard quota odmítne překročení limitu, Soft upozorní a dovolí zápis, pokud je fyzická rezerva.')
 S('capacity','Rozšířit kapacitní vrstvu','Kapacita',[choice('layer','Vrstva',['Pool','Logical disk','Host filesystem','VM disk','Guest filesystem']),num('size','Cílová velikost (GB)',700,min=1,max=16000),vm_field('200')])
 S('storage_cleanup','Uvolnit nepotřebné bloky','Kapacita',[choice('kind','Údržba',['Orphan snapshots','Thin metadata']),yes('checked','Identita dat a záloha ověřeny')])
 S('san','iSCSI Initiator / MPIO','SAN',[F('target','Target portal',default='10.50.0.10'),F('initiator','Povolený initiator IQN',default='iqn.2026-10.lab:hv01'),F('lun','LUN identifikátor',default='LUN-01'),num('paths','Nezávislé storage cesty',2,min=1,max=2),yes('mpio','MPIO a podporovaný DSM',True),choice('writers','Zapisující hostitelé',['HV-01','HV-01 + HV-02']),yes('clustered','Existující validovaný Failover Cluster / CSV')],description='Dvě cesty představují jeden LUN. Samostatní neclusterovaní hostitelé nesmí současně zapisovat na běžný NTFS/ReFS LUN.')
@@ -156,12 +164,54 @@ M('Finální zkouška správce infrastruktury','Storage','NAS-01','komplexní in
 missions[23]['initial_state']['backup']={'completed':False}
 missions[23]['objectives'].append(G('backup.completed',True,'Nová nezávislá záloha po zásahu'))
 missions[8]['initial_state']['vms']={'200':{'exists':False,'status':'Off'}}
+# Match every prescribed parameter, rather than accepting a merely bootable VM.
+for key,value in {'hostname':'pve01.lab.example','ip':'192.168.10.10','gateway':'192.168.10.1','dns':'192.168.10.2'}.items():
+    missions[1]['objectives'].append(G('hosts.PVE-01.'+key,value,'Management: '+key))
+missions[1]['objectives'].append(G('install.disks','SYS-A + SYS-B','Správné instalační disky'))
+for key,value in {'name':'APP01','iso':'debian.iso','os':'Linux','storage':'local-lvm','bridge':'vmbr0','vlan':20}.items():
+    missions[2]['objectives'].append(G('vms.100.'+key,value,'APP01: '+key))
+missions[3]['objectives'].append(G('vms.100.ip','192.168.20.100','Původní správná IP zachována'))
+missions[9]['objectives'].append(G('vms.200.ip','192.168.20.200','Správná IP FS01'))
+for key,value in {'name':'FS01','iso':'windows-server.iso','dynamic':True,'vhd_type':'Dynamic','agent':True,'bridge':'vSwitch-LAN','vlan':20}.items():
+    missions[10]['objectives'].append(G('vms.200.'+key,value,'FS01: '+key))
+for index in [5,23]:
+    missions[index]['objectives'].append(G('vms.900.identity','100','Otestována záloha správné APP01'))
+    missions[index]['objectives'].append(G('backup.records.100.name','APP01','Záloha správné služby'))
+reviews=[
+('Kdy potřebuješ IOMMU?','Pro PCIe passthrough.','Povinně pro každou běžnou VM.','IOMMU není totéž co CPU virtualizace VT-x/AMD-V.'),
+('Co ověřit před instalací PVE?','Identitu cílových disků a zálohu původních dat.','Jen součet kapacit.','Instalátor přepíše vybrané disky.'),
+('Čím se LXC liší od VM?','Sdílí kernel hostitele.','Má vždy vlastní Windows kernel.','LXC je linuxový kontejner; VM má vlastní kernel.'),
+('Ping odpovídá. Je aplikace ověřená?','Ještě je nutné ověřit DNS, port a aplikaci.','Ano, ping dokazuje funkci HTTPS.','ICMP neověří službu ani její data.'),
+('Je 800GB přislíbených disků 800GB fyzického místa?','Ne, thin pool může mít menší skutečnou kapacitu.','Ano, kapacita se alokuje vždy celá.','U thin kontroluj data, metadata a provozní rezervu.'),
+('Nahrazuje PBS Verify test aplikace po obnově?','Ne, kontroluje integritu zálohy.','Ano, potvrzuje přihlášení do aplikace.','Test obnovy musí ověřit OS, službu a aplikační data.'),
+('Obnoví samotný scrub vadný fyzický disk?','Ne, vadný člen se musí bezpečně vyměnit.','Ano, scrub vytvoří nový hardware.','Scrub kontroluje data; resilver obnovuje redundanci na náhradním členu.'),
+('Zachová HA po havárii hostitele jeho RAM?','Ne, VM se zpravidla restartuje.','Ano, pokračuje bez ztráty běžící paměti.','HA potřebuje quorum, fencing, dostupná data a kapacitu.'),
+('Stačí nainstalovat Hyper-V Manager?','Ne, hostitel potřebuje roli a dokončený restart.','Ano, Manager sám spouští hypervisor.','Správní nástroje a hypervisor jsou odlišné komponenty.'),
+('Má Internal switch automaticky přístup do internetu?','Ne, NAT nebo routing se nastavuje zvlášť.','Ano, vždy využije internet hostitele.','Internal propojuje VM a hostitelský OS; Private jen VM na stejném hostiteli.'),
+('Jaký firmware používá Generation 2?','UEFI.','Klasický BIOS jako jedinou možnost.','Generation 2 podporuje Secure Boot pro vhodný guest OS.'),
+('Je maximum Dynamic Memory rezervovaná fyzická RAM?','Ne, je to horní mez přidělení.','Ano, každý host ji vždy plně rezervuje.','Při startu potřebuje VM startup RAM a hostitel vlastní rezervu.'),
+('Zvětší Resize-VHD i oddíl uvnitř VM?','Ne, oddíl/filesystem rozšiř samostatně.','Ano, oba kroky jsou automaticky totožné.','Každá kapacitní vrstva má vlastní velikost a podmínky růstu.'),
+('Je Production checkpoint nezávislý backup?','Ne, závisí na původním storage.','Ano, automaticky leží na jiném serveru.','Production checkpoint využívá VSS; nemaž ručně AVHDX.'),
+('Změní import Copy i IP a identitu OS?','Ne, nové je Hyper-V VM ID.','Ano, přegeneruje celou identitu Windows.','Kopii se stejnou OS identitou nejprve izoluj.'),
+('Co prokazuje úspěšnou obnovu?','Funkční aplikace se správnými daty.','Pouhá existence zálohového souboru.','Testuj obnovenou kopii izolovaně a pak bezpečně přepni provoz.'),
+('Kolik běžných selhání členů toleruje RAID6?','Dva.','Libovolné tři.','RAID6 má dvě parity; RAID5 jednu.'),
+('Zvyšuje hot spare běžnou datovou kapacitu?','Ne, slouží jako náhrada pro obnovu redundance.','Ano, připočítá se jako datový člen.','Rebuild stále trvá a pole během něj nemá plnou odolnost.'),
+('Původní disk je náhle RAW. Co nejdřív?','Diagnostika logů, spojení a plán obnovy.','Okamžitý formát na NTFS.','Inicializace patří novému prázdnému disku, ne neznámým původním datům.'),
+('Podporuje FSRM kvóty na ReFS?','Ne, FSRM vyžaduje NTFS.','Ano, NTFS a ReFS jsou ve všem stejné.','Hard quota blokuje další zápis; Soft jen sleduje a upozorňuje.'),
+('Přežije RAID10 libovolné dvě poruchy?','Ne, oba členové stejného mirror páru znamenají selhání.','Ano, každou dvojici stejně jako RAID6.','Záleží na konkrétních členech a rozložení párů.'),
+('Dokazuje volné místo ve VM rezervu na SAN?','Ne, kontroluj všechny podkladové vrstvy.','Ano, číslo ve VM popisuje celé pole.','Thin může být na více vrstvách současně.'),
+('Vytváří MPIO druhou kopii dat?','Ne, více cest k jednomu LUN.','Ano, je to RAID přes síťové karty.','Více neclusterovaných zapisovatelů může poškodit běžný NTFS/ReFS LUN.'),
+('Nahradí cluster historické zálohy?','Ne, dostupnost a historie obnovy jsou samostatné vlastnosti.','Ano, HA automaticky vyřeší smazání i ransomware.','RAID, HA, replikace, snapshot a backup řeší různé typy selhání.')]
+for i,(mission,review) in enumerate(zip(missions,reviews)):
+    question,correct,wrong,explanation=review
+    options=[correct,wrong] if i%2==0 else [wrong,correct]
+    mission['review']=dict(question=question,options=options,correct=i%2,explanation=explanation)
 write('data/missions/campaign.json',missions)
 write('tests/solutions.json',solutions)
 articles=[]
 for number, category in [(2,'Proxmox'),(3,'Hyper-V'),(4,'Storage')]:
     raw=(ROOT/f'data/knowledge/notion_{number}.md').read_text(encoding='utf-8')
-    sections=re.split(r'(?m)^# ',raw)[1:]
+    sections=re.split(r'(?m)^# (?=\d+\.)',raw)[1:]
     for section in sections:
         title, _, body=section.partition('\n')
         text=html.unescape(re.sub(r'<[^>]+>','',body))

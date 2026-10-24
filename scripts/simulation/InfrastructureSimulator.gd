@@ -93,13 +93,14 @@ func can_start(vm: Dictionary) -> String:
 	if vm.is_empty(): return "VM neexistuje."
 	var h = state.hosts[vm.host]
 	if not h.online: return "Hostitel je Offline."
+	if vm.host.begins_with("PVE") and state.cluster.configured and 1+int(state.cluster.peer_online)+int(state.cluster.qdevice)<2: return "Cluster nemá quorum. Obnov většinu hlasů; neobcházej ochranu split-brain."
 	if vm.locked: return "VM je zamčená probíhající úlohou. Neodemykej ji násilně."
 	if not vm.disk_present: return "Systémový disk není dostupný. Ověř cestu a logy, disk neformátuj."
 	if state.storage.used >= state.storage.capacity or state.storage.metadata >= 100: return "Storage pool nemá místo pro zápisy."
 	if state.raid.health == "Failed": return "Podkladové pole selhalo. Obnov data ze zálohy."
-	if vm.host.begins_with("HV") and not state.hosts["HV-01"].vmms: return "Hypervisor / VMMS neběží; ověř roli a restart."
+	if vm.host.begins_with("HV") and not h.get("vmms",false): return "Hypervisor / VMMS neběží; ověř roli a restart."
 	var used_ram = 4.0
-	if vm.host.begins_with("HV"): used_ram = state.hosts["HV-01"].reserve + state.hosts["HV-01"].other_ram
+	if vm.host.begins_with("HV"): used_ram = h.get("reserve",4) + h.get("other_ram",0)
 	for other in state.vms.values():
 		if other.get("exists",false) and other.host == vm.host and other.id != vm.id and other.status == "Running": used_ram += float(other.ram)
 	if used_ram + float(vm.ram) > float(h.ram): return "Nedostatek startup RAM při zachování rezervy hostitele. Dynamic Memory nevytváří fyzickou RAM."

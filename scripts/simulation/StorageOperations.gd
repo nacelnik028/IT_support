@@ -9,7 +9,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if not p.checked: return sim.reject("Nejdřív ověř vlastníka snapshotů a obnovitelnou zálohu. Nemaž aktivní data naslepo.",true)
 			if p.kind == "Thin metadata": s.storage.metadata = minf(s.storage.metadata,45)
 			else:
-				s.storage.used -= s.storage.reclaimable
+				s.storage.used = maxf(s.storage.used-s.storage.reclaimable,0)
 				s.storage.reclaimable = 0
 			return sim.success("Ověřená údržba dokončena; aktivní VM data zachována.")
 		"capacity":
@@ -32,6 +32,9 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 					if not vm.get("checkpoints",[]).is_empty(): return sim.reject("Dokonči merge checkpointů; nezasahuj do aktivního AVHDX řetězce.")
 					if not s.backup.records.has(str(p.vm)): return sim.reject("Před změnou velikosti chybí záloha této VM.")
 					if size <= vm.disk or size-vm.disk > s.storage.host_fs-s.storage.used: return sim.reject("Disk lze pouze zvětšit; hostitel nemá dost rezervy pro požadovaný růst.")
+					var growth=size-vm.disk
+					s.storage.provisioned+=growth
+					if vm.get("vhd_type","Dynamic")=="Fixed": s.storage.used+=growth
 					vm.disk = size
 				"Guest filesystem":
 					var vm = sim.get_vm(str(p.vm))
@@ -109,6 +112,18 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if not str(p.slot) in s.raid.members: return sim.reject("Slot není členem aktivního produkčního pole.")
 			s.disks[str(p.slot)].health = "Failed"
 			s.raid.health = Raid.health(s.raid.level,s.raid.members,s.disks)
+			if s.raid.health=="Degraded":
+				for spare_id in s.disks:
+					var spare=s.disks[spare_id]
+					if spare.spare and spare.health=="Healthy" and spare.pool==s.disks[str(p.slot)].pool and spare.capacity>=s.disks[str(p.slot)].capacity:
+						var position=s.raid.members.find(str(p.slot))
+						s.raid.members[position]=spare_id
+						spare.spare=false
+						spare.health="Recovering"
+						s.raid.rebuilding=true
+						s.raid.progress=0
+						s.raid.health="Recovering"
+						return sim.success("Hot spare ze slotu%s automaticky převzal vadný člen%s. Rebuild probíhá; kapacita se nezvýšila." % [spare_id,p.slot])
 			return sim.success("Simulovaná porucha slotu %s: pole %s. U RAID10 záleží na konkrétním páru." % [p.slot,s.raid.health])
 		"foreign":
 			if p.operation == "Clear Foreign": return sim.reject("Tato známá metadata patří původnímu poli. Clear by zhoršil obnovu; nejprve ověř původ a úplnost členů.",true)
@@ -138,6 +153,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			s.share.filesystem = p.fs
 			return sim.success("Svazek %s: %s / %.0f GB vytvořen." % [p.letter,p.fs,p.size])
 		"volume_extend":
+			if not s.disk.online or s.disk.fs=="" or s.disk.new: return sim.reject("Rozšiřovat lze existující online svazek s filesystémem, nikoli nový RAW disk.")
 			if not s.disk.adjacent or p.size > s.disk.capacity or p.size <= s.disk.size: return sim.reject("Extend potřebuje větší souvislé volné místo za oddílem na stejném disku. Recovery partition nemaž naslepo.")
 			s.disk.size = p.size
 			return sim.success("Existující svazek rozšířen bez formátování.")
@@ -154,6 +170,15 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if p.group == "GG_Projekty_RW": s.share.allowed_test = allowed
 			else: s.share.denied_test = not allowed
 			return sim.success("Účet %s: %s. Hard quota %s GB; soft pouze upozorní." % [p.group,"čtení/zápis povolen" if allowed else "zápis zamítnut",s.share.quota],false)
+		"quota_test":
+			if s.share.name=="": return sim.reject("Nejprve vytvoř sdílení a kvótu.")
+			var used=float(s.share.get("used",295))
+			if s.share.mode=="Hard" and used+p.amount>s.share.quota:
+				return sim.success("Hard quota: zápis %.0f GB zamítnut; %s / %s GB. Data zůstala zachována." % [float(p.amount),used,s.share.quota],false)
+			if s.storage.used+p.amount>s.storage.capacity: return sim.reject("Fyzický pool nemá místo. Kvóta nepřidává fyzickou kapacitu.")
+			s.share.used=used+p.amount
+			s.storage.used+=p.amount
+			return sim.success("Zápis proveden. %s / %s GB. %s" % [s.share.used,s.share.quota,"Soft quota pouze upozornila." if s.share.used>s.share.quota else "V rámci limitu."])
 		"san":
 			if p.target != "10.50.0.10" or p.initiator != "iqn.2026-10.lab:hv01" or p.lun != "LUN-01": return sim.reject("Target, IQN nebo LUN nesouhlasí s povoleným mappingem.")
 			if p.writers == "HV-01 + HV-02" and not p.clustered: return sim.reject("Dva neclusterovaní hostitelé nesmějí nezávisle zapisovat na stejný běžný NTFS/ReFS LUN.",true)
