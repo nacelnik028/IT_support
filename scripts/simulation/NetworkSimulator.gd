@@ -1,10 +1,14 @@
 extends RefCounted
 
+const Physical = preload("res://scripts/simulation/PhysicalOperations.gd")
+
 # Link, IP, DNS and application checks intentionally remain separate.
 static func probe(s: Dictionary, id: String, destination: String = "application") -> Dictionary:
 	var vm = s.vms.get(id, {})
 	if vm.is_empty() or not vm.get("exists",false): return result(false, false, false, false, "VM neexistuje.")
 	var host = s.hosts.get(vm.host, {})
+	if not Physical.link_ok(s,vm.host): return result(false,false,false,false,"Fyzická cesta hostitele: napájení, odpojený kabel nebo chybný port SW-CORE.")
+	if not s.hosts["NAS-01"].online or not Physical.link_ok(s,"NAS-01"): return result(false,false,false,false,"Podkladové úložiště NAS-01 není dostupné.")
 	if not host.get("online", false) or vm.status != "Running":
 		return result(false, false, false, false, "Hostitel nebo VM neběží.")
 	var sw = s.network.switches.get(vm.bridge, {})

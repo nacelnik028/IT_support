@@ -3475,5 +3475,248 @@
     "console": "Storage",
     "panel": "SAN",
     "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_inspect",
+    "label": "Fyzická diagnostika zařízení",
+    "fields": [
+      {
+        "key": "device",
+        "label": "Zařízení",
+        "type": "choice",
+        "default": "PVE-01",
+        "options": [
+          "PVE-01",
+          "PVE-02",
+          "HV-01",
+          "HV-02",
+          "NAS-01",
+          "BACKUP-01"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_power",
+    "label": "Napájení zařízení",
+    "fields": [
+      {
+        "key": "device",
+        "label": "Zařízení",
+        "type": "choice",
+        "default": "PVE-01",
+        "options": [
+          "PVE-01",
+          "PVE-02",
+          "HV-01",
+          "HV-02",
+          "NAS-01",
+          "BACKUP-01"
+        ]
+      },
+      {
+        "key": "operation",
+        "label": "Operace",
+        "type": "choice",
+        "default": "Start",
+        "options": [
+          "Start",
+          "Shutdown",
+          "Restart"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_cable",
+    "label": "Zapojení do SW-CORE",
+    "fields": [
+      {
+        "key": "device",
+        "label": "Zařízení",
+        "type": "choice",
+        "default": "PVE-01",
+        "options": [
+          "PVE-01",
+          "PVE-02",
+          "HV-01",
+          "HV-02",
+          "NAS-01",
+          "BACKUP-01"
+        ]
+      },
+      {
+        "key": "connected",
+        "label": "Kabel připojen",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "port",
+        "label": "Port switche",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "max": 12
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_supply",
+    "label": "Napájecí přívod",
+    "fields": [
+      {
+        "key": "device",
+        "label": "Zařízení",
+        "type": "choice",
+        "default": "PVE-01",
+        "options": [
+          "PVE-01",
+          "PVE-02",
+          "HV-01",
+          "HV-02",
+          "NAS-01",
+          "BACKUP-01"
+        ]
+      },
+      {
+        "key": "connected",
+        "label": "Napájení připojeno",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_spare",
+    "label": "Vzít náhradní disk",
+    "fields": [
+      {
+        "key": "spare",
+        "label": "Náhradní disk",
+        "type": "choice",
+        "default": "SPARE-2T",
+        "options": [
+          "SPARE-2T",
+          "SPARE-1T",
+          "SPARE-SATA"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_return_spare",
+    "label": "Vrátit náhradní disk",
+    "fields": [],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_remove",
+    "label": "Vyjmout konkrétní disk",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Řadič / pole",
+        "type": "choice",
+        "default": "RAID",
+        "options": [
+          "RAID",
+          "ZFS"
+        ]
+      },
+      {
+        "key": "slot",
+        "label": "Slot",
+        "type": "text",
+        "default": "2"
+      },
+      {
+        "key": "serial",
+        "label": "Sériové číslo",
+        "type": "text",
+        "default": "DC-002"
+      },
+      {
+        "key": "backup_checked",
+        "label": "Záloha ověřena",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "confirmed",
+        "label": "Identita potvrzena",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru.",
+    "danger": true,
+    "warning": "Vytažení zdravého člena může způsobit selhání pole."
+  },
+  {
+    "id": "physical_insert",
+    "label": "Vložit nesený náhradní disk",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Řadič / pole",
+        "type": "choice",
+        "default": "RAID",
+        "options": [
+          "RAID",
+          "ZFS"
+        ]
+      },
+      {
+        "key": "slot",
+        "label": "Slot",
+        "type": "text",
+        "default": "2"
+      },
+      {
+        "key": "backup_checked",
+        "label": "Záloha ověřena",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_monitor",
+    "label": "Přečíst monitorovací konzoli",
+    "fields": [],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "physical_commission",
+    "label": "Předat fyzickou a softwarovou kontrolu",
+    "fields": [],
+    "console": "Storage",
+    "panel": "Fyzický servis",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
   }
 ]

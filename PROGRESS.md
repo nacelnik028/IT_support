@@ -12,6 +12,13 @@
 - Skutečná procedurální serverovna, první rack/PVE-01, pracovní stůl s Proxmox konzolí a monitor VM. Vše čte společnou infrastrukturu; nevzniká kopie simulace.
 - Import Godot4.7.2 bez chyb. `tests/world3d.gd`:12 kontrol PASS včetně fyzikální chůze a kolizí, skutečného raycastu a vstupu E, otevření původních formulářů, zásahu a uložení. Testovací scéna `tests/WorldMCP.tscn` nastaví obě izolované cesty ještě před vytvořením GameManager.
 
+## Přestavba do 3D — etapy 4–5 (2026-10-24)
+- Čtyři racky,6 zařízení se skutečnými ID, NAS s8 sloty,2 ZFS sloty, SW-CORE s12 fyzickými porty, napájecí a síťové konektory, servisní skříň,2 počítače, monitoring VM/polí/kapacity. Vlastní sdílené procedurální modely, kovové materiály, perforace, kabelové žlaby, ventilátory a chlazení.
+- Nové PhysicalOperations mění společný model: bezpečné napájení, kabely/obsazenost portů, kontrola identity/backup/hot-swap, vytažení, nošení a vložení kompatibilního disku. Vytažení zdravých členů opravdu snižuje redundanci či vyřadí pole. Náhrada používá StorageOperations.replace_disk a původní RAIDSimulator/rebuild, včetně uložených50/100% kroků.
+- Síťové sondy a start VM respektují fyzické připojení a dostupnost NAS. LED zařízení i jednotlivých disků se synchronizují; prázdné sloty mají změněnou geometrii. Konektor lze odnést ke konkrétnímu portu switche.
+- Stav fyzických zařízení, inventář, rozpracovaná výměna a poloha hráče jsou součástí každé uložené relace. SaveValidator kontroluje jejich strukturu/ID/rozsahy. Starší save získává výchozí hodnoty bez změny schématu2. Generátor `tools/world_catalog.py` je zapojený do build_extension/extension_catalog.
+- `tests/physical3d.gd`:38 PASS, včetně malého/nesprávného disku, hot-swap, obnovy prázdného slotu i rebuild po restartu, skutečného selhání RAID10, síťového výpadku a oddělení všech3 režimů lekcí od kampaně. `tests/world3d.gd`:12 PASS. Grafický start/GPU a MCP ověřeny na první etapě; zaznamenané nepoužité destination už má návaznost a bude směrovat do akademie.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)

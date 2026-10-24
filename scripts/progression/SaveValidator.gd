@@ -190,6 +190,32 @@ func state(patch: Dictionary, initial: Dictionary) -> bool:
 	if not required(effective.backup,backup_required): return false
 	for record in effective.backup.records.values():
 		if not required(record,vm_required): return false
+	if not world_state(effective): return false
+	return true
+
+func world_state(s: Dictionary) -> bool:
+	var w = s.world
+	if w.devices.keys().size()!=baseline.hosts.keys().size(): return false
+	for id in w.devices:
+		if not baseline.hosts.has(id): return false
+		var d = w.devices[id]
+		if not integer(d.port,1,12) or not integer(d.expected_port,1,12): return false
+	if w.held!="" and (not w.stock.has(w.held) or w.stock[w.held].available): return false
+	for disk in w.stock.values():
+		if not required(disk,{"serial":"","capacity":0,"interface":"","available":false}): return false
+		if not integer(disk.capacity,1) or not disk.interface in ["SAS","SATA"] or disk.serial.is_empty(): return false
+	for key in w.removed:
+		var parts = str(key).split(":")
+		if parts.size()!=2 or not parts[0] in ["RAID","ZFS"]: return false
+		var disks = s.disks if parts[0]=="RAID" else s.zfs.disks
+		if not disks.has(parts[1]) or disks[parts[1]].health!="Missing": return false
+		if not required(w.removed[key],{"serial":"","capacity":0,"health":""}): return false
+	for collection in [w.inspected,w.restarted]:
+		for id in collection:
+			if not baseline.hosts.has(id) or not collection[id] is bool: return false
+	for value in w.data_loss.values():
+		if not value is bool: return false
+	if absf(w.player.x)>21 or absf(w.player.z)>7 or absf(w.player.pitch)>1.5: return false
 	return true
 
 static func shape(value, template) -> bool:

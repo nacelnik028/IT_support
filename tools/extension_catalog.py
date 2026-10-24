@@ -191,6 +191,8 @@ def catalog(actions,first_lessons):
         lesson['tags']=list(dict.fromkeys([primary,'RAID' if lesson['module']=='Storage' else lesson['module'],'Diagnostika']+lesson['tags']))
         if lesson['id']==1006 and 'Sítě' not in lesson['tags']: lesson['tags'].append('Sítě')
         for st in lesson['steps']: st['text']=st['text'].replace('True','zapnuto').replace('False','vypnuto')
+    from world_catalog import extend
+    extend(actions,defaults,missions,solutions)
     write('data/actions.json',actions)
     write('data/infrastructure/academy_defaults.json',defaults)
     write('data/missions/campaign.json',missions)

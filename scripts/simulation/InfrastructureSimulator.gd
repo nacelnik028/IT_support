@@ -6,6 +6,7 @@ const PveOps = preload("res://scripts/simulation/ProxmoxOperations.gd")
 const HvOps = preload("res://scripts/simulation/HyperVOperations.gd")
 const StorageOps = preload("res://scripts/simulation/StorageOperations.gd")
 const EducationOps = preload("res://scripts/simulation/EducationOperations.gd")
+const PhysicalOps = preload("res://scripts/simulation/PhysicalOperations.gd")
 var state: Dictionary = {}
 
 func reset(patch: Dictionary):
@@ -57,7 +58,7 @@ func refresh_incidents():
 		state.incidents.append({"device":pair[0],"state":pair[1],"cause":"Stav fyzických členů a obnovy redundance"})
 
 func act(action: String, p: Dictionary = {}) -> Dictionary:
-	for handler in [EducationOps,PveOps,HvOps,StorageOps]:
+	for handler in [PhysicalOps,EducationOps,PveOps,HvOps,StorageOps]:
 		var handled = handler.apply(self,action,p)
 		if not handled.is_empty(): return handled
 	match action:
@@ -99,6 +100,8 @@ func get_vm(id: String) -> Dictionary:
 
 func can_start(vm: Dictionary) -> String:
 	if vm.is_empty(): return "VM neexistuje."
+	if not PhysicalOps.link_ok(state,vm.host): return "Fyzická síť nebo napájení hostitele není v pořádku."
+	if not state.hosts["NAS-01"].online: return "Podkladové úložiště NAS-01 je vypnuté."
 	if vm.get("provisioning",false): return "Nejprve dokonči instalaci OS v průvodci VM."
 	if vm.get("expected_firmware",vm.get("firmware","UEFI"))!=vm.get("firmware","UEFI"): return "Boot selhal: BIOS/UEFI neodpovídá původnímu systémovému disku."
 	if vm.get("os","")=="Windows Server" and vm.get("disk_bus","")=="VirtIO" and not vm.get("virtio_drivers",true): return "INACCESSIBLE_BOOT_DEVICE: Windows nemá ovladač VirtIO storage. Nejdřív kompatibilní SATA a instalace ovladačů."

@@ -29,5 +29,86 @@
       "disk_bus": "SATA",
       "ram_mib": 4096
     }
+  },
+  "world": {
+    "devices": {
+      "PVE-01": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 1,
+        "expected_port": 1,
+        "hot_swap": true
+      },
+      "PVE-02": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 2,
+        "expected_port": 2,
+        "hot_swap": true
+      },
+      "HV-01": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 3,
+        "expected_port": 3,
+        "hot_swap": true
+      },
+      "HV-02": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 4,
+        "expected_port": 4,
+        "hot_swap": true
+      },
+      "NAS-01": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 5,
+        "expected_port": 5,
+        "hot_swap": true
+      },
+      "BACKUP-01": {
+        "power_connected": true,
+        "cable_connected": true,
+        "port": 6,
+        "expected_port": 6,
+        "hot_swap": true
+      }
+    },
+    "inspected": {},
+    "removed": {},
+    "replaced": {},
+    "restarted": {},
+    "data_loss": {},
+    "stock": {
+      "SPARE-2T": {
+        "serial": "SP-SAS-2000",
+        "capacity": 2000,
+        "interface": "SAS",
+        "available": true
+      },
+      "SPARE-1T": {
+        "serial": "SP-SAS-1000",
+        "capacity": 1000,
+        "interface": "SAS",
+        "available": true
+      },
+      "SPARE-SATA": {
+        "serial": "SP-SATA-2000",
+        "capacity": 2000,
+        "interface": "SATA",
+        "available": true
+      }
+    },
+    "held": "",
+    "monitor_checked": false,
+    "commissioned": false,
+    "player": {
+      "x": 0,
+      "z": 3,
+      "yaw": 0,
+      "pitch": 0
+    },
+    "tutorial_arrived": false
   }
 }
