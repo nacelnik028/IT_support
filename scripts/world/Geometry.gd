@@ -28,6 +28,8 @@ static func box(parent: Node3D, at: Vector3, dimensions: Vector3, color: Color, 
 	node.mesh = meshes[key]
 	node.material_override = material(color, metal, glow)
 	node.position = at
+	if glow > 0.0 or minf(dimensions.x,minf(dimensions.y,dimensions.z))<0.05:
+		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(node)
 	return node
 
@@ -71,3 +73,36 @@ static func frame(parent: Node3D, dimensions: Vector3, color: Color) -> Node3D:
 				at[(axis+2)%3] = dimensions[(axis+2)%3]*b*0.5
 				box(holder, at, size, color, 0.0, 1.2)
 	return holder
+
+static func batch_static(root: Node3D) -> int:
+	var groups: Dictionary = {}
+	collect_static(root,groups)
+	var saved = 0
+	for group in groups.values():
+		if group.size()<8: continue
+		var first = group[0]
+		var multi = MultiMesh.new()
+		multi.transform_format = MultiMesh.TRANSFORM_3D
+		multi.mesh = first.mesh
+		multi.instance_count = group.size()
+		var instance = MultiMeshInstance3D.new()
+		instance.multimesh = multi
+		instance.material_override = first.material_override
+		instance.cast_shadow = first.cast_shadow
+		root.add_child(instance)
+		for i in group.size():
+			multi.set_instance_transform(i,root.global_transform.affine_inverse()*group[i].global_transform)
+			group[i].visible = false
+			group[i].queue_free()
+		saved += group.size()-1
+	return saved
+
+static func collect_static(node: Node, groups: Dictionary):
+	if node.has_method("set_focus") or node.get_meta("dynamic",false): return
+	if node is MeshInstance3D and node.mesh != null and node.material_override != null:
+		# Keep the two rooms as separate culling groups.
+		var room = "academy" if node.global_position.x>9 else "operations"
+		var key = room+str(node.mesh.get_instance_id())+":"+str(node.material_override.get_instance_id())
+		if not groups.has(key): groups[key] = []
+		groups[key].append(node)
+	for child in node.get_children(): collect_static(child,groups)

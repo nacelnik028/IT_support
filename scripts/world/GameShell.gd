@@ -45,6 +45,7 @@ func _ready():
 	chrome = Control.new()
 	layer.add_child(chrome)
 	chrome.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	chrome.oversampling_with_scale = CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED
 	chrome.size = Vector2(1600,900)
 	hud = Control.new()
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -113,6 +114,7 @@ func _process(delta):
 func set_mode(value: String):
 	if mode=="world" and value!="world": store_pose()
 	mode = value
+	update_time = 1.0
 	backing.visible = value in ["menu","app"]
 	ui.visible = value in ["menu","app"]
 	hud.visible = value == "world"
@@ -133,6 +135,8 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.position = Vector3(15,0.02,5.5)
 		world.player.rotation.y = 0
 		world.player.camera.rotation.x = 0
+	if ui.game.session_kind!="lesson":
+		for object in world.devices.values(): object.set_guided(false)
 	world.sync_state()
 	set_mode("world")
 

@@ -31,6 +31,13 @@
 - Menu umožňuje přímo vybrat15 nových situací přes volný trénink a filtr3D praxe; kampaň zachovává postupné odemykání a XP. Nové fyzické testy jsou součástí Test-All.
 - Campaign65/65 PASS; Save safety474 kontrol PASS včetně každého kroku všech65 misí. Physical3D38 PASS, World3D31 PASS. Kompletní Test-All dále běží do původních výukových/UI sad; průběžný log `test-output/3d-test-all.log`.
 
+## Přestavba do 3D — etapa 8 (2026-10-24)
+- Dolaďeno rozmístění svítidel, materiály, kontrastní lišty, ventilace, kabelové trasy a detaily racků. Zapnuto4× MSAA pro3D. Vlastní modely nevyžadují externí assety ani stahování.
+- Statická opakovaná geometrie se seskupuje do MultiMesh podle modelu/materiálu/místnosti; odstraněno1005 samostatných instancí. Interaktivní zařízení, kolize, LED, dveře, disky a ventilátory zůstávají nezávislé. Jediné stínující směrové světlo,5 místních světel bez dynamických stínů; žádné velké textury.
+- Hráč vidí nesený disk; HUD ukazuje jeho serial, kabel a neuložené změny. Citlivost se ukládá do stejné oddělené konfigurace jako obraz. HUD a servisní formuláře zachovávají oversampling i4K měřítko.
+- Nový `tests/world_playthrough.gd`:31 headless /36 GPU kontrol PASS: raycast+E, fyzická kontrola, serial a potvrzení, vytažení/3D prázdný slot, skříň/náhrada/rebuild/ověření a skutečné dokončení mise53; uchopení HV kabelu, E na port3 a obnovená služba. Ověřena stěna blokující interakci a skutečné4K škálování. Test přidán do Test-All.
+- GPU snímky `test-output/world-academy.png`, `world-console.png`, `world-service-4k.png`, `world-disk-removed.png` a `world3d-stage2.png` vizuálně prohlédnuty. V plné sadě zatím prošlo všech65 misí také skutečnými původními formuláři.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)

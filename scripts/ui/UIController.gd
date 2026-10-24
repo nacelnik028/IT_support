@@ -981,6 +981,9 @@ func focus_tutorial():
 func recover_tutorial_target():
 	var step=game.tutorial.current_step()
 	if step.is_empty(): return
+	if world_enabled and step.get("page",game.current.category)=="Serverovna":
+		world_requested.emit("Serverovna")
+		return
 	page=step.get("page",game.current.category)
 	tab=step.get("tab","")
 	host=game.current.server

@@ -12,6 +12,9 @@ var port_objects: Array = []
 var door_open = false
 var door_tween: Tween
 var academy_targets: Dictionary = {}
+var batched_instances = 0
+var carried_disk: Node3D
+var carried_label: Label3D
 
 func _ready():
 	build_room()
@@ -33,9 +36,19 @@ func _ready():
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
+	carried_disk = Node3D.new()
+	player.camera.add_child(carried_disk)
+	carried_disk.position = Vector3(0.32,-0.3,-0.65)
+	carried_disk.rotation_degrees = Vector3(-15,-10,8)
+	Geo.box(carried_disk,Vector3.ZERO,Vector3(0.2,0.045,0.3),Color("9aabb4"),0.75)
+	Geo.box(carried_disk,Vector3(0,0,0.15),Vector3(0.21,0.055,0.025),Color("213544"),0.6)
+	carried_label = Geo.text(carried_disk,"",Vector3(0,0.025,0),20,0.00035,Color("182432"))
+	carried_label.rotation_degrees.x = -90
+	carried_disk.visible = false
 	var screen = item("MONITOR","Monitorovací konzole — živý stav","monitor",Vector3(4.5,2.5,-6.65),Vector3(5.1,1.5,0.12),"Storage")
 	Geo.box(screen.visual,Vector3(0,0,0.07),Vector3(4.95,1.35,0.03),Color("07313b"),0,0.25)
 	monitoring = Geo.text(screen.visual,"NORTHSTAR / PROVOZNÍ DOHLED",Vector3(0,0,0.095),38,0.003)
+	batched_instances = Geo.batch_static(self)
 
 func build_room():
 	Geo.solid(self,Vector3(0,-0.16,0),Vector3(18,0.3,14),Color("343f4b"),0.25)
@@ -50,11 +63,13 @@ func build_room():
 	for x in range(-9,10): Geo.box(self,Vector3(x,0.002,0),Vector3(0.012,0.005,14),Color("1a2933"))
 	for z in range(-7,8): Geo.box(self,Vector3(0,0.002,z),Vector3(18,0.005,0.012),Color("1a2933"))
 	for x in [-5,0,5]:
-		Geo.box(self,Vector3(x,3.85,0),Vector3(0.65,0.06,9),Color("c2eeff"),0,1.3)
+		for z in [-4,0,4]:
+			Geo.box(self,Vector3(x,3.82,z),Vector3(0.85,0.1,2.05),Color("657d89"),0.5)
+			Geo.box(self,Vector3(x,3.75,z),Vector3(0.65,0.025,1.85),Color("b8e4ee"),0,0.65)
 		var light = OmniLight3D.new()
 		light.position = Vector3(x,3,0)
 		light.light_color = Color("bee7ff")
-		light.light_energy = 2.0
+		light.light_energy = 2.5
 		light.omni_range = 10
 		add_child(light)
 	var env = WorldEnvironment.new()
@@ -63,7 +78,7 @@ func build_room():
 	env.environment.background_color = Color("142330")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.environment.ambient_light_color = Color("9bb1c4")
-	env.environment.ambient_light_energy = 0.65
+	env.environment.ambient_light_energy = 0.85
 	env.environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	add_child(env)
 	var key = DirectionalLight3D.new()
@@ -124,6 +139,7 @@ func build_server(id: String, at: Vector3, console: String, height: float = 0.4)
 	var power = item("PSU:"+id,id+" — napájecí přívod","supply",at+Vector3(-0.83,0,0.5),Vector3(0.14,0.14,0.13),console)
 	power.slot = id
 	cable_meshes[id] = Geo.box(self,at+Vector3(0.82,0.75,-0.35),Vector3(0.025,1.5,0.025),Color("2faab5"))
+	cable_meshes[id].set_meta("dynamic",true)
 	var fan = Node3D.new()
 	server.visual.add_child(fan)
 	fan.position = Vector3(0.36,0.02,0.488)
@@ -168,6 +184,15 @@ func build_details():
 	Geo.box(self,Vector3(0.7,0.012,0),Vector3(13,0.008,0.045),Color("d4ad54"))
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
+	for x in range(-8,9):
+		Geo.box(self,Vector3(x,1.55,6.84),Vector3(0.045,3.1,0.06),Color("5e788a"),0.7)
+	Geo.box(self,Vector3(0,0.38,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
+	Geo.box(self,Vector3(0,2.9,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
+	Geo.text(self,"01  /  IT OPERATIONS",Vector3(-5.4,2.4,6.75),52,0.004).rotation.y = PI
+	# Inset entrance door and safety signage, kept inside the bounded building.
+	Geo.box(self,Vector3(4,1.35,6.78),Vector3(1.55,2.7,0.12),Color("172c39"),0.5)
+	Geo.box(self,Vector3(4.55,1.2,6.69),Vector3(0.06,0.32,0.05),Color("c6d6df"),0.8)
+	Geo.text(self,"VSTUP / PROVOZ",Vector3(4,2.9,6.65),36,0.003,Color("79e4bc")).rotation.y = PI
 
 func build_academy():
 	Geo.solid(self,Vector3(15,-0.16,0),Vector3(12,0.3,14),Color("586271"),0.15)
@@ -183,7 +208,9 @@ func build_academy():
 	Geo.text(self,"IT TRAINING ACADEMY",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
 	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
 	for x in [12,18]:
-		Geo.box(self,Vector3(x,3.85,0),Vector3(0.7,0.05,8),Color("fff0cf"),0,0.8)
+		for z in [-4,0,4]:
+			Geo.box(self,Vector3(x,3.8,z),Vector3(0.85,0.08,2),Color("8e908b"),0.4)
+			Geo.box(self,Vector3(x,3.74,z),Vector3(0.65,0.03,1.8),Color("f2dfb8"),0,0.5)
 		var light = OmniLight3D.new()
 		light.position = Vector3(x,3,0)
 		light.light_color = Color("ffe5bb")
@@ -224,6 +251,8 @@ func toggle_door():
 
 func sync_state():
 	if game == null or game.sim.state.is_empty(): return
+	carried_disk.visible = game.sim.state.world.held!=""
+	if carried_disk.visible: carried_label.text = game.sim.state.world.stock[game.sim.state.world.held].serial
 	for id in devices:
 		var object = devices[id]
 		var s = game.sim.state
@@ -257,7 +286,8 @@ func sync_state():
 	var lines = ["PROVOZNÍ DOHLED / ŽIVÁ DATA"]
 	for vm in game.sim.state.vms.values():
 		if vm.get("exists",false): lines.append("%s  %s  /  %s" % [vm.id,vm.name,"BĚŽÍ" if vm.status=="Running" else "VYPNUTO"])
-	lines.append("RAID: %s  %d%%   /   ZFS: %s" % [game.sim.state.raid.health,game.sim.state.raid.progress,game.sim.state.zfs.health])
+	var states = {"Healthy":"V POŘÁDKU","Degraded":"DEGRADOVANÉ","Failed":"SELHÁNÍ","Recovering":"OBNOVA"}
+	lines.append("RAID: %s  %d%%   /   ZFS: %s" % [states.get(game.sim.state.raid.health,game.sim.state.raid.health),game.sim.state.raid.progress,states.get(game.sim.state.zfs.health,game.sim.state.zfs.health)])
 	lines.append("POOL: %d / %d GB" % [game.sim.state.storage.used,game.sim.state.storage.capacity])
 	monitoring.text = "\n".join(lines)
 
