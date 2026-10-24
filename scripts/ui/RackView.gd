@@ -57,8 +57,8 @@ func _draw():
 		for unit in units:
 			var uy = y+68+unit*23
 			draw_style_box(style(Color("091320"),Color("25394c")),Rect2(x+25,uy,w-40,18))
-			for stripe in 5: draw_line(Vector2(x+36+stripe*5,uy+5),Vector2(x+36+stripe*5,uy+13),Color("2e475b"),1)
-			draw_circle(Vector2(x+w-29,uy+9),2.4,led if sin(tick*3+i+unit)>-0.8 else led.darkened(0.65))
+			for stripe in 5: draw_line(Vector2(x+36+stripe*5,uy+5),Vector2(x+36+stripe*5,uy+13),Color("2e475b"),1,true)
+			draw_circle(Vector2(x+w-29,uy+9),2.4,led if sin(tick*3+i+unit)>-0.8 else led.darkened(0.65),true,-1.0,true)
 		draw_string(font,Vector2(x+25,y+h-15),"●  DEGRADED" if warning else ("●  ONLINE" if online else "●  OFFLINE"),HORIZONTAL_ALIGNMENT_LEFT,w-30,10,led)
 
 func style(bg: Color,border: Color) -> StyleBoxFlat:

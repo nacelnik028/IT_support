@@ -4,6 +4,7 @@ const Game = preload("res://scripts/core/GameManager.gd")
 const Racks = preload("res://scripts/ui/RackView.gd")
 const Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 const Display=preload("res://scripts/core/DisplaySettings.gd")
+const Icons=preload("res://scripts/ui/VectorIcons.gd")
 var display_settings=Display.new()
 var manage_display=true
 var settings_controls: Dictionary={}
@@ -43,6 +44,9 @@ const ORANGE = Color("ffb65c")
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# Rasterize glyphs and DPITexture icons at their displayed pixel size.
+	# Scaling the Control alone otherwise magnifies the original small atlas.
+	oversampling_with_scale=CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED
 	# Existing simulation tests retain their own window and never read player settings.
 	manage_display=Game.Saves.path_override=="" or Display.path_override!=""
 	if manage_display:
@@ -76,6 +80,7 @@ func make_theme() -> Theme:
 	t.set_stylebox("panel","AcceptDialog",box(Color("132338"),CYAN,10))
 	t.set_stylebox("background","ProgressBar",box(Color("213147"),Color(0,0,0,0),4))
 	t.set_stylebox("fill","ProgressBar",box(CYAN,Color(0,0,0,0),4))
+	Icons.apply(t)
 	return t
 
 func box(bg: Color, border = Color("23364d"), radius = 10) -> StyleBoxFlat:
