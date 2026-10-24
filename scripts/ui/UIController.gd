@@ -25,6 +25,9 @@ var selected_vm = ""
 var player: AudioStreamPlayer
 var click_sound: AudioStreamWAV
 var transition: Tween
+var tutorial_overlay: Control
+var ui_targets: Dictionary={}
+var training_category="Všechny lekce"
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -125,6 +128,8 @@ func scroll(parent: Node) -> VBoxContainer:
 	return v
 
 func clear_ui():
+	ui_targets.clear()
+	if is_instance_valid(tutorial_overlay): tutorial_overlay.queue_free()
 	if transition and transition.is_valid(): transition.kill()
 	form_controls.clear()
 	form_buttons.clear()
@@ -152,7 +157,7 @@ func draw_ui():
 	var sidebar = vbox(body,8)
 	sidebar.custom_minimum_size.x = 172
 	sidebar.add_child(label("PRACOVIŠTĚ",10,MUTED))
-	for item in [["Serverovna","▦"],["Tickety","≡"],["Proxmox","◈"],["Hyper-V","▣"],["Storage","▤"],["Síť","⌁"],["Terminál",">_"],["Akademie","◇"],["Statistiky","↗"]]:
+	for item in [["Trénink","◇"],["Serverovna","▦"],["Tickety","≡"],["Proxmox","◈"],["Hyper-V","▣"],["Storage","▤"],["Síť","⌁"],["Terminál",">_"],["Akademie","◇"],["Statistiky","↗"]]:
 		var target = item[0]
 		var b = button(item[1]+"   "+target,func(): navigate(target),page==target)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -178,6 +183,7 @@ func draw_ui():
 		n.add_child(message)
 		n.add_child(button("Přečíst celou zprávu",func(): show_message("Záznam operace",full_notice)))
 	match page:
+		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
 		"Tickety": draw_tickets()
 		"Proxmox", "Hyper-V", "Storage": draw_console()
@@ -185,11 +191,14 @@ func draw_ui():
 		"Terminál": draw_terminal()
 		"Akademie": draw_academy()
 		"Statistiky": draw_stats()
-	if game.active and page != "Tickety": draw_ticket(body)
+	if game.active and not page in ["Tickety","Trénink"]:
+		if game.session_kind=="lesson": draw_lesson_panel(body)
+		else: draw_ticket(body)
 	whole.add_child(label("DATACENTER ACADEMY     /     Pozorovat → diagnostikovat → bezpečně změnit → ověřit → zdokumentovat",10,MUTED))
 	root_box.modulate.a=0.85
 	transition=create_tween()
 	transition.tween_property(root_box,"modulate:a",1.0,0.14)
+	call_deferred("focus_tutorial")
 
 func draw_menu():
 	var all = vbox(root_box,24)
@@ -209,8 +218,10 @@ func draw_menu():
 		if not game.active: game.start_mission(0)
 		navigate("Serverovna"),true))
 	left.add_child(button("Kampaň a přehled ticketů",func():
-		if not game.active: game.start_mission(0)
+		if game.session_kind!="campaign": game.resume_campaign()
+		elif not game.active: game.start_mission(0)
 		navigate("Tickety")))
+	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink"),true))
 	left.add_child(button("Volný trénink  •  všechny laboratoře",func():
 		if not game.active: game.start_mission(0,true)
 		game.training=true
@@ -237,6 +248,11 @@ func navigate(target: String):
 	page=target
 	tab=""
 	notice=""
+	if game.session_kind=="lesson":
+		game.tutorial.session.page=page
+		game.tutorial.session.tab=tab
+		game.save()
+	if not game.active and not page in ["Trénink","menu"]: game.start_mission(0)
 	draw_ui()
 
 func draw_datacenter():
@@ -250,9 +266,11 @@ func draw_datacenter():
 	var racks = preload("res://scenes/datacenter/Datacenter.tscn").instantiate()
 	racks.custom_minimum_size.y=420
 	racks.state=game.sim.state
+	register_target("rack:PVE-01",racks)
 	contents.add_child(racks)
 	racks.server_selected.connect(func(server_name):
 		host=server_name
+		game.notify_event({"type":"server_selected","host":server_name})
 		navigate("Proxmox" if server_name.begins_with("PVE") else ("Hyper-V" if server_name.begins_with("HV") else "Storage")))
 	var c = card(contents,"Aktuální směna",game.current.get("symptoms","Vyber ticket."))
 	c.add_child(button("Otevřít pracovní konzoli   →",func(): navigate(game.current.get("category","Proxmox")),true))
@@ -328,6 +346,10 @@ func draw_console():
 	picker.item_selected.connect(func(i): tab=options[i]; notice=""; draw_ui())
 	center.add_child(picker)
 	var v=scroll(center)
+	if page=="Proxmox":
+		var wizard=button("Create VM — průvodce",func(): tab="Průvodce VM"; game.notify_event({"type":"action_opened","action":"create_vm"}); draw_ui(),true)
+		v.add_child(wizard)
+		register_target("wizard:create_vm",wizard)
 	if page in ["Proxmox","Hyper-V"]: draw_tree(v)
 	draw_state(v)
 	for action in game.actions:
@@ -355,11 +377,14 @@ func draw_tree(parent: Node):
 				item.set_text(0,ct_id+"  "+game.sim.state.ct[ct_id].name+"  [LXC]")
 				item.set_metadata(0,{"host":node_name,"vm":""})
 	c.add_child(tree)
+	register_target("tree:PVE-01",tree)
+	register_target("tree:HV-01",tree)
 	tree.item_selected.connect(func():
 		var meta=tree.get_selected().get_metadata(0)
 		if meta is Dictionary:
 			host=meta.host
 			selected_vm=meta.vm
+			game.notify_event({"type":"node_selected","host":host,"vm":selected_vm})
 			call_deferred("draw_ui"))
 
 func draw_state(parent: Node):
@@ -451,6 +476,7 @@ func draw_form(parent: Node, action: Dictionary):
 		input.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		c.add_child(input)
 		inputs[field.key]=input
+		register_target("field:"+str(action.id)+":"+str(field.key),input)
 	if action.id=="raid_create":
 		var preview=label("Vyber členy pro výpočet kapacity.",14,CYAN)
 		c.add_child(preview)
@@ -472,6 +498,7 @@ func draw_form(parent: Node, action: Dictionary):
 		else: perform(action.id,params),true)
 	c.add_child(action_button)
 	form_buttons[action.id]=action_button
+	register_target("action:"+str(action.id),action_button)
 
 func update_raid_preview(inputs: Dictionary):
 	if not inputs.has("_preview"): return
@@ -507,10 +534,94 @@ func close_ticket():
 	draw_ui()
 
 func hint():
+	if game.session_kind=="lesson":
+		show_message("Nápověda",game.lesson_hint())
+		return
 	var level=mini(game.hints_used,2)
 	game.hints_used=mini(game.hints_used+1,3)
 	game.save()
 	show_message("Nápověda %d / 3" % (level+1),game.current.hints[level]+"\n\nKaždý stupeň sníží hodnocení o 4 body.")
+
+func register_target(key: String,control: Control):
+	ui_targets[key]=control
+
+func begin_lesson(id: int,mode: String,resume: bool=true):
+	if game.start_lesson(id,mode,resume):
+		host=game.current.server
+		page=game.tutorial.session.get("page","Serverovna") if mode=="learn" else game.current.category
+		tab=game.tutorial.session.get("tab","")
+		selected_vm=""
+		notice=""
+		draw_ui()
+
+func draw_training_center():
+	var container=preload("res://scenes/training/TrainingCenter.tscn").instantiate()
+	container.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	center.add_child(container)
+	var v=scroll(container)
+	var hero=card(v,"Tréninkové centrum","Senior administrátor / praktická laboratoř")
+	hero.add_child(label("Vyber lekci a způsob učení. Používáš stejné konzole i skutečný stav jako v kampani.",15,MUTED))
+	hero.add_child(button("Vrátit se k uložené kampani",func(): game.resume_campaign(); navigate("Serverovna")))
+	for lesson in game.tutorial.lessons:
+		var status=game.education.lessons.get(str(lesson.id),{}).get("status","Nedokončeno")
+		var c=card(v,lesson.title,lesson.category+"  •  "+status)
+		c.add_child(label(lesson.description,14,MUTED))
+		var row=hbox(c)
+		for item in [["learn","Učím se"],["practice","Procvičování"],["exam","Zkouška"]]:
+			row.add_child(button(item[1],func(): begin_lesson(int(lesson.id),item[0]),item[0]=="learn"))
+
+func draw_lesson_panel(parent: Node):
+	var holder=VBoxContainer.new()
+	holder.custom_minimum_size.x=292
+	parent.add_child(holder)
+	var v=scroll(holder)
+	var t=game.tutorial
+	var c=card(v,"Právě se učíš",game.current.title)
+	var mode={"learn":"UČÍM SE","practice":"PROCVIČOVÁNÍ","exam":"ZKOUŠKA"}.get(t.session.get("mode","learn"),"VÝUKA")
+	c.add_child(label(mode,11,CYAN))
+	if t.guided() and not t.current_step().is_empty():
+		var step=t.current_step()
+		c.add_child(label("Krok %d z %d — %s" % [int(t.session.step)+1,t.lesson.steps.size(),step.title],19,CYAN))
+		c.add_child(label(step.text,15))
+		c.add_child(label("Proč?",13,CYAN))
+		c.add_child(label(step.why,13,MUTED))
+		c.add_child(button("Více informací",func(): show_message(step.title,step.more)))
+		c.add_child(button("Zobrazit potřebný panel",recover_tutorial_target))
+	else:
+		c.add_child(label(game.current.description,14))
+		for goal in game.goals(): c.add_child(label(("✓ " if goal.passed else "○ ")+goal.label,12,CYAN if goal.passed else MUTED))
+	if t.last_feedback!="": c.add_child(label(t.last_feedback,13,ORANGE))
+	if int(t.session.get("step",0))>=t.lesson.steps.size() and t.session.mode=="learn": c.add_child(label("Všechny kroky ověřeny. Lekci můžeš předat.",14,CYAN))
+	c.add_child(button("Vyhodnotit lekci",close_ticket,true))
+	if t.session.mode!="exam": c.add_child(button("Nápověda",hint))
+	c.add_child(button("Restartovat lekci",func(): begin_lesson(int(game.current.id),t.session.mode,false)))
+	c.add_child(button("Uložit a opustit lekci",func(): game.save(); navigate("Trénink")))
+	c.add_child(label("Krok i konfigurace se ukládají samostatně. Kampaň zůstává odložená.",11,MUTED))
+
+func focus_tutorial():
+	if not game.tutorial.guided() or game.session_kind!="lesson" or page in ["menu","Trénink"]: return
+	var key=game.tutorial.target(game.sim.state)
+	if not ui_targets.has(key): return
+	var control=ui_targets[key]
+	if not is_instance_valid(control): return
+	var ancestor=control.get_parent()
+	while ancestor is Control:
+		if ancestor is ScrollContainer: ancestor.ensure_control_visible(control)
+		ancestor=ancestor.get_parent()
+	tutorial_overlay=preload("res://scripts/training/TutorialOverlay.gd").new()
+	add_child(tutorial_overlay)
+	tutorial_overlay.target=control
+	if key.begins_with("rack:"):
+		await get_tree().process_frame
+		if is_instance_valid(control) and not control.boxes.is_empty(): tutorial_overlay.local_rect=control.boxes[0]
+
+func recover_tutorial_target():
+	var step=game.tutorial.current_step()
+	if step.is_empty(): return
+	page=step.get("page",game.current.category)
+	tab=step.get("tab","")
+	host=game.current.server
+	draw_ui()
 
 func show_review():
 	if not game.current.has("review"): return

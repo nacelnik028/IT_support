@@ -1,0 +1,337 @@
+[
+  {
+    "id": 1002,
+    "key": "pve_vm",
+    "title": "Vytvoření Linux VM",
+    "category": "Proxmox VE",
+    "module": "Proxmox",
+    "tags": [
+      "Proxmox",
+      "Sítě"
+    ],
+    "server": "PVE-01",
+    "difficulty": "Začátečník",
+    "priority": "Výuka",
+    "topic": "VM",
+    "description": "Vytvoř WEB01 / VMID101: Debian,2 vCPU,4096 MiB,32GiB local-lvm,vmbr0 VLAN20 aIP192.168.20.101. Nainstaluj OS, spusť a ověř službu.",
+    "symptoms": "Nová VM ještě neexistuje.",
+    "initial_state": {},
+    "available_actions": [
+      "inspect",
+      "vm_identity",
+      "vm_media",
+      "vm_resources",
+      "vm_disk",
+      "vm_network",
+      "vm_install",
+      "power",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.101.name",
+        "value": "WEB01",
+        "label": "WEB01 vytvořen",
+        "op": "eq"
+      },
+      {
+        "path": "vms.101.cpu",
+        "value": 2,
+        "label": "2 vCPU",
+        "op": "eq"
+      },
+      {
+        "path": "vms.101.ram_mib",
+        "value": 4096,
+        "label": "4096 MiB RAM",
+        "op": "eq"
+      },
+      {
+        "path": "vms.101.disk",
+        "value": 32,
+        "label": "32GiB disk",
+        "op": "eq"
+      },
+      {
+        "path": "vms.101.bridge",
+        "value": "vmbr0",
+        "label": "Správný bridge",
+        "op": "eq"
+      },
+      {
+        "path": "verified.vms.101",
+        "value": true,
+        "label": "Aplikace ověřena",
+        "op": "eq"
+      }
+    ],
+    "steps": [
+      {
+        "title": "Otevři Proxmox",
+        "text": "Klikni v serverovně na PVE-01.",
+        "why": "Hypervisor spravuje virtuální stroje fyzického hostitele.",
+        "more": "Hypervisor spravuje virtuální stroje fyzického hostitele. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Klikni v serverovně na PVE-01.",
+        "target": "rack:PVE-01",
+        "checks": [],
+        "event": {
+          "type": "server_selected",
+          "host": "PVE-01"
+        },
+        "page": "Serverovna",
+        "tab": ""
+      },
+      {
+        "title": "Vyber uzel",
+        "text": "Ve stromu Datacenter vyber PVE-01.",
+        "why": "Nastavení uzlu a nastavení konkrétní VM jsou různé úrovně.",
+        "more": "Nastavení uzlu a nastavení konkrétní VM jsou různé úrovně. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Ve stromu Datacenter vyber PVE-01.",
+        "target": "tree:PVE-01",
+        "checks": [],
+        "event": {
+          "type": "node_selected",
+          "host": "PVE-01"
+        },
+        "page": "Proxmox",
+        "tab": "Podle ticketu"
+      },
+      {
+        "title": "Otevři Create VM",
+        "text": "Klikni na Create VM — průvodce.",
+        "why": "Průvodce bude zapisovat skutečné konfigurační hodnoty VM.",
+        "more": "Průvodce bude zapisovat skutečné konfigurační hodnoty VM. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Klikni na Create VM — průvodce.",
+        "target": "wizard:create_vm",
+        "checks": [],
+        "event": {
+          "type": "action_opened",
+          "action": "create_vm"
+        },
+        "page": "Proxmox",
+        "tab": "Podle ticketu"
+      },
+      {
+        "title": "VMID a název",
+        "text": "Zadej VMID101 a název WEB01 a rezervuj konfiguraci.",
+        "why": "VMID je jedinečný číselný identifikátor v PVE. Existující VM nikdy nepřepisuj.",
+        "more": "VMID je jedinečný číselný identifikátor v PVE. Existující VM nikdy nepřepisuj. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Zadej VMID101 a název WEB01 a rezervuj konfiguraci.",
+        "target": "field:vm_identity:name",
+        "checks": [
+          {
+            "path": "vms.101.name",
+            "value": "WEB01",
+            "label": "vms.101.name",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.exists",
+            "value": true,
+            "label": "vms.101.exists",
+            "op": "eq"
+          }
+        ],
+        "event": {
+          "type": "action_applied",
+          "action": "vm_identity"
+        },
+        "page": "Proxmox",
+        "tab": "Průvodce VM"
+      },
+      {
+        "title": "Instalační ISO",
+        "text": "Pro VM101 vyber debian.iso a ulož jej.",
+        "why": "ISO je obraz instalačního média. Directory storage dovoluje ISO; PBS je zálohovací cíl.",
+        "more": "ISO je obraz instalačního média. Directory storage dovoluje ISO; PBS je zálohovací cíl. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Pro VM101 vyber debian.iso a ulož jej.",
+        "target": "field:vm_media:iso",
+        "checks": [
+          {
+            "path": "vms.101.iso",
+            "value": "debian.iso",
+            "label": "vms.101.iso",
+            "op": "eq"
+          }
+        ],
+        "event": {
+          "type": "action_applied",
+          "action": "vm_media"
+        },
+        "page": "Proxmox",
+        "tab": "Průvodce VM"
+      },
+      {
+        "title": "CPU a paměť",
+        "text": "VM101 přiděl2 vCPU a4096 MiB RAM a ulož.",
+        "why": "4096 MiB =4 GiB. Hostitel a storage potřebují vlastní paměťovou rezervu.",
+        "more": "4096 MiB =4 GiB. Hostitel a storage potřebují vlastní paměťovou rezervu. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "VM101 přiděl2 vCPU a4096 MiB RAM a ulož.",
+        "target": "field:vm_resources:ram_mib",
+        "checks": [
+          {
+            "path": "vms.101.cpu",
+            "value": 2,
+            "label": "vms.101.cpu",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.ram",
+            "value": 4,
+            "label": "vms.101.ram",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.ram_mib",
+            "value": 4096,
+            "label": "vms.101.ram_mib",
+            "op": "eq"
+          }
+        ],
+        "event": {
+          "type": "action_applied",
+          "action": "vm_resources"
+        },
+        "page": "Proxmox",
+        "tab": "Průvodce VM"
+      },
+      {
+        "title": "Virtuální disk",
+        "text": "Vytvoř32GiB disk na local-lvm pro VM101.",
+        "why": "Thin disk má logickou kapacitu; fyzické místo se spotřebovává až zápisem a musí se sledovat zvlášť.",
+        "more": "Thin disk má logickou kapacitu; fyzické místo se spotřebovává až zápisem a musí se sledovat zvlášť. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Vytvoř32GiB disk na local-lvm pro VM101.",
+        "target": "field:vm_disk:size",
+        "checks": [
+          {
+            "path": "vms.101.disk",
+            "value": 32,
+            "label": "vms.101.disk",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.storage",
+            "value": "local-lvm",
+            "label": "vms.101.storage",
+            "op": "eq"
+          }
+        ],
+        "event": {
+          "type": "action_applied",
+          "action": "vm_disk"
+        },
+        "page": "Proxmox",
+        "tab": "Průvodce VM"
+      },
+      {
+        "title": "Virtuální síť",
+        "text": "VM101 připoj na vmbr0, VLAN20, IP192.168.20.101.",
+        "why": "Linux bridge propojuje virtuální síťovou kartu s fyzickým uplinkem. Samotný bridge neposkytuje DHCP ani NAT.",
+        "more": "Linux bridge propojuje virtuální síťovou kartu s fyzickým uplinkem. Samotný bridge neposkytuje DHCP ani NAT. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "VM101 připoj na vmbr0, VLAN20, IP192.168.20.101.",
+        "target": "field:vm_network:bridge",
+        "checks": [
+          {
+            "path": "vms.101.bridge",
+            "value": "vmbr0",
+            "label": "vms.101.bridge",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.vlan",
+            "value": 20,
+            "label": "vms.101.vlan",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.ip",
+            "value": "192.168.20.101",
+            "label": "vms.101.ip",
+            "op": "eq"
+          }
+        ],
+        "event": {
+          "type": "action_applied",
+          "action": "vm_network"
+        },
+        "page": "Proxmox",
+        "tab": "Průvodce VM"
+      },
+      {
+        "title": "Instaluj, spusť a ověř",
+        "text": "Dokonči instalaci OS, spusť VM101 a použij Ověřit infrastrukturu.",
+        "why": "Start nestačí. Ověření kontroluje síťovou cestu, HTTPS a aplikační data.",
+        "more": "Start nestačí. Ověření kontroluje síťovou cestu, HTTPS a aplikační data. Všechny kroky probíhají v bezpečné offline laboratoři.",
+        "hint": "Dokonči instalaci OS, spusť VM101 a použij Ověřit infrastrukturu.",
+        "target": "action:vm_install",
+        "checks": [
+          {
+            "path": "vms.101.os_installed",
+            "value": true,
+            "label": "vms.101.os_installed",
+            "op": "eq"
+          },
+          {
+            "path": "vms.101.status",
+            "value": "Running",
+            "label": "vms.101.status",
+            "op": "eq"
+          },
+          {
+            "path": "verified.vms.101",
+            "value": true,
+            "label": "verified.vms.101",
+            "op": "eq"
+          }
+        ],
+        "event": {},
+        "page": "Proxmox",
+        "tab": "Průvodce VM",
+        "targets": [
+          {
+            "checks": [
+              {
+                "path": "vms.101.os_installed",
+                "value": true,
+                "label": "vms.101.os_installed",
+                "op": "eq"
+              }
+            ],
+            "target": "action:vm_install"
+          },
+          {
+            "checks": [
+              {
+                "path": "vms.101.status",
+                "value": "Running",
+                "label": "vms.101.status",
+                "op": "eq"
+              }
+            ],
+            "target": "action:power"
+          },
+          {
+            "checks": [
+              {
+                "path": "verified.vms.101",
+                "value": true,
+                "label": "verified.vms.101",
+                "op": "eq"
+              }
+            ],
+            "target": "action:verify"
+          }
+        ]
+      }
+    ],
+    "hints": [
+      "Začni konfigurací VM na uzlu PVE-01.",
+      "Každý blok průvodce je třeba uložit do konfigurace.",
+      "ID101 / WEB01,Debian,2vCPU,4096MiB,32GiB,vmbr0 VLAN20. Pak instalace, Start a Ověření."
+    ],
+    "explanations": "Vytvořil jsi skutečnou konfiguraci VM, instaloval OS a ověřil službu. VM má vlastní kernel a čerpá prostředky hostitele.",
+    "rewards": {
+      "xp": 0
+    }
+  }
+]

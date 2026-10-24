@@ -1,0 +1,2192 @@
+[
+  {
+    "id": 1,
+    "title": "První pracovní den",
+    "category": "Proxmox",
+    "difficulty": "Začátečník",
+    "priority": "Normální",
+    "server": "PVE-01",
+    "topic": "příprava",
+    "description": "Vítej v týmu Northstar IT. Připrav nový hostitel pro ZFS a virtualizaci. V Přípravě nejdřív prohlédni inventář, pak uprav firmware a management. Máme 64 GB RAM, dva prázdné SSD pro systém a archivní disk, který nesmíš smazat. Požadovaná konfigurace: VT-x/AMD-V zapnuto, přímé disky přes HBA, funkční UPS a vzdálená konzole. Hostname pve01.lab.example, IP 192.168.10.10/24, gateway 192.168.10.1, DNS 192.168.10.2.",
+    "symptoms": "Virtualizace vypnuta; management konfigurace není připravená.",
+    "initial_state": {
+      "hosts": {
+        "PVE-01": {
+          "installed": false,
+          "vt": false,
+          "mode": "RAID",
+          "ups": false,
+          "console": false,
+          "ip": "192.168.10.99",
+          "gateway": "192.168.10.254",
+          "dns": "0.0.0.0"
+        }
+      },
+      "vms": {
+        "100": {
+          "exists": false,
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "inspect",
+      "prepare",
+      "management",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "hosts.PVE-01.vt",
+        "value": true,
+        "label": "Hardwarová virtualizace aktivní"
+      },
+      {
+        "path": "hosts.PVE-01.mode",
+        "value": "HBA",
+        "label": "Přímé disky pro ZFS"
+      },
+      {
+        "path": "hosts.PVE-01.hostname",
+        "value": "pve01.lab.example",
+        "label": "Správný hostname"
+      },
+      {
+        "path": "verified.preflight",
+        "value": true,
+        "label": "Ověřena UPS, konzole a management"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika před předáním"
+      }
+    ],
+    "failure_conditions": [
+      "Instalace přes původní data"
+    ],
+    "hints": [
+      "Začni inventářem fyzického hostitele.",
+      "ZFS má řídit jednotlivé disky přímo; IOMMU potřebuješ pro passthrough, nikoli pro každou VM.",
+      "Zapni VT-x, zvol HBA, ověř UPS i konzoli. Ulož předepsanou management IP, gateway a DNS. Nakonec otevři Ověření."
+    ],
+    "explanations": "Hostitel poskytuje CPU, RAM a storage hostům. VM má vlastní kernel; LXC jej sdílí. HBA poskytne ZFS přístup k diskům. Rezerva RAM patří i hostiteli a ZFS. UPS a konzole zjednoduší bezpečný zásah při výpadku sítě.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Kdy potřebuješ IOMMU?",
+      "options": [
+        "Pro PCIe passthrough.",
+        "Povinně pro každou běžnou VM."
+      ],
+      "correct": 0,
+      "explanation": "IOMMU není totéž co CPU virtualizace VT-x/AMD-V."
+    }
+  },
+  {
+    "id": 2,
+    "title": "Nainstaluj Proxmox",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "instalace",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "Nasaď PVE na dva prázdné SSD SYS-A a SYS-B jako ZFS mirror. ARCHIVE-9 obsahuje účetní data. Hostname pve01.lab.example, IP 192.168.10.10/24, gateway 192.168.10.1, DNS 192.168.10.2, management NIC eno1. Pak otevři web na HTTPS portu 8006.",
+    "symptoms": "Na serveru dosud není hypervisor.",
+    "initial_state": {
+      "hosts": {
+        "PVE-01": {
+          "installed": false
+        }
+      }
+    },
+    "available_actions": [
+      "install",
+      "web",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "hosts.PVE-01.installed",
+        "value": true,
+        "label": "PVE nainstalován",
+        "op": "eq"
+      },
+      {
+        "path": "install.type",
+        "value": "ZFS mirror",
+        "label": "Redundantní systémový mirror",
+        "op": "eq"
+      },
+      {
+        "path": "install.nic",
+        "value": "eno1",
+        "label": "Správný management uplink",
+        "op": "eq"
+      },
+      {
+        "path": "install.web",
+        "value": true,
+        "label": "Otevřena správná webová konzole",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.hostname",
+        "value": "pve01.lab.example",
+        "label": "Management: hostname",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.ip",
+        "value": "192.168.10.10",
+        "label": "Management: ip",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.gateway",
+        "value": "192.168.10.1",
+        "label": "Management: gateway",
+        "op": "eq"
+      },
+      {
+        "path": "hosts.PVE-01.dns",
+        "value": "192.168.10.2",
+        "label": "Management: dns",
+        "op": "eq"
+      },
+      {
+        "path": "install.disks",
+        "value": "SYS-A + SYS-B",
+        "label": "Správné instalační disky",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Rozliš prázdné instalační SSD a archiv.",
+      "ZFS mirror vyžaduje dva přímo přístupné disky.",
+      "Vyber SYS-A + SYS-B, ZFS mirror a eno1. Web používá https://192.168.10.10:8006."
+    ],
+    "explanations": "Instalátor smaže cílové disky. ZFS mirror chrání proti výpadku člena, nikoli proti smazání nebo ztrátě serveru.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Co ověřit před instalací PVE?",
+      "options": [
+        "Jen součet kapacit.",
+        "Identitu cílových disků a zálohu původních dat."
+      ],
+      "correct": 1,
+      "explanation": "Instalátor přepíše vybrané disky."
+    }
+  },
+  {
+    "id": 3,
+    "title": "První Linux server",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "VM",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "Vytvoř VMID 100 APP01: Debian ISO, Linux, UEFI, 2 vCPU, 4 GB RAM, 32 GB na local-lvm, VirtIO, vmbr0 VLAN 20. Po instalaci bootuj z Disku, zapni Guest Agent, spusť VM a ověř HTTPS i data.",
+    "symptoms": "Zatím neexistuje aplikační VM.",
+    "initial_state": {
+      "vms": {
+        "100": {
+          "exists": false,
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "create_vm",
+      "power",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.100.exists",
+        "value": true,
+        "label": "APP01 existuje",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.cpu",
+        "value": 2,
+        "label": "2 vCPU",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.ram",
+        "value": 4,
+        "label": "4 GB RAM",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.disk",
+        "value": 32,
+        "label": "32GB disk",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.nic",
+        "value": "VirtIO",
+        "label": "VirtIO síť",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.agent",
+        "value": true,
+        "label": "Guest Agent",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.firmware",
+        "value": "UEFI",
+        "label": "UEFI",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.boot",
+        "value": "Disk",
+        "label": "Boot z disku",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "Ověřena aplikace APP01",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.name",
+        "value": "APP01",
+        "label": "APP01: name",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.iso",
+        "value": "debian.iso",
+        "label": "APP01: iso",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.os",
+        "value": "Linux",
+        "label": "APP01: os",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.storage",
+        "value": "local-lvm",
+        "label": "APP01: storage",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.bridge",
+        "value": "vmbr0",
+        "label": "APP01: bridge",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.vlan",
+        "value": 20,
+        "label": "APP01: vlan",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Použij Create VM v sekci VM / CT.",
+      "Průvodce nestačí: po instalaci musí VM běžet.",
+      "VMID 100, 2 CPU, 4 GB RAM, 32 GB disk, VirtIO, VLAN20; potom Start a Ověření."
+    ],
+    "explanations": "VM má vlastní kernel. Guest Agent pomáhá korektnímu vypnutí a konzistenci záloh; není sám zálohovacím nástrojem.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Čím se LXC liší od VM?",
+      "options": [
+        "Sdílí kernel hostitele.",
+        "Má vždy vlastní Windows kernel."
+      ],
+      "correct": 0,
+      "explanation": "LXC je linuxový kontejner; VM má vlastní kernel."
+    }
+  },
+  {
+    "id": 4,
+    "title": "Server bez internetu",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "VLAN",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Po nasazení APP01 se uživatelé nemohou připojit k aplikaci. Síť aplikací je VLAN 20, IP 192.168.20.100/24, gateway 192.168.20.1, DNS 192.168.20.10. Zkontroluj celou cestu a ověř HTTPS.",
+    "symptoms": "APP01 běží, ale aplikace není dosažitelná.",
+    "initial_state": {
+      "vms": {
+        "100": {
+          "vlan": 30
+        }
+      }
+    },
+    "available_actions": [
+      "network",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.100.vlan",
+        "value": 20,
+        "label": "Správná VLAN APP01",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.firewall",
+        "value": true,
+        "label": "Cílená pravidla firewallu zachována",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "Ověřena síť, DNS i služba",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.ip",
+        "value": "192.168.20.100",
+        "label": "Původní správná IP zachována",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Začni od síťové karty VM směrem k uplinku.",
+      "Srovnej VLAN tag se zadáním. Ping není test aplikace.",
+      "V Síti nastav APP01 na vmbr0 / VLAN20. IP neměň bez příčiny; nakonec Ověření."
+    ],
+    "explanations": "Nesprávný VLAN tag přeruší L2 cestu jediné VM. IP, DNS i aplikace mají vlastní kontroly; plošné vypnutí firewallu příčinu neopraví.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Ping odpovídá. Je aplikace ověřená?",
+      "options": [
+        "Ano, ping dokazuje funkci HTTPS.",
+        "Ještě je nutné ověřit DNS, port a aplikaci."
+      ],
+      "correct": 1,
+      "explanation": "ICMP neověří službu ani její data."
+    }
+  },
+  {
+    "id": 5,
+    "title": "Kam zmizelo místo?",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "thin provisioning",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "LVM-thin má 500 GB fyzicky, 800 GB virtuálně přiděleno a 495 GB obsazeno. Metadata jsou na 96 %. Ověř zálohu a vlastníka 80 GB osiřelých snapshotů, uvolni je a proveď údržbu metadat. APP01 musí znovu bezpečně zapisovat.",
+    "symptoms": "Pool téměř plný; df uvnitř VM vypadá v pořádku.",
+    "initial_state": {
+      "storage": {
+        "used": 495,
+        "metadata": 96
+      }
+    },
+    "available_actions": [
+      "storage_cleanup",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "storage.used",
+        "value": 450,
+        "label": "Fyzická provozní rezerva",
+        "op": "lte"
+      },
+      {
+        "path": "storage.metadata",
+        "value": 80,
+        "label": "Rezerva thin metadat",
+        "op": "lte"
+      },
+      {
+        "path": "verified.capacity",
+        "value": true,
+        "label": "Ověřena kapacita všech vrstev",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Volné místo uvnitř hosta není celý příběh.",
+      "Porovnej pvesm status, lvs a df -h.",
+      "Storage: uvolni ověřené Orphan snapshots a Thin metadata. Potom Ověření."
+    ],
+    "explanations": "Thin provisioning přislíbí více kapacity, než je fyzicky dostupné. Hlídej data i metadata; LVM-thin samo není redundantní.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Je 800GB přislíbených disků 800GB fyzického místa?",
+      "options": [
+        "Ne, thin pool může mít menší skutečnou kapacitu.",
+        "Ano, kapacita se alokuje vždy celá."
+      ],
+      "correct": 0,
+      "explanation": "U thin kontroluj data, metadata a provozní rezervu."
+    }
+  },
+  {
+    "id": 6,
+    "title": "Záloha před aktualizací",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "obnova",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Před změnou nastav PBS BACKUP-01, fingerprint AA:42, RPO nejvýše 24 hodin a alespoň 7 bodů retence. Zazálohuj APP01, proveď Verify, obnov jako VMID 900 do LAB, spusť a ověř aplikaci i soubor ACADEMY-DATA-v1.",
+    "symptoms": "Existuje pouze lokální snapshot; nezávislá záloha chybí.",
+    "initial_state": {
+      "backup": {
+        "configured": false,
+        "records": {},
+        "verified": false
+      }
+    },
+    "available_actions": [
+      "backup_config",
+      "backup",
+      "backup_verify",
+      "restore",
+      "power",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "backup.configured",
+        "value": true,
+        "label": "Nezávislý PBS job",
+        "op": "eq"
+      },
+      {
+        "path": "backup.interval",
+        "value": 24,
+        "label": "Interval vyhovuje RPO",
+        "op": "lte"
+      },
+      {
+        "path": "backup.retention",
+        "value": 7,
+        "label": "Retence 7+ bodů",
+        "op": "gte"
+      },
+      {
+        "path": "backup.verified",
+        "value": true,
+        "label": "Integrita ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.restore",
+        "value": true,
+        "label": "Obnovená aplikace a data otestována",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "vms.900.identity",
+        "value": "100",
+        "label": "Otestována záloha správné APP01",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.100.name",
+        "value": "APP01",
+        "label": "Záloha správné služby",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Samotná existence souboru nestačí.",
+      "Nejprve nezávislý cíl a Verify; pak izolovaný test obnovy.",
+      "PBS AA:42, 24 h / 7 bodů → Backup100 → Verify → Restore900 LAB → Start900 → Ověření."
+    ],
+    "explanations": "Snapshot zůstává závislý na stejném poolu. Verify kontroluje integritu; až test aplikace a dat prokáže obnovitelnost. RPO je ztráta dat, RTO čas obnovy.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Nahrazuje PBS Verify test aplikace po obnově?",
+      "options": [
+        "Ano, potvrzuje přihlášení do aplikace.",
+        "Ne, kontroluje integritu zálohy."
+      ],
+      "correct": 1,
+      "explanation": "Test obnovy musí ověřit OS, službu a aplikační data."
+    }
+  },
+  {
+    "id": 7,
+    "title": "Výpadek disku",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "topic": "ZFS",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Datový ZFS mirror je DEGRADED. Ve výpisu zpool status identifikuj vadný člen. Ověř zálohu, vyměň pouze tento disk za kompatibilní 1TB SSD a dokonči resilver.",
+    "symptoms": "ZFS: B / PVE-B vykazuje I/O chyby.",
+    "initial_state": {
+      "zfs": {
+        "health": "Degraded",
+        "disks": {
+          "B": {
+            "health": "Failed"
+          }
+        }
+      }
+    },
+    "available_actions": [
+      "replace_disk",
+      "rebuild",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "zfs.health",
+        "value": "Healthy",
+        "label": "Obnovená redundance",
+        "op": "eq"
+      },
+      {
+        "path": "zfs.progress",
+        "value": 100,
+        "label": "Dokončený resilver",
+        "op": "eq"
+      },
+      {
+        "path": "verified.zfs",
+        "value": true,
+        "label": "Zdravý pool ověřen",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Scrub vadný hardware nevymění.",
+      "Porovnej slot se stabilním sériovým číslem.",
+      "Vyměň B / PVE-B za 1000 GB, potvrď zálohu, dvakrát posuň resilver a ověř."
+    ],
+    "explanations": "Resilver obnovuje chybějící kopii. Vytažení druhého zdravého člena by mohlo zastavit celý pool. Jde o datový mirror; systémový rpool navíc vyžaduje bootloader.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Obnoví samotný scrub vadný fyzický disk?",
+      "options": [
+        "Ne, vadný člen se musí bezpečně vyměnit.",
+        "Ano, scrub vytvoří nový hardware."
+      ],
+      "correct": 0,
+      "explanation": "Scrub kontroluje data; resilver obnovuje redundanci na náhradním členu."
+    }
+  },
+  {
+    "id": 8,
+    "title": "Krizová noc",
+    "category": "Proxmox",
+    "server": "PVE-02",
+    "topic": "quorum",
+    "difficulty": "Expert",
+    "priority": "Kritická",
+    "description": "PVE-01 havaroval. Dvouuzlový PVE cluster ztratil spojení s již nakonfigurovaným QDevice. Obnov jeho spojení, potvrď fencing PVE-01 a dostupnost sdílených disků. HA pak může restartovat APP01 na PVE-02.",
+    "symptoms": "1/3 hlasů; APP01 Offline; data na sdíleném storage jsou dostupná.",
+    "initial_state": {
+      "hosts": {
+        "PVE-01": {
+          "online": false
+        }
+      },
+      "vms": {
+        "100": {
+          "status": "Off"
+        }
+      },
+      "cluster": {
+        "peer_online": false,
+        "qdevice": false,
+        "fenced": false
+      }
+    },
+    "available_actions": [
+      "cluster",
+      "failover",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "cluster.qdevice",
+        "value": true,
+        "label": "Quorum s nezávislým QDevice",
+        "op": "eq"
+      },
+      {
+        "path": "cluster.fenced",
+        "value": true,
+        "label": "Původní hostitel oplocen",
+        "op": "eq"
+      },
+      {
+        "path": "vms.100.host",
+        "value": "PVE-02",
+        "label": "APP01 na přeživším uzlu",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "Aplikace po restartu ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Cluster není kopie disků. Zkontroluj hlasy a storage.",
+      "Nepřepisuj expected_votes; obnov dostupnost existujícího QDevice.",
+      "Cluster: QDevice + fencing + shared storage. Potom HA recovery na PVE-02 a Ověření."
+    ],
+    "explanations": "HA potřebuje quorum, fencing, data i prostředky. Po havárii VM restartuje a ztratí RAM. QDevice není další výpočetní uzel. Hyper-V do PVE clusteru nepatří.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Zachová HA po havárii hostitele jeho RAM?",
+      "options": [
+        "Ano, pokračuje bez ztráty běžící paměti.",
+        "Ne, VM se zpravidla restartuje."
+      ],
+      "correct": 1,
+      "explanation": "HA potřebuje quorum, fencing, dostupná data a kapacitu."
+    }
+  },
+  {
+    "id": 9,
+    "title": "Windows hypervisor",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "Hyper-V role",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "Na fyzickém HV-01 ověř VT-x/AMD-V, SLAT a DEP/NX. Nainstaluj serverovou roli Hyper-V včetně nástrojů, restartuj v servisním okně a ověř VMMS.",
+    "symptoms": "Nástroje správy jsou přítomné, hypervisor ale neběží.",
+    "initial_state": {
+      "hosts": {
+        "HV-01": {
+          "vt": false,
+          "dep": false,
+          "role": false,
+          "vmms": false,
+          "rebooted": false
+        }
+      },
+      "vms": {
+        "200": {
+          "exists": false,
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "hv_prepare",
+      "hv_role",
+      "hv_restart",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "hosts.HV-01.role",
+        "value": true,
+        "label": "Role Hyper-V nainstalována",
+        "op": "eq"
+      },
+      {
+        "path": "verified.hypervisor",
+        "value": true,
+        "label": "Restart a VMMS Running ověřeny",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Manager a samotná role nejsou totéž.",
+      "CPU vyžaduje SLAT, virtualizaci a DEP. Po instalaci je nutný restart.",
+      "Server Manager: ověř firmware → Install role → restart v okně → Ověření."
+    ],
+    "explanations": "Hyper-V je hypervisor typu 1. Samotné management tools neznamenají běžící hypervisor; VMMS kontroluj až po dokončeném restartu.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Stačí nainstalovat Hyper-V Manager?",
+      "options": [
+        "Ne, hostitel potřebuje roli a dokončený restart.",
+        "Ano, Manager sám spouští hypervisor."
+      ],
+      "correct": 0,
+      "explanation": "Správní nástroje a hypervisor jsou odlišné komponenty."
+    }
+  },
+  {
+    "id": 10,
+    "title": "Propoj virtuální síť",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "vSwitch",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "FS01 má komunikovat s firemní sítí ve VLAN 20: 192.168.20.200/24, gateway .1, DNS .10. Vytvoř vSwitch-APP nad Ethernet2 a připoj VM. Porovnej External, Internal a Private; ověř HTTPS.",
+    "symptoms": "FS01 je na izolovaném LAB switchi.",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "bridge": "LAB",
+          "isolated": true
+        }
+      }
+    },
+    "available_actions": [
+      "switch",
+      "network",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "network.switches.vSwitch-APP.type",
+        "value": "External",
+        "label": "External switch s uplinkem",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.bridge",
+        "value": "vSwitch-APP",
+        "label": "FS01 připojen ke správnému switchi",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vlan",
+        "value": 20,
+        "label": "VLAN20",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Služba z LAN dostupná",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.ip",
+        "value": "192.168.20.200",
+        "label": "Správná IP FS01",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Private nemá spojení do LAN.",
+      "Internal propojí VM a hostitele, ale bez NAT automaticky ne internet.",
+      "Vytvoř External vSwitch-APP / Ethernet2; FS01 připoj, VLAN20 a původní IP .200."
+    ],
+    "explanations": "External propojuje VM s fyzickou sítí. Internal přidává hostitelský OS; Private pouze VM na témže hostiteli. Žádný typ sám nevytvoří IP konfiguraci.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Má Internal switch automaticky přístup do internetu?",
+      "options": [
+        "Ano, vždy využije internet hostitele.",
+        "Ne, NAT nebo routing se nastavuje zvlášť."
+      ],
+      "correct": 1,
+      "explanation": "Internal propojuje VM a hostitelský OS; Private jen VM na stejném hostiteli."
+    }
+  },
+  {
+    "id": 11,
+    "title": "Nový firemní server",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "Gen2 VM",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "Vytvoř ID 200 FS01: Windows Server ISO, Generation 2 / UEFI, Secure Boot, 2 vCPU, startup 4 GB, Dynamic Memory 2–8 GB, 80GB Dynamic VHDX, vSwitch-LAN / VLAN20, Integration Services. Spusť a ověř službu.",
+    "symptoms": "Firemní souborový server ještě neexistuje.",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "exists": false,
+          "status": "Off"
+        }
+      }
+    },
+    "available_actions": [
+      "hv_create",
+      "power",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.200.exists",
+        "value": true,
+        "label": "FS01 vytvořen",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.generation",
+        "value": 2,
+        "label": "Generation 2",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.secure_boot",
+        "value": true,
+        "label": "Secure Boot",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.cpu",
+        "value": 2,
+        "label": "2 vCPU",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.ram",
+        "value": 4,
+        "label": "Startup 4 GB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.minimum",
+        "value": 2,
+        "label": "Minimum 2 GB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.maximum",
+        "value": 8,
+        "label": "Maximum 8 GB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.disk",
+        "value": 80,
+        "label": "80GB VHDX",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Aplikace ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.name",
+        "value": "FS01",
+        "label": "FS01: name",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.iso",
+        "value": "windows-server.iso",
+        "label": "FS01: iso",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.dynamic",
+        "value": true,
+        "label": "FS01: dynamic",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vhd_type",
+        "value": "Dynamic",
+        "label": "FS01: vhd_type",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.agent",
+        "value": true,
+        "label": "FS01: agent",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.bridge",
+        "value": "vSwitch-LAN",
+        "label": "FS01: bridge",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vlan",
+        "value": 20,
+        "label": "FS01: vlan",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Použij New Virtual Machine.",
+      "Generation 2 používá UEFI. Maximum RAM není trvalá rezervace.",
+      "ID200, Gen2, 2 CPU, 4 GB startup, min2/max8, VHDX80 Dynamic a VLAN20; Start a Ověření."
+    ],
+    "explanations": "Generaci nelze běžně přepnout existující VM. Secure Boot vyžaduje šablonu vhodnou pro OS; u tohoto Windows obrazu je podporovaný.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Jaký firmware používá Generation 2?",
+      "options": [
+        "UEFI.",
+        "Klasický BIOS jako jedinou možnost."
+      ],
+      "correct": 0,
+      "explanation": "Generation 2 podporuje Secure Boot pro vhodný guest OS."
+    }
+  },
+  {
+    "id": 12,
+    "title": "Málo paměti",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "Dynamic Memory",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "FS01 odmítá start. Hostitel má 32 GB, z toho 4 GB rezervu a 8 GB jiné služby. Pro tuto aplikaci nastav Dynamic Memory: minimum 2 GB, startup 4 GB, maximum 8 GB. Potom VM spusť a ověř.",
+    "symptoms": "Startup RAM 28 GB; start selhává.",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "status": "Off",
+          "ram": 28,
+          "minimum": 2,
+          "maximum": 32
+        }
+      }
+    },
+    "available_actions": [
+      "memory",
+      "power",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.200.minimum",
+        "value": 2,
+        "label": "Minimum2",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.ram",
+        "value": 4,
+        "label": "Startup4",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.maximum",
+        "value": 8,
+        "label": "Maximum8",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Host i služba mají dost prostředků",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Zkontroluj Get-VMHost a Get-VMMemory.",
+      "Počítej startup RAM i rezervu hostitele. Dynamic Memory nevyrobí RAM.",
+      "Vypnuté FS01 nastav min2/startup4/max8, pak spusť a ověř."
+    ],
+    "explanations": "Startup RAM je nutná při startu. Maximum je horní mez, nikoli fyzická rezerva. Přidání vCPU tento problém neřeší.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Je maximum Dynamic Memory rezervovaná fyzická RAM?",
+      "options": [
+        "Ano, každý host ji vždy plně rezervuje.",
+        "Ne, je to horní mez přidělení."
+      ],
+      "correct": 1,
+      "explanation": "Při startu potřebuje VM startup RAM a hostitel vlastní rezervu."
+    }
+  },
+  {
+    "id": 13,
+    "title": "Datový disk je plný",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "VHDX",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "FS01 má 100GB virtuální disk i filesystem. Je třeba 150 GB. Ověř backup a rezervu hostitele, korektně VM vypni, rozšiř VHDX, spusť ji a teprve uvnitř rozšiř oddíl. Ověř data a službu.",
+    "symptoms": "D: ve VM má 100 GB a dochází místo.",
+    "initial_state": {},
+    "available_actions": [
+      "power",
+      "capacity",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.200.disk",
+        "value": 150,
+        "label": "VHDX 150 GB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.filesystem",
+        "value": 150,
+        "label": "Guest filesystem 150 GB",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Ověřen zápis aplikace",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "VHDX a oddíl jsou dvě vrstvy.",
+      "Nejdřív záloha a prostor na hostiteli; u jednoduchého postupu VM vypni.",
+      "Shutdown200 → VHDX150 → Start200 → Guest filesystem150 → Ověření."
+    ],
+    "explanations": "Resize VHDX nezvětší oddíl. Online resize závisí na typu řadiče; zde procvičuješ konzervativní postup s vypnutím.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Zvětší Resize-VHD i oddíl uvnitř VM?",
+      "options": [
+        "Ne, oddíl/filesystem rozšiř samostatně.",
+        "Ano, oba kroky jsou automaticky totožné."
+      ],
+      "correct": 0,
+      "explanation": "Každá kapacitní vrstva má vlastní velikost a podmínky růstu."
+    }
+  },
+  {
+    "id": 14,
+    "title": "Nepovedená aktualizace",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "checkpoint",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Aktualizace rozbila službu FS01. Existuje předchozí Production checkpoint Pred-zmenou a samostatný backup. Použij bod návratu, ověř aplikaci a potom checkpoint odstraň přes Manager (merge). Nikdy nemaž AVHDX ručně.",
+    "symptoms": "FS01 běží, ale HTTPS vrací chybu.",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "service": false,
+          "data": "BROKEN",
+          "checkpoints": [
+            {
+              "name": "Pred-zmenou",
+              "type": "Production",
+              "service": true,
+              "data": "ACADEMY-DATA-v1",
+              "ram_saved": false
+            }
+          ]
+        }
+      }
+    },
+    "available_actions": [
+      "checkpoint_action",
+      "verify",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "checkpoint_applied",
+        "value": "Production",
+        "label": "Použit vhodný bod návratu",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.checkpoints",
+        "value": [],
+        "label": "AVHDX bezpečně sloučen",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Služba po návratu ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Hledej existující bod před aktualizací.",
+      "Production checkpoint neukládá RAM a stále závisí na stejném storage.",
+      "Apply Pred-zmenou → Ověření → Delete (merge) → znovu Ověření."
+    ],
+    "explanations": "Production checkpoint používá VSS / filesystem freeze; není nezávislý backup. Delete checkpoint přes Manager slučuje data. Ruční smazání AVHDX může zničit celý řetězec.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Je Production checkpoint nezávislý backup?",
+      "options": [
+        "Ano, automaticky leží na jiném serveru.",
+        "Ne, závisí na původním storage."
+      ],
+      "correct": 1,
+      "explanation": "Production checkpoint využívá VSS; nemaž ručně AVHDX."
+    }
+  },
+  {
+    "id": 15,
+    "title": "Přesuň server",
+    "category": "Hyper-V",
+    "server": "HV-02",
+    "topic": "migrace",
+    "difficulty": "Administrátor",
+    "priority": "Vysoká",
+    "description": "Připrav plánovaný přesun FS01 z HV-01 na HV-02 bez změny identity VM. Oba hostitelé jsou kompatibilní a online. Použij Live Migration s Kerberos a kompletními disky; možný je i bezpečný export/Restore import. Pak ověř aplikaci.",
+    "symptoms": "HV-01 čeká servisní odstávka.",
+    "initial_state": {},
+    "available_actions": [
+      "live_migrate",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "vms.200.host",
+        "value": "HV-02",
+        "label": "FS01 na HV-02",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.identity",
+        "value": "200",
+        "label": "Zachovaná identita VM",
+        "op": "eq"
+      },
+      {
+        "path": "migration.completed",
+        "value": true,
+        "label": "Přesun dokončen",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Disky, síť a služba ověřeny",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Při plánovaném přesunu může běžet původní hostitel.",
+      "Ověř CPU, verze, síť a skutečná VM data. PVE není nativní Hyper-V cíl.",
+      "Live Migration200 → HV-02, Kerberos, kompletní disky → Ověření."
+    ],
+    "explanations": "Live Migration je plánovaný přesun běžící VM. HA po havárii VM restartuje. Export/import Restore zachovává VM ID; Copy nevytvoří novou identitu OS.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Změní import Copy i IP a identitu OS?",
+      "options": [
+        "Ne, nové je Hyper-V VM ID.",
+        "Ano, přegeneruje celou identitu Windows."
+      ],
+      "correct": 0,
+      "explanation": "Kopii se stejnou OS identitou nejprve izoluj."
+    }
+  },
+  {
+    "id": 16,
+    "title": "Ztracená VM",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "topic": "obnova",
+    "difficulty": "Administrátor",
+    "priority": "Kritická",
+    "description": "FS01 je Off po ztrátě VHDX; události hlásí File not found. Nepřepisuj disk prázdným. Ze samostatného backupu obnov kopii900 do Private, spusť a ověř data. Původní VM musí zůstat Off. Potom přepni ověřenou obnovu do provozu a znovu otestuj.",
+    "symptoms": "VMMS: VHDX not found; není problém v počtu CPU.",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "status": "Off",
+          "disk_present": false,
+          "service": false
+        }
+      }
+    },
+    "available_actions": [
+      "restore",
+      "power",
+      "verify",
+      "promote",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "recovery_promoted",
+        "value": true,
+        "label": "Otestovaná obnova předána do provozu",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.disk_present",
+        "value": true,
+        "label": "Obnoven původní disk a data",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Produkční aplikace opět funguje",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Přečti Event Viewer a cestu disku.",
+      "Obnovuj do izolované sítě; neaktivuj dvě původní identity současně.",
+      "Restore200 jako900 LAB → Start900 → Ověření → Promote900 na200 → Ověření."
+    ],
+    "explanations": "Existence backupu nestačí. Obnova musí obsahovat aktuální aplikační data a správnou identitu. Hyper-V Replica není totéž co historická záloha.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Co prokazuje úspěšnou obnovu?",
+      "options": [
+        "Pouhá existence zálohového souboru.",
+        "Funkční aplikace se správnými daty."
+      ],
+      "correct": 1,
+      "explanation": "Testuj obnovenou kopii izolovaně a pak bezpečně přepni provoz."
+    }
+  },
+  {
+    "id": 17,
+    "title": "Navrhni diskové pole",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "RAID",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "Archiv má šest 2TB disků a vyžaduje přežít libovolné dvě poruchy a nejméně 8 TB před režií. Vyber vhodný RAID a členy. Pole vytvoř, inicializuj a ověř. Hot spare by snížil počet datových členů.",
+    "symptoms": "Nová prázdná disková skupina čeká na návrh.",
+    "initial_state": {
+      "raid": {
+        "members": [],
+        "capacity": 0,
+        "initialized": false
+      },
+      "disks": {
+        "0": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "1": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "2": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "3": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "4": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "5": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "6": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        },
+        "7": {
+          "pool": "",
+          "used": 0,
+          "spare": false
+        }
+      }
+    },
+    "available_actions": [
+      "raid_create",
+      "raid_initialize",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "created_raid.level",
+        "value": "RAID 6",
+        "label": "Tolerance libovolných dvou poruch",
+        "op": "eq"
+      },
+      {
+        "path": "created_raid.members",
+        "value": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "label": "Šest určených členů",
+        "op": "eq"
+      },
+      {
+        "path": "created_raid.capacity",
+        "value": 8000,
+        "label": "8 TB využitelné kapacity",
+        "op": "eq"
+      },
+      {
+        "path": "verified.created_raid",
+        "value": true,
+        "label": "Inicializované zdravé pole ověřeno",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Kapacita a požadovaná odolnost musí platit současně.",
+      "RAID6: (N−2) × S. RAID10 nepřežije libovolné dvě poruchy.",
+      "Vyber sloty0–5, RAID6, bez spare: 8TB ≈ 7,28TiB. Inicializuj a ověř."
+    ],
+    "explanations": "RAID6 přežije dvě poruchy členů; RAID5 jen jednu. 8TB není 8TiB. RAID neposkytuje historii ani ochranu proti smazání.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Kolik běžných selhání členů toleruje RAID6?",
+      "options": [
+        "Dva.",
+        "Libovolné tři."
+      ],
+      "correct": 0,
+      "explanation": "RAID6 má dvě parity; RAID5 jednu."
+    }
+  },
+  {
+    "id": 18,
+    "title": "Nové disky v serveru",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "RAID řadič",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Produkční RAID10 používá sloty0–3; nesmíš je přepsat. Z nových prázdných disků4–7 vytvoř další RAID10 pro náhodné VM I/O: 4 TB. Inicializuj nové pole a ověř, že původní zůstalo zdravé.",
+    "symptoms": "Čtyři nové SSD jsou Unconfigured / Good.",
+    "initial_state": {},
+    "available_actions": [
+      "raid_create",
+      "raid_initialize",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "created_raid.level",
+        "value": "RAID 10",
+        "label": "Nové pole RAID10",
+        "op": "eq"
+      },
+      {
+        "path": "created_raid.members",
+        "value": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "label": "Pouze volné sloty4–7",
+        "op": "eq"
+      },
+      {
+        "path": "created_raid.capacity",
+        "value": 4000,
+        "label": "4 TB nové kapacity",
+        "op": "eq"
+      },
+      {
+        "path": "raid.members",
+        "value": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "label": "Původní pole zachováno",
+        "op": "eq"
+      },
+      {
+        "path": "verified.created_raid",
+        "value": true,
+        "label": "Nové pole inicializováno a ověřeno",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Create Virtual Disk nesmí zasáhnout původní datové disky.",
+      "Porovnej pool, slot a serial. RAID10 má polovinu hrubé kapacity.",
+      "Vyber4,5,6,7; RAID10; Create a Initialize. Původní0–3 ponech."
+    ],
+    "explanations": "Příkaz Create není oprava existujícího pole. Výběr podle identity je zásadní; nepoužívej automaticky všechny dostupné disky.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Zvyšuje hot spare běžnou datovou kapacitu?",
+      "options": [
+        "Ano, připočítá se jako datový člen.",
+        "Ne, slouží jako náhrada pro obnovu redundance."
+      ],
+      "correct": 1,
+      "explanation": "Rebuild stále trvá a pole během něj nemá plnou odolnost."
+    }
+  },
+  {
+    "id": 19,
+    "title": "Připrav firemní D:",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "Disk Management",
+    "difficulty": "Začátečník",
+    "priority": "Vysoká",
+    "description": "OS vidí nový prázdný DISK1 / VOL-NEW-01, 1000 GB. Identifikuj jej, dej Online, inicializuj GPT a vytvoř 1000GB NTFS svazek D:. Ověř kapacitu a test zápisu.",
+    "symptoms": "Disk Offline, RAW, bez oddílu.",
+    "initial_state": {},
+    "available_actions": [
+      "disk_online",
+      "disk_initialize",
+      "volume",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "disk.style",
+        "value": "GPT",
+        "label": "GPT",
+        "op": "eq"
+      },
+      {
+        "path": "disk.fs",
+        "value": "NTFS",
+        "label": "NTFS pro souborové služby",
+        "op": "eq"
+      },
+      {
+        "path": "disk.letter",
+        "value": "D",
+        "label": "Písmeno D:",
+        "op": "eq"
+      },
+      {
+        "path": "disk.size",
+        "value": 1000,
+        "label": "1000GB volume",
+        "op": "eq"
+      },
+      {
+        "path": "verified.volume",
+        "value": true,
+        "label": "Svazek a zápis ověřeny",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Nejdřív ověř, že jde skutečně o nový disk.",
+      "Online → Initialize GPT → New Simple Volume.",
+      "Serial VOL-NEW-01, GPT, 1000GB, NTFS, D:, pak Ověření."
+    ],
+    "explanations": "RAW na novém prázdném disku je jiný případ než RAW na původním datovém disku. Ten se bez diagnostiky neformátuje.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Původní disk je náhle RAW. Co nejdřív?",
+      "options": [
+        "Diagnostika logů, spojení a plán obnovy.",
+        "Okamžitý formát na NTFS."
+      ],
+      "correct": 0,
+      "explanation": "Inicializace patří novému prázdnému disku, ne neznámým původním datům."
+    }
+  },
+  {
+    "id": 20,
+    "title": "Dojde místo celému oddělení",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "SMB a kvóty",
+    "difficulty": "Pokročilý",
+    "priority": "Vysoká",
+    "description": "Zpřístupni share Projekty skupině GG_Projekty_RW s NTFS Modify a share Change. Nastav FSRM Hard quota 300 GB. Ověř zápis oprávněného účtu i odmítnutí GG_Hoste. Svazek je již NTFS; kvóta sama nepřidá fyzické místo.",
+    "symptoms": "Oddělení nemá omezení spotřeby ani ověřená práva.",
+    "initial_state": {
+      "disk": {
+        "online": true,
+        "style": "GPT",
+        "fs": "NTFS",
+        "letter": "D",
+        "size": 1000,
+        "new": false
+      }
+    },
+    "available_actions": [
+      "share",
+      "share_test",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "share.name",
+        "value": "Projekty",
+        "label": "Správné sdílení",
+        "op": "eq"
+      },
+      {
+        "path": "share.group",
+        "value": "GG_Projekty_RW",
+        "label": "Skupinová práva",
+        "op": "eq"
+      },
+      {
+        "path": "share.mode",
+        "value": "Hard",
+        "label": "Hard quota",
+        "op": "eq"
+      },
+      {
+        "path": "share.quota",
+        "value": 300,
+        "label": "Limit300 GB",
+        "op": "eq"
+      },
+      {
+        "path": "verified.share",
+        "value": true,
+        "label": "Povolený i zamítnutý přístup otestován",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Zkontroluj share i filesystem ACL.",
+      "Hard quota zastaví zápis, soft pouze upozorňuje; FSRM potřebuje NTFS.",
+      "Projekty / GG_Projekty_RW / Modify+Change / Hard300. Otestuj obě skupiny."
+    ],
+    "explanations": "Efektivní práva omezují share i NTFS ACL. FSRM nepodporuje ReFS. Kvóta chrání kapacitu, ale nezvětšuje pool ani nenahrazuje monitoring.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Podporuje FSRM kvóty na ReFS?",
+      "options": [
+        "Ano, NTFS a ReFS jsou ve všem stejné.",
+        "Ne, FSRM vyžaduje NTFS."
+      ],
+      "correct": 1,
+      "explanation": "Hard quota blokuje další zápis; Soft jen sleduje a upozorňuje."
+    }
+  },
+  {
+    "id": 21,
+    "title": "Vadný disk v produkci",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "rebuild",
+    "difficulty": "Administrátor",
+    "priority": "Kritická",
+    "description": "Řadič hlásí RAID10 Degraded. Najdi poruchu podle slotu a serial, ověř zálohu a podporovaný hot-swap. Vyměň jen vadný kus za 2TB SSD a dokonči rebuild. Během obnovy neodebírej další člen.",
+    "symptoms": "Predictive/Failed: slot2 / DC-002.",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      }
+    },
+    "available_actions": [
+      "replace_disk",
+      "rebuild",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "disks.2.health",
+        "value": "Healthy",
+        "label": "Vadný člen nahrazen",
+        "op": "eq"
+      },
+      {
+        "path": "raid.progress",
+        "value": 100,
+        "label": "Rebuild dokončen",
+        "op": "eq"
+      },
+      {
+        "path": "verified.raid",
+        "value": true,
+        "label": "Pole znovu redundantní a ověřené",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Stav logického disku v OS nestačí.",
+      "Použij řadič: slot i serial, nikoli jen /dev/sdX.",
+      "Vyměň2/DC-002 za2000GB po kontrole zálohy. Dvakrát pokračuj rebuild; potom ověř."
+    ],
+    "explanations": "RAID10 může přežít dva výpadky v různých párech, ale dva ve stejném páru znamenají selhání. Náhradní disk ještě není obnovená redundance.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Přežije RAID10 libovolné dvě poruchy?",
+      "options": [
+        "Ne, oba členové stejného mirror páru znamenají selhání.",
+        "Ano, každou dvojici stejně jako RAID6."
+      ],
+      "correct": 0,
+      "explanation": "Záleží na konkrétních členech a rozložení párů."
+    }
+  },
+  {
+    "id": 22,
+    "title": "Úložiště na hraně",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "kapacitní vrstvy",
+    "difficulty": "Administrátor",
+    "priority": "Vysoká",
+    "description": "Pool má 500 GB, logický disk500, host filesystem500 a 490 GB obsazeno, ačkoli FS01 vidí volné místo. Podkladové zdravé pole má 4 TB. Rozšiř pool, logical disk a host filesystem na700 GB, potom VHDX FS01 i guest filesystem na300 GB. Zachovej data a ověř rezervu.",
+    "symptoms": "Thin overcommit ohrožuje zápisy celé skupiny.",
+    "initial_state": {
+      "storage": {
+        "used": 490
+      }
+    },
+    "available_actions": [
+      "capacity",
+      "power",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "storage.capacity",
+        "value": 700,
+        "label": "Pool700",
+        "op": "eq"
+      },
+      {
+        "path": "storage.logical",
+        "value": 700,
+        "label": "Logical700",
+        "op": "eq"
+      },
+      {
+        "path": "storage.host_fs",
+        "value": 700,
+        "label": "Host filesystem700",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.disk",
+        "value": 300,
+        "label": "VHDX300",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.filesystem",
+        "value": 300,
+        "label": "Guest filesystem300",
+        "op": "eq"
+      },
+      {
+        "path": "verified.capacity",
+        "value": true,
+        "label": "Fyzická rezerva ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Aplikace zapisuje",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Začni vrstvou, na které skutečně došlo místo.",
+      "Pole → pool → logical → host filesystem → VHDX → guest filesystem.",
+      "První tři vrstvy700; vypnout200, VHDX300; zapnout200, guestFS300; ověřit."
+    ],
+    "explanations": "Volné místo ve VM nezaručuje rezervu na hostiteli. Jednotlivé kapacitní vrstvy se nezvětšují automaticky.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Dokazuje volné místo ve VM rezervu na SAN?",
+      "options": [
+        "Ano, číslo ve VM popisuje celé pole.",
+        "Ne, kontroluj všechny podkladové vrstvy."
+      ],
+      "correct": 1,
+      "explanation": "Thin může být na více vrstvách současně."
+    }
+  },
+  {
+    "id": 23,
+    "title": "Sdílené SAN",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "iSCSI a MPIO",
+    "difficulty": "Administrátor",
+    "priority": "Vysoká",
+    "description": "Připoj LUN-01 z targetu10.50.0.10 k povolenému initiatoru iqn.2026-10.lab:hv01. Připrav dvě nezávislé cesty a MPIO. Zapisovat smí jen HV-01; Hyper-V Failover Cluster zde není nasazen. Otestuj výpadek jedné cesty.",
+    "symptoms": "LUN bez ověřeného mappingu a multipath.",
+    "initial_state": {},
+    "available_actions": [
+      "san",
+      "san_test",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "san.lun",
+        "value": "LUN-01",
+        "label": "Správná LUN identita",
+        "op": "eq"
+      },
+      {
+        "path": "san.writers",
+        "value": [
+          "HV-01"
+        ],
+        "label": "Jediný bezpečný zapisující hostitel",
+        "op": "eq"
+      },
+      {
+        "path": "san.paths",
+        "value": 2,
+        "label": "Dvě nezávislé cesty",
+        "op": "eq"
+      },
+      {
+        "path": "verified.san",
+        "value": true,
+        "label": "MPIO ověřeno výpadkem cesty",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "iSCSI poskytuje bloky, SMB soubory.",
+      "MPIO sdruží cesty ke stejnému LUN; není RAID ani druhá kopie.",
+      "Target10.50.0.10, IQN hv01, LUN-01,2 cesty,MPIO, jediný writer HV-01. Potom test cesty."
+    ],
+    "explanations": "Více neclusterovaných hostitelů nesmí nezávisle zapisovat na tentýž běžný NTFS/ReFS LUN. MPIO neřeší konzistenci více zapisovatelů.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Vytváří MPIO druhou kopii dat?",
+      "options": [
+        "Ne, více cest k jednomu LUN.",
+        "Ano, je to RAID přes síťové karty."
+      ],
+      "correct": 0,
+      "explanation": "Více neclusterovaných zapisovatelů může poškodit běžný NTFS/ReFS LUN."
+    }
+  },
+  {
+    "id": 24,
+    "title": "Finální zkouška správce infrastruktury",
+    "category": "Storage",
+    "server": "NAS-01",
+    "topic": "komplexní incident",
+    "difficulty": "Expert",
+    "priority": "Kritická",
+    "description": "Noční incident: RAID10 má vadný slot2/DC-002, APP01 omylem VLAN30, FS01 je Paused-Critical a thin pool500/500 GB. Oprav skutečné příčiny. Dokonči rebuild, uvolni ověřené osiřelé snapshoty, vrať VLAN20, spusť FS01. Pak vytvoř nezávislou zálohu APP01 a obnov ji jako900 do LAB, otestuj data a obě produkční služby.",
+    "symptoms": "RAID Degraded; PVE aplikace bez sítě; Hyper-V pozastaven kvůli storage.",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      },
+      "storage": {
+        "used": 500
+      },
+      "vms": {
+        "100": {
+          "vlan": 30
+        },
+        "200": {
+          "status": "Paused-Critical"
+        }
+      },
+      "backup": {
+        "completed": false
+      }
+    },
+    "available_actions": [
+      "replace_disk",
+      "rebuild",
+      "storage_cleanup",
+      "network",
+      "power",
+      "backup",
+      "restore",
+      "inspect",
+      "verify"
+    ],
+    "objectives": [
+      {
+        "path": "raid.health",
+        "value": "Healthy",
+        "label": "RAID po rebuildu",
+        "op": "eq"
+      },
+      {
+        "path": "storage.used",
+        "value": 450,
+        "label": "Pool má rezervu",
+        "op": "lte"
+      },
+      {
+        "path": "vms.100.vlan",
+        "value": 20,
+        "label": "PVE VLAN opravena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "PVE aplikace ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Hyper-V služba ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "verified.restore",
+        "value": true,
+        "label": "Izolovaná obnova dat otestována",
+        "op": "eq"
+      },
+      {
+        "path": "diagnostic.viewed",
+        "value": true,
+        "label": "Provedena diagnostika",
+        "op": "eq"
+      },
+      {
+        "path": "backup.completed",
+        "value": true,
+        "label": "Nová nezávislá záloha po zásahu",
+        "op": "eq"
+      },
+      {
+        "path": "vms.900.identity",
+        "value": "100",
+        "label": "Otestována záloha správné APP01",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.100.name",
+        "value": "APP01",
+        "label": "Záloha správné služby",
+        "op": "eq"
+      }
+    ],
+    "failure_conditions": [
+      "Neověřená změna",
+      "Rizikový zásah do původních dat"
+    ],
+    "hints": [
+      "Rozděl příčiny podle vrstvy, ale ověř celou službu.",
+      "Rebuild neopraví VLAN; VLAN nevyřeší plný pool. Obnova potřebuje nezávislý backup.",
+      "RAID2/DC-002 → rebuild100%; uvolni80GB; VLAN20; Start200; Backup100 → Restore900 LAB → Start900 → Ověření."
+    ],
+    "explanations": "Jedna zelená LED nestačí. Ověř RAID, fyzickou kapacitu, obě sítě, aplikační službu i skutečnou obnovu dat. Různé hypervisory sdílejí služby, ne nativní cluster.",
+    "rewards": {
+      "xp": 300
+    },
+    "review": {
+      "question": "Nahradí cluster historické zálohy?",
+      "options": [
+        "Ano, HA automaticky vyřeší smazání i ransomware.",
+        "Ne, dostupnost a historie obnovy jsou samostatné vlastnosti."
+      ],
+      "correct": 1,
+      "explanation": "RAID, HA, replikace, snapshot a backup řeší různé typy selhání."
+    }
+  }
+]

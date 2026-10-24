@@ -5,10 +5,13 @@ const Raid = preload("res://scripts/simulation/RAIDSimulator.gd")
 const PveOps = preload("res://scripts/simulation/ProxmoxOperations.gd")
 const HvOps = preload("res://scripts/simulation/HyperVOperations.gd")
 const StorageOps = preload("res://scripts/simulation/StorageOperations.gd")
+const EducationOps = preload("res://scripts/simulation/EducationOperations.gd")
 var state: Dictionary = {}
 
 func reset(patch: Dictionary):
 	state = JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/baseline.json"))
+	if FileAccess.file_exists("res://data/infrastructure/academy_defaults.json"):
+		merge(state,JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/academy_defaults.json")))
 	merge(state,patch)
 	state.verified = {}
 	state.diagnostic = {"viewed":false}
@@ -53,7 +56,7 @@ func refresh_incidents():
 		state.incidents.append({"device":pair[0],"state":pair[1],"cause":"Stav fyzických členů a obnovy redundance"})
 
 func act(action: String, p: Dictionary = {}) -> Dictionary:
-	for handler in [PveOps,HvOps,StorageOps]:
+	for handler in [EducationOps,PveOps,HvOps,StorageOps]:
 		var handled = handler.apply(self,action,p)
 		if not handled.is_empty(): return handled
 	match action:
@@ -77,11 +80,14 @@ func act(action: String, p: Dictionary = {}) -> Dictionary:
 			for k in ["ip","gateway","dns","hostname"]: h[k] = p[k]
 			return success("Management konfigurace uložena na bridge vmbr0.")
 		"verify":
+			var vm_checks={}
+			for vm_id in state.vms: vm_checks[vm_id]=Network.probe(state,vm_id).app
 			var h = state.hosts["PVE-01"]
 			var rid = state.restored_id
 			var restored = state.vms.get(rid,{})
 			var restore_ok = not restored.is_empty() and restored.get("isolated",false) and restored.status == "Running" and restored.service and restored.data == "ACADEMY-DATA-v1" and restored.disk_present
 			state.verified = {"preflight":h.vt and h.mode == "HBA" and h.ups and h.console and h.ip == "192.168.10.10" and h.gateway == "192.168.10.1" and h.dns == "192.168.10.2", "service_pve":Network.probe(state,"100").app, "service_hv":Network.probe(state,"200").app,"capacity":state.storage.used <= state.storage.capacity*0.9 and state.storage.metadata < 80,"restore":restore_ok,"zfs":state.zfs.health == "Healthy" and not state.zfs.rebuilding,"raid":state.raid.health == "Healthy" and state.raid.initialized and not state.raid.rebuilding,"created_raid":not state.created_raid.is_empty() and state.created_raid.get("initialized",false) and state.created_raid.get("health","") == "Healthy","hypervisor":state.hosts["HV-01"].vmms and state.hosts["HV-01"].rebooted,"volume":state.disk.online and state.disk.style == "GPT" and state.disk.fs != "" and state.disk.size > 0,"share":state.share.get("allowed_test",false) and state.share.get("denied_test",false),"san":state.san.tested and state.san.mpio and state.san.paths == 2}
+			state.verified.vms=vm_checks
 			return success("Ověření dokončeno. Kontroly odrážejí aktuální konfiguraci.\n" + JSON.stringify(state.verified,"  "),false)
 		_: return reject("Operace není implementována: " + action)
 
@@ -91,6 +97,7 @@ func get_vm(id: String) -> Dictionary:
 
 func can_start(vm: Dictionary) -> String:
 	if vm.is_empty(): return "VM neexistuje."
+	if vm.get("provisioning",false): return "Nejprve dokonči instalaci OS v průvodci VM."
 	var h = state.hosts[vm.host]
 	if not h.online: return "Hostitel je Offline."
 	if vm.host.begins_with("PVE") and state.cluster.configured and 1+int(state.cluster.peer_online)+int(state.cluster.qdevice)<2: return "Cluster nemá quorum. Obnov většinu hlasů; neobcházej ochranu split-brain."

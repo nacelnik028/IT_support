@@ -1,0 +1,2627 @@
+[
+  {
+    "id": "inspect",
+    "label": "Prohlédnout diagnostiku",
+    "panel": "Příprava",
+    "fields": [
+      {
+        "key": "scope",
+        "label": "Oblast kontroly",
+        "type": "choice",
+        "options": [
+          "Inventory",
+          "Network",
+          "Storage",
+          "Backup",
+          "Cluster",
+          "Events"
+        ],
+        "default": "Inventory"
+      }
+    ]
+  },
+  {
+    "id": "prepare",
+    "label": "Uložit firmware a přípravu",
+    "panel": "Příprava",
+    "fields": [
+      {
+        "key": "vt",
+        "label": "VT-x / AMD-V",
+        "type": "bool",
+        "path": "hosts.PVE-01.vt"
+      },
+      {
+        "key": "iommu",
+        "label": "IOMMU (pro passthrough)",
+        "type": "bool",
+        "path": "hosts.PVE-01.iommu"
+      },
+      {
+        "key": "mode",
+        "label": "Diskový řadič",
+        "type": "choice",
+        "options": [
+          "RAID",
+          "HBA"
+        ],
+        "path": "hosts.PVE-01.mode"
+      },
+      {
+        "key": "ups",
+        "label": "UPS ověřena",
+        "type": "bool",
+        "path": "hosts.PVE-01.ups"
+      },
+      {
+        "key": "console",
+        "label": "Vzdálená konzole ověřena",
+        "type": "bool",
+        "path": "hosts.PVE-01.console"
+      }
+    ]
+  },
+  {
+    "id": "management",
+    "label": "Uložit management síť",
+    "panel": "Příprava",
+    "fields": [
+      {
+        "key": "hostname",
+        "label": "Hostname",
+        "path": "hosts.PVE-01.hostname"
+      },
+      {
+        "key": "ip",
+        "label": "IP /24 na vmbr0",
+        "path": "hosts.PVE-01.ip"
+      },
+      {
+        "key": "gateway",
+        "label": "Gateway",
+        "path": "hosts.PVE-01.gateway"
+      },
+      {
+        "key": "dns",
+        "label": "DNS",
+        "path": "hosts.PVE-01.dns"
+      }
+    ]
+  },
+  {
+    "id": "verify",
+    "label": "Ověřit infrastrukturu a aplikace",
+    "panel": "Ověření",
+    "fields": []
+  },
+  {
+    "id": "install",
+    "label": "Nainstalovat Proxmox VE",
+    "panel": "Instalace",
+    "fields": [
+      {
+        "key": "disks",
+        "label": "Cílové disky (archiv nesmí být přepsán)",
+        "type": "choice",
+        "default": "SYS-A + SYS-B",
+        "options": [
+          "SYS-A + SYS-B",
+          "SYS-A",
+          "ARCHIVE-9"
+        ]
+      },
+      {
+        "key": "type",
+        "label": "Filesystem",
+        "type": "choice",
+        "default": "ZFS mirror",
+        "options": [
+          "ZFS mirror",
+          "ext4 / LVM"
+        ]
+      },
+      {
+        "key": "hostname",
+        "label": "Hostname",
+        "type": "text",
+        "default": "pve01.lab.example"
+      },
+      {
+        "key": "ip",
+        "label": "Management IPv4 /24",
+        "type": "text",
+        "default": "192.168.10.10"
+      },
+      {
+        "key": "gateway",
+        "label": "Gateway",
+        "type": "text",
+        "default": "192.168.10.1"
+      },
+      {
+        "key": "dns",
+        "label": "DNS",
+        "type": "text",
+        "default": "192.168.10.2"
+      },
+      {
+        "key": "nic",
+        "label": "Management NIC",
+        "type": "choice",
+        "default": "eno1",
+        "options": [
+          "eno1",
+          "eno2"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Instalátor smaže zvolené cílové disky. SYS-A a SYS-B jsou prázdné 1TB SSD; ARCHIVE-9 obsahuje účetní data.",
+    "danger": true,
+    "warning": "Zvolený disk bude přepsán. Zkontroluj SYS-A / SYS-B oproti ARCHIVE-9."
+  },
+  {
+    "id": "web",
+    "label": "Připojit webovou konzoli",
+    "panel": "Instalace",
+    "fields": [
+      {
+        "key": "url",
+        "label": "Adresa",
+        "type": "text",
+        "default": "https://192.168.10.10:8006"
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "repositories",
+    "label": "Nastavit repozitáře",
+    "panel": "Hostitel",
+    "fields": [
+      {
+        "key": "repo",
+        "label": "Repozitář",
+        "type": "choice",
+        "default": "No-subscription",
+        "options": [
+          "Enterprise",
+          "No-subscription",
+          "Test"
+        ]
+      },
+      {
+        "key": "environment",
+        "label": "Prostředí",
+        "type": "choice",
+        "default": "Lab",
+        "options": [
+          "Lab",
+          "Production"
+        ]
+      },
+      {
+        "key": "subscription",
+        "label": "Platné Enterprise předplatné",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Enterprise je doporučený pro produkci; No-subscription pro laboratoř. Debian repozitáře zůstávají zachované.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "update",
+    "label": "Aktualizovat systém",
+    "panel": "Hostitel",
+    "fields": [
+      {
+        "key": "window",
+        "label": "Servisní okno a záloha ověřeny",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "create_vm",
+    "label": "Create VM",
+    "panel": "VM / CT",
+    "fields": [
+      {
+        "key": "id",
+        "label": "Volné VMID",
+        "type": "text",
+        "default": "101"
+      },
+      {
+        "key": "name",
+        "label": "Název",
+        "type": "text",
+        "default": "NOVY-SERVER"
+      },
+      {
+        "key": "iso",
+        "label": "Instalační ISO",
+        "type": "choice",
+        "default": "debian.iso",
+        "options": [
+          "debian.iso",
+          "windows-server.iso"
+        ]
+      },
+      {
+        "key": "os",
+        "label": "Operační systém",
+        "type": "choice",
+        "default": "Linux",
+        "options": [
+          "Linux",
+          "Windows Server"
+        ]
+      },
+      {
+        "key": "firmware",
+        "label": "BIOS / firmware",
+        "type": "choice",
+        "default": "UEFI",
+        "options": [
+          "SeaBIOS",
+          "UEFI"
+        ]
+      },
+      {
+        "key": "cpu",
+        "label": "vCPU",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "ram",
+        "label": "RAM (GB)",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 64
+      },
+      {
+        "key": "storage",
+        "label": "Storage",
+        "type": "choice",
+        "default": "local-lvm",
+        "options": [
+          "local-lvm",
+          "local-zfs",
+          "PBS"
+        ]
+      },
+      {
+        "key": "disk",
+        "label": "Virtuální disk (GB)",
+        "type": "number",
+        "default": 32,
+        "min": 8,
+        "max": 2000
+      },
+      {
+        "key": "nic",
+        "label": "Síťová karta",
+        "type": "choice",
+        "default": "VirtIO",
+        "options": [
+          "VirtIO",
+          "E1000"
+        ]
+      },
+      {
+        "key": "bridge",
+        "label": "Síť",
+        "type": "choice",
+        "default": "vmbr0",
+        "options": [
+          "vmbr0",
+          "LAB"
+        ]
+      },
+      {
+        "key": "vlan",
+        "label": "VLAN",
+        "type": "number",
+        "default": 20,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "boot",
+        "label": "Boot order",
+        "type": "choice",
+        "default": "ISO",
+        "options": [
+          "ISO",
+          "Disk"
+        ]
+      },
+      {
+        "key": "agent",
+        "label": "QEMU Guest Agent (nainstalovat a povolit)",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Vytvoří konfiguraci a simuluje dokončení instalace OS. VM je po průvodci vypnutá; spusť ji a ověř službu.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "power",
+    "label": "Změnit napájení VM",
+    "panel": "VM / CT",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "power",
+        "label": "Akce",
+        "type": "choice",
+        "default": "Start",
+        "options": [
+          "Start",
+          "Shutdown"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "create_ct",
+    "label": "Create CT",
+    "panel": "VM / CT",
+    "fields": [
+      {
+        "key": "id",
+        "label": "CTID",
+        "type": "text",
+        "default": "300"
+      },
+      {
+        "key": "name",
+        "label": "Hostname",
+        "type": "text",
+        "default": "MON01"
+      },
+      {
+        "key": "template",
+        "label": "CT Template",
+        "type": "choice",
+        "default": "debian-12.tar.zst",
+        "options": [
+          "debian-12.tar.zst",
+          "ubuntu.tar.zst"
+        ]
+      },
+      {
+        "key": "cpu",
+        "label": "vCPU",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "max": 8
+      },
+      {
+        "key": "ram",
+        "label": "RAM (GB)",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "max": 8
+      },
+      {
+        "key": "disk",
+        "label": "Rootfs (GB)",
+        "type": "number",
+        "default": 8,
+        "min": 4,
+        "max": 100
+      },
+      {
+        "key": "unprivileged",
+        "label": "Unprivileged",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "mount",
+        "label": "Mount point",
+        "type": "choice",
+        "default": "Managed",
+        "options": [
+          "Managed",
+          "Bind"
+        ]
+      },
+      {
+        "key": "backup_mount",
+        "label": "Zahrnout spravovaný mount do zálohy",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "LXC sdílí kernel hostitele. Bind mount není součástí vzdump; data potřebují vlastní zálohu.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "network",
+    "label": "Uložit síť VM",
+    "panel": "Síť",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "bridge",
+        "label": "Bridge / vSwitch",
+        "type": "choice",
+        "default": "vmbr0",
+        "options": [
+          "vmbr0",
+          "vSwitch-LAN",
+          "LAB",
+          "vSwitch-APP"
+        ]
+      },
+      {
+        "key": "vlan",
+        "label": "VLAN tag",
+        "type": "number",
+        "default": 20,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "ip",
+        "label": "IPv4",
+        "type": "text",
+        "default": "192.168.20.100"
+      },
+      {
+        "key": "prefix",
+        "label": "Prefix",
+        "type": "number",
+        "default": 24,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "gateway",
+        "label": "Gateway",
+        "type": "text",
+        "default": "192.168.20.1"
+      },
+      {
+        "key": "dns",
+        "label": "DNS",
+        "type": "text",
+        "default": "192.168.20.10"
+      },
+      {
+        "key": "firewall",
+        "label": "Cílené pravidlo HTTPS 443 povoleno",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "bridge",
+    "label": "Nastavit Linux bridge",
+    "panel": "Síť",
+    "fields": [
+      {
+        "key": "uplink",
+        "label": "eno1 fyzicky připojen",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "vlan_aware",
+        "label": "VLAN-aware bridge",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Management IP patří bridge vmbr0. Bridge sám neposkytuje DHCP ani NAT.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "probe",
+    "label": "Otestovat síťovou cestu",
+    "panel": "Síť",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "destination",
+        "label": "Cíl",
+        "type": "choice",
+        "default": "application",
+        "options": [
+          "application",
+          "host",
+          "peer"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "storage_cleanup",
+    "label": "Uvolnit ověřené nepotřebné bloky",
+    "panel": "Storage",
+    "fields": [
+      {
+        "key": "kind",
+        "label": "Údržba",
+        "type": "choice",
+        "default": "Orphan snapshots",
+        "options": [
+          "Orphan snapshots",
+          "Thin metadata"
+        ]
+      },
+      {
+        "key": "checked",
+        "label": "Vlastník dat i záloha ověřeny",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Odstraňuje pouze laboratorní osiřelé snapshoty (max. 80 GB); nikdy nemaže aktivní VM.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "capacity",
+    "label": "Rozšířit kapacitní vrstvu",
+    "panel": "Storage",
+    "fields": [
+      {
+        "key": "layer",
+        "label": "Vrstva",
+        "type": "choice",
+        "default": "Pool",
+        "options": [
+          "Pool",
+          "Logical disk",
+          "Host filesystem",
+          "VM disk",
+          "Guest filesystem"
+        ]
+      },
+      {
+        "key": "size",
+        "label": "Cílová velikost (GB)",
+        "type": "number",
+        "default": 600,
+        "min": 1,
+        "max": 16000
+      },
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Každá vrstva má vlastní velikost. Zvětšení VHDX nezvětší oddíl uvnitř VM.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "backup_config",
+    "label": "Nastavit backup job",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "target",
+        "label": "Nezávislý cíl",
+        "type": "choice",
+        "default": "PBS",
+        "options": [
+          "PBS",
+          "Local snapshot"
+        ]
+      },
+      {
+        "key": "fingerprint",
+        "label": "Ověřený fingerprint PBS",
+        "type": "text",
+        "default": ""
+      },
+      {
+        "key": "interval",
+        "label": "Interval záloh (hodiny)",
+        "type": "number",
+        "default": 24,
+        "min": 1,
+        "max": 168
+      },
+      {
+        "key": "retention",
+        "label": "Denních bodů retence",
+        "type": "number",
+        "default": 7,
+        "min": 1,
+        "max": 365
+      }
+    ],
+    "console": "Proxmox",
+    "description": "BACKUP-01: PBS, datastore academy, fingerprint AA:42 ověřený na konzoli serveru. RPO této služby je 24 hodin.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "backup",
+    "label": "Spustit nezávislou zálohu",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "backup_verify",
+    "label": "PBS Verify / Prune / GC",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "operation",
+        "label": "Údržba",
+        "type": "choice",
+        "default": "Verify",
+        "options": [
+          "Verify",
+          "Prune",
+          "Garbage collection"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Prune odstraní body podle retence, GC později nepotřebné chunky. Verify nenahrazuje zkoušku aplikace.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "restore",
+    "label": "Obnovit VM do laboratoře",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "id",
+        "label": "Nové VMID",
+        "type": "text",
+        "default": "900"
+      },
+      {
+        "key": "isolated",
+        "label": "Izolovaná síť LAB / Private",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Obnoví konfiguraci a data ze samostatné zálohy. Potom kopii spusť a ověř její data.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "promote",
+    "label": "Přepnout provoz na ověřenou obnovu",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "id",
+        "label": "ID otestované kopie",
+        "type": "text",
+        "default": "900"
+      },
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Nejprve musí být původní instance vypnutá a test obnovy úspěšný. Zachová identitu služby.",
+    "danger": true,
+    "warning": "Dvě produkční instance se stejnou IP a identitou by způsobily konflikt."
+  },
+  {
+    "id": "replace_disk",
+    "label": "Vyměnit identifikovaný disk",
+    "panel": "ZFS / disky",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Pole",
+        "type": "choice",
+        "default": "ZFS",
+        "options": [
+          "ZFS",
+          "RAID"
+        ]
+      },
+      {
+        "key": "slot",
+        "label": "Vadný slot",
+        "type": "text",
+        "default": "B"
+      },
+      {
+        "key": "serial",
+        "label": "Původní sériové číslo",
+        "type": "text",
+        "default": ""
+      },
+      {
+        "key": "size",
+        "label": "Náhradní kompatibilní disk (GB)",
+        "type": "number",
+        "default": 1000,
+        "min": 1,
+        "max": 4000
+      },
+      {
+        "key": "backup_checked",
+        "label": "Poslední obnova ze zálohy ověřena",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Podporovaný hot-swap scénář. Porovnej slot i serial. Výměna teprve zahájí resilver / rebuild.",
+    "danger": true,
+    "warning": "Vytažení zdravého člena může způsobit ztrátu dostupnosti celého pole."
+  },
+  {
+    "id": "rebuild",
+    "label": "Pokračovat v rebuild / resilver",
+    "panel": "ZFS / disky",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Pole",
+        "type": "choice",
+        "default": "ZFS",
+        "options": [
+          "ZFS",
+          "RAID"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Posune simulovaný čas o jednu část procesu. Při dokončení se teprve obnoví redundance.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "scrub",
+    "label": "Spustit ZFS scrub",
+    "panel": "ZFS / disky",
+    "fields": [],
+    "console": "Proxmox",
+    "description": "Kontrola dat nenahrazuje výměnu fyzicky vadného člena.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "cluster",
+    "label": "Obnovit clusterové závislosti",
+    "panel": "Cluster",
+    "fields": [
+      {
+        "key": "qdevice",
+        "label": "Obnovit spojení s existujícím nezávislým QDevice",
+        "type": "bool",
+        "default": false
+      },
+      {
+        "key": "fenced",
+        "label": "Potvrzeno oplocení havarovaného PVE-01",
+        "type": "bool",
+        "default": false
+      },
+      {
+        "key": "shared",
+        "label": "Ověřena dostupná sdílená VM storage",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Dva PVE uzly + existující QDevice. Obnovuj spojení se svědkem; nesnižuj svévolně expected_votes.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "failover",
+    "label": "Spustit HA recovery na PVE-02",
+    "panel": "Cluster",
+    "fields": [],
+    "console": "Proxmox",
+    "description": "Quorum + fencing + dostupné disky + kapacita. VM se restartuje; ztracenou RAM HA neobnoví.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "security",
+    "label": "Uložit bezpečnostní politiku",
+    "panel": "Hostitel",
+    "fields": [
+      {
+        "key": "role",
+        "label": "Role účtu helpdesk",
+        "type": "choice",
+        "default": "PVEVMUser",
+        "options": [
+          "Administrator",
+          "PVEVMUser"
+        ]
+      },
+      {
+        "key": "mfa",
+        "label": "MFA",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "restricted",
+        "label": "Omezený API token",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "description": "Role PVEVMUser je omezená na VM. Management patří do správcovské sítě, přístup přes VPN.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "hv_prepare",
+    "label": "Ověřit firmware Hyper-V",
+    "panel": "Server Manager",
+    "fields": [
+      {
+        "key": "vt",
+        "label": "VT-x / AMD-V",
+        "type": "bool",
+        "default": false,
+        "path": "hosts.HV-01.vt"
+      },
+      {
+        "key": "slat",
+        "label": "SLAT podporováno",
+        "type": "bool",
+        "default": false,
+        "path": "hosts.HV-01.slat"
+      },
+      {
+        "key": "dep",
+        "label": "DEP / NX zapnuto",
+        "type": "bool",
+        "default": false,
+        "path": "hosts.HV-01.dep"
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "hv_role",
+    "label": "Install role Hyper-V",
+    "panel": "Server Manager",
+    "fields": [
+      {
+        "key": "tools",
+        "label": "Include management tools",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "hv_restart",
+    "label": "Restartovat hostitele v servisním okně",
+    "panel": "Server Manager",
+    "fields": [
+      {
+        "key": "window",
+        "label": "Odstávka hostů naplánována",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "switch",
+    "label": "Virtual Switch Manager",
+    "panel": "Virtuální síť",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Název",
+        "type": "text",
+        "default": "vSwitch-APP"
+      },
+      {
+        "key": "type",
+        "label": "Typ switche",
+        "type": "choice",
+        "default": "External",
+        "options": [
+          "External",
+          "Internal",
+          "Private"
+        ]
+      },
+      {
+        "key": "adapter",
+        "label": "Fyzický adaptér pro External",
+        "type": "choice",
+        "default": "Ethernet2",
+        "options": [
+          "Ethernet2",
+          "Odpojeno"
+        ]
+      },
+      {
+        "key": "management",
+        "label": "Allow management OS",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "External: VM ↔ fyzická síť. Internal: VM ↔ hostitel. Private: VM ↔ VM na stejném hostiteli. NAT je samostatná konfigurace.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "network",
+    "label": "Připojit síťovou kartu VM",
+    "panel": "Virtuální síť",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "bridge",
+        "label": "vSwitch",
+        "type": "choice",
+        "default": "vSwitch-LAN",
+        "options": [
+          "vSwitch-LAN",
+          "LAB",
+          "vSwitch-APP"
+        ]
+      },
+      {
+        "key": "vlan",
+        "label": "VLAN tag",
+        "type": "number",
+        "default": 20,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "ip",
+        "label": "IPv4",
+        "type": "text",
+        "default": "192.168.20.200"
+      },
+      {
+        "key": "prefix",
+        "label": "Prefix",
+        "type": "number",
+        "default": 24,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "gateway",
+        "label": "Gateway",
+        "type": "text",
+        "default": "192.168.20.1"
+      },
+      {
+        "key": "dns",
+        "label": "DNS",
+        "type": "text",
+        "default": "192.168.20.10"
+      },
+      {
+        "key": "firewall",
+        "label": "Cílené pravidlo HTTPS 443 povoleno",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "probe",
+    "label": "Testovat síť a aplikaci",
+    "panel": "Virtuální síť",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "destination",
+        "label": "Cíl",
+        "type": "choice",
+        "default": "application",
+        "options": [
+          "application",
+          "host",
+          "peer"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "hv_create",
+    "label": "New Virtual Machine",
+    "panel": "Virtuální stroje",
+    "fields": [
+      {
+        "key": "id",
+        "label": "Volné ID v simulaci",
+        "type": "text",
+        "default": "201"
+      },
+      {
+        "key": "name",
+        "label": "Název",
+        "type": "text",
+        "default": "SERVER02"
+      },
+      {
+        "key": "generation",
+        "label": "Generation",
+        "type": "choice",
+        "default": "2",
+        "options": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "key": "secure_boot",
+        "label": "Secure Boot",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "cpu",
+        "label": "vCPU",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "ram",
+        "label": "Startup RAM (GB)",
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "dynamic",
+        "label": "Dynamic Memory",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "minimum",
+        "label": "Minimum RAM (GB)",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "maximum",
+        "label": "Maximum RAM (GB)",
+        "type": "number",
+        "default": 8,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "disk",
+        "label": "VHDX (GB)",
+        "type": "number",
+        "default": 80,
+        "min": 20,
+        "max": 1000
+      },
+      {
+        "key": "vhd_type",
+        "label": "VHDX allocation",
+        "type": "choice",
+        "default": "Dynamic",
+        "options": [
+          "Fixed",
+          "Dynamic",
+          "Differencing"
+        ]
+      },
+      {
+        "key": "bridge",
+        "label": "vSwitch",
+        "type": "choice",
+        "default": "vSwitch-LAN",
+        "options": [
+          "vSwitch-LAN",
+          "LAB",
+          "vSwitch-APP"
+        ]
+      },
+      {
+        "key": "vlan",
+        "label": "VLAN",
+        "type": "number",
+        "default": 20,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "iso",
+        "label": "Instalační ISO",
+        "type": "choice",
+        "default": "windows-server.iso",
+        "options": [
+          "windows-server.iso",
+          "debian.iso"
+        ]
+      },
+      {
+        "key": "agent",
+        "label": "Integration Services",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Generation 2 používá UEFI. Průvodce simuluje instalaci OS; první start a službu ověř zvlášť.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "power",
+    "label": "Start / Shut Down",
+    "panel": "Virtuální stroje",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "power",
+        "label": "Akce",
+        "type": "choice",
+        "default": "Start",
+        "options": [
+          "Start",
+          "Shutdown"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "memory",
+    "label": "Nastavit Dynamic Memory",
+    "panel": "Virtuální stroje",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "dynamic",
+        "label": "Dynamic Memory",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "minimum",
+        "label": "Minimum (GB)",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "ram",
+        "label": "Startup (GB)",
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "maximum",
+        "label": "Maximum (GB)",
+        "type": "number",
+        "default": 8,
+        "min": 1,
+        "max": 32
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Konfiguruj vypnutou VM. Minimum ≤ Startup ≤ Maximum. Počítej s rezervou 4 GB pro hostitele a dalšími VM.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "integration",
+    "label": "Integration Services a VSS",
+    "panel": "Virtuální stroje",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "agent",
+        "label": "Integration Services / heartbeat",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "vss",
+        "label": "Opravený VSS writer",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "auto_start",
+        "label": "Automatic start",
+        "type": "choice",
+        "default": "StartIfRunning",
+        "options": [
+          "StartIfRunning",
+          "Nothing"
+        ]
+      },
+      {
+        "key": "auto_stop",
+        "label": "Automatic stop",
+        "type": "choice",
+        "default": "ShutDown",
+        "options": [
+          "ShutDown",
+          "TurnOff"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "capacity",
+    "label": "Resize VHDX / Extend Volume",
+    "panel": "VHDX",
+    "fields": [
+      {
+        "key": "layer",
+        "label": "Vrstva",
+        "type": "choice",
+        "default": "VM disk",
+        "options": [
+          "VM disk",
+          "Guest filesystem",
+          "Pool",
+          "Logical disk",
+          "Host filesystem"
+        ]
+      },
+      {
+        "key": "size",
+        "label": "Cílová velikost (GB)",
+        "type": "number",
+        "default": 150,
+        "min": 1,
+        "max": 16000
+      },
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Před resize kontroluj zálohu, prostor a checkpointový řetězec. Zde používej jednoduchý postup s vypnutou VM.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "attach_vhd",
+    "label": "Přidat nový datový VHDX",
+    "panel": "VHDX",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "path",
+        "label": "Nová cesta",
+        "type": "text",
+        "default": "D:/HyperV/FS01-data.vhdx"
+      },
+      {
+        "key": "size",
+        "label": "Velikost (GB)",
+        "type": "number",
+        "default": 100,
+        "min": 1,
+        "max": 1000
+      },
+      {
+        "key": "type",
+        "label": "Typ",
+        "type": "choice",
+        "default": "Dynamic",
+        "options": [
+          "Fixed",
+          "Dynamic",
+          "Differencing"
+        ]
+      },
+      {
+        "key": "parent",
+        "label": "Rodič pro Differencing",
+        "type": "choice",
+        "default": "Žádný",
+        "options": [
+          "Žádný",
+          "BASE-WINDOWS.vhdx"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Differencing závisí na neměnném rodiči. BASE-WINDOWS.vhdx je ověřený read-only 80GB základ.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "guest_volume",
+    "label": "Připravit nový datový disk uvnitř VM",
+    "panel": "VHDX",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "style",
+        "label": "Partition style",
+        "type": "choice",
+        "default": "GPT",
+        "options": [
+          "GPT",
+          "MBR"
+        ]
+      },
+      {
+        "key": "fs",
+        "label": "Filesystem",
+        "type": "choice",
+        "default": "NTFS",
+        "options": [
+          "NTFS",
+          "ReFS"
+        ]
+      },
+      {
+        "key": "letter",
+        "label": "Písmeno",
+        "type": "choice",
+        "default": "E",
+        "options": [
+          "E",
+          "F"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Pouze nově vytvořený prázdný Fixed/Dynamic datový VHDX. Obsah differencing obrazu se nesmí formátovat.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "replica",
+    "label": "Hyper-V Replica",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Replica target",
+        "type": "choice",
+        "default": "HV-02",
+        "options": [
+          "HV-02",
+          "PVE-02"
+        ]
+      },
+      {
+        "key": "interval",
+        "label": "Interval replikace (sekundy)",
+        "type": "number",
+        "default": 300,
+        "min": 30,
+        "max": 900
+      },
+      {
+        "key": "points",
+        "label": "Historické recovery points",
+        "type": "number",
+        "default": 6,
+        "min": 0,
+        "max": 24
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Asynchronní replika na samostatném Hyper-V hostiteli. Neslouží jako nativní Failover Cluster ani nezávislá historie záloh.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "replica_test",
+    "label": "Test Failover do Private sítě",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Vytvoří izolovanou kopii902 ze skutečně synchronizovaného stavu repliky. Produkce může pokračovat.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "checkpoint",
+    "label": "Create checkpoint",
+    "panel": "Checkpointy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "name",
+        "label": "Název",
+        "type": "text",
+        "default": "Pred-zmenou"
+      },
+      {
+        "key": "type",
+        "label": "Typ",
+        "type": "choice",
+        "default": "Production",
+        "options": [
+          "Production",
+          "Standard"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Production používá VSS a nezachycuje RAM. Standard zachycuje RAM, ale není aplikačně konzistentní záloha.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "checkpoint_action",
+    "label": "Apply / Delete checkpoint",
+    "panel": "Checkpointy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "name",
+        "label": "Název checkpointu",
+        "type": "text",
+        "default": "Pred-zmenou"
+      },
+      {
+        "key": "operation",
+        "label": "Operace",
+        "type": "choice",
+        "default": "Apply",
+        "options": [
+          "Apply",
+          "Delete (merge)",
+          "Ruční smazání AVHDX"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": true,
+    "warning": "Apply vrací data do minulého stavu. Delete přes Manager sloučí AVHDX; ruční mazání poruší řetězec."
+  },
+  {
+    "id": "live_migrate",
+    "label": "Live Migration",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Cílový hostitel",
+        "type": "choice",
+        "default": "HV-02",
+        "options": [
+          "HV-02",
+          "PVE-02"
+        ]
+      },
+      {
+        "key": "auth",
+        "label": "Ověřování",
+        "type": "choice",
+        "default": "Kerberos",
+        "options": [
+          "Kerberos",
+          "CredSSP"
+        ]
+      },
+      {
+        "key": "storage",
+        "label": "Přenést / zpřístupnit kompletní disky",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Pouze mezi kompatibilními Hyper-V hostiteli. V laboratoři WS2025 s Credential Guard použij Kerberos.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "export",
+    "label": "Export VM",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "V této laboratoři exportuj korektně vypnutou VM včetně všech disků.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "import",
+    "label": "Import Virtual Machine",
+    "panel": "Migrace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Cílový hostitel",
+        "type": "choice",
+        "default": "HV-02",
+        "options": [
+          "HV-02",
+          "PVE-02"
+        ]
+      },
+      {
+        "key": "mode",
+        "label": "Režim",
+        "type": "choice",
+        "default": "Restore",
+        "options": [
+          "Register",
+          "Restore",
+          "Copy"
+        ]
+      },
+      {
+        "key": "isolated",
+        "label": "Izolovat kopii se stejnou identitou OS",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Register používá soubory in-place; Restore kopíruje a zachová VM ID; Copy vytvoří nové VM ID, nikoli novou identitu OS.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "backup_config",
+    "label": "Nastavit nezávislou zálohu",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "target",
+        "label": "Nezávislý cíl",
+        "type": "choice",
+        "default": "PBS",
+        "options": [
+          "PBS",
+          "Local snapshot"
+        ]
+      },
+      {
+        "key": "fingerprint",
+        "label": "Ověřený fingerprint PBS",
+        "type": "text",
+        "default": ""
+      },
+      {
+        "key": "interval",
+        "label": "Interval záloh (hodiny)",
+        "type": "number",
+        "default": 24,
+        "min": 1,
+        "max": 168
+      },
+      {
+        "key": "retention",
+        "label": "Denních bodů retence",
+        "type": "number",
+        "default": 7,
+        "min": 1,
+        "max": 365
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Cíl BACKUP-01, fingerprint AA:42.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "backup",
+    "label": "Backup VM",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Záloha konfigurace a všech disků mimo hostitele.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "restore",
+    "label": "Restore do Private sítě",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      },
+      {
+        "key": "id",
+        "label": "Nové ID",
+        "type": "text",
+        "default": "900"
+      },
+      {
+        "key": "isolated",
+        "label": "Izolovat test obnovy",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Zabrání konfliktu IP/identity. Po startu ověř aplikaci i data.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "promote",
+    "label": "Předat otestovanou obnovu do provozu",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "id",
+        "label": "ID kopie",
+        "type": "text",
+        "default": "900"
+      },
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Původní instance musí být vypnutá.",
+    "danger": true,
+    "warning": ""
+  },
+  {
+    "id": "verify",
+    "label": "Ověřit infrastrukturu a aplikace",
+    "panel": "Ověření",
+    "fields": [],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "inspect",
+    "label": "Prohlédnout Event Viewer / diagnostiku",
+    "panel": "Server Manager",
+    "fields": [
+      {
+        "key": "scope",
+        "label": "Oblast",
+        "type": "choice",
+        "default": "Events",
+        "options": [
+          "Events",
+          "Inventory",
+          "Network",
+          "Storage",
+          "Backup"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "raid_create",
+    "label": "Create Virtual Disk",
+    "panel": "RAID konfigurátor",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Název pole",
+        "type": "text",
+        "default": "VM-DATA"
+      },
+      {
+        "key": "level",
+        "label": "RAID / odolnost",
+        "type": "choice",
+        "default": "RAID 10",
+        "options": [
+          "RAID 0",
+          "RAID 1",
+          "RAID 5",
+          "RAID 6",
+          "RAID 10",
+          "ZFS mirror",
+          "RAIDZ1",
+          "RAIDZ2",
+          "Simple",
+          "Mirror",
+          "Parity"
+        ]
+      },
+      {
+        "key": "members",
+        "label": "Vyber fyzické členy (hot spare není člen)",
+        "type": "disks",
+        "default": ""
+      },
+      {
+        "key": "spare",
+        "label": "Hot spare",
+        "type": "choice",
+        "default": "Žádný",
+        "options": [
+          "Žádný",
+          "4",
+          "5",
+          "6",
+          "7"
+        ]
+      },
+      {
+        "key": "controller",
+        "label": "Architektura",
+        "type": "choice",
+        "default": "Hardware RAID",
+        "options": [
+          "Hardware RAID",
+          "HBA / ZFS",
+          "Storage Spaces"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "Klikni na konkrétní disky. Kapacita se počítá z nejmenšího člena; existující produkční disky se nesmějí přepsat.",
+    "danger": true,
+    "warning": "Vytvoření nového pole mění metadata vybraných disků."
+  },
+  {
+    "id": "raid_initialize",
+    "label": "Inicializovat nové prázdné pole",
+    "panel": "RAID konfigurátor",
+    "fields": [],
+    "console": "Storage",
+    "description": "",
+    "danger": true,
+    "warning": "Pouze nové prázdné pole. Inicializace existujícího pole není oprava."
+  },
+  {
+    "id": "raid_failure",
+    "label": "Simulovat poruchu člena",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "slot",
+        "label": "Slot",
+        "type": "choice",
+        "default": "0",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "Trénink poruch: u RAID10 jsou mirror páry (0,1), (2,3) podle pořadí členů.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "replace_disk",
+    "label": "Vyměnit vadný disk",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Pole",
+        "type": "choice",
+        "default": "RAID",
+        "options": [
+          "RAID",
+          "ZFS"
+        ]
+      },
+      {
+        "key": "slot",
+        "label": "Vadný slot",
+        "type": "text",
+        "default": "2"
+      },
+      {
+        "key": "serial",
+        "label": "Původní serial",
+        "type": "text",
+        "default": ""
+      },
+      {
+        "key": "size",
+        "label": "Náhradní kompatibilní disk (GB)",
+        "type": "number",
+        "default": 2000,
+        "min": 1,
+        "max": 4000
+      },
+      {
+        "key": "backup_checked",
+        "label": "Obnova ze zálohy ověřena",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": true,
+    "warning": "Ověř slot, serial a podporu hot-swap."
+  },
+  {
+    "id": "rebuild",
+    "label": "Pokračovat v rebuild",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "pool",
+        "label": "Pole",
+        "type": "choice",
+        "default": "RAID",
+        "options": [
+          "RAID",
+          "ZFS"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "foreign",
+    "label": "Foreign configuration",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "operation",
+        "label": "Operace",
+        "type": "choice",
+        "default": "Import Foreign",
+        "options": [
+          "Import Foreign",
+          "Clear Foreign"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "Původní známá metadata; všechny členy máš k dispozici. Import a Clear nejsou totéž.",
+    "danger": true,
+    "warning": "Clear Foreign může odstranit metadata potřebná k obnově."
+  },
+  {
+    "id": "cache",
+    "label": "Nastavit write cache",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "policy",
+        "label": "Politika",
+        "type": "choice",
+        "default": "Write-through",
+        "options": [
+          "Write-through",
+          "Protected write-back",
+          "Force write-back"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "Write-back vyžaduje funkční ochranu cache; samotná UPS ji nenahrazuje.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "disk_online",
+    "label": "Disk Management: Online",
+    "panel": "Disk Management",
+    "fields": [
+      {
+        "key": "serial",
+        "label": "Identita nového disku",
+        "type": "text",
+        "default": "VOL-NEW-01"
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "disk_initialize",
+    "label": "Initialize Disk",
+    "panel": "Disk Management",
+    "fields": [
+      {
+        "key": "style",
+        "label": "Partition style",
+        "type": "choice",
+        "default": "GPT",
+        "options": [
+          "GPT",
+          "MBR"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": true,
+    "warning": "Pouze nový prázdný disk. Původní datový disk ve stavu RAW nejprve diagnostikuj."
+  },
+  {
+    "id": "volume",
+    "label": "New Simple Volume",
+    "panel": "Disk Management",
+    "fields": [
+      {
+        "key": "size",
+        "label": "Velikost (GB)",
+        "type": "number",
+        "default": 1000,
+        "min": 1,
+        "max": 16000
+      },
+      {
+        "key": "fs",
+        "label": "Filesystem",
+        "type": "choice",
+        "default": "NTFS",
+        "options": [
+          "NTFS",
+          "ReFS"
+        ]
+      },
+      {
+        "key": "letter",
+        "label": "Písmeno",
+        "type": "choice",
+        "default": "D",
+        "options": [
+          "D",
+          "E",
+          "F"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": true,
+    "warning": "Formátování smaže obsah nového svazku."
+  },
+  {
+    "id": "volume_extend",
+    "label": "Extend Volume",
+    "panel": "Disk Management",
+    "fields": [
+      {
+        "key": "size",
+        "label": "Cílová velikost (GB)",
+        "type": "number",
+        "default": 1500,
+        "min": 1,
+        "max": 16000
+      }
+    ],
+    "console": "Storage",
+    "description": "Potřebuje souvislé nepřidělené místo za oddílem na stejném basic disku.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "share",
+    "label": "SMB a oprávnění",
+    "panel": "SMB / kvóty",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Share",
+        "type": "text",
+        "default": "Projekty"
+      },
+      {
+        "key": "group",
+        "label": "Povolená AD skupina",
+        "type": "text",
+        "default": "GG_Projekty_RW"
+      },
+      {
+        "key": "ntfs",
+        "label": "NTFS ACL",
+        "type": "choice",
+        "default": "Modify",
+        "options": [
+          "Modify",
+          "Read",
+          "Everyone Full"
+        ]
+      },
+      {
+        "key": "access",
+        "label": "Share permissions",
+        "type": "choice",
+        "default": "Change",
+        "options": [
+          "Change",
+          "Read",
+          "Everyone Full"
+        ]
+      },
+      {
+        "key": "quota",
+        "label": "Kvóta (GB)",
+        "type": "number",
+        "default": 300,
+        "min": 1,
+        "max": 1000
+      },
+      {
+        "key": "mode",
+        "label": "FSRM quota",
+        "type": "choice",
+        "default": "Hard",
+        "options": [
+          "Soft",
+          "Hard"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "FSRM vyžaduje NTFS. Oprávnění share i NTFS se omezují navzájem; testuj běžným i nepovoleným účtem.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "share_test",
+    "label": "Testovat přístup běžným uživatelem",
+    "panel": "SMB / kvóty",
+    "fields": [
+      {
+        "key": "group",
+        "label": "Skupina účtu",
+        "type": "choice",
+        "default": "GG_Projekty_RW",
+        "options": [
+          "GG_Projekty_RW",
+          "GG_Hoste"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "quota_test",
+    "label": "Otestovat zápis proti kvótě",
+    "panel": "SMB / kvóty",
+    "fields": [
+      {
+        "key": "amount",
+        "label": "Simulovaný nový zápis (GB)",
+        "type": "number",
+        "default": 10,
+        "min": 1,
+        "max": 1000
+      }
+    ],
+    "console": "Storage",
+    "description": "Hard quota odmítne překročení limitu, Soft upozorní a dovolí zápis, pokud je fyzická rezerva.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "capacity",
+    "label": "Rozšířit kapacitní vrstvu",
+    "panel": "Kapacita",
+    "fields": [
+      {
+        "key": "layer",
+        "label": "Vrstva",
+        "type": "choice",
+        "default": "Pool",
+        "options": [
+          "Pool",
+          "Logical disk",
+          "Host filesystem",
+          "VM disk",
+          "Guest filesystem"
+        ]
+      },
+      {
+        "key": "size",
+        "label": "Cílová velikost (GB)",
+        "type": "number",
+        "default": 700,
+        "min": 1,
+        "max": 16000
+      },
+      {
+        "key": "vm",
+        "label": "VMID / VM",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "storage_cleanup",
+    "label": "Uvolnit nepotřebné bloky",
+    "panel": "Kapacita",
+    "fields": [
+      {
+        "key": "kind",
+        "label": "Údržba",
+        "type": "choice",
+        "default": "Orphan snapshots",
+        "options": [
+          "Orphan snapshots",
+          "Thin metadata"
+        ]
+      },
+      {
+        "key": "checked",
+        "label": "Identita dat a záloha ověřeny",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "san",
+    "label": "iSCSI Initiator / MPIO",
+    "panel": "SAN",
+    "fields": [
+      {
+        "key": "target",
+        "label": "Target portal",
+        "type": "text",
+        "default": "10.50.0.10"
+      },
+      {
+        "key": "initiator",
+        "label": "Povolený initiator IQN",
+        "type": "text",
+        "default": "iqn.2026-10.lab:hv01"
+      },
+      {
+        "key": "lun",
+        "label": "LUN identifikátor",
+        "type": "text",
+        "default": "LUN-01"
+      },
+      {
+        "key": "paths",
+        "label": "Nezávislé storage cesty",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 2
+      },
+      {
+        "key": "mpio",
+        "label": "MPIO a podporovaný DSM",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "writers",
+        "label": "Zapisující hostitelé",
+        "type": "choice",
+        "default": "HV-01",
+        "options": [
+          "HV-01",
+          "HV-01 + HV-02"
+        ]
+      },
+      {
+        "key": "clustered",
+        "label": "Existující validovaný Failover Cluster / CSV",
+        "type": "bool",
+        "default": false
+      }
+    ],
+    "console": "Storage",
+    "description": "Dvě cesty představují jeden LUN. Samostatní neclusterovaní hostitelé nesmí současně zapisovat na běžný NTFS/ReFS LUN.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "san_test",
+    "label": "Otestovat ztrátu jedné cesty",
+    "panel": "SAN",
+    "fields": [],
+    "console": "Storage",
+    "description": "Simulace vypne první cestu, ověří dostupnost stejného LUN a cestu zase obnoví.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "inspect",
+    "label": "Prohlédnout řadič / diagnostiku",
+    "panel": "Servis disků",
+    "fields": [
+      {
+        "key": "scope",
+        "label": "Oblast",
+        "type": "choice",
+        "default": "Storage",
+        "options": [
+          "Storage",
+          "Inventory",
+          "Events",
+          "Backup"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "verify",
+    "label": "Ověřit infrastrukturu a aplikace",
+    "panel": "Ověření",
+    "fields": [],
+    "console": "Storage",
+    "description": "",
+    "danger": false,
+    "warning": ""
+  }
+]

@@ -2623,5 +2623,201 @@
     "description": "",
     "danger": false,
     "warning": ""
+  },
+  {
+    "id": "vm_identity",
+    "label": "Rezervovat VMID a název",
+    "fields": [
+      {
+        "key": "id",
+        "label": "VMID",
+        "type": "text",
+        "default": "101"
+      },
+      {
+        "key": "name",
+        "label": "Název VM",
+        "type": "text",
+        "default": "NOVY-SERVER"
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_media",
+    "label": "Vybrat instalační ISO",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "101",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "iso",
+        "label": "ISO image (Directory storage)",
+        "type": "choice",
+        "default": "debian.iso",
+        "options": [
+          "debian.iso",
+          "windows-server.iso"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_resources",
+    "label": "Nastavit CPU a RAM",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "101",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "cpu",
+        "label": "vCPU",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "max": 16
+      },
+      {
+        "key": "ram_mib",
+        "label": "RAM (MiB)",
+        "type": "number",
+        "default": 1024,
+        "min": 512,
+        "max": 61440,
+        "step": 512
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_disk",
+    "label": "Vytvořit virtuální disk",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "101",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "size",
+        "label": "Disk (GiB)",
+        "type": "number",
+        "default": 16,
+        "min": 8,
+        "max": 1000
+      },
+      {
+        "key": "storage",
+        "label": "Storage",
+        "type": "choice",
+        "default": "local-lvm",
+        "options": [
+          "local-lvm",
+          "local-zfs",
+          "PBS"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_network",
+    "label": "Připojit bridge a VLAN",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "101",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "bridge",
+        "label": "Linux bridge",
+        "type": "choice",
+        "default": "vmbr0",
+        "options": [
+          "vmbr0",
+          "LAB"
+        ]
+      },
+      {
+        "key": "vlan",
+        "label": "VLAN",
+        "type": "number",
+        "default": 20,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "ip",
+        "label": "IPv4 /24",
+        "type": "text",
+        "default": "192.168.20.101"
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_install",
+    "label": "Nainstalovat OS a Guest Agent",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "101",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Průvodce VM",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
   }
 ]
