@@ -12,6 +12,7 @@ var training = false
 var active = false
 var hints_used = 0
 var finished = false
+var undo_states: Array = []
 
 func _init():
 	missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
@@ -24,7 +25,9 @@ func _init():
 			var index = int(session.get("id",1))-1
 			if index >= 0 and index < missions.size():
 				current = missions[index]
-				sim.state = session.state
+				sim.reset(current.initial_state)
+				if session.get("state") is Dictionary: sim.merge(sim.state,session.state)
+				sim.refresh_incidents()
 				training = session.get("training",false)
 				hints_used = int(session.get("hints",0))
 				finished = session.get("finished",false)
@@ -35,6 +38,7 @@ func start_mission(index: int, practice: bool = false):
 	training = practice
 	active = true
 	finished = false
+	undo_states.clear()
 	hints_used = 0
 	progress.last_mission = index+1
 	sim.reset(current.initial_state)
@@ -65,12 +69,21 @@ func complete() -> Dictionary:
 	return {"ok":true,"score":score,"text":current.explanations}
 
 func apply(action: String, params: Dictionary) -> Dictionary:
+	if training:
+		undo_states.append(sim.state.duplicate(true))
+		if undo_states.size()>20: undo_states.pop_front()
 	var result = sim.act(action,params)
 	if not result.ok:
 		var topic = current.get("topic","diagnostika")
 		progress.mistakes[topic] = int(progress.mistakes.get(topic,0)) + 1
 	save()
 	return result
+
+func undo():
+	if training and not undo_states.is_empty():
+		sim.state=undo_states.pop_back()
+		finished=false
+		save()
 
 func save():
 	var session = {}

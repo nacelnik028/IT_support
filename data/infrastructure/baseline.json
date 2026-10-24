@@ -1,1 +1,421 @@
-{"hosts":{"PVE-01":{"kind":"Proxmox","online":true,"vt":false,"iommu":false,"mode":"RAID","ups":false,"console":false,"ip":"192.168.10.99","gateway":"192.168.10.254","dns":"0.0.0.0","hostname":"pve01.lab.example","installed":true,"ram":64},"PVE-02":{"kind":"Proxmox","online":true,"ram":64},"HV-01":{"kind":"Hyper-V","online":true,"ram":32,"reserve":4,"other_ram":8,"vt":true,"slat":true,"dep":true,"role":true,"rebooted":true,"vmms":true},"HV-02":{"kind":"Hyper-V","online":true,"ram":32},"NAS-01":{"kind":"Storage","online":true},"BACKUP-01":{"kind":"Backup","online":true}},"vms":{"100":{"id":"100","name":"APP01","host":"PVE-01","status":"Running","cpu":2,"ram":4,"disk":100,"filesystem":100,"disk_present":true,"bridge":"vmbr0","vlan":20,"ip":"192.168.20.100","prefix":24,"gateway":"192.168.20.1","dns":"192.168.20.10","service":true,"firewall":true,"agent":true,"locked":false},"200":{"id":"200","name":"FS01","host":"HV-01","status":"Running","cpu":2,"ram":4,"minimum":2,"maximum":8,"dynamic":true,"disk":100,"filesystem":100,"disk_present":true,"bridge":"vSwitch-LAN","vlan":20,"ip":"192.168.20.200","prefix":24,"gateway":"192.168.20.1","dns":"192.168.20.10","service":true,"firewall":true,"agent":true,"locked":false,"generation":2,"vss":true,"checkpoints":[]}},"network":{"switches":{"vmbr0":{"type":"External","uplink":true,"vlan_aware":true},"vSwitch-LAN":{"type":"External","uplink":true,"vlan_aware":true},"LAB":{"type":"Private","uplink":false,"vlan_aware":true}}},"storage":{"type":"LVM-thin","capacity":500,"used":200,"provisioned":800,"metadata":20,"host_fs":500,"logical":500},"raid":{"level":"RAID 10","members":["0","1","2","3"],"capacity":4000,"health":"Healthy","initialized":true,"cache":true,"rebuilding":false,"progress":0},"disks":{"0":{"slot":0,"serial":"DC-000","capacity":2000,"used":100,"health":"Healthy","pool":"data","spare":false},"1":{"slot":1,"serial":"DC-001","capacity":2000,"used":100,"health":"Healthy","pool":"data","spare":false},"2":{"slot":2,"serial":"DC-002","capacity":2000,"used":100,"health":"Healthy","pool":"data","spare":false},"3":{"slot":3,"serial":"DC-003","capacity":2000,"used":100,"health":"Healthy","pool":"data","spare":false},"4":{"slot":4,"serial":"DC-004","capacity":2000,"used":0,"health":"Healthy","pool":"","spare":false},"5":{"slot":5,"serial":"DC-005","capacity":2000,"used":0,"health":"Healthy","pool":"","spare":false},"6":{"slot":6,"serial":"DC-006","capacity":2000,"used":0,"health":"Healthy","pool":"","spare":false},"7":{"slot":7,"serial":"DC-007","capacity":2000,"used":0,"health":"Healthy","pool":"","spare":false}}}
+{
+  "hosts": {
+    "PVE-01": {
+      "kind": "Proxmox",
+      "online": true,
+      "vt": true,
+      "iommu": false,
+      "mode": "HBA",
+      "ups": true,
+      "console": true,
+      "ip": "192.168.10.10",
+      "gateway": "192.168.10.1",
+      "dns": "192.168.10.2",
+      "hostname": "pve01.lab.example",
+      "installed": true,
+      "ram": 64,
+      "repo": "No-subscription",
+      "environment": "Lab",
+      "updated": false,
+      "mfa": false,
+      "role": "Administrator"
+    },
+    "PVE-02": {
+      "kind": "Proxmox",
+      "online": true,
+      "ram": 64
+    },
+    "HV-01": {
+      "kind": "Hyper-V",
+      "online": true,
+      "ram": 32,
+      "reserve": 4,
+      "other_ram": 8,
+      "vt": true,
+      "slat": true,
+      "dep": true,
+      "role": true,
+      "rebooted": true,
+      "vmms": true
+    },
+    "HV-02": {
+      "kind": "Hyper-V",
+      "online": true,
+      "ram": 32
+    },
+    "NAS-01": {
+      "kind": "Storage",
+      "online": true
+    },
+    "BACKUP-01": {
+      "kind": "Backup",
+      "online": true
+    }
+  },
+  "vms": {
+    "100": {
+      "id": "100",
+      "name": "APP01",
+      "host": "PVE-01",
+      "status": "Running",
+      "cpu": 2,
+      "ram": 4,
+      "disk": 100,
+      "filesystem": 100,
+      "disk_present": true,
+      "bridge": "vmbr0",
+      "vlan": 20,
+      "ip": "192.168.20.100",
+      "prefix": 24,
+      "gateway": "192.168.20.1",
+      "dns": "192.168.20.10",
+      "service": true,
+      "firewall": true,
+      "agent": true,
+      "locked": false,
+      "exists": true,
+      "iso": "debian.iso",
+      "os": "Linux",
+      "firmware": "UEFI",
+      "nic": "VirtIO",
+      "storage": "local-lvm",
+      "boot": "Disk",
+      "data": "ACADEMY-DATA-v1",
+      "isolated": false,
+      "identity": "100",
+      "vhd_type": "Dynamic",
+      "auto_start": "StartIfRunning",
+      "auto_stop": "ShutDown"
+    },
+    "200": {
+      "id": "200",
+      "name": "FS01",
+      "host": "HV-01",
+      "status": "Running",
+      "cpu": 2,
+      "ram": 4,
+      "minimum": 2,
+      "maximum": 8,
+      "dynamic": true,
+      "disk": 100,
+      "filesystem": 100,
+      "disk_present": true,
+      "bridge": "vSwitch-LAN",
+      "vlan": 20,
+      "ip": "192.168.20.200",
+      "prefix": 24,
+      "gateway": "192.168.20.1",
+      "dns": "192.168.20.10",
+      "service": true,
+      "firewall": true,
+      "agent": true,
+      "locked": false,
+      "generation": 2,
+      "vss": true,
+      "checkpoints": [],
+      "exists": true,
+      "iso": "windows-server.iso",
+      "os": "Windows Server",
+      "firmware": "UEFI",
+      "nic": "Synthetic",
+      "storage": "local-lvm",
+      "boot": "Disk",
+      "data": "ACADEMY-DATA-v1",
+      "isolated": false,
+      "identity": "200",
+      "vhd_type": "Dynamic",
+      "auto_start": "StartIfRunning",
+      "auto_stop": "ShutDown"
+    }
+  },
+  "network": {
+    "switches": {
+      "vmbr0": {
+        "type": "External",
+        "uplink": true,
+        "vlan_aware": true
+      },
+      "vSwitch-LAN": {
+        "type": "External",
+        "uplink": true,
+        "vlan_aware": true
+      },
+      "LAB": {
+        "type": "Private",
+        "uplink": false,
+        "vlan_aware": true
+      }
+    }
+  },
+  "storage": {
+    "type": "LVM-thin",
+    "capacity": 500,
+    "used": 200,
+    "provisioned": 800,
+    "metadata": 20,
+    "host_fs": 500,
+    "logical": 500,
+    "reclaimable": 80
+  },
+  "raid": {
+    "level": "RAID 10",
+    "members": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "capacity": 4000,
+    "health": "Healthy",
+    "initialized": true,
+    "cache": true,
+    "rebuilding": false,
+    "progress": 0
+  },
+  "disks": {
+    "0": {
+      "slot": 0,
+      "serial": "DC-000",
+      "capacity": 2000,
+      "used": 100,
+      "health": "Healthy",
+      "pool": "data",
+      "spare": false
+    },
+    "1": {
+      "slot": 1,
+      "serial": "DC-001",
+      "capacity": 2000,
+      "used": 100,
+      "health": "Healthy",
+      "pool": "data",
+      "spare": false
+    },
+    "2": {
+      "slot": 2,
+      "serial": "DC-002",
+      "capacity": 2000,
+      "used": 100,
+      "health": "Healthy",
+      "pool": "data",
+      "spare": false
+    },
+    "3": {
+      "slot": 3,
+      "serial": "DC-003",
+      "capacity": 2000,
+      "used": 100,
+      "health": "Healthy",
+      "pool": "data",
+      "spare": false
+    },
+    "4": {
+      "slot": 4,
+      "serial": "DC-004",
+      "capacity": 2000,
+      "used": 0,
+      "health": "Healthy",
+      "pool": "",
+      "spare": false
+    },
+    "5": {
+      "slot": 5,
+      "serial": "DC-005",
+      "capacity": 2000,
+      "used": 0,
+      "health": "Healthy",
+      "pool": "",
+      "spare": false
+    },
+    "6": {
+      "slot": 6,
+      "serial": "DC-006",
+      "capacity": 2000,
+      "used": 0,
+      "health": "Healthy",
+      "pool": "",
+      "spare": false
+    },
+    "7": {
+      "slot": 7,
+      "serial": "DC-007",
+      "capacity": 2000,
+      "used": 0,
+      "health": "Healthy",
+      "pool": "",
+      "spare": false
+    }
+  },
+  "install": {
+    "disks": [],
+    "type": "",
+    "nic": "",
+    "web": false
+  },
+  "zfs": {
+    "level": "ZFS mirror",
+    "health": "Healthy",
+    "members": [
+      "A",
+      "B"
+    ],
+    "capacity": 1000,
+    "progress": 100,
+    "rebuilding": false,
+    "disks": {
+      "A": {
+        "serial": "PVE-A",
+        "capacity": 1000,
+        "health": "Healthy"
+      },
+      "B": {
+        "serial": "PVE-B",
+        "capacity": 1000,
+        "health": "Healthy"
+      }
+    }
+  },
+  "backup": {
+    "configured": true,
+    "target": "PBS",
+    "fingerprint": "AA:42",
+    "interval": 24,
+    "retention": 7,
+    "verified": false,
+    "gc": false,
+    "records": {
+      "100": {
+        "id": "100",
+        "name": "APP01",
+        "host": "PVE-01",
+        "status": "Running",
+        "cpu": 2,
+        "ram": 4,
+        "disk": 100,
+        "filesystem": 100,
+        "disk_present": true,
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "service": true,
+        "firewall": true,
+        "agent": true,
+        "locked": false,
+        "exists": true,
+        "iso": "debian.iso",
+        "os": "Linux",
+        "firmware": "UEFI",
+        "nic": "VirtIO",
+        "storage": "local-lvm",
+        "boot": "Disk",
+        "data": "ACADEMY-DATA-v1",
+        "isolated": false,
+        "identity": "100",
+        "vhd_type": "Dynamic",
+        "auto_start": "StartIfRunning",
+        "auto_stop": "ShutDown"
+      },
+      "200": {
+        "id": "200",
+        "name": "FS01",
+        "host": "HV-01",
+        "status": "Running",
+        "cpu": 2,
+        "ram": 4,
+        "minimum": 2,
+        "maximum": 8,
+        "dynamic": true,
+        "disk": 100,
+        "filesystem": 100,
+        "disk_present": true,
+        "bridge": "vSwitch-LAN",
+        "vlan": 20,
+        "ip": "192.168.20.200",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "service": true,
+        "firewall": true,
+        "agent": true,
+        "locked": false,
+        "generation": 2,
+        "vss": true,
+        "checkpoints": [],
+        "exists": true,
+        "iso": "windows-server.iso",
+        "os": "Windows Server",
+        "firmware": "UEFI",
+        "nic": "Synthetic",
+        "storage": "local-lvm",
+        "boot": "Disk",
+        "data": "ACADEMY-DATA-v1",
+        "isolated": false,
+        "identity": "200",
+        "vhd_type": "Dynamic",
+        "auto_start": "StartIfRunning",
+        "auto_stop": "ShutDown"
+      }
+    }
+  },
+  "cluster": {
+    "configured": true,
+    "qdevice": true,
+    "peer_online": true,
+    "fenced": false,
+    "shared": true,
+    "ha": true,
+    "failed_over": false
+  },
+  "disk": {
+    "id": "DISK1",
+    "serial": "VOL-NEW-01",
+    "capacity": 1000,
+    "size": 0,
+    "used": 0,
+    "online": false,
+    "style": "RAW",
+    "fs": "",
+    "letter": "",
+    "new": true,
+    "old_data": false,
+    "adjacent": true
+  },
+  "share": {
+    "name": "",
+    "group": "",
+    "ntfs": "",
+    "access": "",
+    "quota": 0,
+    "mode": "Soft",
+    "filesystem": "NTFS",
+    "tested": false
+  },
+  "san": {
+    "target": "",
+    "initiator": "",
+    "lun": "LUN-01",
+    "paths": 0,
+    "mpio": false,
+    "writers": [],
+    "clustered": false,
+    "tested": false
+  },
+  "ct": {},
+  "foreign": {
+    "present": true,
+    "complete": true,
+    "origin": "Původní pole"
+  },
+  "restored_id": "",
+  "created_raid": {},
+  "checkpoint_applied": "",
+  "migration": {
+    "cpu_compatible": true,
+    "authenticated": false,
+    "export": {},
+    "completed": false
+  }
+}

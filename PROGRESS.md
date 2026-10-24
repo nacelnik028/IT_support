@@ -15,10 +15,19 @@ Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 - Projekt spuštěn přes Godot MCP; čtení debug výstupu.
 
 ## Probíhá
-- Etapa 2: rozšíření datových misí a interakcí na Proxmox, Hyper-V a storage.
+- Etapa 3: vizuální průchod, bezpečnostní/regresní testy, dokumentace a balení Windows.
+
+## Hotovo a ověřeno — etapa 2
+- 24 konkrétních datových misí (8 Proxmox, 8 Hyper-V, 8 storage).
+- Sdílené konfigurace VM, síť L2/IP/DNS/aplikace, PBS backup/restore, QDevice/fencing/HA.
+- Hyper-V role, VMMS, tři typy switchů, Gen2, Dynamic Memory, VHDX/guest FS, checkpoint/merge, migrace.
+- Fyzické sloty/serial, výběr členů RAID, kapacity RAID0/1/5/6/10, ZFS/Spaces, rebuild, Disk Management, SMB/FSRM a iSCSI/MPIO.
+- Bezpečný parser Linux/PowerShell příkazů, 50 článků z úplných Notion příruček, statistiky, XP, trénink a undo.
+- tests/campaign.gd: všech 24 misí PASS; tests/ui_smoke.gd: všech 24 misí přes formuláře a dialogy PASS.
+- Testy UI ukládají do odděleného academy_test_ui.json, ne do hráčovy pozice.
 
 ## Zbývá
-- Přidat a otestovat všech 24 misí, tři konzole, terminál, storage, hodnocení a výuku.
+- Dokončit negativní testy RAID/sítě/terminálu/ukládání a vizuální kontrolu.
 - Kontrolní průchod, README a Windows export, pokud jsou šablony.
 
 ## Pokračování

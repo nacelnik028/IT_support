@@ -2,6 +2,9 @@ extends RefCounted
 
 const Network = preload("res://scripts/simulation/NetworkSimulator.gd")
 const Raid = preload("res://scripts/simulation/RAIDSimulator.gd")
+const PveOps = preload("res://scripts/simulation/ProxmoxOperations.gd")
+const HvOps = preload("res://scripts/simulation/HyperVOperations.gd")
+const StorageOps = preload("res://scripts/simulation/StorageOperations.gd")
 var state: Dictionary = {}
 
 func reset(patch: Dictionary):
@@ -13,10 +16,11 @@ func reset(patch: Dictionary):
 	state.errors = 0
 	state.risks = 0
 	state.revision = 0
+	refresh_incidents()
 
 static func merge(target: Dictionary, patch: Dictionary):
 	for key in patch:
-		if patch[key] is Dictionary and target.get(key) is Dictionary: merge(target[key],patch[key])
+		if patch[key] is Dictionary and not patch[key].is_empty() and target.get(key) is Dictionary: merge(target[key],patch[key])
 		else: target[key] = patch[key].duplicate(true) if patch[key] is Dictionary or patch[key] is Array else patch[key]
 
 func reject(message: String, risk: bool = false) -> Dictionary:
@@ -30,15 +34,33 @@ func success(message: String, change: bool = true) -> Dictionary:
 	if change:
 		state.revision += 1
 		state.verified.clear()
+	refresh_incidents()
 	state.journal.append(message)
 	return {"ok":true,"text":message}
 
+func refresh_incidents():
+	state.incidents=[]
+	for id in state.vms:
+		var vm=state.vms[id]
+		if not vm.get("exists",false): continue
+		var health="Healthy"
+		var reason="Služba v provozu"
+		if vm.status!="Running": health="Offline"; reason="VM neběží"
+		elif state.storage.used>=state.storage.capacity: health="Critical"; reason="Pool je plný"
+		elif not Network.probe(state,id).app and not vm.get("isolated",false): health="Warning"; reason=Network.probe(state,id).reason
+		state.incidents.append({"device":vm.name,"state":health,"cause":reason})
+	for pair in [["RAID",state.raid.health],["ZFS",state.zfs.health]]:
+		state.incidents.append({"device":pair[0],"state":pair[1],"cause":"Stav fyzických členů a obnovy redundance"})
+
 func act(action: String, p: Dictionary = {}) -> Dictionary:
+	for handler in [PveOps,HvOps,StorageOps]:
+		var handled = handler.apply(self,action,p)
+		if not handled.is_empty(): return handled
 	match action:
 		"inspect":
 			state.diagnostic.viewed = true
 			state.diagnostic[p.get("scope","Inventory")] = true
-			return success("Diagnostika zaznamenána: " + p.get("scope","Inventory"),false)
+			return success("Diagnostika: " + p.get("scope","Inventory") + "\n" + diagnose(p.get("scope","Inventory")),false)
 		"prepare":
 			var h = state.hosts["PVE-01"]
 			if not p.get("vt",false): return reject("Bez VT-x/AMD-V nelze provozovat KVM VM.")
@@ -56,9 +78,49 @@ func act(action: String, p: Dictionary = {}) -> Dictionary:
 			return success("Management konfigurace uložena na bridge vmbr0.")
 		"verify":
 			var h = state.hosts["PVE-01"]
-			state.verified = {"preflight":h.vt and h.mode == "HBA" and h.ups and h.console and h.ip == "192.168.10.10" and h.gateway == "192.168.10.1" and h.dns == "192.168.10.2", "service_pve":Network.probe(state,"100").app, "service_hv":Network.probe(state,"200").app}
+			var rid = state.restored_id
+			var restored = state.vms.get(rid,{})
+			var restore_ok = not restored.is_empty() and restored.get("isolated",false) and restored.status == "Running" and restored.service and restored.data == "ACADEMY-DATA-v1" and restored.disk_present
+			state.verified = {"preflight":h.vt and h.mode == "HBA" and h.ups and h.console and h.ip == "192.168.10.10" and h.gateway == "192.168.10.1" and h.dns == "192.168.10.2", "service_pve":Network.probe(state,"100").app, "service_hv":Network.probe(state,"200").app,"capacity":state.storage.used <= state.storage.capacity*0.9 and state.storage.metadata < 80,"restore":restore_ok,"zfs":state.zfs.health == "Healthy" and not state.zfs.rebuilding,"raid":state.raid.health == "Healthy" and state.raid.initialized and not state.raid.rebuilding,"created_raid":not state.created_raid.is_empty() and state.created_raid.get("initialized",false) and state.created_raid.get("health","") == "Healthy","hypervisor":state.hosts["HV-01"].vmms and state.hosts["HV-01"].rebooted,"volume":state.disk.online and state.disk.style == "GPT" and state.disk.fs != "" and state.disk.size > 0,"share":state.share.get("allowed_test",false) and state.share.get("denied_test",false),"san":state.san.tested and state.san.mpio and state.san.paths == 2}
 			return success("Ověření dokončeno. Kontroly odrážejí aktuální konfiguraci.\n" + JSON.stringify(state.verified,"  "),false)
 		_: return reject("Operace není implementována: " + action)
+
+func get_vm(id: String) -> Dictionary:
+	var vm = state.vms.get(id,{})
+	return vm if vm.get("exists",false) else {}
+
+func can_start(vm: Dictionary) -> String:
+	if vm.is_empty(): return "VM neexistuje."
+	var h = state.hosts[vm.host]
+	if not h.online: return "Hostitel je Offline."
+	if vm.locked: return "VM je zamčená probíhající úlohou. Neodemykej ji násilně."
+	if not vm.disk_present: return "Systémový disk není dostupný. Ověř cestu a logy, disk neformátuj."
+	if state.storage.used >= state.storage.capacity or state.storage.metadata >= 100: return "Storage pool nemá místo pro zápisy."
+	if state.raid.health == "Failed": return "Podkladové pole selhalo. Obnov data ze zálohy."
+	if vm.host.begins_with("HV") and not state.hosts["HV-01"].vmms: return "Hypervisor / VMMS neběží; ověř roli a restart."
+	var used_ram = 4.0
+	if vm.host.begins_with("HV"): used_ram = state.hosts["HV-01"].reserve + state.hosts["HV-01"].other_ram
+	for other in state.vms.values():
+		if other.get("exists",false) and other.host == vm.host and other.id != vm.id and other.status == "Running": used_ram += float(other.ram)
+	if used_ram + float(vm.ram) > float(h.ram): return "Nedostatek startup RAM při zachování rezervy hostitele. Dynamic Memory nevytváří fyzickou RAM."
+	if vm.get("boot","Disk") != "Disk": return "VM bootuje z ISO. Po instalaci přepni boot order na Disk."
+	return ""
+
+func diagnose(scope: String) -> String:
+	match scope:
+		"Network":
+			return "APP01: " + Network.probe(state,"100").reason + "\nFS01: " + Network.probe(state,"200").reason
+		"Storage": return "Pool %s: fyzicky %s/%s GB, přislíbeno %s GB; metadata %s %%\nRAID %s %s; ZFS %s\n" % [state.storage.type,state.storage.used,state.storage.capacity,state.storage.provisioned,state.storage.metadata,state.raid.level,state.raid.health,state.zfs.health] + JSON.stringify(state.disks)
+		"Backup": return "Nezávislý cíl: %s; job: %s; body VM: %s; Verify: %s" % [state.backup.target,state.backup.configured,str(state.backup.records.keys()),state.backup.verified]
+		"Cluster": return "Hlasy %d/3; QDevice %s; fencing %s; shared storage %s" % [1+int(state.cluster.peer_online)+int(state.cluster.qdevice),state.cluster.qdevice,state.cluster.fenced,state.cluster.shared]
+		"Events":
+			var logs = []
+			for vm in state.vms.values():
+				if not vm.get("exists",false): continue
+				var error = can_start(vm)
+				logs.append("VM %s %s: %s" % [vm.id,vm.name,error if error != "" else "Heartbeat / storage OK"])
+			return "\n".join(logs)
+	return "PVE-01: 64 GB RAM, VT %s, IOMMU %s, %s\nSYS-A + SYS-B: prázdné SSD 1000 GB; ARCHIVE-9: původní účetní data.\nHV-01: 32 GB RAM; hostitel 4 GB, jiné služby 8 GB.\nPBS fingerprint: AA:42\nZFS disk A: PVE-A, disk B: PVE-B.\nSAN: 10.50.0.10, LUN-01, IQN iqn.2026-10.lab:hv01" % [state.hosts["PVE-01"].vt,state.hosts["PVE-01"].iommu,state.hosts["PVE-01"].mode]
 
 static func valid_ip(address: String) -> bool:
 	var pieces = address.split(".")

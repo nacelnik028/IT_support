@@ -15,6 +15,12 @@ var terminal_history = "DATACENTER ACADEMY • bezpečný simulovaný terminál\
 var command_history: Array = []
 var history_position = 0
 var sound_on = true
+var terminal_host = "PVE-01"
+var full_notice = ""
+var form_controls: Dictionary = {}
+var form_buttons: Dictionary = {}
+var academy_category = "Proxmox"
+var academy_article = 0
 var player: AudioStreamPlayer
 var click_sound: AudioStreamWAV
 
@@ -117,6 +123,8 @@ func scroll(parent: Node) -> VBoxContainer:
 	return v
 
 func clear_ui():
+	form_controls.clear()
+	form_buttons.clear()
 	if is_instance_valid(root_box):
 		remove_child(root_box)
 		root_box.queue_free()
@@ -134,7 +142,7 @@ func draw_ui():
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	brand.add_child(label("◈  DATACENTER ACADEMY",21,CYAN))
 	brand.add_child(label("NORTHSTAR IT  /  OPERATIONS CENTER",10,MUTED))
-	top.add_child(label("ÚROVEŇ %d   •   %d XP" % [1+int(game.progress.xp)/600,int(game.progress.xp)],15))
+	top.add_child(label("ÚROVEŇ %d   •   %d XP" % [1+int(float(game.progress.xp)/600.0),int(game.progress.xp)],15))
 	top.add_child(button("Uložit a menu",func(): game.save(); page="menu"; draw_ui()))
 	var body = hbox(whole,18)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -151,13 +159,21 @@ func draw_ui():
 	sidebar.add_child(spacer)
 	sidebar.add_child(label("●  OFFLINE LAB\nVšechny zásahy jsou simulované.",11,CYAN))
 	sidebar.add_child(button("Zvuk: " + ("zapnut" if sound_on else "vypnut"),func(): sound_on=not sound_on; draw_ui()))
-	center = vbox(body,14)
+	if page in ["Proxmox","Hyper-V","Storage"]:
+		var scene_path={"Proxmox":"res://scenes/consoles/proxmox/Proxmox.tscn","Hyper-V":"res://scenes/consoles/hyperv/HyperV.tscn","Storage":"res://scenes/consoles/raid/Storage.tscn"}[page]
+		center=load(scene_path).instantiate()
+		body.add_child(center)
+		center.add_theme_constant_override("separation",14)
+	else: center = vbox(body,14)
 	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	center.add_child(label(page,30))
 	if notice != "":
 		var n = card(center)
-		n.add_child(label(notice,13,Color("ff8d99") if bad_notice else CYAN))
-		if notice.length()>300: n.get_parent().custom_minimum_size.y=80
+		var message=label(notice,13,Color("ff8d99") if bad_notice else CYAN)
+		message.max_lines_visible=3
+		message.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		n.add_child(message)
+		n.add_child(button("Přečíst celou zprávu",func(): show_message("Záznam operace",full_notice)))
 	match page:
 		"Serverovna": draw_datacenter()
 		"Tickety": draw_tickets()
@@ -168,6 +184,8 @@ func draw_ui():
 		"Statistiky": draw_stats()
 	if game.active and page != "Tickety": draw_ticket(body)
 	whole.add_child(label("DATACENTER ACADEMY     /     Pozorovat → diagnostikovat → bezpečně změnit → ověřit → zdokumentovat",10,MUTED))
+	root_box.modulate.a=0.85
+	create_tween().tween_property(root_box,"modulate:a",1.0,0.14)
 
 func draw_menu():
 	var all = vbox(root_box,24)
@@ -222,16 +240,16 @@ func draw_datacenter():
 	contents.add_child(label("PŘEHLED INFRASTRUKTURY   /   kliknutím otevři správu zařízení",12,MUTED))
 	var metrics = hbox(contents)
 	for pair in [["06","SPRAVOVANÝCH ZAŘÍZENÍ"],[str(game.progress.scores.size()).pad_zeros(2),"UZAVŘENÝCH TICKETŮ"],["LAB","BEZPEČNÉ PROSTŘEDÍ"]]:
-		var c = card(metrics)
-		c.add_child(label(pair[0],30,CYAN))
-		c.add_child(label(pair[1],10,MUTED))
-	var racks = Racks.new()
+		var metric = card(metrics)
+		metric.add_child(label(pair[0],30,CYAN))
+		metric.add_child(label(pair[1],10,MUTED))
+	var racks = preload("res://scenes/datacenter/Datacenter.tscn").instantiate()
 	racks.custom_minimum_size.y=420
 	racks.state=game.sim.state
 	contents.add_child(racks)
-	racks.server_selected.connect(func(name):
-		host=name
-		navigate("Proxmox" if name.begins_with("PVE") else ("Hyper-V" if name.begins_with("HV") else "Storage")))
+	racks.server_selected.connect(func(server_name):
+		host=server_name
+		navigate("Proxmox" if server_name.begins_with("PVE") else ("Hyper-V" if server_name.begins_with("HV") else "Storage")))
 	var c = card(contents,"Aktuální směna",game.current.get("symptoms","Vyber ticket."))
 	c.add_child(button("Otevřít pracovní konzoli   →",func(): navigate(game.current.get("category","Proxmox")),true))
 
@@ -258,6 +276,8 @@ func draw_ticket(parent: Node):
 	c.add_child(button("Ověřit a uzavřít ticket",close_ticket,true))
 	c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
 	c.add_child(button("Restartovat laboratoř",restart_confirm))
+	if game.training: c.add_child(button("Vrátit poslední zásah",func(): game.undo(); notice="Poslední zásah vrácen."; draw_ui()))
+	if game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
 	c.add_child(label("Postup se ukládá po každém zásahu.",11,MUTED))
 
 func draw_tickets():
@@ -282,6 +302,8 @@ func start_ticket(index: int):
 	navigate(game.current.category)
 
 func draw_console():
+	if page=="Proxmox" and not host.begins_with("PVE"): host="PVE-01"
+	if page=="Hyper-V" and not host.begins_with("HV"): host="HV-01"
 	center.add_child(label(("Datacenter  ›  " + host + "  ›  VM / CT") if page=="Proxmox" else ("Hyper-V Manager  ›  " + host if page=="Hyper-V" else "Storage Controller  ›  NAS-01"),12,CYAN))
 	var options=[]
 	for a in game.actions:
@@ -289,6 +311,10 @@ func draw_console():
 	if options.is_empty():
 		center.add_child(label("Zvol příslušný modul kampaně.",15,MUTED))
 		return
+	var relevant=[]
+	for a in game.actions:
+		if a.get("console","Proxmox")==page and a.id in game.current.get("available_actions",[]): relevant.append(a.id)
+	if not relevant.is_empty(): options.push_front("Podle ticketu")
 	if not tab in options: tab=options[0]
 	var picker=OptionButton.new()
 	picker.custom_minimum_size.y=40
@@ -299,7 +325,7 @@ func draw_console():
 	var v=scroll(center)
 	draw_state(v)
 	for action in game.actions:
-		if action.get("console","Proxmox")==page and action.panel==tab: draw_form(v,action)
+		if action.get("console","Proxmox")==page and ((tab=="Podle ticketu" and action.id in relevant) or action.panel==tab): draw_form(v,action)
 
 func draw_state(parent: Node):
 	var s=game.sim.state
@@ -309,8 +335,13 @@ func draw_state(parent: Node):
 		c.add_child(label("PVE-01  •  %s  •  VT: %s  •  %s\nManagement: %s  |  64 GB RAM\nvmbr0 → eno1  •  VLAN-aware: %s" % ["ONLINE" if h.online else "OFFLINE",str(h.vt),h.mode,h.ip,str(s.network.switches.vmbr0.vlan_aware)],13,MUTED))
 	for id in s.vms:
 		var vm=s.vms[id]
+		if not vm.get("exists",false): continue
 		if (page=="Proxmox" and vm.host.begins_with("PVE")) or (page=="Hyper-V" and vm.host.begins_with("HV")):
 			c.add_child(label("%s  %s  •  %s\n%d vCPU / %s GB RAM / disk %s GB → FS %s GB\n%s / VLAN %d / %s" % [id,vm.name,vm.status,int(vm.cpu),str(vm.ram),str(vm.disk),str(vm.filesystem),vm.bridge,int(vm.vlan),vm.ip],13,CYAN))
+	if page=="Hyper-V":
+		c.add_child(label("VMMS: %s  •  role: %s  •  po restartu: %s\nHost: 32 GB RAM; rezerva4 GB; jiné služby8 GB\nCheckpointy FS01: %s" % [s.hosts["HV-01"].vmms,s.hosts["HV-01"].role,s.hosts["HV-01"].rebooted,JSON.stringify(s.vms["200"].checkpoints)],13,MUTED))
+	if page=="Proxmox" and tab in ["ZFS / disky","Cluster","Storage","Podle ticketu"]:
+		c.add_child(label("ZFS tank: %s  •  A / %s: %s  •  B / %s: %s\nPool: %s / %s GB; metadata %s%%\nCluster: %d/3 hlasů, fencing %s" % [s.zfs.health,s.zfs.disks.A.serial,s.zfs.disks.A.health,s.zfs.disks.B.serial,s.zfs.disks.B.health,s.storage.used,s.storage.capacity,s.storage.metadata,1+int(s.cluster.peer_online)+int(s.cluster.qdevice),s.cluster.fenced],12,MUTED))
 	if page=="Storage":
 		c.add_child(label("%s  •  %s  •  %.0f GB\nPool: %.0f / %.0f GB fyzicky; přislíbeno %.0f GB" % [s.raid.level,s.raid.health,float(s.raid.capacity),float(s.storage.used),float(s.storage.capacity),float(s.storage.provisioned)],14,CYAN))
 		var grid=GridContainer.new()
@@ -321,6 +352,8 @@ func draw_state(parent: Node):
 			var b=button("SLOT %s\n%s\n%s" % [id,d.serial,d.health],func(): show_message("Fyzický disk "+id,JSON.stringify(d,"  ")))
 			b.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 			grid.add_child(b)
+		if not s.created_raid.is_empty(): c.add_child(label("Nové pole: %s / %s GB / členové %s / inicializováno %s" % [s.created_raid.level,s.created_raid.capacity,str(s.created_raid.members),s.created_raid.initialized],13,CYAN))
+		c.add_child(label("Disk Management: %s  %sGB / %s / %s / %s:\nKapacitní vrstvy: pool%s → logical%s → hostFS%s" % [s.disk.serial,s.disk.capacity,s.disk.style,s.disk.fs,s.disk.letter,s.storage.capacity,s.storage.logical,s.storage.host_fs],13,MUTED))
 
 func draw_form(parent: Node, action: Dictionary):
 	var c=card(parent,action.label,action.get("description","Změna se projeví ve sdíleném modelu infrastruktury."))
@@ -344,7 +377,27 @@ func draw_form(parent: Node, action: Dictionary):
 				input.min_value=field.get("min",0)
 				input.max_value=field.get("max",100000)
 				input.step=field.get("step",1)
-				input.value=float(value) if str(value).is_valid_float() else 0
+				input.value=float(value) if str(value).is_valid_float() else 0.0
+			"disks":
+				input=VBoxContainer.new()
+				input.set_meta("selection",[])
+				var disk_grid=GridContainer.new()
+				disk_grid.columns=2
+				input.add_child(disk_grid)
+				for disk_id in game.sim.state.disks:
+					var disk=game.sim.state.disks[disk_id]
+					var check=CheckBox.new()
+					check.text="Slot%s  %s  %sGB\n%s" % [disk_id,disk.serial,disk.capacity,"VOLNÝ" if disk.pool=="" else "POOL: "+disk.pool]
+					check.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+					disk_grid.add_child(check)
+					var target=input
+					check.toggled.connect(func(on):
+						var ids=target.get_meta("selection")
+						if on: ids.append(disk_id)
+						else: ids.erase(disk_id)
+						ids.sort()
+						target.set_meta("selection",ids)
+						update_raid_preview(inputs))
 			_:
 				input=LineEdit.new()
 				input.text=str(value)
@@ -352,17 +405,36 @@ func draw_form(parent: Node, action: Dictionary):
 		input.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		c.add_child(input)
 		inputs[field.key]=input
-	c.add_child(button(action.label,func():
+	if action.id=="raid_create":
+		var preview=label("Vyber členy pro výpočet kapacity.",14,CYAN)
+		c.add_child(preview)
+		inputs["_preview"]=preview
+		inputs.level.item_selected.connect(func(_i): update_raid_preview(inputs))
+	form_controls[action.id]=inputs
+	var action_button=button(action.label,func():
 		var params={}
 		for key in inputs:
+			if key.begins_with("_"): continue
 			var input=inputs[key]
 			if input is CheckButton: params[key]=input.button_pressed
 			elif input is OptionButton: params[key]=input.get_item_text(input.selected)
 			elif input is SpinBox: params[key]=input.value
+			elif input.has_meta("selection"): params[key]=input.get_meta("selection").duplicate()
 			else: params[key]=input.text.strip_edges()
 		if action.get("danger",false):
 			confirm_action(action,params)
-		else: perform(action.id,params),true))
+		else: perform(action.id,params),true)
+	c.add_child(action_button)
+	form_buttons[action.id]=action_button
+
+func update_raid_preview(inputs: Dictionary):
+	if not inputs.has("_preview"): return
+	var sizes=[]
+	for id in inputs.members.get_meta("selection"): sizes.append(game.sim.state.disks[id].capacity)
+	var level=inputs.level.get_item_text(inputs.level.selected)
+	var raid=preload("res://scripts/simulation/RAIDSimulator.gd")
+	var capacity=raid.capacity(level,sizes)
+	inputs._preview.text="%s: %.0f GB = %.2f TiB před režií. Hot spare není součást kapacity." % [level,capacity,raid.tb_to_tib(capacity/1000.0)]
 
 func confirm_action(action: Dictionary, params: Dictionary):
 	var d=ConfirmationDialog.new()
@@ -377,6 +449,7 @@ func confirm_action(action: Dictionary, params: Dictionary):
 
 func perform(action: String, params: Dictionary):
 	var result=game.apply(action,params)
+	full_notice=result.text
 	notice=result.text.left(600)
 	bad_notice=not result.ok
 	draw_ui()
@@ -420,33 +493,102 @@ func show_message(title: String, text: String):
 
 func draw_network():
 	var v=scroll(center)
-	var c=card(v,"Síťová cesta APP01", "VM → virtuální switch → fyzický uplink → VLAN 20 → gateway → DNS → HTTPS")
-	var net=preload("res://scripts/simulation/NetworkSimulator.gd").probe(game.sim.state,"100")
-	for k in ["link","ip","dns","app"]: c.add_child(label(("●  " if net[k] else "○  ")+k.to_upper(),17,CYAN if net[k] else ORANGE))
-	c.add_child(label(net.reason,14,MUTED))
-	c.add_child(button("Otevřít síťovou konfiguraci",func(): navigate("Proxmox")))
+	v.add_child(label("SÍŤOVÁ MAPA  /  různé vrstvy mají různé příčiny výpadku",12,MUTED))
+	for id in ["100","200"]:
+		var vm=game.sim.state.vms[id]
+		var c=card(v,vm.name+"  →  "+vm.bridge+"  →  VLAN "+str(vm.vlan),"Uplink → gateway → DNS → aplikace HTTPS:443")
+		var net=preload("res://scripts/simulation/NetworkSimulator.gd").probe(game.sim.state,id)
+		var row=hbox(c)
+		for k in ["link","ip","dns","app"]:
+			var step=card(row)
+			step.add_child(label(("●  " if net[k] else "○  ")+k.to_upper(),15,CYAN if net[k] else ORANGE))
+		c.add_child(label(net.reason,14,MUTED))
+		c.add_child(button("Upravit síť "+vm.name,func(): page="Proxmox" if id=="100" else "Hyper-V"; tab="Síť" if id=="100" else "Virtuální síť"; notice=""; draw_ui()))
+	var c=card(v,"Virtuální switche")
+	for sw in game.sim.state.network.switches:
+		var data=game.sim.state.network.switches[sw]
+		c.add_child(label("%s / %s / uplink %s / VLAN-aware %s" % [sw,data.type,data.uplink,data.vlan_aware],14,MUTED))
 
 func draw_terminal():
 	var v=scroll(center)
+	var context=OptionButton.new()
+	for node in ["PVE-01","PVE-02","HV-01","HV-02"]: context.add_item(node)
+	context.select(["PVE-01","PVE-02","HV-01","HV-02"].find(terminal_host))
+	context.item_selected.connect(func(index): terminal_host=context.get_item_text(index); draw_ui())
+	v.add_child(context)
 	var c=card(v,"Simulovaný terminál", "Příkazy se nikdy nespouštějí v operačním systému.")
-	c.add_child(label(terminal_history,14,CYAN))
+	var output=RichTextLabel.new()
+	output.text=terminal_history
+	output.fit_content=true
+	output.selection_enabled=true
+	output.add_theme_color_override("default_color",CYAN)
+	output.add_theme_font_override("normal_font",SystemFont.new())
+	output.get_theme_font("normal_font").font_names=PackedStringArray(["Consolas","monospace"])
+	c.add_child(output)
 	var input=LineEdit.new()
 	input.placeholder_text="help"
 	input.custom_minimum_size.y=42
 	c.add_child(input)
-	input.text_submitted.connect(func(command): terminal_history+="\n> "+command+"\nTerminál bude rozšířen v další etapě.\n"; draw_ui())
+	input.text_submitted.connect(func(command):
+		command_history.append(command)
+		history_position=command_history.size()
+		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+preload("res://scripts/simulation/TerminalParser.gd").execute(game.sim,command,terminal_host)+"\n"
+		terminal_history=terminal_history.right(14000)
+		game.save()
+		draw_ui())
+	input.gui_input.connect(func(event):
+		if event is InputEventKey and event.pressed and event.keycode in [KEY_UP,KEY_DOWN] and not command_history.is_empty():
+			history_position=clampi(history_position+(-1 if event.keycode==KEY_UP else 1),0,command_history.size()-1)
+			input.text=command_history[history_position]
+			input.caret_column=input.text.length())
+	c.add_child(button("Vyčistit výpis",func(): terminal_history=""; draw_ui()))
 	input.grab_focus()
+	v.get_parent().set_deferred("scroll_vertical",999999)
 
 func draw_academy():
 	var v=scroll(center)
-	var c=card(v,"Příručka administrátora", "Primární studijní materiály jsou uloženy v data/knowledge a budou dostupné i ve hře.")
-	c.add_child(label("RAID není záloha. Snapshot není nezávislá kopie. Replikace nenahrazuje historii záloh.\n\nPři zásahu ověř identitu zařízení a možnost návratu. Obnovu testuj v izolované síti a kontroluj skutečná data aplikace.",16,MUTED))
+	var articles=JSON.parse_string(FileAccess.get_file_as_string("res://data/knowledge/articles.json"))
+	var categories=OptionButton.new()
+	for category in ["Proxmox","Hyper-V","Storage"]: categories.add_item(category)
+	categories.select(["Proxmox","Hyper-V","Storage"].find(academy_category))
+	categories.item_selected.connect(func(i): academy_category=categories.get_item_text(i); academy_article=0; draw_ui())
+	v.add_child(categories)
+	var selected=[]
+	for article in articles:
+		if article.category==academy_category: selected.append(article)
+	var picker=OptionButton.new()
+	picker.clip_text=true
+	for article in selected: picker.add_item(article.title)
+	picker.select(mini(academy_article,selected.size()-1))
+	picker.item_selected.connect(func(i): academy_article=i; draw_ui())
+	v.add_child(picker)
+	var article=selected[mini(academy_article,selected.size()-1)]
+	var c=card(v,article.title,"Zdroj: studijní příručka Student IT support / Notion, načteno 24.10.2026.")
+	c.add_child(label(article.text,15))
+	c.add_child(label(article.source,11,MUTED))
+	var logs=card(v,"Provozní deník")
+	logs.add_child(label("\n".join(game.sim.state.journal).right(10000),13,MUTED))
 
 func draw_stats():
 	var v=scroll(center)
 	var c=card(v,"Tvůj administrátorský profil")
 	c.add_child(label("%d XP  •  %d uzavřených ticketů\nAchievementy: %s" % [int(game.progress.xp),game.progress.scores.size(),", ".join(game.progress.achievements)],19,CYAN))
 	for topic in game.progress.mistakes: c.add_child(label("%s: %d chyb — doporučeno opakování" % [topic,int(game.progress.mistakes[topic])],14,ORANGE))
+	for category in ["Proxmox","Hyper-V","Storage"]:
+		var count=0
+		var total=0
+		for m in game.missions:
+			if m.category==category and game.progress.scores.has(str(m.id)):
+				count+=1
+				total+=int(game.progress.scores[str(m.id)])
+		c.add_child(label("%s: %d / 8 ticketů; průměr %d / 100" % [category,count,int(float(total)/maxi(count,1))],16))
+	var weak=card(v,"Doporučený trénink", "Výběr podle skutečných chyb; opakování nezmění postup v kampani.")
+	var shown=0
+	for m in game.missions:
+		if game.progress.mistakes.has(m.topic) and shown<4:
+			weak.add_child(button(m.title,func(): game.training=true; start_ticket(int(m.id)-1)))
+			shown+=1
+	if shown==0: weak.add_child(label("Zatím bez opakovaných chyb. Začni novým ticketem nebo volným tréninkem.",14,MUTED))
 
 func create_sound():
 	player=AudioStreamPlayer.new()

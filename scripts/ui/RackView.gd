@@ -38,7 +38,7 @@ func _draw():
 	for y in range(0, int(size.y), 24): draw_line(Vector2(0,y),Vector2(size.x,y),Color(0.1,0.3,0.4,0.08))
 	for i in names_list.size():
 		var x = (i % columns) * (w+gap)
-		var y = (i / columns) * (h+18)
+		var y = int(float(i) / float(columns)) * (h+18)
 		var box = Rect2(x,y,w,h)
 		boxes.append(box)
 		var color = Color("3ddbc6") if i < 2 else (Color("609cff") if i < 4 else Color("aa99ff"))
