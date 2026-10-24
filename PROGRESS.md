@@ -6,6 +6,12 @@
 - Plán: CharacterBody3D + RayCast3D, opakovatelné interakce a procedurální prostředí, stejné konzole na monitorech, fyzické operace přes společný model, samostatná místnost akademie a 15 doplňkových misí. Původní scény i prvních24 definic zůstanou zachované.
 - Godot MCP ověřil projekt 4.7.2 a vytvořil základ scény `scenes/world/Datacenter3D.tscn`. Veškeré běhy a testy budou používat SaveManager.path_override a oddělenou konfiguraci.
 
+## Přestavba do 3D — etapy 2–3 (2026-10-24)
+- Nová vstupní scéna `scenes/world/Game.tscn` integruje původní UI a stejný GameManager. Původní `scenes/main_menu/Main.tscn` a všechny konzole zůstávají funkční a samostatně testovatelné.
+- CharacterBody3D: WASD, Shift, myš s omezením náklonu, kolize, RayCast3D do3,2m, E, zvýraznění cíle, baterka F. Esc pauza/citlivost/volný kurzor; Tab stavové cíle. Při práci na monitoru je chůze vypnutá, návrat zachovává formulářové koncepty.
+- Skutečná procedurální serverovna, první rack/PVE-01, pracovní stůl s Proxmox konzolí a monitor VM. Vše čte společnou infrastrukturu; nevzniká kopie simulace.
+- Import Godot4.7.2 bez chyb. `tests/world3d.gd`:12 kontrol PASS včetně fyzikální chůze a kolizí, skutečného raycastu a vstupu E, otevření původních formulářů, zásahu a uložení. Testovací scéna `tests/WorldMCP.tscn` nastaví obě izolované cesty ještě před vytvořením GameManager.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)

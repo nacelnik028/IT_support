@@ -1,5 +1,9 @@
 extends Control
 
+signal world_requested(destination: String)
+signal lesson_launched
+var world_enabled = false
+
 const Game = preload("res://scripts/core/GameManager.gd")
 const Racks = preload("res://scripts/ui/RackView.gd")
 const Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
@@ -393,6 +397,9 @@ func quit_game():
 	get_tree().quit()
 
 func navigate(target: String):
+	if world_enabled and target in ["Serverovna","Trénink"]:
+		world_requested.emit(target)
+		return
 	page=target
 	tab=""
 	notice=""
@@ -484,6 +491,9 @@ func draw_tickets():
 func start_ticket(index: int):
 	if not game.start_mission(index,game.training): return
 	host=game.current.server
+	if world_enabled:
+		world_requested.emit("Serverovna")
+		return
 	navigate(game.current.category)
 
 func draw_console():
@@ -785,6 +795,7 @@ func begin_lesson(id: int,mode: String,resume: bool=true):
 		selected_vm=""
 		notice=""
 		draw_ui()
+		if world_enabled: lesson_launched.emit()
 
 func draw_training_center():
 	var container=preload("res://scenes/training/TrainingCenter.tscn").instantiate()

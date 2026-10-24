@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/Datacenter3D.gd" id="1"]
+
+[node name="root" type="Node3D" unique_id=1055978752]
+script = ExtResource("1")
+
+[node name="Infrastructure" type="Node3D" parent="." unique_id=1915239787]

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="IT Support Simulator: Datacenter Academy"
-run/main_scene="res://scenes/main_menu/Main.tscn"
+run/main_scene="res://scenes/world/Game.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/icons/academy.svg"
 
