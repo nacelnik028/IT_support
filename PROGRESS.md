@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Přestavba do 3D — etapa 1 (2026-10-24)
+- Výchozí čistý commit `862f8da`; záložní Git tag `pre-3d-20261024` zachovává celou funkční 2D hru.
+- Prozkoumány všechny scény a rozhraní GameManager, InfrastructureSimulator, RAIDSimulator, síť, ukládání, tutoriály a generátory obsahu. Konzole jsou Control prezentace nad společným RefCounted modelem; budou vloženy do nové 3D herní scény bez nahrazování simulátorů.
+- Plán: CharacterBody3D + RayCast3D, opakovatelné interakce a procedurální prostředí, stejné konzole na monitorech, fyzické operace přes společný model, samostatná místnost akademie a 15 doplňkových misí. Původní scény i prvních24 definic zůstanou zachované.
+- Godot MCP ověřil projekt 4.7.2 a vytvořil základ scény `scenes/world/Datacenter3D.tscn`. Veškeré běhy a testy budou používat SaveManager.path_override a oddělenou konfiguraci.
+
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
 ## Viditelnost obsahu Nastavení po otevření (2026-10-24)
