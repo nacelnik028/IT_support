@@ -40,7 +40,9 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   dojdi ke **SW-CORE**, zaměř konkrétní port a stiskni E. Správný port určuje
   štítek. Obsazený port se nepřepíše; chybný port neobnoví službu.
 - **IT Training Academy** leží ve vedlejší místnosti za posuvnými dveřmi
-  napravo. Lze do ní dojít nebo vstoupit z menu/pauzy. U virtuálního instruktora
+  napravo. Pevný panel na zdi z obou stran ovládá otevření i zavření přes E,
+  také když je křídlo zasunuté. Čidlo brání zavření do hráče.
+  Lze do ní dojít nebo vstoupit z menu/pauzy. U virtuálního instruktora
   či zkušebního počítače vyber lekci a režim. Učím se přidá zlatý rám,
   instrukce a směr/vzdálenost k zařízení. Procvičování a Zkouška řešení
   nezvýrazňují. Laboratorní stanice používají samostatnou relaci lekce.

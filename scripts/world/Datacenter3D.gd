@@ -11,6 +11,9 @@ var cable_meshes: Dictionary = {}
 var port_objects: Array = []
 var door_open = false
 var door_tween: Tween
+var door_panels: Array = []
+var door_status: Label3D
+var door_feedback = ""
 var academy_targets: Dictionary = {}
 var batched_instances = 0
 var carried_disk: Node3D
@@ -207,6 +210,18 @@ func build_academy():
 	var door_label = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
 	door_label.rotation.y = -PI/2
 	Geo.box(self,Vector3(8.82,2.95,3.5),Vector3(0.035,0.06,3.15),Color("f4c472"),0,1)
+	for side in [-1,1]:
+		var panel_id = "DOOR-CONTROL-"+("OPS" if side<0 else "ACADEMY")
+		var panel = item(panel_id,"Otevřít dveře — IT Training Academy","door",Vector3(9+side*0.28,1.35,1.65),Vector3(0.14,0.48,0.32))
+		var face = Node3D.new()
+		panel.visual.add_child(face)
+		face.rotation.y = side*PI/2
+		face.position.x = side*0.08
+		Geo.box(face,Vector3.ZERO,Vector3(0.27,0.4,0.025),Color("073e47"),0,0.6)
+		var words = Geo.text(face,"DVEŘE\n[E] OTEVŘÍT",Vector3(0,0,0.018),28,0.0014)
+		door_panels.append({"object":panel,"label":words})
+	door_status = Geo.text(self,"IT TRAINING ACADEMY",Vector3(8.8,3.25,3.5),36,0.003)
+	door_status.rotation.y = -PI/2
 	Geo.text(self,"IT TRAINING ACADEMY",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
 	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
 	for x in [12,18]:
@@ -254,13 +269,38 @@ func build_academy():
 	Geo.text(self,"SÍŤOVÁ LABORATOŘ",Vector3(19.1,2.15,-5.3),32,0.003)
 	Geo.text(self,"ZKUŠEBNÍ PRACOVIŠTĚ",Vector3(18,2.4,3.4),40,0.003)
 
-func toggle_door():
-	var door = devices["ACADEMY-DOOR"]
-	if door_tween and door_tween.is_running(): return
-	if door_open and player.position.distance_to(Vector3(9,0,3.5))<1.8: return
-	door_open = not door_open
+func doorway_occupied() -> bool:
+	# Swept leaf volume expanded by the player's capsule, not a broad radius
+	# that would incorrectly reject a person standing beside a wall control.
+	return absf(player.position.x-9.0)<0.48 and player.position.z>1.7 and player.position.z<5.3 and player.position.y<2.9
+
+func toggle_door() -> bool:
+	if door_tween and door_tween.is_running(): return false
+	if door_open and doorway_occupied():
+		door_feedback = "PRŮCHOD OBSAZENÝ"
+		update_door_controls()
+		return false
+	move_door(not door_open)
+	return true
+
+func move_door(opened: bool):
+	if door_tween and door_tween.is_running(): door_tween.kill()
+	door_open = opened
+	door_feedback = ""
 	door_tween = create_tween()
-	door_tween.tween_property(door,"position:z",6.5 if door_open else 3.5,0.6).set_trans(Tween.TRANS_SINE)
+	door_tween.tween_property(devices["ACADEMY-DOOR"],"position:z",6.5 if opened else 3.5,0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	update_door_controls()
+
+func update_door_controls():
+	for control in door_panels:
+		control.object.caption = ("Zavřít" if door_open else "Otevřít")+" dveře — IT Training Academy"
+		control.label.text = "DVEŘE\n[E] "+("ZAVŘÍT" if door_open else "OTEVŘÍT")
+		control.object.set_status("Warning" if door_feedback!="" else "Healthy")
+	door_status.text = door_feedback if door_feedback!="" else "IT TRAINING ACADEMY / "+("OTEVŘENO" if door_open else "ZAVŘENO")
+
+func _physics_process(_delta):
+	# Reopen if somebody walks into the opening during a closing animation.
+	if not door_open and door_tween and door_tween.is_running() and doorway_occupied(): move_door(true)
 
 func sync_state():
 	if game == null or game.sim.state.is_empty(): return

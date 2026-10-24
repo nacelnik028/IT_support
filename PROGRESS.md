@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Oprava opakovaného ovládání dveří (2026-10-24)
+- Dveře akademie mají dva pevné nástěnné ovladače: v serverovně i uvnitř akademie. Křídlo se může zasunout do stěny, ovládání zůstává přístupné přes raycast/E a nabízí otevření nebo zavření podle aktuálního stavu.
+- Bezpečnostní čidlo kontroluje skutečný prostor průchodu; hráč vedle tlačítka už zavření neblokuje. Obsazený průchod ukáže vysvětlení a vstup do průchodu během zavírání dveře znovu otevře.
+- Nový `tests/door3d.gd`:15 kontrol PASS (oba směry, opakované E, pevná poloha ovladačů, čidlo před zavřením i během pohybu). Test zahrnutý v Test-All. Následuje požadované výrazné vylepšení vizuálu, bez změn simulačního obsahu a katalogů.
+
 ## Přestavba do3D — dokončené etapy1–9 (2026-10-24)
 - Etapy1–9 implementované, otestované a uložené v Gitu. Finální scéna `scenes/world/Game.tscn`; zachováno původních50 misí/21 lekcí a doplněno15 praktických misí. Procedurální serverovna i akademie jsou skutečné3D, administrace používá původní UI a společný model.
 - Akademie má nyní také vlastní funkční fyzický switch, servisní skříň a ZFS sloty. V produkční3D hře fyzické zásahy vyžadují přístup k zařízení; pomocné nové formulářové popisy zůstávají jen v samostatném původním UI pro ověření všech akcí.
