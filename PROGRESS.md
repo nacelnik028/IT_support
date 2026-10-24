@@ -2,6 +2,12 @@
 
 Datum: 2026-10-24. Nový projekt Godot 4.7.2, pracovní adresář IT_support.
 
+## Viditelnost obsahu Nastavení po otevření (2026-10-24)
+- Opravena regrese z úpravy kontejnerů: kořen stránky `draw_settings()` se v nadřazeném VBox neroztahoval na dostupnou výšku. ScrollContainer měl nulovou výšku a zobrazovala se jen hlavička. Stránka nyní používá `SIZE_EXPAND_FILL`.
+- `tests/display_settings.gd` nově ověřuje skutečnou plochu a ořezání přepínače fullscreen, rozlišení a potvrzovacího tlačítka, nikoli jen existenci Control. Kontroly běží při otevření, ve všech6 rozlišeních a s upozorněním na save v720p i4K. Před opravou27 selhání, po opravě68/68 headless a76/76 GPU PASS.
+- Graficky prohlédnut obsah v `test-output/settings-720p.png` a `settings-warning-3840.png`. Test zachování konceptů `ui_safety.gd`31/31 PASS; pixelový `render_quality.gd`8/8 PASS. MCP otevřel Nastavení skutečným tlačítkem a ověřil viditelnost panelu, `errors=[]`. Použity výhradně testovací save/config cesty.
+- Windows EXE+PCK v `build/` přegenerovány. Samostatný balíček otevřel Nastavení tlačítkem a ověřil všechny3 viditelné ovládací prvky v720p, kód0; prohlédnut `test-output/settings-packaged.png`, log `settings-package.log` bez chyb.
+
 ## Cílené opravy ochrany postupu (2026-10-24)
 - Restart je řízen typem relace přes `restart_current()`. Náhodná úloha obnoví jen svůj scénář; fronta, pozice, dosavadní výsledky i odložená kampaň zůstávají zachované. Neplatný index mise se odmítá před změnou paměti i souboru.
 - Přechody používají společné odložení kampaně, lekce či série. `resume_random()` i přímé `restore_session()` nejprve zachovají aktuální relaci. Opakovaný návrat do již aktivní kampaně ji nerestartuje.

@@ -2,6 +2,25 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+## Následná oprava prázdného Nastavení
+
+Po otevření stránky se zobrazovala pouze hlavička: kořenový VBox stránky
+neměl vertikální roztažení a jeho ScrollContainer dostával nulovou výšku.
+Opraveno nastavením `SIZE_EXPAND_FILL` na kořeni stránky.
+
+Regrese nyní kontroluje plochu ovládacích prvků, hranice viewportu a ořezání
+všemi nadřazenými scroll kontejnery. Před opravou selhalo27 kontrol, po opravě
+`display_settings.gd` prošel68/68 headless a76/76 na GPU. Zahrnuto všech6
+rozlišení, otevření skutečným tlačítkem a kombinace se save upozorněním v720p/4K.
+Graficky prohlédnuty snímky `settings-720p.png` a `settings-warning-3840.png`.
+Znovu prošly `ui_safety.gd`31/31 a `render_quality.gd`8/8; glyph oversampling
+i38×38px DPITexture ve4K zachovány. MCP otevřel Nastavení a vrátil `errors=[]`.
+Save i config testů zůstaly oddělené od hráčových souborů. Níže uvedený úplný
+Test-All je z předchozí etapy; tato úprava ověřuje rozložení cílenými testy.
+Windows EXE+PCK v `build/` byly aktualizovány a samostatně graficky ověřeny:
+skutečné tlačítko otevřelo viditelné ovládací prvky v720p, kód0, čistý log
+`test-output/settings-package.log`; prohlédnut snímek `settings-packaged.png`.
+
 ## Opravy po auditu: relace, ukládání a formuláře
 
 Samostatné auditovací reprodukce byly převedeny do standardních regresí

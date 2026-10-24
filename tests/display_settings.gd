@@ -27,8 +27,10 @@ func run():
 	check(find_button(ui,"Nastavení")!=null,"Hlavní menu má nastavení")
 	find_button(ui,"Nastavení").pressed.emit()
 	await process_frame
+	await process_frame
 	check(ui.page=="Nastavení","Otevření nastavení skutečným tlačítkem")
 	check(ui.settings_controls.resolution.item_count==Settings.RESOLUTIONS.size(),"Všechna rozlišení jsou v nabídce")
+	check_settings_visible()
 	ui.game.start_mission(3,false)
 	ui.game.sim.state.vms["100"].vlan=39
 	for index in Settings.RESOLUTIONS.size():
@@ -42,13 +44,27 @@ func run():
 		check(root.content_scale_size==resolution,"Skutečné vykreslovací rozlišení "+str(resolution))
 		check(root.get_visible_rect().size==Vector2(resolution),"Viewport používá zvolený počet pixelů")
 		check(ui.size==Vector2(Settings.DESIGN_SIZE),"Rozhraní má stabilní čitelný layout")
+		check_settings_visible()
 		var reloaded=Settings.new(); reloaded.load_settings()
 		check(reloaded.resolution==resolution and not reloaded.fullscreen,"Volba se ukládá a znovu načítá")
 		if DisplayServer.get_name()!="headless":
 			await RenderingServer.frame_post_draw
 			check(root.get_texture().get_size()==Vector2(resolution),"GPU opravdu renderuje zvolené rozlišení")
+		if resolution==Vector2i(1280,720): await capture("settings-720p")
 		if resolution==Vector2i(3840,2160): await capture("settings-4k")
 	check(ui.game.sim.state.vms["100"].vlan==39,"Změna rozlišení nezměnila simulaci")
+	# The persistence banner shares vertical space with the settings page.
+	ui.game.load_warning="Testovací upozornění: uložený postup nebyl načten."
+	for resolution in [Vector2i(1280,720),Vector2i(3840,2160)]:
+		ui.apply_display_settings(resolution,false)
+		await process_frame
+		await process_frame
+		check_settings_visible()
+		await capture("settings-warning-"+str(resolution.x))
+	ui.game.load_warning=""
+	ui.draw_ui()
+	await process_frame
+	await process_frame
 	ui.settings_controls.fullscreen.button_pressed=true
 	ui.settings_controls.apply.pressed.emit()
 	await process_frame
@@ -101,6 +117,20 @@ func find_button(node: Node,text: String):
 		var result=find_button(child,text)
 		if result: return result
 	return null
+
+func check_settings_visible():
+	for key in ["fullscreen","resolution","apply"]:
+		check(on_screen(ui.settings_controls[key]),"Nastavení je skutečně viditelné a není oříznuté: "+key)
+
+func on_screen(control: Control) -> bool:
+	if not control.is_visible_in_tree(): return false
+	var rect=control.get_global_rect()
+	if not rect.has_area() or not root.get_visible_rect().encloses(rect): return false
+	var ancestor=control.get_parent()
+	while ancestor is Control:
+		if (ancestor is ScrollContainer or ancestor.clip_contents) and not ancestor.get_global_rect().encloses(rect): return false
+		ancestor=ancestor.get_parent()
+	return true
 
 func capture(title):
 	if not "--screenshots" in OS.get_cmdline_user_args() or DisplayServer.get_name()=="headless": return

@@ -326,6 +326,7 @@ func sync_display_layout():
 func draw_settings():
 	settings_controls.clear()
 	var all=vbox(content_box,24)
+	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=hbox(all)
 	header.add_child(label("◈  DATACENTER ACADEMY",22,CYAN))
 	header.add_child(button("← Hlavní menu",func(): page="menu"; draw_ui()))
