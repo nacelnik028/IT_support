@@ -17,5 +17,9 @@ $desktopEngine = $enginePath -replace '_console.exe$', '.exe'
 if (-not (Test-Path -LiteralPath $desktopEngine)) { $desktopEngine = $enginePath }
 Copy-Item -LiteralPath $desktopEngine -Destination (Join-Path $buildPath 'ITSupportSimulator.exe') -Force
 Copy-Item -LiteralPath (Join-Path $projectRoot 'README.md') -Destination (Join-Path $buildPath 'README.md') -Force
+foreach ($document in @('TRAINING.md','TEST_REPORT.md')) {
+    $documentPath = Join-Path $projectRoot $document
+    if (Test-Path -LiteralPath $documentPath) { Copy-Item -LiteralPath $documentPath -Destination $buildPath -Force }
+}
 Copy-Item -LiteralPath (Join-Path $projectRoot 'GODOT-LICENSE.txt') -Destination $buildPath -Force
 Write-Output "Hotovo: $buildPath/ITSupportSimulator.exe (ponech vedle nej soubor PCK)."

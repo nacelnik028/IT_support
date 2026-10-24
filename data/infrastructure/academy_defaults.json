@@ -1,1 +1,33 @@
-{}
+{
+  "ct_backups": {},
+  "designs": {},
+  "located": {},
+  "backup_transport": {
+    "ip": "10.60.0.10",
+    "vlan": 60,
+    "uplink": true,
+    "tested": false
+  },
+  "hosts": {
+    "HV-01": {
+      "boot_auto": true
+    }
+  },
+  "san": {
+    "capacity": 2000,
+    "used": 200,
+    "monitored": false
+  },
+  "vms": {
+    "100": {
+      "virtio_drivers": true,
+      "disk_bus": "SATA",
+      "ram_mib": 4096
+    },
+    "200": {
+      "virtio_drivers": true,
+      "disk_bus": "SATA",
+      "ram_mib": 4096
+    }
+  }
+}

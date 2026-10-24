@@ -115,7 +115,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if vm.is_empty() or not vm.disk_present: return sim.reject("Nelze zálohovat neexistující nebo chybějící disk.")
 			if not s.backup.configured or not s.hosts["BACKUP-01"].online: return sim.reject("Nezávislý backup cíl není připraven.")
 			if vm.locked: return sim.reject("Na VM běží jiná úloha. Počkej na její dokončení.")
-			if vm.host.begins_with("HV") and not vm.vss: return sim.reject("VSS writer selhal; oprav aplikační konzistenci před zálohou.")
+			if vm.host.begins_with("HV") and (not vm.vss or not vm.agent): return sim.reject("VSS writer nebo Integration Services selhaly; oprav aplikační konzistenci před zálohou.")
 			s.backup.records[str(p.vm)] = vm.duplicate(true)
 			s.backup.verified = false
 			s.backup.completed = true

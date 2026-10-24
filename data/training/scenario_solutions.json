@@ -1,0 +1,1806 @@
+[
+  [
+    [
+      "inspect",
+      {
+        "scope": "Inventory"
+      }
+    ],
+    [
+      "prepare",
+      {
+        "vt": true,
+        "mode": "HBA",
+        "ups": true,
+        "console": true,
+        "iommu": true
+      }
+    ],
+    [
+      "management",
+      {
+        "hostname": "pve01.lab.example",
+        "ip": "192.168.10.10",
+        "gateway": "192.168.10.1",
+        "dns": "192.168.10.2"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "install",
+      {
+        "disks": "SYS-A + SYS-B",
+        "type": "ZFS mirror",
+        "hostname": "pve01.lab.example",
+        "ip": "192.168.10.10",
+        "gateway": "192.168.10.1",
+        "dns": "192.168.10.2",
+        "nic": "eno1"
+      }
+    ],
+    [
+      "web",
+      {
+        "url": "https://192.168.10.10:8006"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "create_vm",
+      {
+        "id": "100",
+        "name": "APP01",
+        "iso": "debian.iso",
+        "os": "Linux",
+        "firmware": "UEFI",
+        "cpu": 2,
+        "ram": 4,
+        "storage": "local-lvm",
+        "disk": 32,
+        "nic": "VirtIO",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "boot": "Disk",
+        "agent": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "100",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Orphan snapshots",
+        "checked": true
+      }
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Thin metadata",
+        "checked": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "backup_config",
+      {
+        "target": "PBS",
+        "fingerprint": "AA:42",
+        "interval": 24,
+        "retention": 7
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "100"
+      }
+    ],
+    [
+      "backup_verify",
+      {
+        "operation": "Verify"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "100",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "ZFS",
+        "slot": "B",
+        "serial": "PVE-B",
+        "size": 1000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "ZFS"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "ZFS"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "cluster",
+      {
+        "qdevice": true,
+        "fenced": true,
+        "shared": true
+      }
+    ],
+    [
+      "failover",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_prepare",
+      {
+        "vt": true,
+        "slat": true,
+        "dep": true
+      }
+    ],
+    [
+      "hv_role",
+      {
+        "tools": true
+      }
+    ],
+    [
+      "hv_restart",
+      {
+        "window": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "switch",
+      {
+        "name": "vSwitch-APP",
+        "type": "External",
+        "adapter": "Ethernet2",
+        "management": true
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "200",
+        "bridge": "vSwitch-APP",
+        "vlan": 20,
+        "ip": "192.168.20.200",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_create",
+      {
+        "id": "200",
+        "name": "FS01",
+        "generation": "2",
+        "secure_boot": true,
+        "cpu": 2,
+        "ram": 4,
+        "dynamic": true,
+        "minimum": 2,
+        "maximum": 8,
+        "disk": 80,
+        "vhd_type": "Dynamic",
+        "bridge": "vSwitch-LAN",
+        "vlan": 20,
+        "iso": "windows-server.iso",
+        "agent": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "memory",
+      {
+        "vm": "200",
+        "dynamic": true,
+        "minimum": 2,
+        "ram": 4,
+        "maximum": 8
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "VM disk",
+        "size": 150,
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Guest filesystem",
+        "size": 150,
+        "vm": "200"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "checkpoint_action",
+      {
+        "vm": "200",
+        "name": "Pred-zmenou",
+        "operation": "Apply"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ],
+    [
+      "checkpoint_action",
+      {
+        "vm": "200",
+        "name": "Pred-zmenou",
+        "operation": "Delete (merge)"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "live_migrate",
+      {
+        "vm": "200",
+        "target": "HV-02",
+        "auth": "Kerberos",
+        "storage": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "200",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ],
+    [
+      "promote",
+      {
+        "id": "900",
+        "vm": "200"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "VM-DATA",
+        "level": "RAID 6",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "VM-DATA",
+        "level": "RAID 10",
+        "members": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "disk_online",
+      {
+        "serial": "VOL-NEW-01"
+      }
+    ],
+    [
+      "disk_initialize",
+      {
+        "style": "GPT"
+      }
+    ],
+    [
+      "volume",
+      {
+        "size": 1000,
+        "fs": "NTFS",
+        "letter": "D"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "share",
+      {
+        "name": "Projekty",
+        "group": "GG_Projekty_RW",
+        "ntfs": "Modify",
+        "access": "Change",
+        "quota": 300,
+        "mode": "Hard"
+      }
+    ],
+    [
+      "share_test",
+      {
+        "group": "GG_Projekty_RW"
+      }
+    ],
+    [
+      "share_test",
+      {
+        "group": "GG_Hoste"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Pool",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Logical disk",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Host filesystem",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "VM disk",
+        "size": 300,
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Guest filesystem",
+        "size": 300,
+        "vm": "200"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "san",
+      {
+        "target": "10.50.0.10",
+        "initiator": "iqn.2026-10.lab:hv01",
+        "lun": "LUN-01",
+        "paths": 2,
+        "mpio": true,
+        "writers": "HV-01",
+        "clustered": false
+      }
+    ],
+    [
+      "san_test",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Orphan snapshots",
+        "checked": true
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "100",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "100"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "100",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "management",
+      {
+        "hostname": "pve01.lab.example",
+        "ip": "192.168.10.10",
+        "gateway": "192.168.10.1",
+        "dns": "192.168.10.2"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "pve_resources",
+      {
+        "vm": "100",
+        "cpu": 2,
+        "ram": 4
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "vm_options",
+      {
+        "vm": "100",
+        "boot": "Disk",
+        "firmware": "UEFI",
+        "disk_bus": "SATA",
+        "nic": "E1000"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "vm_options",
+      {
+        "vm": "100",
+        "boot": "Disk",
+        "firmware": "UEFI",
+        "disk_bus": "SATA",
+        "nic": "E1000"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "guest_driver",
+      {
+        "vm": "100",
+        "iso": "virtio-win.iso"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "vm_options",
+      {
+        "vm": "100",
+        "boot": "Disk",
+        "firmware": "UEFI",
+        "disk_bus": "VirtIO",
+        "nic": "VirtIO"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "ct_app_backup",
+      {
+        "ct": "300"
+      }
+    ],
+    [
+      "ct_restore",
+      {
+        "ct": "300",
+        "id": "301",
+        "application": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Pool",
+        "size": 800,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Logical disk",
+        "size": 800,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Host filesystem",
+        "size": 800,
+        "vm": "200"
+      }
+    ],
+    [
+      "storage_cleanup",
+      {
+        "kind": "Thin metadata",
+        "checked": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "backup_transport",
+      {
+        "ip": "10.60.0.10",
+        "vlan": 60,
+        "uplink": true
+      }
+    ],
+    [
+      "backup_test",
+      {
+        "fingerprint": "AA:42"
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "100"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "export",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "cross_import",
+      {
+        "id": "310",
+        "firmware": "UEFI",
+        "disk_bus": "SATA",
+        "storage": "local-lvm",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "310",
+        "power": "Start"
+      }
+    ],
+    [
+      "guest_driver",
+      {
+        "vm": "310",
+        "iso": "virtio-win.iso"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "310",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "vm_options",
+      {
+        "vm": "310",
+        "boot": "Disk",
+        "firmware": "UEFI",
+        "disk_bus": "VirtIO",
+        "nic": "VirtIO"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "310",
+        "power": "Start"
+      }
+    ],
+    [
+      "cross_check",
+      {
+        "vm": "310"
+      }
+    ],
+    [
+      "cross_cutover",
+      {
+        "vm": "310"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_prepare",
+      {
+        "vt": true,
+        "slat": true,
+        "dep": true
+      }
+    ],
+    [
+      "hypervisor_boot",
+      {
+        "auto": true
+      }
+    ],
+    [
+      "hv_restart",
+      {
+        "window": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_recreate",
+      {
+        "vm": "200",
+        "id": "201",
+        "generation": "2"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "201",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "switch",
+      {
+        "name": "vSwitch-LAN",
+        "type": "External",
+        "adapter": "Ethernet2",
+        "management": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "memory",
+      {
+        "vm": "200",
+        "dynamic": true,
+        "minimum": 2,
+        "ram": 6,
+        "maximum": 12
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Guest filesystem",
+        "size": 200,
+        "vm": "200"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Pool",
+        "size": 650,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Logical disk",
+        "size": 650,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Host filesystem",
+        "size": 650,
+        "vm": "200"
+      }
+    ],
+    [
+      "checkpoint_action",
+      {
+        "vm": "200",
+        "name": "Patch-Window",
+        "operation": "Delete (merge)"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "integration",
+      {
+        "vm": "200",
+        "agent": true,
+        "vss": true,
+        "auto_start": "StartIfRunning",
+        "auto_stop": "ShutDown"
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "backup_verify",
+      {
+        "operation": "Verify"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "replica",
+      {
+        "vm": "200",
+        "target": "HV-02",
+        "interval": 300,
+        "points": 6
+      }
+    ],
+    [
+      "replica_test",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "902",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "ACADEMY-DATA",
+        "level": "RAID 10",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "ACADEMY-DATA",
+        "level": "RAID 6",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "spare": "5",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_assess",
+      {
+        "health": "Degraded"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "0",
+        "serial": "DC-000",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "locate_disk",
+      {
+        "slot": "1",
+        "serial": "DC-001"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "1",
+        "serial": "DC-001",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "cache_service",
+      {
+        "serial": "CACHE-01",
+        "tested": true
+      }
+    ],
+    [
+      "cache",
+      {
+        "policy": "Protected write-back"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "disk_diagnose",
+      {
+        "serial": "VOL-OLD-42",
+        "readonly": true
+      }
+    ],
+    [
+      "disk_reconnect",
+      {
+        "serial": "VOL-OLD-42",
+        "port": "SAS-PORT-A"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "ACADEMY-DATA",
+        "level": "Mirror",
+        "members": [
+          "4",
+          "5"
+        ],
+        "spare": "Žádný",
+        "controller": "Storage Spaces"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "present_array",
+      {
+        "serial": "SPACE-01"
+      }
+    ],
+    [
+      "disk_online",
+      {
+        "serial": "SPACE-01"
+      }
+    ],
+    [
+      "disk_initialize",
+      {
+        "style": "GPT"
+      }
+    ],
+    [
+      "volume",
+      {
+        "size": 1000,
+        "fs": "NTFS",
+        "letter": "D"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "san_expand",
+      {
+        "size": 2000
+      }
+    ],
+    [
+      "san_monitor",
+      {
+        "warning": 80,
+        "critical": 90
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "100",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "100",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ],
+    [
+      "promote",
+      {
+        "id": "900",
+        "vm": "100"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  [
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "security",
+      {
+        "role": "PVEVMUser",
+        "mfa": true,
+        "restricted": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ]
+]

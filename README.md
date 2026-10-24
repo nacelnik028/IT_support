@@ -1,8 +1,9 @@
 # IT Support Simulator: Datacenter Academy
 
 Česká offline výuková 2D hra pro Godot 4.x. Vytvořeno a ověřeno v Godotu
-4.7.2.stable.official.ed1daf0bf. Obsahuje 24 praktických misí ve třech kapitolách,
-volný trénink a 50 studijních článků z poskytnutých Notion příruček.
+4.7.2.stable.official.ed1daf0bf. Obsahuje 50 praktických misí,21 interaktivních
+lekcí ve třech režimech, náhodné procvičování, osobní přehled znalostí a50
+studijních článků z poskytnutých Notion příruček. Původních24 misí zůstalo zachováno.
 
 ## Spuštění
 
@@ -19,6 +20,17 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 - Myš: výběr serveru, panelu, polí a operací. Kolečko: posun obsahu konzole
   nebo ticketu v samostatných sloupcích. Tab: přesun mezi formulářovými poli.
 - Menu → Zahájit směnu nebo Tickety → první laboratoř.
+- **Tréninkové centrum** v hlavním menu nebo **Trénink** vlevo otevírá lekce,
+  náhodné procvičování, Moje IT znalosti a interaktivní IT slovník.
+- **Učím se** ukazuje aktuální krok, šipku a zvýraznění skutečného ovládacího
+  prvku. Krok postupuje teprve po potvrzené události nebo odpovídajícím stavu.
+  Pokud jsi v jiné konzoli, použij **Zobrazit potřebný panel**.
+- **Procvičování** má zadání a dobrovolné nápovědy. **Zkouška** nezvýrazňuje
+  řešení, nepovoluje přímou nápovědu a po dokončení rozebere chyby i doporučení.
+- Odchod do centra uloží krok i infrastrukturu. **Vrátit se k uložené kampani**
+  obnoví původní ticket a jeho konfiguraci. Režimy lekce mají vlastní uložené relace.
+- Náhodné procvičování nabízí oblast, obtížnost,1–20 úloh a nápovědu zapnutou/vypnutou.
+  Generátor obměňuje skutečné parametry a před spuštěním ověřuje řešitelnost.
 - Serverovna: klikni na rack. Levý panel otevírá Proxmox, Hyper-V, Storage,
   síťovou mapu, terminál, Akademii a statistiky.
 - V konzoli vyber sekci v horní nabídce. **Podle ticketu** soustředí související
@@ -31,7 +43,7 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   ticket v pravém panelu. Samotné tlačítko pro uzavření nic neopravuje.
 - Nápověda má tři úrovně. Po dokončení je dostupné dobrovolné krátké opakování.
   Chybná odpověď doporučí další praktický trénink; nezablokuje vyřešený ticket.
-- Volný trénink otevírá všech 24 situací. Umožňuje vrátit poslední zásah,
+- Volný trénink otevírá všech50 situací. Umožňuje vrátit poslední zásah,
   restartovat laboratoř a používat i operace mimo příslušný ticket.
 - Zrušit rizikový zásah lze v potvrzovacím dialogu. Chyby mají vysvětlení;
   původní datové disky nelze bezpečnostními zkratkami přepsat.
@@ -56,7 +68,11 @@ a DNS `192.168.10.2`. IOMMU je pro passthrough; není podmínkou každé VM.
   SMB+ACL+Hard/Soft FSRM, iSCSI mapping, MPIO a test výpadku cesty.
 - Síť: samostatné kontroly L2, IP, DNS a aplikačních dat, konflikty IP,
   omezení virtuálních switchů a cílené pravidlo HTTPS.
-- 24 samostatných výchozích stavů, stavové cíle, tři nápovědy, deník a rozbor.
+- 50 samostatných výchozích stavů, stavové cíle, tři nápovědy, deník a rozbor.
+- 21 datových lekcí nad stejnými konzolemi:18 požadovaných + quorum/HA,
+  iSCSI/MPIO a bezpečnost účtů. Podrobnosti a rozšiřování viz [TRAINING.md](TRAINING.md).
+- Nové incidenty řeší DNS, RAM, boot order, VirtIO, CT bind data, nedostupný PBS,
+  offline Hyper-V→PVE převod, generaci OS, VSS, AVHDX merge, RAW cestu, cache a SAN.
 - Skóre0–100, XP, úrovně, postupné odemykání, achievementy, oborové statistiky
   a doporučený trénink podle chyb. Opakování stejného skóre nefarmí XP.
 - Dark UI, česká diakritika, klikací racky, LED, přechody a generovaný zvuk.
@@ -86,6 +102,9 @@ nápověda, skóre, XP a statistiky do `user://academy_save.json`.
 Na tomto počítači odpovídá cesta adresáři
 `%APPDATA%/Godot/app_userdata/IT Support Simulator- Datacenter Academy/`.
 Poškozený JSON je ošetřen. Testy používají oddělené `academy_test_*.json`.
+Schema2 načte původní schema1, zachová XP, skóre, achievementy i rozehranou
+infrastrukturu. Před prvním přepsáním schema1 vytvoří `academy_save.json.v1.bak`.
+Výukové relace, odložená kampaň, série a historie výsledků mají oddělené datové větve.
 Undo je lokální historie aktuální tréninkové relace; po restartu programu
 zůstává uložena konfigurace, nikoli zásobník předchozích zásahů.
 
@@ -96,13 +115,16 @@ scenes/main_menu/Main.tscn          Vstupní scéna
 scenes/datacenter/Datacenter.tscn   Interaktivní racky
 scenes/consoles/                   Samostatné konzole Proxmox/Hyper-V/storage
 scenes/results/Review.tscn         Kontextové opakování
+scenes/training/TrainingCenter.tscn Tréninkové centrum
 scripts/core/GameManager.gd        Mise, odemykání, skóre, relace
 scripts/simulation/               Stav, síť, RAID a oborové operace
 scripts/evaluation/               Vyhodnocení podmínek nad stavem
 scripts/progression/SaveManager.gd Atomické uložení a načtení
 scripts/ui/                       Adaptivní Control UI, formuláře a racky
+scripts/training/                 Kroky, validátor, zvýraznění, generátor a profil
 data/infrastructure/baseline.json  Výchozí společná infrastruktura
-data/missions/campaign.json        24 datových misí
+data/missions/campaign.json        50 datových misí (prvních24 nezměněno)
+data/training/                    21 lekcí, slovník a validační recepty generátoru
 data/actions.json                 Formuláře a vazby na operace
 data/knowledge/                   Úplné zdroje a články Akademie
 tests/                            Automatické testy a referenční postupy
@@ -131,7 +153,9 @@ konfigurace zneplatní předchozí ověření. Cíle nečtou seznam tlačítek.
 Nové formuláře patří do `data/actions.json`, jejich chování do oborového
 Operations skriptu. Operace vrací `{ok,text}` a mění společný stav.
 
-`tools/build_content.py` je reprodukovatelný zdroj nynějšího katalogu.
+`tools/build_content.py` a `tools/build_extension.py` obnovují nynější katalog.
+Rozšíření je v `tools/extension_catalog.py`; původní24 definice jsou zmrazené
+v `data/missions/legacy_campaign.json` a testy kontrolují jejich shodu.
 **Jeho spuštění přegeneruje JSON**; pokud ho chceš dále používat, prováděj
 trvalé obsahové změny i v něm. Pro běžné nové mise samotný JSON stačí.
 Referenční postup pro regresi přidej do `tests/solutions.json`.
@@ -146,11 +170,17 @@ V PowerShellu s cestou ke console variantě Godotu:
 ```
 
 - `stage1.gd`: první mise, chyba, ověření a uložení.
-- `campaign.gd`: všech24 misí proti skutečnému stavu.
+- `campaign.gd`: všech50 misí proti skutečnému stavu a shoda původních24 definic.
 - `regression.gd`:88 kontrol cílů, RAID, sítí, bezpečnosti, terminálu, save/load a XP.
 - `extended.gd`:35 kontrol LXC, VSS, VHDX typů, Replica, hot spare a kvót.
-- `ui_smoke.gd`: všech24 misí přes skutečné formuláře, potvrzovací dialogy
-  a24 kontextových otázek; přechody mezi všemi hlavními obrazovkami.
+- `ui_smoke.gd`: všechny mise přes skutečné formuláře, potvrzovací dialogy
+  a kontextové otázky; přechody mezi všemi hlavními obrazovkami.
+- `tutorial_first.gd`: všech9 kroků WEB01, chybná RAM, obnovení kroku i kampaně.
+- `lessons.gd`: všechny lekce v režimech Učím se / Procvičování / Zkouška.
+- `training_features.gd`: parametrizace, všechny kombinace filtrů, obnova série,
+  migrace původního save a doporučení slabých oblastí.
+- `training_ui.gd -- --all-modes`: skutečné formuláře a navigace všech lekcí
+  ve všech3 režimech, včetně kontroly, že zkouška nemá zvýraznění.
 - Vizuální snímky vytvoří grafický běh
   `Godot_console.exe --path . --script tests/ui_smoke.gd -- --screenshots`.
   Přepínač `--small` testuje okno1280×720.
@@ -166,9 +196,10 @@ V PowerShellu s cestou ke console variantě Godotu:
   mezi misemi. Postup, nejlepší skóre a rozehraný ticket se přenášejí.
 - Hostitelská příprava cílí PVE-01/HV-01, RAID řadič NAS-01. Druhé uzly slouží
   migraci, HA a Replica. Nejde o libovolně rozšiřitelnou topologii serverovny.
-- Ceph, kompletní návrh Failover Clusteru/CSV, výměna bootovacího ZFS rpoolu,
-  všechny varianty Storage Spaces a převod disků mezi hypervisory jsou
-  vysvětlené v Akademii; nemají úplné samostatné konfigurační průvodce.
+- Ceph, kompletní návrh Failover Clusteru/CSV, výměna bootovacího ZFS rpoolu
+  a všechny varianty Storage Spaces nemají úplné samostatné průvodce.
+  Offline převod Hyper-V→PVE je nově prakticky simulovaný včetně disků,
+  firmware, ovladačů, izolovaného testu dat a přepnutí provozu.
 - Backup job uchovává v modelu poslední bod každé VM a retenční politiku.
   Nesimuluje úplný kalendář deduplikovaných chunků PBS. Replica používá
   synchronizovaný stavový snímek; nejsou simulovány reálné intervaly přenosu.

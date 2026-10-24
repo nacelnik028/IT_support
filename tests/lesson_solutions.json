@@ -1,0 +1,1053 @@
+{
+  "1002": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "action_opened",
+        "action": "create_vm"
+      }
+    },
+    [
+      "vm_identity",
+      {
+        "id": "101",
+        "name": "WEB01"
+      }
+    ],
+    [
+      "vm_media",
+      {
+        "vm": "101",
+        "iso": "debian.iso"
+      }
+    ],
+    [
+      "vm_resources",
+      {
+        "vm": "101",
+        "cpu": 2,
+        "ram_mib": 4096
+      }
+    ],
+    [
+      "vm_disk",
+      {
+        "vm": "101",
+        "size": 32,
+        "storage": "local-lvm"
+      }
+    ],
+    [
+      "vm_network",
+      {
+        "vm": "101",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.101"
+      }
+    ],
+    [
+      "vm_install",
+      {
+        "vm": "101"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "101",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1001": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "install",
+      {
+        "disks": "SYS-A + SYS-B",
+        "type": "ZFS mirror",
+        "hostname": "pve01.lab.example",
+        "ip": "192.168.10.10",
+        "gateway": "192.168.10.1",
+        "dns": "192.168.10.2",
+        "nic": "eno1"
+      }
+    ],
+    [
+      "web",
+      {
+        "url": "https://192.168.10.10:8006"
+      }
+    ],
+    [
+      "repositories",
+      {
+        "repo": "No-subscription",
+        "environment": "Lab",
+        "subscription": false
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1003": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Network"
+      }
+    ],
+    [
+      "bridge",
+      {
+        "uplink": true,
+        "vlan_aware": true
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "100",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1004": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Inventory"
+      }
+    ],
+    [
+      "zfs_create",
+      {
+        "disks": "A + B"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1005": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "backup_config",
+      {
+        "target": "PBS",
+        "fingerprint": "AA:42",
+        "interval": 24,
+        "retention": 7
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "100"
+      }
+    ],
+    [
+      "backup_verify",
+      {
+        "operation": "Verify"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "100",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1006": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "100",
+        "bridge": "vmbr0",
+        "vlan": 20,
+        "ip": "192.168.20.100",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1007": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_prepare",
+      {
+        "vt": true,
+        "slat": true,
+        "dep": true
+      }
+    ],
+    [
+      "hv_role",
+      {
+        "tools": true
+      }
+    ],
+    [
+      "hv_restart",
+      {
+        "window": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1008": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "switch",
+      {
+        "name": "vSwitch-APP",
+        "type": "External",
+        "adapter": "Ethernet2",
+        "management": true
+      }
+    ],
+    [
+      "network",
+      {
+        "vm": "200",
+        "bridge": "vSwitch-APP",
+        "vlan": 20,
+        "ip": "192.168.20.200",
+        "prefix": 24,
+        "gateway": "192.168.20.1",
+        "dns": "192.168.20.10",
+        "firewall": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1009": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "hv_create",
+      {
+        "id": "200",
+        "name": "FS01",
+        "generation": "2",
+        "secure_boot": true,
+        "cpu": 2,
+        "ram": 4,
+        "dynamic": true,
+        "minimum": 2,
+        "maximum": 8,
+        "disk": 80,
+        "vhd_type": "Dynamic",
+        "bridge": "vSwitch-LAN",
+        "vlan": 20,
+        "iso": "windows-server.iso",
+        "agent": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1010": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "memory",
+      {
+        "vm": "200",
+        "dynamic": true,
+        "minimum": 2,
+        "ram": 4,
+        "maximum": 8
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1011": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "attach_vhd",
+      {
+        "vm": "200",
+        "path": "D:/HyperV/lesson-data.vhdx",
+        "size": 50,
+        "type": "Dynamic",
+        "parent": "Žádný"
+      }
+    ],
+    [
+      "guest_volume",
+      {
+        "vm": "200",
+        "style": "GPT",
+        "fs": "NTFS",
+        "letter": "E"
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "data_resize",
+      {
+        "vm": "200",
+        "layer": "VHDX",
+        "size": 100
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "data_resize",
+      {
+        "vm": "200",
+        "layer": "Filesystem",
+        "size": 100
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1012": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "HV-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "HV-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Backup"
+      }
+    ],
+    [
+      "checkpoint",
+      {
+        "vm": "200",
+        "name": "Pred-zmenou",
+        "type": "Production"
+      }
+    ],
+    [
+      "lab_update",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "checkpoint_action",
+      {
+        "vm": "200",
+        "name": "Pred-zmenou",
+        "operation": "Apply"
+      }
+    ],
+    [
+      "checkpoint_action",
+      {
+        "vm": "200",
+        "name": "Pred-zmenou",
+        "operation": "Delete (merge)"
+      }
+    ],
+    [
+      "backup",
+      {
+        "vm": "200"
+      }
+    ],
+    [
+      "restore",
+      {
+        "vm": "200",
+        "id": "900",
+        "isolated": true
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "900",
+        "power": "Start"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1013": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "ACADEMY-DATA",
+        "level": "RAID 1",
+        "members": [
+          "0",
+          "1"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1014": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_plan",
+      {
+        "level": "RAID 5",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    ],
+    [
+      "raid_plan",
+      {
+        "level": "RAID 6",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    ],
+    [
+      "raid_plan",
+      {
+        "level": "RAID 10",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "VM-DATA",
+        "level": "RAID 6",
+        "members": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1015": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "raid_create",
+      {
+        "name": "VM-DATA",
+        "level": "RAID 10",
+        "members": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "spare": "Žádný",
+        "controller": "Hardware RAID"
+      }
+    ],
+    [
+      "raid_initialize",
+      {}
+    ],
+    [
+      "present_array",
+      {
+        "serial": "VD-NEW-01"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1016": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "disk_online",
+      {
+        "serial": "VOL-NEW-01"
+      }
+    ],
+    [
+      "disk_initialize",
+      {
+        "style": "GPT"
+      }
+    ],
+    [
+      "volume",
+      {
+        "size": 1000,
+        "fs": "NTFS",
+        "letter": "D"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1017": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "locate_disk",
+      {
+        "slot": "2",
+        "serial": "DC-002"
+      }
+    ],
+    [
+      "replace_disk",
+      {
+        "pool": "RAID",
+        "slot": "2",
+        "serial": "DC-002",
+        "size": 2000,
+        "backup_checked": true
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "rebuild",
+      {
+        "pool": "RAID"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1018": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Pool",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Logical disk",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Host filesystem",
+        "size": 700,
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Shutdown"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "VM disk",
+        "size": 300,
+        "vm": "200"
+      }
+    ],
+    [
+      "power",
+      {
+        "vm": "200",
+        "power": "Start"
+      }
+    ],
+    [
+      "capacity",
+      {
+        "layer": "Guest filesystem",
+        "size": 300,
+        "vm": "200"
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1019": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-02"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-02"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "cluster",
+      {
+        "qdevice": true,
+        "fenced": true,
+        "shared": true
+      }
+    ],
+    [
+      "failover",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1020": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "NAS-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Storage"
+      }
+    ],
+    [
+      "san",
+      {
+        "target": "10.50.0.10",
+        "initiator": "iqn.2026-10.lab:hv01",
+        "lun": "LUN-01",
+        "paths": 2,
+        "mpio": true,
+        "writers": "HV-01",
+        "clustered": false
+      }
+    ],
+    [
+      "san_test",
+      {}
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ],
+  "1021": [
+    {
+      "event": {
+        "type": "server_selected",
+        "host": "PVE-01"
+      }
+    },
+    {
+      "event": {
+        "type": "node_selected",
+        "host": "PVE-01"
+      }
+    },
+    [
+      "inspect",
+      {
+        "scope": "Events"
+      }
+    ],
+    [
+      "security",
+      {
+        "role": "PVEVMUser",
+        "mfa": true,
+        "restricted": true
+      }
+    ],
+    [
+      "verify",
+      {}
+    ]
+  ]
+}

@@ -18,13 +18,13 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if not p.window: return sim.reject("Restart hostitele odstaví všechny jeho VM. Nejprve naplánuj odstávku.")
 			if not h.role: return sim.reject("Role Hyper-V není nainstalovaná.")
 			h.rebooted = true
-			h.vmms = h.vt and h.slat and h.dep
+			h.vmms = h.vt and h.slat and h.dep and h.get("boot_auto",true)
 			return sim.success("Restart dokončen; VMMS " + ("Running" if h.vmms else "Stopped") + ".")
 		"switch":
 			if p.name.strip_edges().is_empty(): return sim.reject("Switch potřebuje název.")
 			var external = p.type == "External"
 			if external and p.adapter != "Ethernet2": return sim.reject("External switch vyžaduje správný fyzický uplink Ethernet2.")
-			s.network.switches[p.name] = {"type":p.type,"uplink":external,"vlan_aware":true,"management":p.management,"host":"HV-01","owner":"Hyper-V"}
+			s.network.switches[p.name] = {"type":p.type,"uplink":external,"vlan_aware":true,"management":p.management,"host":"HV-01","owner":"Hyper-V","adapter":p.adapter}
 			return sim.success("vSwitch %s (%s) vytvořen. Neposkytuje automaticky DHCP ani NAT." % [p.name,p.type])
 		"memory":
 			var vm = sim.get_vm(str(p.vm))

@@ -1,0 +1,77 @@
+[
+  {
+    "term": "VM",
+    "text": "Virtuální počítač s vlastní konfigurací a kernelem.",
+    "lesson": 1002
+  },
+  {
+    "term": "Hypervisor",
+    "text": "Vrstva, která přiděluje fyzické prostředky virtuálním strojům.",
+    "lesson": 1007
+  },
+  {
+    "term": "VLAN",
+    "text": "Oddělená linková síť; tag musí odpovídat celé cestě.",
+    "lesson": 1003
+  },
+  {
+    "term": "Bridge",
+    "text": "Virtuální switch; sám nezajišťuje DHCP nebo NAT.",
+    "lesson": 1003
+  },
+  {
+    "term": "RAID",
+    "text": "Redundance a/nebo rozložení disků. Není to historická záloha.",
+    "lesson": 1014
+  },
+  {
+    "term": "ZFS",
+    "text": "Filesystem a správce poolu s kontrolními součty; potřebuje vhodný přímý přístup k diskům.",
+    "lesson": 1004
+  },
+  {
+    "term": "LVM-thin",
+    "text": "Tenké přidělování bloků; hlídej fyzická data i metadata.",
+    "lesson": 1018
+  },
+  {
+    "term": "VHDX",
+    "text": "Soubor představující disk VM; zvětšení neprovede resize guest filesystemu.",
+    "lesson": 1011
+  },
+  {
+    "term": "PBS",
+    "text": "Proxmox Backup Server: samostatný zálohovací cíl a nástroje integrity.",
+    "lesson": 1005
+  },
+  {
+    "term": "RPO",
+    "text": "Přijatelná ztráta nejnovějších dat; porovnej s poslední úspěšnou zálohou/replikací.",
+    "lesson": 1005
+  },
+  {
+    "term": "RTO",
+    "text": "Přijatelná doba do obnovení služby; prokazuje ji test skutečné obnovy.",
+    "lesson": 1005
+  },
+  {
+    "term": "HA",
+    "text": "Obnovení dostupnosti na jiném uzlu. Po havárii obvykle restartuje VM a neobnoví ztracenou RAM.",
+    "lesson": 1019
+  },
+  {
+    "term": "Quorum",
+    "text": "Dostatečná většina hlasů bránící nezávislým souběžným zápisům při rozdělení clusteru.",
+    "lesson": 1019
+  },
+  {
+    "term": "iSCSI",
+    "text": "Přístup initiatoru k blokovému LUN na targetu; není souborové SMB sdílení.",
+    "lesson": 1020
+  },
+  {
+    "term": "MPIO",
+    "text": "Více cest k témuž úložišti; nevytváří druhou kopii dat ani RAID.",
+    "lesson": 1020
+  }
+]

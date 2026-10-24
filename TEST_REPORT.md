@@ -1,14 +1,21 @@
-# Ověření hratelné verze
+# Ověření rozšířené hratelné verze
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
 | Kontrola | Výsledek |
 |---|---|
-| Import a spuštění přes Godot MCP | PASS, bez chyb v debug výstupu |
+| Godot MCP: verze, metadata, tvorba scény centra a spuštění | Provedeno; monitor později vrací „No active Godot process“ |
+| Přímý grafický start Godotu se skutečným menu | PASS, exit code0, bez chyb v samostatném logu |
 | První kompletní mise před rozšiřováním | PASS |
-| Stavové dokončení všech24 misí | 24/24 PASS |
-| UI: formuláře, rizikové dialogy, cíle a předání ticketu | 24/24 PASS |
-| UI: dobrovolné otázky a navazující vysvětlení | 24/24 PASS |
+| Stavové dokončení všech50 misí | 50/50 PASS |
+| Shoda původních24 definic s výchozím checkpointem | PASS |
+| UI: formuláře, rizikové dialogy, cíle a předání ticketu | 50/50 PASS |
+| UI: dobrovolné otázky a navazující vysvětlení | 50/50 PASS |
+| Lekce: Učím se / Procvičování / Zkouška | 21×3 PASS,949 kontrol |
+| Lekce přes skutečné UI a navigaci | 21×3 PASS,336 akcí |
+| První9kroková lekce, nesprávná RAM a obnova rozpracovaného kroku | PASS |
+| Generátor, kombinace filtrů, migrace save a doporučení | 199 kontrol PASS |
+| Obměny generátoru ve20 seeded sériích | 77 odlišných konfigurací |
 | Regrese: cíle, RAID, sítě, parser, rizika, save/load a XP | 88 kontrol PASS |
 | Rozšíření: LXC, VSS, VHDX, Replica, spare a kvóty | 35 kontrol PASS |
 | Vizuální kontrola1440×900 a1280×720 | PASS |
@@ -19,6 +26,12 @@ Automatické UI testy vyplňují skutečné Control formuláře a vyvolávají j
 signály; rizikové operace procházejí potvrzovacími dialogy. Nejde o ruční
 odehrání všech misí. Snímky skutečně renderovaných obrazovek jsou v místním
 ignorovaném `test-output/`.
+
+Vedená výuka byla zkontrolována při1280×720: rámeček a šipka míří na RAM
+skutečného VM formuláře. Praktický i zkouškový režim nepoužívají overlay;
+zkouška nemá přímé nápovědy. Ukládání schema1→2 zachovává XP, skóre, chyby,
+achievementy, rozpracovaný ticket i jeho infrastrukturu a vytváří v1 zálohu.
+Náhodná série se obnoví ve stejné pozici včetně rozehraného stavu.
 
 Testy ověřují i chyby: RAID10 ve stejném páru, libovolné dvě chyby RAID6,
 chybné VLAN/DNS, odlišné možnosti External/Internal/Private, plný pool,

@@ -78,7 +78,7 @@ func run():
 	await create_timer(0.2).timeout
 	ui.queue_free()
 	await process_frame
-	print("UI SMOKE: 24 missions through form signals; %d failures" % failures)
+	print("UI SMOKE: %d missions through form signals; %d failures" % [ui.game.missions.size() if is_instance_valid(ui) else solutions.size(),failures])
 	quit(0 if failures==0 else 1)
 
 func find_button(node: Node, text: String):

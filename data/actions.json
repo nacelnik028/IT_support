@@ -2819,5 +2819,661 @@
     "console": "Proxmox",
     "panel": "Průvodce VM",
     "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "pve_resources",
+    "label": "Upravit prostředky VM",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "cpu",
+        "label": "vCPU",
+        "type": "number",
+        "default": 2,
+        "min": 1,
+        "max": 32
+      },
+      {
+        "key": "ram",
+        "label": "RAM (GiB)",
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 60
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "VM / CT",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "vm_options",
+    "label": "Boot order, firmware a řadiče",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "boot",
+        "label": "Boot order",
+        "type": "choice",
+        "default": "ISO",
+        "options": [
+          "ISO",
+          "Disk"
+        ]
+      },
+      {
+        "key": "firmware",
+        "label": "Firmware",
+        "type": "choice",
+        "default": "UEFI",
+        "options": [
+          "UEFI",
+          "SeaBIOS"
+        ]
+      },
+      {
+        "key": "disk_bus",
+        "label": "Diskový řadič",
+        "type": "choice",
+        "default": "SATA",
+        "options": [
+          "SATA",
+          "VirtIO"
+        ]
+      },
+      {
+        "key": "nic",
+        "label": "Síťová karta",
+        "type": "choice",
+        "default": "E1000",
+        "options": [
+          "E1000",
+          "VirtIO"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "VM / CT",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "guest_driver",
+    "label": "Nainstalovat VirtIO ovladače",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "100",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "iso",
+        "label": "Připojené ovladačové ISO",
+        "type": "choice",
+        "default": "virtio-win.iso",
+        "options": [
+          "virtio-win.iso",
+          "debian.iso"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "VM / CT",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "zfs_create",
+    "label": "Create ZFS mirror",
+    "fields": [
+      {
+        "key": "disks",
+        "label": "Prázdné fyzické disky",
+        "type": "choice",
+        "default": "A + B",
+        "options": [
+          "A + B",
+          "A"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "ZFS / disky",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru.",
+    "danger": true,
+    "warning": "Pouze nové prázdné datové disky A/B. Existující pool se nepřevytváří."
+  },
+  {
+    "id": "ct_app_backup",
+    "label": "Zálohovat CT a bind data",
+    "fields": [
+      {
+        "key": "ct",
+        "label": "CTID",
+        "type": "text",
+        "default": "300"
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Zálohy",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "ct_restore",
+    "label": "Obnovit CT a aplikační data",
+    "fields": [
+      {
+        "key": "ct",
+        "label": "Zdrojové CTID",
+        "type": "text",
+        "default": "300"
+      },
+      {
+        "key": "id",
+        "label": "Nové CTID",
+        "type": "text",
+        "default": "301"
+      },
+      {
+        "key": "application",
+        "label": "Zahrnout samostatný backup bind mountu",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Zálohy",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "backup_transport",
+    "label": "Opravit storage síť PBS",
+    "fields": [
+      {
+        "key": "ip",
+        "label": "PBS IPv4",
+        "type": "text",
+        "default": "10.60.0.10"
+      },
+      {
+        "key": "vlan",
+        "label": "Storage VLAN",
+        "type": "number",
+        "default": 60,
+        "min": 1,
+        "max": 4094
+      },
+      {
+        "key": "uplink",
+        "label": "Fyzický uplink dostupný",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Zálohy",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "backup_test",
+    "label": "Otestovat dostupnost PBS",
+    "fields": [
+      {
+        "key": "fingerprint",
+        "label": "Ověřený fingerprint",
+        "type": "text",
+        "default": "AA:42"
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Zálohy",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "cross_import",
+    "label": "Offline import Hyper-V disku do PVE",
+    "fields": [
+      {
+        "key": "id",
+        "label": "Nové PVE VMID",
+        "type": "text",
+        "default": "310"
+      },
+      {
+        "key": "firmware",
+        "label": "Původní firmware",
+        "type": "choice",
+        "default": "UEFI",
+        "options": [
+          "UEFI",
+          "SeaBIOS"
+        ]
+      },
+      {
+        "key": "disk_bus",
+        "label": "První diskový řadič",
+        "type": "choice",
+        "default": "SATA",
+        "options": [
+          "SATA",
+          "VirtIO"
+        ]
+      },
+      {
+        "key": "storage",
+        "label": "Cílové storage",
+        "type": "choice",
+        "default": "local-lvm",
+        "options": [
+          "local-lvm",
+          "PBS"
+        ]
+      },
+      {
+        "key": "isolated",
+        "label": "První start v izolované síti",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Převod mezi platformami",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "cross_check",
+    "label": "Ověřit izolovaný převod a data",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "310",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Převod mezi platformami",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "cross_cutover",
+    "label": "Přepnout převedenou službu do produkce",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "310",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      }
+    ],
+    "console": "Proxmox",
+    "panel": "Převod mezi platformami",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru.",
+    "danger": true,
+    "warning": "Původní instance stejné identity musí zůstat vypnutá."
+  },
+  {
+    "id": "hypervisor_boot",
+    "label": "Povolit spuštění hypervisoru",
+    "fields": [
+      {
+        "key": "auto",
+        "label": "Hypervisor launch: Auto",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Hyper-V",
+    "panel": "Server Manager",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "hv_recreate",
+    "label": "Nová správná generace konfigurace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "id",
+        "label": "Nové volné ID",
+        "type": "text",
+        "default": "201"
+      },
+      {
+        "key": "generation",
+        "label": "Generace nové konfigurace",
+        "type": "choice",
+        "default": "2",
+        "options": [
+          "1",
+          "2"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "panel": "Virtuální stroje",
+    "description": "Existující generaci nepřepínáme. Vytvoří se nová konfigurace nad kompatibilním původním diskem; stará zůstane vypnutá."
+  },
+  {
+    "id": "data_resize",
+    "label": "Rozšířit datový VHDX / filesystem",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      },
+      {
+        "key": "layer",
+        "label": "Vrstva",
+        "type": "choice",
+        "default": "VHDX",
+        "options": [
+          "VHDX",
+          "Filesystem"
+        ]
+      },
+      {
+        "key": "size",
+        "label": "Cílová velikost (GiB)",
+        "type": "number",
+        "default": 100,
+        "min": 1,
+        "max": 1000
+      }
+    ],
+    "console": "Hyper-V",
+    "panel": "VHDX",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "lab_update",
+    "label": "Simulovat aktualizaci aplikace",
+    "fields": [
+      {
+        "key": "vm",
+        "label": "VMID",
+        "type": "choice",
+        "default": "200",
+        "options": [
+          "100",
+          "200",
+          "900",
+          "101"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "panel": "Checkpointy",
+    "description": "Dostupné jen v připravené lekci. Vyvolá skutečnou poruchu aplikačních dat v laboratorním stavu."
+  },
+  {
+    "id": "backup_verify",
+    "label": "PBS Verify / Prune / GC",
+    "panel": "Zálohy",
+    "fields": [
+      {
+        "key": "operation",
+        "label": "Údržba",
+        "type": "choice",
+        "default": "Verify",
+        "options": [
+          "Verify",
+          "Prune",
+          "Garbage collection"
+        ]
+      }
+    ],
+    "console": "Hyper-V",
+    "description": "Prune odstraní body podle retence, GC později nepotřebné chunky. Verify nenahrazuje zkoušku aplikace.",
+    "danger": false,
+    "warning": ""
+  },
+  {
+    "id": "locate_disk",
+    "label": "Locate LED podle slotu a serial",
+    "fields": [
+      {
+        "key": "slot",
+        "label": "Slot",
+        "type": "text",
+        "default": "2"
+      },
+      {
+        "key": "serial",
+        "label": "Serial",
+        "type": "text",
+        "default": "DC-002"
+      }
+    ],
+    "console": "Storage",
+    "panel": "Servis disků",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "raid_assess",
+    "label": "Ověřit dostupnost konkrétních párů",
+    "fields": [
+      {
+        "key": "health",
+        "label": "Výsledek diagnostiky",
+        "type": "choice",
+        "default": "Healthy",
+        "options": [
+          "Healthy",
+          "Degraded",
+          "Failed"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "panel": "Servis disků",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "raid_plan",
+    "label": "Porovnat kapacitní návrh",
+    "fields": [
+      {
+        "key": "level",
+        "label": "RAID",
+        "type": "choice",
+        "default": "RAID 5",
+        "options": [
+          "RAID 5",
+          "RAID 6",
+          "RAID 10"
+        ]
+      },
+      {
+        "key": "members",
+        "label": "Konkrétní fyzické členy",
+        "type": "disks",
+        "default": ""
+      }
+    ],
+    "console": "Storage",
+    "panel": "RAID konfigurátor",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "cache_service",
+    "label": "Opravit ochranu cache",
+    "fields": [
+      {
+        "key": "serial",
+        "label": "Ochranný modul",
+        "type": "text",
+        "default": "CACHE-01"
+      },
+      {
+        "key": "tested",
+        "label": "Oprava a test ochrany dokončeny",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Storage",
+    "panel": "Servis disků",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "disk_diagnose",
+    "label": "Read-only diagnostika původního RAW disku",
+    "fields": [
+      {
+        "key": "serial",
+        "label": "Identita původního disku",
+        "type": "text",
+        "default": "VOL-OLD-42"
+      },
+      {
+        "key": "readonly",
+        "label": "Žádné zápisy ani formátování",
+        "type": "bool",
+        "default": true
+      }
+    ],
+    "console": "Storage",
+    "panel": "Disk Management",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "disk_reconnect",
+    "label": "Opravit původní I/O cestu a rescan",
+    "fields": [
+      {
+        "key": "serial",
+        "label": "Identita disku",
+        "type": "text",
+        "default": "VOL-OLD-42"
+      },
+      {
+        "key": "port",
+        "label": "Diagnostikovaný port",
+        "type": "choice",
+        "default": "SAS-PORT-A",
+        "options": [
+          "SAS-PORT-A",
+          "SAS-PORT-B"
+        ]
+      }
+    ],
+    "console": "Storage",
+    "panel": "Disk Management",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "present_array",
+    "label": "Rescan nového logického disku",
+    "fields": [
+      {
+        "key": "serial",
+        "label": "Nový identifikátor logického disku",
+        "type": "text",
+        "default": "VD-NEW-01"
+      }
+    ],
+    "console": "Storage",
+    "panel": "Disk Management",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "san_expand",
+    "label": "Rozšířit skutečnou kapacitu SAN",
+    "fields": [
+      {
+        "key": "size",
+        "label": "Nová fyzická kapacita (GB)",
+        "type": "number",
+        "default": 2000,
+        "min": 100,
+        "max": 4000
+      }
+    ],
+    "console": "Storage",
+    "panel": "SAN",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
+  },
+  {
+    "id": "san_monitor",
+    "label": "Nastavit kapacitní monitoring SAN",
+    "fields": [
+      {
+        "key": "warning",
+        "label": "Varování (%)",
+        "type": "number",
+        "default": 80,
+        "min": 50,
+        "max": 90
+      },
+      {
+        "key": "critical",
+        "label": "Kritická hranice (%)",
+        "type": "number",
+        "default": 90,
+        "min": 60,
+        "max": 95
+      }
+    ],
+    "console": "Storage",
+    "panel": "SAN",
+    "description": "Změna upravuje skutečnou konfiguraci simulátoru."
   }
 ]

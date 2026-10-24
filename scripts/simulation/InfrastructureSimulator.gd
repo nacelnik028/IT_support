@@ -45,6 +45,7 @@ func refresh_incidents():
 	state.incidents=[]
 	for id in state.vms:
 		var vm=state.vms[id]
+		vm.ram_mib=int(round(float(vm.ram)*1024.0))
 		if not vm.get("exists",false): continue
 		var health="Healthy"
 		var reason="Služba v provozu"
@@ -88,6 +89,7 @@ func act(action: String, p: Dictionary = {}) -> Dictionary:
 			var restore_ok = not restored.is_empty() and restored.get("isolated",false) and restored.status == "Running" and restored.service and restored.data == "ACADEMY-DATA-v1" and restored.disk_present
 			state.verified = {"preflight":h.vt and h.mode == "HBA" and h.ups and h.console and h.ip == "192.168.10.10" and h.gateway == "192.168.10.1" and h.dns == "192.168.10.2", "service_pve":Network.probe(state,"100").app, "service_hv":Network.probe(state,"200").app,"capacity":state.storage.used <= state.storage.capacity*0.9 and state.storage.metadata < 80,"restore":restore_ok,"zfs":state.zfs.health == "Healthy" and not state.zfs.rebuilding,"raid":state.raid.health == "Healthy" and state.raid.initialized and not state.raid.rebuilding,"created_raid":not state.created_raid.is_empty() and state.created_raid.get("initialized",false) and state.created_raid.get("health","") == "Healthy","hypervisor":state.hosts["HV-01"].vmms and state.hosts["HV-01"].rebooted,"volume":state.disk.online and state.disk.style == "GPT" and state.disk.fs != "" and state.disk.size > 0,"share":state.share.get("allowed_test",false) and state.share.get("denied_test",false),"san":state.san.tested and state.san.mpio and state.san.paths == 2}
 			state.verified.vms=vm_checks
+			EducationOps.verify(self)
 			return success("Ověření dokončeno. Kontroly odrážejí aktuální konfiguraci.\n" + JSON.stringify(state.verified,"  "),false)
 		_: return reject("Operace není implementována: " + action)
 
@@ -98,6 +100,11 @@ func get_vm(id: String) -> Dictionary:
 func can_start(vm: Dictionary) -> String:
 	if vm.is_empty(): return "VM neexistuje."
 	if vm.get("provisioning",false): return "Nejprve dokonči instalaci OS v průvodci VM."
+	if vm.get("expected_firmware",vm.get("firmware","UEFI"))!=vm.get("firmware","UEFI"): return "Boot selhal: BIOS/UEFI neodpovídá původnímu systémovému disku."
+	if vm.get("os","")=="Windows Server" and vm.get("disk_bus","")=="VirtIO" and not vm.get("virtio_drivers",true): return "INACCESSIBLE_BOOT_DEVICE: Windows nemá ovladač VirtIO storage. Nejdřív kompatibilní SATA a instalace ovladačů."
+	if vm.get("required_generation",0)>0 and vm.get("generation",0)!=vm.required_generation: return "Generation neodpovídá OS obrazu. Vytvoř novou správnou konfiguraci; generaci nelze přepnout."
+	if vm.get("dynamic",false) and (vm.get("minimum",0)>vm.ram or vm.ram>vm.get("maximum",vm.ram)): return "Dynamic Memory: Minimum ≤ Startup ≤ Maximum není splněno."
+	if vm.get("storage","")=="SAN-LUN-01" and state.san.used>=state.san.capacity: return "SAN thin pool je plný, přestože guest filesystem má volné místo."
 	var h = state.hosts[vm.host]
 	if not h.online: return "Hostitel je Offline."
 	if vm.host.begins_with("PVE") and state.cluster.configured and 1+int(state.cluster.peer_online)+int(state.cluster.qdevice)<2: return "Cluster nemá quorum. Obnov většinu hlasů; neobcházej ochranu split-brain."

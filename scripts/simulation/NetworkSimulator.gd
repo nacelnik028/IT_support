@@ -8,6 +8,7 @@ static func probe(s: Dictionary, id: String, destination: String = "application"
 	if not host.get("online", false) or vm.status != "Running":
 		return result(false, false, false, false, "Hostitel nebo VM neběží.")
 	var sw = s.network.switches.get(vm.bridge, {})
+	if sw.get("owner","")=="Hyper-V" and sw.get("type","")=="External" and sw.get("adapter","Ethernet2")!="Ethernet2": return result(false,false,false,false,"External switch je navázaný na nesprávnou fyzickou NIC.")
 	if sw.is_empty(): return result(false, false, false, false, "Síťový adaptér není připojen k existujícímu switchi.")
 	if destination == "peer":
 		for other in s.vms.values():
@@ -30,6 +31,8 @@ static func probe(s: Dictionary, id: String, destination: String = "application"
 		if other.get("exists",false) and other.id!=id and other.status=="Running" and other.ip==vm.ip and other.vlan==vm.vlan and not other.get("isolated",false):
 			return result(true,false,false,false,"Konflikt IP: další aktivní produkční VM používá stejnou adresu.")
 	var disk_ok = vm.disk_present and s.storage.used < s.storage.capacity and s.storage.metadata < 100 and s.raid.health != "Failed"
+	if vm.get("storage","")=="SAN-LUN-01": disk_ok=disk_ok and s.san.used<s.san.capacity
+	if vm.get("os","")=="Windows Server" and vm.nic=="VirtIO" and not vm.get("virtio_drivers",true): return result(false,false,false,false,"Windows postrádá VirtIO síťové ovladače.")
 	if vm.host=="PVE-02" and s.cluster.failed_over: disk_ok=disk_ok and s.cluster.shared
 	if vm.get("storage","")=="local-zfs": disk_ok = disk_ok and s.zfs.health!="Failed"
 	var app_ok = dns_ok and vm.service and vm.firewall and disk_ok and vm.get("data","")=="ACADEMY-DATA-v1"

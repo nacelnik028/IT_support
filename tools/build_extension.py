@@ -41,4 +41,6 @@ def build():
     write('data/actions.json',actions)
     write('data/training/lessons.json',[lesson])
     write('data/infrastructure/academy_defaults.json',{})
+    from extension_catalog import catalog
+    catalog(actions,[lesson])
 if __name__=='__main__': build()

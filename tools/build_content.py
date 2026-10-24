@@ -218,3 +218,8 @@ for number, category in [(2,'Proxmox'),(3,'Hyper-V'),(4,'Storage')]:
         text=re.sub(r'\n{3,}','\n\n',text).strip()
         articles.append(dict(title=title,category=category,text=text,source=f'https://app.notion.com/p/{ {2:"403bceb1e413811cb04ef027bd9f8715",3:"403bceb1e413812a9c02f743f359b731",4:"403bceb1e41381a485bcc52395b7bd7e"}[number]}'))
 write('data/knowledge/articles.json',articles)
+
+# Academy extension always reapplies the frozen legacy campaign and new content.
+if (ROOT/'tools/build_extension.py').exists():
+    import build_extension
+    build_extension.build()

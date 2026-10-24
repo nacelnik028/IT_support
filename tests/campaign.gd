@@ -12,7 +12,9 @@ func _init():
 	var Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 	var missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
 	var solutions = JSON.parse_string(FileAccess.get_file_as_string("res://tests/solutions.json"))
-	check(missions.size()==24,"Musí existovat 24 misí")
+	check(missions.size()>=48,"Musí existovat alespoň48 misí")
+	var legacy=JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/legacy_campaign.json"))
+	for index in legacy.size(): check(missions[index]==legacy[index],"Původní mise musí zůstat beze změny: "+str(index+1))
 	for i in missions.size():
 		var sim = Sim.new()
 		sim.reset(missions[i].initial_state)

@@ -28,6 +28,8 @@ var transition: Tween
 var tutorial_overlay: Control
 var ui_targets: Dictionary={}
 var training_category="Všechny lekce"
+var training_view="lessons"
+var mission_filter="Vše"
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -162,6 +164,7 @@ func draw_ui():
 		var b = button(item[1]+"   "+target,func(): navigate(target),page==target)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		sidebar.add_child(b)
+		register_target("nav:"+target,b)
 	var spacer = Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sidebar.add_child(spacer)
@@ -241,7 +244,7 @@ func draw_menu():
 		if not game.active: game.start_mission(0)
 		navigate("Serverovna"))
 	var info = card(right,"Praktická laboratoř", "Konfiguruj virtuální stroje, opravuj sítě a obnovuj data. Hra funguje offline a ukládá každý zásah.")
-	info.add_child(label("24 TICKETŮ     •     3 KAPITOLY     •     TVÉ TEMPO",12,CYAN))
+	info.add_child(label("%d TICKETŮ     •     %d LEKCÍ     •     TVÉ TEMPO" % [game.missions.size(),game.tutorial.lessons.size()],12,CYAN))
 	all.add_child(label("Výuková simulace správy serverů  /  Čeština  /  Godot 4",12,MUTED))
 
 func navigate(target: String):
@@ -266,7 +269,7 @@ func draw_datacenter():
 	var racks = preload("res://scenes/datacenter/Datacenter.tscn").instantiate()
 	racks.custom_minimum_size.y=420
 	racks.state=game.sim.state
-	register_target("rack:PVE-01",racks)
+	for server_id in racks.names_list: register_target("rack:"+server_id,racks)
 	contents.add_child(racks)
 	racks.server_selected.connect(func(server_name):
 		host=server_name
@@ -296,11 +299,12 @@ func draw_ticket(parent: Node):
 	bar.custom_minimum_size.y=5
 	c.add_child(bar)
 	c.add_child(button("Ověřit a uzavřít ticket",close_ticket,true))
-	c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
+	if game.session_kind!="random" or game.education.random.get("hints_allowed",true): c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
 	c.add_child(button("Restartovat laboratoř",restart_confirm))
 	if game.finished: c.add_child(button("Krátké opakování znalostí",show_review))
 	if game.training: c.add_child(button("Vrátit poslední zásah",func(): game.undo(); notice="Poslední zásah vrácen."; draw_ui()))
-	if game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
+	if game.finished and game.session_kind=="random": c.add_child(button("Další úloha / souhrn série",next_random_task,true))
+	elif game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
 	c.add_child(label("Postup se ukládá po každém zásahu.",11,MUTED))
 
 func draw_tickets():
@@ -309,8 +313,15 @@ func draw_tickets():
 	mode.add_child(button("Kampaň",func(): game.training=false; game.save(); draw_ui(),not game.training))
 	mode.add_child(button("Volný trénink",func(): game.training=true; game.save(); draw_ui(),game.training))
 	v.add_child(label("Kapitoly se v kampani otevírají postupně. Trénink zpřístupní všechny situace bez změny XP.",14,MUTED))
+	var category_picker=OptionButton.new()
+	for category in ["Vše","Proxmox","Hyper-V","Storage"]: category_picker.add_item(category)
+	category_picker.select(["Vše","Proxmox","Hyper-V","Storage"].find(mission_filter))
+	category_picker.item_selected.connect(func(i): mission_filter=category_picker.get_item_text(i); draw_ui())
+	v.add_child(category_picker)
 	for i in game.missions.size():
 		var m = game.missions[i]
+		if mission_filter!="Vše" and m.category!=mission_filter: continue
+		if int(m.id)==25: v.add_child(label("NOVÉ INCIDENTY  /  rozšířená praxe",15,CYAN))
 		var c = card(v,"%02d  /  %s" % [int(m.id),m.title],m.category+"  •  "+m.difficulty+"  •  "+m.server)
 		var row=hbox(c)
 		row.add_child(label(m.symptoms,13,MUTED))
@@ -337,7 +348,7 @@ func draw_console():
 	var relevant=[]
 	for a in game.actions:
 		if a.get("console","Proxmox")==page and a.id in game.current.get("available_actions",[]): relevant.append(a.id)
-	if not relevant.is_empty(): options.push_front("Podle ticketu")
+	if not relevant.is_empty() and not (game.session_kind=="lesson" and game.tutorial.session.mode=="exam"): options.push_front("Podle ticketu")
 	if not tab in options: tab=options[0]
 	var picker=OptionButton.new()
 	picker.custom_minimum_size.y=40
@@ -345,6 +356,7 @@ func draw_console():
 	picker.select(options.find(tab))
 	picker.item_selected.connect(func(i): tab=options[i]; notice=""; draw_ui())
 	center.add_child(picker)
+	register_target("console:sections",picker)
 	var v=scroll(center)
 	if page=="Proxmox":
 		var wizard=button("Create VM — průvodce",func(): tab="Průvodce VM"; game.notify_event({"type":"action_opened","action":"create_vm"}); draw_ui(),true)
@@ -378,7 +390,9 @@ func draw_tree(parent: Node):
 				item.set_metadata(0,{"host":node_name,"vm":""})
 	c.add_child(tree)
 	register_target("tree:PVE-01",tree)
+	register_target("tree:PVE-02",tree)
 	register_target("tree:HV-01",tree)
+	register_target("tree:HV-02",tree)
 	tree.item_selected.connect(func():
 		var meta=tree.get_selected().get_metadata(0)
 		if meta is Dictionary:
@@ -513,6 +527,7 @@ func confirm_action(action: Dictionary, params: Dictionary):
 	var d=ConfirmationDialog.new()
 	d.title="Potvrzení zásahu do simulace"
 	d.dialog_text="%s\n\n%s\n\nCílové parametry:\n%s\n\nOvěř identitu zařízení a dostupnost zálohy. Operace může zničit data v simulaci." % [action.label,action.get("warning","Destruktivní operace."),JSON.stringify(params,"  ")]
+	if game.session_kind=="lesson": d.dialog_text+="\n\nLekce je oddělená od kampaně. Operaci můžeš zrušit nebo lekci bezpečně restartovat; uložený postup kampaně zůstane zachován."
 	d.ok_button_text="Provést simulovanou operaci"
 	d.cancel_button_text="Vrátit se ke kontrole"
 	add_child(d)
@@ -530,13 +545,14 @@ func perform(action: String, params: Dictionary):
 func close_ticket():
 	var result=game.complete()
 	if not result.ok: show_message("Ticket zatím nelze předat",result.text); return
-	show_message("Ticket vyřešen • %d / 100 bodů" % result.score,result.text+"\n\nProvedené kroky:\n"+"\n".join(game.sim.state.journal))
+	show_message(("Lekce vyhodnocena" if game.session_kind=="lesson" else "Ticket vyřešen")+" • %d / 100 bodů" % result.score,result.text+"\n\n"+game.assessment()+"\n\nProvedené kroky:\n"+"\n".join(game.sim.state.journal))
 	draw_ui()
 
 func hint():
 	if game.session_kind=="lesson":
 		show_message("Nápověda",game.lesson_hint())
 		return
+	if game.session_kind=="random" and not game.education.random.get("hints_allowed",true): return
 	var level=mini(game.hints_used,2)
 	game.hints_used=mini(game.hints_used+1,3)
 	game.save()
@@ -561,14 +577,94 @@ func draw_training_center():
 	var v=scroll(container)
 	var hero=card(v,"Tréninkové centrum","Senior administrátor / praktická laboratoř")
 	hero.add_child(label("Vyber lekci a způsob učení. Používáš stejné konzole i skutečný stav jako v kampani.",15,MUTED))
+	var tabs=hbox(hero,8)
+	for item in [["lessons","Lekce"],["random","Náhodné procvičování"],["profile","Moje IT znalosti"],["glossary","IT slovník"]]:
+		tabs.add_child(button(item[1],func(): training_view=item[0]; draw_ui(),training_view==item[0]))
 	hero.add_child(button("Vrátit se k uložené kampani",func(): game.resume_campaign(); navigate("Serverovna")))
+	if game.session_kind=="lesson" and not game.finished:
+		hero.add_child(button("Pokračovat: "+game.current.title,func():
+			page=game.tutorial.session.get("page",game.current.category)
+			if page in ["menu","Trénink"]: page=game.tutorial.current_step().get("page",game.current.category) if game.tutorial.guided() else game.current.category
+			tab=game.tutorial.session.get("tab","")
+			draw_ui(),true))
+	if training_view=="random": draw_random_setup(v); return
+	if training_view=="profile": draw_knowledge_profile(v); return
+	if training_view=="glossary": draw_glossary(v); return
+	var categories=OptionButton.new()
+	var category_names=["Všechny lekce","Proxmox VE","Microsoft Hyper-V","RAID a disková pole","Sítě a virtualizace","Zálohování a obnova","Diagnostika a řešení problémů"]
+	for category in category_names: categories.add_item(category)
+	categories.select(maxi(0,category_names.find(training_category)))
+	categories.item_selected.connect(func(i): training_category=category_names[i]; draw_ui())
+	v.add_child(categories)
 	for lesson in game.tutorial.lessons:
+		if training_category!="Všechny lekce" and lesson.training_category!=training_category: continue
 		var status=game.education.lessons.get(str(lesson.id),{}).get("status","Nedokončeno")
-		var c=card(v,lesson.title,lesson.category+"  •  "+status)
+		var c=card(v,lesson.title,lesson.get("training_category",lesson.category)+"  •  "+status)
 		c.add_child(label(lesson.description,14,MUTED))
 		var row=hbox(c)
 		for item in [["learn","Učím se"],["practice","Procvičování"],["exam","Zkouška"]]:
 			row.add_child(button(item[1],func(): begin_lesson(int(lesson.id),item[0]),item[0]=="learn"))
+		if game.education.lessons.has(str(lesson.id)): c.add_child(label("Nejlepší výsledek: %d / 100. Každý režim lze zopakovat." % int(game.education.lessons[str(lesson.id)].get("best",0)),12,CYAN))
+
+func draw_random_setup(parent: Node):
+	var c=card(parent,"Náhodné procvičování","Scénáře se před zařazením celé přehrají v odděleném simulátoru a ověří se jejich řešitelnost.")
+	var area=OptionButton.new()
+	for value in ["Vše","Proxmox","Hyper-V","RAID","Sítě","Zálohy","Diagnostika"]: area.add_item(value)
+	c.add_child(label("Oblast",12,MUTED)); c.add_child(area)
+	var difficulty=OptionButton.new()
+	for value in ["Vše","Začátečník","Pokročilý","Administrátor","Expert"]: difficulty.add_item(value)
+	c.add_child(label("Obtížnost",12,MUTED)); c.add_child(difficulty)
+	var count=SpinBox.new()
+	count.min_value=1; count.max_value=20; count.value=5
+	c.add_child(label("Počet úloh",12,MUTED)); c.add_child(count)
+	var hints=CheckButton.new()
+	hints.text="Povolit nápovědu"; hints.button_pressed=true
+	c.add_child(hints)
+	c.add_child(button("Sestavit a spustit trénink",func():
+		if game.start_random(area.get_item_text(area.selected),difficulty.get_item_text(difficulty.selected),int(count.value),hints.button_pressed):
+			host=game.current.server
+			navigate(game.current.category)
+		else: show_message("Nelze sestavit sérii","Pro tuto kombinaci nejsou dostupné řešitelné scénáře. Zvol širší oblast nebo jinou obtížnost."),true))
+	if game.session_kind=="random": c.add_child(button("Pokračovat v rozehrané sérii",func(): navigate(game.current.category)))
+	var batch=game.education.random
+	if not batch.get("session",{}).is_empty() and game.session_kind!="random": c.add_child(button("Obnovit uloženou sérii",func(): game.restore_session(batch.session); navigate(game.current.category)))
+	if not batch.is_empty():
+		c.add_child(label("Poslední série: %d / %d vyhodnocených úloh" % [batch.results.size(),batch.queue.size()],15,CYAN))
+		for result in batch.results: c.add_child(label("%s: %d / 100" % [result.title,int(result.score)],13,MUTED))
+
+func next_random_task():
+	if game.next_random(): host=game.current.server; navigate(game.current.category)
+	else:
+		training_view="random"
+		navigate("Trénink")
+
+func draw_knowledge_profile(parent: Node):
+	var profile=game.Profile.summarize(game)
+	var c=card(parent,"Moje IT znalosti")
+	c.add_child(label("%d / %d dokončených lekcí  •  %d úloh bez nápovědy\n%d uložených pokusů  •  %d / %d misí v kampani" % [profile.completed,game.tutorial.lessons.size(),profile.without_help,profile.attempts,game.progress.scores.size(),game.missions.size()],19,CYAN))
+	var total_score=0
+	var solved=0
+	for attempt in game.education.attempts:
+		if attempt.kind in ["campaign","random"]: total_score+=int(attempt.score); solved+=1
+	if solved>0: c.add_child(label("Úspěšnost praktických úloh: průměr%d / 100 z%d vyhodnocení" % [int(float(total_score)/solved),solved],14,MUTED))
+	for domain in game.Profile.DOMAINS:
+		var item=profile.domains[domain]
+		var status="Neprocvičeno" if item.count==0 else ("Silná oblast" if item.average>=85 else ("Doporučeno opakování" if item.average<70 else "Rozvíjí se"))
+		c.add_child(label("%s  •  %s  •  %s" % [domain,status,"—" if item.count==0 else "%d / 100 (%d pokusů)" % [item.average,item.count]],14))
+		var bar=ProgressBar.new(); bar.value=item.average; bar.show_percentage=false; bar.custom_minimum_size.y=6
+		c.add_child(bar)
+	var rec=card(parent,"Doporučené lekce","Podle skutečných výsledků, chyb a dosud neprocvičených oblastí.")
+	for lesson in game.Profile.recommendations(game): rec.add_child(button(lesson.title,func(): begin_lesson(int(lesson.id),"learn")))
+	var exams=card(parent,"Poslední zkoušky")
+	if profile.exams.is_empty(): exams.add_child(label("Zatím nemáš dokončenou zkoušku.",14,MUTED))
+	for exam in profile.exams:
+		exams.add_child(label("%s: %d / 100  •  chyb%d  •  rizik%d" % [exam.title,int(exam.score),int(exam.errors),int(exam.risks)],14,CYAN))
+
+func draw_glossary(parent: Node):
+	var terms=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/glossary.json"))
+	for term in terms:
+		var c=card(parent,term.term,term.text)
+		c.add_child(button("Procvičit související lekci",func(): begin_lesson(int(term.lesson),"learn")))
 
 func draw_lesson_panel(parent: Node):
 	var holder=VBoxContainer.new()
@@ -599,21 +695,37 @@ func draw_lesson_panel(parent: Node):
 	c.add_child(label("Krok i konfigurace se ukládají samostatně. Kampaň zůstává odložená.",11,MUTED))
 
 func focus_tutorial():
+	var expected_root=root_box
+	await get_tree().process_frame
+	if not is_instance_valid(expected_root) or root_box!=expected_root: return
 	if not game.tutorial.guided() or game.session_kind!="lesson" or page in ["menu","Trénink"]: return
 	var key=game.tutorial.target(game.sim.state)
-	if not ui_targets.has(key): return
+	if not ui_targets.has(key):
+		var step=game.tutorial.current_step()
+		var target_page=step.get("page",game.current.category)
+		key="nav:"+target_page if target_page!=page else "console:sections"
+		if not ui_targets.has(key): return
 	var control=ui_targets[key]
 	if not is_instance_valid(control): return
 	var ancestor=control.get_parent()
 	while ancestor is Control:
 		if ancestor is ScrollContainer: ancestor.ensure_control_visible(control)
 		ancestor=ancestor.get_parent()
+	if is_instance_valid(tutorial_overlay): tutorial_overlay.queue_free()
 	tutorial_overlay=preload("res://scripts/training/TutorialOverlay.gd").new()
 	add_child(tutorial_overlay)
 	tutorial_overlay.target=control
+	var overlay=tutorial_overlay
 	if key.begins_with("rack:"):
 		await get_tree().process_frame
-		if is_instance_valid(control) and not control.boxes.is_empty(): tutorial_overlay.local_rect=control.boxes[0]
+		if is_instance_valid(control) and is_instance_valid(overlay) and not overlay.is_queued_for_deletion() and not control.boxes.is_empty():
+			var index=control.names_list.find(key.trim_prefix("rack:"))
+			if index>=0 and index<control.boxes.size(): overlay.local_rect=control.boxes[index]
+	elif key.begins_with("tree:"):
+		var item=control.get_root().get_first_child()
+		while item:
+			if item.get_text(0).begins_with(key.trim_prefix("tree:")): tutorial_overlay.local_rect=control.get_item_area_rect(item,0); break
+			item=item.get_next()
 
 func recover_tutorial_target():
 	var step=game.tutorial.current_step()
@@ -621,6 +733,9 @@ func recover_tutorial_target():
 	page=step.get("page",game.current.category)
 	tab=step.get("tab","")
 	host=game.current.server
+	game.tutorial.session.page=page
+	game.tutorial.session.tab=tab
+	game.save()
 	draw_ui()
 
 func show_review():
@@ -765,7 +880,10 @@ func draw_stats():
 			if m.category==category and game.progress.scores.has(str(m.id)):
 				count+=1
 				total+=int(game.progress.scores[str(m.id)])
-		c.add_child(label("%s: %d / 8 ticketů; průměr %d / 100" % [category,count,int(float(total)/maxi(count,1))],16))
+		var available=0
+		for m in game.missions:
+			if m.category==category: available+=1
+		c.add_child(label("%s: %d / %d ticketů; průměr %d / 100" % [category,count,available,int(float(total)/maxi(count,1))],16))
 	var weak=card(v,"Doporučený trénink", "Výběr podle skutečných chyb; opakování nezmění postup v kampani.")
 	var shown=0
 	for m in game.missions:
