@@ -2,6 +2,53 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+## Dveře a výrazné vylepšení vizuálu
+
+Dva pevné nástěnné panely ovládají dveře i po zasunutí křídla do stěny.
+Bezpečnostní čidlo odmítne zavření do hráče a při vstupu během zavírání znovu
+otevře. `door3d.gd`:15/15 headless i samostatné Windows EXE PASS; ověřeno
+zaměřením skutečného panelu a opakovaným E z obou stran, nikoli pouze přímým
+voláním přepínače. Stejný otevřít/zavřít průchod proběhl přes Godot MCP, errors=[].
+
+Prezentace nyní používá Forward+/Vulkan,4× MSAA, měkké lokální stíny,
+SSAO/SSIL, SSR a statickou interiérovou radianci. Původní simulátory a obsah
+zůstaly beze změny. Vlastní geometrie zahrnuje zaoblené kovové modely,
+perforace, detaily disků, křivky kabeláže, jemné podlahové spáry, strop a stěny,
+prosklený pohled do skutečné chodby a detailní pracovní místa. Všech6 monitorů
+ve3D čte přímo aktuální GameManager a obnovuje přehled2× za sekundu.
+
+Grafické ověření: servisní průchod39 kontrol PASS, nastavení76 PASS,
+ostrost8 PASS včetně4K glyphů a38px SVG. Úsporný OpenGL renderer prošel
+stejným34kontrolovým servisním průchodem. Nové Windows EXE+PCK zvládlo
+samostatný grafický servis34 kontrol a dveře15 kontrol; oba procesy exit0.
+MCP ověřil79 interaktivních objektů, původní konzoli, uložení a návrat.
+
+Benchmark s vypnutým VSync na RTX5060, pohled na hlavní serverovnu:
+
+| Rozlišení | Průměr snímku | FPS | Draw calls | Hlásená VRAM |
+|---|---:|---:|---:|---:|
+|1920×1080 |3,04ms |329 |282 |471MiB |
+|3840×2160 |10,37ms |96 |282 |1390MiB |
+
+Jde o konkrétní měření jedné scény, ne záruku výkonu na jiných počítačích.
+Statické díly slučuje MultiMesh (1501 odstraněných samostatných instancí).
+ReflectionProbe atlas není používán kvůli [ověřené chybě enginu](https://github.com/godotengine/godot/issues/122498);
+odlesky zajišťují SSR a interiérová radiance. Finální grafické logy jsou bez
+chyby atlasu a bez úniků GPU textur. Testovací průchod nechá doběhnout poslední
+kliknutí ve zvukovém vlákně před ukončením, obdobně jako samotná hra.
+
+Vizuálně prohlédnuty snímky `test-output/visual-server-room.png`,
+`visual-rack-close.png`, `visual-nas-fault.png`, `visual-glass-office.png`,
+`visual-door-controls.png`, `visual-door-open-control.png` a `visual-academy.png`.
+LED vadného disku zůstává viditelná před novým rámečkem, panel dveří nabízí
+Zavřít při otevřeném křídle a nová HUD výzva je celá v obraze.
+
+Závěrečný Test-All nyní obsahuje17 sad a běží do `test-output/visual-test-all.log`.
+Ostatní aktuální důkazy: `visual-capture-final.log`, `visual-benchmark.json`,
+`visual-display.log`, `visual-fonts.log`, `visual-package.log`,
+`visual-door-package.log`, `visual-compatibility.log` a `visual-build.log`.
+Všechny běhy používají izolované SaveManager.path_override a config cesty.
+
 ## Přestavba do3D
 
 Nová hlavní scéna `scenes/world/Game.tscn` integruje původní GameManager a UI

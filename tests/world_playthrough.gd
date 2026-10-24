@@ -150,5 +150,7 @@ func run():
 	if DisplayServer.get_name()!="headless": print("GPU METRICS: draw calls %d, visible objects %d; batched %d" % [Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),shell.world.batched_instances])
 	shell.queue_free()
 	await process_frame
+	# The last menu click may still be held by the independent audio mixer.
+	await create_timer(0.08).timeout
 	print("WORLD PLAYTHROUGH: %d checks, %d failures" % [checks,failures])
 	quit(0 if failures==0 else 1)

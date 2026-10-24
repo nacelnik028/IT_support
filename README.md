@@ -177,6 +177,9 @@ scenes/world/Game.tscn              Vstupní3D hra a původní UI
 scenes/world/Datacenter3D.tscn      Serverovna a připojená akademie
 scenes/world/Player.tscn            CharacterBody3D, kamera, raycast, baterka
 scripts/world/                     FPS, Interactable3D, prostředí a propojení UI
+scripts/world/WorldVisuals.gd       Materiály, detailní modely, světla a obrazovky
+scripts/world/MonitorDisplay.gd     Živý přehled na fyzických3D monitorech
+assets/materials/                  Vlastní PBR shadery podlahy, kovu a odlesků
 scenes/main_menu/Main.tscn          Zachované menu/konzole a původní testy
 scenes/datacenter/Datacenter.tscn   Zachovaný2D přehled
 scenes/consoles/                   Samostatné konzole Proxmox/Hyper-V/storage
@@ -256,6 +259,10 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   napájení, obnova ze save a oddělení kampaně od všech3 výukových režimů.
 - `world3d.gd`: skutečný pohyb/kolize/raycast/E, dveře a chůze do akademie,
   všechny3 režimy vedení, návrat od počítače a LED konkrétních disků.
+- `door3d.gd`: opakované otevření/zavření z pevných panelů na obou stranách,
+  dostupný ovladač po zasunutí křídla a bezpečnostní čidlo během zavírání.
+- `visual_capture.gd` a `visual_benchmark.gd`: grafické snímky místností,
+  detailů a ovladačů, měření1080p/4K bez změny hráčova nastavení.
 - `world_playthrough.gd`: kompletní servisní mise přes3D cíle a skutečné
   formuláře/dialogy, nošení náhrady, rebuild, předání ticketu a fyzické zapojení
   switch portu. Grafický běh `-- --screenshots` ověří také4K a uloží snímky.

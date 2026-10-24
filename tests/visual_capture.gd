@@ -27,8 +27,12 @@ func run():
 	shell.world.visuals.sync(shell.ui.game)
 	await capture("server-room",Vector3(6.6,0.02,4.2),Vector3(-0.7,1.45,-3))
 	await capture("rack-close",Vector3(1.2,0.02,-0.6),Vector3(0,1.35,-3))
+	await capture("nas-fault",Vector3(4.1,0.02,-0.5),Vector3(3.2,1.3,-2.46))
 	await capture("glass-office",Vector3(0.2,0.02,4.2),Vector3(-4.7,1.7,8.5))
 	await capture("door-controls",Vector3(6.1,0.02,3.8),Vector3(9,1.7,2.7))
+	shell.world.move_door(true)
+	for i in 50: await physics_frame
+	await capture("door-open-control",Vector3(7.4,0.02,1.65),shell.world.devices["DOOR-CONTROL-OPS"].global_position)
 	shell.enter_world("Trénink")
 	await capture("academy",Vector3(15.5,0.02,5.5),Vector3(14.8,1.5,-3.5))
 	print("VISUAL RENDERER: "+RenderingServer.get_current_rendering_method())

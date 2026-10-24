@@ -5,7 +5,8 @@ síť, storage a hodnocení jako kampaň. Neobsahuje samostatné makety administ
 
 ## IT Training Academy ve3D
 
-Do samostatné místnosti dojdeš dveřmi napravo od serverovny; E je otevře.
+Do samostatné místnosti dojdeš dveřmi napravo od serverovny. Pevný nástěnný
+panel z obou stran přes E otevírá i zavírá; po zasunutí křídla zůstává přístupný.
 Stejné místo otevírá hlavní menu i pauza. Katalog21 původních lekcí najdeš
 u virtuálního instruktora a zkušebního počítače. Výběr lekce vytvoří nebo obnoví
 oddělenou relaci, včetně fyzických zařízení, disků a inventáře. Návštěva

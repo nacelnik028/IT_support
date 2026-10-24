@@ -1,13 +1,14 @@
 # Datacenter Academy — stav vývoje
 
 ## Výrazná vizuální úprava serverovny a akademie (2026-10-24)
-- Přechod na Godot4 Forward+/Vulkan,4× MSAA, lokální měkké stíny, SSAO/SSIL a SSR. Nová statická interiérová radiance doplňuje odlesky kovu; zdokumentovaná chyba enginu ReflectionProbe #122498 se obchází bez alokace problematického atlasu. Žádné potlačování chyb v logu.
+- Přechod na Godot4 Forward+/Vulkan,4× MSAA, lokální měkké stíny, SSAO/SSIL a SSR. Nová statická interiérová radiance doplňuje odlesky kovu; [chyba enginu ReflectionProbe #122498](https://github.com/godotengine/godot/issues/122498) se obchází bez alokace problematického atlasu. Žádné potlačování chyb v logu.
 - Vlastní zaoblené ArrayMesh modely, kovové mikrodetaily z jedné256px normal mapy, perforované panely, servisní úchyty, šrouby, větráky, reálné křivky napájecích/síťových kabelů, podlahové spáry a materiály, stropní konstrukce a nástěnné panely. Prosklená stěna má skutečnou hloubku chodby s teplým světlem.
 - Pracoviště mají detailní klávesnice, myši, židle a počítačové skříně.6 skutečných3D monitorů zobrazuje živá data stejného GameManager přes SubViewport (obnova2× za sekundu), původní administrační aplikace zůstávají celé funkční. LED disků jsou před novým rámečkem, aby zůstaly viditelné.
 - Upraven HUD: čitelné panely, kontextová výzva uprostřed dole a zaměřovač s odezvou. Označení pracovišť je fyzicky připevněné ke stěnám. Přidané detaily nevytvářejí kolize v původních uličkách; dveře mají stále pevné panely z obou stran.
 - Průběžně ověřeno: door3d15 PASS, world3d35 PASS, world_playthrough34 headless/39 GPU PASS. GPU snímky `test-output/visual-{server-room,rack-close,glass-office,door-controls,academy}.png` prohlédnuty. Opraveny také rozměry nové HUD značky a výzvy po vizuální kontrole.
 - Benchmark na místní RTX5060, bez VSync: přibližně329fps v1080p a96fps ve4K při pohledu na hlavní serverovnu;282 draw calls,1501 sloučených statických instancí. Jde o měření konkrétní scény a sestavy, ne obecnou záruku FPS. Skript `tests/visual_benchmark.gd`, log/JSON v test-output.
-- Následuje finální regresní průchod, MCP a aktualizace Windows balíčku. Katalogy ani původní mise/lekce nebyly měněny. Všechny běhy mají izolované save/config cesty.
+- MCP79 objektů, konzole/save/návrat a opakované E na pevném ovladači otevřít/zavřít PASS, errors=[]. Nové EXE+PCK v build/ zvládlo34kontrolový servisní průchod i15kontrolový test dveří; exit0, čisté GPU logy. Nastavení76 GPU a ostrost8 GPU PASS. OpenGL varianta také34 PASS. Poslední kliknutí v testu se nechává doběhnout ve zvukovém vlákně před ukončením.
+- Finální Test-All se17 sadami běží do `test-output/visual-test-all.log`; po dokončení doplnit výsledek a zkopírovat aktuální dokumentaci do build/. Katalogy ani původní mise/lekce nebyly měněny. Všechny běhy mají izolované save/config cesty.
 
 ## Oprava opakovaného ovládání dveří (2026-10-24)
 - Dveře akademie mají dva pevné nástěnné ovladače: v serverovně i uvnitř akademie. Křídlo se může zasunout do stěny, ovládání zůstává přístupné přes raycast/E a nabízí otevření nebo zavření podle aktuálního stavu.
