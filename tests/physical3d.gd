@@ -52,6 +52,12 @@ func _init():
 	check(Network.probe(game.sim.state,"100").app,"Výchozí služba běží")
 	game.apply("physical_cable",{"device":"PVE-01","connected":false,"port":1})
 	check(not Network.probe(game.sim.state,"100").link,"Odpojený fyzický kabel přeruší linku VM")
+	check(game.apply("power",{"vm":"100","power":"Start"}).ok,"Odpojený uplink nebrání lokálnímu startu VM")
+	game.sim.state.world.commissioned = true
+	game.apply("physical_cable",{"device":"BACKUP-01","connected":false,"port":6})
+	check(not game.sim.state.world.commissioned,"Nová změna zneplatní předchozí přejímku")
+	check(not game.apply("backup",{"vm":"100"}).ok,"Odpojený backup kabel blokuje novou zálohu")
+	game.apply("physical_cable",{"device":"BACKUP-01","connected":true,"port":6})
 	check(not game.apply("physical_cable",{"device":"PVE-01","connected":true,"port":2}).ok,"Obsazený port nelze přepsat")
 	game.apply("physical_cable",{"device":"PVE-01","connected":true,"port":8})
 	check(not Network.probe(game.sim.state,"100").app,"Nesprávný volný port nedá správnou síť")

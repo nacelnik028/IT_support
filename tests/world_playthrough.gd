@@ -110,6 +110,9 @@ func run():
 	await use("PORT:3",Vector3(-6.87,0.02,-3.5))
 	check(shell.ui.game.sim.state.world.devices["HV-01"].port==3 and shell.pending_cable=="","E ve správném fyzickém portu přepojí server")
 	check(preload("res://scripts/simulation/NetworkSimulator.gd").probe(shell.ui.game.sim.state,"200").app,"Opravený kabel obnovil skutečnou službu")
+	shell.open_app("Storage")
+	for action in shell.ui.form_controls:
+		check(not action.begins_with("physical_"),"Fyzický zásah se provádí u3D zařízení")
 	# The two rooms and console must remain readable at small and UHD sizes.
 	shell.ui.begin_lesson(1002,"learn",false)
 	shell.world.player.position = Vector3(15,0.02,5.5)

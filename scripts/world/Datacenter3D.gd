@@ -159,15 +159,17 @@ func build_disks():
 			Geo.box(disk.visual,Vector3(0,-0.035,0.065),Vector3(0.2,0.027,0.05),Color("879aa6"),0.8)
 			Geo.text(disk.visual,slots[i],Vector3(-0.06,0.03,0.057),36,0.0013)
 
-func build_switch():
-	var sw = item("SW-CORE","SW-CORE — síťová laboratoř / fyzické porty","switch",Vector3(-6.1,1.5,-5.8),Vector3(2.8,0.5,0.8),"Síť")
+func build_switch(at: Vector3 = Vector3(-6.1,1.5,-5.8), prefix: String = ""):
+	var sw = item(prefix+"SW-CORE",("Cvičný " if prefix!="" else "")+"SW-CORE — fyzické porty","switch",at,Vector3(2.8,0.5,0.8),"Síť")
+	sw.laboratory = prefix!=""
 	Geo.text(sw.visual,"SW-CORE  /  12 PORTŮ",Vector3(0,0.16,0.415),32,0.002)
 	for i in 12:
-		var port = item("PORT:"+str(i+1),"SW-CORE — port "+str(i+1),"port",Vector3(-7.3+i*0.215,1.43,-5.32),Vector3(0.17,0.13,0.1),"Síť")
+		var port = item(prefix+"PORT:"+str(i+1),"SW-CORE — port "+str(i+1),"port",at+Vector3(-1.2+i*0.215,-0.07,0.48),Vector3(0.17,0.13,0.1),"Síť")
 		port.slot = str(i+1)
+		port.laboratory = prefix!=""
 		Geo.text(port.visual,str(i+1),Vector3(0,-0.1,0.06),24,0.0016)
 		port_objects.append(port)
-	Geo.solid(self,Vector3(-6.1,0.65,-5.8),Vector3(3,1.3,0.85),Color("182733"),0.5)
+	Geo.solid(self,at+Vector3(0,-0.85,0),Vector3(3,1.3,0.85),Color("182733"),0.5)
 
 func build_details():
 	# Overhead cable tray, cooling units, floor air intakes, and safety markings.
@@ -202,8 +204,8 @@ func build_academy():
 	for x in range(10,21): Geo.box(self,Vector3(x,0.002,0),Vector3(0.01,0.005,14),Color("354551"))
 	for z in range(-7,8): Geo.box(self,Vector3(15,0.002,z),Vector3(12,0.005,0.01),Color("354551"))
 	var door = item("ACADEMY-DOOR","Dveře — IT Training Academy","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
-	var sign = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
-	sign.rotation.y = -PI/2
+	var door_label = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
+	door_label.rotation.y = -PI/2
 	Geo.box(self,Vector3(8.82,2.95,3.5),Vector3(0.035,0.06,3.15),Color("f4c472"),0,1)
 	Geo.text(self,"IT TRAINING ACADEMY",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
 	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
@@ -235,10 +237,21 @@ func build_academy():
 		disk.pool = "RAID"
 		disk.laboratory = true
 		Geo.text(disk.visual,str(i),Vector3(0,0,0.06),26,0.0015)
+	for i in 2:
+		var slot = "A" if i==0 else "B"
+		var disk = item("TRAIN-ZFS:"+slot,"Cvičný PVE — slot"+slot,"disk",Vector3(11.25+i*0.5,1.35,-2.96),Vector3(0.26,0.18,0.1),"Storage")
+		disk.slot = slot
+		disk.pool = "ZFS"
+		disk.laboratory = true
+		Geo.text(disk.visual,slot,Vector3(0,0,0.06),26,0.0015)
+	build_switch(Vector3(19.1,1.5,-5.8),"TRAIN-")
+	var spares = item("TRAIN-SPARES","Laboratorní skříň — náhradní disky","spares",Vector3(10,0.9,-5.5),Vector3(1,1.8,0.65),"Storage")
+	spares.laboratory = true
+	Geo.text(spares.visual,"SERVIS / LAB",Vector3(0,0.5,0.34),32,0.0025)
 	var instructor = item("INSTRUCTOR","Virtuální instruktor — lekce a výsledky","instructor",Vector3(19.7,1.5,-0.3),Vector3(0.8,1.5,0.25),"Trénink")
 	Geo.box(instructor.visual,Vector3(0,0.55,0.15),Vector3(0.4,0.3,0.06),Color("5de6d1"),0,0.8)
 	Geo.text(instructor.visual,"INSTRUKTOR\n[E] LEKCE",Vector3(0,0,0.14),36,0.0025)
-	Geo.text(self,"SÍŤOVÁ LABORATOŘ  /  SW-CORE V SERVEROVNĚ",Vector3(14,2.2,0.3),32,0.003)
+	Geo.text(self,"SÍŤOVÁ LABORATOŘ",Vector3(19.1,2.15,-5.3),32,0.003)
 	Geo.text(self,"ZKUŠEBNÍ PRACOVIŠTĚ",Vector3(18,2.4,3.4),40,0.003)
 
 func toggle_door():

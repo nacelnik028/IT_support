@@ -3,6 +3,26 @@
 Centrum používá stejný InfrastructureSimulator, konzole, formuláře, terminál,
 síť, storage a hodnocení jako kampaň. Neobsahuje samostatné makety administrace.
 
+## IT Training Academy ve3D
+
+Do samostatné místnosti dojdeš dveřmi napravo od serverovny; E je otevře.
+Stejné místo otevírá hlavní menu i pauza. Katalog21 původních lekcí najdeš
+u virtuálního instruktora a zkušebního počítače. Výběr lekce vytvoří nebo obnoví
+oddělenou relaci, včetně fyzických zařízení, disků a inventáře. Návštěva
+akademie sama nemění rozehranou kampaň.
+
+V režimu Učím se instruktor nejdříve ukáže cvičný server; směr a vzdálenost
+počítá podle skutečné pozice hráče. Příchod se potvrdí až v dosahu zařízení.
+E na PVE-TRAIN-01 validuje původní výběr PVE-01. Otevření managementu naváže
+na původní ověřované kroky: uzel, průvodce, formuláře a skutečná konfigurace.
+Z konzole se vracíš Escape nebo tlačítkem Zpět do3D prostředí.
+
+Cvičné racky, RAID i ZFS sloty, síťový switch a servisní skříň používají
+tentýž model aktuální lekce. Jsou dostupné také pro Procvičování a Zkoušku,
+které nezobrazují směrové vedení ani zlaté zvýraznění. Zkouška nepovoluje
+nápovědu. Tab ukáže zadání, výsledný stav a předání lekce s rozborem chyb;
+v nabídce lze lekci zopakovat. Návrat do kampaně obnoví i její fyzický stav.
+
 ## Výukové režimy
 
 | Režim | Vedení | Nápověda | Vyhodnocení |

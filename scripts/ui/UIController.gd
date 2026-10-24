@@ -506,17 +506,23 @@ func start_ticket(index: int):
 	navigate(game.current.category)
 
 func draw_console():
+	# Physical service is performed at the device in the 3D game. The standalone
+	# legacy interface still exposes descriptors for complete model/UI validation.
+	var console_actions=[]
+	for a in game.actions:
+		if world_enabled and a.id.begins_with("physical_"): continue
+		console_actions.append(a)
 	if page=="Proxmox" and not host.begins_with("PVE"): host="PVE-01"
 	if page=="Hyper-V" and not host.begins_with("HV"): host="HV-01"
 	center.add_child(label(("Datacenter  ›  " + host + "  ›  VM / CT") if page=="Proxmox" else ("Hyper-V Manager  ›  " + host if page=="Hyper-V" else "Storage Controller  ›  NAS-01"),12,CYAN))
 	var options=[]
-	for a in game.actions:
+	for a in console_actions:
 		if a.get("console","Proxmox")==page and not a.panel in options: options.append(a.panel)
 	if options.is_empty():
 		center.add_child(label("Zvol příslušný modul kampaně.",15,MUTED))
 		return
 	var relevant=[]
-	for a in game.actions:
+	for a in console_actions:
 		if a.get("console","Proxmox")==page and a.id in game.current.get("available_actions",[]): relevant.append(a.id)
 	if not relevant.is_empty() and not (game.session_kind=="lesson" and game.tutorial.session.mode=="exam"): options.push_front("Podle ticketu")
 	if not tab in options: tab=options[0]
@@ -534,7 +540,7 @@ func draw_console():
 		register_target("wizard:create_vm",wizard)
 	if page in ["Proxmox","Hyper-V"]: draw_tree(v)
 	draw_state(v)
-	for action in game.actions:
+	for action in console_actions:
 		if action.get("console","Proxmox")==page and ((tab=="Podle ticketu" and action.id in relevant) or action.panel==tab): draw_form(v,action)
 
 func draw_tree(parent: Node):

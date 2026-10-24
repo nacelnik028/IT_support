@@ -180,6 +180,9 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 
 func interact(object):
 	selected = object
+	if object.laboratory and not ui.game.session_kind in ["lesson","random"]:
+		open_app("Trénink")
+		return
 	match object.kind:
 		"computer":
 			if object.laboratory and not ui.game.session_kind in ["lesson","random"]: open_app("Trénink"); return

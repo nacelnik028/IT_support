@@ -1,14 +1,15 @@
 # IT Support Simulator: Datacenter Academy
 
-Česká offline výuková 2D hra pro Godot 4.x. Vytvořeno a ověřeno v Godotu
-4.7.2.stable.official.ed1daf0bf. Obsahuje 50 praktických misí,21 interaktivních
+Český offline 3D simulátor IT administrátora z první osoby pro Godot4.x.
+Vytvořeno a ověřeno v Godotu4.7.2.stable.official.ed1daf0bf.
+Obsahuje65 praktických misí,21 interaktivních
 lekcí ve třech režimech, náhodné procvičování, osobní přehled znalostí a50
 studijních článků z poskytnutých Notion příruček. Původních24 misí zůstalo zachováno.
 
 ## Spuštění
 
 **V Godotu:** importuj `project.godot` v této složce a stiskni **F5**.
-Hlavní scéna je `scenes/main_menu/Main.tscn`. Není třeba žádný plugin ani internet.
+Hlavní scéna je `scenes/world/Game.tscn`. Není třeba žádný plugin ani internet.
 
 **Windows bez otevření editoru:** spusť `build/ITSupportSimulator.exe`.
 Vedle něj ponech `ITSupportSimulator.pck`. Přenášej celou složku `build`.
@@ -16,6 +17,35 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 šablony nebyly nainstalované. Proto je EXE větší než standardní export.
 
 ## Ovládání a první směna
+
+- **WASD** chůze, **myš** rozhlížení, **Shift** rychlá chůze, **E** interakce,
+  **F** baterka, **Tab** zadání a skutečné cíle, **Escape** pauza či návrat od
+  počítače. Citlivost myši nastavíš v pauze a zachová se pro příští spuštění.
+- **Zahájit první směnu / Pokračovat** otevře skutečnou3D serverovnu.
+  Přijdi k zařízení, zaměř jeho čelo a stiskni E. Tyrkysový rám označuje právě
+  zaměřený objekt; paprsek neprochází stěnami a dosáhne3,2m.
+- Počítače **ADMIN-01 / Proxmox** a **ADMIN-02 / Hyper-V** otevírají původní
+  plně funkční konzole. Návrat přes Esc nebo **Zpět do3D prostředí** zachová
+  rozepsané formuláře. Monitor za racky ukazuje skutečné VM, pole a kapacitu.
+- **15 praktických úkolů ve3D** v menu zpřístupní mise51–65 ve volném tréninku.
+  Kampaň zachovává postupné odemykání, skóre a XP. Nové mise vyžadují také
+  skutečné fyzické kontroly, zapojení, servis a návštěvu monitoringu.
+- **Servis disku:** podle LED najdi slot, v jeho detailu opiš serial, ověř
+  nezávislou zálohu a potvrď vytažení. Ve skříni **SERVIS** vezmi kompatibilní
+  náhradu (SAS pro NAS, SATA pro ZFS; alespoň původní kapacita), dones ji ke
+  slotu a vlož. Dokonči rebuild/resilver posunem simulovaného času a ověř pole.
+  Hardware bez hot-swap musí být vypnutý. Vytažení zdravého člena může skutečně
+  vyřadit pole a aplikaci; selhané pole samotný rebuild neopraví.
+- **Síť:** u konektoru vedle serveru můžeš kabel odpojit nebo uchopit. Potom
+  dojdi ke **SW-CORE**, zaměř konkrétní port a stiskni E. Správný port určuje
+  štítek. Obsazený port se nepřepíše; chybný port neobnoví službu.
+- **IT Training Academy** leží ve vedlejší místnosti za posuvnými dveřmi
+  napravo. Lze do ní dojít nebo vstoupit z menu/pauzy. U virtuálního instruktora
+  či zkušebního počítače vyber lekci a režim. Učím se přidá zlatý rám,
+  instrukce a směr/vzdálenost k zařízení. Procvičování a Zkouška řešení
+  nezvýrazňují. Laboratorní stanice používají samostatnou relaci lekce.
+
+Původní administrátorské rozhraní zůstává dostupné na monitorech:
 
 - Hlavní menu: **Nastavení** otevírá přepínač celé obrazovky a rozlišení16:9:
   1280×720,1600×900,1920×1080,2560×1440,3200×1800 a3840×2160 (4K UHD).
@@ -45,7 +75,7 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 - Restart náhodné úlohy obnoví pouze aktuální scénář. Pozice série, výsledky
   a odložená kampaň zůstanou zachované. Obnovení uložené série nejprve odloží
   aktuální kampaň nebo lekci včetně posledních změn.
-- Serverovna: klikni na rack. Levý panel otevírá Proxmox, Hyper-V, Storage,
+- Po otevření konzole levý panel otevírá Proxmox, Hyper-V, Storage,
   síťovou mapu, terminál, Akademii a statistiky.
 - V konzoli vyber sekci v horní nabídce. **Podle ticketu** soustředí související
   operace; ostatní sekce dovolují širší experimentování.
@@ -57,7 +87,7 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   ticket v pravém panelu. Samotné tlačítko pro uzavření nic neopravuje.
 - Nápověda má tři úrovně. Po dokončení je dostupné dobrovolné krátké opakování.
   Chybná odpověď doporučí další praktický trénink; nezablokuje vyřešený ticket.
-- Volný trénink otevírá všech50 situací. Umožňuje vrátit poslední zásah,
+- Volný trénink otevírá všech65 situací. Umožňuje vrátit poslední zásah,
   restartovat laboratoř a používat i operace mimo příslušný ticket.
 - Zrušit rizikový zásah lze v potvrzovacím dialogu. Chyby mají vysvětlení;
   původní datové disky nelze bezpečnostními zkratkami přepsat.
@@ -85,7 +115,7 @@ a DNS `192.168.10.2`. IOMMU je pro passthrough; není podmínkou každé VM.
   SMB+ACL+Hard/Soft FSRM, iSCSI mapping, MPIO a test výpadku cesty.
 - Síť: samostatné kontroly L2, IP, DNS a aplikačních dat, konflikty IP,
   omezení virtuálních switchů a cílené pravidlo HTTPS.
-- 50 samostatných výchozích stavů, stavové cíle, tři nápovědy, deník a rozbor.
+- 65 samostatných výchozích stavů, stavové cíle, tři nápovědy, deník a rozbor.
 - 21 datových lekcí nad stejnými konzolemi:18 požadovaných + quorum/HA,
   iSCSI/MPIO a bezpečnost účtů. Podrobnosti a rozšiřování viz [TRAINING.md](TRAINING.md).
 - Nové incidenty řeší DNS, RAM, boot order, VirtIO, CT bind data, nedostupný PBS,
@@ -141,8 +171,12 @@ mise či režimu a obnova relace undo vyčistí; prázdné undo má neaktivní t
 ## Struktura
 
 ```text
-scenes/main_menu/Main.tscn          Vstupní scéna
-scenes/datacenter/Datacenter.tscn   Interaktivní racky
+scenes/world/Game.tscn              Vstupní3D hra a původní UI
+scenes/world/Datacenter3D.tscn      Serverovna a připojená akademie
+scenes/world/Player.tscn            CharacterBody3D, kamera, raycast, baterka
+scripts/world/                     FPS, Interactable3D, prostředí a propojení UI
+scenes/main_menu/Main.tscn          Zachované menu/konzole a původní testy
+scenes/datacenter/Datacenter.tscn   Zachovaný2D přehled
 scenes/consoles/                   Samostatné konzole Proxmox/Hyper-V/storage
 scenes/results/Review.tscn         Kontextové opakování
 scenes/training/TrainingCenter.tscn Tréninkové centrum
@@ -153,7 +187,7 @@ scripts/progression/SaveManager.gd Atomické uložení a načtení
 scripts/ui/                       Adaptivní Control UI, formuláře a racky
 scripts/training/                 Kroky, validátor, zvýraznění, generátor a profil
 data/infrastructure/baseline.json  Výchozí společná infrastruktura
-data/missions/campaign.json        50 datových misí (prvních24 nezměněno)
+data/missions/campaign.json        65 datových misí (prvních24 nezměněno)
 data/training/                    21 lekcí, slovník a validační recepty generátoru
 data/actions.json                 Formuláře a vazby na operace
 data/knowledge/                   Úplné zdroje a články Akademie
@@ -184,6 +218,8 @@ Nové formuláře patří do `data/actions.json`, jejich chování do oborového
 Operations skriptu. Operace vrací `{ok,text}` a mění společný stav.
 
 `tools/build_content.py` a `tools/build_extension.py` obnovují nynější katalog.
+Patnáct3D misí a výchozí fyzická infrastruktura jsou v `tools/world_catalog.py`,
+který volá `extension_catalog.py`. Udržuj změny také v generátoru.
 Rozšíření je v `tools/extension_catalog.py`; původní24 definice jsou zmrazené
 v `data/missions/legacy_campaign.json` a testy kontrolují jejich shodu.
 **Jeho spuštění přegeneruje JSON**; pokud ho chceš dále používat, prováděj
@@ -213,7 +249,14 @@ v `test-output/*-4k-native.png` a `*-4k-magnified.png`. Při úpravách UI zacho
 viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html#font-and-image-oversampling).
 
 - `stage1.gd`: první mise, chyba, ověření a uložení.
-- `campaign.gd`: všech50 misí proti skutečnému stavu a shoda původních24 definic.
+- `campaign.gd`: všech65 misí proti skutečnému stavu a shoda původních24 definic.
+- `physical3d.gd`: fyzické výměny, kompatibilita, selhání RAID, kabely,
+  napájení, obnova ze save a oddělení kampaně od všech3 výukových režimů.
+- `world3d.gd`: skutečný pohyb/kolize/raycast/E, dveře a chůze do akademie,
+  všechny3 režimy vedení, návrat od počítače a LED konkrétních disků.
+- `world_playthrough.gd`: kompletní servisní mise přes3D cíle a skutečné
+  formuláře/dialogy, nošení náhrady, rebuild, předání ticketu a fyzické zapojení
+  switch portu. Grafický běh `-- --screenshots` ověří také4K a uloží snímky.
 - `regression.gd`:88 kontrol cílů, RAID, sítí, bezpečnosti, terminálu, save/load a XP.
 - `extended.gd`:35 kontrol LXC, VSS, VHDX typů, Replica, hot spare a kvót.
 - `ui_smoke.gd`: všechny mise přes skutečné formuláře, potvrzovací dialogy
@@ -236,6 +279,15 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   Přepínač `--small` testuje okno1280×720.
 
 ## Rozsah simulace a známá omezení
+
+- 3D budova a zařízení jsou vlastní procedurální modely se stylizovaným technickým
+  vzhledem. Statické díly využívají MultiMesh a sdílené materiály; žádné externí
+  modely či velké textury nejsou potřeba. Renderování používá Godot4 Compatibility
+  se4× MSAA; hra nevyžaduje ray tracing.
+- Poloha hráče, fyzické přívody, inventář a rozpracovaný servis patří do stavu
+  aktuální relace. Poloha se ukládá také při přechodu do aplikace a periodicky
+  během chůze. Změny poškozeného pole se nevracejí pouhou animací; pro opakování
+  slouží restart laboratoře nebo undo ve volném tréninku.
 
 - Jde o laboratorní model, nikoli úplný klon PVE nebo Windows Serveru.
   Instalace OS, přenosy, Verify, merge a obnova jsou zrychlené stavové operace.

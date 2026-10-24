@@ -7,8 +7,6 @@ static func probe(s: Dictionary, id: String, destination: String = "application"
 	var vm = s.vms.get(id, {})
 	if vm.is_empty() or not vm.get("exists",false): return result(false, false, false, false, "VM neexistuje.")
 	var host = s.hosts.get(vm.host, {})
-	if not Physical.link_ok(s,vm.host): return result(false,false,false,false,"Fyzická cesta hostitele: napájení, odpojený kabel nebo chybný port SW-CORE.")
-	if not s.hosts["NAS-01"].online or not Physical.link_ok(s,"NAS-01"): return result(false,false,false,false,"Podkladové úložiště NAS-01 není dostupné.")
 	if not host.get("online", false) or vm.status != "Running":
 		return result(false, false, false, false, "Hostitel nebo VM neběží.")
 	var sw = s.network.switches.get(vm.bridge, {})
@@ -24,6 +22,8 @@ static func probe(s: Dictionary, id: String, destination: String = "application"
 		if sw.type == "Private" or not sw.get("management",true): return result(false, false, false, false, "Tento switch nepropojuje management OS hostitele.")
 		var local_ip=vm.ip.begins_with("192.168.20.") and int(vm.prefix)==24 and int(vm.vlan)==20
 		return result(true,local_ip,false,false,"Hostitelský testovací adaptér 192.168.20.1/24; tento test neověřuje DNS ani aplikaci v LAN.")
+	if not Physical.link_ok(s,vm.host): return result(false,false,false,false,"Fyzická cesta hostitele: napájení, odpojený kabel nebo chybný port SW-CORE.")
+	if not s.hosts["NAS-01"].online or not Physical.link_ok(s,"NAS-01"): return result(false,false,false,false,"Podkladové úložiště NAS-01 není dostupné.")
 	if sw.type != "External" and destination != "host":
 		return result(true, false, false, false, "%s switch nemá fyzický uplink ani automatický NAT." % sw.type)
 	if not sw.uplink or int(vm.vlan) != 20 or not sw.vlan_aware:

@@ -37,7 +37,9 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			host.online = operation != "Shutdown"
 			if operation == "Restart":
 				w.restarted[id] = true
-				if id.begins_with("HV"): host.rebooted = true; host.vmms = host.role
+			if operation!="Shutdown" and id.begins_with("HV"):
+				host.rebooted = true
+				host.vmms = host.role and host.get("boot_auto",true)
 			return sim.success("%s: %s. Virtuální stroje po servisu spouštěj a ověřuj samostatně." % [id,{"Start":"zapnuto","Shutdown":"bezpečně vypnuto","Restart":"bezpečně restartováno"}[operation]])
 		"physical_cable":
 			var connected = p.get("connected",true)

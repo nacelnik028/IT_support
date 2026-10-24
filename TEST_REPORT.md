@@ -2,6 +2,37 @@
 
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
+## Přestavba do3D
+
+Nová hlavní scéna `scenes/world/Game.tscn` integruje původní GameManager a UI
+se skutečným CharacterBody3D světem. V projektu zůstaly všechny původní scény,
+50 misí a21 lekcí; přidáno15 praktických misí51–65. Následující testy používají
+výhradně SaveManager.path_override, grafické testy také vlastní konfiguraci.
+
+| Ověření | Výsledek |
+|---|---|
+| První úplný Test-All po přidání misí |15 sad PASS;65/65 misí v modelu i původním UI;21×3 lekcí,1075 kontrol;336 výukových UI akcí |
+| Physical3D po závěrečném auditu |41 kontrol PASS: identita, backup, hot-swap, kapacita/rozhraní, vytažený slot/save/rebuild, selhání RAID10, síť, napájení, oddělení všech3 režimů |
+| World3D |31 kontrol PASS: pohyb a kolize, raycast a skutečné E, dveře a chůze do akademie, režimy vedení, konzole, konkrétní disk a LED |
+| World playthrough |32 headless /37 GPU kontrol PASS: servisní mise přes skutečné3D cíle, formuláře a potvrzení, výběr náhrady, rebuild a dokončení; fyzický switch port; stěna blokuje interakci; UHD škálování |
+| Godot MCP |77 interaktivních objektů; raycast/E/detail/Proxmox formuláře/změna/save/návrat PASS; errors=[] |
+| Nastavení obrazu |76 kontrol GPU PASS; všech6 rozlišení včetně4K a upozornění na save |
+| Ostrost původního UI |8 kontrol GPU PASS; nativní glyphy a38×38px SVG ve4K |
+| Generátory |build_content.py včetně build_extension/world_catalog vytvoří bajtově shodné JSON; původních24 definic a21 lekcí nezměněno |
+| Windows balíček |Samostatné EXE+PCK graficky provedlo stejný32kontrolový3D průchod; exit0, log bez chyb |
+
+Závěrečný Test-All se všemi16 sadami (včetně World playthrough) ještě běží;
+jeho výsledek bude doplněn před dokončením. Log: `test-output/3d-test-all-final.log`.
+Další logy: `3d-test-all.log`, `3d-playthrough-gpu-final.log`, `3d-package.log`,
+`3d-display-gpu.log`, `3d-quality-gpu.log` a `3d-build-final.log`.
+
+Vizuálně prohlédnuty GPU snímky serverovny, akademie, administračního rozhraní
+a servisního formuláře ve4K. Modely jsou vlastní procedurální geometrie;
+žádné externí licence/assety nebyly přidány. Statické díly používají sdílené
+materiály a MultiMesh (1005 sloučených instancí); interakce/kolize/LED zůstávají
+samostatné. Výměna disku je změna simulace, nikoli jen animace. Obnova RAID je
+záměrně zrychlený laboratorní čas po50%; síť zůstává připravenou topologií.
+
 ## Následná oprava prázdného Nastavení
 
 Po otevření stránky se zobrazovala pouze hlavička: kořenový VBox stránky

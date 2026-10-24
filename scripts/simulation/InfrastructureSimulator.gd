@@ -38,6 +38,7 @@ func success(message: String, change: bool = true) -> Dictionary:
 	if change:
 		state.revision += 1
 		state.verified.clear()
+		if state.has("world"): state.world.commissioned = false
 	refresh_incidents()
 	state.journal.append(message)
 	return {"ok":true,"text":message}
@@ -58,6 +59,8 @@ func refresh_incidents():
 		state.incidents.append({"device":pair[0],"state":pair[1],"cause":"Stav fyzických členů a obnovy redundance"})
 
 func act(action: String, p: Dictionary = {}) -> Dictionary:
+	if action in ["backup","backup_verify","restore","ct_app_backup","ct_restore","backup_test"]:
+		if not state.hosts["BACKUP-01"].online or not PhysicalOps.link_ok(state,"BACKUP-01"): return reject("Zálohovací zařízení není fyzicky dostupné. Ověř napájení, kabel a port.")
 	for handler in [PhysicalOps,EducationOps,PveOps,HvOps,StorageOps]:
 		var handled = handler.apply(self,action,p)
 		if not handled.is_empty(): return handled
@@ -100,7 +103,7 @@ func get_vm(id: String) -> Dictionary:
 
 func can_start(vm: Dictionary) -> String:
 	if vm.is_empty(): return "VM neexistuje."
-	if not PhysicalOps.link_ok(state,vm.host): return "Fyzická síť nebo napájení hostitele není v pořádku."
+	if not state.get("world",{}).get("devices",{}).get(vm.host,{}).get("power_connected",true): return "Hostitel nemá napájecí přívod."
 	if not state.hosts["NAS-01"].online: return "Podkladové úložiště NAS-01 je vypnuté."
 	if vm.get("provisioning",false): return "Nejprve dokonči instalaci OS v průvodci VM."
 	if vm.get("expected_firmware",vm.get("firmware","UEFI"))!=vm.get("firmware","UEFI"): return "Boot selhal: BIOS/UEFI neodpovídá původnímu systémovému disku."
