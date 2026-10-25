@@ -7,6 +7,7 @@ const HvOps = preload("res://scripts/simulation/HyperVOperations.gd")
 const StorageOps = preload("res://scripts/simulation/StorageOperations.gd")
 const EducationOps = preload("res://scripts/simulation/EducationOperations.gd")
 const PhysicalOps = preload("res://scripts/simulation/PhysicalOperations.gd")
+const Context = preload("res://scripts/simulation/OperationContext.gd")
 var state: Dictionary = {}
 
 func reset(patch: Dictionary):
@@ -59,6 +60,8 @@ func refresh_incidents():
 		state.incidents.append({"device":pair[0],"state":pair[1],"cause":"Stav fyzických členů a obnovy redundance"})
 
 func act(action: String, p: Dictionary = {}) -> Dictionary:
+	var context_error = Context.validate(state,action,p)
+	if context_error != "": return reject(context_error)
 	if action in ["backup","backup_verify","restore","ct_app_backup","ct_restore","backup_test"]:
 		if not state.hosts["BACKUP-01"].online or not PhysicalOps.link_ok(state,"BACKUP-01"): return reject("Zálohovací zařízení není fyzicky dostupné. Ověř napájení, kabel a port.")
 	for handler in [PhysicalOps,EducationOps,PveOps,HvOps,StorageOps]:

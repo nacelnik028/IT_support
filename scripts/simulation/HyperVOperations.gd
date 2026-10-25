@@ -31,6 +31,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 		"memory":
 			var vm = sim.get_vm(str(p.vm))
 			if vm.is_empty(): return sim.reject("VM neexistuje.")
+			h = s.hosts[vm.host]
 			if vm.status == "Running": return sim.reject("Pro tento laboratorní postup VM nejprve korektně vypni.")
 			if p.minimum > p.ram or p.ram > p.maximum: return sim.reject("Minimum musí být ≤ Startup ≤ Maximum.")
 			if p.ram + h.reserve + h.other_ram > h.ram or p.maximum > h.ram-h.reserve: return sim.reject("Startup/maximum RAM porušuje rozpočet hostitele. Hostiteli ponech 4 GB a ostatním službám 8 GB.")
