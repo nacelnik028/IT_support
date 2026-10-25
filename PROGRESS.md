@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Audit a zadání dalších úprav (2026-10-25)
+- Na žádost uživatele provedena kontrola dokumentace, UI, simulace, výuky, nastavení, 3D ovládání, testů a distribuce. Připraveno samostatné zadání `PROMPT_PRO_AI.md` s prioritami P0–P3. Tato etapa mění pouze dokumentaci; opravy hry jsou zadáním pro navazující implementaci.
+- Na izolovaném modelu reprodukovány chybějící kontroly platformy: Hyper-V `memory` přijme vypnutou PVE VM100 a `live_migrate` ji přesune přímo z PVE-01 na HV-02. Seznamy VM a zachovaný `selected_vm` dovolují nesprávný kontext také v UI. Zadání obsahuje přesné reprodukce a požadavky na negativní regrese.
+- Graficky ověřen dlouhý průvodce (6 formulářů, výška obsahu2498 / dostupná615 jednotek UI), reset posuvu1400→0 po `draw_ui()`, nabídky konzolí, Storage, menu, pauza, nastavení a výuka. Zaznamenán také zavádějící HUD „vyber si lekci“ při aktivní lekci, oznámení překrývající nabídku lekcí a pevný seznam VM100/200 v síťovém přehledu. Návrhy vzhledu/přístupnosti jsou v zadání odlišené od reprodukovaných chyb.
+- Celý `tools/Test-All.ps1`: všech18 sad PASS, exit0, bez runtime chyb/varování;65/65 misí v modelu i UI,21×3 lekcí (1075 kontrol),336 výukových UI akcí,474 kontrol save a ostatní regrese. Log `test-output/review-test-all.log`. Současné testy uvedené nové chyby platformy nezachycují.
+- Godot MCP / `WorldMCP.tscn`:79 interaktivních objektů, raycast/E/konzole/změna/uložení/návrat a opakované ovládání dveří PASS, `errors=[]`. Vlastní grafický audit běžel přes Forward+/RTX5060 v720p; další dřívější snímky byly prohlédnuty jako doplňkový podklad. Nové4K testování ani benchmark se v tomto auditu neprováděly.
+- Pomocný skript, snímky a reprodukční log jsou v ignorovaném `test-output/review_capture.gd`, `review-*.png`, `review-capture.log`. Všechny běhy používaly `SaveManager.path_override`; grafické běhy/MCP i oddělený config. Herní kód, katalogy ani Windows balíček nebyly změněny.
+
 ## Oddělení serverovny a tréninkové místnosti (2026-10-25)
 - `GameModeManager` udržuje jediný režim MAIN/TRAINING. Existující posuvné dveře a oba ovladače zůstaly; nová `TrainingZone` má Area3D/BoxShape3D, prostorovou toleranci hranice 16 cm a průběžnou kontrolu skutečné polohy i před zásahy. Teleport, načtení vnější pozice, menu a zánik scény ukončí trénink.
 - `GameManager` má samostatné `main_sim` a `training_sim`. Vstup odloží pracovní ticket, výběr lekce používá sandbox. Produkční i cvičné racky, LED, ventilátory a živé monitory čtou svou instanci. Produkční interakce a dokončení pracovních misí jsou v centru blokované; všechny tři režimy lekcí i náhodné série vyžadují TRAINING.
