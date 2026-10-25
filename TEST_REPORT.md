@@ -1,5 +1,31 @@
 # Ověření rozšířené hratelné verze
 
+## Nové konzole, nastavení a validace platformy — 25. 10. 2026
+
+Finální `tools/Test-All.ps1`: **21 sad PASS, exit 0, bez runtime chyb a varování**.
+Všechny běhy používají izolované cesty SaveManager i DisplaySettings.
+
+| Kontrola | Skutečný výsledek |
+|---|---|
+| Chyby platformy | 396 kontrol; odmítnutí Dynamic Memory i nativní migrace PVE VM, nezměněná infrastruktura |
+| Konzole a průvodce | 60 kontrol headless i samostatný Windows EXE; skutečné kliknutí všemi 6 kroky, aktuální CPU/RAM, koncepty, posuv/fokus po chybě i úspěchu, VM101 v síti |
+| 3D rozhraní | 27 kontrol headless, Forward+, Compatibility i zabalený EXE; modalita, psaní bez chůze, návrat nastavení do pauzy, HUD všech režimů, předvolby grafiky |
+| Celá kampaň | 65/65 misí v simulaci i přes nové viditelné formuláře; shoda legacy24 |
+| Výuka a uložený postup | 21 × 3 režimy, 1075 kontrol lekcí, 336 výukových UI akcí, 474 kontrol save, 124 relací, 68 kontrol oddělení místností |
+| Obraz a přístupnost | 68 headless / 76 GPU kontrol nastavení; skutečný fullscreen a všech 6 rozlišení, timeout a chyby zápisu, vlastní klávesy a text |
+| Ostrost | 8 GPU kontrol; skutečný 4K framebuffer, ostré fonty v menu/racku/terminálu, SVG textura 38 × 38 |
+| Godot MCP | 79 objektů, raycast/E/konzole/save/návrat/dveře PASS, errors=[] |
+
+Snímky nové konfigurace a nastavení v 720p, 1080p a 4K, všechny kroky průvodce,
+130% text a zmenšený HUD byly skutečně prohlédnuté. Balíček EXE+PCK byl nově
+sestaven a oba externí grafické testy skončily exit 0. Testy nejsou součástí PCK.
+
+Logy v `test-output/`: `ux-test-all-final.log`, `ux-package-console.log`,
+`ux-package-world-ui.log`, `ux-display-gpu-final.log`, `ux-render-quality.log`,
+`ux-world-ui-gpu-final.log`, `ux-compatibility.log`; snímky mají prefix `ux-`.
+Opakované generování katalogu zachovalo stejné hashe. Prvních 24 misí,
+legacy definice a jejich referenční řešení zůstaly zachované.
+
 ## Oddělení místností — 25.10.2026
 
 Nová sada `tests/training_rooms.gd` a scéna `tests/TrainingRoomsMCP.tscn`

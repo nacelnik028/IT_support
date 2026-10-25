@@ -1,5 +1,14 @@
+# Datacenter Academy — stav vývoje
+
+## Závěrečné ověření a Windows balíček (2026-10-25)
+- Aktuální tools/Test-All.ps1: všech 21 sad PASS, exit 0, bez runtime chyb a varování. Nové sady platform_context 396, console_ux 60 a world_ui 27 kontrol. Zachováno 65/65 misí v modelu i UI, 21 lekcí ve všech 3 režimech (1075 kontrol a 336 UI akcí), 474 kontrol save, 124 relací, 68 oddělení místností a ostatní regrese. Log test-output/ux-test-all-final.log.
+- Graficky: display_settings 76 PASS včetně skutečného fullscreen a všech 6 rozlišení, render_quality 8 PASS včetně skutečného 4K framebufferu, ostrosti fontů a SVG 38×38. Zdrojové console_ux 58 GPU a world_ui 27 GPU PASS; konečnou 60kontrolovou variantu konzolí navíc ověřil zabalený EXE. Snímky konzole/nastavení/ovládání v 1280×720, 1920×1080 a 3840×2160, všech kroků průvodce, 130% textu a HUD skutečně prohlédnuté. Logy ux-graphical-final.log, ux-display-gpu-final.log, ux-render-quality.log, ux-world-ui-gpu-final.log.
+- Godot MCP: 79 interaktivních objektů, raycast/E/detail/konzole/změna/save/návrat a opakované otevření/zavření dveří PASS, errors=[]. Kompatibilní renderer: world_ui 27 PASS (ux-compatibility.log).
+- Aktualizovány build/ITSupportSimulator.exe + PCK. Samostatné grafické spuštění balíčku z build/ pomocí externích izolovaných testovacích skriptů: console_ux 60/60 a world_ui 27/27, oba exit 0 a čisté logy ux-package-console.log / ux-package-world-ui.log. EXE používá jen prostředky PCK; testovací skripty nejsou součástí distribuce. Zachováno zdokumentované balení plným enginem.
+- Finálně znovu ověřena reprodukovatelnost build_content, shoda prvních 24 definic proti původnímu 47ea9fa a nezměněný legacy_campaign.json. Všechny běhy mají SaveManager.path_override i oddělený DisplaySettings.path_override; hráčův save/config se nepoužily. README/TRAINING odpovídají novému ovládání, TEST_REPORT obsahuje výsledky. Požadované funkční opravy a nové ovládání jsou dokončené.
+
 ## Výuka, HUD, přístupnost a katalogy – etapa P2 (2026-10-25)
-- HUD odvozuje název a režim z aktivní relace, velikost stavového/instruktorského panelu z textu. Oznámení vstupu se neschovává přes aplikaci ani aktivní lekci. Společné nastavení se vrací do pauzy; Escape zavírá nejprve dialog, potom kontext a konzoli. Psaní nepohybuje hráčem, HUD respektuje vlastní klávesy a velikost textu.
+- HUD odvozuje název a režim z aktivní relace, velikost stavového/instruktorského panelu z textu. Oznámení vstupu se nezobrazuje přes aplikaci ani aktivní lekci. Společné nastavení se vrací do pauzy; Escape zavírá nejprve dialog, potom kontext a konzoli. Psaní nepohybuje hráčem, HUD respektuje vlastní klávesy a velikost textu.
 - První směna má přeskočitelné čtyřkrokové seznámení; znovu je dostupné z pauzy. Menu má jednu hlavní akci. Mise/lekce mají hledání a stavový filtr, články/slovník hledání. Chyba nabízí vysvětlení a související lekci. Zkouška zůstává bez zvýraznění řešení.
 - Úspěch, provozní upozornění a odmítnutí mají odlišný textový stav. Sloty rozlišují člena pole, hot spare, volný a vadný disk. Operace nad prázdným uzlem nepředvolí VM jiného hostitele; pevné hostitelské cíle nabízejí přepnutí.
 - Generátory nyní upravují mezery pouze v lidských textech nového obsahu. RAM je GiB/MiB se skutečným převodem 1024; diskové kapacity zůstávají laboratorní GB. Zdrojové texty a JSON jsou konzistentní, opakované build_content má stejné hashe; prvních24 misí i legacy soubor zůstaly shodné.
@@ -19,8 +28,6 @@
 ## Kontext operací – etapa P0 (2026-10-25)
 - Sdílený OperationContext ověřuje skutečnou platformu zdrojového hostitele u operací Hyper-V i PVE a kompatibilní odlišný cíl migrace/Replica. Obecné napájení, síť a zálohy zůstávají společné; offline převod má samostatnou validaci exportu. Dynamic Memory používá rozpočet skutečného hostitele.
 - Nový platform_context.gd: 396 kontrol PASS včetně obou přesných reprodukcí a neměnnosti infrastruktury při odmítnutí. campaign.gd: všech 65 misí PASS, legacy24 beze změny. Izolované save/config cesty. Následuje přepracování prezentace konzolí.
-# Datacenter Academy — stav vývoje
-
 ## Audit a zadání dalších úprav (2026-10-25)
 - Na žádost uživatele provedena kontrola dokumentace, UI, simulace, výuky, nastavení, 3D ovládání, testů a distribuce. Připraveno samostatné zadání `PROMPT_PRO_AI.md` s prioritami P0–P3. Tato etapa mění pouze dokumentaci; opravy hry jsou zadáním pro navazující implementaci.
 - Na izolovaném modelu reprodukovány chybějící kontroly platformy: Hyper-V `memory` přijme vypnutou PVE VM100 a `live_migrate` ji přesune přímo z PVE-01 na HV-02. Seznamy VM a zachovaný `selected_vm` dovolují nesprávný kontext také v UI. Zadání obsahuje přesné reprodukce a požadavky na negativní regrese.
