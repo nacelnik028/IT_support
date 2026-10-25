@@ -35,7 +35,7 @@ func run():
 			var preferred=ui.game.current.category
 			if step[1].has("vm"):
 				var vm=ui.game.sim.get_vm(str(step[1].vm))
-				if not vm.is_empty(): preferred=ui.Context.platform(ui.game.sim.state,vm)
+				if not vm.is_empty(): preferred=ui.Context.platform(ui.game.sim.state,vm); ui.host=vm.host
 			for a in ui.game.actions:
 				if a.id==step[0]:
 					chosen=a

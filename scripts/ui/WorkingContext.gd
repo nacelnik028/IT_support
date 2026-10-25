@@ -6,10 +6,10 @@ var pending = 0
 var expected: Control
 
 static func key(ui) -> String:
-	return "%d|%s|%s|%s|%s|%s|%d" % [ui.game.session_revision,ui.page,ui.host,ui.selected_vm,ui.tab,ui.active_action,ui.wizard_step]
+	return "%d|%s|%s|%s|%s|%s|%d|%s|%s|%s" % [ui.game.session_revision,ui.page,ui.host,ui.selected_vm,ui.tab,ui.active_action,ui.wizard_step,ui.context_open,ui.training_view,ui.settings_tab if ui.page=="Nastavení" else ""]
 
 func capture(ui):
-	if not is_instance_valid(ui.root_box) or rendered == "": return
+	if not ui.is_inside_tree() or ui.get_viewport()==null or not is_instance_valid(ui.root_box) or rendered == "": return
 	var state = {"scroll":[]}
 	for node in ui.root_box.find_children("*","ScrollContainer",true,false): state.scroll.append(node.scroll_vertical)
 	var focused = ui.get_viewport().gui_get_focus_owner()

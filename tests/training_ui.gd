@@ -52,6 +52,9 @@ func run():
 					if item.id==operation[0] and item.get("console","Proxmox")==page: action=item; break
 				check(not action.is_empty(),"Existující konzole a akce: "+operation[0])
 				if action.is_empty(): continue
+				if operation[1].has("vm"):
+					var vm=ui.game.sim.get_vm(str(operation[1].vm))
+					if not vm.is_empty(): ui.host=vm.host
 				ui.page=page; ui.tab=action.panel; ui.notice=""; ui.selected_vm=""; ui.draw_ui()
 				await process_frame
 				await process_frame

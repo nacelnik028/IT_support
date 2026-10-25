@@ -14,6 +14,7 @@ func fresh():
 	return Game.new()
 
 func _init():
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_session_safety.cfg"
 	Saves.path_override="user://academy_test_session_safety.json"
 	var game=fresh()
 	game.start_mission(3,true)

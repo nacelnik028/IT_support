@@ -7,6 +7,9 @@ func _ready():
 	add_child(shell)
 	shell.ui.game.start_mission(0,true)
 	shell.enter_world()
+	# Automated raycasts use a fixed camera; desktop pointer recentering when
+	# another verification window opens must not rotate that camera.
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	print("MCP: 3D world ready; isolated save; %d interactables" % shell.world.devices.size())
 	var p = shell.world.player
 	p.position = Vector3(0,0.02,-0.9)
@@ -26,6 +29,7 @@ func _ready():
 	assert(shell.ui.form_controls.size()>0,"MCP original console")
 	assert(shell.ui.game.apply("prepare",{"vt":true,"mode":"HBA","ups":true,"console":true}).saved,"MCP isolated save")
 	shell.return_to_world()
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	assert(p.enabled and not shell.ui.visible,"MCP return from console")
 	print("MCP: raycast, E, server detail, Proxmox forms, simulated change, save and return PASS")
 	p.position = Vector3(7.4,0.02,1.65)

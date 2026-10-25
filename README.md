@@ -20,7 +20,7 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 
 - **WASD** chůze, **myš** rozhlížení, **Shift** rychlá chůze, **E** interakce,
   **F** baterka, **Tab** zadání a skutečné cíle, **Escape** pauza či návrat od
-  počítače. Citlivost myši nastavíš v pauze a zachová se pro příští spuštění.
+  počítače. Citlivost, klávesy a zvuk nastavíš ve společném Nastavení z menu i pauzy.
 - **Zahájit první směnu / Pokračovat** otevře skutečnou3D serverovnu.
   Přijdi k zařízení, zaměř jeho čelo a stiskni E. Tyrkysový rám označuje právě
   zaměřený objekt; paprsek neprochází stěnami a dosáhne3,2m.
@@ -51,12 +51,18 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   Totéž platí pro teleport, načtení pozice mimo centrum nebo změnu scény.
   Dokončené výsledky, zkoušky, statistiky a kariérní XP zůstanou uložené.
 
-Původní administrátorské rozhraní zůstává dostupné na monitorech:
+Administrátorské konzole jsou dostupné na monitorech. První směna nabízí krátké přeskočitelné seznámení; znovu ho otevřeš z pauzy:
 
 - Hlavní menu: **Nastavení** otevírá přepínač celé obrazovky a rozlišení16:9:
   1280×720,1600×900,1920×1080,2560×1440,3200×1800 a3840×2160 (4K UHD).
-  Změnu potvrď tlačítkem **Použít nastavení**. **F11** přepíná celou obrazovku
-  také během hraní. Rozhraní zachovává proporce a čitelnou velikost prvků.
+  Po **Použít nastavení** nebo **F11** potvrď obraz do 15 sekund. Bez potvrzení
+  se vrátí poslední potvrzené zobrazení. Nastavení se při chybě zápisu neuloží.
+- **Zvuk** ukládá hlasitost a ztlumení; **Ovládání** citlivost a vlastní klávesy
+  s kontrolou kolizí a obnovením výchozích. Escape a F11 zůstávají vyhrazené.
+  **Rozhraní** mění text na 100/115/130 % nezávisle na rozlišení renderování.
+- Předvolby **Úsporná / Vyvážená / Vysoká** skutečně mění stíny, MSAA a obrazové
+  efekty. VSync a limit 30/60/120/144 FPS jsou samostatné volby. Kompatibilní
+  renderer se stále spouští parametrem `--rendering-method gl_compatibility`.
 - Vybrané rozlišení určuje skutečný počet vykreslovaných pixelů. V režimu okna
   se okno na menším monitoru vejde do pracovní plochy; vykreslovací rozlišení zůstává zvolené.
 - Písmo v menu, konzolích, racku i terminálu se přepočítává pro zvolené rozlišení.
@@ -65,9 +71,9 @@ Původní administrátorské rozhraní zůstává dostupné na monitorech:
 - **Ukončit hru** v hlavním menu uloží rozehraný stav a zavře aplikaci.
   Stejné uložení probíhá při zavření okna křížkem.
 - Myš: výběr serveru, panelu, polí a operací. Kolečko: posun obsahu konzole
-  nebo ticketu v samostatných sloupcích. Tab: přesun mezi formulářovými poli.
+  a sekcí. Ticket nebo instruktor se otevírá tlačítkem vpravo nahoře. Tab: přesun mezi formulářovými poli.
 - Menu → Zahájit směnu nebo Tickety → první laboratoř.
-- **Tréninkové centrum** v hlavním menu nebo **Trénink** vlevo otevírá lekce,
+- **Tréninkové centrum** v hlavním menu nebo **Trénink** v horní navigaci otevírá lekce,
   náhodné procvičování, Moje IT znalosti a interaktivní IT slovník.
 - **Učím se** ukazuje aktuální krok, šipku a zvýraznění skutečného ovládacího
   prvku. Krok postupuje teprve po potvrzené události nebo odpovídajícím stavu.
@@ -83,12 +89,21 @@ Původní administrátorské rozhraní zůstává dostupné na monitorech:
 - Restart náhodné úlohy obnoví pouze aktuální scénář. Pozice série, výsledky
   a odložená kampaň zůstanou zachované. Obnovení uložené série nejprve odloží
   aktuální kampaň nebo lekci včetně posledních změn.
-- Po otevření konzole levý panel otevírá Proxmox, Hyper-V, Storage,
-  síťovou mapu, terminál, Akademii a statistiky.
-- V konzoli vyber sekci v horní nabídce. **Podle ticketu** soustředí související
-  operace; ostatní sekce dovolují širší experimentování.
+- Horní navigace otevírá Proxmox, Hyper-V, Storage, síť, terminál a studijní přehledy.
+  Záhlaví vždy rozlišuje hlavní a cvičnou infrastrukturu.
+- Vlevo zůstává strom zařízení a seznam sekcí; vpravo vyber jednu operaci.
+  **Přehled** ukazuje živý stav. **Podle ticketu** soustředí související činnosti;
+  ostatní sekce dovolují experimentování. Ve zkoušce tato zkratka není dostupná.
+- **Create VM — průvodce** má kroky Identita → ISO → CPU/RAM → Disk → Síť →
+  Shrnutí/instalace. Každé **Uložit a Další** provede skutečný zásah. **Zpět**
+  zachová rozepsané hodnoty; závěr nabízí instalaci OS, start a ověření služby.
+- Ticket a instruktor se přepínají tlačítkem nahoře. **← Konfigurace** vrátí
+  rozpracovaný formulář. Seznamy misí a lekcí mají hledání i filtr dokončení;
+  hledat lze také ve slovníku a článcích.
 - Strom Datacenter / Hostitel / VM umožňuje vybrat uzel a předvolit VMID ve
-  formulářích. Hostitelské operace výslovně uvádějí cíl PVE-01 nebo HV-01.
+  formulářích. Nabídky ukazují ID, název i skutečného hostitele. Operace omezené
+  na PVE-01/HV-01 nabídnou přepnutí na tento uzel. Hyper-V nepřijme PVE VM ani
+  nativní migraci mezi platformami; k tomu zůstává samostatný offline převod.
 - Nejprve prohlédni diagnostiku a živý stav. Potom uprav konkrétní parametry.
   V RAID konfigurátoru vybírej fyzické sloty; kapacita se počítá průběžně.
 - Po změně použij **Ověřit infrastrukturu a aplikace**. Teprve potom uzavři
@@ -99,8 +114,9 @@ Původní administrátorské rozhraní zůstává dostupné na monitorech:
   restartovat laboratoř a používat i operace mimo příslušný ticket.
 - Zrušit rizikový zásah lze v potvrzovacím dialogu. Chyby mají vysvětlení;
   původní datové disky nelze bezpečnostními zkratkami přepsat.
-- Přepnutí zvuku, rozlišení a F11 zachová rozepsané formuláře, včetně
-  nepotvrzeného čísla, nabídek a výběru disků. Každá VM má vlastní koncept.
+- Nastavení, rozlišení a F11 zachovají formuláře, posuv, fokus a kurzor včetně
+  nepotvrzeného čísla, nabídek a výběru disků. Editace čte aktuální konfiguraci;
+  rozepsaný koncept má přednost. Síťový přehled zahrnuje také nově vytvořené VM. Každá VM má vlastní koncept.
   Koncepty jsou v paměti; změna mise, režimu, obnova či restart relace je vyčistí.
 
 První mise vyžaduje VT-x/AMD-V, HBA pro ZFS, UPS, vzdálenou konzoli,
@@ -262,6 +278,11 @@ v `test-output/*-4k-native.png` a `*-4k-magnified.png`. Při úpravách UI zacho
 `oversampling_with_scale` na kořeni UIController a používej DPITexture pro ikony;
 viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html#font-and-image-oversampling).
 
+- `platform_context.gd`: odmítnutí nesprávné platformy a neplatných cílů bez změn infrastruktury.
+- `console_ux.gd`: skutečná kliknutí šesti kroky, kontext, posuv, fokus,
+  formuláře, VM101 v síti, timeout obrazu a preference; `-- --screenshots` pořídí snímky.
+- `world_ui.gd`: seznámení, pauza/nastavení, modalita, psaní bez chůze,
+  chyby ukládání, skutečné předvolby a HUD všech režimů; `-- --screenshots --benchmark`.
 - `stage1.gd`: první mise, chyba, ověření a uložení.
 - `campaign.gd`: všech65 misí proti skutečnému stavu a shoda původních24 definic.
 - `physical3d.gd`: fyzické výměny, kompatibilita, selhání RAID, kabely,

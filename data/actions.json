@@ -156,7 +156,7 @@
       }
     ],
     "console": "Proxmox",
-    "description": "Instalátor smaže zvolené cílové disky. SYS-A a SYS-B jsou prázdné 1TB SSD; ARCHIVE-9 obsahuje účetní data.",
+    "description": "Instalátor smaže zvolené cílové disky. SYS-A a SYS-B jsou prázdné 1 TB SSD; ARCHIVE-9 obsahuje účetní data.",
     "danger": true,
     "warning": "Zvolený disk bude přepsán. Zkontroluj SYS-A / SYS-B oproti ARCHIVE-9."
   },
@@ -1555,7 +1555,7 @@
       }
     ],
     "console": "Hyper-V",
-    "description": "Differencing závisí na neměnném rodiči. BASE-WINDOWS.vhdx je ověřený read-only 80GB základ.",
+    "description": "Differencing závisí na neměnném rodiči. BASE-WINDOWS.vhdx je ověřený read-only 80 GB základ.",
     "danger": false,
     "warning": ""
   },
@@ -2732,7 +2732,7 @@
       },
       {
         "key": "size",
-        "label": "Disk (GiB)",
+        "label": "Disk (GB)",
         "type": "number",
         "default": 16,
         "min": 8,
@@ -3231,7 +3231,7 @@
       },
       {
         "key": "size",
-        "label": "Cílová velikost (GiB)",
+        "label": "Cílová velikost (GB)",
         "type": "number",
         "default": 100,
         "min": 1,

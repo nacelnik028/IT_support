@@ -74,6 +74,11 @@ func run():
 	ui.navigate("Proxmox"); ui.open_action("pve_resources")
 	ui.game.sim.state.vms["100"].cpu=5; ui.game.sim.state.vms["100"].ram=9; ui.draw_ui()
 	check(ui.form_controls.pve_resources.cpu.value==5 and ui.form_controls.pve_resources.ram.value==9,"CPU a RAM PVE jsou aktuální")
+	ui.selected_vm=""; ui.host="PVE-02"; ui.draw_ui()
+	check(ui.form_controls.pve_resources.vm.item_count==0,"Prázdný uzel nenabízí VM jiného hostitele")
+	ui.open_action("prepare")
+	check(ui.form_buttons.prepare.disabled,"Příprava PVE-01 se nespustí nad vybraným PVE-02")
+	ui.host="PVE-01"; ui.draw_ui(); ui.open_action("pve_resources")
 	for resolution in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(3840,2160)]:
 		ui.apply_display_settings(resolution,false); await settle()
 		check(visible(ui.form_buttons.pve_resources),"Formulář CPU/RAM dostupný v "+str(resolution))
@@ -100,6 +105,10 @@ func run():
 	check(ui.form_controls.create_vm.name.has_focus() and ui.form_controls.create_vm.name.caret_column==6,"Fokus a kurzor zůstávají")
 	var new_sc=ui.form_buttons.create_vm.get_parent().get_parent().get_parent().get_parent()
 	check(new_sc.scroll_vertical==position_before,"Posuv zůstává po odmítnutí")
+	ui.perform("inspect",{"scope":"Events"}); await settle()
+	check(not ui.bad_notice and ui.form_controls.create_vm.name.has_focus(),"Úspěch zachová fokus")
+	new_sc=ui.form_buttons.create_vm.get_parent().get_parent().get_parent().get_parent()
+	check(new_sc.scroll_vertical==position_before,"Úspěch zachová posuv")
 	ui.open_settings(); ui.preview_display(Vector2i(1920,1080),false)
 	ui.display_deadline=Time.get_ticks_msec()-1
 	await settle()

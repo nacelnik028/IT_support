@@ -14,6 +14,7 @@ func check(ok, message):
 	if not ok: failures+=1; push_error(message)
 
 func _init():
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_regression.cfg"
 	Saves.path_override="user://academy_test_regression.json"
 	# The last assertion intentionally corrupts this file; each run starts fresh.
 	Saves.save_game({},true)

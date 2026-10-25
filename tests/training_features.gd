@@ -11,6 +11,7 @@ func check(ok,message):
 	if not ok: failures+=1; push_error(message)
 
 func _init():
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_training_features.cfg"
 	Saves.path_override="user://academy_test_training_features.json"
 	var generator=Generator.new()
 	var fingerprints={}

@@ -23,6 +23,7 @@ actions = read('data/actions.json')[:4]
 # Idempotent rebuild: first three foundational forms and universal verification.
 actions = [a for a in actions if a['id'] in ('inspect','prepare','management','verify')]
 def F(key,label,kind='text',default='',options=None,path=None,**kw):
+    if key in ('ram','minimum','maximum'): label=label.replace('(GB)', '(GiB)')
     d=dict(key=key,label=label,type=kind,default=default,**kw)
     if options is not None: d['options']=options
     if path: d['path']=path

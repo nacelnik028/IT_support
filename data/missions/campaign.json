@@ -2201,8 +2201,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "PVE-01 má správnou IP192.168.10.10, ale DNS192.168.10.99 nezná lab.example. Zachovej hostname i IP, nastav interní DNS192.168.10.2 a ověř překlad managementu.",
-    "symptoms": "PVE-01 má správnou IP192.",
+    "description": "PVE-01 má správnou IP 192.168.10.10, ale DNS192.168.10.99 nezná lab.example. Zachovej hostname i IP, nastav interní DNS192.168.10.2 a ověř překlad managementu.",
+    "symptoms": "PVE-01 má správnou IP 192.",
     "initial_state": {
       "hosts": {
         "PVE-01": {
@@ -2276,8 +2276,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "APP01 je vypnutý s8GiB RAM. Vedlejší DB-BUSY spotřebuje56GiB z64GiB hostitele a hostiteli patří4GiB. Přiděl APP01 podle smluveného sizingu4GiB/2vCPU a ověř start; ostatní službu nevypínej.",
-    "symptoms": "APP01 je vypnutý s8GiB RAM.",
+    "description": "APP01 je vypnutý s8 GiB RAM. Vedlejší DB-BUSY spotřebuje56 GiB z64 GiB hostitele a hostiteli patří4 GiB. Přiděl APP01 podle smluveného sizingu4 GiB/2 vCPU a ověř start; ostatní službu nevypínej.",
+    "symptoms": "APP01 je vypnutý s8 GiB RAM.",
     "initial_state": {
       "vms": {
         "100": {
@@ -2330,7 +2330,7 @@
       {
         "path": "vms.100.ram",
         "value": 4,
-        "label": "Sizing4GiB",
+        "label": "Sizing4 GiB",
         "op": "eq"
       },
       {
@@ -2626,8 +2626,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "Pool500GiB je plný včetně metadat; žádné osiřelé snapshoty k odstranění neexistují. Zdravé podkladové pole má4TB. Rozšiř pool, logical disk a host filesystem na800GiB, proveď údržbu thin metadat a obnov APP01.",
-    "symptoms": "Pool500GiB je plný včetně metadat; žádné osiřelé snapshoty k odstranění neexistují.",
+    "description": "Pool500 GB je plný včetně metadat; žádné osiřelé snapshoty k odstranění neexistují. Zdravé podkladové pole má4 TB. Rozšiř pool, logical disk a host filesystem na800 GB, proveď údržbu thin metadat a obnov APP01.",
+    "symptoms": "Pool500 GB je plný včetně metadat; žádné osiřelé snapshoty k odstranění neexistují.",
     "initial_state": {
       "storage": {
         "used": 500,
@@ -2715,7 +2715,7 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "BACKUP-01 není dostupný po změně VLAN. PBS má IP10.60.0.10 ve VLAN60 a fingerprint AA:42. Oprav skutečnou cestu, otestuj TLS/8007 a proveď novou zálohu APP01.",
+    "description": "BACKUP-01 není dostupný po změně VLAN. PBS má IP 10.60.0.10 ve VLAN 60 a fingerprint AA:42. Oprav skutečnou cestu, otestuj TLS/8007 a proveď novou zálohu APP01.",
     "symptoms": "BACKUP-01 není dostupný po změně VLAN.",
     "initial_state": {
       "hosts": {
@@ -2794,8 +2794,8 @@
     ],
     "difficulty": "Expert",
     "priority": "Vysoká",
-    "description": "Převeď vypnutou FS01 z Hyper-V na PVE VMID310. Export musí obsahovat všechny disky. Gen2 odpovídá UEFI. Začni v LAB se SATA, připrav VirtIO ovladače, zkontroluj data a teprve pak přepni službu na vmbr0. Původní VM200 musí zůstat Off.",
-    "symptoms": "Převeď vypnutou FS01 z Hyper-V na PVE VMID310.",
+    "description": "Převeď vypnutou FS01 z Hyper-V na PVE VMID 310. Export musí obsahovat všechny disky. Gen2 odpovídá UEFI. Začni v LAB se SATA, připrav VirtIO ovladače, zkontroluj data a teprve pak přepni službu na vmbr0. Původní VM200 musí zůstat Off.",
+    "symptoms": "Převeď vypnutou FS01 z Hyper-V na PVE VMID 310.",
     "initial_state": {},
     "available_actions": [
       "inspect",
@@ -3036,8 +3036,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "FS01 má správnou VLAN20 i IP, ale vSwitch-LAN je navázán na izolovaný Ethernet1. V Virtual Switch Manageru oprav fyzický uplink na Ethernet2. IP ani VLAN neměň.",
-    "symptoms": "FS01 má správnou VLAN20 i IP, ale vSwitch-LAN je navázán na izolovaný Ethernet1.",
+    "description": "FS01 má správnou VLAN 20 i IP, ale vSwitch-LAN je navázán na izolovaný Ethernet1. V Virtual Switch Manageru oprav fyzický uplink na Ethernet2. IP ani VLAN neměň.",
+    "symptoms": "FS01 má správnou VLAN 20 i IP, ale vSwitch-LAN je navázán na izolovaný Ethernet1.",
     "initial_state": {
       "network": {
         "switches": {
@@ -3114,8 +3114,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "Import FS01 přenesl Minimum8GiB, Startup4GiB a Maximum2GiB. Aplikace potřebuje startup6GiB, minimum2GiB a maximum12GiB. Oprav vypnutou VM, zachovej rezervu hostitele a ověř start.",
-    "symptoms": "Import FS01 přenesl Minimum8GiB, Startup4GiB a Maximum2GiB.",
+    "description": "Import FS01 přenesl Minimum8 GiB, Startup4 GiB a Maximum2 GiB. Aplikace potřebuje startup6 GiB, minimum2 GiB a maximum12 GiB. Oprav vypnutou VM, zachovej rezervu hostitele a ověř start.",
+    "symptoms": "Import FS01 přenesl Minimum8 GiB, Startup4 GiB a Maximum2 GiB.",
     "initial_state": {
       "vms": {
         "200": {
@@ -3189,7 +3189,7 @@
   },
   {
     "id": 37,
-    "title": "VHDX200GiB, ale Windows stále100",
+    "title": "VHDX 200 GB, ale Windows stále100",
     "category": "Hyper-V",
     "server": "HV-01",
     "topic": "oddíl",
@@ -3199,8 +3199,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "VHDX FS01 už byl správně zvětšen na200GiB; Windows filesystem zůstal100GiB. Hostitel má místo. Rozšiř pouze navazující oddíl uvnitř běžící VM na200GiB a ověř data.",
-    "symptoms": "VHDX FS01 už byl správně zvětšen na200GiB; Windows filesystem zůstal100GiB.",
+    "description": "VHDX FS01 už byl správně zvětšen na200 GB; Windows filesystem zůstal100 GB. Hostitel má místo. Rozšiř pouze navazující oddíl uvnitř běžící VM na200 GB a ověř data.",
+    "symptoms": "VHDX FS01 už byl správně zvětšen na200 GB; Windows filesystem zůstal100 GB.",
     "initial_state": {
       "vms": {
         "200": {
@@ -3275,8 +3275,8 @@
     ],
     "difficulty": "Administrátor",
     "priority": "Vysoká",
-    "description": "Checkpoint Patch-Window zabírá80GiB. Pool i host filesystem500GiB mají obsazeno490GiB, merge potřebuje alespoň30GiB rezervy. Rozšiř potřebné vrstvy na650GiB a dokonči Delete checkpoint přes Manager. AVHDX ručně nemaž.",
-    "symptoms": "Checkpoint Patch-Window zabírá80GiB.",
+    "description": "Checkpoint Patch-Window zabírá80 GB. Pool i host filesystem500 GB mají obsazeno490 GB, merge potřebuje alespoň30 GB rezervy. Rozšiř potřebné vrstvy na650 GB a dokonči Delete checkpoint přes Manager. AVHDX ručně nemaž.",
+    "symptoms": "Checkpoint Patch-Window zabírá80 GB.",
     "initial_state": {
       "storage": {
         "used": 490
@@ -3534,7 +3534,7 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "Databáze má dominantní náhodné zápisy. Laboratorní benchmark a plán určují čtyři2TB SSD v RAID10:4TB, mirror páry podle pořadí0/1 a2/3. Vytvoř a inicializuj pole bez použití dalších disků.",
+    "description": "Databáze má dominantní náhodné zápisy. Laboratorní benchmark a plán určují čtyři2 TB SSD v RAID10:4 TB, mirror páry podle pořadí0/1 a2/3. Vytvoř a inicializuj pole bez použití dalších disků.",
     "symptoms": "Databáze má dominantní náhodné zápisy.",
     "initial_state": {
       "raid": {
@@ -3620,7 +3620,7 @@
       {
         "path": "created_raid.capacity",
         "value": 4000,
-        "label": "4TB dat",
+        "label": "4 TB dat",
         "op": "eq"
       },
       {
@@ -3670,8 +3670,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "Ze šesti2TB disků0–5 navrhni RAID6 s jedním dedicated hot spare. Datové členy budou0–4, spare5. Vypočti a zprovozni6TB využitelné kapacity; spare do kapacity nepočítej.",
-    "symptoms": "Ze šesti2TB disků0–5 navrhni RAID6 s jedním dedicated hot spare.",
+    "description": "Ze šesti2 TB disků0–5 navrhni RAID6 s jedním dedicated hot spare. Datové členy budou0–4, spare5. Vypočti a zprovozni6 TB využitelné kapacity; spare do kapacity nepočítej.",
+    "symptoms": "Ze šesti2 TB disků0–5 navrhni RAID6 s jedním dedicated hot spare.",
     "initial_state": {
       "raid": {
         "members": [],
@@ -3763,7 +3763,7 @@
       {
         "path": "created_raid.capacity",
         "value": 6000,
-        "label": "6TB bez spare",
+        "label": "6 TB bez spare",
         "op": "eq"
       },
       {
@@ -3781,10 +3781,10 @@
     ],
     "hints": [
       "Začni přesným symptomem a diagnostikou dotčené vrstvy.",
-      "Pět členů RAID6 dává(5−2)×2TB=6TB. Šestý spare poskytuje náhradu, nikoli další běžnou kapacitu.",
+      "Pět členů RAID6 dává (5−2)×2 TB=6 TB. Šestý spare poskytuje náhradu, nikoli další běžnou kapacitu.",
       "Bezpečný postup: raid_create → raid_initialize. Po zásahu ověř službu."
     ],
-    "explanations": "Pět členů RAID6 dává(5−2)×2TB=6TB. Šestý spare poskytuje náhradu, nikoli další běžnou kapacitu.",
+    "explanations": "Pět členů RAID6 dává (5−2)×2 TB=6 TB. Šestý spare poskytuje náhradu, nikoli další běžnou kapacitu.",
     "rewards": {
       "xp": 300
     },
@@ -4058,8 +4058,8 @@
     ],
     "difficulty": "Administrátor",
     "priority": "Vysoká",
-    "description": "VOL-OLD-42 dříve obsahoval600GB firemních dat, nyní se hlásí RAW. Neformátuj. Ověř identitu a read-only diagnostiku logů, oprav diagnostikovanou I/O cestu SAS-PORT-A, proveď rescan a ověř nezměněná původní data.",
-    "symptoms": "VOL-OLD-42 dříve obsahoval600GB firemních dat, nyní se hlásí RAW.",
+    "description": "VOL-OLD-42 dříve obsahoval600 GB firemních dat, nyní se hlásí RAW. Neformátuj. Ověř identitu a read-only diagnostiku logů, oprav diagnostikovanou I/O cestu SAS-PORT-A, proveď rescan a ověř nezměněná původní data.",
+    "symptoms": "VOL-OLD-42 dříve obsahoval600 GB firemních dat, nyní se hlásí RAW.",
     "initial_state": {
       "disk": {
         "serial": "VOL-OLD-42",
@@ -4147,8 +4147,8 @@
     ],
     "difficulty": "Pokročilý",
     "priority": "Vysoká",
-    "description": "Z volných přímých disků4 a5 vytvoř Storage Spaces two-way Mirror:2TB před režií. Inicializuj nový virtual disk a přes rescan jej předej jako SPACE-01. V OS vytvoř GPT/NTFS svazek D: o1000GB; produkční PERC členy0–3 nepřepisuj.",
-    "symptoms": "Z volných přímých disků4 a5 vytvoř Storage Spaces two-way Mirror:2TB před režií.",
+    "description": "Z volných přímých disků4 a5 vytvoř Storage Spaces two-way Mirror:2 TB před režií. Inicializuj nový virtual disk a přes rescan jej předej jako SPACE-01. V OS vytvoř GPT/NTFS svazek D: o1000 GB; produkční PERC členy0–3 nepřepisuj.",
+    "symptoms": "Z volných přímých disků4 a5 vytvoř Storage Spaces two-way Mirror:2 TB před režií.",
     "initial_state": {},
     "available_actions": [
       "inspect",
@@ -4239,8 +4239,8 @@
     ],
     "difficulty": "Administrátor",
     "priority": "Vysoká",
-    "description": "FS01 má volno uvnitř300GiB filesystemu a také hostitel má rezervu, ale SAN thin pool1000GB je plný. Podkladové zdravé pole má4TB. Rozšiř skutečnou SAN kapacitu na2000GB, nastav varování80%/kritickou90%, spusť FS01 a ověř službu. VHDX nezvětšuj.",
-    "symptoms": "FS01 má volno uvnitř300GiB filesystemu a také hostitel má rezervu, ale SAN thin pool1000GB je plný.",
+    "description": "FS01 má volno uvnitř300 GB filesystemu a také hostitel má rezervu, ale SAN thin pool1000 GB je plný. Podkladové zdravé pole má4 TB. Rozšiř skutečnou SAN kapacitu na2000 GB, nastav varování80%/kritickou90%, spusť FS01 a ověř službu. VHDX nezvětšuj.",
+    "symptoms": "FS01 má volno uvnitř300 GB filesystemu a také hostitel má rezervu, ale SAN thin pool1000 GB je plný.",
     "initial_state": {
       "san": {
         "capacity": 1000,
@@ -4610,8 +4610,8 @@
       "Diagnostika",
       "RAID"
     ],
-    "description": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
-    "symptoms": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+    "description": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000 GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+    "symptoms": "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000 GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
     "initial_state": {
       "disks": {
         "2": {
@@ -4647,7 +4647,7 @@
     ],
     "failure_conditions": [],
     "hints": [
-      "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
+      "Vyměň vadný DC-002 ve slotu2 NAS-01 za SAS disk alespoň2000 GB ze servisní skříně. Ověř backup, dokonči rebuild a ověř pole.",
       "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
       "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
     ],
@@ -4807,8 +4807,8 @@
       "Diagnostika",
       "Proxmox"
     ],
-    "description": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
-    "symptoms": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+    "description": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN 30 do VLAN 20. IP 192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+    "symptoms": "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN 30 do VLAN 20. IP 192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
     "initial_state": {
       "vms": {
         "100": {
@@ -4837,7 +4837,7 @@
     ],
     "failure_conditions": [],
     "hints": [
-      "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN30 do VLAN20. IP192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
+      "Zkontroluj PVE-01, potom na ADMIN-01 oprav APP01 z VLAN 30 do VLAN 20. IP 192.168.20.100/24, gateway192.168.20.1, DNS192.168.20.10. Ověř službu.",
       "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
       "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
     ],
@@ -4937,8 +4937,8 @@
       "Diagnostika",
       "RAID"
     ],
-    "description": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
-    "symptoms": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
+    "description": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000 GB. Dokonči resilver a ověř ZFS.",
+    "symptoms": "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000 GB. Dokonči resilver a ověř ZFS.",
     "initial_state": {
       "zfs": {
         "health": "Degraded",
@@ -4974,7 +4974,7 @@
     ],
     "failure_conditions": [],
     "hints": [
-      "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000GB. Dokonči resilver a ověř ZFS.",
+      "PVE-B v PVE-01 je vadný. Ověř serial, vyjmi slotB a ze skříně vezmi SATA náhradu alespoň1000 GB. Dokonči resilver a ověř ZFS.",
       "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
       "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
     ],
@@ -5199,8 +5199,8 @@
       "Diagnostika",
       "Proxmox"
     ],
-    "description": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
-    "symptoms": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+    "description": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI, 2 vCPU, 4 GB, 32 GB local-lvm, VirtIO, vmbr0/VLAN 20, IP 192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+    "symptoms": "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI, 2 vCPU, 4 GB, 32 GB local-lvm, VirtIO, vmbr0/VLAN 20, IP 192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
     "initial_state": {},
     "available_actions": [
       "physical_inspect",
@@ -5232,7 +5232,7 @@
     ],
     "failure_conditions": [],
     "hints": [
-      "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI,2vCPU,4GB,32GB local-lvm, VirtIO, vmbr0/VLAN20, IP192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
+      "Na ADMIN-01 vytvoř VM101 / WEB-3D: Debian, UEFI, 2 vCPU, 4 GB, 32 GB local-lvm, VirtIO, vmbr0/VLAN 20, IP 192.168.20.101/24, gateway192.168.20.1, DNS192.168.20.10. Spusť ji, ověř a vrať se přečíst fyzickou monitorovací obrazovku.",
       "Prohlédni štítek zařízení a fyzické konektory. Používej E; stav ticketu je na Tab.",
       "Správný zásah ověř v živém monitoringu. Před výměnou zkontroluj serial, nezávislou zálohu, kapacitu a rozhraní."
     ],

@@ -25,6 +25,8 @@ var room_notice: Label
 var notice_time = 0.0
 var leaving_scene = false
 var settings_from_pause = false
+var controls_label: Label
+var introduction_step = 0
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -44,7 +46,7 @@ func _ready():
 	layer.add_child(ui)
 	world.game = ui.game
 	ui.display_settings.apply_world(world)
-	ui.preferences_changed.connect(func(): ui.display_settings.apply_world(world); hud.theme=ui.theme; overlay.theme=ui.theme)
+	ui.preferences_changed.connect(apply_ui_preferences)
 	ui.settings_closed.connect(func():
 		if settings_from_pause: settings_from_pause=false; pause_menu())
 	ui.world_requested.connect(enter_world)
@@ -83,7 +85,8 @@ func _ready():
 	prompt.position = Vector2(550,766)
 	prompt.size = Vector2(500,64)
 	prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var controls = ui.label("WASD pohyb   •   myš rozhlížení   •   E interakce   •   Shift rychlá chůze   •   Tab úkoly   •   F baterka   •   Esc pauza",14)
+	var controls = ui.label("",14)
+	controls_label = controls
 	hud.add_child(controls)
 	controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	controls.offset_left = 25
@@ -134,10 +137,17 @@ func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 	hud.add_child(plate)
 	return plate
 
+func apply_ui_preferences():
+	ui.display_settings.apply_world(world)
+	hud.theme=ui.theme
+	overlay.theme=ui.theme
+	for node in chrome.find_children("*","Label",true,false):
+		if node.has_meta("base_font_size"): node.add_theme_font_size_override("font_size",roundi(node.get_meta("base_font_size")*ui.display_settings.text_scale))
+
 func _process(delta):
 	ui.game.reconcile_room()
 	notice_time = maxf(0.0,notice_time-delta)
-	room_notice.visible = notice_time>0.0 and mode=="world"
+	room_notice.visible = notice_time>0.0 and mode=="world" and not (ui.game.active and ui.game.session_kind in ["lesson","random"])
 	chrome.scale = get_viewport().get_visible_rect().size/Vector2(1600,900)
 	if mode == "app" and ui.page == "menu": set_mode("menu")
 	update_time += delta
@@ -145,6 +155,9 @@ func _process(delta):
 	if update_time > 0.25:
 		update_time = 0.0
 		world.sync_state()
+		var keys=ui.display_settings.bindings
+		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
+		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
 		status_label.text = "SERVEROVNA 01"
 		if ui.game.game_mode.is_training():
 			status_label.text = "Tréninkové centrum – vyber si lekci"
@@ -181,7 +194,7 @@ func set_mode(value: String):
 	ui.visible = value in ["menu","app"]
 	hud.visible = value == "world"
 	app_bar.visible = value == "app"
-	overlay.visible = value in ["detail","pause","tasks"]
+	overlay.visible = value in ["detail","pause","tasks","introduction"]
 	world.player.set_enabled(value == "world")
 
 func enter_world(destination: String = "Serverovna"):
@@ -207,6 +220,27 @@ func enter_world(destination: String = "Serverovna"):
 		for object in world.devices.values(): object.set_guided(false)
 	world.sync_state()
 	set_mode("world")
+	if ui.first_shift_requested:
+		ui.first_shift_requested=false
+		if not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
+
+func show_introduction():
+	set_mode("introduction")
+	var steps=[
+		["Pohyb a rozhlížení","Pohybuj se klávesami uvedenými dole na HUD. Myší se rozhlížíš, rychlou chůzi zapíná klávesa Shift ve výchozím nastavení."],
+		["Zařízení a interakce","Zaměř čelo zařízení nebo ovladač. Když se ukáže název a barevný rám, stiskni klávesu interakce (výchozí E). Dosah je 3,2 metru."],
+		["Administrátorský počítač","Na monitorech ADMIN-01 a ADMIN-02 otevřeš konzoli. Ve stromu vyber zařízení, vlevo sekci a nahoře operaci. Escape tě vrátí do místnosti."],
+		["Pracovní zadání","Klávesa zadání (výchozí Tab) ukáže ticket a cíle. V konzoli slouží tlačítko Zadání ticketu. Po změně ověř skutečný stav a potom předej ticket."]]
+	var step=steps[introduction_step]
+	var v=panel("Seznámení %d / 4 — %s" % [introduction_step+1,step[0]],step[1])
+	v.add_child(ui.button("Další →" if introduction_step<3 else "Zahájit směnu",func():
+		if introduction_step<3: introduction_step+=1; show_introduction()
+		else: finish_introduction(),true))
+	v.add_child(ui.button("Přeskočit seznámení",finish_introduction))
+
+func finish_introduction():
+	ui.save_preference("introduction_seen",true)
+	return_to_world()
 
 func return_to_world():
 	ui.capture_form_drafts()
@@ -430,6 +464,7 @@ func pause_menu():
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
+	v.add_child(ui.button("Seznámení s ovládáním",func(): introduction_step=0; show_introduction()))
 	v.add_child(ui.button("Uložit a hlavní menu",func():
 		if ui.game.save() == OK:
 			ui.page = "menu"
@@ -456,10 +491,17 @@ func show_tasks():
 	if ui.game.session_kind=="lesson": v.add_child(ui.button("Opakovat lekci",func(): ui.begin_lesson(int(ui.game.current.id),ui.game.tutorial.session.mode,false)))
 	v.add_child(ui.button("Zpět  [Tab / Esc]",return_to_world))
 
+func _input(event):
+	if not event is InputEventKey or event.keycode!=KEY_ESCAPE or not event.pressed or event.echo: return
+	for child in ui.get_children():
+		if child is Window and child.visible: return
+	_unhandled_key_input(event)
+
 func _unhandled_key_input(event):
 	if not event.pressed or event.echo: return
 	if event.keycode == KEY_ESCAPE:
 		if mode == "world": pause_menu()
+		elif mode == "introduction": finish_introduction()
 		elif mode == "app" and ui.page=="Nastavení": ui.close_settings()
 		elif mode == "app" and ui.context_open: ui.context_open=false; ui.draw_ui()
 		elif mode != "menu": return_to_world()
@@ -502,7 +544,7 @@ func update_guidance():
 	direction.text = "%s  /  %.1f m\n%s" % [arrow,offset.length(),target.caption]
 
 func on_room_changed(training_room: bool):
-	if leaving_scene: return
+	if leaving_scene or not ui.is_inside_tree(): return
 	pose_revision = ui.game.session_revision
 	if training_room:
 		var p = world.player

@@ -16,6 +16,7 @@ var text_scale = 1.0
 var quality = "Vysoká"
 var vsync = true
 var fps_limit = 0
+var introduction_seen = false
 
 func load_settings():
 	var config=ConfigFile.new()
@@ -39,6 +40,8 @@ func load_settings():
 	if preset in ["Úsporná","Vyvážená","Vysoká"]: quality=preset
 	var sync=config.get_value("display","vsync",true)
 	if sync is bool: vsync=sync
+	var seen=config.get_value("interface","introduction_seen",false)
+	if seen is bool: introduction_seen=seen
 	var limit=config.get_value("display","fps_limit",0)
 	if limit in [0,30,60,120,144]: fps_limit=limit
 	var keys=config.get_value("input","bindings",{})
@@ -61,6 +64,7 @@ func save_settings() -> Error:
 	config.set_value("audio","volume",volume)
 	config.set_value("audio","muted",muted)
 	config.set_value("interface","text_scale",text_scale)
+	config.set_value("interface","introduction_seen",introduction_seen)
 	config.set_value("display","quality",quality)
 	config.set_value("display","vsync",vsync)
 	config.set_value("display","fps_limit",fps_limit)

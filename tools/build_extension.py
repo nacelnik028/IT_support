@@ -22,7 +22,7 @@ def build():
       action('vm_identity','Rezervovat VMID a název',[f('id','VMID',default='101'),f('name','Název VM',default='NOVY-SERVER')]),
       action('vm_media','Vybrat instalační ISO',[vm(),c('iso','ISO image (Directory storage)',['debian.iso','windows-server.iso'])]),
       action('vm_resources','Nastavit CPU a RAM',[vm(),n('cpu','vCPU',1,min=1,max=16),n('ram_mib','RAM (MiB)',1024,min=512,max=61440,step=512)]),
-      action('vm_disk','Vytvořit virtuální disk',[vm(),n('size','Disk (GiB)',16,min=8,max=1000),c('storage','Storage',['local-lvm','local-zfs','PBS'])]),
+      action('vm_disk','Vytvořit virtuální disk',[vm(),n('size','Disk (GB)',16,min=8,max=1000),c('storage','Storage',['local-lvm','local-zfs','PBS'])]),
       action('vm_network','Připojit bridge a VLAN',[vm(),c('bridge','Linux bridge',['vmbr0','LAB']),n('vlan','VLAN',20,min=1,max=4094),f('ip','IPv4 /24',default='192.168.20.101')]),
       action('vm_install','Nainstalovat OS a Guest Agent',[vm()]),
     ]

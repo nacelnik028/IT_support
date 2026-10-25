@@ -19,7 +19,12 @@ V režimu Učím se instruktor nejdříve ukáže cvičný server; směr a vzdá
 počítá podle skutečné pozice hráče. Příchod se potvrdí až v dosahu zařízení.
 E na PVE-TRAIN-01 validuje původní výběr PVE-01. Otevření managementu naváže
 na původní ověřované kroky: uzel, průvodce, formuláře a skutečná konfigurace.
-Z konzole se vracíš Escape nebo tlačítkem Zpět do3D prostředí.
+Z konzole se vracíš Escape nebo tlačítkem Zpět do 3D prostředí. Instruktora
+otevírá tlačítko vpravo nahoře; **← Konfigurace** obnoví formulář. Strom a sekce
+zůstávají vlevo, vpravo je jedna vybraná operace. Průvodce VM ukládá postupně
+Identitu → ISO → CPU/RAM → Disk → Síť → Shrnutí/instalaci. V posledním kroku
+můžeš VM také spustit a ověřit. Rozepsaná čísla a výběry zůstanou při návratu.
+Hledání a filtr dokončení v nabídce usnadňují výběr ze všech 21 lekcí.
 
 Cvičné racky, RAID i ZFS sloty, síťový switch a servisní skříň používají
 tentýž model aktuální lekce. Jsou dostupné také pro Procvičování a Zkoušku,
@@ -45,7 +50,7 @@ odložený pracovní ticket. Stejnou ochranu používá teleport, načtení pozi
 oblast, návrat do menu a zánik scény. Nová návštěva nezačne předchozí lekci.
 Dokončené lekce, zkoušky, statistiky, nejlepší skóre a kariérní XP zůstanou.
 
-Tlačítko Uložit a opustit lekci otevírá výběr lekcí uvnitř stejné místnosti.
+Tlačítko **Zpět k nabídce lekcí (průběh zůstane)** otevírá výběr uvnitř stejné místnosti.
 Pouze během této návštěvy lze obnovit rozpracovaný krok. Restart hry začíná
 bez dočasné lekce. Trvalé výsledky jsou v `education.lessons` a `education.attempts`,
 dočasné kroky v `session` a `education.sessions`; odchod tyto kroky odstraní.

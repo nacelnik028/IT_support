@@ -181,7 +181,7 @@ static func apply(sim,action: String,p: Dictionary) -> Dictionary:
 			else:
 				if vm.status!="Running" or p.size>d.capacity or p.size<=d.filesystem: return sim.reject("Běžící guest rozšíří filesystem jen do většího podkladového VHDX.")
 				d.filesystem=p.size
-			return sim.success("Datová vrstva%s má nyní%s GiB; druhá vrstva se nezvětšila automaticky." % [p.layer,p.size])
+			return sim.success("Datová vrstva%s má nyní %s GB; druhá vrstva se nezvětšila automaticky." % [p.layer,p.size])
 		"lab_update":
 			var vm=sim.get_vm(str(p.vm))
 			if not s.get("allow_fault_injection",false) or vm.is_empty() or vm.get("checkpoints",[]).is_empty(): return sim.reject("Simulovaná aktualizace je povolená jen v připravené lekci s bodem návratu.")

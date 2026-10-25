@@ -62,7 +62,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			pool.rebuilding = true
 			pool.progress = 0
 			pool.health = "Recovering"
-			return sim.success("Nový člen vložen; spuštěn %s. Redundance zatím není obnovena." % ("resilver" if zfs else "rebuild"))
+			return sim.success("Nový člen vložen; spuštěn %s. Redundance zatím není obnovena." % ("resilver" if zfs else "rebuild"),true,"warning")
 		"rebuild":
 			var zfs = p.pool == "ZFS"
 			var pool = s.zfs if zfs else s.raid
@@ -178,7 +178,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			if s.storage.used+p.amount>s.storage.capacity: return sim.reject("Fyzický pool nemá místo. Kvóta nepřidává fyzickou kapacitu.")
 			s.share.used=used+p.amount
 			s.storage.used+=p.amount
-			return sim.success("Zápis proveden. %s / %s GB. %s" % [s.share.used,s.share.quota,"Soft quota pouze upozornila." if s.share.used>s.share.quota else "V rámci limitu."])
+			return sim.success("Zápis proveden. %s / %s GB. %s" % [s.share.used,s.share.quota,"Soft quota pouze upozornila." if s.share.used>s.share.quota else "V rámci limitu."],true,"warning" if s.share.used>s.share.quota else "success")
 		"san":
 			if p.target != "10.50.0.10" or p.initiator != "iqn.2026-10.lab:hv01" or p.lun != "LUN-01": return sim.reject("Target, IQN nebo LUN nesouhlasí s povoleným mappingem.")
 			if p.writers == "HV-01 + HV-02" and not p.clustered: return sim.reject("Dva neclusterovaní hostitelé nesmějí nezávisle zapisovat na stejný běžný NTFS/ReFS LUN.",true)

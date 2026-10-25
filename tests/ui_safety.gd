@@ -191,6 +191,8 @@ func dispose_ui():
 	await create_timer(0.08).timeout
 	ui.queue_free()
 	await process_frame
+	# Audio mixing runs on its own wall clock, even when headless frames advance fast.
+	OS.delay_msec(120)
 
 func capture(caption: String):
 	if DisplayServer.get_name()=="headless" or not "--screenshots" in OS.get_cmdline_user_args(): return

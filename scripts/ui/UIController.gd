@@ -65,6 +65,12 @@ var display_dialog: ConfirmationDialog
 var display_deadline = 0
 var binding_dialog: AcceptDialog
 var binding_action = ""
+const Search = preload("res://scripts/ui/CatalogSearch.gd")
+var search_queries = {}
+var search_status = {}
+var first_shift_requested = false
+var notice_kind = "success"
+var last_action = ""
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -130,6 +136,7 @@ func box(bg: Color, border = Color("23364d"), radius = 10) -> StyleBoxFlat:
 func label(text: String, size_px = 15, color = WHITE) -> Label:
 	var l = Label.new()
 	l.text = text
+	l.set_meta("base_font_size",size_px)
 	l.add_theme_font_size_override("font_size",roundi(size_px*display_settings.text_scale))
 	l.add_theme_color_override("font_color",color)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -193,7 +200,7 @@ func clear_ui():
 		root_box.queue_free()
 	root_box = MarginContainer.new()
 	root_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left","right","top","bottom"]: root_box.add_theme_constant_override("margin_"+side,20)
+	for side in ["left","right","top","bottom"]: root_box.add_theme_constant_override("margin_"+side,70 if side=="bottom" and world_enabled else 20)
 	add_child(root_box)
 	var layout=vbox(root_box,10)
 	persistence_box=vbox(layout,0)
@@ -234,8 +241,8 @@ func draw_ui():
 		draft_revision=game.session_revision
 	normalize_selection()
 	clear_ui()
-	if page == "menu": draw_menu(); return
-	if page == "Nastavení": draw_settings(); return
+	if page == "menu": draw_menu(); working_context.restore(self); return
+	if page == "Nastavení": draw_settings(); working_context.restore(self); return
 	var whole = vbox(content_box,16)
 	whole.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var top = hbox(whole)
@@ -309,14 +316,14 @@ func draw_menu():
 	left.add_child(label("Tvá první směna\nzačíná tady.",49))
 	left.add_child(label("Šest serverů. Skutečná rozhodnutí.\nNauč se udržet infrastrukturu v provozu.",19,MUTED))
 	left.add_child(button("Pokračovat v rozehrané směně" if game.active else "Zahájit první směnu   →",func():
-		if not game.active: game.start_mission(0)
+		if not game.active: first_shift_requested=true; game.start_mission(0)
 		navigate("Serverovna"),true))
 	left.add_child(button("Kampaň a přehled ticketů",func():
 		if game.session_kind!="campaign": game.resume_campaign()
 		elif not game.active: game.start_mission(0)
 		game.set_campaign_mode(false)
 		navigate("Tickety")))
-	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink"),true))
+	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink")))
 	left.add_child(button("Volný trénink  •  všechny laboratoře",func():
 		if not game.active: game.start_mission(0,true)
 		game.set_campaign_mode(true)
@@ -348,7 +355,7 @@ func draw_menu():
 			if not game.active: game.start_mission(0,true)
 			game.set_campaign_mode(true)
 			mission_filter="3D praxe"
-			navigate("Tickety"),true))
+			navigate("Tickety")))
 	info.add_child(label("%d TICKETŮ     •     %d LEKCÍ     •     TVÉ TEMPO" % [game.missions.size(),game.tutorial.lessons.size()],12,CYAN))
 	all.add_child(label("Výuková simulace správy serverů  /  Čeština  /  Godot 4",12,MUTED))
 
@@ -400,6 +407,7 @@ func preview_display(resolution: Vector2i, fullscreen: bool):
 	add_child(display_dialog)
 	display_dialog.confirmed.connect(func(): resolve_display(true))
 	display_dialog.canceled.connect(func(): resolve_display(false))
+	bind_dialog_escape(display_dialog)
 	display_dialog.popup_centered(Vector2i(520,180))
 
 func resolve_display(keep: bool):
@@ -474,6 +482,13 @@ func _unhandled_key_input(event):
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F11:
 		preview_display(display_settings.resolution,not display_settings.fullscreen)
 		get_viewport().set_input_as_handled()
+
+func bind_dialog_escape(dialog: AcceptDialog):
+	dialog.window_input.connect(func(event):
+		if event is InputEventKey and event.pressed and event.keycode==KEY_ESCAPE:
+			dialog.set_input_as_handled()
+			dialog.hide()
+			dialog.canceled.emit())
 
 func quit_game():
 	if quitting: return
@@ -565,6 +580,7 @@ func draw_tickets():
 		v.add_child(label("Pracovní mise jsou během návštěvy tréninkového centra pozastavené.",20,CYAN))
 		v.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
 		return
+	Search.draw(self,v,"missions",true)
 	var mode = hbox(v)
 	mode.add_child(button("Kampaň",func(): game.set_campaign_mode(false); draw_ui(),not game.training))
 	mode.add_child(button("Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
@@ -577,6 +593,7 @@ func draw_tickets():
 	v.add_child(category_picker)
 	for i in game.missions.size():
 		var m = game.missions[i]
+		if not Search.matches(self,"missions",m.title+" "+m.description+" "+m.category,game.progress.scores.has(str(m.id))): continue
 		if mission_filter=="3D praxe":
 			if not m.get("world_task",false): continue
 		elif mission_filter!="Vše" and m.category!=mission_filter: continue
@@ -671,15 +688,17 @@ func draw_state(parent: Node):
 	var c=card(parent,"Živý stav infrastruktury")
 	if page=="Proxmox":
 		var h=s.hosts[host]
-		c.add_child(label("%s  •  %s  •  VT: %s  •  %s\nManagement: %s  |  64 GB RAM\nvmbr0 → eno1  •  VLAN-aware: %s" % [host,"ONLINE" if h.online else "OFFLINE",str(h.vt),h.mode,h.ip,str(s.network.switches.vmbr0.vlan_aware)],13,MUTED))
+		c.add_child(label("%s  •  %s  •  VT: %s  •  %s\nManagement: %s  |  %s GiB RAM\nvmbr0 → eno1  •  VLAN-aware: %s" % [host,"Zapnuto" if h.online else "Vypnuto","ano" if h.vt else "ne",h.mode,h.ip,h.ram,"ano" if s.network.switches.vmbr0.vlan_aware else "ne"],13,MUTED))
 	for id in s.vms:
 		var vm=s.vms[id]
 		if not vm.get("exists",false): continue
+		if selected_vm!="" and id!=selected_vm: continue
+		if page in ["Proxmox","Hyper-V"] and vm.host!=host: continue
 		if (page=="Proxmox" and vm.host.begins_with("PVE")) or (page=="Hyper-V" and vm.host.begins_with("HV")):
-			c.add_child(label("%s  %s  •  %s\n%d vCPU / %s GB RAM / disk %s GB → FS %s GB\n%s / VLAN %d / %s" % [id,vm.name,vm.status,int(vm.cpu),str(vm.ram),str(vm.disk),str(vm.filesystem),vm.bridge,int(vm.vlan),vm.ip],13,CYAN))
+			c.add_child(label("%s  %s  •  %s\n%d vCPU / %s GiB RAM / disk %s GB → FS %s GB\n%s / VLAN %d / %s" % [id,vm.name,"běží" if vm.status=="Running" else "vypnuto",int(vm.cpu),str(vm.ram),str(vm.disk),str(vm.filesystem),vm.bridge,int(vm.vlan),vm.ip],13,CYAN))
 	if page=="Hyper-V":
 		var h=s.hosts[host]
-		c.add_child(label("%s VMMS: %s  •  role: %s  •  po restartu: %s\nHost: %s GB RAM; rezerva%s GB; jiné služby%s GB\nCheckpointy FS01: %s" % [host,h.vmms,h.role,h.rebooted,h.ram,h.reserve,h.other_ram,JSON.stringify(s.vms["200"].checkpoints)],13,MUTED))
+		c.add_child(label("%s VMMS: %s  •  role: %s  •  po restartu: %s\nHost: %s GiB RAM; rezerva %s GiB; jiné služby %s GiB" % [host,"běží" if h.vmms else "zastaveno","nainstalována" if h.role else "chybí","ano" if h.rebooted else "ne",h.ram,h.reserve,h.other_ram],13,MUTED))
 	if page=="Proxmox" and tab in ["ZFS / disky","Cluster","Storage","Podle ticketu"]:
 		c.add_child(label("ZFS tank: %s  •  A / %s: %s  •  B / %s: %s\nPool: %s / %s GB; metadata %s%%\nCluster: %d/3 hlasů, fencing %s" % [s.zfs.health,s.zfs.disks.A.serial,s.zfs.disks.A.health,s.zfs.disks.B.serial,s.zfs.disks.B.health,s.storage.used,s.storage.capacity,s.storage.metadata,1+int(s.cluster.peer_online)+int(s.cluster.qdevice),s.cluster.fenced],12,MUTED))
 	if page=="Storage":
@@ -689,7 +708,8 @@ func draw_state(parent: Node):
 		c.add_child(grid)
 		for id in s.disks:
 			var d=s.disks[id]
-			var b=button("SLOT %s\n%s\n%s" % [id,d.serial,d.health],func(): show_message("Fyzický disk "+id,JSON.stringify(d,"  ")))
+			var role="Vadný disk" if d.health=="Failed" else ("Hot spare" if d.get("spare",false) else ("Člen pole "+d.pool if d.pool!="" else "Volný disk"))
+			var b=button("SLOT %s · %s\n%s · %s GB" % [id,role,d.serial,d.capacity],func(): show_message("Fyzický disk "+id,"Slot %s / %s\nKapacita: %s GB\nRole: %s\nStav: %s" % [id,d.serial,d.capacity,role,Forms.health_text(d.health)]))
 			b.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 			grid.add_child(b)
 		if not s.created_raid.is_empty(): c.add_child(label("Nové pole: %s / %s GB / členové %s / inicializováno %s" % [s.created_raid.level,s.created_raid.capacity,str(s.created_raid.members),s.created_raid.initialized],13,CYAN))
@@ -702,7 +722,7 @@ func draw_form(parent: Node, action: Dictionary):
 	var inputs={}
 	for field in action.fields:
 		c.add_child(label(field.label,12,MUTED))
-		var value=Forms.value(self,action,field)
+		var value=Forms.initial_value(self,action,field)
 		var input: Control
 		match field.get("type","text"):
 			"bool":
@@ -716,7 +736,7 @@ func draw_form(parent: Node, action: Dictionary):
 					input.add_item(Forms.display(self,field,option))
 					input.set_item_metadata(input.item_count-1,str(option))
 				var idx=field_options.find(value)
-				input.select(maxi(0,idx))
+				input.select(-1 if field_options.is_empty() else maxi(0,idx))
 				input.disabled=field_options.is_empty()
 			"number":
 				input=SpinBox.new()
@@ -733,7 +753,7 @@ func draw_form(parent: Node, action: Dictionary):
 				for disk_id in game.sim.state.disks:
 					var disk=game.sim.state.disks[disk_id]
 					var check=CheckBox.new()
-					check.text="Slot%s  %s  %sGB\n%s" % [disk_id,disk.serial,disk.capacity,"VOLNÝ" if disk.pool=="" else "POOL: "+disk.pool]
+					check.text="Slot %s  %s  %s GB\n%s" % [disk_id,disk.serial,disk.capacity,"VADNÝ" if disk.health=="Failed" else ("HOT SPARE" if disk.get("spare",false) else ("VOLNÝ" if disk.pool=="" else "ČLEN POLE: "+disk.pool))]
 					check.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 					check.set_meta("disk_id",disk_id)
 					disk_grid.add_child(check)
@@ -793,13 +813,20 @@ func draw_form(parent: Node, action: Dictionary):
 			confirm_action(action,params)
 		else: perform(action.id,params),true)
 	var fixed=Context.fixed_host(action.id)
+	if inputs.has("vm") and inputs.vm is OptionButton and inputs.vm.item_count==0:
+		action_button.disabled=true
+		c.add_child(label("Na hostiteli %s není kompatibilní VM. Vyber zařízení ve stromu nebo nejprve vytvoř novou VM." % host,13,ORANGE))
 	if fixed!="" and host!=fixed:
 		action_button.disabled=true
 		c.add_child(button("Operace je dostupná na "+fixed+" — vybrat hostitele",func(): capture_form_drafts(); selected_vm=""; host=fixed; draw_ui()))
 	c.add_child(action_button)
 	if notice!="":
-		c.add_child(label(("Chyba: " if bad_notice else "Hotovo: ")+notice,13,ORANGE if bad_notice else CYAN))
+		var message=label(({"error":"Chyba: ","warning":"Upozornění: "}.get(notice_kind,"Hotovo: "))+notice,13,ORANGE if bad_notice or notice_kind=="warning" else CYAN)
+		message.max_lines_visible=3
+		message.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		c.add_child(message)
 		c.add_child(button("Otevřít provozní deník",func(): show_message("Deník operací","\n".join(game.sim.state.journal))))
+		if bad_notice: c.add_child(button("Vysvětlení a související výuka",show_operation_help))
 	form_buttons[action.id]=action_button
 	register_target("action:"+str(action.id),action_button)
 
@@ -874,9 +901,11 @@ func confirm_action(action: Dictionary, params: Dictionary):
 	add_child(d)
 	d.confirmed.connect(func(): perform(action.id,params); d.queue_free())
 	d.canceled.connect(d.queue_free)
+	bind_dialog_escape(d)
 	d.popup_centered(Vector2i(600,450))
 
 func perform(action: String, params: Dictionary):
+	last_action=action
 	var tutorial_step=game.tutorial.session.get("step",-1)
 	var result=game.apply(action,params)
 	if result.ok and tab=="Průvodce VM" and action in Console.STEPS:
@@ -893,6 +922,7 @@ func perform(action: String, params: Dictionary):
 	full_notice=result.text
 	notice=result.text.left(600)
 	bad_notice=not result.ok
+	notice_kind="error" if bad_notice else result.get("severity","success")
 	if result.ok and game.tutorial.guided() and tutorial_step!=game.tutorial.session.get("step",-1) and tab!="Průvodce VM":
 		var next_step=game.tutorial.current_step()
 		if next_step.get("page",page)==page:
@@ -900,6 +930,23 @@ func perform(action: String, params: Dictionary):
 			var next_target=game.tutorial.target(game.sim.state).split(":")
 			if next_target.size()>1 and next_target[0] in ["field","action"]: active_action=next_target[1]
 	draw_ui()
+
+func show_operation_help():
+	var lesson={}
+	for candidate in game.tutorial.lessons:
+		if last_action in candidate.available_actions: lesson=candidate; break
+	var d=AcceptDialog.new()
+	d.title="Vysvětlení operace"
+	d.dialog_text=full_notice+"\n\n"+game.current.get("explanations","")
+	if not lesson.is_empty():
+		d.dialog_text+="\n\nDoporučená lekce: "+lesson.title
+		d.add_button("Najít lekci",false,"lesson")
+		d.custom_action.connect(func(_action): search_queries.lessons=lesson.title; training_view="lessons"; navigate("Trénink"); d.queue_free())
+	add_child(d)
+	d.confirmed.connect(d.queue_free)
+	d.canceled.connect(d.queue_free)
+	bind_dialog_escape(d)
+	d.popup_centered(Vector2i(620,340))
 
 func close_ticket():
 	var result=game.complete()
@@ -959,6 +1006,7 @@ func draw_training_center():
 	var v=scroll(container)
 	var hero=card(v,"Tréninkové centrum","Senior administrátor / praktická laboratoř")
 	hero.add_child(label("Vyber lekci a způsob učení. Cvičné servery používají vlastní izolovanou infrastrukturu. Odchod z místnosti zruší rozpracované cvičení.",15,MUTED))
+	hero.add_child(label("Učím se: instruktor vede jednotlivé kroky. Procvičování: samostatná práce s dobrovolnou nápovědou. Zkouška: bez nápovědy a zvýraznění řešení.",13,MUTED))
 	var tabs=hbox(hero,8)
 	for item in [["lessons","Lekce"],["random","Náhodné procvičování"],["profile","Moje IT znalosti"],["glossary","IT slovník"]]:
 		tabs.add_child(button(item[1],func(): training_view=item[0]; draw_ui(),training_view==item[0]))
@@ -976,6 +1024,7 @@ func draw_training_center():
 	if training_view=="random": draw_random_setup(v); return
 	if training_view=="profile": draw_knowledge_profile(v); return
 	if training_view=="glossary": draw_glossary(v); return
+	Search.draw(self,v,"lessons",true)
 	var categories=OptionButton.new()
 	var category_names=["Všechny lekce","Proxmox VE","Microsoft Hyper-V","RAID a disková pole","Sítě a virtualizace","Zálohování a obnova","Diagnostika a řešení problémů"]
 	for category in category_names: categories.add_item(category)
@@ -983,6 +1032,8 @@ func draw_training_center():
 	categories.item_selected.connect(func(i): training_category=category_names[i]; draw_ui())
 	v.add_child(categories)
 	for lesson in game.tutorial.lessons:
+		var completed=game.education.lessons.get(str(lesson.id),{}).get("status","")=="Dokončeno"
+		if not Search.matches(self,"lessons",lesson.title+" "+lesson.description+" "+lesson.category,completed): continue
 		if training_category!="Všechny lekce" and lesson.training_category!=training_category: continue
 		var status=game.education.lessons.get(str(lesson.id),{}).get("status","Nedokončeno")
 		var c=card(v,lesson.title,lesson.get("training_category",lesson.category)+"  •  "+status)
@@ -1054,8 +1105,10 @@ func draw_knowledge_profile(parent: Node):
 		exams.add_child(label("%s: %d / 100  •  chyb%d  •  rizik%d" % [exam.title,int(exam.score),int(exam.errors),int(exam.risks)],14,CYAN))
 
 func draw_glossary(parent: Node):
+	Search.draw(self,parent,"glossary")
 	var terms=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/glossary.json"))
 	for term in terms:
+		if not Search.matches(self,"glossary",term.term+" "+term.text): continue
 		var c=card(parent,term.term,term.text)
 		c.add_child(button("Procvičit související lekci",func(): begin_lesson(int(term.lesson),"learn")))
 
@@ -1173,6 +1226,7 @@ func show_review():
 	add_child(dialog)
 	dialog.confirmed.connect(dialog.queue_free)
 	dialog.canceled.connect(dialog.queue_free)
+	bind_dialog_escape(dialog)
 	dialog.popup_centered(Vector2i(660,360))
 
 func restart_confirm():
@@ -1183,6 +1237,7 @@ func restart_confirm():
 	add_child(d)
 	d.confirmed.connect(func(): game.restart_current(); notice=""; draw_ui(); d.queue_free())
 	d.canceled.connect(d.queue_free)
+	bind_dialog_escape(d)
 	d.popup_centered()
 
 func show_message(title: String, text: String):
@@ -1199,6 +1254,7 @@ func show_message(title: String, text: String):
 	add_child(d)
 	d.confirmed.connect(d.queue_free)
 	d.canceled.connect(d.queue_free)
+	bind_dialog_escape(d)
 	d.popup_centered(Vector2i(620,430))
 
 func draw_network():
@@ -1264,6 +1320,7 @@ func draw_terminal():
 
 func draw_academy():
 	var v=scroll(center)
+	Search.draw(self,v,"articles")
 	var articles=JSON.parse_string(FileAccess.get_file_as_string("res://data/knowledge/articles.json"))
 	var categories=OptionButton.new()
 	for category in ["Proxmox","Hyper-V","Storage"]: categories.add_item(category)
@@ -1272,7 +1329,10 @@ func draw_academy():
 	v.add_child(categories)
 	var selected=[]
 	for article in articles:
-		if article.category==academy_category: selected.append(article)
+		if article.category==academy_category and Search.matches(self,"articles",article.title+" "+article.text): selected.append(article)
+	if selected.is_empty():
+		v.add_child(label("Žádný článek neodpovídá hledání. Zkus kratší výraz nebo jinou oblast.",15,MUTED))
+		return
 	var picker=OptionButton.new()
 	picker.clip_text=true
 	for article in selected: picker.add_item(article.title)

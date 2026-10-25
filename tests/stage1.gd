@@ -1,6 +1,7 @@
 extends SceneTree
 
 func _init():
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_stage1.cfg"
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_stage1.json"
 	var game=preload("res://scripts/core/GameManager.gd").new()
 	game.start_mission(0,true)

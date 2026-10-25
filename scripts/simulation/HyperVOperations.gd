@@ -34,7 +34,7 @@ static func apply(sim, action: String, p: Dictionary) -> Dictionary:
 			h = s.hosts[vm.host]
 			if vm.status == "Running": return sim.reject("Pro tento laboratorní postup VM nejprve korektně vypni.")
 			if p.minimum > p.ram or p.ram > p.maximum: return sim.reject("Minimum musí být ≤ Startup ≤ Maximum.")
-			if p.ram + h.reserve + h.other_ram > h.ram or p.maximum > h.ram-h.reserve: return sim.reject("Startup/maximum RAM porušuje rozpočet hostitele. Hostiteli ponech 4 GB a ostatním službám 8 GB.")
+			if p.ram + h.reserve + h.other_ram > h.ram or p.maximum > h.ram-h.reserve: return sim.reject("Startup/maximum RAM porušuje rozpočet hostitele %s. Ponech rezervu %s GiB a ostatním službám %s GiB." % [vm.host,h.reserve,h.other_ram])
 			for key in ["minimum","ram","maximum","dynamic"]: vm[key] = p[key]
 			return sim.success("Paměťový plán uložen. Startup je potřeba při startu; maximum není rezervovaná fyzická RAM.")
 		"integration":

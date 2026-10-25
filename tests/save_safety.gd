@@ -24,6 +24,7 @@ func invalid_fixture(data):
 	check(FileAccess.get_file_as_string(Saves.save_path())==raw,"Vadný soubor zůstal beze změny")
 
 func _init():
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_save_safety.cfg"
 	Saves.path_override="user://academy_test_save_safety.json"
 	check(Saves.save_game({},true)==OK,"Čistý izolovaný save")
 	var game=Game.new()

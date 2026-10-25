@@ -9,22 +9,32 @@ static func option_value(picker: OptionButton, index: int = -1) -> String:
 	var data = picker.get_item_metadata(index)
 	return str(data) if data != null else picker.get_item_text(index)
 
-static func value(ui, action: Dictionary, field: Dictionary):
+static func target_vm(ui, action: Dictionary) -> String:
+	if action.panel=="Průvodce VM": return ui.wizard_vm
+	if ui.selected_vm!="": return ui.selected_vm
+	var fallback=""
+	for field in action.fields:
+		if field.key=="vm": fallback=str(field.get("default",""))
+	if ui.page not in ["Proxmox","Hyper-V"] or action.id=="promote": return fallback
+	if ui.game.sim.get_vm(fallback).get("host","")==ui.host: return fallback
+	for id in ui.game.sim.state.vms:
+		if ui.game.sim.get_vm(id).get("host","")==ui.host: return id
+	return ""
+
+static func initial_value(ui, action: Dictionary, field: Dictionary):
 	var fallback = field.get("default","")
+	if action.id=="vm_identity":
+		var existing=ui.game.sim.get_vm(ui.wizard_vm)
+		if not existing.is_empty() and field.key in ["id","name"]: return existing[field.key]
 	var path = field.get("path","")
 	if path != "":
 		if ui.selected_vm != "" and path.begins_with("vms."):
 			var parts = path.split("."); parts[1] = ui.selected_vm; path = ".".join(parts)
 		return ui.Eval.read_path(ui.game.sim.state,path,fallback)
 	if field.key == "vm":
-		if action.id.begins_with("vm_") and action.panel == "Průvodce VM": return ui.wizard_vm
-		return ui.selected_vm if ui.selected_vm != "" else fallback
+		return target_vm(ui,action)
 	if action.id in EDIT_VM:
-		var id = ui.selected_vm
-		if action.panel == "Průvodce VM": id = ui.wizard_vm
-		if id == "":
-			for f in action.fields:
-				if f.key == "vm": id = str(f.get("default",""))
+		var id = target_vm(ui,action)
 		var vm = ui.game.sim.get_vm(id)
 		var key = str(field.key)
 		if action.id == "vm_disk" and key == "size": key = "disk"
@@ -39,6 +49,7 @@ static func choices(ui, action: Dictionary, field: Dictionary) -> Array:
 		if platform == "" and ui.page in ["Proxmox","Hyper-V"] and action.id != "promote": platform = ui.page
 		for id in ui.game.sim.state.vms:
 			var vm = ui.game.sim.get_vm(id)
+			if ui.page in ["Proxmox","Hyper-V"] and action.id!="promote" and vm.get("host","")!=ui.host: continue
 			if not vm.is_empty() and (platform == "" or Context.platform(ui.game.sim.state,vm) == platform): ids.append(id)
 		return ids
 	var result = field.options.duplicate()
@@ -66,3 +77,6 @@ static func validate(ui, action: Dictionary, inputs: Dictionary) -> String:
 			var text = input.get_line_edit().text.strip_edges().trim_suffix(input.suffix).strip_edges()
 			if not text.is_valid_float() or not is_finite(float(text)): return "%s: zadej platné číslo." % field.label
 	return ""
+
+static func health_text(value: String) -> String:
+	return {"Healthy":"V pořádku","Failed":"Vadný / selhání","Missing":"Prázdný slot","Degraded":"Snížená redundance","Recovering":"Probíhá obnova","Offline":"Vypnuto"}.get(value,value)

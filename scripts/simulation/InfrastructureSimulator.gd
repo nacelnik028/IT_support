@@ -35,14 +35,14 @@ func reject(message: String, risk: bool = false) -> Dictionary:
 	state.journal.append("ODMÍTNUTO • " + message)
 	return {"ok":false,"text":text}
 
-func success(message: String, change: bool = true) -> Dictionary:
+func success(message: String, change: bool = true, severity: String = "success") -> Dictionary:
 	if change:
 		state.revision += 1
 		state.verified.clear()
 		if state.has("world"): state.world.commissioned = false
 	refresh_incidents()
 	state.journal.append(message)
-	return {"ok":true,"text":message}
+	return {"ok":true,"text":message,"severity":severity}
 
 func refresh_incidents():
 	state.incidents=[]
