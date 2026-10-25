@@ -66,11 +66,13 @@ var display_deadline = 0
 var binding_dialog: AcceptDialog
 var binding_action = ""
 const Search = preload("res://scripts/ui/CatalogSearch.gd")
+const TutorialUI = preload("res://scripts/ui/TutorialPresentation.gd")
 var search_queries = {}
 var search_status = {}
 var first_shift_requested = false
 var notice_kind = "success"
 var last_action = ""
+var tutorial_reveal_frames = 0
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -238,7 +240,9 @@ func draw_ui():
 		wizard_vm="101"
 		active_action=""
 		selected_vm=""
+		context_open=false
 		draft_revision=game.session_revision
+		TutorialUI.route(self)
 	normalize_selection()
 	clear_ui()
 	if page == "menu": draw_menu(); working_context.restore(self); return
@@ -281,7 +285,9 @@ func draw_ui():
 		if game.session_kind=="lesson": draw_lesson_panel(center)
 		else: draw_ticket(center)
 		working_context.restore(self)
+		call_deferred("focus_tutorial")
 		return
+	if page in ["Proxmox","Hyper-V","Storage"]: TutorialUI.draw(self,center)
 	match page:
 		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
@@ -428,6 +434,9 @@ func resolve_display(keep: bool):
 
 func _process(_delta):
 	working_context.process(self)
+	if tutorial_reveal_frames>0:
+		tutorial_reveal_frames-=1
+		ensure_tutorial_visible()
 	if not display_previous.is_empty():
 		var remaining=maxi(0,ceili((display_deadline-Time.get_ticks_msec())/1000.0))
 		display_dialog.dialog_text="Je obraz čitelný? Potvrď změnu do %d s.\nBez potvrzení se vrátí poslední potvrzené nastavení." % remaining
@@ -517,6 +526,7 @@ func navigate(target: String):
 		game.save()
 	if not game.active and not page in ["Trénink","menu"]: game.start_mission(0)
 	context_open=false
+	TutorialUI.route(self)
 	draw_ui()
 
 func draw_datacenter():
@@ -542,6 +552,8 @@ func draw_datacenter():
 func draw_ticket(parent: Node):
 	var holder = VBoxContainer.new()
 	holder.custom_minimum_size.x=292
+	holder.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	holder.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	parent.add_child(holder)
 	var v = scroll(holder)
 	var c = card(v,"INC-%03d" % int(game.current.id),game.current.priority+"  •  "+game.current.server)
@@ -667,7 +679,10 @@ func draw_tree(parent: Node):
 				item.set_metadata(0,{"host":node_name,"vm":""})
 	c.add_child(tree)
 	if page=="Proxmox":
-		var wizard=button("Create VM — průvodce",func(): tab="Průvodce VM"; game.notify_event({"type":"action_opened","action":"create_vm"}); draw_ui())
+		var wizard=button("Create VM — průvodce",func():
+			tab="Průvodce VM"
+			if game.notify_event({"type":"action_opened","action":"create_vm"}): TutorialUI.route(self)
+			draw_ui())
 		c.add_child(wizard)
 		register_target("wizard:create_vm",wizard)
 	register_target("tree:PVE-01",tree)
@@ -675,13 +690,25 @@ func draw_tree(parent: Node):
 	register_target("tree:HV-01",tree)
 	register_target("tree:HV-02",tree)
 	tree.item_selected.connect(func():
-		var meta=tree.get_selected().get_metadata(0)
-		if meta is Dictionary:
-			capture_form_drafts()
-			host=meta.host
-			selected_vm=meta.vm
-			game.notify_event({"type":"node_selected","host":host,"vm":selected_vm})
-			call_deferred("draw_ui"))
+		select_console_item(tree.get_selected()))
+	# Re-selecting the highlighted row emits no item_selected signal. It is
+	# still an explicit user choice and must confirm the host tutorial step.
+	tree.gui_input.connect(func(event):
+		if not game.tutorial.guided() or game.tutorial.current_step().get("event",{}).get("type","")!="node_selected": return
+		if event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
+			var item=tree.get_item_at_position(event.position)
+			if item!=null and item==tree.get_selected(): select_console_item(item)
+		elif event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_SPACE]: select_console_item(tree.get_selected()))
+
+func select_console_item(item: TreeItem):
+	if item==null: return
+	var meta=item.get_metadata(0)
+	if not meta is Dictionary: return
+	capture_form_drafts()
+	host=meta.host
+	selected_vm=meta.vm
+	if game.notify_event({"type":"node_selected","host":host,"vm":selected_vm}): TutorialUI.route(self)
+	call_deferred("draw_ui")
 
 func draw_state(parent: Node):
 	var s=game.sim.state
@@ -923,12 +950,7 @@ func perform(action: String, params: Dictionary):
 	notice=result.text.left(600)
 	bad_notice=not result.ok
 	notice_kind="error" if bad_notice else result.get("severity","success")
-	if result.ok and game.tutorial.guided() and tutorial_step!=game.tutorial.session.get("step",-1) and tab!="Průvodce VM":
-		var next_step=game.tutorial.current_step()
-		if next_step.get("page",page)==page:
-			tab=next_step.get("tab",tab)
-			var next_target=game.tutorial.target(game.sim.state).split(":")
-			if next_target.size()>1 and next_target[0] in ["field","action"]: active_action=next_target[1]
+	if result.ok and game.tutorial.guided() and tutorial_step!=game.tutorial.session.get("step",-1): TutorialUI.route(self)
 	draw_ui()
 
 func show_operation_help():
@@ -973,6 +995,7 @@ func begin_lesson(id: int,mode: String,resume: bool=true):
 		page=game.tutorial.session.get("page","Serverovna") if mode=="learn" else game.current.category
 		tab=game.tutorial.session.get("tab","")
 		selected_vm=""
+		context_open=false
 		notice=""
 		draw_ui()
 		if world_enabled: lesson_launched.emit()
@@ -1115,6 +1138,8 @@ func draw_glossary(parent: Node):
 func draw_lesson_panel(parent: Node):
 	var holder=VBoxContainer.new()
 	holder.custom_minimum_size.x=292
+	holder.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	holder.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	parent.add_child(holder)
 	var v=scroll(holder)
 	var t=game.tutorial
@@ -1128,7 +1153,9 @@ func draw_lesson_panel(parent: Node):
 		c.add_child(label("Proč?",13,CYAN))
 		c.add_child(label(step.why,13,MUTED))
 		c.add_child(button("Více informací",func(): show_message(step.title,step.more)))
-		c.add_child(button("Zobrazit potřebný panel",recover_tutorial_target))
+		var recover=button("Zobrazit potřebný panel",recover_tutorial_target)
+		c.add_child(recover)
+		register_target("tutorial:recover",recover)
 	else:
 		c.add_child(label(game.current.description,14))
 		for goal in game.goals(): c.add_child(label(("✓ " if goal.passed else "○ ")+goal.label,12,CYAN if goal.passed else MUTED))
@@ -1146,29 +1173,17 @@ func focus_tutorial():
 	await get_tree().process_frame
 	if not is_instance_valid(expected_root) or root_box!=expected_root: return
 	if not game.tutorial.guided() or game.session_kind!="lesson" or page in ["menu","Trénink"]: return
-	var key=game.tutorial.target(game.sim.state)
-	if not ui_targets.has(key):
-		var step=game.tutorial.current_step()
-		var target_page=step.get("page",game.current.category)
-		key="nav:"+target_page if target_page!=page else "console:sections"
-		if not ui_targets.has(key): return
+	var key=TutorialUI.target_key(self)
+	if not ui_targets.has(key): return
 	var control=ui_targets[key]
 	if not is_instance_valid(control): return
-	var ancestor=control.get_parent()
-	while ancestor is Control:
-		if ancestor is ScrollContainer:
-			# Convert into scroll-local coordinates; native ensure_control_visible
-			# mixes global pixels with local offsets when the interface is scaled.
-			var rect=ancestor.get_global_transform().affine_inverse()*control.get_global_rect()
-			if rect.position.y<0 or rect.end.y>ancestor.size.y:
-				var content=ancestor.get_child(0) as Control
-				var content_rect=content.get_global_transform().affine_inverse()*control.get_global_rect()
-				ancestor.scroll_vertical=roundi(content_rect.get_center().y-ancestor.size.y*0.5)
-		ancestor=ancestor.get_parent()
 	if is_instance_valid(tutorial_overlay): tutorial_overlay.queue_free()
 	tutorial_overlay=preload("res://scripts/training/TutorialOverlay.gd").new()
 	add_child(tutorial_overlay)
 	tutorial_overlay.target=control
+	# Nested containers settle over several frames; reveal once that layout
+	# and the saved scroll position have both been applied, then leave scrolling free.
+	tutorial_reveal_frames=4
 	var overlay=tutorial_overlay
 	if key.begins_with("rack:"):
 		await get_tree().process_frame
@@ -1180,24 +1195,33 @@ func focus_tutorial():
 		while item:
 			if item.get_text(0).begins_with(key.trim_prefix("tree:")): tutorial_overlay.local_rect=control.get_item_area_rect(item,0); break
 			item=item.get_next()
+	ensure_tutorial_visible()
+
+func ensure_tutorial_visible():
+	if not is_inside_tree() or game.session_kind!="lesson" or not game.tutorial.guided() or not is_instance_valid(tutorial_overlay): return
+	var control=tutorial_overlay.target
+	if not is_instance_valid(control): return
+	var ancestor=control.get_parent()
+	while ancestor is Control:
+		if ancestor is ScrollContainer:
+			# Use local UI units at every resolution, after restoring working scroll.
+			var rect=ancestor.get_global_transform().affine_inverse()*control.get_global_rect()
+			if rect.position.y<0 or rect.end.y>ancestor.size.y:
+				var content=ancestor.get_child(0) as Control
+				var content_rect=content.get_global_transform().affine_inverse()*control.get_global_rect()
+				ancestor.scroll_vertical=roundi(content_rect.get_center().y-ancestor.size.y*0.5)
+		ancestor=ancestor.get_parent()
 
 func recover_tutorial_target():
+	if not game.tutorial.guided() or game.session_kind!="lesson": return
 	var step=game.tutorial.current_step()
 	if step.is_empty(): return
+	capture_form_drafts()
+	context_open=false
 	if world_enabled and step.get("page",game.current.category)=="Serverovna":
 		world_requested.emit("Serverovna")
 		return
-	page=step.get("page",game.current.category)
-	tab=step.get("tab","")
-	var target=game.tutorial.target(game.sim.state).split(":")
-	if target.size()>1 and target[0] in ["field","action"]:
-		active_action=target[1]
-		if active_action in Console.STEPS:
-			wizard_step=Console.STEPS.find(active_action)
-			wizard_unlocked=maxi(wizard_unlocked,wizard_step)
-	host=game.current.server
-	game.tutorial.session.page=page
-	game.tutorial.session.tab=tab
+	TutorialUI.route(self,true)
 	game.save()
 	draw_ui()
 

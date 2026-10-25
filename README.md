@@ -77,7 +77,9 @@ Administrátorské konzole jsou dostupné na monitorech. První směna nabízí 
   náhodné procvičování, Moje IT znalosti a interaktivní IT slovník.
 - **Učím se** ukazuje aktuální krok, šipku a zvýraznění skutečného ovládacího
   prvku. Krok postupuje teprve po potvrzené události nebo odpovídajícím stavu.
-  Pokud jsi v jiné konzoli, použij **Zobrazit potřebný panel**.
+  Instrukce zůstávají nad konfigurací. **Zobrazit krok** otevře správnou sekci,
+  operaci i krok průvodce; podrobnosti otevře **Instruktor / zadání**.
+  Z něj se tlačítkem **Zobrazit potřebný panel** vrátíš přímo k formuláři.
 - **Procvičování** má zadání a dobrovolné nápovědy. **Zkouška** nezvýrazňuje
   řešení, nepovoluje přímou nápovědu a po dokončení rozebere chyby i doporučení.
 - Během jedné návštěvy centra lze přepínat uložené kroky lekcí. **Vrátit se
@@ -304,6 +306,10 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - `ui_smoke.gd`: všechny mise přes skutečné formuláře, potvrzovací dialogy
   a kontextové otázky; přechody mezi všemi hlavními obrazovkami.
 - `tutorial_first.gd`: všech9 kroků WEB01, chybná RAM a bezpečný návrat ke kampani.
+- `tutorial_navigation.gd`: všech21 vedených lekcí přes skutečné klikání v novém UI,
+  opětovná volba předvybraného hostitele/Enter, instruktor a správné formuláře,
+  obnova posledního kroku VM, koncepty a zvýraznění po obnovení posuvu.
+  `-- --screenshots` pořídí snímky v720p/1080p/4K; test se spouští i v Test-All.
 - `lessons.gd`: všechny lekce v režimech Učím se / Procvičování / Zkouška.
 - `training_features.gd`: parametrizace, všechny kombinace filtrů, obnova série,
   migrace původního save a doporučení slabých oblastí.

@@ -26,6 +26,15 @@ Identitu → ISO → CPU/RAM → Disk → Síť → Shrnutí/instalaci. V posled
 můžeš VM také spustit a ověřit. Rozepsaná čísla a výběry zůstanou při návratu.
 Hledání a filtr dokončení v nabídce usnadňují výběr ze všech 21 lekcí.
 
+V režimu **Učím se** zůstává aktuální instrukce nad formulářem.
+**Zobrazit krok** otevře příslušnou sekci a operaci; v průvodci vybere jeho
+správný krok, včetně závěrečného startu a ověření VM. Hostitele lze potvrdit
+kliknutím nebo Enterem i tehdy, když už je ve stromu předvybraný.
+Podrobný instruktor má vlastní posuv a **Zobrazit potřebný panel** vrací přímo
+konfiguraci. Navigace zachovává rozepsané hodnoty a sama nepotvrzuje žádný
+výukový krok. Chybná, ale bezpečná konfigurace nechá instrukci na stejném kroku.
+
+
 Cvičné racky, RAID i ZFS sloty, síťový switch a servisní skříň používají
 tentýž model aktuální lekce. Jsou dostupné také pro Procvičování a Zkoušku,
 které nezobrazují směrové vedení ani zlaté zvýraznění. Zkouška nepovoluje
