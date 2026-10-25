@@ -151,6 +151,7 @@ func run():
 	shell.queue_free()
 	await process_frame
 	# The last menu click may still be held by the independent audio mixer.
-	await create_timer(0.08).timeout
+	# Headless simulation time can advance faster than the audio thread.
+	OS.delay_msec(80)
 	print("WORLD PLAYTHROUGH: %d checks, %d failures" % [checks,failures])
 	quit(0 if failures==0 else 1)

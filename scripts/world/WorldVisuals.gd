@@ -291,6 +291,7 @@ func screen(object):
 	var content = Display.new()
 	content.size = Vector2(viewport.size)
 	content.application = object.console
+	content.laboratory = object.laboratory
 	content.overview = object.kind=="monitor"
 	viewport.add_child(content)
 	var mesh = QuadMesh.new()

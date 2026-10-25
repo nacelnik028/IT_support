@@ -23,6 +23,7 @@ var racks: Array = []
 var workstations: Array = []
 var visuals = Visuals.new()
 var screen_time = 0.0
+var training_zone
 
 func _ready():
 	build_room()
@@ -44,6 +45,9 @@ func _ready():
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
+	training_zone = preload("res://scripts/world/TrainingZone.gd").new()
+	training_zone.player = player
+	add_child(training_zone)
 	carried_disk = Node3D.new()
 	player.camera.add_child(carried_disk)
 	carried_disk.position = Vector3(0.32,-0.3,-0.65)
@@ -320,7 +324,7 @@ func sync_state():
 	if carried_disk.visible: carried_label.text = game.sim.state.world.stock[game.sim.state.world.held].serial
 	for id in devices:
 		var object = devices[id]
-		var s = game.sim.state
+		var s = game.training_sim.state if object.laboratory else game.main_sim.state
 		match object.kind:
 			"server":
 				id = object.device_id
@@ -345,15 +349,17 @@ func sync_state():
 			"supply": object.set_status("Healthy" if s.world.devices[object.slot].power_connected else "Offline")
 	for port in port_objects:
 		var used = false
-		for d in game.sim.state.world.devices.values():
+		var port_state = game.training_sim.state if port.laboratory else game.main_sim.state
+		for d in port_state.world.devices.values():
 			if d.cable_connected and int(d.port)==int(port.slot): used = true
 		port.set_status("Healthy" if used else "Offline")
 	var lines = ["PROVOZNÍ DOHLED / ŽIVÁ DATA"]
-	for vm in game.sim.state.vms.values():
+	var main = game.main_sim.state
+	for vm in main.vms.values():
 		if vm.get("exists",false): lines.append("%s  %s  /  %s" % [vm.id,vm.name,"BĚŽÍ" if vm.status=="Running" else "VYPNUTO"])
 	var states = {"Healthy":"V POŘÁDKU","Degraded":"DEGRADOVANÉ","Failed":"SELHÁNÍ","Recovering":"OBNOVA"}
-	lines.append("RAID: %s  %d%%   /   ZFS: %s" % [states.get(game.sim.state.raid.health,game.sim.state.raid.health),game.sim.state.raid.progress,states.get(game.sim.state.zfs.health,game.sim.state.zfs.health)])
-	lines.append("POOL: %d / %d GB" % [game.sim.state.storage.used,game.sim.state.storage.capacity])
+	lines.append("RAID: %s  %d%%   /   ZFS: %s" % [states.get(main.raid.health,main.raid.health),main.raid.progress,states.get(main.zfs.health,main.zfs.health)])
+	lines.append("POOL: %d / %d GB" % [main.storage.used,main.storage.capacity])
 	monitoring.text = "\n".join(lines)
 
 func _process(delta):
@@ -363,7 +369,7 @@ func _process(delta):
 		screen_time = 0.0
 		visuals.sync(game)
 	for fan in fans:
-		if game.sim.state.hosts[fan.host].online: fan.node.rotate_z(delta*4.5)
+		if game.main_sim.state.hosts[fan.host].online: fan.node.rotate_z(delta*4.5)
 
 func _exit_tree():
 	visuals.release()

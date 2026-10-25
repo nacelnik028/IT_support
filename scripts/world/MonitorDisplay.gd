@@ -4,6 +4,7 @@ extends Control
 var game
 var application = "Proxmox"
 var overview = false
+var laboratory = false
 const INK = Color("dce9f3")
 const MUTED = Color("8197ad")
 const ACCENT = Color("58dac8")
@@ -18,7 +19,7 @@ func _draw():
 	draw_string(font,Vector2(28,37),brand,HORIZONTAL_ALIGNMENT_LEFT,-1,23,INK)
 	draw_string(font,Vector2(w-166,35),"● ŽIVÝ STAV",HORIZONTAL_ALIGNMENT_LEFT,-1,16,ACCENT)
 	if game==null or game.sim.state.is_empty(): return
-	var s = game.sim.state
+	var s = game.training_sim.state if laboratory else game.main_sim.state
 	if application=="Trénink":
 		draw_string(font,Vector2(35,120),"IT TRAINING ACADEMY",HORIZONTAL_ALIGNMENT_LEFT,-1,36,INK)
 		for i in 3:

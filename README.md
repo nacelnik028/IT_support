@@ -46,6 +46,10 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
   či zkušebního počítače vyber lekci a režim. Učím se přidá zlatý rám,
   instrukce a směr/vzdálenost k zařízení. Procvičování a Zkouška řešení
   nezvýrazňují. Laboratorní stanice používají samostatnou relaci lekce.
+  Vstup přepne režim na TRAINING a pozastaví pracovní ticket. Odchod ihned
+  zruší rozpracovanou lekci, její UI i cvičnou infrastrukturu a obnoví MAIN.
+  Totéž platí pro teleport, načtení pozice mimo centrum nebo změnu scény.
+  Dokončené výsledky, zkoušky, statistiky a kariérní XP zůstanou uložené.
 
 Původní administrátorské rozhraní zůstává dostupné na monitorech:
 
@@ -70,8 +74,10 @@ Původní administrátorské rozhraní zůstává dostupné na monitorech:
   Pokud jsi v jiné konzoli, použij **Zobrazit potřebný panel**.
 - **Procvičování** má zadání a dobrovolné nápovědy. **Zkouška** nezvýrazňuje
   řešení, nepovoluje přímou nápovědu a po dokončení rozebere chyby i doporučení.
-- Odchod do centra uloží krok i infrastrukturu. **Vrátit se k uložené kampani**
-  obnoví původní ticket a jeho konfiguraci. Režimy lekce mají vlastní uložené relace.
+- Během jedné návštěvy centra lze přepínat uložené kroky lekcí. **Vrátit se
+  k uložené kampani** opustí centrum a obnoví původní ticket i konfiguraci.
+  Odchod, návrat do menu nebo restart hry zruší dočasné výukové relace.
+  Při příštím vstupu si zvolíš novou lekci; nic se samo nespustí.
 - Náhodné procvičování nabízí oblast, obtížnost,1–20 úloh a nápovědu zapnutou/vypnutou.
   Generátor obměňuje skutečné parametry a před spuštěním ověřuje řešitelnost.
 - Restart náhodné úlohy obnoví pouze aktuální scénář. Pozice série, výsledky
@@ -103,7 +109,8 @@ a DNS `192.168.10.2`. IOMMU je pro passthrough; není podmínkou každé VM.
 
 ## Implementované systémy
 
-- Jeden sdílený model infrastruktury pro konzole, terminál, monitoring a cíle.
+- Samostatná produkční a cvičná instance infrastruktury; konzole, terminál,
+  monitoring a cíle vždy používají příslušnou instanci.
 - Proxmox: příprava a instalace, port8006, repozitáře, aktualizace, VM/CT,
   VirtIO, Guest Agent, bridge/VLAN, thin pool, PBS, test obnovy,
   ZFS mirror/resilver/scrub, omezené role/MFA/token a model HA s quorum/fencing.
@@ -166,8 +173,8 @@ se **Změny čekají na uložení** s tlačítkem **Zkusit uložit znovu**.
 Uložení a návrat do menu, odchod z lekce ani ukončení v takovém případě
 neslibují úspěch. Po opakování zápisu se uloží poslední stav celé relace.
 Výukové relace, odložená kampaň, série a historie výsledků mají oddělené datové větve.
-Undo je lokální historie aktuální tréninkové relace; po restartu programu
-zůstává uložena konfigurace, nikoli zásobník předchozích zásahů. Přechod do jiné
+Undo je lokální historie aktuální relace. Pracovní mise uchová konfiguraci i po
+restartu programu; nedokončená výuka se při odchodu nebo restartu zruší. Přechod do jiné
 mise či režimu a obnova relace undo vyčistí; prázdné undo má neaktivní tlačítko.
 
 ## Struktura
@@ -186,6 +193,8 @@ scenes/consoles/                   Samostatné konzole Proxmox/Hyper-V/storage
 scenes/results/Review.tscn         Kontextové opakování
 scenes/training/TrainingCenter.tscn Tréninkové centrum
 scripts/core/GameManager.gd        Mise, odemykání, skóre, relace
+scripts/core/GameModeManager.gd    Jediný režim MAIN/TRAINING
+scripts/world/TrainingZone.gd      Area3D, kontrola polohy a odchodu z místnosti
 scripts/simulation/               Stav, síť, RAID a oborové operace
 scripts/evaluation/               Vyhodnocení podmínek nad stavem
 scripts/progression/SaveManager.gd Atomické uložení a načtení
@@ -261,6 +270,9 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   všechny3 režimy vedení, návrat od počítače a LED konkrétních disků.
 - `door3d.gd`: opakované otevření/zavření z pevných panelů na obou stranách,
   dostupný ovladač po zasunutí křídla a bezpečnostní čidlo během zavírání.
+- `training_rooms.gd` / `TrainingRoomsMCP.tscn`: scénáře A–H, režimy místností,
+  izolace infrastruktury, reset lekce/UI, trvalé výsledky a XP, teleport,
+  načtení pozice, zánik scény a stabilita hranice dveří.
 - `visual_capture.gd` a `visual_benchmark.gd`: grafické snímky místností,
   detailů a ovladačů, měření1080p/4K bez změny hráčova nastavení.
 - `world_playthrough.gd`: kompletní servisní mise přes3D cíle a skutečné
@@ -270,7 +282,7 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - `extended.gd`:35 kontrol LXC, VSS, VHDX typů, Replica, hot spare a kvót.
 - `ui_smoke.gd`: všechny mise přes skutečné formuláře, potvrzovací dialogy
   a kontextové otázky; přechody mezi všemi hlavními obrazovkami.
-- `tutorial_first.gd`: všech9 kroků WEB01, chybná RAM, obnovení kroku i kampaně.
+- `tutorial_first.gd`: všech9 kroků WEB01, chybná RAM a bezpečný návrat ke kampani.
 - `lessons.gd`: všechny lekce v režimech Učím se / Procvičování / Zkouška.
 - `training_features.gd`: parametrizace, všechny kombinace filtrů, obnova série,
   migrace původního save a doporučení slabých oblastí.

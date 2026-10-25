@@ -1,6 +1,7 @@
 extends RefCounted
 
 signal persistence_changed
+signal room_changed(training_room: bool)
 
 const Simulator = preload("res://scripts/simulation/InfrastructureSimulator.gd")
 const Evaluator = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
@@ -13,7 +14,12 @@ var education: Dictionary={"lessons":{},"attempts":[],"sessions":{},"random":{}}
 const Profile=preload("res://scripts/training/KnowledgeProfile.gd")
 var missions: Array = []
 var actions: Array = []
-var sim = Simulator.new()
+const Modes = preload("res://scripts/core/GameModeManager.gd")
+var game_mode = Modes.new()
+var room_probe = Callable()
+var main_sim = Simulator.new()
+var training_sim = Simulator.new()
+var sim = main_sim
 var current: Dictionary = {}
 var progress: Dictionary = {"xp":0,"scores":{},"mistakes":{},"achievements":[],"last_mission":1}
 var training = false
@@ -28,6 +34,8 @@ var load_warning = ""
 var unsaved = false
 
 func _init():
+	main_sim.reset({})
+	training_sim.reset({})
 	missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
 	for definition in missions: definition.id=int(definition.id)
 	actions = JSON.parse_string(FileAccess.get_file_as_string("res://data/actions.json"))
@@ -53,12 +61,80 @@ func _init():
 			if not normalized_sessions.has(canonical) or str(key)==canonical: normalized_sessions[canonical]=data
 		education.sessions=normalized_sessions
 		suspended_campaign=saved.get("suspended_campaign",{})
-		if saved.has("session") and not saved.session.is_empty():
-			restore_session(saved.session)
+		# Temporary exercises never restart at application/scene entry. Old schema2
+		# lesson saves are accepted, but only their permanent results are retained.
+		var session = saved.get("session",{})
+		if session.get("kind","campaign") != "campaign": session = suspended_campaign
+		elif session.is_empty(): session = suspended_campaign
+		clear_training_sessions()
+		if not session.is_empty(): restore_session(session)
+		suspended_campaign = {}
+
+func reconcile_room():
+	if not room_probe.is_valid(): return
+	if room_probe.call(): enter_training()
+	else: leave_training()
+
+func training_available() -> bool:
+	reconcile_room()
+	return game_mode.is_training()
+
+func main_available() -> bool:
+	reconcile_room()
+	return not game_mode.is_training()
+
+func enter_training() -> bool:
+	if room_probe.is_valid() and not room_probe.call(): return false
+	if game_mode.is_training(): return true
+	suspend_session()
+	game_mode.switch_to(Modes.Mode.TRAINING)
+	training_sim.reset({})
+	sim = training_sim
+	active = false
+	current = {}
+	session_kind = "lesson"
+	training = true
+	finished = false
+	hints_used = 0
+	tutorial.cancel()
+	undo_states.clear()
+	session_revision += 1
+	save()
+	room_changed.emit(true)
+	return true
+
+func clear_training_sessions():
+	education.sessions.clear()
+	education.random.erase("session")
+	for key in education.lessons.keys():
+		if education.lessons[key].status == "Rozpracováno": education.lessons.erase(key)
+
+func leave_training() -> bool:
+	if not game_mode.is_training(): return false
+	game_mode.switch_to(Modes.Mode.MAIN)
+	active = false
+	current = {}
+	session_kind = "campaign"
+	training = false
+	finished = false
+	hints_used = 0
+	tutorial.cancel()
+	clear_training_sessions()
+	undo_states.clear()
+	training_sim.reset({})
+	sim = main_sim
+	session_revision += 1
+	var campaign = suspended_campaign.duplicate(true)
+	suspended_campaign = {}
+	if not campaign.is_empty(): restore_session(campaign)
+	save()
+	room_changed.emit(false)
+	return true
 
 func start_mission(index: int, practice: bool = false) -> bool:
 	# Reject IDs mistaken for indices before touching any session or save.
 	if index < 0 or index >= missions.size(): return false
+	if not main_available(): return false
 	suspend_session()
 	session_kind="campaign"
 	suspended_campaign={}
@@ -80,6 +156,7 @@ func unlocked(index: int) -> bool:
 	return index == 0 or progress.scores.has(str(index))
 
 func set_campaign_mode(practice: bool):
+	if not main_available(): return
 	if session_kind!="campaign": resume_campaign()
 	if training!=practice:
 		training=practice
@@ -88,9 +165,12 @@ func set_campaign_mode(practice: bool):
 	save()
 
 func goals() -> Array:
+	if not active: return []
 	return Evaluator.evaluate(sim.state,current.get("objectives",[]))
 
 func complete() -> Dictionary:
+	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+		return {"ok":false,"text":"Úkol není aktivní v této místnosti."}
 	for goal in goals():
 		if not goal.passed: return {"ok":false,"text":"Požadovaný stav není splněn: " + goal.label}
 	if finished: return {"ok":false,"text":"Ticket je již uzavřený. Misi lze zopakovat."}
@@ -121,6 +201,8 @@ func complete() -> Dictionary:
 	return {"ok":true,"score":score,"text":current.explanations,"saved":error==OK,"save_error":error}
 
 func apply(action: String, params: Dictionary) -> Dictionary:
+	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+		return {"ok":false,"text":"V této místnosti není aktivní odpovídající úkol.","saved":not unsaved,"save_error":last_save_error}
 	if training:
 		undo_states.append(sim.state.duplicate(true))
 		if undo_states.size()>20: undo_states.pop_front()
@@ -179,6 +261,9 @@ func snapshot() -> Dictionary:
 func restore_session(data: Dictionary) -> bool:
 	# Startup has no active source; live restores always preserve it first.
 	if not Saves.valid_session(data) or data.is_empty(): return false
+	if data.get("kind","campaign") != "campaign":
+		if not training_available(): return false
+	elif not main_available(): return false
 	suspend_session()
 	var kind=data.get("kind","campaign")
 	var index=int(data.get("id",1))-1
@@ -213,6 +298,7 @@ func suspend_session():
 		"random": education.random.session=snapshot()
 
 func resume_random() -> bool:
+	if not training_available(): return false
 	var data=education.random.get("session",{}).duplicate(true)
 	if data.is_empty() or not Saves.valid_session(data): return false
 	suspend_session()
@@ -239,11 +325,13 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 	for l in tutorial.lessons:
 		if int(l.id)==id: definition=l; break
 	if definition.is_empty(): return false
+	if not training_available(): return false
 	suspend_session()
 	var cached=education.sessions.get(str(id)+":"+mode,education.sessions.get(str(id),{}))
 	if resume and not cached.is_empty() and not cached.get("finished",false) and cached.get("tutorial",{}).get("mode","")==mode:
 		restore_session(cached)
 	else:
+		var player_pose = sim.state.world.player.duplicate(true)
 		session_kind="lesson"
 		current=definition.duplicate(true)
 		training=mode!="exam"
@@ -253,12 +341,16 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 		undo_states.clear()
 		session_revision += 1
 		sim.reset(current.initial_state)
+		sim.state.world.player = player_pose
 		tutorial.start(definition,mode)
 		education.lessons[str(id)]=education.lessons.get(str(id),{"status":"Rozpracováno","best":0})
 	save()
 	return true
 
 func resume_campaign():
+	if game_mode.is_training():
+		if room_probe.is_valid() and room_probe.call(): return
+		leave_training()
 	# Returning while already in the campaign must never restart it.
 	if active and session_kind=="campaign": return
 	suspend_session()
@@ -270,19 +362,21 @@ func resume_campaign():
 	save()
 
 func notify_event(event: Dictionary) -> bool:
-	if session_kind!="lesson": return false
+	if not active or session_kind!="lesson" or not training_available(): return false
 	if event.get("type","")=="node_selected": sim.state.diagnostic.viewed=true
 	var advanced=tutorial.observe(sim.state,event)
 	save()
 	return advanced
 
 func lesson_hint() -> String:
+	if not active or session_kind!="lesson" or not training_available(): return ""
 	var text=tutorial.hint()
 	hints_used=int(tutorial.session.get("hints",0))
 	save()
 	return text
 
 func start_random(area: String,difficulty: String,count: int,hints_allowed: bool,seed_value: int=0) -> bool:
+	if not training_available(): return false
 	var generator=preload("res://scripts/training/PracticeGenerator.gd").new()
 	var queue=generator.generate(area,difficulty,count,seed_value)
 	if queue.size()!=clampi(count,1,20): return false
@@ -292,6 +386,7 @@ func start_random(area: String,difficulty: String,count: int,hints_allowed: bool
 	return true
 
 func load_random_task() -> bool:
+	if not training_available(): return false
 	var batch=education.random
 	if not batch.get("queue") is Array or not Saves.Validator.integer(batch.get("position"),0): return false
 	if batch.position < 0 or batch.position >= batch.queue.size(): return false
@@ -306,7 +401,9 @@ func load_random_task() -> bool:
 	hints_used=0
 	undo_states.clear()
 	session_revision += 1
+	var player_pose = sim.state.world.player.duplicate(true)
 	sim.reset(current.initial_state)
+	sim.state.world.player = player_pose
 	save()
 	return true
 

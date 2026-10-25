@@ -75,6 +75,7 @@ func _init():
 	for mode in ["learn","practice","exam"]:
 		game.start_mission(3,true)
 		game.apply("physical_cable",{"device":"PVE-01","connected":false,"port":1})
+		game.enter_training()
 		game.start_lesson(1002,mode,false)
 		check(game.sim.state.world.devices["PVE-01"].cable_connected,"Lekce má vlastní fyzickou infrastrukturu: "+mode)
 		game.resume_campaign()

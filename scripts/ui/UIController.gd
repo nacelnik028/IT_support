@@ -407,6 +407,7 @@ func navigate(target: String):
 	if world_enabled and target in ["Serverovna","Trénink"]:
 		world_requested.emit(target)
 		return
+	if not world_enabled and target == "Trénink": game.enter_training()
 	page=target
 	tab=""
 	notice=""
@@ -474,6 +475,10 @@ func draw_ticket(parent: Node):
 
 func draw_tickets():
 	var v = scroll(center)
+	if game.game_mode.is_training():
+		v.add_child(label("Pracovní mise jsou během návštěvy tréninkového centra pozastavené.",20,CYAN))
+		v.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
+		return
 	var mode = hbox(v)
 	mode.add_child(button("Kampaň",func(): game.set_campaign_mode(false); draw_ui(),not game.training))
 	mode.add_child(button("Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
@@ -812,6 +817,28 @@ func begin_lesson(id: int,mode: String,resume: bool=true):
 		notice=""
 		draw_ui()
 		if world_enabled: lesson_launched.emit()
+	else:
+		show_message("Lekci nelze spustit","Nejprve vstup do tréninkového centra.")
+
+func cancel_training_ui():
+	if is_instance_valid(tutorial_overlay):
+		tutorial_overlay.hide()
+		tutorial_overlay.queue_free()
+		tutorial_overlay = null
+	for child in get_children():
+		if child is Window:
+			child.hide()
+			child.queue_free()
+	form_drafts.clear()
+	selected_vm = ""
+	notice = ""
+	full_notice = ""
+	terminal_history = "DATACENTER ACADEMY • bezpečný simulovaný terminál\n"
+
+func return_to_campaign():
+	if world_enabled: world_requested.emit("Hlavní serverovna")
+	game.resume_campaign()
+	navigate("Serverovna")
 
 func draw_training_center():
 	var container=preload("res://scenes/training/TrainingCenter.tscn").instantiate()
@@ -819,12 +846,16 @@ func draw_training_center():
 	center.add_child(container)
 	var v=scroll(container)
 	var hero=card(v,"Tréninkové centrum","Senior administrátor / praktická laboratoř")
-	hero.add_child(label("Vyber lekci a způsob učení. Používáš stejné konzole i skutečný stav jako v kampani.",15,MUTED))
+	hero.add_child(label("Vyber lekci a způsob učení. Cvičné servery používají vlastní izolovanou infrastrukturu. Odchod z místnosti zruší rozpracované cvičení.",15,MUTED))
 	var tabs=hbox(hero,8)
 	for item in [["lessons","Lekce"],["random","Náhodné procvičování"],["profile","Moje IT znalosti"],["glossary","IT slovník"]]:
 		tabs.add_child(button(item[1],func(): training_view=item[0]; draw_ui(),training_view==item[0]))
-	hero.add_child(button("Vrátit se k uložené kampani",func(): game.resume_campaign(); navigate("Serverovna")))
-	if game.session_kind=="lesson" and not game.finished:
+	hero.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
+	if not game.game_mode.is_training():
+		hero.add_child(label("Lekce jsou dostupné pouze uvnitř tréninkového centra.",16,ORANGE))
+		if world_enabled: hero.add_child(button("Vstoupit do tréninkového centra",func(): world_requested.emit("Trénink")))
+		return
+	if game.active and game.session_kind=="lesson" and not game.finished:
 		hero.add_child(button("Pokračovat: "+game.current.title,func():
 			page=game.tutorial.session.get("page",game.current.category)
 			if page in ["menu","Trénink"]: page=game.tutorial.current_step().get("page",game.current.category) if game.tutorial.guided() else game.current.category
@@ -943,7 +974,7 @@ func draw_lesson_panel(parent: Node):
 	c.add_child(button("Restartovat lekci",func(): begin_lesson(int(game.current.id),t.session.mode,false)))
 	c.add_child(button("Uložit a opustit lekci",func():
 		if game.save()==OK: navigate("Trénink")))
-	c.add_child(label("Krok i konfigurace se ukládají samostatně. Kampaň zůstává odložená.",11,MUTED))
+	c.add_child(label("Kampaň je pozastavená. Odchod z tréninkové místnosti zruší rozpracovanou lekci; dokončené výsledky zůstanou uložené.",11,MUTED))
 
 func focus_tutorial():
 	var expected_root=root_box
@@ -1177,6 +1208,13 @@ func create_sound():
 
 func play_click():
 	if sound_on: player.play()
+
+func _exit_tree():
+	# Scene replacement must release the sound as explicitly as Quit does.
+	if is_instance_valid(player):
+		player.stop()
+		player.stream = null
+	click_sound = null
 
 func capture_later():
 	await get_tree().process_frame

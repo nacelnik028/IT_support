@@ -105,6 +105,7 @@ func _init():
 		for operation in solutions[i]:
 			result=game.apply(operation[0],operation[1])
 			check(result.ok and result.saved,"Uložení mise %d po %s: %s" % [i+1,operation[0],game.save_message])
+	game.enter_training()
 	game.start_random("Sítě","Začátečník",2,true,91)
 	var payload=Saves.load_game()
 	for position in [-1,2,0.5]:
@@ -128,7 +129,7 @@ func _init():
 	payload.education.lessons={"1002.0":{"status":"Rozpracováno","best":0}}
 	write_raw(JSON.stringify(payload))
 	game=Game.new()
-	check(game.active and game.education.sessions.has("1002:learn") and game.education.lessons.has("1002"),"Staré desetinné klíče lekcí jsou přijaty a normalizovány")
+	check(game.active and game.session_kind=="campaign" and game.education.sessions.is_empty() and not game.tutorial.active(),"Staré desetinné klíče jsou přijaty; dočasná lekce se při načtení zruší")
 	check(game.save()==OK,"Normalizované schema2 lze znovu uložit")
 	print("SAVE SAFETY: %d checks, %d failures" % [checks,failures])
 	quit(0 if failures==0 else 1)

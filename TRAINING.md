@@ -1,7 +1,8 @@
 # Tréninkové centrum — ovládání a rozšíření
 
-Centrum používá stejný InfrastructureSimulator, konzole, formuláře, terminál,
-síť, storage a hodnocení jako kampaň. Neobsahuje samostatné makety administrace.
+Centrum používá vlastní instanci InfrastructureSimulator se stejnými konzolemi,
+formuláři, terminálem, sítí, storage a hodnocením jako kampaň. Jeho změny nemění
+hlavní infrastrukturu. Fyzické racky, LED a monitory čtou stav příslušné místnosti.
 
 ## IT Training Academy ve3D
 
@@ -10,7 +11,9 @@ panel z obou stran přes E otevírá i zavírá; po zasunutí křídla zůstáv�
 Stejné místo otevírá hlavní menu i pauza. Katalog21 původních lekcí najdeš
 u virtuálního instruktora a zkušebního počítače. Výběr lekce vytvoří nebo obnoví
 oddělenou relaci, včetně fyzických zařízení, disků a inventáře. Návštěva
-akademie sama nemění rozehranou kampaň.
+akademie pozastaví rozehranou kampaň a přepne jediný režim z MAIN na TRAINING.
+Lekci ani náhodnou sérii nelze spustit mimo centrum; produkční zařízení jsou
+během tréninku nepřístupná. V centru zvol lekci u instruktora nebo zkušebního PC.
 
 V režimu Učím se instruktor nejdříve ukáže cvičný server; směr a vzdálenost
 počítá podle skutečné pozice hráče. Příchod se potvrdí až v dosahu zařízení.
@@ -36,9 +39,17 @@ Učení samo o sobě neuděluje stav „Zvládnuto bez nápovědy“. Ten vyžad
 samostatné procvičování nebo zkoušku bez nápovědy a chyb, alespoň90 bodů.
 Nejlepší výsledek se neztratí při zopakování lekce.
 
-Při odchodu použij Uložit a opustit lekci. Můžeš ji otevřít znovu ve stejném
-režimu; obnoví se krok i potvrzená konfigurace. Restart je výslovné vrácení
-laboratoře do počáteční situace. Dosavadní výsledky i kampaň zůstávají zachované.
+Při fyzickém odchodu se lekce okamžitě ruší: kroky, šipky, zvýraznění, formuláře,
+inventář, dočasné závady i cvičná infrastruktura se vyčistí. Obnoví se MAIN a
+odložený pracovní ticket. Stejnou ochranu používá teleport, načtení pozice mimo
+oblast, návrat do menu a zánik scény. Nová návštěva nezačne předchozí lekci.
+Dokončené lekce, zkoušky, statistiky, nejlepší skóre a kariérní XP zůstanou.
+
+Tlačítko Uložit a opustit lekci otevírá výběr lekcí uvnitř stejné místnosti.
+Pouze během této návštěvy lze obnovit rozpracovaný krok. Restart hry začíná
+bez dočasné lekce. Trvalé výsledky jsou v `education.lessons` a `education.attempts`,
+dočasné kroky v `session` a `education.sessions`; odchod tyto kroky odstraní.
+Série uchovává výsledky, její rozpracovaný scénář se po odchodu neobnovuje.
 
 ## Lekce
 
@@ -140,10 +151,10 @@ dočasného souboru. Původní schema1 je před první změnou zálohované.
 - `session`: právě otevřená konfigurace; typ campaign/lesson/random.
 - `session.tutorial`: krok, režim a výuková metadata oddělená od `state`.
 - `suspended_campaign`: původní rozehraná kampaň.
-- `education.sessions`: uložené lekce podle ID a režimu.
+- `education.sessions`: dočasné lekce podle ID a režimu, pouze do opuštění místnosti.
 - `education.lessons`: nejlepší výsledky a stav zvládnutí.
 - `education.attempts`: posledních200 dokončených pokusů a zkoušek.
-- `education.random`: fronta a rozehraný stav série.
+- `education.random`: fronta a trvalé výsledky série; dočasný `session` se při odchodu odstraní.
 
 ID jsou interně normalizovaná na celá čísla. Staré klíče skóre jako`1.0`
 se sjednotí s`1` při zachování nejlepšího výsledku. Importovaná skóre pomáhají

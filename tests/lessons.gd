@@ -11,6 +11,7 @@ func check(ok,message):
 func _init():
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_lessons.json"
 	var game=Game.new()
+	game.enter_training()
 	var solutions=JSON.parse_string(FileAccess.get_file_as_string("res://tests/lesson_solutions.json"))
 	check(game.tutorial.lessons.size()>=18,"Alespoň18 lekcí")
 	for mode in ["learn","practice","exam"]:

@@ -41,6 +41,7 @@ func run():
 	await process_frame
 	ui.game.start_mission(3,true)
 	ui.game.sim.state.vms["100"].vlan=39
+	ui.game.enter_training()
 	ui.game.start_random("Sítě","Začátečník",2,true,91)
 	for operation in ui.game.current.reference: ui.game.apply(operation[0],operation[1])
 	ui.game.complete(); ui.game.next_random()
@@ -58,10 +59,15 @@ func run():
 	ui.game.save()
 	ui.training_view="random"
 	ui.navigate("Trénink")
+	check(find_button(ui,"Obnovit uloženou sérii")==null,"Po odchodu se stará série nenabízí k pokračování")
+	ui.game.start_random("Sítě","Začátečník",2,true,91)
+	ui.begin_lesson(1002,"practice",false)
+	ui.navigate("Trénink")
 	find_button(ui,"Obnovit uloženou sérii").pressed.emit()
 	await process_frame
 	ui.game.resume_campaign()
 	check(ui.game.sim.state.vms["100"].vlan==41,"Skutečné tlačítko obnovy série odložilo nejnovější kampaň")
+	ui.game.enter_training()
 	ui.begin_lesson(1002,"learn",false)
 	ui.game.notify_event({"type":"server_selected","host":"PVE-01"})
 	ui.game.notify_event({"type":"node_selected","host":"PVE-01"})

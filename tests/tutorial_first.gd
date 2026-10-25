@@ -18,6 +18,7 @@ func run():
 	ui.game.start_mission(3,false)
 	ui.game.sim.state.vms["100"].vlan=31
 	ui.game.save()
+	ui.game.enter_training()
 	ui.begin_lesson(1002,"learn",false)
 	await process_frame
 	await process_frame
@@ -38,7 +39,7 @@ func run():
 	await submit("vm_identity",{"id":"101","name":"WEB01"})
 	check(ui.game.tutorial.session.step==4 and ui.game.sim.state.vms["101"].name=="WEB01","Identita uložena do stavu")
 	var resumed=Game.new()
-	check(resumed.session_kind=="lesson" and resumed.tutorial.session.step==4 and resumed.sim.state.vms["101"].name=="WEB01","Načtení kroku i konfigurace")
+	check(resumed.session_kind=="campaign" and not resumed.tutorial.active() and resumed.sim.state.vms["100"].vlan==31,"Restart bezpečně obnoví hlavní místnost bez rozpracované lekce")
 	await submit("vm_media",{"vm":"101","iso":"debian.iso"})
 	await submit("vm_resources",{"vm":"101","cpu":2,"ram_mib":2048})
 	check(ui.game.tutorial.session.step==5 and ui.game.sim.state.vms["101"].ram==2,"Kliknutí s chybnou RAM nepostoupí")
@@ -61,6 +62,7 @@ func run():
 	check(ui.game.education.lessons["1002"].status=="Dokončeno","Vedená lekce označena správně")
 	ui.game.resume_campaign()
 	check(ui.game.current.id==4 and ui.game.sim.state.vms["100"].vlan==31,"Kampaň i rozpracovaná konfigurace zůstaly zachované")
+	ui.game.enter_training()
 	ui.begin_lesson(1002,"exam",false)
 	check(not ui.game.tutorial.guided(),"Zkouška bez vedení")
 	ui.game.lesson_hint()

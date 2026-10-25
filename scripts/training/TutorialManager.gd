@@ -6,6 +6,11 @@ var lesson: Dictionary={}
 var session: Dictionary={}
 var last_feedback=""
 
+func cancel():
+	lesson = {}
+	session = {}
+	last_feedback = ""
+
 func _init():
 	if FileAccess.file_exists("res://data/training/lessons.json"):
 		lessons=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/lessons.json"))

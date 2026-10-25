@@ -1,5 +1,32 @@
 # Ověření rozšířené hratelné verze
 
+## Oddělení místností — 25.10.2026
+
+Nová sada `tests/training_rooms.gd` a scéna `tests/TrainingRoomsMCP.tscn`
+ověřují stejné skutečné 3D prostředí.68 kontrol A–H prošlo headless,
+graficky přes Godot MCP (Forward+/RTX5060, `errors=[]`) i ve Windows EXE+PCK.
+Všechny testy používají vlastní `SaveManager.path_override` a config.
+
+| Test | Ověření |
+|---|---|
+| A | Skutečná chůze dveřmi → TRAINING, pozastavená kampaň, funkční všechny3 režimy |
+| B | Chůze zpět → MAIN, zrušená lekce, UI, šipky, kroky, dialogy a sandbox |
+| C | Návrat do centra nabízí nový výběr bez automatického obnovení |
+| D | Dokončená zkouška, nejlepší výsledek, statistiky a dříve získané kariérní XP přetrvají po načtení |
+| E | Fyzické vytažení cvičného disku nemění produkční stav ani jeho LED |
+| F | Start lekce/série a obnova tréninkové relace v MAIN jsou odmítnuté |
+| G | Teleport před dalším fyzikálním snímkem, načtení vnější pozice, menu a zánik scény ukončí trénink |
+| H | Opakované přechody i kolísání u dveří; právě jeden přechod na průchod |
+
+Obnovená pracovní mise přijme produkční zásahy, dokončí se a udělí další XP.
+Vizuálně prohlédnuty `test-output/training-room-{entry,lesson,exit}.png`.
+Windows balíček: `test-output/training-package.log`,68 kontrol, exit0.
+Původní obsah katalogů a legacy24 se neměnil. Všech18 sad Test-All PASS, exit0,
+bez runtime chyb/varování:65 misí v modelu i UI,21×3 lekcí/1075 kontrol,
+336 výukových UI akcí,474 kontrol save a68 nastavení. Poslední kontrola přímé
+obnovy po teleportu doplňuje souhrnný běh samostatným headless/MCP ověřením.
+Podrobnosti jsou v PROGRESS.md a `test-output/training-test-all.log`.
+
 Datum: 24.10.2026. Engine: Godot4.7.2.stable.official.ed1daf0bf, Windows x86_64.
 
 ## Dveře a výrazné vylepšení vizuálu

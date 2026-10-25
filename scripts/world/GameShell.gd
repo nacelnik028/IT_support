@@ -21,6 +21,9 @@ var direction: Label
 var reticle: Control
 var context_plate: Panel
 var instruction_plate: Panel
+var room_notice: Label
+var notice_time = 0.0
+var leaving_scene = false
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -41,7 +44,7 @@ func _ready():
 	world.game = ui.game
 	world.player.sensitivity = ui.display_settings.mouse_sensitivity
 	ui.world_requested.connect(enter_world)
-	ui.lesson_launched.connect(func(): enter_world("Trénink"))
+	ui.lesson_launched.connect(func(): enter_world())
 	world.player.interaction_requested.connect(interact)
 	world.player.focus_changed.connect(func(target):
 		if is_instance_valid(prompt): prompt.text = "Stiskni E pro interakci\n"+target.caption if is_instance_valid(target) else ""
@@ -105,7 +108,18 @@ func _ready():
 	chrome.add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.theme = ui.theme
+	room_notice = ui.label("",19)
+	chrome.add_child(room_notice)
+	room_notice.position = Vector2(300,595)
+	room_notice.size = Vector2(1000,125)
+	room_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	room_notice.add_theme_stylebox_override("normal",ui.box(Color(0.02,0.05,0.08,0.95),ui.CYAN,8))
+	room_notice.hide()
+	world.training_zone.game = ui.game
+	ui.game.room_probe = world.training_zone.contains_player
+	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
+	ui.game.reconcile_room()
 
 func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 	var plate = Panel.new()
@@ -117,6 +131,9 @@ func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 	return plate
 
 func _process(delta):
+	ui.game.reconcile_room()
+	notice_time = maxf(0.0,notice_time-delta)
+	room_notice.visible = notice_time>0.0
 	chrome.scale = get_viewport().get_visible_rect().size/Vector2(1600,900)
 	if mode == "app" and ui.page == "menu": set_mode("menu")
 	update_time += delta
@@ -124,18 +141,24 @@ func _process(delta):
 	if update_time > 0.25:
 		update_time = 0.0
 		world.sync_state()
+		status_label.text = "Tréninkové centrum – vyber si lekci" if ui.game.game_mode.is_training() else "SERVEROVNA 01"
 		if ui.game.active:
-			status_label.text = ("IT TRAINING ACADEMY" if world.player.position.x>9 else "SERVEROVNA 01")+"\n"+ui.game.current.title
+			status_label.text += "\n"+ui.game.current.title
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
 			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
-			update_guidance()
-			instruction_plate.visible = instruction.text!=""
+		update_guidance()
+		instruction_plate.visible = instruction.text!=""
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
 
 func set_mode(value: String):
+	if value == "menu" and ui.game.game_mode.is_training():
+		world.player.position = Vector3(7,0.02,3.5)
+		ui.game.reconcile_room()
+		ui.page = "menu"
+		ui.draw_ui()
 	if mode=="world" and value!="world": store_pose()
 	mode = value
 	update_time = 1.0
@@ -147,7 +170,11 @@ func set_mode(value: String):
 	world.player.set_enabled(value == "world")
 
 func enter_world(destination: String = "Serverovna"):
-	if not ui.game.active: ui.game.start_mission(0)
+	if destination == "Hlavní serverovna":
+		world.player.position = Vector3(7,0.02,3.5)
+		world.player.velocity = Vector3.ZERO
+		ui.game.reconcile_room()
+	if not ui.game.active and not ui.game.game_mode.is_training(): ui.game.start_mission(0)
 	if pose_revision != ui.game.session_revision:
 		var pose = ui.game.sim.state.world.player
 		world.player.position = Vector3(pose.x,0.02,pose.z)
@@ -159,6 +186,8 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.position = Vector3(15,0.02,5.5)
 		world.player.rotation.y = 0
 		world.player.camera.rotation.x = 0
+	ui.game.reconcile_room()
+	pose_revision = ui.game.session_revision
 	if ui.game.session_kind!="lesson":
 		for object in world.devices.values(): object.set_guided(false)
 	world.sync_state()
@@ -171,6 +200,7 @@ func return_to_world():
 	if pose_revision != ui.game.session_revision: enter_world()
 
 func store_pose():
+	ui.game.reconcile_room()
 	if not ui.game.active or pose_revision != ui.game.session_revision: return
 	var p = world.player
 	ui.game.sim.state.world.player = {"x":p.position.x,"z":p.position.z,"yaw":p.rotation.y,"pitch":p.camera.rotation.x}
@@ -203,8 +233,13 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 	return v
 
 func interact(object):
+	ui.game.reconcile_room()
+	if object.kind != "door":
+		var in_training = ui.game.game_mode.is_training()
+		var training_object = object.laboratory or object.kind == "instructor" or object.device_id == "EXAM-PC"
+		if in_training != training_object: return
 	selected = object
-	if object.laboratory and not ui.game.session_kind in ["lesson","random"]:
+	if object.laboratory and (not ui.game.active or not ui.game.session_kind in ["lesson","random"]):
 		open_app("Trénink")
 		return
 	match object.kind:
@@ -265,7 +300,7 @@ func show_device(object):
 		v.add_child(ui.label("Disky — konkrétní sloty a sériová čísla",20,ui.CYAN))
 		var row = ui.hbox(v)
 		for slot in disks:
-			var disk_object = world.devices[pool+":"+slot]
+			var disk_object = world.devices[("TRAIN-" if object.laboratory else "")+pool+":"+slot]
 			row.add_child(ui.button("%s / %s\n%s" % [slot,disks[slot].serial,health_text(disks[slot].health)],func(): show_disk(disk_object)))
 	v.add_child(ui.button("Diagnostika a logy",func():
 		var result = ui.game.apply("inspect",{"scope":"Events"})
@@ -393,6 +428,10 @@ func pause_menu():
 		else: v.add_child(ui.label(ui.game.save_message,16,ui.ORANGE))))
 
 func show_tasks():
+	ui.game.reconcile_room()
+	if not ui.game.active:
+		open_app("Trénink")
+		return
 	set_mode("tasks")
 	var v = panel(ui.game.current.title,ui.game.current.description)
 	for goal in ui.game.goals(): v.add_child(ui.label(("✓ " if goal.passed else "○ ")+goal.label,18,ui.CYAN if goal.passed else ui.WHITE))
@@ -423,7 +462,7 @@ func update_guidance():
 	instruction.text = ""
 	direction.text = ""
 	var game = ui.game
-	if game.session_kind!="lesson": return
+	if not game.game_mode.is_training() or not game.active or game.session_kind!="lesson": return
 	var t = game.tutorial
 	if not t.guided():
 		instruction.text = ("ZKOUŠKA" if t.session.mode=="exam" else "PROCVIČOVÁNÍ")+"\n"+game.current.description
@@ -449,3 +488,33 @@ func update_guidance():
 	var arrow = "↑ Před tebou" if absf(angle)<0.35 else ("→ Vpravo" if angle>0 else "← Vlevo")
 	if absf(angle)>2.4: arrow = "↓ Za tebou"
 	direction.text = "%s  /  %.1f m\n%s" % [arrow,offset.length(),target.caption]
+
+func on_room_changed(training_room: bool):
+	if leaving_scene: return
+	pose_revision = ui.game.session_revision
+	if training_room:
+		var p = world.player
+		ui.game.training_sim.state.world.player = {"x":p.position.x,"z":p.position.z,"yaw":p.rotation.y,"pitch":p.camera.rotation.x}
+	pending_cable = ""
+	selected = null
+	message = ""
+	ui.cancel_training_ui()
+	for child in overlay.get_children():
+		overlay.remove_child(child)
+		child.queue_free()
+	update_guidance()
+	instruction_plate.hide()
+	world.player.update_focus(null)
+	world.sync_state()
+	if mode != "menu": set_mode("world")
+	ui.page = "Trénink" if training_room else "Serverovna"
+	ui.draw_ui()
+	room_notice.text = "Vstoupil jsi do tréninkového centra.\nZde můžeš bezpečně procvičovat správu serverů bez ovlivnění hlavní infrastruktury.\nTréninkové centrum – vyber si lekci" if training_room else "Trénink ukončen.\nVrátil ses do hlavní serverovny. Rozpracované cvičení bylo zrušeno."
+	notice_time = 6.0
+	room_notice.show()
+
+func _exit_tree():
+	leaving_scene = true
+	if is_instance_valid(ui):
+		ui.game.room_probe = Callable()
+		ui.game.leave_training()

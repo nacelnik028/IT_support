@@ -83,7 +83,7 @@ func run():
 	check(p.position.x>9.3,"Do akademie lze fyzicky dojít bez teleportu")
 	shell.ui.game.sim.state.world.identified["RAID:2"] = true
 	shell.world.sync_state()
-	check(shell.world.devices["RAID:2"].outline.visible,"Ruční identifikace zapne fyzickou značku slotu")
+	check(shell.world.devices["TRAIN-RAID:2"].outline.visible and not shell.world.devices["RAID:2"].outline.visible,"Ruční identifikace patří pouze cvičnému slotu")
 	for lesson_mode in ["learn","practice","exam"]:
 		shell.ui.begin_lesson(1002,lesson_mode,false)
 		shell.world.sync_state()
@@ -106,6 +106,7 @@ func run():
 			check(shell.ui.game.tutorial.guided() and not p.enabled,"Průvodce pokračuje do původního administračního UI")
 			shell.return_to_world()
 	# Direct disk targeting and LEDs use the same simulator that the UI uses.
+	shell.enter_world("Hlavní serverovna")
 	shell.ui.game.start_mission(0,true)
 	shell.ui.game.sim.reset({"disks":{"2":{"health":"Failed"}},"raid":{"health":"Degraded"}})
 	shell.enter_world()

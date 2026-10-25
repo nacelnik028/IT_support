@@ -78,6 +78,7 @@ func run():
 	check(not ui.display_settings.fullscreen,"F11 vypne celou obrazovku")
 	if DisplayServer.get_name()!="headless": check(root.mode==Window.MODE_WINDOWED,"Skutečný návrat do okna")
 	# Tutorial highlight must follow scaled controls at 4K, not double its coordinates.
+	ui.game.enter_training()
 	ui.begin_lesson(1002,"learn",false)
 	ui.game.notify_event({"type":"server_selected","host":"PVE-01"})
 	ui.game.notify_event({"type":"node_selected","host":"PVE-01"})
