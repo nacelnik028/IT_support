@@ -23,7 +23,8 @@ func _draw():
 		ancestor=ancestor.get_parent()
 	if not rect.has_area(): return
 	rect=get_global_transform().affine_inverse()*rect
-	var color=Color(0.25,1.0,0.84,0.65+sin(time*4.0)*0.25)
+	var color=preload("res://scripts/ui/AcademyTheme.gd").GOLD
+	color.a=0.8+sin(time*2.0)*0.12
 	draw_rect(rect.grow(3),color,false,3)
 	var point=Vector2(rect.position.x+minf(rect.size.x*0.5,120),rect.position.y-5)
 	draw_colored_polygon(PackedVector2Array([point,point+Vector2(-9,-13),point+Vector2(9,-13)]),color)

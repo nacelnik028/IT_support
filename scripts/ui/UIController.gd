@@ -11,6 +11,8 @@ const Racks = preload("res://scripts/ui/RackView.gd")
 const Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 const Display=preload("res://scripts/core/DisplaySettings.gd")
 const Icons=preload("res://scripts/ui/VectorIcons.gd")
+const Design=preload("res://scripts/ui/AcademyTheme.gd")
+const Components=preload("res://scripts/ui/UIComponents.gd")
 var display_settings=Display.new()
 var manage_display=true
 var settings_controls: Dictionary={}
@@ -74,12 +76,13 @@ var notice_kind = "success"
 var last_action = ""
 var tutorial_reveal_frames = 0
 
-const CYAN = Color("3ddbc6")
-const MUTED = Color("8c9eb5")
-const WHITE = Color("e5edf7")
-const ORANGE = Color("ffb65c")
+const CYAN = Design.ACCENT
+const MUTED = Design.MUTED
+const WHITE = Design.TEXT
+const ORANGE = Design.GOLD
 
 func _ready():
+	resized.connect(queue_redraw)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	# Rasterize glyphs and DPITexture icons at their displayed pixel size.
 	# Scaling the Control alone otherwise magnifies the original small atlas.
@@ -100,46 +103,21 @@ func _ready():
 	draw_ui()
 	if "--capture" in OS.get_cmdline_user_args(): capture_later()
 
-func make_theme() -> Theme:
-	var t = Theme.new()
-	t.default_font_size = roundi(15*display_settings.text_scale)
-	t.set_color("font_color","Label",WHITE)
-	t.set_color("font_color","Button",WHITE)
-	t.set_color("font_hover_color","Button",CYAN)
-	for type in ["Button","OptionButton"]:
-		t.set_stylebox("normal",type,box(Color("17273c"),Color("293c54"),7))
-		t.set_stylebox("hover",type,box(Color("203a50"),CYAN,7))
-		t.set_stylebox("pressed",type,box(Color("19483f"),CYAN,7))
-		t.set_stylebox("focus",type,box(Color(0,0,0,0),CYAN,7))
-		t.set_stylebox("disabled",type,box(Color("101b2c"),Color("1c293d"),7))
-	t.set_stylebox("normal","LineEdit",box(Color("091522"),Color("2a4057"),6))
-	t.set_stylebox("focus","LineEdit",box(Color("11263a"),CYAN,6))
-	t.set_color("font_color","LineEdit",WHITE)
-	t.set_color("font_color","OptionButton",WHITE)
-	t.set_stylebox("panel","PopupMenu",box(Color("152539"),Color("35516b"),6))
-	t.set_stylebox("panel","AcceptDialog",box(Color("132338"),CYAN,10))
-	t.set_stylebox("background","ProgressBar",box(Color("213147"),Color(0,0,0,0),4))
-	t.set_stylebox("fill","ProgressBar",box(CYAN,Color(0,0,0,0),4))
-	Icons.apply(t)
-	return t
+func _draw():
+	draw_rect(Rect2(Vector2.ZERO,size),Design.BACKGROUND)
 
-func box(bg: Color, border = Color("23364d"), radius = 10) -> StyleBoxFlat:
-	var b = StyleBoxFlat.new()
-	b.bg_color = bg
-	b.border_color = border
-	b.set_border_width_all(1)
-	b.set_corner_radius_all(radius)
-	b.content_margin_left = 14
-	b.content_margin_right = 14
-	b.content_margin_top = 10
-	b.content_margin_bottom = 10
-	return b
+func make_theme() -> Theme:
+	return Design.build(display_settings.text_scale)
+
+func box(bg: Color, border = Design.BORDER, radius = 8) -> StyleBoxFlat:
+	return Design.surface(bg,border,radius)
 
 func label(text: String, size_px = 15, color = WHITE) -> Label:
 	var l = Label.new()
 	l.text = text
 	l.set_meta("base_font_size",size_px)
 	l.add_theme_font_size_override("font_size",roundi(size_px*display_settings.text_scale))
+	if size_px>=18: l.add_theme_font_override("font",Design.heading_font())
 	l.add_theme_color_override("font_color",color)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -152,8 +130,7 @@ func button(text: String, action: Callable, primary = false) -> Button:
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.pressed.connect(func(): play_click(); action.call())
 	if primary:
-		b.add_theme_stylebox_override("normal",box(Color("194d4a"),Color("2ea594"),7))
-		b.add_theme_color_override("font_color",Color("8af6df"))
+		b.theme_type_variation="PrimaryButton"
 	return b
 
 func vbox(parent: Node, separation = 12) -> VBoxContainer:
@@ -170,7 +147,7 @@ func hbox(parent: Node, separation = 12) -> HBoxContainer:
 
 func card(parent: Node, title = "", subtitle = "") -> VBoxContainer:
 	var panel = PanelContainer.new()
-	panel.add_theme_stylebox_override("panel",box(Color("101e30")))
+	panel.add_theme_stylebox_override("panel",box(Design.PANEL))
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	parent.add_child(panel)
 	var v = vbox(panel)
@@ -247,12 +224,12 @@ func draw_ui():
 	clear_ui()
 	if page == "menu": draw_menu(); working_context.restore(self); return
 	if page == "Nastavení": draw_settings(); working_context.restore(self); return
-	var whole = vbox(content_box,16)
+	var whole = vbox(content_box,12)
 	whole.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var top = hbox(whole)
 	var brand = vbox(top,2)
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	brand.add_child(label("◈  DATACENTER ACADEMY",21,CYAN))
+	brand.add_child(label("DATACENTER / ACADEMY",20,WHITE))
 	brand.add_child(label("NORTHSTAR IT  /  OPERATIONS CENTER",10,MUTED))
 	top.add_child(label("ÚROVEŇ %d   •   %d XP" % [1+int(float(game.progress.xp)/600.0),int(game.progress.xp)],15))
 	top.add_child(button("Uložit a menu",save_and_menu))
@@ -262,12 +239,13 @@ func draw_ui():
 	whole.add_child(nav)
 	whole.move_child(nav,1)
 	for target in ["Serverovna","Tickety","Trénink","Proxmox","Hyper-V","Storage","Síť","Terminál","Akademie","Statistiky"]:
-		var b = button(target,func(): navigate(target),page==target)
+		var b = Components.selection(self,target,func(): navigate(target),page==target)
 		b.custom_minimum_size.y=32
 		nav.add_child(b)
 		register_target("nav:"+target,b)
 	nav.add_child(button("Nastavení",func(): open_settings()))
 	var context_button=button("← Konfigurace" if context_open else ("Instruktor / zadání" if game.session_kind=="lesson" else "Zadání ticketu"),func(): context_open=not context_open; draw_ui())
+	if game.session_kind=="lesson": context_button.theme_type_variation="InstructorButton"
 	top.add_child(context_button)
 	register_target("context:toggle",context_button)
 	brand.get_child(1).text="CVIČNÁ INFRASTRUKTURA · kampaň pozastavena" if game.game_mode.is_training() else "HLAVNÍ SERVEROVNA · pracovní směna"
@@ -278,9 +256,9 @@ func draw_ui():
 		center.add_theme_constant_override("separation",14)
 	else: center = vbox(body,14)
 	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	center.add_child(label(page,30))
+	if page not in ["Proxmox","Hyper-V","Storage"]: center.add_child(label(page,26))
 	if notice != "" and page not in ["Proxmox","Hyper-V","Storage"]:
-		center.add_child(label(("Chyba: " if bad_notice else "Hotovo: ")+notice.left(180),13,ORANGE if bad_notice else CYAN))
+		center.add_child(label(("Chyba: " if bad_notice else "Hotovo: ")+notice.left(180),13,Design.ERROR if bad_notice else Design.SUCCESS))
 	if context_open and game.active:
 		if game.session_kind=="lesson": draw_lesson_panel(center)
 		else: draw_ticket(center)
@@ -297,7 +275,7 @@ func draw_ui():
 		"Terminál": draw_terminal()
 		"Akademie": draw_academy()
 		"Statistiky": draw_stats()
-	whole.add_child(label("DATACENTER ACADEMY     /     Pozorovat → diagnostikovat → bezpečně změnit → ověřit → zdokumentovat",10,MUTED))
+	whole.add_child(label("NORTHSTAR IT   /   Pozorovat → diagnostikovat → změnit → ověřit",11,MUTED))
 	root_box.modulate.a=0.85
 	transition=create_tween()
 	transition.tween_property(root_box,"modulate:a",1.0,0.14)
@@ -305,65 +283,7 @@ func draw_ui():
 	call_deferred("focus_tutorial")
 
 func draw_menu():
-	# A load warning must not push the exit/settings buttons below the viewport.
-	var all = scroll(content_box) if game.load_warning!="" or game.unsaved else vbox(content_box,24)
-	all.add_theme_constant_override("separation",24)
-	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	all.add_child(label("◈   DATACENTER ACADEMY",22,CYAN))
-	var body = hbox(all,44)
-	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	var left = vbox(body,22)
-	left.custom_minimum_size.x = 490
-	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var space = Control.new()
-	space.custom_minimum_size.y=70
-	left.add_child(space)
-	left.add_child(label("IT SUPPORT SIMULATOR",13,CYAN))
-	left.add_child(label("Tvá první směna\nzačíná tady.",49))
-	left.add_child(label("Šest serverů. Skutečná rozhodnutí.\nNauč se udržet infrastrukturu v provozu.",19,MUTED))
-	left.add_child(button("Pokračovat v rozehrané směně" if game.active else "Zahájit první směnu   →",func():
-		if not game.active: first_shift_requested=true; game.start_mission(0)
-		navigate("Serverovna"),true))
-	left.add_child(button("Kampaň a přehled ticketů",func():
-		if game.session_kind!="campaign": game.resume_campaign()
-		elif not game.active: game.start_mission(0)
-		game.set_campaign_mode(false)
-		navigate("Tickety")))
-	left.add_child(button("◇  Tréninkové centrum",func(): navigate("Trénink")))
-	left.add_child(button("Volný trénink  •  všechny laboratoře",func():
-		if not game.active: game.start_mission(0,true)
-		game.set_campaign_mode(true)
-		navigate("Tickety")))
-	var system_buttons=hbox(left,12)
-	var settings_button=button("Nastavení",open_settings)
-	settings_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	system_buttons.add_child(settings_button)
-	var exit_button=button("Ukončit hru",quit_game)
-	exit_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	system_buttons.add_child(exit_button)
-	left.add_child(label("PROXMOX VE     /     HYPER-V     /     RAID & STORAGE",12,CYAN))
-	var right = vbox(body,18)
-	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var fill = Control.new()
-	fill.custom_minimum_size.y=60
-	right.add_child(fill)
-	right.add_child(label("NORTHSTAR / SERVER ROOM 01",12,MUTED))
-	var racks = Racks.new()
-	right.add_child(racks)
-	racks.custom_minimum_size = Vector2(520,460)
-	racks.state = game.sim.state
-	racks.server_selected.connect(func(_name):
-		if not game.active: game.start_mission(0)
-		navigate("Serverovna"))
-	var info = card(right,"Praktická laboratoř", "Konfiguruj virtuální stroje, opravuj sítě a obnovuj data. Hra funguje offline a ukládá každý zásah.")
-	if world_enabled:
-		info.add_child(button("15 praktických úkolů ve 3D",func():
-			if not game.active: game.start_mission(0,true)
-			game.set_campaign_mode(true)
-			mission_filter="3D praxe"
-			navigate("Tickety")))
-	info.add_child(label("%d TICKETŮ     •     %d LEKCÍ     •     TVÉ TEMPO" % [game.missions.size(),game.tutorial.lessons.size()],12,CYAN))
-	all.add_child(label("Výuková simulace správy serverů  /  Čeština  /  Godot 4",12,MUTED))
+	preload("res://scripts/ui/MenuPresentation.gd").draw(self)
 
 func sync_display_layout():
 	set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
@@ -587,36 +507,44 @@ func draw_ticket(parent: Node):
 	c.add_child(save_caption)
 
 func draw_tickets():
-	var v = scroll(center)
+	var v = vbox(center,12)
+	v.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	if game.game_mode.is_training():
 		v.add_child(label("Pracovní mise jsou během návštěvy tréninkového centra pozastavené.",20,CYAN))
 		v.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
 		return
 	Search.draw(self,v,"missions",true)
 	var mode = hbox(v)
-	mode.add_child(button("Kampaň",func(): game.set_campaign_mode(false); draw_ui(),not game.training))
-	mode.add_child(button("Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
-	v.add_child(label("Kapitoly se v kampani otevírají postupně. Trénink zpřístupní všechny situace bez změny XP.",14,MUTED))
+	mode.add_child(Components.selection(self,"Kampaň",func(): game.set_campaign_mode(false); draw_ui(),not game.training))
+	mode.add_child(Components.selection(self,"Volný trénink",func(): game.set_campaign_mode(true); draw_ui(),game.training))
 	var category_picker=OptionButton.new()
 	var categories=["Vše","Proxmox","Hyper-V","Storage","3D praxe"]
 	for category in categories: category_picker.add_item(category)
 	category_picker.select(maxi(0,categories.find(mission_filter)))
 	category_picker.item_selected.connect(func(i): mission_filter=category_picker.get_item_text(i); draw_ui())
-	v.add_child(category_picker)
+	mode.add_child(category_picker)
+	category_picker.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var results=scroll(v)
+	var count=0
 	for i in game.missions.size():
 		var m = game.missions[i]
 		if not Search.matches(self,"missions",m.title+" "+m.description+" "+m.category,game.progress.scores.has(str(m.id))): continue
 		if mission_filter=="3D praxe":
 			if not m.get("world_task",false): continue
 		elif mission_filter!="Vše" and m.category!=mission_filter: continue
-		if int(m.id)==25: v.add_child(label("NOVÉ INCIDENTY  /  rozšířená praxe",15,CYAN))
-		var c = card(v,"%02d  /  %s" % [int(m.id),m.title],m.category+"  •  "+m.difficulty+"  •  "+m.server)
+		count+=1
+		var completed=game.progress.scores.has(str(m.id))
+		var c = card(results,"%02d  /  %s" % [int(m.id),m.title],m.category+"  •  "+m.difficulty+"  •  "+m.server)
 		var row=hbox(c)
 		row.add_child(label(m.symptoms,13,MUTED))
 		var unlocked=game.training or game.unlocked(i)
-		var b = button(("Otevřít laboratoř" if not game.progress.scores.has(str(m.id)) else "Zopakovat  •  %d bodů" % int(game.progress.scores[str(m.id)])) if unlocked else "Uzamčeno",func(): start_ticket(i),unlocked)
+		Components.badge(self,row,"✓ Dokončeno" if completed else ("Připraveno" if unlocked else "Uzamčeno"),Design.SUCCESS if completed else MUTED)
+		var current=game.active and int(game.current.id)==int(m.id)
+		if current: c.get_parent().add_theme_stylebox_override("panel",box(Color("1c3234"),CYAN))
+		var b = button(("Otevřít laboratoř" if not completed else "Zopakovat  •  %d bodů" % int(game.progress.scores[str(m.id)])) if unlocked else "Uzamčeno",func(): start_ticket(i),current and unlocked)
 		b.disabled=not unlocked
 		row.add_child(b)
+	if count==0: results.add_child(label("Žádný ticket neodpovídá filtrům. Změň stav, oblast nebo hledaný text.",16,MUTED))
 
 func start_ticket(index: int):
 	if not game.start_mission(index,game.training): return
@@ -656,8 +584,8 @@ func option_value(picker: OptionButton, index: int = -1) -> String:
 func draw_tree(parent: Node):
 	var c=card(parent,"Zařízení")
 	var tree=Tree.new()
-	tree.custom_minimum_size=Vector2(238,190)
-	tree.add_theme_font_size_override("font_size",13)
+	tree.custom_minimum_size=Vector2(246,160)
+	tree.add_theme_font_size_override("font_size",roundi(14*display_settings.text_scale))
 	tree.hide_root=true
 	var tree_root=tree.create_item()
 	for node_name in (["PVE-01","PVE-02"] if page=="Proxmox" else ["HV-01","HV-02"]):
@@ -742,13 +670,27 @@ func draw_state(parent: Node):
 		if not s.created_raid.is_empty(): c.add_child(label("Nové pole: %s / %s GB / členové %s / inicializováno %s" % [s.created_raid.level,s.created_raid.capacity,str(s.created_raid.members),s.created_raid.initialized],13,CYAN))
 		c.add_child(label("Disk Management: %s  %sGB / %s / %s / %s:\nKapacitní vrstvy: pool%s → logical%s → hostFS%s" % [s.disk.serial,s.disk.capacity,s.disk.style,s.disk.fs,s.disk.letter,s.storage.capacity,s.storage.logical,s.storage.host_fs],13,MUTED))
 
-func draw_form(parent: Node, action: Dictionary):
-	var c=card(parent,action.label,action.get("description","Změna se projeví ve sdíleném modelu infrastruktury."))
-	if action.id in ["prepare","management","install","web","repositories","update","bridge","security"]: c.add_child(label("Cíl hostitelské operace: PVE-01",11,CYAN))
-	if action.id in ["hv_prepare","hv_role","hv_restart","switch"]: c.add_child(label("Cíl hostitelské operace: HV-01",11,CYAN))
+func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
+	var c=card(parent,action.label,action.get("description","Zkontroluj hodnoty a potvrď změnu pro vybraný cíl."))
 	var inputs={}
+	var errors={}
+	var field_grid: GridContainer
+	var previous_group=""
 	for field in action.fields:
-		c.add_child(label(field.label,12,MUTED))
+		var group="Fyzické disky" if field.get("type","")=="disks" else Components.field_group(field.key)
+		if group!=previous_group:
+			Components.section(self,c,group)
+			field_grid=GridContainer.new()
+			field_grid.columns=1 if action.fields.size()==1 or field.get("type","")=="disks" else 2
+			field_grid.add_theme_constant_override("h_separation",20)
+			field_grid.add_theme_constant_override("v_separation",14)
+			c.add_child(field_grid)
+			previous_group=group
+		var field_box=vbox(field_grid,6)
+		field_box.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		var caption=str(field.label)
+		if field.key in ["ram","minimum","maximum"]: caption=caption.replace("(GB)","(GiB)")
+		if field.get("type","")!="bool": field_box.add_child(label(caption,14,MUTED))
 		var value=Forms.initial_value(self,action,field)
 		var input: Control
 		match field.get("type","text"):
@@ -758,6 +700,8 @@ func draw_form(parent: Node, action: Dictionary):
 				input.button_pressed=bool(value)
 			"choice":
 				input=OptionButton.new()
+				input.fit_to_longest_item=false
+				input.clip_text=true
 				var field_options=Forms.choices(self,action,field)
 				for option in field_options:
 					input.add_item(Forms.display(self,field,option))
@@ -796,8 +740,19 @@ func draw_form(parent: Node, action: Dictionary):
 				input=LineEdit.new()
 				input.text=str(value)
 		input.custom_minimum_size.y=36
+		input.size_flags_vertical=Control.SIZE_SHRINK_END
 		input.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-		c.add_child(input)
+		field_box.add_child(input)
+		var error=label("",13,Design.ERROR)
+		error.hide()
+		field_box.add_child(error)
+		errors[field.key]=error
+		register_target("error:"+str(action.id)+":"+str(field.key),error)
+		var editable=input.get_line_edit() if input is SpinBox else input
+		if editable is LineEdit:
+			editable.text_changed.connect(func(_text): error.hide(); editable.remove_theme_stylebox_override("normal"); editable.remove_theme_stylebox_override("focus"))
+		elif input is OptionButton:
+			input.item_selected.connect(func(_i): error.hide())
 		inputs[field.key]=input
 		register_target("field:"+str(action.id)+":"+str(field.key),input)
 	if action.id=="raid_create":
@@ -811,6 +766,7 @@ func draw_form(parent: Node, action: Dictionary):
 	form_scopes[action.id]=scope
 	form_defaults[action.id]=read_form(inputs)
 	if form_drafts.has(scope): restore_form(inputs,form_drafts[scope])
+	Components.form_context(self,action,inputs)
 	if inputs.has("vm") and inputs.vm is OptionButton:
 		var vm_picker=inputs.vm
 		vm_picker.item_selected.connect(func(i):
@@ -818,13 +774,24 @@ func draw_form(parent: Node, action: Dictionary):
 			selected_vm=option_value(vm_picker,i)
 			if action.panel=="Průvodce VM": wizard_vm=selected_vm
 			draw_ui())
-	var feedback=label("",13,ORANGE)
+	var feedback=label("",13,Design.ERROR)
 	feedback.visible=false
 	c.add_child(feedback)
 	var action_button=button(action.label,func():
 		var problem=Forms.validate(self,action,inputs)
 		if problem!="":
-			feedback.text=problem; feedback.show(); return
+			for field in action.fields:
+				if not problem.begins_with(str(field.label)+":"): continue
+				var error=errors[field.key]
+				error.text="!  "+problem; error.show()
+				var target=inputs[field.key]
+				if target is SpinBox: target=target.get_line_edit()
+				target.add_theme_stylebox_override("normal",Design.surface(Color("301e28"),Design.ERROR,6,12))
+				target.add_theme_stylebox_override("focus",Design.focus_ring(Design.ERROR))
+				target.grab_focus()
+				for ancestor in get_scroll_ancestors(target): ancestor.ensure_control_visible(target.get_parent())
+				return
+			feedback.text="!  "+problem; feedback.show(); return
 		var params={}
 		for key in inputs:
 			if key.begins_with("_"): continue
@@ -846,16 +813,25 @@ func draw_form(parent: Node, action: Dictionary):
 	if fixed!="" and host!=fixed:
 		action_button.disabled=true
 		c.add_child(button("Operace je dostupná na "+fixed+" — vybrat hostitele",func(): capture_form_drafts(); selected_vm=""; host=fixed; draw_ui()))
-	c.add_child(action_button)
+	var footer=card(action_parent) if action_parent!=null else c
+	footer.add_child(action_button)
 	if notice!="":
-		var message=label(({"error":"Chyba: ","warning":"Upozornění: "}.get(notice_kind,"Hotovo: "))+notice,13,ORANGE if bad_notice or notice_kind=="warning" else CYAN)
+		var message=label(({"error":"Chyba: ","warning":"Upozornění: "}.get(notice_kind,"Hotovo: "))+notice,13,Design.ERROR if bad_notice else (ORANGE if notice_kind=="warning" else Design.SUCCESS))
 		message.max_lines_visible=3
 		message.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		c.add_child(message)
+		footer.add_child(message)
 		c.add_child(button("Otevřít provozní deník",func(): show_message("Deník operací","\n".join(game.sim.state.journal))))
 		if bad_notice: c.add_child(button("Vysvětlení a související výuka",show_operation_help))
 	form_buttons[action.id]=action_button
 	register_target("action:"+str(action.id),action_button)
+
+func get_scroll_ancestors(control: Control) -> Array:
+	var result=[]
+	var ancestor=control.get_parent()
+	while ancestor is Control:
+		if ancestor is ScrollContainer: result.append(ancestor)
+		ancestor=ancestor.get_parent()
+	return result
 
 func read_form(inputs: Dictionary) -> Dictionary:
 	var values={}
@@ -1026,14 +1002,15 @@ func draw_training_center():
 	var container=preload("res://scenes/training/TrainingCenter.tscn").instantiate()
 	container.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	center.add_child(container)
-	var v=scroll(container)
-	var hero=card(v,"Tréninkové centrum","Senior administrátor / praktická laboratoř")
-	hero.add_child(label("Vyber lekci a způsob učení. Cvičné servery používají vlastní izolovanou infrastrukturu. Odchod z místnosti zruší rozpracované cvičení.",15,MUTED))
-	hero.add_child(label("Učím se: instruktor vede jednotlivé kroky. Procvičování: samostatná práce s dobrovolnou nápovědou. Zkouška: bez nápovědy a zvýraznění řešení.",13,MUTED))
+	var v=vbox(container,12)
+	v.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var hero=card(v)
+	var header=hbox(hero)
+	header.add_child(label("Izolovaná laboratoř · odchod ukončí rozpracované cvičení.",14,MUTED))
+	header.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
 	var tabs=hbox(hero,8)
 	for item in [["lessons","Lekce"],["random","Náhodné procvičování"],["profile","Moje IT znalosti"],["glossary","IT slovník"]]:
-		tabs.add_child(button(item[1],func(): training_view=item[0]; draw_ui(),training_view==item[0]))
-	hero.add_child(button("Vrátit se k uložené kampani",return_to_campaign))
+		tabs.add_child(Components.selection(self,item[1],func(): training_view=item[0]; draw_ui(),training_view==item[0]))
 	if not game.game_mode.is_training():
 		hero.add_child(label("Lekce jsou dostupné pouze uvnitř tréninkového centra.",16,ORANGE))
 		if world_enabled: hero.add_child(button("Vstoupit do tréninkového centra",func(): world_requested.emit("Trénink")))
@@ -1044,9 +1021,9 @@ func draw_training_center():
 			if page in ["menu","Trénink"]: page=game.tutorial.current_step().get("page",game.current.category) if game.tutorial.guided() else game.current.category
 			tab=game.tutorial.session.get("tab","")
 			draw_ui(),true))
-	if training_view=="random": draw_random_setup(v); return
-	if training_view=="profile": draw_knowledge_profile(v); return
-	if training_view=="glossary": draw_glossary(v); return
+	if training_view=="random": draw_random_setup(scroll(v)); return
+	if training_view=="profile": draw_knowledge_profile(scroll(v)); return
+	if training_view=="glossary": draw_glossary(scroll(v)); return
 	Search.draw(self,v,"lessons",true)
 	var categories=OptionButton.new()
 	var category_names=["Všechny lekce","Proxmox VE","Microsoft Hyper-V","RAID a disková pole","Sítě a virtualizace","Zálohování a obnova","Diagnostika a řešení problémů"]
@@ -1054,17 +1031,31 @@ func draw_training_center():
 	categories.select(maxi(0,category_names.find(training_category)))
 	categories.item_selected.connect(func(i): training_category=category_names[i]; draw_ui())
 	v.add_child(categories)
+	var results=scroll(v)
+	var count=0
 	for lesson in game.tutorial.lessons:
 		var completed=game.education.lessons.get(str(lesson.id),{}).get("status","")=="Dokončeno"
 		if not Search.matches(self,"lessons",lesson.title+" "+lesson.description+" "+lesson.category,completed): continue
 		if training_category!="Všechny lekce" and lesson.training_category!=training_category: continue
 		var status=game.education.lessons.get(str(lesson.id),{}).get("status","Nedokončeno")
-		var c=card(v,lesson.title,lesson.get("training_category",lesson.category)+"  •  "+status)
-		c.add_child(label(lesson.description,14,MUTED))
+		count+=1
+		var c=card(results,lesson.title)
+		var meta=hbox(c)
+		meta.add_child(label(lesson.get("training_category",lesson.category),13,MUTED))
+		Components.badge(self,meta,("✓ " if completed else "○ ")+status,Design.SUCCESS if completed else MUTED)
+		var description=label(lesson.description,14,MUTED)
+		description.max_lines_visible=2
+		description.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		description.tooltip_text=lesson.description
+		c.add_child(description)
 		var row=hbox(c)
 		for item in [["learn","Učím se"],["practice","Procvičování"],["exam","Zkouška"]]:
-			row.add_child(button(item[1],func(): begin_lesson(int(lesson.id),item[0]),item[0]=="learn"))
+			var b=button(item[1],func(): begin_lesson(int(lesson.id),item[0]))
+			b.tooltip_text={"learn":"Instruktor vede jednotlivé kroky.","practice":"Samostatná práce s dobrovolnou nápovědou.","exam":"Bez nápovědy a zvýraznění řešení."}[item[0]]
+			if item[0]=="learn": b.theme_type_variation="InstructorButton"
+			row.add_child(b)
 		if game.education.lessons.has(str(lesson.id)): c.add_child(label("Nejlepší výsledek: %d / 100. Každý režim lze zopakovat." % int(game.education.lessons[str(lesson.id)].get("best",0)),12,CYAN))
+	if count==0: results.add_child(label("Žádná lekce neodpovídá filtrům. Změň stav, oblast nebo hledaný text.",16,MUTED))
 
 func draw_random_setup(parent: Node):
 	var c=card(parent,"Náhodné procvičování","Scénáře se před zařazením celé přehrají v odděleném simulátoru a ověří se jejich řešitelnost.")

@@ -38,7 +38,7 @@ func _ready():
 	var layer = CanvasLayer.new()
 	add_child(layer)
 	backing = ColorRect.new()
-	backing.color = Color(0.025,0.04,0.075,0.97)
+	backing.color = ui_background()
 	layer.add_child(backing)
 	backing.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui = preload("res://scenes/main_menu/Main.tscn").instantiate()
@@ -88,9 +88,9 @@ func _ready():
 	var controls = ui.label("",14)
 	controls_label = controls
 	hud.add_child(controls)
-	controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	controls.offset_left = 25
-	controls.offset_top = -40
+	controls.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	controls.position = Vector2(38,856)
+	controls.size = Vector2(1520,28)
 	status_label = ui.label("",16,ui.CYAN)
 	hud.add_child(status_label)
 	status_label.position = Vector2(40,57)
@@ -110,7 +110,8 @@ func _ready():
 	app_bar.offset_top = -50
 	app_bar.offset_right = -25
 	app_bar.alignment = BoxContainer.ALIGNMENT_END
-	app_bar.add_child(ui.button("← Zpět do 3D prostředí  [Esc]",return_to_world,true))
+	app_bar.theme = ui.theme
+	app_bar.add_child(ui.button("← Zpět do 3D prostředí  [Esc]",return_to_world))
 	overlay = Control.new()
 	chrome.add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -133,14 +134,20 @@ func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 	plate.position = at
 	plate.size = dimensions
 	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	plate.add_theme_stylebox_override("panel",ui.box(Color(0.023,0.042,0.065,0.87),border,8))
+	var style=ui.box(Color(0.063,0.082,0.098,0.96),border,8)
+	style.border_width_left=3
+	plate.add_theme_stylebox_override("panel",style)
 	hud.add_child(plate)
 	return plate
+
+func ui_background() -> Color:
+	return preload("res://scripts/ui/AcademyTheme.gd").BACKGROUND
 
 func apply_ui_preferences():
 	ui.display_settings.apply_world(world)
 	hud.theme=ui.theme
 	overlay.theme=ui.theme
+	app_bar.theme=ui.theme
 	for node in chrome.find_children("*","Label",true,false):
 		if node.has_meta("base_font_size"): node.add_theme_font_size_override("font_size",roundi(node.get_meta("base_font_size")*ui.display_settings.text_scale))
 
@@ -165,6 +172,12 @@ func _process(delta):
 			elif ui.game.active and ui.game.session_kind=="random": status_label.text="NÁHODNÉ PROCVIČOVÁNÍ"
 		if ui.game.active:
 			status_label.text += "\n"+ui.game.current.title
+			if ui.game.session_kind=="campaign":
+				var goals=ui.Eval.evaluate(ui.game.sim.state,ui.game.current.objectives)
+				var complete=goals.filter(func(goal): return goal.passed).size()
+				status_label.text += "\n%d / %d cílů  ·  %s zadání" % [complete,goals.size(),OS.get_keycode_string(keys.task_list)]
+				var next=goals.filter(func(goal): return not goal.passed)
+				status_label.text += "\nDalší cíl: "+str(next[0].label) if not next.is_empty() else "\n✓ Vše ověřeno · předej ticket"
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
 			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"

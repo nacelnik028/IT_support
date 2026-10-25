@@ -18,23 +18,24 @@ static func draw(ui):
 	var row = ui.hbox(ui.center,14)
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var navigation = ui.vbox(row,8)
-	navigation.custom_minimum_size.x = 262
+	navigation.custom_minimum_size.x = 280
 	navigation.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	if ui.page in ["Proxmox","Hyper-V"]: ui.draw_tree(navigation)
 	else: navigation.add_child(ui.label("NAS-01  /  ÚLOŽIŠTĚ",15,ui.CYAN))
+	ui.Components.section(ui,navigation,"Pracovní oblasti")
 	var sections = ui.scroll(navigation)
 	sections.add_theme_constant_override("separation",4)
 	ui.register_target("console:sections",sections)
 	for section in options:
-		var b = ui.button(section,func(): ui.tab = section; ui.active_action = ""; ui.notice = ""; ui.draw_ui(),ui.tab == section)
+		var b = ui.Components.selection(ui,section,func(): ui.tab = section; ui.active_action = ""; ui.notice = ""; ui.draw_ui(),ui.tab == section)
 		b.custom_minimum_size.y = 32
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		sections.add_child(b)
 		ui.register_target("section:"+section,b)
 	var detail = ui.vbox(row,10)
 	detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var vm = ui.game.sim.get_vm(ui.selected_vm)
-	detail.add_child(ui.label(ui.host + ("  ›  %s / %s" % [ui.selected_vm,vm.name] if not vm.is_empty() else "  ›  Hostitel") + "  ›  " + ui.tab,16,ui.CYAN))
+	ui.Components.console_context(ui,detail)
+	ui.Components.section(ui,detail,ui.tab)
 	if ui.tab == "Přehled":
 		ui.draw_state(ui.scroll(detail))
 		return
@@ -51,23 +52,26 @@ static func draw(ui):
 	if available.is_empty(): return
 	if not ui.active_action in available.map(func(a): return a.id): ui.active_action = available[0].id
 	for a in available:
-		var b = ui.button(a.label,func(): ui.active_action = a.id; ui.notice = ""; ui.draw_ui(),ui.active_action == a.id)
+		var b = ui.Components.selection(ui,a.label,func(): ui.active_action = a.id; ui.notice = ""; ui.draw_ui(),ui.active_action == a.id)
 		b.custom_minimum_size.y = 32
-		b.add_theme_font_size_override("font_size",13)
+		b.add_theme_font_size_override("font_size",roundi(14*ui.display_settings.text_scale))
 		operations.add_child(b)
 		ui.register_target("operation:"+a.id,b)
 	var contents = ui.scroll(detail)
 	contents.get_parent().name = "OperationScroll"
 	for a in available:
-		if a.id == ui.active_action: ui.draw_form(contents,a)
+		if a.id == ui.active_action: ui.draw_form(contents,a,detail)
 
 static func draw_wizard(ui, parent: Node, actions: Array):
-	var header = ui.hbox(parent,6)
+	var header = HFlowContainer.new()
+	header.add_theme_constant_override("h_separation",6)
+	header.add_theme_constant_override("v_separation",6)
+	parent.add_child(header)
 	for i in STEPS.size():
-		var b = ui.button(str(i+1)+". "+TITLES[i],func(): ui.wizard_step = i; ui.draw_ui(),i == ui.wizard_step)
+		var b = ui.Components.selection(ui,("✓ " if i<ui.wizard_step else str(i+1)+". ")+TITLES[i],func(): ui.wizard_step = i; ui.draw_ui(),i == ui.wizard_step)
 		b.disabled = i > ui.wizard_unlocked
 		b.custom_minimum_size.y = 34
-		b.add_theme_font_size_override("font_size",12)
+		b.add_theme_font_size_override("font_size",roundi(13*ui.display_settings.text_scale))
 		header.add_child(b)
 		ui.register_target("wizard:step:"+str(i),b)
 	var contents = ui.scroll(parent)
@@ -78,7 +82,7 @@ static func draw_wizard(ui, parent: Node, actions: Array):
 	for a in actions:
 		if a.id == STEPS[ui.wizard_step]:
 			ui.active_action = a.id
-			ui.draw_form(contents,a)
+			ui.draw_form(contents,a,parent)
 			ui.form_buttons[a.id].text = "Uložit a Další →" if ui.wizard_step < 5 else "Dokončit instalaci OS"
 	var footer = ui.hbox(parent)
 	var back = ui.button("← Zpět",func(): ui.wizard_step -= 1; ui.draw_ui())

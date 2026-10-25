@@ -37,7 +37,7 @@ func run():
 	check(root.get_texture().get_image().get_size()==Vector2i(3840,2160),"Skutečný4K framebuffer")
 	check(ui.oversampling_with_scale==CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED,"Ostré vykreslování zapnuté při běžném startu")
 	# Compare pixels of actual game text, not merely framebuffer dimensions.
-	var heading=find_label(ui,"Tvá první směna\nzačíná tady.")
+	var heading=find_label(ui,"DATACENTER\nACADEMY")
 	await compare_text(heading.get_global_rect(),"menu")
 	var rack=find_rack(ui)
 	var rack_name=rack.get_global_transform()*Rect2(25,14,100,24)

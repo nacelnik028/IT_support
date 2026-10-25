@@ -1,5 +1,40 @@
 # Ověření rozšířené hratelné verze
 
+## Profesionální UI při zachování 3D — 25. 10. 2026
+
+Celý `tools/Test-All.ps1`: **23 sad PASS, exit 0, bez runtime chyb/varování**.
+65/65 misí přes model i skutečné formuláře, legacy24, 21 lekcí × 3 režimy,
+1075 výukových kontrol, 336 UI akcí, 474 kontrol save a 124 kontrol relací.
+Log: `test-output/design-test-all-verified.log`.
+
+| Ověření | Výsledek |
+|---|---|
+| Nová matice UI: 720p/1080p/4K × 100/130 % text | 162 headless i GPU PASS, skutečná myš a klávesa, místní validace, kontext VM a fokus hledání |
+| Skutečná hlavní 3D scéna ve stejné matici | 31 Godot MCP kontrol PASS, errors=[] |
+| Konzole a šest kroků průvodce | 60 GPU PASS, včetně konceptů/fokusu/posuvu |
+| Vedená výuka | 700 GPU PASS pro všech 21 lekcí |
+| 3D HUD, modalita a preference | 27 GPU PASS |
+| Rozlišení/F11/fullscreen a potvrzení | 76 GPU PASS |
+| Písmo a SVG ve 4K | 8 GPU PASS, reálná textura ikony 38×38 px |
+| MCP fyzické interakce a výuka | 79 objektů; raycast/E, konzole, save/návrat, opakované dveře a návrat od instruktora PASS, errors=[] |
+| Aktualizovaný samostatný Windows EXE+PCK | 162 UI + 27 skutečných3D kontrol PASS, oba exit 0, čistý stderr |
+
+Výchozí i výsledné snímky pocházejí ze skutečné hry, srovnání v
+[docs/ui-review/README.md](docs/ui-review/README.md). Prohlédnuty také matice
+všech tří rozlišení a zvětšeného textu včetně Hyper-V, disků, chyby pole,
+nastavení a 3D instruktora. Menu i potvrzení konzolí mají jasnou hlavní akci;
+dlouhé formuláře zůstávají posuvné pod pevným potvrzením.
+
+Zachované je 3D prostředí a jeho ovládání, výuka, save i odložená kampaň.
+Obsah misí/lekcí a generátory se nemění. Všechny běhy používají oddělené
+SaveManager a DisplaySettings cesty. Nová matice má navíc oddělené cesty
+pro grafický a headless běh.
+
+Logy: `test-output/design-gpu-ui_design-final.log`, `design-gpu-*.log`;
+sestavení `design-build.log`, balíček `design-package-*-out/err.log`;
+snímky `design-final-*`, `design-world-*`. PNG před/po jsou také uložené
+v Gitu pod `docs/ui-review/` a Godot je díky `.gdignore` nebalí do hry.
+
 ## Oprava vedené výuky v nových konzolích — 25. 10. 2026
 
 Před opravou skutečný průchod selhal ve 3 ze 6 kontrol: opětovný klik na

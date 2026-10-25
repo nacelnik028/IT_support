@@ -53,6 +53,19 @@ Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné expo
 
 Administrátorské konzole jsou dostupné na monitorech. První směna nabízí krátké přeskočitelné seznámení; znovu ho otevřeš z pauzy:
 
+- Vstupní hra zůstává plně 3D: chůze po serverovně, fyzické interakce,
+  dveře i samostatná tréninková místnost. Konzole se otevírají nad tímto světem.
+- Sdílené téma rozlišuje grafitové pracovní plochy, tyrkysovou potvrzovací
+  akci a zlatého instruktora. Výběr navigace má vlastní zvýraznění.
+  Chyby, dokončení i neaktivní možnosti mají také textový stav.
+- Záhlaví konzole ukazuje platformu, hostitele a skutečný cíl formuláře,
+  včetně VM předvolené bez kliknutí do stromu. Pole jsou seskupená a
+  potvrzení zůstává v pevné spodní části, zatímco formulář lze posouvat.
+  Formátová chyba se objeví přímo u pole a předá mu fokus; nezmění skóre.
+- Filtry misí a lekcí zůstávají nad posuvným seznamem. Stav dokončení je
+  označený textem a symbolem. Podrobnosti zkráceného popisu lekce zobrazí tooltip.
+- HUD kampaně ukazuje počet splněných cílů, další nesplněný cíl a klávesu zadání.
+
 - Hlavní menu: **Nastavení** otevírá přepínač celé obrazovky a rozlišení16:9:
   1280×720,1600×900,1920×1080,2560×1440,3200×1800 a3840×2160 (4K UHD).
   Po **Použít nastavení** nebo **F11** potvrď obraz do 15 sekund. Bez potvrzení
@@ -283,6 +296,14 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - `platform_context.gd`: odmítnutí nesprávné platformy a neplatných cílů bez změn infrastruktury.
 - `console_ux.gd`: skutečná kliknutí šesti kroky, kontext, posuv, fokus,
   formuláře, VM101 v síti, timeout obrazu a preference; `-- --screenshots` pořídí snímky.
+- `ui_design.gd`: 162 kontrol rozhraní v 1280×720, 1920×1080 a 3840×2160,
+  pokaždé s textem 100 % i 130 %. Skutečné klikání navigací, místní validace,
+  editace klávesnicí, kontext VM a zachování fokusu při hledání.
+  Grafický běh `-- --screenshots` ukládá `test-output/design-final-*.png`.
+- `DesignMCP.tscn` / `ui_design_world.gd`: grafická matice skutečné hlavní
+  3D scény, HUD, konzole, nastavení a výuky ve stejných šesti kombinacích.
+  Lze spustit přes Godot MCP; `-- --quit-after-design` ukončí samostatný běh.
+  Používá vlastní save i nastavení, jako ostatní testy.
 - `world_ui.gd`: seznámení, pauza/nastavení, modalita, psaní bez chůze,
   chyby ukládání, skutečné předvolby a HUD všech režimů; `-- --screenshots --benchmark`.
 - `stage1.gd`: první mise, chyba, ověření a uložení.

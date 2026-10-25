@@ -69,6 +69,7 @@ static func draw(ui, parent: Node):
 	if ui.game.session_kind!="lesson" or ui.game.tutorial.session.get("mode","")!="learn": return
 	var t=ui.game.tutorial
 	var panel=ui.card(parent)
+	panel.get_parent().add_theme_stylebox_override("panel",ui.box(Color("2b2923"),ui.Design.GOLD))
 	panel.add_theme_constant_override("separation",4)
 	var row=ui.hbox(panel,12)
 	var text=ui.vbox(row,3)
@@ -78,7 +79,7 @@ static func draw(ui, parent: Node):
 		text.add_child(ui.label("Všechny kroky ověřeny — předej lekci.",14,ui.CYAN))
 		row.add_child(ui.button("Vyhodnotit lekci",ui.close_ticket,true))
 		return
-	text.add_child(ui.label("INSTRUKTOR · %d / %d · %s" % [int(t.session.step)+1,t.lesson.steps.size(),step.title],14,ui.CYAN))
+	text.add_child(ui.label("INSTRUKTOR · %d / %d · %s" % [int(t.session.step)+1,t.lesson.steps.size(),step.title],14,ui.Design.GOLD))
 	var instruction=ui.label(t.last_feedback if t.last_feedback!="" else step.text,13,ui.ORANGE if t.last_feedback!="" else ui.WHITE)
 	instruction.max_lines_visible=2
 	instruction.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -86,5 +87,6 @@ static func draw(ui, parent: Node):
 	text.add_child(instruction)
 	ui.register_target("tutorial:instruction",instruction)
 	var recover=ui.button("Zobrazit krok",ui.recover_tutorial_target)
+	recover.theme_type_variation="InstructorButton"
 	row.add_child(recover)
 	ui.register_target("tutorial:recover",recover)

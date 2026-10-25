@@ -95,7 +95,7 @@ func run():
 	ui.open_action("create_vm"); await settle()
 	var name=ui.form_controls.create_vm.name
 	name.text="ROZEPSANÝ-SERVER"; name.grab_focus(); name.caret_column=6
-	var sc=ui.form_buttons.create_vm.get_parent().get_parent().get_parent().get_parent()
+	var sc=ui.get_scroll_ancestors(ui.form_controls.create_vm.name)[0]
 	sc.scroll_vertical=180
 	var position_before=sc.scroll_vertical
 	ui.perform("memory",{"vm":"100","dynamic":true,"minimum":2,"ram":6,"maximum":8})
@@ -103,11 +103,11 @@ func run():
 	check(ui.bad_notice,"Chybná operace zobrazí chybu")
 	check(ui.form_controls.create_vm.name.text=="ROZEPSANÝ-SERVER","Odmítnutí zachová text")
 	check(ui.form_controls.create_vm.name.has_focus() and ui.form_controls.create_vm.name.caret_column==6,"Fokus a kurzor zůstávají")
-	var new_sc=ui.form_buttons.create_vm.get_parent().get_parent().get_parent().get_parent()
+	var new_sc=ui.get_scroll_ancestors(ui.form_controls.create_vm.name)[0]
 	check(new_sc.scroll_vertical==position_before,"Posuv zůstává po odmítnutí")
 	ui.perform("inspect",{"scope":"Events"}); await settle()
 	check(not ui.bad_notice and ui.form_controls.create_vm.name.has_focus(),"Úspěch zachová fokus")
-	new_sc=ui.form_buttons.create_vm.get_parent().get_parent().get_parent().get_parent()
+	new_sc=ui.get_scroll_ancestors(ui.form_controls.create_vm.name)[0]
 	check(new_sc.scroll_vertical==position_before,"Úspěch zachová posuv")
 	ui.open_settings(); ui.preview_display(Vector2i(1920,1080),false)
 	ui.display_deadline=Time.get_ticks_msec()-1

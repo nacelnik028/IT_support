@@ -64,6 +64,7 @@ func _ready():
 	await click(find_button(shell.overlay,"Otevřít management"))
 	shell.ui.apply_display_settings(Vector2i(1280,720),false)
 	for i in 4: await get_tree().process_frame
+	await RenderingServer.frame_post_draw
 	var tree=shell.ui.ui_targets["tree:PVE-01"]
 	var row=tree.get_root().get_first_child()
 	await pointer(tree.get_global_transform()*tree.get_item_area_rect(row,0).get_center())
@@ -101,4 +102,5 @@ func click(control: Control):
 			ancestor.scroll_vertical=maxi(0,roundi(rect.end.y-ancestor.size.y+8))
 		ancestor=ancestor.get_parent()
 	for i in 3: await get_tree().process_frame
+	await RenderingServer.frame_post_draw
 	await pointer(control.get_global_rect().get_center())

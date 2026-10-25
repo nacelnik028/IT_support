@@ -5,17 +5,19 @@ static func draw(ui):
 	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=ui.hbox(all)
 	header.add_child(ui.label("Nastavení",30,ui.CYAN))
+	ui.Components.badge(ui,header,"✓  PREFERENCE SE UKLÁDAJÍ PRŮBĚŽNĚ")
 	header.add_child(ui.button("← Zpět",ui.close_settings))
 	var tabs=ui.hbox(all)
 	for title in ["Obraz","Zvuk","Ovládání","Rozhraní"]:
-		var b=ui.button(title,func(): ui.settings_tab=title; ui.draw_ui(),ui.settings_tab==title)
+		var b=ui.Components.selection(ui,title,func(): ui.settings_tab=title; ui.draw_ui(),ui.settings_tab==title)
 		tabs.add_child(b)
 		ui.register_target("settings:"+title,b)
 	var content=ui.scroll(all)
 	var settings=ui.display_settings
 	match ui.settings_tab:
 		"Obraz":
-			var panel=ui.card(content,"Zobrazení","Změnu rozlišení a celé obrazovky potvrď do 15 sekund. Bez potvrzení se vrátí původní obraz.")
+			var columns=ui.hbox(content,20)
+			var panel=ui.card(columns,"Režim zobrazení","Nový obraz potvrď do 15 sekund. Bez potvrzení se vrátí původní.")
 			var toggle=CheckButton.new(); toggle.text="Celá obrazovka"; toggle.button_pressed=settings.fullscreen; panel.add_child(toggle)
 			ui.settings_controls.fullscreen=toggle
 			panel.add_child(ui.label("Rozlišení renderování (počet pixelů, 16:9)",14,ui.MUTED))
@@ -26,17 +28,19 @@ static func draw(ui):
 			var apply=ui.button("Použít nastavení",func(): ui.preview_display(ui.Display.RESOLUTIONS[picker.selected],toggle.button_pressed),true)
 			panel.add_child(apply); ui.settings_controls.apply=apply
 			panel.add_child(ui.label("Velikost textu se nastavuje zvlášť v Rozhraní. F11 přepíná celou obrazovku.",13,ui.MUTED))
+			var rendering=ui.card(columns,"Kvalita a plynulost","Tyto volby se projeví okamžitě.")
 			var quality=OptionButton.new()
 			for name in ["Úsporná","Vyvážená","Vysoká"]: quality.add_item(name)
 			quality.select(["Úsporná","Vyvážená","Vysoká"].find(settings.quality))
-			panel.add_child(ui.label("Grafika: stíny, vyhlazování a obrazové efekty",14))
-			panel.add_child(quality)
+			rendering.add_child(ui.label("Grafická předvolba",14,ui.MUTED))
+			rendering.add_child(quality)
 			quality.item_selected.connect(func(i): ui.save_preference("quality",quality.get_item_text(i)))
-			var sync=CheckButton.new(); sync.text="VSync"; sync.button_pressed=settings.vsync; panel.add_child(sync)
+			var sync=CheckButton.new(); sync.text="VSync"; sync.button_pressed=settings.vsync; rendering.add_child(sync)
 			sync.toggled.connect(func(on): ui.save_preference("vsync",on))
 			var fps=OptionButton.new()
 			for limit in [0,30,60,120,144]: fps.add_item("Bez limitu" if limit==0 else str(limit)+" FPS")
-			fps.select([0,30,60,120,144].find(settings.fps_limit)); panel.add_child(fps)
+			rendering.add_child(ui.label("Limit snímkové frekvence",14,ui.MUTED))
+			fps.select([0,30,60,120,144].find(settings.fps_limit)); rendering.add_child(fps)
 			fps.item_selected.connect(func(i): ui.save_preference("fps_limit",[0,30,60,120,144][i]))
 		"Zvuk":
 			var panel=ui.card(content,"Zvuk","Hlasitost i ztlumení se ukládají pro příští spuštění.")
@@ -53,9 +57,11 @@ static func draw(ui):
 			var sensitivity=HSlider.new(); sensitivity.min_value=0.0005; sensitivity.max_value=0.005; sensitivity.step=0.0001; sensitivity.value=settings.mouse_sensitivity; panel.add_child(sensitivity)
 			sensitivity.value_changed.connect(func(value): ui.save_preference("mouse_sensitivity",value))
 			ui.settings_controls.sensitivity=sensitivity
+			var grid=GridContainer.new(); grid.columns=2; grid.add_theme_constant_override("h_separation",16); grid.add_theme_constant_override("v_separation",8); panel.add_child(grid)
 			for action in settings.bindings:
 				var b=ui.button(settings.KEY_LABELS[action]+": "+OS.get_keycode_string(settings.bindings[action]),func(): ui.capture_binding(action))
-				panel.add_child(b); ui.register_target("binding:"+action,b)
+				b.alignment=HORIZONTAL_ALIGNMENT_LEFT; b.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+				grid.add_child(b); ui.register_target("binding:"+action,b)
 			panel.add_child(ui.button("Obnovit výchozí klávesy",func(): ui.save_preference("bindings",ui.Display.DEFAULT_KEYS.duplicate()); ui.draw_ui()))
 		"Rozhraní":
 			var panel=ui.card(content,"Velikost textu","Písmo se rasterizuje v cílovém rozlišení. Zvětšení textu nemění rozlišení renderování.")
