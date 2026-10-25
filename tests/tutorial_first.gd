@@ -6,6 +6,7 @@ var failed=0
 
 func _init():
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_first_tutorial.json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_tutorial_first.cfg"
 	call_deferred("run")
 
 func check(value,message):
@@ -74,6 +75,8 @@ func run():
 	quit(0 if failed==0 else 1)
 
 func submit(id: String,params: Dictionary):
+	ui.open_action(id)
+	await process_frame
 	check(ui.form_controls.has(id),"Dostupný skutečný formulář "+id)
 	if not ui.form_controls.has(id): return
 	var controls=ui.form_controls[id]
@@ -82,7 +85,7 @@ func submit(id: String,params: Dictionary):
 		if input is SpinBox: input.value=float(params[key])
 		elif input is OptionButton:
 			for i in input.item_count:
-				if input.get_item_text(i)==str(params[key]): input.select(i)
+				if ui.option_value(input,i)==str(params[key]): input.select(i)
 		elif input is CheckButton: input.button_pressed=bool(params[key])
 		else: input.text=str(params[key])
 	ui.form_buttons[id].pressed.emit()

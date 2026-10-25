@@ -5,6 +5,7 @@ var failures=0
 
 func _init():
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_ui.json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_ui_smoke.cfg"
 	call_deferred("run")
 
 func check(ok, message):
@@ -31,16 +32,22 @@ func run():
 		ui.game.start_mission(i,true)
 		for step in solutions[i]:
 			var chosen={}
+			var preferred=ui.game.current.category
+			if step[1].has("vm"):
+				var vm=ui.game.sim.get_vm(str(step[1].vm))
+				if not vm.is_empty(): preferred=ui.Context.platform(ui.game.sim.state,vm)
 			for a in ui.game.actions:
 				if a.id==step[0]:
 					chosen=a
-					if a.get("console","Proxmox")==ui.game.current.category: break
+					if a.get("console","Proxmox")==preferred: break
 			check(not chosen.is_empty(),"Chybí UI akce "+step[0])
 			if chosen.is_empty(): continue
 			ui.page=chosen.get("console","Proxmox")
 			ui.tab=chosen.panel
 			ui.notice=""
 			ui.draw_ui()
+			await process_frame
+			ui.open_action(step[0])
 			await process_frame
 			var inputs=ui.form_controls[step[0]]
 			for key in step[1]:
@@ -50,7 +57,7 @@ func run():
 				if input is CheckButton: input.button_pressed=bool(value)
 				elif input is OptionButton:
 					for index in input.item_count:
-						if input.get_item_text(index)==str(value): input.select(index)
+						if ui.option_value(input,index)==str(value): input.select(index)
 				elif input is SpinBox: input.value=float(value)
 				elif input.has_meta("selection"): input.set_meta("selection",value)
 				else: input.text=str(value)

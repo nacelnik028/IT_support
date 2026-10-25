@@ -1,3 +1,12 @@
+## Konzole, průvodce a společné nastavení – etapa P1/P2 (2026-10-25)
+- Konzole mají pevný strom, viditelné sekce a výběr jedné operace. Kontext ticketu/instruktora se přepíná tlačítkem nahoře. Navigace, hodnoty formulářů, pracovní kontext a nastavení jsou vyčleněné do komponent.
+- Průvodce VM má šest skutečných kroků s uložením do existující simulace, Zpět/Další, shrnutím, instalací, startem a ověřením. Zachované události výuky, žádné skryté souběžné formuláře. Testovací adaptéry ovládají sekce a výběr operací.
+- Zachovaný posuv/fokus/kurzor, koncepty po VM/hostiteli/relaci a nepotvrzená čísla. CPU/RAM, Dynamic Memory a síť čtou konfiguraci cíle. Nabídky VM ukazují existující kompatibilní ID/název/hostitele. Formátová validace nemění hodnocení. Potvrzení mají čitelný souhrn.
+- Nastavení Obraz/Zvuk/Ovládání/Rozhraní: persistentní hlasitost/ztlumení, citlivost, klávesy s kolizemi a resetem, text 100/115/130 %, potvrzení obrazu do 15 s s návratem. Přidané skutečné grafické předvolby, VSync a FPS limit; navazuje ověření ve 3D.
+- Síťový přehled iteruje všechny existující VM, včetně VM101; editace vybírá konkrétní platformu/hostitele/VM.
+- Ověřeno: všech 65 misí přes nové formuláře, 336 UI operací všech 21 lekcí ve všech 3 režimech, tutorial_first, ui_safety 32 a display_settings 68 PASS. Nový console_ux: 56 kontrol PASS headless i Forward+/RTX5060, včetně skutečných kliknutí všemi šesti kroky, RAM, fokusu, posuvu po odmítnutí, timeoutu obrazu, konceptů, kláves a VM101 v síti. Izolované save/config.
+- Snímky konzole, nastavení a ovládání pořízené v 720p/1080p/4K; 720p a kroky průvodce prohlédnuté, následuje zbývající vizuální a celková regrese. Windows balíček se aktualizuje po závěrečném ověření.
+
 ## Kontext operací – etapa P0 (2026-10-25)
 - Sdílený OperationContext ověřuje skutečnou platformu zdrojového hostitele u operací Hyper-V i PVE a kompatibilní odlišný cíl migrace/Replica. Obecné napájení, síť a zálohy zůstávají společné; offline převod má samostatnou validaci exportu. Dynamic Memory používá rozpočet skutečného hostitele.
 - Nový platform_context.gd: 396 kontrol PASS včetně obou přesných reprodukcí a neměnnosti infrastruktury při odmítnutí. campaign.gd: všech 65 misí PASS, legacy24 beze změny. Izolované save/config cesty. Následuje přepracování prezentace konzolí.

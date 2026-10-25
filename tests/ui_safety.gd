@@ -25,11 +25,14 @@ func find_button(node: Node, caption: String):
 	return null
 
 func sound():
-	find_button(ui,"Zvuk: "+("zapnut" if ui.sound_on else "vypnut")).pressed.emit()
+	ui.open_settings()
+	ui.ui_targets["settings:Zvuk"].pressed.emit()
+	ui.settings_controls.muted.button_pressed=not ui.settings_controls.muted.button_pressed
+	ui.close_settings()
 
 func choose(picker: OptionButton, value: String):
 	for i in picker.item_count:
-		if picker.get_item_text(i)==value:
+		if ui.option_value(picker,i)==value:
 			picker.select(i)
 			picker.item_selected.emit(i)
 			return
@@ -48,7 +51,9 @@ func run():
 	ui.navigate(ui.game.current.category)
 	var campaign=ui.game.suspended_campaign.duplicate(true)
 	var results=ui.game.education.random.results.duplicate(true)
+	ui.ui_targets["context:toggle"].pressed.emit()
 	find_button(ui,"Restartovat laboratoř").pressed.emit()
+	ui.context_open=false
 	for child in ui.get_children():
 		if child is ConfirmationDialog: child.confirmed.emit(); break
 	await process_frame
@@ -78,13 +83,19 @@ func run():
 	await process_frame
 	ui.form_controls.vm_resources.ram_mib.value=6144
 	ui.form_controls.vm_resources.cpu.get_line_edit().text="7"
+	ui.open_action("vm_identity")
 	ui.form_controls.vm_identity.name.text="ROZEPSÁNO"
+	ui.open_action("vm_network")
 	choose(ui.form_controls.vm_network.bridge,"LAB")
+	ui.open_action("vm_resources")
 	sound()
 	check(ui.form_controls.vm_resources.ram_mib.value==6144,"Zvuk zachoval RAM6144")
 	check(ui.form_controls.vm_resources.cpu.get_line_edit().text=="7","Zvuk zachoval nepotvrzený text SpinBox")
+	ui.open_action("vm_identity")
 	check(ui.form_controls.vm_identity.name.text=="ROZEPSÁNO","Zvuk zachoval text")
-	check(ui.form_controls.vm_network.bridge.get_item_text(ui.form_controls.vm_network.bridge.selected)=="LAB","Zvuk zachoval nabídku")
+	ui.open_action("vm_network")
+	check(ui.option_value(ui.form_controls.vm_network.bridge)=="LAB","Zvuk zachoval nabídku")
+	ui.open_action("vm_resources")
 	ui.apply_display_settings(Vector2i(1280,720),false)
 	await process_frame
 	await process_frame
@@ -94,6 +105,7 @@ func run():
 	await capture("safety-draft-720p")
 	var f11=InputEventKey.new(); f11.keycode=KEY_F11; f11.pressed=true
 	ui._unhandled_key_input(f11)
+	ui.resolve_display(true)
 	await process_frame
 	check(ui.form_controls.vm_resources.ram_mib.value==6144,"F11 zachovalo koncept")
 	ui.apply_display_settings(Vector2i(3840,2160),false)
@@ -113,16 +125,18 @@ func run():
 	check(ui.game.sim.state.vms["101"].cpu==7 and ui.game.sim.state.vms["101"].ram==6,"Zachovaný nepotvrzený text se při odeslání skutečně použije")
 	ui.begin_lesson(1002,"practice",false)
 	ui.page="Proxmox"; ui.tab="Průvodce VM"; ui.draw_ui()
+	ui.open_action("vm_resources")
 	check(ui.form_controls.vm_resources.ram_mib.value==1024,"Jiný režim nemá koncept z vedené lekce")
 	ui.game.start_mission(2,true)
 	ui.navigate("Proxmox"); ui.tab="VM / CT"; ui.draw_ui()
+	ui.open_action("create_vm")
 	ui.form_controls.create_vm.name.text="NOVÁ-KONFIGURACE"
 	ui.form_controls.create_vm.agent.button_pressed=true
 	ui.form_controls.create_vm.ram.value=8
 	sound()
 	check(ui.form_controls.create_vm.agent.button_pressed,"Zvuk zachoval checkbox")
 	check(ui.form_controls.create_vm.name.text=="NOVÁ-KONFIGURACE","Text mise se zachová")
-	ui.game.restart_current(); ui.draw_ui()
+	ui.game.restart_current(); ui.draw_ui(); ui.open_action("create_vm")
 	check(ui.form_controls.create_vm.name.text=="NOVY-SERVER","Restart mise zahodil staré koncepty")
 	ui.game.start_mission(16,true)
 	ui.navigate("Storage"); ui.tab="RAID konfigurátor"; ui.draw_ui()

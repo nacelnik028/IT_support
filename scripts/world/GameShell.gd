@@ -24,6 +24,7 @@ var instruction_plate: Panel
 var room_notice: Label
 var notice_time = 0.0
 var leaving_scene = false
+var settings_from_pause = false
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -42,7 +43,10 @@ func _ready():
 	ui.world_enabled = true
 	layer.add_child(ui)
 	world.game = ui.game
-	world.player.sensitivity = ui.display_settings.mouse_sensitivity
+	ui.display_settings.apply_world(world)
+	ui.preferences_changed.connect(func(): ui.display_settings.apply_world(world); hud.theme=ui.theme; overlay.theme=ui.theme)
+	ui.settings_closed.connect(func():
+		if settings_from_pause: settings_from_pause=false; pause_menu())
 	ui.world_requested.connect(enter_world)
 	ui.lesson_launched.connect(func(): enter_world())
 	world.player.interaction_requested.connect(interact)
@@ -133,7 +137,7 @@ func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 func _process(delta):
 	ui.game.reconcile_room()
 	notice_time = maxf(0.0,notice_time-delta)
-	room_notice.visible = notice_time>0.0
+	room_notice.visible = notice_time>0.0 and mode=="world"
 	chrome.scale = get_viewport().get_visible_rect().size/Vector2(1600,900)
 	if mode == "app" and ui.page == "menu": set_mode("menu")
 	update_time += delta
@@ -141,7 +145,11 @@ func _process(delta):
 	if update_time > 0.25:
 		update_time = 0.0
 		world.sync_state()
-		status_label.text = "Tréninkové centrum – vyber si lekci" if ui.game.game_mode.is_training() else "SERVEROVNA 01"
+		status_label.text = "SERVEROVNA 01"
+		if ui.game.game_mode.is_training():
+			status_label.text = "Tréninkové centrum – vyber si lekci"
+			if ui.game.active and ui.game.session_kind=="lesson": status_label.text="VÝUKA / "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(ui.game.tutorial.session.mode,"Lekce")
+			elif ui.game.active and ui.game.session_kind=="random": status_label.text="NÁHODNÉ PROCVIČOVÁNÍ"
 		if ui.game.active:
 			status_label.text += "\n"+ui.game.current.title
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
@@ -149,6 +157,13 @@ func _process(delta):
 			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
 		update_guidance()
 		instruction_plate.visible = instruction.text!=""
+		instruction.size.y=0
+		instruction.size.y=instruction.get_minimum_size().y
+		instruction_plate.size.y=instruction.size.y+20
+		status_label.size.y=0
+		status_label.size.y=status_label.get_minimum_size().y
+		hud.get_node("StatusPlate").size.y=status_label.size.y+52
+		direction.position.y=650 if context_plate.visible else 730
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
@@ -206,8 +221,14 @@ func store_pose():
 	ui.game.sim.state.world.player = {"x":p.position.x,"z":p.position.z,"yaw":p.rotation.y,"pitch":p.camera.rotation.x}
 	ui.game.save()
 
-func open_app(page: String, host: String = "PVE-01"):
-	ui.host = host
+func open_app(page: String, host: String = ""):
+	ui.capture_form_drafts()
+	if host!="": ui.host = host; ui.selected_vm=""
+	ui.context_open=false
+	if page=="Nastavení":
+		ui.open_settings()
+		set_mode("app")
+		return
 	ui.page = page
 	ui.tab = ""
 	ui.notice = ""
@@ -406,20 +427,9 @@ func pause_menu():
 	var v = panel("Pauza","Pohyb a fyzické interakce jsou pozastavené.")
 	v.add_child(ui.button("Pokračovat",return_to_world,true))
 	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
-	v.add_child(ui.label("Citlivost myši",16))
-	var slider = HSlider.new()
-	slider.min_value = 0.0005
-	slider.max_value = 0.005
-	slider.step = 0.0001
-	slider.value = world.player.sensitivity
-	v.add_child(slider)
-	slider.value_changed.connect(func(value):
-		world.player.sensitivity = value
-		ui.display_settings.mouse_sensitivity = value
-		if ui.manage_display: ui.display_settings.save_settings())
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
-	v.add_child(ui.button("Nastavení obrazu",func(): open_app("Nastavení")))
+	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	v.add_child(ui.button("Uložit a hlavní menu",func():
 		if ui.game.save() == OK:
 			ui.page = "menu"
@@ -450,9 +460,11 @@ func _unhandled_key_input(event):
 	if not event.pressed or event.echo: return
 	if event.keycode == KEY_ESCAPE:
 		if mode == "world": pause_menu()
+		elif mode == "app" and ui.page=="Nastavení": ui.close_settings()
+		elif mode == "app" and ui.context_open: ui.context_open=false; ui.draw_ui()
 		elif mode != "menu": return_to_world()
 		get_viewport().set_input_as_handled()
-	elif event.keycode == KEY_TAB and mode in ["world","tasks"]:
+	elif event.is_action_pressed("task_list") and mode in ["world","tasks"]:
 		if mode == "world": show_tasks()
 		else: return_to_world()
 		get_viewport().set_input_as_handled()

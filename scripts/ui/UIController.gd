@@ -2,6 +2,8 @@ extends Control
 
 signal world_requested(destination: String)
 signal lesson_launched
+signal preferences_changed
+signal settings_closed
 var world_enabled = false
 
 const Game = preload("res://scripts/core/GameManager.gd")
@@ -47,6 +49,22 @@ var form_scopes: Dictionary={}
 var form_defaults: Dictionary={}
 var draft_revision=-1
 var save_caption: Label
+const Forms = preload("res://scripts/ui/FormValues.gd")
+const Console = preload("res://scripts/ui/ConsoleNavigation.gd")
+const Context = preload("res://scripts/simulation/OperationContext.gd")
+var working_context = preload("res://scripts/ui/WorkingContext.gd").new()
+var active_action = ""
+var wizard_step = 0
+var wizard_unlocked = 0
+var wizard_vm = "101"
+var context_open = false
+var settings_tab = "Obraz"
+var settings_return = "menu"
+var display_previous = {}
+var display_dialog: ConfirmationDialog
+var display_deadline = 0
+var binding_dialog: AcceptDialog
+var binding_action = ""
 
 const CYAN = Color("3ddbc6")
 const MUTED = Color("8c9eb5")
@@ -66,6 +84,8 @@ func _ready():
 		sync_display_layout()
 	get_tree().auto_accept_quit=false
 	get_window().close_requested.connect(quit_game)
+	display_settings.apply_preferences()
+	sound_on=not display_settings.muted
 	theme = make_theme()
 	create_sound()
 	game.persistence_changed.connect(refresh_persistence_status)
@@ -74,7 +94,7 @@ func _ready():
 
 func make_theme() -> Theme:
 	var t = Theme.new()
-	t.default_font_size = 15
+	t.default_font_size = roundi(15*display_settings.text_scale)
 	t.set_color("font_color","Label",WHITE)
 	t.set_color("font_color","Button",WHITE)
 	t.set_color("font_hover_color","Button",CYAN)
@@ -110,7 +130,7 @@ func box(bg: Color, border = Color("23364d"), radius = 10) -> StyleBoxFlat:
 func label(text: String, size_px = 15, color = WHITE) -> Label:
 	var l = Label.new()
 	l.text = text
-	l.add_theme_font_size_override("font_size",size_px)
+	l.add_theme_font_size_override("font_size",roundi(size_px*display_settings.text_scale))
 	l.add_theme_color_override("font_color",color)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -201,11 +221,18 @@ func save_and_menu():
 	draw_ui()
 
 func draw_ui():
+	working_context.capture(self)
 	if draft_revision==game.session_revision: capture_form_drafts()
 	else:
 		form_drafts.clear()
+		working_context.views.clear()
+		wizard_step=0
+		wizard_unlocked=0
+		wizard_vm="101"
+		active_action=""
 		selected_vm=""
 		draft_revision=game.session_revision
+	normalize_selection()
 	clear_ui()
 	if page == "menu": draw_menu(); return
 	if page == "Nastavení": draw_settings(); return
@@ -220,20 +247,19 @@ func draw_ui():
 	top.add_child(button("Uložit a menu",save_and_menu))
 	var body = hbox(whole,18)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	var sidebar = vbox(body,8)
-	sidebar.custom_minimum_size.x = 172
-	sidebar.add_child(label("PRACOVIŠTĚ",10,MUTED))
-	for item in [["Trénink","◇"],["Serverovna","▦"],["Tickety","≡"],["Proxmox","◈"],["Hyper-V","▣"],["Storage","▤"],["Síť","⌁"],["Terminál",">_"],["Akademie","◇"],["Statistiky","↗"]]:
-		var target = item[0]
-		var b = button(item[1]+"   "+target,func(): navigate(target),page==target)
-		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		sidebar.add_child(b)
+	var nav = HFlowContainer.new()
+	whole.add_child(nav)
+	whole.move_child(nav,1)
+	for target in ["Serverovna","Tickety","Trénink","Proxmox","Hyper-V","Storage","Síť","Terminál","Akademie","Statistiky"]:
+		var b = button(target,func(): navigate(target),page==target)
+		b.custom_minimum_size.y=32
+		nav.add_child(b)
 		register_target("nav:"+target,b)
-	var spacer = Control.new()
-	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sidebar.add_child(spacer)
-	sidebar.add_child(label("●  OFFLINE LAB\nVšechny zásahy jsou simulované.",11,CYAN))
-	sidebar.add_child(button("Zvuk: " + ("zapnut" if sound_on else "vypnut"),func(): sound_on=not sound_on; draw_ui()))
+	nav.add_child(button("Nastavení",func(): open_settings()))
+	var context_button=button("← Konfigurace" if context_open else ("Instruktor / zadání" if game.session_kind=="lesson" else "Zadání ticketu"),func(): context_open=not context_open; draw_ui())
+	top.add_child(context_button)
+	register_target("context:toggle",context_button)
+	brand.get_child(1).text="CVIČNÁ INFRASTRUKTURA · kampaň pozastavena" if game.game_mode.is_training() else "HLAVNÍ SERVEROVNA · pracovní směna"
 	if page in ["Proxmox","Hyper-V","Storage"]:
 		var scene_path={"Proxmox":"res://scenes/consoles/proxmox/Proxmox.tscn","Hyper-V":"res://scenes/consoles/hyperv/HyperV.tscn","Storage":"res://scenes/consoles/raid/Storage.tscn"}[page]
 		center=load(scene_path).instantiate()
@@ -242,13 +268,13 @@ func draw_ui():
 	else: center = vbox(body,14)
 	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	center.add_child(label(page,30))
-	if notice != "":
-		var n = card(center)
-		var message=label(notice,13,Color("ff8d99") if bad_notice else CYAN)
-		message.max_lines_visible=3
-		message.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		n.add_child(message)
-		n.add_child(button("Přečíst celou zprávu",func(): show_message("Záznam operace",full_notice)))
+	if notice != "" and page not in ["Proxmox","Hyper-V","Storage"]:
+		center.add_child(label(("Chyba: " if bad_notice else "Hotovo: ")+notice.left(180),13,ORANGE if bad_notice else CYAN))
+	if context_open and game.active:
+		if game.session_kind=="lesson": draw_lesson_panel(center)
+		else: draw_ticket(center)
+		working_context.restore(self)
+		return
 	match page:
 		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
@@ -258,13 +284,11 @@ func draw_ui():
 		"Terminál": draw_terminal()
 		"Akademie": draw_academy()
 		"Statistiky": draw_stats()
-	if game.active and not page in ["Tickety","Trénink"]:
-		if game.session_kind=="lesson": draw_lesson_panel(body)
-		else: draw_ticket(body)
 	whole.add_child(label("DATACENTER ACADEMY     /     Pozorovat → diagnostikovat → bezpečně změnit → ověřit → zdokumentovat",10,MUTED))
 	root_box.modulate.a=0.85
 	transition=create_tween()
 	transition.tween_property(root_box,"modulate:a",1.0,0.14)
+	working_context.restore(self)
 	call_deferred("focus_tutorial")
 
 func draw_menu():
@@ -298,7 +322,7 @@ func draw_menu():
 		game.set_campaign_mode(true)
 		navigate("Tickety")))
 	var system_buttons=hbox(left,12)
-	var settings_button=button("Nastavení",func(): page="Nastavení"; notice=""; bad_notice=false; draw_ui())
+	var settings_button=button("Nastavení",open_settings)
 	settings_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	system_buttons.add_child(settings_button)
 	var exit_button=button("Ukončit hru",quit_game)
@@ -334,45 +358,106 @@ func sync_display_layout():
 	size=Vector2(Display.DESIGN_SIZE)
 	scale=Vector2(display_settings.resolution)/Vector2(Display.DESIGN_SIZE)
 
-func draw_settings():
-	settings_controls.clear()
-	var all=vbox(content_box,24)
-	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	var header=hbox(all)
-	header.add_child(label("◈  DATACENTER ACADEMY",22,CYAN))
-	header.add_child(button("← Hlavní menu",func(): page="menu"; draw_ui()))
-	var content=scroll(all)
-	content.add_child(label("Nastavení",36))
-	content.add_child(label("OBRAZ  /  poměr stran 16:9",12,MUTED))
-	var panel=card(content,"Zobrazení","Volby se použijí okamžitě po stisknutí tlačítka a zůstanou uložené pro příští spuštění.")
-	var toggle=CheckButton.new()
-	toggle.text="Celá obrazovka"
-	toggle.button_pressed=display_settings.fullscreen
-	toggle.custom_minimum_size.y=44
-	panel.add_child(toggle)
-	settings_controls.fullscreen=toggle
-	panel.add_child(label("Rozlišení hry (16:9)",14,MUTED))
-	var picker=OptionButton.new()
-	picker.custom_minimum_size.y=44
-	for resolution in Display.RESOLUTIONS:
-		picker.add_item("%d × %d%s" % [resolution.x,resolution.y,"  •  4K UHD" if resolution==Vector2i(3840,2160) else ""])
-	picker.select(Display.RESOLUTIONS.find(display_settings.resolution))
-	panel.add_child(picker)
-	settings_controls.resolution=picker
-	panel.add_child(label("V režimu okna určuje volba také jeho velikost. Na menším monitoru se okno přizpůsobí pracovní ploše; zvolené herní rozlišení zůstane zachované.",14,MUTED))
-	var apply_button=button("Použít nastavení",func(): apply_display_settings(Display.RESOLUTIONS[picker.selected],toggle.button_pressed),true)
-	panel.add_child(apply_button)
-	settings_controls.apply=apply_button
-	if notice!="": panel.add_child(label(notice,14,CYAN if not bad_notice else ORANGE))
-	panel.add_child(label("F11 přepíná celou obrazovku.",12,MUTED))
+func open_settings():
+	if page!="Nastavení": settings_return=page
+	page="Nastavení"
+	notice=""
+	draw_ui()
 
-func apply_display_settings(resolution: Vector2i,fullscreen: bool):
+func close_settings():
+	if not display_previous.is_empty(): resolve_display(false)
+	page=settings_return
+	draw_ui()
+	settings_closed.emit()
+
+func draw_settings():
+	preload("res://scripts/ui/SettingsPanel.gd").draw(self)
+
+func save_preference(key: String, value) -> bool:
+	var previous=display_settings.get(key)
+	display_settings.set(key,value)
+	if display_settings.save_settings()!=OK:
+		display_settings.set(key,previous)
+		notice="Nastavení se nepodařilo uložit. Zkontroluj přístup k uživatelské složce."
+		bad_notice=true
+		show_message("Nastavení nebylo uloženo",notice)
+		return false
+	display_settings.apply_preferences()
+	sound_on=not display_settings.muted
+	theme=make_theme()
+	preferences_changed.emit()
+	return true
+
+func preview_display(resolution: Vector2i, fullscreen: bool):
+	if not display_previous.is_empty(): resolve_display(false)
+	display_previous={"resolution":display_settings.resolution,"fullscreen":display_settings.fullscreen}
+	apply_display_settings(resolution,fullscreen,false)
+	display_deadline=Time.get_ticks_msec()+15000
+	display_dialog=ConfirmationDialog.new()
+	display_dialog.title="Potvrdit zobrazení"
+	display_dialog.ok_button_text="Ponechat zobrazení"
+	display_dialog.cancel_button_text="Vrátit původní obraz"
+	add_child(display_dialog)
+	display_dialog.confirmed.connect(func(): resolve_display(true))
+	display_dialog.canceled.connect(func(): resolve_display(false))
+	display_dialog.popup_centered(Vector2i(520,180))
+
+func resolve_display(keep: bool):
+	if display_previous.is_empty(): return
+	var previous=display_previous.duplicate()
+	display_previous.clear()
+	if keep and display_settings.save_settings()!=OK:
+		keep=false
+		notice="Zobrazení se nepodařilo uložit; obnoven původní obraz."
+		bad_notice=true
+	if not keep:
+		display_settings.resolution=previous.resolution
+		display_settings.fullscreen=previous.fullscreen
+		display_settings.apply(get_window())
+		sync_display_layout()
+	if is_instance_valid(display_dialog): display_dialog.hide(); display_dialog.queue_free()
+	draw_ui()
+
+func _process(_delta):
+	working_context.process(self)
+	if not display_previous.is_empty():
+		var remaining=maxi(0,ceili((display_deadline-Time.get_ticks_msec())/1000.0))
+		display_dialog.dialog_text="Je obraz čitelný? Potvrď změnu do %d s.\nBez potvrzení se vrátí poslední potvrzené nastavení." % remaining
+		if remaining==0: resolve_display(false)
+
+func capture_binding(action: String):
+	binding_action=action
+	binding_dialog=AcceptDialog.new()
+	binding_dialog.title="Změna klávesy"
+	binding_dialog.dialog_text="Stiskni novou klávesu pro: "+Display.KEY_LABELS[action]+". Escape změnu zruší."
+	binding_dialog.close_requested.connect(func(): binding_action=""; binding_dialog.queue_free())
+	binding_dialog.confirmed.connect(func(): binding_action=""; binding_dialog.queue_free())
+	binding_dialog.window_input.connect(_input)
+	add_child(binding_dialog)
+	binding_dialog.popup_centered(Vector2i(520,180))
+
+func _input(event):
+	if binding_action=="" or not event is InputEventKey or not event.pressed or event.echo: return
+	get_viewport().set_input_as_handled()
+	var key=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+	if key==KEY_ESCAPE:
+		binding_action=""; binding_dialog.queue_free(); return
+	if key in [KEY_F11,KEY_SHIFT,KEY_CTRL,KEY_ALT,KEY_META] and key!=KEY_SHIFT:
+		binding_dialog.dialog_text="Tato klávesa je vyhrazená. Zvol jinou klávesu."; return
+	for action in display_settings.bindings:
+		if action!=binding_action and display_settings.bindings[action]==key:
+			binding_dialog.dialog_text="Klávesu používá "+Display.KEY_LABELS[action]+". Zvol jinou klávesu."; return
+	var keys=display_settings.bindings.duplicate(); keys[binding_action]=key
+	if save_preference("bindings",keys):
+		binding_action=""; binding_dialog.queue_free(); draw_ui()
+
+func apply_display_settings(resolution: Vector2i,fullscreen: bool, persist: bool = true):
 	if not resolution in Display.RESOLUTIONS: return
 	var previous_resolution=display_settings.resolution
 	var previous_fullscreen=display_settings.fullscreen
 	display_settings.resolution=resolution
 	display_settings.fullscreen=fullscreen
-	var error=display_settings.save_settings()
+	var error=display_settings.save_settings() if persist else OK
 	if error!=OK:
 		display_settings.resolution=previous_resolution
 		display_settings.fullscreen=previous_fullscreen
@@ -387,7 +472,7 @@ func apply_display_settings(resolution: Vector2i,fullscreen: bool):
 
 func _unhandled_key_input(event):
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F11:
-		apply_display_settings(display_settings.resolution,not display_settings.fullscreen)
+		preview_display(display_settings.resolution,not display_settings.fullscreen)
 		get_viewport().set_input_as_handled()
 
 func quit_game():
@@ -416,6 +501,7 @@ func navigate(target: String):
 		game.tutorial.session.tab=tab
 		game.save()
 	if not game.active and not page in ["Trénink","menu"]: game.start_mission(0)
+	context_open=false
 	draw_ui()
 
 func draw_datacenter():
@@ -511,48 +597,38 @@ func start_ticket(index: int):
 		return
 	navigate(game.current.category)
 
+func normalize_selection():
+	if page not in ["Proxmox","Hyper-V"]: return
+	if game.sim.state.hosts.get(host,{}).get("kind","") != page: host="PVE-01" if page=="Proxmox" else "HV-01"
+	if selected_vm != "":
+		var vm=game.sim.get_vm(selected_vm)
+		# The host comes from the selected object's real identity.
+		if vm.is_empty() or Context.platform(game.sim.state,vm)!=page: selected_vm=""
+		else: host=vm.host
+
 func draw_console():
-	# Physical service is performed at the device in the 3D game. The standalone
-	# legacy interface still exposes descriptors for complete model/UI validation.
-	var console_actions=[]
+	Console.draw(self)
+
+func open_action(id: String):
 	for a in game.actions:
-		if world_enabled and a.id.begins_with("physical_"): continue
-		console_actions.append(a)
-	if page=="Proxmox" and not host.begins_with("PVE"): host="PVE-01"
-	if page=="Hyper-V" and not host.begins_with("HV"): host="HV-01"
-	center.add_child(label(("Datacenter  ›  " + host + "  ›  VM / CT") if page=="Proxmox" else ("Hyper-V Manager  ›  " + host if page=="Hyper-V" else "Storage Controller  ›  NAS-01"),12,CYAN))
-	var options=[]
-	for a in console_actions:
-		if a.get("console","Proxmox")==page and not a.panel in options: options.append(a.panel)
-	if options.is_empty():
-		center.add_child(label("Zvol příslušný modul kampaně.",15,MUTED))
+		if a.id != id or a.get("console","Proxmox") != page: continue
+		if not ui_targets.has("section:"+a.panel): draw_ui()
+		if tab != a.panel: ui_targets["section:"+a.panel].pressed.emit()
+		if a.panel == "Průvodce VM":
+			wizard_step=Console.STEPS.find(id)
+			wizard_unlocked=maxi(wizard_unlocked,wizard_step)
+			draw_ui()
+		elif ui_targets.has("operation:"+id): ui_targets["operation:"+id].pressed.emit()
 		return
-	var relevant=[]
-	for a in console_actions:
-		if a.get("console","Proxmox")==page and a.id in game.current.get("available_actions",[]): relevant.append(a.id)
-	if not relevant.is_empty() and not (game.session_kind=="lesson" and game.tutorial.session.mode=="exam"): options.push_front("Podle ticketu")
-	if not tab in options: tab=options[0]
-	var picker=OptionButton.new()
-	picker.custom_minimum_size.y=40
-	for opt in options: picker.add_item(opt)
-	picker.select(options.find(tab))
-	picker.item_selected.connect(func(i): tab=options[i]; notice=""; draw_ui())
-	center.add_child(picker)
-	register_target("console:sections",picker)
-	var v=scroll(center)
-	if page=="Proxmox":
-		var wizard=button("Create VM — průvodce",func(): tab="Průvodce VM"; game.notify_event({"type":"action_opened","action":"create_vm"}); draw_ui(),true)
-		v.add_child(wizard)
-		register_target("wizard:create_vm",wizard)
-	if page in ["Proxmox","Hyper-V"]: draw_tree(v)
-	draw_state(v)
-	for action in console_actions:
-		if action.get("console","Proxmox")==page and ((tab=="Podle ticketu" and action.id in relevant) or action.panel==tab): draw_form(v,action)
+
+func option_value(picker: OptionButton, index: int = -1) -> String:
+	return Forms.option_value(picker,index)
 
 func draw_tree(parent: Node):
-	var c=card(parent,"Datacenter → Node → VM / CT" if page=="Proxmox" else "Hyper-V Manager → Hostitel → VM")
+	var c=card(parent,"Zařízení")
 	var tree=Tree.new()
-	tree.custom_minimum_size.y=126
+	tree.custom_minimum_size=Vector2(238,190)
+	tree.add_theme_font_size_override("font_size",13)
 	tree.hide_root=true
 	var tree_root=tree.create_item()
 	for node_name in (["PVE-01","PVE-02"] if page=="Proxmox" else ["HV-01","HV-02"]):
@@ -563,14 +639,20 @@ func draw_tree(parent: Node):
 			var vm=game.sim.state.vms[vm_id]
 			if vm.get("exists",false) and vm.host==node_name:
 				var item=tree.create_item(node)
-				item.set_text(0,vm_id+"  "+vm.name+"  ["+vm.status+"]")
+				item.set_text(0,vm_id+"  "+vm.name+"  ["+("běží" if vm.status=="Running" else "vypnuto")+"]")
 				item.set_metadata(0,{"host":node_name,"vm":vm_id})
+				if selected_vm==vm_id: item.select(0)
+		if selected_vm=="" and host==node_name: node.select(0)
 		if page=="Proxmox" and node_name=="PVE-01":
 			for ct_id in game.sim.state.ct:
 				var item=tree.create_item(node)
 				item.set_text(0,ct_id+"  "+game.sim.state.ct[ct_id].name+"  [LXC]")
 				item.set_metadata(0,{"host":node_name,"vm":""})
 	c.add_child(tree)
+	if page=="Proxmox":
+		var wizard=button("Create VM — průvodce",func(): tab="Průvodce VM"; game.notify_event({"type":"action_opened","action":"create_vm"}); draw_ui())
+		c.add_child(wizard)
+		register_target("wizard:create_vm",wizard)
 	register_target("tree:PVE-01",tree)
 	register_target("tree:PVE-02",tree)
 	register_target("tree:HV-01",tree)
@@ -578,6 +660,7 @@ func draw_tree(parent: Node):
 	tree.item_selected.connect(func():
 		var meta=tree.get_selected().get_metadata(0)
 		if meta is Dictionary:
+			capture_form_drafts()
 			host=meta.host
 			selected_vm=meta.vm
 			game.notify_event({"type":"node_selected","host":host,"vm":selected_vm})
@@ -619,30 +702,22 @@ func draw_form(parent: Node, action: Dictionary):
 	var inputs={}
 	for field in action.fields:
 		c.add_child(label(field.label,12,MUTED))
-		var value=Eval.read_path(game.sim.state,field.get("path",""),field.get("default","")) if field.has("path") else field.get("default","")
-		if selected_vm!="" and field.get("path","").begins_with("vms."):
-			var parts=field.path.split(".")
-			parts[1]=selected_vm
-			value=Eval.read_path(game.sim.state,".".join(parts),value)
-		if field.key=="vm" and selected_vm!="": value=selected_vm
+		var value=Forms.value(self,action,field)
 		var input: Control
 		match field.get("type","text"):
 			"bool":
 				input=CheckButton.new()
-				input.text="Zapnuto / potvrzeno"
+				input.text=field.label
 				input.button_pressed=bool(value)
 			"choice":
 				input=OptionButton.new()
-				var field_options=field.options.duplicate()
-				if field.key=="vm":
-					for vm_id in game.sim.state.vms:
-						if not vm_id in field_options and game.sim.state.vms[vm_id].get("exists",false): field_options.append(vm_id)
-				if field.key=="bridge":
-					for switch_id in game.sim.state.network.switches:
-						if not switch_id in field_options: field_options.append(switch_id)
-				for option in field_options: input.add_item(str(option))
+				var field_options=Forms.choices(self,action,field)
+				for option in field_options:
+					input.add_item(Forms.display(self,field,option))
+					input.set_item_metadata(input.item_count-1,str(option))
 				var idx=field_options.find(value)
 				input.select(maxi(0,idx))
+				input.disabled=field_options.is_empty()
 			"number":
 				input=SpinBox.new()
 				input.min_value=field.get("min",0)
@@ -684,7 +759,7 @@ func draw_form(parent: Node, action: Dictionary):
 		inputs["_preview"]=preview
 		inputs.level.item_selected.connect(func(_i): update_raid_preview(inputs))
 	form_controls[action.id]=inputs
-	var target_vm=inputs.vm.get_item_text(inputs.vm.selected) if inputs.has("vm") and inputs.vm is OptionButton else selected_vm
+	var target_vm=option_value(inputs.vm) if inputs.has("vm") and inputs.vm is OptionButton else selected_vm
 	var scope=page+"|"+host+"|"+target_vm+"|"+str(action.id)
 	form_scopes[action.id]=scope
 	form_defaults[action.id]=read_form(inputs)
@@ -692,15 +767,23 @@ func draw_form(parent: Node, action: Dictionary):
 	if inputs.has("vm") and inputs.vm is OptionButton:
 		var vm_picker=inputs.vm
 		vm_picker.item_selected.connect(func(i):
-			selected_vm=vm_picker.get_item_text(i)
+			capture_form_drafts()
+			selected_vm=option_value(vm_picker,i)
+			if action.panel=="Průvodce VM": wizard_vm=selected_vm
 			draw_ui())
+	var feedback=label("",13,ORANGE)
+	feedback.visible=false
+	c.add_child(feedback)
 	var action_button=button(action.label,func():
+		var problem=Forms.validate(self,action,inputs)
+		if problem!="":
+			feedback.text=problem; feedback.show(); return
 		var params={}
 		for key in inputs:
 			if key.begins_with("_"): continue
 			var input=inputs[key]
 			if input is CheckButton: params[key]=input.button_pressed
-			elif input is OptionButton: params[key]=input.get_item_text(input.selected)
+			elif input is OptionButton: params[key]=option_value(input)
 			elif input is SpinBox:
 				commit_number(input)
 				params[key]=input.value
@@ -709,7 +792,14 @@ func draw_form(parent: Node, action: Dictionary):
 		if action.get("danger",false):
 			confirm_action(action,params)
 		else: perform(action.id,params),true)
+	var fixed=Context.fixed_host(action.id)
+	if fixed!="" and host!=fixed:
+		action_button.disabled=true
+		c.add_child(button("Operace je dostupná na "+fixed+" — vybrat hostitele",func(): capture_form_drafts(); selected_vm=""; host=fixed; draw_ui()))
 	c.add_child(action_button)
+	if notice!="":
+		c.add_child(label(("Chyba: " if bad_notice else "Hotovo: ")+notice,13,ORANGE if bad_notice else CYAN))
+		c.add_child(button("Otevřít provozní deník",func(): show_message("Deník operací","\n".join(game.sim.state.journal))))
 	form_buttons[action.id]=action_button
 	register_target("action:"+str(action.id),action_button)
 
@@ -719,7 +809,7 @@ func read_form(inputs: Dictionary) -> Dictionary:
 		if key.begins_with("_"): continue
 		var input=inputs[key]
 		if input is CheckButton: values[key]=input.button_pressed
-		elif input is OptionButton: values[key]=input.get_item_text(input.selected)
+		elif input is OptionButton: values[key]=option_value(input)
 		elif input is SpinBox: values[key]={"value":input.value,"text":input.get_line_edit().text}
 		elif input.has_meta("selection"): values[key]=input.get_meta("selection").duplicate()
 		else: values[key]=input.text
@@ -742,7 +832,7 @@ func restore_form(inputs: Dictionary, values: Dictionary):
 		if input is CheckButton: input.button_pressed=value
 		elif input is OptionButton:
 			for i in input.item_count:
-				if input.get_item_text(i)==value: input.select(i); break
+				if option_value(input,i)==value: input.select(i); break
 		elif input is SpinBox:
 			input.value=value.value
 			input.set_meta("restored_value",input.value)
@@ -770,7 +860,14 @@ func update_raid_preview(inputs: Dictionary):
 func confirm_action(action: Dictionary, params: Dictionary):
 	var d=ConfirmationDialog.new()
 	d.title="Potvrzení zásahu do simulace"
-	d.dialog_text="%s\n\n%s\n\nCílové parametry:\n%s\n\nOvěř identitu zařízení a dostupnost zálohy. Operace může zničit data v simulaci." % [action.label,action.get("warning","Destruktivní operace."),JSON.stringify(params,"  ")]
+	var target=game.sim.get_vm(str(params.get("vm",params.get("id",""))))
+	var identity="%s / %s na %s" % [target.get("id",""),target.get("name",""),target.get("host",host)] if not target.is_empty() else host
+	var changes=[]
+	for field in action.fields:
+		if not params.has(field.key): continue
+		var value=params[field.key]
+		changes.append(field.label+": "+(("ano" if value else "ne") if value is bool else str(value)))
+	d.dialog_text="%s\nZařízení: %s\n\n%s\n\n%s" % [action.label,identity,"\n".join(changes),action.get("warning","Před provedením ověř identitu a uvedené změny.")]
 	if game.session_kind=="lesson": d.dialog_text+="\n\nLekce je oddělená od kampaně. Operaci můžeš zrušit nebo lekci bezpečně restartovat; uložený postup kampaně zůstane zachován."
 	d.ok_button_text="Provést simulovanou operaci"
 	d.cancel_button_text="Vrátit se ke kontrole"
@@ -780,13 +877,28 @@ func confirm_action(action: Dictionary, params: Dictionary):
 	d.popup_centered(Vector2i(600,450))
 
 func perform(action: String, params: Dictionary):
+	var tutorial_step=game.tutorial.session.get("step",-1)
 	var result=game.apply(action,params)
+	if result.ok and tab=="Průvodce VM" and action in Console.STEPS:
+		if action=="vm_identity": wizard_vm=str(params.id); selected_vm=wizard_vm
+		var guided_target=game.tutorial.target(game.sim.state).split(":") if game.tutorial.guided() else []
+		if guided_target.size()>1 and guided_target[1] in Console.STEPS:
+			wizard_step=Console.STEPS.find(guided_target[1])
+		elif wizard_step<5:
+			wizard_step+=1
+		wizard_unlocked=maxi(wizard_unlocked,wizard_step)
 	if result.ok and form_scopes.has(action):
 		form_drafts.erase(form_scopes[action])
 		form_controls.erase(action)
 	full_notice=result.text
 	notice=result.text.left(600)
 	bad_notice=not result.ok
+	if result.ok and game.tutorial.guided() and tutorial_step!=game.tutorial.session.get("step",-1) and tab!="Průvodce VM":
+		var next_step=game.tutorial.current_step()
+		if next_step.get("page",page)==page:
+			tab=next_step.get("tab",tab)
+			var next_target=game.tutorial.target(game.sim.state).split(":")
+			if next_target.size()>1 and next_target[0] in ["field","action"]: active_action=next_target[1]
 	draw_ui()
 
 func close_ticket():
@@ -972,7 +1084,7 @@ func draw_lesson_panel(parent: Node):
 	c.add_child(button("Vyhodnotit lekci",close_ticket,true))
 	if t.session.mode!="exam": c.add_child(button("Nápověda",hint))
 	c.add_child(button("Restartovat lekci",func(): begin_lesson(int(game.current.id),t.session.mode,false)))
-	c.add_child(button("Uložit a opustit lekci",func():
+	c.add_child(button("Zpět k nabídce lekcí (průběh zůstane)",func():
 		if game.save()==OK: navigate("Trénink")))
 	c.add_child(label("Kampaň je pozastavená. Odchod z tréninkové místnosti zruší rozpracovanou lekci; dokončené výsledky zůstanou uložené.",11,MUTED))
 
@@ -1024,6 +1136,12 @@ func recover_tutorial_target():
 		return
 	page=step.get("page",game.current.category)
 	tab=step.get("tab","")
+	var target=game.tutorial.target(game.sim.state).split(":")
+	if target.size()>1 and target[0] in ["field","action"]:
+		active_action=target[1]
+		if active_action in Console.STEPS:
+			wizard_step=Console.STEPS.find(active_action)
+			wizard_unlocked=maxi(wizard_unlocked,wizard_step)
 	host=game.current.server
 	game.tutorial.session.page=page
 	game.tutorial.session.tab=tab
@@ -1086,16 +1204,17 @@ func show_message(title: String, text: String):
 func draw_network():
 	var v=scroll(center)
 	v.add_child(label("SÍŤOVÁ MAPA  /  různé vrstvy mají různé příčiny výpadku",12,MUTED))
-	for id in ["100","200"]:
-		var vm=game.sim.state.vms[id]
-		var c=card(v,vm.name+"  →  "+vm.bridge+"  →  VLAN "+str(vm.vlan),"Uplink → gateway → DNS → aplikace HTTPS:443")
+	for id in game.sim.state.vms:
+		var vm=game.sim.get_vm(id)
+		if vm.is_empty(): continue
+		var c=card(v,id+" / "+vm.host+" → "+vm.name+"  →  "+vm.bridge+"  →  VLAN "+str(vm.vlan),"Hostitel / uplink → bridge → VLAN → VM → gateway %s → DNS %s → HTTPS:443" % [vm.gateway,vm.dns])
 		var net=preload("res://scripts/simulation/NetworkSimulator.gd").probe(game.sim.state,id)
 		var row=hbox(c)
 		for k in ["link","ip","dns","app"]:
 			var step=card(row)
 			step.add_child(label(("●  " if net[k] else "○  ")+k.to_upper(),15,CYAN if net[k] else ORANGE))
 		c.add_child(label(net.reason,14,MUTED))
-		c.add_child(button("Upravit síť "+vm.name,func(): page="Proxmox" if id=="100" else "Hyper-V"; tab="Síť" if id=="100" else "Virtuální síť"; notice=""; draw_ui()))
+		c.add_child(button("Upravit síť "+vm.name,func(): capture_form_drafts(); selected_vm=id; host=vm.host; page=Context.platform(game.sim.state,vm); tab="Síť" if page=="Proxmox" else "Virtuální síť"; active_action="network"; notice=""; draw_ui()))
 	var switches_card=card(v,"Virtuální switche")
 	for sw in game.sim.state.network.switches:
 		var data=game.sim.state.network.switches[sw]

@@ -6,6 +6,7 @@ var actions_run=0
 
 func _init():
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_training_ui.json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_training_ui.cfg"
 	call_deferred("run")
 
 func check(ok,message):
@@ -55,6 +56,8 @@ func run():
 				await process_frame
 				await process_frame
 				if mode=="exam": check(not is_instance_valid(ui.tutorial_overlay),"Zkouška nesmí zvýrazňovat")
+				ui.open_action(operation[0])
+				await process_frame
 				var inputs=ui.form_controls[operation[0]]
 				for key in operation[1]:
 					var input=inputs.get(key)
@@ -64,7 +67,7 @@ func run():
 					elif input is CheckButton: input.button_pressed=bool(value)
 					elif input is OptionButton:
 						for index in input.item_count:
-							if input.get_item_text(index)==str(value): input.select(index)
+							if ui.option_value(input,index)==str(value): input.select(index)
 					elif input.has_meta("selection"): input.set_meta("selection",value)
 					else: input.text=str(value)
 				if id==1002 and operation[0]=="vm_resources": await capture("guided-vm-"+mode)

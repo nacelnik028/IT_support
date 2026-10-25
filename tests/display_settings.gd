@@ -39,6 +39,7 @@ func run():
 		ui.settings_controls.resolution.select(index)
 		ui.settings_controls.fullscreen.button_pressed=false
 		ui.settings_controls.apply.pressed.emit()
+		ui.resolve_display(true)
 		await process_frame
 		await process_frame
 		check(root.content_scale_size==resolution,"Skutečné vykreslovací rozlišení "+str(resolution))
@@ -67,6 +68,7 @@ func run():
 	await process_frame
 	ui.settings_controls.fullscreen.button_pressed=true
 	ui.settings_controls.apply.pressed.emit()
+	ui.resolve_display(true)
 	await process_frame
 	check(ui.display_settings.fullscreen,"Celá obrazovka zapnutá v nastavení")
 	if DisplayServer.get_name()!="headless": check(root.mode==Window.MODE_EXCLUSIVE_FULLSCREEN,"Skutečný režim celé obrazovky")
@@ -74,6 +76,7 @@ func run():
 	check(saved.fullscreen and saved.resolution==Vector2i(3840,2160),"4K a fullscreen zůstávají uložené")
 	var f11=InputEventKey.new(); f11.keycode=KEY_F11; f11.pressed=true
 	ui._unhandled_key_input(f11)
+	ui.resolve_display(true)
 	await process_frame
 	check(not ui.display_settings.fullscreen,"F11 vypne celou obrazovku")
 	if DisplayServer.get_name()!="headless": check(root.mode==Window.MODE_WINDOWED,"Skutečný návrat do okna")
