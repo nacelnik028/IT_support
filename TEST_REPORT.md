@@ -1,5 +1,23 @@
 # Ověření rozšířené hratelné verze
 
+## Oprava vedené výuky v nových konzolích — 25. 10. 2026
+
+Před opravou skutečný průchod selhal ve 3 ze 6 kontrol: opětovný klik na
+předvybraný hostitel nepotvrdil krok, kontext instruktora měl nulovou výšku
+a návrat k potřebnému panelu ponechal formulář schovaný za kontextem.
+Opravené jsou také obnovení posledního kroku VM a směrování zvýraznění do sekcí.
+
+- Nový `tutorial_navigation.gd`: **700/700 kontrol headless, GPU i samostatný Windows balíček**, exit 0, bez runtime chyb/varování. Všech 21 vedených lekcí se ovládá přes viditelný strom, sekce a formuláře bez testovacího `open_action` či nastavování page/tab. Zahrnuje klik/Enter na předvybraný uzel, návrat z instruktora, obnovení VM shrnutí, chybnou RAM, koncepty, posuv i ochranu dalších režimů a kampaně.
+- Celý `Test-All.ps1`: **22 sad PASS**, 65 misí v modelu i UI, 21 lekcí ve všech 3 režimech, 336 původních výukových UI akcí, 474 kontrol save a ostatní regrese.
+- Rozšířený Godot MCP: raycast/E na cvičný server → management → opětovný klik na uzel → průvodce → instruktor → skutečný formulář PASS, errors=[].
+- Prohlédnuté snímky nové výuky v720p/1080p/4K, shrnutí se Start/Ověřit a 3D návratu do konfigurace. EXE+PCK i přibalené dokumenty jsou aktualizované. Definice obsahu, legacy24 a generátory se neměnily.
+
+Důkazy: `test-output/tutorial-test-all.log`, `tutorial-navigation-final.log`,
+`tutorial-navigation-gpu-final.log`, `tutorial-package.log` a `tutorial-*.png`.
+Testy používají vlastní SaveManager/DisplaySettings cesty; hráčův save a config
+se nepoužily. Nativní potvrzení aktivují tlačítko dialogu; hlavní konfigurace
+používá skutečné vstupní události a ověřuje dosažitelnost ovládacích prvků.
+
 ## Nové konzole, nastavení a validace platformy — 25. 10. 2026
 
 Finální `tools/Test-All.ps1`: **21 sad PASS, exit 0, bez runtime chyb a varování**.
