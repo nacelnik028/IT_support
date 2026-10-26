@@ -67,6 +67,12 @@ def main():
     report={'sha256':digest,'bytes':source.stat().st_size,'results':results}
     (logs/'results.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     if not all(results.values()): raise SystemExit(1)
+    manifest=ROOT/'builds/VERIFICATION.json'
+    if manifest.exists():
+        verification=json.loads(manifest.read_text(encoding='utf-8'))
+        if any(item.get('sha256')==digest for item in verification.get('artifacts',[])):
+            verification['windows']['packaged_tests']=results
+            manifest.write_text(json.dumps(verification,indent=2),encoding='utf-8')
     print('WINDOWS PACKAGE PASS: '+digest,flush=True)
 
 

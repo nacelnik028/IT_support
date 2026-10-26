@@ -82,13 +82,17 @@ Debug APK dovoluje přístup přes `run-as`; pro přenos spusť hru, vrať ji do
 a z adresáře s přenosovým souborem použij např.:
 
 ```powershell
-adb push academy-transfer.json /data/local/tmp/academy-transfer.json
-adb shell run-as cz.academy.itsupport cp /data/local/tmp/academy-transfer.json files/academy-transfer.json
+python -c "from pathlib import Path; import subprocess; subprocess.run(['adb','shell','-T','run-as','cz.academy.itsupport','tee','files/academy-transfer.json'], input=Path('academy-transfer.json').read_bytes(), stdout=subprocess.DEVNULL, check=True)"
 ```
 
-Pro opačný směr: `adb exec-out run-as cz.academy.itsupport cat files/academy-transfer.json`
-ulož beze změny UTF-8 (např. přesměrováním v `cmd.exe` nebo Pythonem;
-starý Windows PowerShell může změnit kódování). Potom proveď import ve hře.
+Pro opačný směr zachová Python přesné bajty i ve starém Windows PowerShellu:
+
+```powershell
+python -c "from pathlib import Path; import subprocess; Path('academy-transfer.json').write_bytes(subprocess.check_output(['adb','exec-out','run-as','cz.academy.itsupport','cat','files/academy-transfer.json']))"
+```
+
+Potom proveď import ve hře. Tyto příkazy přenášejí data přímo přes `run-as`;
+nepotřebují přístup aplikace ke sdílenému úložišti.
 
 ## Sestavení obou platforem
 

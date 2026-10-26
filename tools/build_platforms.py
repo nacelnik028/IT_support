@@ -164,6 +164,12 @@ def main():
     report = {"engine": version, "windows": windows, "pico4": android,
               "hardware_tracking": "NOT TESTED", "pico_72_fps": "NOT MEASURED",
               "artifacts": [checksum(exe), checksum(archive), checksum(apk)]}
+    previous_path=BUILDS/"VERIFICATION.json"
+    if previous_path.exists():
+        previous=json.loads(previous_path.read_text(encoding="utf-8"))
+        if any(item.get("sha256")==report["artifacts"][0]["sha256"] for item in previous.get("artifacts",[])):
+            packaged=previous.get("windows",{}).get("packaged_tests")
+            if packaged: report["windows"]["packaged_tests"]=packaged
     (BUILDS / "VERIFICATION.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
 

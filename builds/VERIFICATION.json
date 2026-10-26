@@ -1,0 +1,40 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "windows": {
+    "native-headless": "PASS",
+    "native-graphical": "PASS",
+    "packaged_tests": {
+      "native_headless": true,
+      "native_graphical": true,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": true
+    }
+  },
+  "pico4": {
+    "signature": "PASS",
+    "arm64_and_openxr_manifest": "PASS",
+    "device": "NOT RUN: no authorized ADB device"
+  },
+  "hardware_tracking": "NOT TESTED",
+  "pico_72_fps": "NOT MEASURED",
+  "artifacts": [
+    {
+      "file": "builds/windows/ITSupportSimulator.exe",
+      "bytes": 110508888,
+      "sha256": "1926f92b853202e87172334ee22bd40940bd675d385c23bfb61053cf9f1a8a07"
+    },
+    {
+      "file": "builds/ITSupportSimulator-Windows.zip",
+      "bytes": 38346233,
+      "sha256": "b750aae84a071a001350395b87f6376eef9d60610cc5b294dcd95d800b79e053"
+    },
+    {
+      "file": "builds/pico4/ITSupportSimulator-PICO4.apk",
+      "bytes": 90272345,
+      "sha256": "8b73ae5c8185965e2734acb868a9df32797b505d2a747e321c91cf5e33eab2cd"
+    }
+  ]
+}
