@@ -6,6 +6,10 @@ var objects: Array = []
 var door
 var door_open=false
 var dashboard: Label3D
+var door_tween: Tween
+var door_panels: Array=[]
+var door_notice: Label3D
+var last_dashboard=""
 
 func build(owner_world):
 	world=owner_world
@@ -40,8 +44,10 @@ func build(owner_world):
 		var button=world.item("PROGRAM-DOOR-"+str(z),"Otevřít / zavřít Programming Academy [E]","program_door",Vector3(-4.65,1.35,z),Vector3(0.35,0.5,0.12))
 		var label=Geo.text(button.visual,"[E]\nDVEŘE",Vector3(0,0,0.08),24,0.0015)
 		if z<-7: label.rotation.y=PI
+		door_panels.append({"object":button,"label":label})
 	Geo.text(world,"PROGRAMMING ACADEMY",Vector3(-6.5,3.25,-6.8),34,0.0028,Color("76e8cd"))
 	Geo.text(self,"ZPĚT / SERVEROVNA",Vector3(-6.5,3.25,-7.25),32,0.0028).rotation.y=PI
+	preload("res://scripts/programming/AcademyVisuals.gd").new().build(self)
 
 func add_item(id: String, title: String, at: Vector3, size_value: Vector3, category: String):
 	var object=world.item(id,title,"programming",at,size_value,category)
@@ -54,12 +60,24 @@ func contains_player() -> bool:
 	var seam=0.15 if world.game!=null and world.game.game_mode.is_programming() else -0.15
 	return AABB(Vector3(-8.9,-0.4,-20.9),Vector3(17.8,4.5,13.9+seam)).has_point(point)
 
-func toggle_door():
-	if door_open and absf(world.player.position.z+7)<0.6 and absf(world.player.position.x+6.5)<1.8: return
+func toggle_door() -> bool:
+	if door_tween and door_tween.is_running(): return false
+	if door_open and absf(world.player.position.z+7)<0.62 and absf(world.player.position.x+6.5)<1.8 and world.player.position.y<2.9:
+		door_notice.text="PRŮCHOD OBSAZENÝ / USTUP OD DVEŘÍ"; return false
 	door_open=not door_open
-	create_tween().tween_property(door,"position:x",-9.6 if door_open else -6.5,0.35)
+	door_tween=create_tween(); door_tween.tween_property(door,"position:x",-9.6 if door_open else -6.5,0.35)
+	door_notice.text="PROGRAMMING ACADEMY / "+("OTEVŘENO" if door_open else "[E] OTEVŘÍT")
+	for panel in door_panels:
+		panel.label.text="[E]\n"+("ZAVŘÍT" if door_open else "OTEVŘÍT")
+		panel.object.caption=("Zavřít" if door_open else "Otevřít")+" dveře — Programming Academy [E]"
+	return true
 
 func sync():
 	if world.game==null: return
-	dashboard.text=world.game.programming.dashboard()
+	var manager=world.game.programming
+	var py=manager.progress.lessons.keys().filter(func(id): return id.begins_with("PYL")).size()
+	var web=manager.progress.lessons.size()-py
+	var passed=manager.progress.results.values().filter(func(result): return result.passed).size()
+	var text="MOJE PROGRAMÁTORSKÉ ZNALOSTI\n\nPYTHON  %d / 15 lekcí     WEB  %d / 13 lekcí\nÚspěšné úlohy  %d / 60     XP  %d\n\n[E] OTEVŘÍT PŘEHLED A DOPORUČENÍ" % [py,web,passed,int(manager.progress.xp)]
+	if text!=last_dashboard: dashboard.text=text; last_dashboard=text
 	for object in objects: object.set_guided(world.game.game_mode.is_programming() and world.game.programming.mode=="learn" and not world.game.programming.current.is_empty() and object.console==("python" if world.game.programming.current.category=="python" else "web"))

@@ -41,6 +41,7 @@ func cancel(clear_queue: bool = true):
 
 func edit(filename: String, source: String):
 	if not allowed() or current.is_empty() or not files.has(filename): return
+	if files[filename]==source: return
 	files[filename]=source
 	if step==0: step=1
 	if not last_run.is_empty(): edited_after_run=true

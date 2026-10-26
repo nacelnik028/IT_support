@@ -369,20 +369,14 @@ func interact(object):
 func open_programming(category: String = "dashboard"):
 	if not ui.game.game_mode.is_programming(): return
 	if is_instance_valid(code_editor):
-		if category=="exam":
-			code_editor.mode_picker.select(2)
-			if not ui.game.programming.current.is_empty(): code_editor.launch(ui.game.programming.current.get("base_id",ui.game.programming.current.id),false)
+		code_editor.focus_station(category)
 		set_mode("coding")
 		return
 	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
 	code_editor=preload("res://scripts/programming/CodeEditorController.gd").new()
 	code_editor.manager=ui.game.programming; code_editor.shell=self
 	overlay.add_child(code_editor)
-	if category in ["python","web"]:
-		code_editor.selected_category=category
-		code_editor.category_picker.select(1 if category=="python" else 5)
-		code_editor.populate()
-	if category=="exam": code_editor.mode_picker.select(2)
+	code_editor.focus_station(category)
 	set_mode("coding")
 
 func show_device(object):

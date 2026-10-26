@@ -184,7 +184,7 @@ func build_disks():
 			Geo.box(disk.visual,Vector3(0,-0.035,0.065),Vector3(0.2,0.027,0.05),Color("879aa6"),0.8)
 			Geo.text(disk.visual,slots[i],Vector3(-0.06,0.03,0.057),36,0.0013)
 
-func build_switch(at: Vector3 = Vector3(-6.1,1.5,-5.8), prefix: String = ""):
+func build_switch(at: Vector3 = Vector3(-3.6,1.5,-5.8), prefix: String = ""):
 	var sw = item(prefix+"SW-CORE",("Cvičný " if prefix!="" else "")+"SW-CORE — fyzické porty","switch",at,Vector3(2.8,0.5,0.8),"Síť")
 	sw.laboratory = prefix!=""
 	Geo.text(sw.visual,"SW-CORE  /  12 PORTŮ",Vector3(0,0.16,0.415),32,0.002)
