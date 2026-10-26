@@ -1,9 +1,17 @@
 IT SUPPORT SIMULATOR — SPUŠTĚNÍ VE WINDOWS
 
-1. Klikni pravým tlačítkem na ZIP a vyber Extrahovat vše.
-2. Otevři rozbalenou složku a spusť ITSupportSimulator.exe.
-3. Vedle EXE musí zůstat ITSupportSimulator.pck. Obsahuje hru a učební data.
-   EXE nespouštěj přímo uvnitř ZIPu ani ho nepřesouvej samostatně.
+1. Stáhni aktuální ITSupportSimulator-Windows.zip.
+2. Spusť ITSupportSimulator.exe. Pro trvalé umístění můžeš nejdřív zvolit
+   Extrahovat vše a rozbalit hru do vlastní složky.
+3. Toto přenosné EXE už obsahuje herní data. Nepotřebuje další .pck soubor;
+   funguje i tehdy, když Průzkumník ze ZIPu vytáhne do Temp pouze EXE.
+
+CHYBA ZE STARŠÍHO BALÍČKU „IS THE .PCK FILE MISSING?“
+Starší ZIP obsahoval samostatné EXE a PCK. Windows při kliknutí uvnitř ZIPu
+vytáhl pouze EXE, takže druhý soubor chyběl. Stáhni nový ZIP; starou kopii
+EXE v dočasné složce nepoužívej. U starého balíčku pomůže Extrahovat vše.
+Vývojářská složka builds/windows stále používá EXE + PCK; přenosná varianta
+v hlavním ZIPu a builds/windows-portable má všechna herní data přímo v EXE.
 
 PROGRAMMING ACADEMY
 Ze serverovny projdi zadní uličkou za administrátorskými stoly, zahni doleva
@@ -12,10 +20,10 @@ už nestojí v cestě. Zaměř dveře nebo nástěnný ovladač a stiskni E.
 Lze použít také Esc → Programming Academy.
 
 UPOZORNĚNÍ SMARTSCREEN „WINDOWS PROTECTED YOUR PC / UNKNOWN PUBLISHER“
-Tento projekt nemá placený/ověřený podpisový certifikát vydavatele.
+Tento projekt nemá podpisový certifikát ověřeného vydavatele.
 Upozornění na neznámou aplikaci samo o sobě není název nalezeného viru.
-Nové balení používá neupravený oficiální Godot runtime a samostatná herní data;
-nemění nastavení zabezpečení a nemůže zaručit zmizení SmartScreen.
+Přenosné balení vytváří oficiální Godot exportér s vloženými daty. Nemění
+nastavení zabezpečení a nemůže zaručit zmizení reputačního upozornění SmartScreen.
 
 Nejdřív ověř původ balíčku (github.com/nacelnik028/IT_support) a soubory pomocí
 SHA256SUMS.txt / builds/VERIFICATION.json. Po vlastním ověření a rozhodnutí,

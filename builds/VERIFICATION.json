@@ -2,7 +2,14 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "windows": {
     "native-headless": "PASS",
-    "native-graphical": "PASS",
+    "native-graphical": "PASS"
+  },
+  "portable_windows": {
+    "portable-native-headless": "PASS",
+    "portable-native-graphical": "PASS",
+    "exe_only_in_zip_temp": "PASS",
+    "renamed_executable": "PASS",
+    "zip_crc": "PASS",
     "packaged_tests": {
       "native_headless": true,
       "programming_runtime": true,
@@ -16,11 +23,11 @@
       "world_ui": true,
       "world_playthrough": true
     },
-    "packaged_gpu_tests": {
-      "programming_integration": 765,
-      "programming_polish": 27,
-      "failures": 0,
-      "renderer": "OpenGL Compatibility"
+    "defender_custom_scan": {
+      "completed": true,
+      "matching_threats": 0,
+      "scan_start": "2026-10-26T20:15:22.4425412+01:00",
+      "scan_end": "2026-10-26T20:15:22.4797464+01:00"
     }
   },
   "pico4": {
@@ -31,17 +38,11 @@
   "hardware_tracking": "NOT TESTED",
   "pico_72_fps": "NOT MEASURED",
   "windows_distribution": {
-    "embedded_pck": false,
-    "official_template_unchanged": true,
+    "primary_download": "single EXE with embedded project data",
+    "embedded_pck": true,
+    "folder_variant": "builds/windows with external PCK and unmodified official runtime",
     "authenticode": "UNSIGNED; no signing certificate available",
-    "smartscreen": "Unknown-publisher warnings may remain; no reputation bypass or security settings changed",
-    "defender_custom_scan": {
-      "completed": true,
-      "matching_threats": 0,
-      "scan_start": "2026-10-26T20:00:13.4034804+01:00",
-      "scan_end": "2026-10-26T20:00:13.4438527+01:00",
-      "completion_event": 1001
-    }
+    "smartscreen": "Unknown-publisher warnings may remain; no reputation bypass or security settings changed"
   },
   "artifacts": [
     {
@@ -52,12 +53,17 @@
     {
       "file": "builds/windows/ITSupportSimulator.pck",
       "bytes": 1563500,
-      "sha256": "5ffa1bf2db694e0451d4f2581b3db0f7e1704bd22a7ea6d5732b30870d6d69d5"
+      "sha256": "072832a5d3f77089050e1d47d53663007d158735c29fd97ab0bc0205093a1b59"
+    },
+    {
+      "file": "builds/windows-portable/ITSupportSimulator.exe",
+      "bytes": 110831992,
+      "sha256": "7d24a4b372a30496d590aa2301b0f26b71e87b6bfb412ee377712f394167b6b9"
     },
     {
       "file": "builds/ITSupportSimulator-Windows.zip",
-      "bytes": 40488518,
-      "sha256": "64451d122fda83649bfa7f7cfa5183632492f03b710abe302f4fbb034ec64e21"
+      "bytes": 40488773,
+      "sha256": "adc38a2af983ec74cda3210b3e727687f55d4088317100c69b0fc1594d347236"
     },
     {
       "file": "builds/pico4/ITSupportSimulator-PICO4.apk",
@@ -66,10 +72,12 @@
     }
   ],
   "validation": {
-    "test_suites": 30,
-    "failures": 0,
-    "legacy_catalogs_unchanged": true,
-    "zip_and_apk_crc": "PASS",
-    "physical_pico": "NOT TESTED"
+    "download_zip": "single EXE; no external PCK required",
+    "zip_crc": "PASS",
+    "zip_exe_only_headless": "PASS",
+    "zip_exe_only_gpu": "PASS",
+    "renamed_executable": "PASS",
+    "game_sources_changed": false,
+    "pico_apk_changed": false
   }
 }

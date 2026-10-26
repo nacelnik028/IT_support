@@ -1,4 +1,4 @@
-"""Verify the standalone EXE and its accompanying PCK in isolation."""
+"""Verify the primary portable download, or an explicit EXE/PCK folder build."""
 import argparse
 import hashlib
 import json
@@ -27,7 +27,7 @@ def run(args, cwd, log):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot',required=True,type=Path,help='Full Godot editor executable')
-    parser.add_argument('--exe',type=Path,default=ROOT/'builds/windows/ITSupportSimulator.exe')
+    parser.add_argument('--exe',type=Path,default=ROOT/'builds/windows-portable/ITSupportSimulator.exe')
     parser.add_argument('--headless',action='store_true',help='Skip graphical checks')
     args=parser.parse_args()
     engine=args.godot.resolve(strict=True)
@@ -77,7 +77,8 @@ def main():
         if any(item.get('sha256')==digest for item in verification.get('artifacts',[])):
             if pack.exists() and not any(item.get('sha256')==report['pck_sha256'] for item in verification.get('artifacts',[])):
                 raise RuntimeError('The tested PCK does not match the distribution manifest')
-            verification['windows']['packaged_tests']=results
+            variant='windows' if pack.exists() else 'portable_windows'
+            verification.setdefault(variant,{})['packaged_tests']=results
             manifest.write_text(json.dumps(verification,indent=2),encoding='utf-8')
     print('WINDOWS PACKAGE PASS: '+digest,flush=True)
 

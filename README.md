@@ -15,11 +15,14 @@ jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 
 ## Spuštění
 
-**Windows:** rozbal celý `builds/ITSupportSimulator-Windows.zip` a spusť
-`ITSupportSimulator.exe`. Připravené EXE je také v
-`builds/windows/ITSupportSimulator.exe`; vedle něj musí zůstat
-`ITSupportSimulator.pck` s herními daty. **Nejdřív použij Extrahovat vše;
-EXE nespouštěj přímo uvnitř ZIPu.** PC OpenXR je součást Godotu;
+**Windows:** stáhni `builds/ITSupportSimulator-Windows.zip` a spusť
+`ITSupportSimulator.exe`. **Aktuální ZIP obsahuje přenosné EXE se všemi herními
+daty uvnitř; žádný sousední PCK nepotřebuje.** Můžeš jej celý rozbalit do vlastní
+složky, ale funguje i samotné EXE vytažené Průzkumníkem do dočasné složky.
+Místní přenosné EXE je v `builds/windows-portable/ITSupportSimulator.exe`.
+Vývojářská varianta `builds/windows/ITSupportSimulator.exe` nadále vyžaduje
+sousední `ITSupportSimulator.pck`; tato dvojice není hlavní ZIP ke stažení.
+PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.
 Menu **HRÁT V KLASICKÉM 3D** otevře původní FPS hru a načte místní postup.
 **HRÁT VE VR / PICO 4 · OpenXR** uloží postup a spustí stejnou hru s OpenXR.
@@ -41,13 +44,15 @@ adb shell am start -n cz.academy.itsupport/com.godot.game.GodotAppLauncher
 Hru lze spustit také z knihovny aplikací PICO. **Fyzický PICO 4 nebyl při vývoji
 připojen; tracking, komfort a stabilních 72 FPS zatím nejsou ověřené na zařízení.**
 APK není vydání pro obchod. V repozitáři jsou zdroje, hotový Windows ZIP,
-PICO APK a `builds/VERIFICATION.json`. Kompletní Windows složku s EXE i PCK
-rozbal ze ZIPu; pracovní adresář builds/windows se přímo do Gitu neukládá.
+PICO APK a `builds/VERIFICATION.json`. V hlavním Windows ZIPu je samostatně
+spustitelné EXE. Pracovní adresáře builds/windows a builds/windows-portable
+se přímo do Gitu neukládají.
 
 **SmartScreen „Windows protected your PC / Unknown publisher“:** sestavení
 nemá certifikát vydavatele a upozornění na reputaci může zůstat. Jde o jiný
-případ než konkrétní antivirová detekce. Nové EXE je beze změn shodné
-s oficiální exportní šablonou Godotu; herní obsah je v samostatném PCK.
+případ než konkrétní antivirová detekce. Přenosné EXE vzniká oficiálním Godot
+exportérem s vloženými daty. Vývojářská varianta zachovává neupravenou exportní
+šablonu a samostatný PCK; hlavní stažený ZIP používá přenosnou variantu.
 Žádné nastavení ochrany Windows se nemění. Podrobný postup a kontrola původu
 jsou v [SPUSTENI-WINDOWS.txt](SPUSTENI-WINDOWS.txt), vysvětlení reputace
 v [dokumentaci Microsoftu](https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation).
@@ -511,7 +516,8 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - RAID výpočty jsou orientační před metadata/filesystemem. VHDX a kapacitní
   vrstvy pracují s výukovými jednotkami GB; TB/TiB je zvlášť v RAID kalkulátoru.
 - Není vytvořen instalátor. Samostatné Windows EXE používá oficiální Release
-  šablonu a samostatný PCK vedle EXE. PICO APK je podepsané
+  šablonu. Hlavní ZIP má přenosné EXE s vloženými daty; vývojářská varianta
+  používá samostatný PCK vedle EXE. PICO APK je podepsané
   Debug sestavení pro sideload, s lokálními uloženými daty.
 
 ## Primární studijní zdroje

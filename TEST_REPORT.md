@@ -1,5 +1,28 @@
 # Ověření rozšířené hratelné verze
 
+## Spuštění jediného EXE ze ZIPu — 26. 10. 2026
+
+Hlavní `ITSupportSimulator-Windows.zip` nyní používá přenosné EXE s vloženými
+herními daty. Nevyžaduje sousední PCK. Samostatná vývojářská varianta v
+builds/windows nadále používá externí PCK a není obsahem hlavního ZIPu.
+
+Výsledný ZIP byl otevřen testem a vytaženo **pouze jeho EXE** do dočasné složky
+s názvem ZIPu. Bez projektu, PCK i ostatních souborů prošel skutečný native
+headless a GPU start, odlišný pracovní adresář i přejmenované EXE. Native smoke
+ověřil původní hru, obě učebny, Python a HTML/JS náhled. Logy
+test-output/platform-build/portable-native-*.log a builds/VERIFICATION.json.
+
+Přesný přenosný EXE navíc: všech 10 zabalených sad PASS, exit 0, bez chyb/varování
+(runtime 31, katalog 1071, academy 63, integration 765, polish 27, XR 69,
+terminál 64, ui_design 162, world_ui 27, world_playthrough 34). CRC a shoda EXE
+v ZIPu PASS, vlastní scan Defenderu dokončen bez detekce.
+
+EXE SHA256: `7d24a4b372a30496d590aa2301b0f26b71e87b6bfb412ee377712f394167b6b9`.
+ZIP SHA256: `adc38a2af983ec74cda3210b3e727687f55d4088317100c69b0fc1594d347236`.
+Herní zdroje a PICO APK zůstaly shodné s předchozí verzí. Reputační upozornění
+SmartScreen může zůstat; oprava řeší konkrétní chybějící herní data při spuštění
+z archivu a nemění nastavení zabezpečení Windows.
+
 ## Přístup, vzhled učebny a Windows distribuce — 26. 10. 2026
 
 Všech **30 sad Test-All PASS**, exit 0, bez runtime chyb/varování.
