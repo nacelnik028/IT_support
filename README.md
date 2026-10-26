@@ -20,6 +20,7 @@ Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManage
 
 **PICO 4:** `builds/pico4/ITSupportSimulator-PICO4.apk` je podepsaný sideload
 Debug APK pro ARM64, běžný PICO 4, Android min 29 / target 34. Spouští VR přímo.
+Podrobný postup krok za krokem je v **[NAVOD_PICO4.md](NAVOD_PICO4.md)**.
 Zapni vývojářský režim a USB debugging, připoj USB a v headsetu povol počítač:
 
 ```powershell

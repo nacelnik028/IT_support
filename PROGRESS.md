@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Návod k instalaci na PICO 4 (2026-10-26)
+- Přidán samostatný NAVOD_PICO4.md v kořeni projektu a odkaz z README. Postup pro běžný PICO 4 popisuje APK, vývojářský režim/USB debugging, autorizaci počítače, PowerShell a již instalované ADB i stažení Platform-Tools na jiný počítač, instalaci/aktualizaci a spuštění hry.
+- Doplněno první ovládání, komfort a řešení unauthorized/offline/chybějícího zařízení či APK a odlišného podpisu s ochranou uloženého postupu. Postup vývojářského režimu ověřen proti oficiální dokumentaci PICO, příkazy proti ADB. Zachováno upozornění, že skutečný headset/tracking/FPS nebyly otestované.
+- Pouze dokumentace: kontrola odkazů a konzistence s existujícím APK, exportním presetem a XR ovládáním; herní zdroje, uložená data a distribuční soubory beze změny.
+
 ## PC + PICO 4: exporty a závěrečné ověření (2026-10-26)
 - Konečná distribuce: EXE 110508888 B / SHA256 1926f92b853202e87172334ee22bd40940bd675d385c23bfb61053cf9f1a8a07; ZIP 38346233 B / b750aae84a071a001350395b87f6376eef9d60610cc5b294dcd95d800b79e053; APK 90272345 B / 8b73ae5c8185965e2734acb868a9df32797b505d2a747e321c91cf5e33eab2cd. ZIP obsahuje přesně ověřený EXE, aktuální README a licence; ZIP i APK prošly kontrolou CRC. Finální manifest zachovává i výsledky testů přesného PCK.
 - Přesně tento EXE: tools/test_windows.py graficky z izolovaného adresáře PASS, všechny logy bez chyb/varování: XR 69, terminál 64, ui_design 162, world_ui 27, world_playthrough 39; nativní start headless i GPU PASS. Log final-windows-package-69.log a windows-package/results.json. Následné samostatné grafické spuštění --xr-mode on bez runtime správně vrátí menu, exit 0, žádný SCRIPT ERROR; log native-pc-vr-graphical-unavailable.log. finální build/ověření: final-platforms-69.log a final-distribution-verified.log.
