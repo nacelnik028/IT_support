@@ -7,12 +7,11 @@ Celá hra je uvnitř EXE; nepotřebuješ nic rozbalovat, instalovat ani otevíra
 Skutečný soubor má **110 430 816 bajtů (přibližně 105 MiB)**.
 
 Přímý odkaz výše míří na úplný obsah uložený na GitHubu přes Git LFS.
-Samostatné EXE v ZIPu zdrojového repozitáře nebo přes raw.githubusercontent.com
-může mít pouze 134 bajtů — takový soubor je jen textový odkaz a nejde spustit.
+Raw odkaz přes raw.githubusercontent.com může vracet pouze 134bajtový
+textový odkaz Git LFS. Úplnou binárku stáhneš přímým odkazem výše.
 Pro stažení jediného spustitelného souboru použij odkaz výše.
 
 Pro klonování repozitáře s plnou binárkou použij `git lfs pull`.
-Volitelně je dostupný také [ZIP](https://raw.githubusercontent.com/nacelnik028/IT_support/main/build/ITSupportSimulator-Windows-x64.zip).
 
 Při potížích s Vulkanem lze použít PowerShell:
 
