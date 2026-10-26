@@ -1,5 +1,37 @@
 # Ověření rozšířené hratelné verze
 
+## Programming Academy — 26. 10. 2026
+
+`tools/Test-All.ps1`: **29 sad PASS, exit 0, bez runtime chyb a varování**.
+Původní kampaň 65/65 v modelu i UI, 21×3 serverových lekcí a všechny
+regrese save/relací/místností zůstávají funkční. Původní katalogy jsou obsahově
+shodné s checkpointem 5661021; kompletní přegenerování v dočasné kopii také shodné.
+
+Nové sady ve finálním ověření zdrojů a přesného zabaleného PCK:
+
+- programming_runtime: 31 kontrol výpočtů, parseru, funkcí, chyb, nekonečných cyklů a VFS.
+- programming_catalog: 1071 kontrol všech 60 úloh, 28 lekcí a 12 oprav; správná/chybná i ekvivalentní řešení.
+- programming_academy: 63 kontrol skutečného počítače/editoru, save/XP, odchodu a zachování kampaně.
+- programming_integration: 765 kontrol; 28×3 režimů, DOM kliknutí, CSS barvy v Control UI, 252 generovaných variant, syntetické XR psaní, fyzická klávesová událost, zoom/soubory a obnova výsledků.
+
+Godot MCP ProgrammingMCP i původní WorldMCP při samostatném finálním běhu
+PASS, errors=[]. Prohlédnuty snímky skutečné 3D místnosti, Python editoru se
+serverovými logy a interaktivního webu. GPU Compatibility integration 765/765
+prošel také nad přesným exportovaným PCK, mimo zdrojový projekt.
+
+Finální Windows EXE SHA256:
+`6bbeebbe125feb8626b46a5941da13e8d8b5177f289b32323428b2696ba3eac4`.
+Spuštění skutečného EXE headless i GPU v izolaci PASS; přesný PCK navíc všechny
+nové sady, XR 69, terminál 64, UI 162/27 a world playthrough 34 PASS.
+ZIP obsahuje totožný EXE a dokumentaci. APK podpis/ARM64/OpenXR manifest,
+zabalený katalog 60/28 a CRC obou archivů PASS. Velikosti/hashes jsou
+v builds/VERIFICATION.json.
+
+**Fyzický PICO nebyl připojen.** Tracking, skutečný Bluetooth hardware,
+komfort a stabilní FPS nejsou ověřené. Python i web jsou zdokumentované
+omezené výukové implementace; nejde o plný CPython či browser.
+Všechny herní testy používají SaveManager.path_override a vlastní konfiguraci.
+
 ## Opravy terminálu a Windows EXE — 26. 10. 2026
 
 Celý `tools/Test-All.ps1`: **24 sad PASS, exit 0, bez runtime chyb a varování**.
