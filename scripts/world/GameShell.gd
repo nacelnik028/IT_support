@@ -30,6 +30,7 @@ var introduction_step = 0
 var ui_layer: CanvasLayer
 var xr_rig
 var vr_active = false
+var code_editor
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -130,6 +131,7 @@ func _ready():
 	room_notice.hide()
 	world.training_zone.game = ui.game
 	ui.game.room_probe = world.training_zone.contains_player
+	ui.game.programming_probe=world.programming_room.contains_player
 	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
 	ui.game.reconcile_room()
@@ -171,10 +173,12 @@ func _process(delta):
 	if update_time > 0.25:
 		update_time = 0.0
 		world.sync_state()
+		world.programming_room.sync()
 		var keys=ui.display_settings.bindings
 		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
 		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
 		status_label.text = "SERVEROVNA 01"
+		if ui.game.game_mode.is_programming(): status_label.text="PROGRAMMING ACADEMY\nVyber lekci u počítače nebo instruktora."
 		if ui.game.game_mode.is_training():
 			status_label.text = "Tréninkové centrum – vyber si lekci"
 			if ui.game.active and ui.game.session_kind=="lesson": status_label.text="VÝUKA / "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(ui.game.tutorial.session.mode,"Lekce")
@@ -204,7 +208,7 @@ func _process(delta):
 		store_pose()
 
 func set_mode(value: String):
-	if value == "menu" and ui.game.game_mode.is_training():
+	if value == "menu" and ui.game.game_mode.is_education():
 		world.player.position = Vector3(7,0.02,3.5)
 		ui.game.reconcile_room()
 		ui.page = "menu"
@@ -216,7 +220,8 @@ func set_mode(value: String):
 	ui.visible = value in ["menu","app"]
 	hud.visible = value == "world"
 	app_bar.visible = value == "app"
-	overlay.visible = value in ["detail","pause","tasks","introduction"]
+	overlay.visible = value in ["detail","pause","tasks","introduction","coding"]
+	if is_instance_valid(code_editor): code_editor.visible=value=="coding"
 	world.player.set_enabled(value == "world")
 	if vr_active: xr_rig.mode_changed()
 
@@ -225,7 +230,7 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.position = Vector3(7,0.02,3.5)
 		world.player.velocity = Vector3.ZERO
 		ui.game.reconcile_room()
-	if not ui.game.active and not ui.game.game_mode.is_training(): ui.game.start_mission(0)
+	if not ui.game.active and not ui.game.game_mode.is_education(): ui.game.start_mission(0)
 	if pose_revision != ui.game.session_revision:
 		var pose = ui.game.sim.state.world.player
 		world.player.position = Vector3(pose.x,0.02,pose.z)
@@ -237,6 +242,10 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.position = Vector3(15,0.02,5.5)
 		world.player.rotation.y = 0
 		world.player.camera.rotation.x = 0
+	if destination=="Programming Academy":
+		world.player.position=Vector3(-6.5,0.02,-9)
+		world.player.velocity=Vector3.ZERO
+		world.player.rotation.y=0; world.player.camera.rotation.x=0
 	ui.game.reconcile_room()
 	pose_revision = ui.game.session_revision
 	if ui.game.session_kind!="lesson":
@@ -312,6 +321,11 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 
 func interact(object):
 	ui.game.reconcile_room()
+	if object.kind=="program_door": world.programming_room.toggle_door(); return
+	if object.kind=="programming":
+		if ui.game.game_mode.is_programming(): open_programming(object.console)
+		return
+	if ui.game.game_mode.is_programming(): return
 	if object.kind != "door":
 		var in_training = ui.game.game_mode.is_training()
 		var training_object = object.laboratory or object.kind == "instructor" or object.device_id == "EXAM-PC"
@@ -351,6 +365,22 @@ func interact(object):
 		"monitor": show_monitor()
 		"door": world.toggle_door()
 		"instructor": open_app("Trénink")
+
+func open_programming(category: String = "dashboard"):
+	if not ui.game.game_mode.is_programming(): return
+	if is_instance_valid(code_editor):
+		set_mode("coding")
+		return
+	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
+	code_editor=preload("res://scripts/programming/CodeEditorController.gd").new()
+	code_editor.manager=ui.game.programming; code_editor.shell=self
+	overlay.add_child(code_editor)
+	if category in ["python","web"]:
+		code_editor.selected_category="python" if category=="python" else "html"
+		code_editor.category_picker.select(1 if category=="python" else 2)
+		code_editor.populate()
+	if category=="exam": code_editor.mode_picker.select(2)
+	set_mode("coding")
 
 func show_device(object):
 	set_mode("detail")
@@ -608,6 +638,7 @@ func export_smoke():
 
 func show_tasks():
 	ui.game.reconcile_room()
+	if ui.game.game_mode.is_programming(): open_programming(); return
 	if not ui.game.active:
 		open_app("Trénink")
 		return
@@ -698,6 +729,7 @@ func on_room_changed(training_room: bool):
 	ui.page = "Trénink" if training_room else "Serverovna"
 	ui.draw_ui()
 	room_notice.text = "Vstoupil jsi do tréninkového centra.\nZde můžeš bezpečně procvičovat správu serverů bez ovlivnění hlavní infrastruktury.\nTréninkové centrum – vyber si lekci" if training_room else "Trénink ukončen.\nVrátil ses do hlavní serverovny. Rozpracované cvičení bylo zrušeno."
+	if ui.game.game_mode.is_programming(): room_notice.text="Vítej v Programming Academy.\nPython Lab · Web Development Lab · Examination Zone\nU počítače stiskni E a vyber si lekci."
 	notice_time = 6.0
 	room_notice.show()
 
@@ -705,4 +737,5 @@ func _exit_tree():
 	leaving_scene = true
 	if is_instance_valid(ui):
 		ui.game.room_probe = Callable()
+		ui.game.programming_probe=Callable()
 		ui.game.leave_training()

@@ -128,6 +128,10 @@ func ray_hit(hand: Node3D, distance: float = 3.2) -> Dictionary:
 
 func allowed(object) -> bool:
 	if not is_instance_valid(object): return false
+	if "kind" in object:
+		if object.kind=="program_door": return true
+		if object.kind=="programming": return shell.ui.game.game_mode.is_programming()
+		if shell.ui.game.game_mode.is_programming(): return false
 	if object.has_meta("laboratory"): return object.get_meta("laboratory") == shell.ui.game.game_mode.is_training()
 	if "laboratory" in object: return object.kind == "door" or object.laboratory == shell.ui.game.game_mode.is_training()
 	return false

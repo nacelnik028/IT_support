@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Programming Academy — etapy 1–4, první funkční lekce (2026-10-26)
+- Checkpoint před implementací: 5661021. Notion hlavní stránka a obě příručky načteny MCP; offline kopie data/knowledge/programming_notion_*.md. Původní katalogy a legacy24 se nemění.
+- Nová skutečně průchozí učebna severně od serverovny, posuvné dveře s ovladači po obou stranách, pět počítačů, Python/Web/Exam stanoviště, Ada instruktor a studijní tabule. Scéna vytvořena Godot MCP.
+- GameModeManager rozlišuje MAIN, SERVER_TRAINING (zpětný alias TRAINING) a PROGRAMMING_ACADEMY. Přechod fyzickou hranicí, teleport i zánik scény ruší dočasné cvičení/editor; přímé přechody mezi oběma centry jsou chráněné proti rekurzivnímu obnovení kampaně.
+- CodeEdit nabízí vlastní víceřádkový kód, syntax highlighting, odsazení, desktopový clipboard/undo, virtuální input, konzoli, run/test/reset, nápovědu a zoom. Stejný panel používá původní XR ray/monitor. VR klávesnice rozšířena o programátorské znaky a čtyři mezery.
+- Vlastní PythonParser/PythonRuntime: lexer, AST, výrazy, proměnné, řetězce/f-stringy, kolekce/comprehension, bloky, funkce, try/except, math/random, VFS. Žádné spuštění Pythonu/GDScriptu/systémových procesů z hráčova kódu. Bounded runtime; podmnožina a limity jsou v data/programming/LIMITS.txt a editoru.
+- PY01 lze dokončit vlastními řešeními, vedené kroky vyžadují úpravy a skutečné spuštění. Výsledky/XP se ukládají do kompatibilní volitelné větve programming v původním SaveManageru; opakování odměňuje jen zlepšení nejlepšího skóre. Aktivní cvičení se neukládá.
+- Testy: programming_runtime 25/25, programming_academy 63/63, training_rooms 68/68 a campaign 65/65 PASS. Vše se SaveManager.path_override. Zatím pouze první lekce; další obsah, strukturální webový renderer, generátor, kompletní regrese a nové exporty následují. Skutečný PICO zatím neotestován.
+
 ## Návod k instalaci na PICO 4 (2026-10-26)
 - Přidán samostatný NAVOD_PICO4.md v kořeni projektu a odkaz z README. Postup pro běžný PICO 4 popisuje APK, vývojářský režim/USB debugging, autorizaci počítače, PowerShell a již instalované ADB i stažení Platform-Tools na jiný počítač, instalaci/aktualizaci a spuštění hry.
 - Doplněno první ovládání, komfort a řešení unauthorized/offline/chybějícího zařízení či APK a odlišného podpisu s ochranou uloženého postupu. Postup vývojářského režimu ověřen proti oficiální dokumentaci PICO, příkazy proti ADB. Zachováno upozornění, že skutečný headset/tracking/FPS nebyly otestované.

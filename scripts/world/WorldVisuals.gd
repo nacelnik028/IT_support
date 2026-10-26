@@ -103,6 +103,7 @@ func architecture():
 	academy_material.set_shader_parameter("metal",0.08)
 	Geo.box(world,Vector3(15,-0.008,0),Vector3(12,0.012,14),Color.WHITE).material_override = academy_material
 	for x in range(-8,9,2):
+		if x < -4: continue # Passage into Programming Academy.
 		Geo.bevel(world,Vector3(x,1.9,-6.84),Vector3(1.94,3.4,0.04),Color("52616b"),0.25,0.015)
 		Geo.box(world,Vector3(x-0.94,1.9,-6.805),Vector3(0.018,3.2,0.014),Color("111f28"))
 	for x in range(10,21,2): Geo.bevel(world,Vector3(x,1.9,-6.84),Vector3(1.94,3.4,0.04),Color("697078"),0.2,0.012)

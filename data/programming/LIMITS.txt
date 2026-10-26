@@ -1,0 +1,7 @@
+VÝUKOVÝ PYTHON · omezená podmnožina Pythonu 3, nikoli plný CPython
+Podporuje print/input, int/float/str/bool/None, operátory, řetězce, list/dict/tuple/set, indexy a výřezy start:stop, if/elif/else, for/while, break/continue, funkce s výchozími a pojmenovanými parametry, jednoduché comprehension, f-stringy bez formátovacích specifikací, try/except, import math/random a virtuální soubory.
+Vestavěné funkce: len, sum, min, max, sorted, abs, round, range, enumerate, zip a převody typů. math: sqrt/floor/ceil/sin/cos/fabs/pi/e. random: randint/choice; testy používají seed.
+Limity: zdroj 32768 znaků, 8192 tokenů, 16000 kroků, 200 ms, rozpočet alokací 2 MiB, kolekce 2048 položek, řetězec/soubor 32768 znaků, výstup 8192 znaků, 16 souborů a 32 volání funkcí. Čísla do ±10^12. Překročení limitu nelze obejít pomocí except.
+Soubory existují pouze v paměti běhu a po restartu programu se resetují. Jsou povolené názvy bez adresářů. Síť, systémové procesy, import os/sys, dynamické eval/exec, interní atributy a přístup k datům zařízení nejsou dostupné.
+Nepodporuje třídy, generátory, async, lambda, dekorátory, global/nonlocal, libovolné balíčky, vícenásobné přiřazení, rozšířené slicing, generátorové výrazy a úplnou sémantiku všech vestavěných typů. Používej mezery a blokové příkazy na samostatných řádcích. Klíče slovníků a položky množin jsou skalární hodnoty.
+Webový náhled se doplňuje v samostatné etapě. Není to systémový prohlížeč.

@@ -24,6 +24,7 @@ var workstations: Array = []
 var visuals = Visuals.new()
 var screen_time = 0.0
 var training_zone
+var programming_room
 
 func _ready():
 	build_room()
@@ -42,6 +43,9 @@ func _ready():
 	Geo.text(devices.SPARES.visual,"SERVIS\nNÁHRADNÍ DISKY",Vector3(0,0.5,0.34),38,0.003)
 	build_details()
 	build_academy()
+	programming_room=preload("res://scenes/programming_academy/academy_room.tscn").instantiate()
+	add_child(programming_room)
+	programming_room.build(self)
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
@@ -65,7 +69,9 @@ func _ready():
 
 func build_room():
 	Geo.solid(self,Vector3(0,-0.16,0),Vector3(18,0.3,14),Color("343f4b"),0.25)
-	Geo.solid(self,Vector3(0,2,-7),Vector3(18,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-8.5,2,-7),Vector3(1,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(2,2,-7),Vector3(14,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-6.5,3.5,-7),Vector3(3,1,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-9,2,0),Vector3(0.25,4,14),Color("374753"))
 	# A real opening joins the server room and the training room.
 	Geo.solid(self,Vector3(9,2,-2.5),Vector3(0.25,4,9),Color("374753"))

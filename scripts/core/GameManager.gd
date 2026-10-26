@@ -18,6 +18,9 @@ var actions: Array = []
 const Modes = preload("res://scripts/core/GameModeManager.gd")
 var game_mode = Modes.new()
 var room_probe = Callable()
+var programming_probe = Callable()
+var reconciling_room=false
+var programming = preload("res://scripts/programming/AcademyManager.gd").new()
 var main_sim = Simulator.new()
 var training_sim = Simulator.new()
 var sim = main_sim
@@ -35,6 +38,13 @@ var load_warning = ""
 var unsaved = false
 
 func _init():
+	var owner_ref=weakref(self)
+	programming.available=func():
+		var owner_game=owner_ref.get_ref()
+		return owner_game!=null and owner_game.game_mode.is_programming() and (not owner_game.programming_probe.is_valid() or owner_game.programming_probe.call())
+	programming.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
+	programming.reward=func(amount):
+		if owner_ref.get_ref()!=null: owner_ref.get_ref().progress.xp+=amount
 	main_sim.reset({})
 	training_sim.reset({})
 	missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
@@ -43,6 +53,7 @@ func _init():
 	var saved = Saves.load_game()
 	load_warning = Saves.last_message
 	if not saved.is_empty():
+		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
 		var normalized_scores={}
 		for key in progress.scores:
@@ -72,9 +83,13 @@ func _init():
 		suspended_campaign = {}
 
 func reconcile_room():
-	if not room_probe.is_valid(): return
-	if room_probe.call(): enter_training()
-	else: leave_training()
+	if reconciling_room: return
+	reconciling_room=true
+	if programming_probe.is_valid() and programming_probe.call(): enter_programming()
+	elif room_probe.is_valid():
+		if room_probe.call(): enter_training()
+		else: leave_training()
+	reconciling_room=false
 
 func training_available() -> bool:
 	reconcile_room()
@@ -82,10 +97,24 @@ func training_available() -> bool:
 
 func main_available() -> bool:
 	reconcile_room()
-	return not game_mode.is_training()
+	return game_mode.current==Modes.Mode.MAIN
+
+func enter_programming() -> bool:
+	if programming_probe.is_valid() and not programming_probe.call(): return false
+	if game_mode.is_programming(): return true
+	if game_mode.is_training(): leave_training()
+	suspend_session()
+	game_mode.switch_to(Modes.Mode.PROGRAMMING_ACADEMY)
+	programming.cancel()
+	active=false; current={}; finished=false; training=true; session_kind="lesson"
+	tutorial.cancel(); undo_states.clear(); training_sim.reset({}); sim=training_sim
+	session_revision+=1
+	save(); room_changed.emit(false)
+	return true
 
 func enter_training() -> bool:
 	if room_probe.is_valid() and not room_probe.call(): return false
+	if game_mode.is_programming(): leave_training()
 	if game_mode.is_training(): return true
 	suspend_session()
 	game_mode.switch_to(Modes.Mode.TRAINING)
@@ -111,7 +140,8 @@ func clear_training_sessions():
 		if education.lessons[key].status == "Rozpracováno": education.lessons.erase(key)
 
 func leave_training() -> bool:
-	if not game_mode.is_training(): return false
+	if not game_mode.is_education(): return false
+	programming.cancel()
 	game_mode.switch_to(Modes.Mode.MAIN)
 	active = false
 	current = {}
@@ -261,7 +291,7 @@ func undo() -> bool:
 func save(recover_invalid: bool = false) -> Error:
 	cache_lesson()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"suspended_campaign":suspended_campaign},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"suspended_campaign":suspended_campaign},recover_invalid)
 	unsaved = last_save_error != OK
 	save_message = Saves.last_message
 	if not unsaved: load_warning = ""
@@ -362,7 +392,8 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 	return true
 
 func resume_campaign():
-	if game_mode.is_training():
+	if game_mode.is_education():
+		if programming_probe.is_valid() and programming_probe.call(): return
 		if room_probe.is_valid() and room_probe.call(): return
 		leave_training()
 	# Returning while already in the campaign must never restart it.

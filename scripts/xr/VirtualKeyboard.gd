@@ -14,7 +14,7 @@ func _ready():
 
 func draw_keys():
 	for c in rows.get_children(): rows.remove_child(c); c.queue_free()
-	for letters in ["1234567890-_=+", "qwertyuiop[]", "asdfghjkl;:'\"", "zxcvbnm,./\\@", "ěščřžýáíéůú()"]:
+	for letters in ["1234567890-_=+", "qwertyuiop[]{}", "asdfghjkl;:'\"", "zxcvbnm,./\\@", "ěščřžýáíéůú()", "<>#*%!?&|:"]:
 		var row = HBoxContainer.new()
 		rows.add_child(row)
 		for letter in letters:
@@ -27,6 +27,7 @@ func draw_keys():
 	add_key(commands,"← Smazat",func(): send_key(KEY_BACKSPACE))
 	add_key(commands,"Enter",func(): send_key(KEY_ENTER))
 	add_key(commands,"Tab",func(): send_key(KEY_TAB))
+	add_key(commands,"4 mezery",func(): type_text("    "))
 	add_key(commands,"Zavřít",dismiss)
 
 func dismiss():

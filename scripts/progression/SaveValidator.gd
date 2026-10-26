@@ -38,11 +38,32 @@ func valid(data) -> bool:
 		if not value is String: return false
 	if not session(data.get("session",{})) or not session(data.get("suspended_campaign",{}),"campaign"): return false
 	if not education(data.get("education",{})): return false
+	if not programming(data.get("programming",{})): return false
 	var active=data.get("session",{})
 	if active.get("kind","")=="random":
 		var batch=data.get("education",{}).get("random",{})
 		if batch.is_empty() or not batch.has("session"): return false
 		if int(active.id)!=int(batch.queue[int(batch.position)].id) or active.definition!=batch.queue[int(batch.position)]: return false
+	return true
+
+func programming(data) -> bool:
+	if not data is Dictionary: return false
+	if not shape(data,{"results":{},"lessons":{},"attempts":[],"mistakes":{},"xp":0,"settings":{},"drafts":{},"unlocked":[]}): return false
+	if not integer(data.get("xp",0),0): return false
+	for id in data.get("results",{}):
+		var record=data.results[id]
+		if not record is Dictionary or not required(record,{"best":0,"passed":false,"exam":0}): return false
+		if not integer(record.best,0,100) or not integer(record.exam,0,100): return false
+	for value in data.get("lessons",{}).values():
+		if not value is bool: return false
+	for value in data.get("mistakes",{}).values():
+		if not integer(value,0): return false
+	if data.get("attempts",[]).size()>200: return false
+	for record in data.get("attempts",[]):
+		if not record is Dictionary or not required(record,{"id":"","score":0,"mode":"","hints":0,"passed":false}): return false
+		if not integer(record.score,0,100) or not integer(record.hints,0) or not record.mode in ["learn","practice","exam"]: return false
+	var settings=data.get("settings",{})
+	if settings.has("font_size") and not integer(settings.font_size,16,36): return false
 	return true
 
 func session(data, expected_kind: String = "") -> bool:
