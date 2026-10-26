@@ -1,20 +1,20 @@
 # IT Support Simulator: Datacenter Academy — Windows release
 
-[Stáhnout hru v ZIPu](https://raw.githubusercontent.com/nacelnik028/IT_support/main/build/ITSupportSimulator-Windows-x64.zip)
+**[Stáhnout přímo ITSupportSimulator.exe](https://media.githubusercontent.com/media/nacelnik028/IT_support/main/build/ITSupportSimulator.exe)**
 
-Rozbal archiv a ve složce `ITSupportSimulator` spusť `ITSupportSimulator.exe`.
-Hra je pro Windows 10/11 (64bit), funguje offline a herní data má uvnitř EXE.
-Godot editor ani vedlejší soubor PCK nejsou potřeba.
+Stáhni tento jediný soubor a spusť ho dvojklikem ve Windows 10/11 (64bit).
+Celá hra je uvnitř EXE; nepotřebuješ nic rozbalovat, instalovat ani otevírat v Godotu.
+Skutečný soubor má **110 430 816 bajtů (přibližně 105 MiB)**.
 
-ZIP je uložený přímo v Gitu a obsahuje úplné EXE, licenci a pokyny.
-Je vhodný i pro stažení z webu bez instalace Git LFS.
+Přímý odkaz výše míří na úplný obsah uložený na GitHubu přes Git LFS.
+Samostatné EXE v ZIPu zdrojového repozitáře nebo přes raw.githubusercontent.com
+může mít pouze 134 bajtů — takový soubor je jen textový odkaz a nejde spustit.
+Pro stažení jediného spustitelného souboru použij odkaz výše.
 
-Samostatné `build/ITSupportSimulator.exe` je kvůli velikosti nad 100 MiB
-uložené přes Git LFS. Soubor o velikosti přibližně 1 KB je pouze textový
-odkaz a ve Windows nejde spustit. Skutečné EXE má 110 430 816 bajtů.
-Při klonování repozitáře spusť `git lfs pull`; pro běžné hraní stáhni výše uvedený ZIP.
+Pro klonování repozitáře s plnou binárkou použij `git lfs pull`.
+Volitelně je dostupný také [ZIP](https://raw.githubusercontent.com/nacelnik028/IT_support/main/build/ITSupportSimulator-Windows-x64.zip).
 
-Pro grafické karty bez vhodné podpory Vulkan lze použít PowerShell:
+Při potížích s Vulkanem lze použít PowerShell:
 
 ```powershell
 .\ITSupportSimulator.exe --rendering-method gl_compatibility
