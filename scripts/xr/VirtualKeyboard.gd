@@ -20,14 +20,18 @@ func draw_keys():
 		for letter in letters:
 			var value = letter.to_upper() if shifted else letter
 			add_key(row,value,func(): type_text(value))
-	var row = HBoxContainer.new()
-	rows.add_child(row)
-	add_key(row,"Shift",func(): shifted = not shifted; draw_keys())
-	add_key(row,"Mezera",func(): type_text(" "))
-	add_key(row,"← Smazat",func(): send_key(KEY_BACKSPACE))
-	add_key(row,"Enter",func(): send_key(KEY_ENTER))
-	add_key(row,"Tab",func(): send_key(KEY_TAB))
-	add_key(row,"Zavřít",hide)
+	var commands = HBoxContainer.new()
+	rows.add_child(commands)
+	add_key(commands,"Shift",func(): shifted = not shifted; draw_keys())
+	add_key(commands,"Mezera",func(): type_text(" "))
+	add_key(commands,"← Smazat",func(): send_key(KEY_BACKSPACE))
+	add_key(commands,"Enter",func(): send_key(KEY_ENTER))
+	add_key(commands,"Tab",func(): send_key(KEY_TAB))
+	add_key(commands,"Zavřít",dismiss)
+
+func dismiss():
+	if is_instance_valid(target): target.release_focus()
+	hide()
 
 func add_key(row, caption: String, action: Callable):
 	var key = Button.new()

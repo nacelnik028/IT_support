@@ -21,6 +21,7 @@ var focused = true
 var signals_connected = false
 var previous_physics_ticks = 60
 var teleport_line: MeshInstance3D
+var pointer_hand: XRController3D
 @onready var head: XRCamera3D = $Head
 @onready var left: XRController3D = $LeftHand
 @onready var right: XRController3D = $RightHand
@@ -133,6 +134,8 @@ func allowed(object) -> bool:
 
 func pressed(hand: XRController3D, action: String):
 	if not active or not focused or not hand.get_has_tracking_data(): return
+	var tracker=XRServer.get_tracker("head")
+	if tracker==null or not tracker.has_pose("default") or not tracker.get_pose("default").has_tracking_data: return
 	if action in ["menu_button","by_button"]:
 		if shell.mode == "world": shell.pause_menu()
 		else: shell.return_to_world()
@@ -145,7 +148,9 @@ func pressed(hand: XRController3D, action: String):
 		if action == "trigger_click":
 			var pixel = monitor.pixel_at(hand.global_position,-hand.global_basis.z)
 			monitor.point(pixel)
-			if pixel.x >= 0: monitor.click(true)
+			if pixel.x >= 0:
+				pointer_hand=hand
+				monitor.click(true)
 		return
 	if action == "primary_click" and hand == left:
 		teleporting = true
@@ -159,7 +164,9 @@ func pressed(hand: XRController3D, action: String):
 		if shell.ui.game.sim.state.world.held != "": attach_disk(hand)
 
 func released(_hand: XRController3D, action: String):
-	if action == "trigger_click": monitor.click(false)
+	if action == "trigger_click" and (_hand==pointer_hand or pointer_hand==null):
+		monitor.click(false)
+		pointer_hand=null
 	if action == "primary_click" and _hand == left:
 		if teleporting and teleport_valid: teleport_to(teleport_point)
 		teleporting = false
@@ -305,7 +312,13 @@ func _physics_process(delta):
 	var head_tracker=XRServer.get_tracker("head")
 	if not focused or head_tracker==null or not head_tracker.has_pose("default"): return
 	if not head_tracker.get_pose("default").has_tracking_data:
-		lose_focus()
+		# Tracking can recover without a new session_focussed signal. Preserve
+		# session focus so the recovered player can resume from the pause menu.
+		teleporting=false
+		marker.hide()
+		teleport_line.hide()
+		monitor.click(false)
+		if shell.mode=="world": shell.pause_menu()
 		return
 	var stick=right.get_vector2("primary")
 	# Room-scale walking also reconciles training boundaries while a monitor is open.
@@ -331,7 +344,8 @@ func _physics_process(delta):
 		p.update_focus(hit.collider if not hit.is_empty() and hit.collider.has_method("set_focus") else null)
 		wrist.text=shell.status_label.text+"\n"+shell.instruction.text+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
 	else:
-		var pixel=monitor.pixel_at(right.global_position,-right.global_basis.z) if right.get_has_tracking_data() else Vector2(-1,-1)
+		var hand=pointer_hand if is_instance_valid(pointer_hand) and monitor.pointer_down else right
+		var pixel=monitor.pixel_at(hand.global_position,-hand.global_basis.z) if hand.get_has_tracking_data() else Vector2(-1,-1)
 		if pixel.x<0 and left.get_has_tracking_data(): pixel=monitor.pixel_at(left.global_position,-left.global_basis.z)
 		monitor.point(pixel)
 		scroll_cooldown-=delta

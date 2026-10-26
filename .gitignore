@@ -1,7 +1,12 @@
 .godot/
 build/
-builds/
-android/
+/builds/*
+!/builds/ITSupportSimulator-Windows.zip
+!/builds/VERIFICATION.json
+!/builds/pico4/
+/builds/pico4/*
+!/builds/pico4/ITSupportSimulator-PICO4.apk
+/android/
 test-output/
 *.tmp
 *.bak

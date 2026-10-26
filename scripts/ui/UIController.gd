@@ -1,6 +1,7 @@
 extends Control
 
 signal world_requested(destination: String)
+@warning_ignore("unused_signal") # Emitted by MenuPresentation and consumed by GameShell.
 signal play_mode_requested(mode: String)
 signal lesson_launched
 signal preferences_changed

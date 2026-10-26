@@ -56,15 +56,20 @@ func pixel_at(ray_origin: Vector3, ray_direction: Vector3) -> Vector2:
 	if direction.z >= -0.0001: return Vector2(-1,-1)
 	var distance = -from.z/direction.z
 	if distance < 0.0 or distance > 4.0: return Vector2(-1,-1)
-	var point = from+direction*distance
-	var uv = Vector2(point.x/DIMENSIONS.x+0.5,0.5-point.y/DIMENSIONS.y)
+	var hit_position = from+direction*distance
+	var uv = Vector2(hit_position.x/DIMENSIONS.x+0.5,0.5-hit_position.y/DIMENSIONS.y)
 	if uv.x < 0 or uv.y < 0 or uv.x > 1 or uv.y > 1: return Vector2(-1,-1)
 	return uv*Vector2(PIXELS)
 
 func point(pixel: Vector2):
 	cursor.visible = pixel.x >= 0
 	if pixel.x < 0:
-		if not pointer_down: last_pixel=pixel
+		last_pixel=pixel
+		var outside=InputEventMouseMotion.new()
+		outside.position=pixel
+		outside.global_position=pixel
+		outside.button_mask=MOUSE_BUTTON_MASK_LEFT if pointer_down else 0
+		viewport.push_input(outside,true)
 		return
 	cursor.position = pixel-Vector2(5,5)
 	var event = InputEventMouseMotion.new()
@@ -76,7 +81,8 @@ func point(pixel: Vector2):
 	viewport.push_input(event,true)
 
 func click(pressed: bool):
-	if last_pixel.x < 0: return
+	if pressed and last_pixel.x < 0: return
+	if not pressed and not pointer_down: return
 	pointer_down = pressed
 	var event = InputEventMouseButton.new()
 	event.position = last_pixel

@@ -41,6 +41,13 @@ func controller(name: String):
 	trackers.append(tracker)
 	return tracker
 
+func point_controller(tracker, pixel: Vector2):
+	var monitor=rig.monitor
+	var at=Vector3((pixel.x/1600.0-0.5)*monitor.DIMENSIONS.x,(0.5-pixel.y/1200.0)*monitor.DIMENSIONS.y,0)
+	var transform=Transform3D(monitor.global_basis,monitor.to_global(at)+monitor.global_basis.z*0.8)
+	var local=rig.global_transform.affine_inverse()*transform
+	tracker.set_pose("aim",local,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+
 func run():
 	shell=load("res://scenes/world/Game.tscn").instantiate()
 	root.add_child(shell)
@@ -90,6 +97,9 @@ func run():
 	if "--screenshots" in OS.get_cmdline_user_args() and DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw
 		rig.monitor.viewport.get_texture().get_image().save_png("res://test-output/xr-monitor-console.png")
+	rig.monitor.keyboard.dismiss()
+	await frames()
+	check(not rig.monitor.keyboard.visible,"Zavřená klávesnice se sama znovu neotevře")
 	# Ray projection and actual button events, rather than invoking button callbacks.
 	var button=Button.new()
 	button.text="Ray test"
@@ -105,6 +115,13 @@ func run():
 	rig.monitor.click(false)
 	await frames()
 	check(pressed[0],"Controller ray odesílá skutečný UI klik")
+	pressed[0]=false
+	rig.monitor.point(Vector2(1300,830))
+	rig.monitor.click(true)
+	rig.monitor.point(Vector2(-1,-1))
+	rig.monitor.click(false)
+	await frames()
+	check(not pressed[0] and not rig.monitor.pointer_down,"Uvolnění paprsku mimo monitor zruší klik")
 	button.queue_free()
 	var pixel=rig.monitor.pixel_at(rig.monitor.global_position+rig.monitor.global_basis.z,-rig.monitor.global_basis.z)
 	check(pixel.distance_to(Vector2(800,600))<0.01,"3D paprsek se mapuje do středu monitoru")
@@ -134,6 +151,20 @@ func run():
 	right_tracker.set_input("by_button",true)
 	await frames()
 	check(shell.mode=="pause","Skutečný XR input B otevře menu")
+	var left_button=Button.new()
+	left_button.position=Vector2(1250,800); left_button.size=Vector2(200,70)
+	var left_clicked=[false]
+	left_button.pressed.connect(func(): left_clicked[0]=true)
+	rig.monitor.keyboard.get_parent().add_child(left_button)
+	point_controller(left_tracker,Vector2(1300,830))
+	point_controller(right_tracker,Vector2(100,100))
+	await physics()
+	left_tracker.set_input("trigger_click",true)
+	await physics()
+	left_tracker.set_input("trigger_click",false)
+	await physics()
+	check(left_clicked[0],"Levý trigger dokončí klik i při jiném směru pravého ovladače")
+	left_button.queue_free()
 	right_tracker.set_input("by_button",false)
 	right_tracker.set_input("by_button",true)
 	await frames()
@@ -149,6 +180,15 @@ func run():
 	check(shell.mode=="pause" and not rig.focused,"Ztráta OpenXR focus pozastaví interakce")
 	rig.focused=true
 	shell.return_to_world()
+	head_tracker.invalidate_pose("default")
+	await physics()
+	check(shell.mode=="pause" and rig.focused,"Dočasná ztráta head pose pozastaví svět bez ztráty session focus")
+	head_tracker.set_pose("default",Transform3D(Basis(),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	await physics()
+	right_tracker.set_input("by_button",true)
+	right_tracker.set_input("by_button",false)
+	await physics()
+	check(shell.mode=="world","Po obnově tracking lze pokračovat bez restartu OpenXR")
 	var spare=rig.spare_objects[0]
 	var grip_pose=Transform3D(Basis(),rig.to_local(spare.global_position+Vector3(0,0,0.3)))
 	right_tracker.set_pose("grip",grip_pose,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)

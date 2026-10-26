@@ -27,7 +27,7 @@ def run(args, cwd, log):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot',required=True,type=Path,help='Full Godot editor executable')
-    parser.add_argument('--exe',type=Path,default=ROOT/'build/ITSupportSimulator.exe')
+    parser.add_argument('--exe',type=Path,default=ROOT/'builds/windows/ITSupportSimulator.exe')
     parser.add_argument('--headless',action='store_true',help='Skip graphical checks')
     args=parser.parse_args()
     engine=args.godot.resolve(strict=True)
@@ -42,6 +42,8 @@ def main():
         isolated=Path(tmp)
         exe=isolated/'ITSupportSimulator.exe'
         shutil.copy2(source,exe)
+        # Copy any native dependencies that accompany the supplied export.
+        for library in source.parent.glob('*.dll'): shutil.copy2(library,isolated/library.name)
         # Export templates disable --script/--path. Boot the real main scene
         # using its existing opt-in save/config isolation before Game.new().
         results['native_headless']=run([exe,'--headless','--quit-after','90','--','--test-world'],
@@ -51,7 +53,7 @@ def main():
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the embedded pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')

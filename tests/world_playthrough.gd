@@ -38,6 +38,9 @@ func descendants(node) -> Array:
 
 func use(id: String, at: Vector3, aim_offset: Vector3 = Vector3.ZERO):
 	shell.return_to_world()
+	# Automated aiming owns the camera. Native pointer recentering after mouse
+	# capture must not rotate it during the following physics frames.
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var p = shell.world.player
 	p.position = at
 	p.rotation = Vector3.ZERO
@@ -131,6 +134,7 @@ func run():
 		shell.ui.apply_display_settings(Vector2i(1280,720),false)
 	# Block selection through the rear wall (interaction never ignores geometry).
 	shell.return_to_world()
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var p = shell.world.player
 	p.position = Vector3(0,0.02,-6.5)
 	p.rotation = Vector3.ZERO

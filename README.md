@@ -8,12 +8,108 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 
 ## Spuštění
 
-**V Godotu:** importuj `project.godot` v této složce a stiskni **F5**.
-Hlavní scéna je `scenes/world/Game.tscn`. Není třeba žádný plugin ani internet.
+**Windows:** rozbal celý `builds/ITSupportSimulator-Windows.zip` a spusť
+`ITSupportSimulator.exe`. Připravené EXE je také v
+`builds/windows/ITSupportSimulator.exe` s vloženým PCK. PC OpenXR je součást Godotu;
+Android vendor plugin se přibaluje pouze do APK.
+Menu **HRÁT V KLASICKÉM 3D** otevře původní FPS hru a načte místní postup.
+**HRÁT VE VR / PICO 4 · OpenXR** uloží postup a spustí stejnou hru s OpenXR.
+Pro PC VR připoj headset přes funkční PC VR streaming a nastav kompatibilní aktivní
+OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 3D.
+Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
-Repozitář obsahuje zdrojový projekt bez distribuční složky `build/`.
-Pro spuštění v Godotu tato složka není potřeba. Export samostatného Windows
-EXE bude řešen novým postupem samostatně.
+**PICO 4:** `builds/pico4/ITSupportSimulator-PICO4.apk` je podepsaný sideload
+Debug APK pro ARM64, běžný PICO 4, Android min 29 / target 34. Spouští VR přímo.
+Zapni vývojářský režim a USB debugging, připoj USB a v headsetu povol počítač:
+
+```powershell
+adb devices -l
+adb install -r builds/pico4/ITSupportSimulator-PICO4.apk
+adb shell am start -n cz.academy.itsupport/com.godot.game.GodotAppLauncher
+```
+
+Hru lze spustit také z knihovny aplikací PICO. **Fyzický PICO 4 nebyl při vývoji
+připojen; tracking, komfort a stabilních 72 FPS zatím nejsou ověřené na zařízení.**
+APK není vydání pro obchod. V repozitáři jsou zdroje, hotový Windows ZIP,
+PICO APK a `builds/VERIFICATION.json`. EXE rozbal ze ZIPu; samotný Release EXE
+překračuje limit GitHubu 100 MiB pro jeden soubor, proto se přímo do Gitu neukládá.
+
+**V Godotu:** importuj `project.godot` a stiskni **F5**. Hlavní scéna je
+`scenes/world/Game.tscn`. Součástí projektu je OpenXR Vendors **5.1.0-stable**
+(minimum Godot 4.6), včetně nativních knihoven a licencí. Editor je Godot 4.7.2.
+
+## VR ovládání a komfort
+
+- Levý joystick: pohyb po zapnutí plynulé chůze. Výchozí teleport: drž klik
+  levého joysticku, namiř oblouk na volnou podlahu a uvolni. Neprochází zavřenými
+  dveřmi ani racky; cílová kapsle musí mít prostor.
+- Pravý joystick: snap turn (výchozí 30°, také 15/45°); nad otevřeným monitorem
+  nahoru/dolů posouvá obsah. Smooth chůze má rychlost 0,8–2,5 m/s.
+- Trigger: ray interakce se zařízeními a skutečná tlačítka monitoru; držení
+  dovoluje táhnout posuvníky. Levý paprsek lze použít také pro kliknutí.
+- Grip nablízko: uchopení konkrétní náhrady ze servisní skříně; disk sleduje
+  grip pose ovladače. Po uvolnění zůstává v inventáři u pasu, u skříně se vrátí,
+  u slotu se otevře bezpečné vložení. Vytažení/vložení zachovává kontrolu serial,
+  zálohy, hot-swap a potvrzení. Grip kabelu vezme konektor, trigger zvolí port.
+- Menu podle profilu nebo **B/Y**: pauza/návrat. **A/X**: mise; při otevřeném
+  monitoru jej přemístí před aktuální pohled. Systémové tlačítko PICO se nepřebírá.
+- Pauza → **Komfort VR / výška / pohyb**: teleport/plynulá chůze, snap,
+  rychlost, vsedě/vestoje a kalibrace výšky. Při ztrátě focus nebo tracking se
+  interakce pozastaví. Fyzický odchod z akademie se sleduje i s otevřeným monitorem.
+- Administrace je původní UI na světově ukotvené obrazovce 1,76 × 1,32 m,
+  SubViewport 1600×1200. Po zaměření textového pole se objeví virtuální klávesnice
+  s českými znaky, Shift, Backspace, Enter a Tab. Formuláře VM/CPU/RAM, VLAN/IP,
+  disky, zálohy, RAID, Hyper-V, ticket i simulovaný terminál používají původní model.
+
+Standalone profil používá OpenGL Compatibility, multiview OpenXR, 2× MSAA,
+sdílené modely/materiály/MultiMesh, bez stínů a screen-space efektů. Neotáčí
+ventilátory. Žádá 72 Hz, pokud runtime tuto frekvenci nabízí; není to výsledek
+měření FPS. Nevyžaduje Enterprise, sledování očí/obličeje ani optické ruce.
+Vendor plugin zůstává samostatný, takže další PICO varianty lze doplnit později.
+
+## Přenos uloženého postupu mezi PC a PICO
+
+PC i PICO mají vlastní lokální `user://academy_save.json`; PC 3D/VR ho sdílí.
+XP, mise, výsledky lekcí/zkoušek a infrastruktura zůstávají v původním schématu 2.
+Obraz, klávesy a VR komfort mají vlastní lokální CFG; automatická synchronizace není.
+Pauza → **Přenos uloženého postupu** → **Exportovat postup** vytvoří validovaný
+`user://academy-transfer.json`. **Importovat postup** ověří strukturu, zálohuje
+dosavadní save a vrátí hru do menu. Dočasné lekce se po načtení neobnovují.
+
+Na PC je uživatelská složka
+`%APPDATA%/Godot/app_userdata/IT Support Simulator- Datacenter Academy/`.
+Debug APK dovoluje přístup přes `run-as`; pro přenos spusť hru, vrať ji do menu
+a z adresáře s přenosovým souborem použij např.:
+
+```powershell
+adb push academy-transfer.json /data/local/tmp/academy-transfer.json
+adb shell run-as cz.academy.itsupport cp /data/local/tmp/academy-transfer.json files/academy-transfer.json
+```
+
+Pro opačný směr: `adb exec-out run-as cz.academy.itsupport cat files/academy-transfer.json`
+ulož beze změny UTF-8 (např. přesměrováním v `cmd.exe` nebo Pythonem;
+starý Windows PowerShell může změnit kódování). Potom proveď import ve hře.
+
+## Sestavení obou platforem
+
+Nainstaluj oficiální export templates **4.7.2.stable** (shodné s editorem),
+JDK 17 a Android SDK. Skutečná přiložená 4.7.2 šablona používá compile SDK 36,
+Build Tools 36.1.0, NDK 29.0.14206865 a Gradle 8.11.1. SDK min/target APK jsou 29/34.
+`tools/build_platforms.py` nastaví cesty SDK/JDK, rozbalí Android build template,
+exportuje Windows Release + PICO signed Debug, ověří podpis/manifest/architekturu,
+spustí skutečné Windows EXE mimo projekt a vytvoří kompletní ZIP a
+`builds/VERIFICATION.json` s SHA256. Při připojeném autorizovaném PICO se pokusí
+o instalaci a spuštění; to stále nenahrazuje ruční test tracking/FPS.
+
+```powershell
+python tools/build_platforms.py --godot 'C:/cesta/Godot_console.exe' --sdk "$env:LOCALAPPDATA/Android/Sdk" --jdk 'C:/cesta/jdk-17'
+python tools/test_windows.py --godot 'C:/cesta/Godot_console.exe'
+```
+
+Oficiálně ověřené podklady: [Godot XR Android](https://docs.godotengine.org/en/stable/tutorials/xr/deploying_to_android.html),
+[inicializace OpenXR](https://docs.godotengine.org/en/stable/tutorials/xr/setting_up_xr.html),
+[Vendors 5.1.0](https://github.com/GodotVR/godot_openxr_vendors/releases/tag/5.1.0-stable),
+[konfigurace Vendors](https://godotvr.github.io/godot_openxr_vendors/getting-started/installation.html).
 
 ## Ovládání a první směna
 
@@ -282,10 +378,10 @@ V PowerShellu s cestou ke console variantě Godotu:
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
 
-Dosavadní exportní skripty `Build-Windows.ps1`, `build_windows.py` a
-`test_windows.py` zůstávají v `tools/` jako původní postup. Bez distribučního
-EXE nebo samostatné exportní šablony původní sestavení nelze použít.
-Nový způsob exportu není součástí této úpravy ani níže uvedených testů hry.
+Pro oba nové exporty používej `tools/build_platforms.py` nebo
+`tools/Build-Platforms.ps1`. Staré `build_windows.py` / `Build-Windows.ps1`
+popisují předchozí balení do `build/`; nové balíčky jsou v `builds/`.
+`tools/test_windows.py` ověřuje aktuální kompletní Windows distribuci i její PCK.
 
 Ostrost skutečného obrazu ověřuje grafický test (vyžaduje grafickou kartu,
 spouštěj bez `--headless`):
@@ -302,6 +398,10 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 
 - `terminal_sessions.gd`: skutečné UI terminálu, správný hostitel, undo,
   ukládání a jeho selhání, kroky/hodnocení všech tří výukových režimů a ochrana kampaně.
+- `xr_modes.gd`: 69 syntetických kontrol společného desktop/VR stavu, PICO profilu,
+  controller inputs, pohybu/grip, SubViewport kliků/klávesnice, komfortu,
+  zrušení výuky při fyzickém odchodu s otevřenou konzolí a při teleportu ve všech
+  třech režimech, validovaného exportu/importu. Nenahrazuje skutečný headset.
 - `platform_context.gd`: odmítnutí nesprávné platformy a neplatných cílů bez změn infrastruktury.
 - `console_ux.gd`: skutečná kliknutí šesti kroky, kontext, posuv, fokus,
   formuláře, VM101 v síti, timeout obrazu a preference; `-- --screenshots` pořídí snímky.
@@ -388,8 +488,9 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   synchronizovaný stavový snímek; nejsou simulovány reálné intervaly přenosu.
 - RAID výpočty jsou orientační před metadata/filesystemem. VHDX a kapacitní
   vrstvy pracují s výukovými jednotkami GB; TB/TiB je zvlášť v RAID kalkulátoru.
-- Není vytvořen instalátor. Samostatné Windows EXE používá Debug šablonu
-  a vložený PCK; obsahuje také diagnostické funkce enginu.
+- Není vytvořen instalátor. Samostatné Windows EXE používá oficiální Release
+  šablonu a vložený PCK. PICO APK je podepsané
+  Debug sestavení pro sideload, s lokálními uloženými daty.
 
 ## Primární studijní zdroje
 
