@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## PC + PICO 4: výchozí checkpoint (2026-10-26)
+- Nové zadání autorizuje Windows EXE, ARM64 PICO APK a push na origin/main. Výchozí čistý strom 785506e je shodný s GitHubem; obsah 65 misí a 21 lekcí se zachová.
+- Dostupný Godot MCP potvrzuje Godot 4.7.2.stable.official.ed1daf0bf. Existující FPS, GameShell, UIController a oddělené tréninkové relace tvoří základ obou režimů.
+- Před implementací ověřeny oficiální dokumentace Godot XR/Android a OpenXR Vendors. Následuje společný přepínač režimu, XR rig, monitor s virtuální klávesnicí, regresní testy a skutečné exporty. Hardware testy se vykazují odděleně.
+
 ## Porovnání s místní kopií a odstranění distribuce z Gitu (2026-10-26)
 - Porovnána čistá místní větev main na f5acc3f s GitHub main na 4c86cd2. GitHub byl o 6 commitů napřed, bez samostatných místních commitů; lišilo se 19 souborů, z toho 7 distribučních v build/. Herní rozdíly: správný hostitel v diagnostice terminálu a napájení VM přes GameManager.apply včetně undo, výukových událostí, hodnocení a ukládání. Dále nový audit, test terminal_sessions a změny starého Windows balení.
 - Celé data/ a obsahové generátory jsou mezi oběma verzemi shodné, včetně 65 misí, 21 lekcí a legacy24. Ověřování proběhlo v izolované kopii nejnovějšího GitHubu.
