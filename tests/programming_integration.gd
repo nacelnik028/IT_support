@@ -97,6 +97,10 @@ func run():
 	ui.editor.grab_focus(); rig.monitor.keyboard.track_focus()
 	rig.monitor.keyboard.type_text("print('Ahoj, světe!')\n"); ui.run_code()
 	check(ui.console.text.contains("Ahoj, světe!"),"VR keyboard writes executable code")
+	ui.editor.set_caret_line(0); ui.editor.set_caret_column(0)
+	var physical_key=InputEventKey.new(); physical_key.unicode=35; physical_key.keycode=KEY_NUMBERSIGN; physical_key.pressed=true
+	root.push_input(physical_key,true); await frames()
+	check(ui.editor.text.begins_with("#"),"Physical keyboard routes to VR editor")
 	var keys=[]
 	for key in rig.monitor.keyboard.find_children("*","Button",true,false): keys.append(key.text)
 	check(Array("{}[]():;\"'=+-*/<>#.,_".split("")).all(func(c): return c in keys),"VR programming punctuation")
@@ -104,11 +108,18 @@ func run():
 	check(ui.editor.get_theme_font_size("font_size")==original_font+4,"VR code zoom")
 	ui.launch("WEB28",false); ui.file_picker.select(2); ui.switch_file("script.js")
 	check(ui.file_name=="script.js","VR file switching")
+	var key_rect=rig.monitor.keyboard.get_global_rect()
+	check(key_rect.end.y<=rig.monitor.viewport.size.y,"Full programming keyboard fits VR monitor")
 	shell.world.player.position=Vector3(0,0.02,3); game.reconcile_room(); await frames()
 	check(game.programming.current.is_empty() and not rig.monitor.visible,"VR boundary closes editor")
 	rig.deactivate(); shell.vr_active=false
 	game.save(); var saved=Saves.load_game()
 	check(saved.programming.lessons.size()==28 and saved.programming.xp>0,"All results persist compatibly")
+	var reloaded=preload("res://scripts/core/GameManager.gd").new()
+	check(reloaded.programming.progress.lessons.size()==28 and reloaded.programming.current.is_empty(),"Restart keeps results and cancels unfinished training")
+	var corrupt=saved.duplicate(true); corrupt.programming.results.PY01.best=101
+	check(not Saves.rules().valid(corrupt),"Save validator rejects malformed programming results")
+	reloaded=null
 	shell.queue_free(); await frames()
 	print("PROGRAMMING INTEGRATION ",checks," checks, ",failures," failures; ",fingerprints.size()," generated variants")
 	quit(1 if failures else 0)

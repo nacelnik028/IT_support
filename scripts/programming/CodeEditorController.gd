@@ -116,6 +116,7 @@ func load_current():
 	var task=manager.current
 	details.text=task.id+" / "+task.title
 	lesson_text.text=task.description+"\n\nVýukové cíle: "+", ".join(task.objectives)
+	if task.category=="python" and not task.tests[0].get("globals",{}).is_empty(): lesson_text.text+="\n\nData mise (již existující proměnné): "+JSON.stringify(task.tests[0].globals)
 	if manager.mode=="learn": lesson_text.text+="\n\nAda: "+task.explanation+"\nČasté chyby: "+task.errors
 	hint_button.disabled=manager.mode=="exam"; example_button.disabled=manager.mode!="learn"
 	console.text="Napiš vlastní řešení a spusť ho. Testy používají více vstupů."

@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Programming Academy — závěrečné ověřování a distribuce (2026-10-26)
+- Godot MCP ProgrammingMCP: skutečný Python počítač/editor, ekvivalentní funkce s různými argumenty, strukturální HTML/JS náhled, DOM kliknutí, odchod a čistý opětovný vstup PASS; errors=[]. Prohlédnut snímek neprůhledného editoru a interaktivního webu.
+- Integration rozšířen na 765 kontrol PASS GPU Compatibility: skutečné předání fyzické klávesy do XR CodeEdit, celá programátorská klávesnice uvnitř viewportu, obnovení všech výsledků a odmítnutí vadné větve programming v save. PICO hardware nebyl připojen.
+- První Windows/PICO exporty rozšíření sestaveny; samostatný EXE spustil menu, všechny oblasti, Python i HTML/JS/preview a obsah LIMITS.txt v izolaci. APK ověřeno apksigner/aapt, ARM64/OpenXR/PICO, bez autorizovaného ADB zařízení. Po drobném zpřístupnění dat mise v editoru a náhodného seedu pro ruční Run následuje konečný rebuild a test přesného PCK. Distribuční soubory se označí finální až po jeho ověření.
+
 ## Programming Academy — etapy 5–9 (2026-10-26)
 - Dokončen katalog všech 30 Python + 30 webových úloh, 15 + 13 lekcí a 12 opravovacích variant. Každá položka obsahuje skutečné soubory, vysvětlení, cíle, nápovědy, referenční řešení a spustitelné testy. tools/build_programming.py je deterministický a volá se i z build_content.py; původní IT katalogy se nemění.
 - WebDocument sestavuje strom HTML, kontroluje vnoření/atributy/popisky, CSS selektory/kaskádu a podporované deklarace. WebPreviewController vykresluje upravený obsah, barvy, boxy, jednoduchý flex/grid, tabulky, odkazy a formuláře. LearningJavaScript parsuje podporované DOM dotazy/registrace kliknutí/textContent; kliknutí skutečně změní strom i Control UI. Rozsah není plný prohlížeč a je výslovně uveden v editoru.

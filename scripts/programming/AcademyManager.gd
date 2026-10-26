@@ -48,7 +48,7 @@ func edit(filename: String, source: String):
 func run_program(inputs: Array = []) -> Dictionary:
 	if not allowed() or current.is_empty(): return {"ok":false,"error":"Cvičení není aktivní v Programming Academy."}
 	if current.category=="python":
-		last_run=preload("res://scripts/programming/PythonRuntime.gd").new().run(files.get("main.py",""),inputs,current.tests[0].get("globals",{}),current.tests[0].get("files",{}))
+		last_run=preload("res://scripts/programming/PythonRuntime.gd").new().run(files.get("main.py",""),inputs,current.tests[0].get("globals",{}),current.tests[0].get("files",{}),int(Time.get_ticks_usec()))
 	else: last_run=preload("res://scripts/programming/WebDocument.gd").new().load_files(files)
 	if last_run.ok:
 		if step==1: step=2; edited_after_run=false

@@ -154,7 +154,11 @@ def main():
     if not args.verify_only:
         run([android_engine, "--headless", "--path", ROOT, "--export-debug", "PICO 4", apk, "--quit"], "pico4-export", env=environment)
     android = verify_apk(apk, args.sdk.resolve(), environment)
-    for source in [ROOT / "README.md", ROOT / "GODOT-LICENSE.txt"]: shutil.copy2(source, exe.parent / source.name)
+    for source in [ROOT / "README.md", ROOT / "GODOT-LICENSE.txt", ROOT / "NAVOD_PICO4.md"]: shutil.copy2(source, exe.parent / source.name)
+    shutil.copytree(ROOT / "docs", exe.parent / "docs", dirs_exist_ok=True)
+    limits = exe.parent / "data/programming/LIMITS.txt"
+    limits.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / "data/programming/LIMITS.txt", limits)
     shutil.copytree(ROOT / "addons/godotopenxrvendors", exe.parent / "licenses/OpenXR-Vendors",
                     ignore=shutil.ignore_patterns(".bin", ".gitignore", "*.gdextension*", "*CHANGES*"), dirs_exist_ok=True)
     archive = BUILDS / "ITSupportSimulator-Windows.zip"
