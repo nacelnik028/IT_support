@@ -16,3 +16,9 @@
 
 Pro opakovaný build v připraveném cloudovém prostředí je uložen
 `/workspace/.cloud-setup/it-support/build-release.py` a postup v nastavení prostředí.
+
+## Stažení pro hráče — oprava distribuce
+
+- Potvrzeno, že raw stažení samostatného EXE z GitHubu vracelo 134bajtový textový Git LFS pointer. Uživatel stáhl soubor do 1 KB; Windows jej odmítl spustit.
+- `ITSupportSimulator-Windows-x64.zip` je běžný Git soubor pod 100 MiB a obsahuje úplné EXE, licenci a pokyny k rozbalení.
+- CRC archivu a SHA256 EXE po rozbalení byly ověřeny. Obsah hry ani binárka EXE se touto opravou nemění.

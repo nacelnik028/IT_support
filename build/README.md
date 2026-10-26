@@ -1,18 +1,24 @@
 # IT Support Simulator: Datacenter Academy — Windows release
 
-Spusť `ITSupportSimulator.exe` ve Windows 10/11 (64bit). Hra funguje offline.
-Herní data jsou zabalená přímo v EXE; žádný vedlejší PCK ani editor nejsou potřeba.
+[Stáhnout hru v ZIPu](https://raw.githubusercontent.com/nacelnik028/IT_support/main/build/ITSupportSimulator-Windows-x64.zip)
 
-Pro grafické karty bez vhodné podpory Vulkan lze použít:
+Rozbal archiv a ve složce `ITSupportSimulator` spusť `ITSupportSimulator.exe`.
+Hra je pro Windows 10/11 (64bit), funguje offline a herní data má uvnitř EXE.
+Godot editor ani vedlejší soubor PCK nejsou potřeba.
+
+ZIP je uložený přímo v Gitu a obsahuje úplné EXE, licenci a pokyny.
+Je vhodný i pro stažení z webu bez instalace Git LFS.
+
+Samostatné `build/ITSupportSimulator.exe` je kvůli velikosti nad 100 MiB
+uložené přes Git LFS. Soubor o velikosti přibližně 1 KB je pouze textový
+odkaz a ve Windows nejde spustit. Skutečné EXE má 110 430 816 bajtů.
+Při klonování repozitáře spusť `git lfs pull`; pro běžné hraní stáhni výše uvedený ZIP.
+
+Pro grafické karty bez vhodné podpory Vulkan lze použít PowerShell:
 
 ```powershell
 .\ITSupportSimulator.exe --rendering-method gl_compatibility
 ```
 
-EXE je uloženo přes Git LFS, protože překračuje limit 100 MiB pro běžný Git.
-Po klonování repozitáře spusť `git lfs pull`; při stažení jednotlivého souboru
-z GitHubu použij tlačítko pro stažení původního souboru. Textový LFS pointer není hra.
-
 Sestaveno oficiální release šablonou Godot 4.7.2 pro Windows x86_64.
-Zdrojové soubory hry ani původní exportní preset se při sestavení nemění.
-Licenci enginu obsahuje `GODOT-LICENSE.txt`.
+Licenci enginu obsahuje `GODOT-LICENSE.txt`; kontrolní součty jsou v `SHA256SUMS`.
