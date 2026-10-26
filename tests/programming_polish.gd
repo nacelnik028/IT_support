@@ -6,8 +6,9 @@ var failures=0
 var shell
 
 func _init():
-	Saves.path_override="user://programming_polish_test.json"
-	preload("res://scripts/core/DisplaySettings.gd").path_override="user://programming_polish_test.cfg"
+	var tag=str(OS.get_process_id())
+	Saves.path_override="user://programming_polish_test_"+tag+".json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://programming_polish_test_"+tag+".cfg"
 	Saves.save_game({},true)
 	call_deferred("run")
 

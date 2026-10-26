@@ -1,5 +1,34 @@
 # Ověření rozšířené hratelné verze
 
+## Přístup, vzhled učebny a Windows distribuce — 26. 10. 2026
+
+Všech **30 sad Test-All PASS**, exit 0, bez runtime chyb/varování.
+Nový `programming_polish.gd` v závěrečném běhu: **27 kontrol PASS**.
+Test začíná běžným spawnem a skutečně obejde admin stoly, projde levou
+uličkou, zaměří/otevře dveře, vstoupí i vyjde. Před opravou jej zastavil SW-CORE.
+Dále kontroluje bezpečnost dveří, postup po skutečné změně kódu, native undo/redo
+mezi soubory, filtry stanovišť, zkoušky generovaných variant, reset náhledu a 130% UI.
+
+Finální externí PCK: všechny programovací sady, XR 69, terminál 64,
+UI design 162, world UI 27 a world playthrough 34 PASS. Nad přesným PCK
+také GPU Compatibility **integration 765 + polish 27 PASS** a kontrola snímků.
+Současné integration/polish běhy používají vlastní save/CFG s PID;
+ověřování nezasahuje do hráčova uloženého postupu.
+
+Windows EXE je beze změn shodné s oficiální Release šablonou Godotu;
+data jsou v sousedním `ITSupportSimulator.pck`. ZIP je nutné celý rozbalit.
+Native start mimo projekt headless i GPU PASS. Hash/CRC ZIPu, shoda obou
+binárních souborů v ZIPu a zabalený katalog 60/28 v APK PASS.
+Podrobné hashe/výsledky: builds/VERIFICATION.json.
+
+Defender: dokončený vlastní scan finální Windows složky, událost 1001,
+bez odpovídající detekce. **SmartScreen může stále zobrazit Unknown publisher:**
+není dostupný podpisový certifikát/reputace a toto upozornění se neobchází
+změnou bezpečnostních nastavení. Viz SPUSTENI-WINDOWS.txt.
+
+Aktualizované PICO APK má ověřený podpis/ARM64/OpenXR manifest;
+fyzický headset a jeho výkon zatím nejsou ověřené.
+
 ## Programming Academy — 26. 10. 2026
 
 `tools/Test-All.ps1`: **29 sad PASS, exit 0, bez runtime chyb a varování**.

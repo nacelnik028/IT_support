@@ -5,9 +5,10 @@ const Evaluation=preload("res://scripts/programming/CodeEvaluator.gd")
 var checks=0
 var failures=0
 func _init():
-	Saves.path_override="user://programming_integration_test.json"
-	preload("res://scripts/core/DisplaySettings.gd").path_override="user://programming_integration_test.cfg"
-	preload("res://scripts/xr/VRSettings.gd").path_override="user://programming_integration_vr.cfg"
+	var tag=str(OS.get_process_id())
+	Saves.path_override="user://programming_integration_test_"+tag+".json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://programming_integration_test_"+tag+".cfg"
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://programming_integration_vr_"+tag+".cfg"
 	Saves.save_game({},true)
 	call_deferred("run")
 func check(ok: bool, text: String):

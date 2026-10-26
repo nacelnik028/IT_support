@@ -9,17 +9,18 @@
       "programming_catalog": true,
       "programming_academy": true,
       "programming_integration": true,
+      "programming_polish": true,
       "xr_modes": true,
       "terminal_sessions": true,
       "ui_design": true,
       "world_ui": true,
       "world_playthrough": true
     },
-    "packaged_programming_gpu": {
-      "renderer": "OpenGL Compatibility",
-      "checks": 765,
+    "packaged_gpu_tests": {
+      "programming_integration": 765,
+      "programming_polish": 27,
       "failures": 0,
-      "synthetic_xr": true
+      "renderer": "OpenGL Compatibility"
     }
   },
   "pico4": {
@@ -29,37 +30,46 @@
   },
   "hardware_tracking": "NOT TESTED",
   "pico_72_fps": "NOT MEASURED",
+  "windows_distribution": {
+    "embedded_pck": false,
+    "official_template_unchanged": true,
+    "authenticode": "UNSIGNED; no signing certificate available",
+    "smartscreen": "Unknown-publisher warnings may remain; no reputation bypass or security settings changed",
+    "defender_custom_scan": {
+      "completed": true,
+      "matching_threats": 0,
+      "scan_start": "2026-10-26T20:00:13.4034804+01:00",
+      "scan_end": "2026-10-26T20:00:13.4438527+01:00",
+      "completion_event": 1001
+    }
+  },
   "artifacts": [
     {
       "file": "builds/windows/ITSupportSimulator.exe",
-      "bytes": 110820008,
-      "sha256": "6bbeebbe125feb8626b46a5941da13e8d8b5177f289b32323428b2696ba3eac4"
+      "bytes": 109268480,
+      "sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+    },
+    {
+      "file": "builds/windows/ITSupportSimulator.pck",
+      "bytes": 1563500,
+      "sha256": "5ffa1bf2db694e0451d4f2581b3db0f7e1704bd22a7ea6d5732b30870d6d69d5"
     },
     {
       "file": "builds/ITSupportSimulator-Windows.zip",
-      "bytes": 40475777,
-      "sha256": "cb8967f6c21579d939371b1b44a6731ea47d4098b7da47e337918b7bcebea589"
+      "bytes": 40488518,
+      "sha256": "64451d122fda83649bfa7f7cfa5183632492f03b710abe302f4fbb034ec64e21"
     },
     {
       "file": "builds/pico4/ITSupportSimulator-PICO4.apk",
-      "bytes": 90410316,
-      "sha256": "cc502e35c27019c27ac71d6687d3dcf13963a6819f4a1cf15c5b5c5a33c6f997"
+      "bytes": 90422379,
+      "sha256": "aede0ee05f47d496e5675a26ae617db2ba6d5353f7ecd9c618158bc1cd0fb41a"
     }
   ],
-  "programming": {
-    "missions": 60,
-    "lessons": 28,
-    "debugging_variants": 12,
-    "runtime_checks": 31,
-    "catalog_checks": 1071,
-    "room_checks": 63,
-    "integration_checks": 765,
-    "generated_variants": 252,
-    "all_suites": 29,
-    "legacy_unchanged": true,
-    "generator_rebuild": "PASS",
-    "windows_zip_crc": "PASS",
-    "apk_content_and_crc": "PASS",
-    "pico_hardware": "NOT TESTED: no ADB device"
+  "validation": {
+    "test_suites": 30,
+    "failures": 0,
+    "legacy_catalogs_unchanged": true,
+    "zip_and_apk_crc": "PASS",
+    "physical_pico": "NOT TESTED"
   }
 }
