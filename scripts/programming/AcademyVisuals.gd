@@ -96,7 +96,7 @@ func entrance():
 	Geo.box(world,Vector3(-7.3,0.012,-0.6),Vector3(0.025,0.005,10.8),PYTHON,0,0.2)
 	Geo.text(world,"03  /  PROGRAMMING ACADEMY  ↑",Vector3(-6.5,0.016,4.4),30,0.003,PYTHON).rotation_degrees=Vector3(-90,0,0)
 	for side in [-1,1]:
-		var face=Node3D.new(); face.position.z=side*0.085; face.rotation.y=0 if side>0 else PI; room.door.visual.add_child(face)
+		var face=Node3D.new(); face.position.z=side*0.085; face.rotation.y=0.0 if side>0 else PI; room.door.visual.add_child(face)
 		Geo.box(face,Vector3.ZERO,Vector3(2.55,2.5,0.015),Color("263e4b"),0.6)
 		Geo.box(face,Vector3(0,0.7,0.013),Vector3(2.5,0.025,0.01),PYTHON,0,0.9)
 		Geo.text(face,"03\nPROGRAMMING\nACADEMY\n\n[E] OTEVŘÍT",Vector3(0,0.08,0.027),38,0.0025,PYTHON)

@@ -1,0 +1,31 @@
+IT SUPPORT SIMULATOR — SPUŠTĚNÍ VE WINDOWS
+
+1. Klikni pravým tlačítkem na ZIP a vyber Extrahovat vše.
+2. Otevři rozbalenou složku a spusť ITSupportSimulator.exe.
+3. Vedle EXE musí zůstat ITSupportSimulator.pck. Obsahuje hru a učební data.
+   EXE nespouštěj přímo uvnitř ZIPu ani ho nepřesouvej samostatně.
+
+PROGRAMMING ACADEMY
+Ze serverovny projdi zadní uličkou za administrátorskými stoly, zahni doleva
+a sleduj tyrkysové značení k dveřím 03 / Programming Academy. Síťová skříň
+už nestojí v cestě. Zaměř dveře nebo nástěnný ovladač a stiskni E.
+Lze použít také Esc → Programming Academy.
+
+UPOZORNĚNÍ SMARTSCREEN „WINDOWS PROTECTED YOUR PC / UNKNOWN PUBLISHER“
+Tento projekt nemá placený/ověřený podpisový certifikát vydavatele.
+Upozornění na neznámou aplikaci samo o sobě není název nalezeného viru.
+Nové balení používá neupravený oficiální Godot runtime a samostatná herní data;
+nemění nastavení zabezpečení a nemůže zaručit zmizení SmartScreen.
+
+Nejdřív ověř původ balíčku (github.com/nacelnik028/IT_support) a soubory pomocí
+SHA256SUMS.txt / builds/VERIFICATION.json. Po vlastním ověření a rozhodnutí,
+že důvěřuješ této konkrétní aplikaci, lze ve standardním okně SmartScreen
+zvolit Další informace → Přesto spustit, pokud Windows tuto možnost nabízí.
+Nevypínej kvůli hře antivirus nebo SmartScreen a nepřidávej plošné výjimky.
+Pokud Defender uvede konkrétní hrozbu, jde o jiný případ; soubor nespouštěj
+a uchovej přesný název detekce pro prověření.
+
+Známý vydavatel vyžaduje platný podpisový certifikát a reputaci vydavatele/aplikace;
+ani nový platný podpis neslibuje okamžité odstranění reputačního upozornění.
+Podrobnosti Microsoftu:
+https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation

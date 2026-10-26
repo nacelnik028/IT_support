@@ -61,6 +61,8 @@ def checksum(path):
 def verify_windows(exe):
     # Run the actual release executable from an unrelated folder, with all DLLs.
     results = {}
+    pack=exe.with_suffix(".pck")
+    if not pack.is_file() or pack.read_bytes()[:4]!=b"GDPC": raise RuntimeError("The Windows package requires its external .pck")
     with tempfile.TemporaryDirectory(prefix="academy-standalone-") as folder:
         isolated = Path(folder)
         for source in exe.parent.iterdir():
@@ -80,6 +82,15 @@ def verify_windows(exe):
     return results
 
 
+def import_project(engine, project, log_name, environment):
+    # Importing can normalize away explicit XR defaults required by Vendors.
+    # Preserve the authored configuration, including those false values.
+    config=project/"project.godot"
+    original=config.read_bytes()
+    try: run([engine,"--headless","--editor","--path",project,"--import"],log_name,env=environment)
+    finally: config.write_bytes(original)
+
+
 def export_windows(engine, exe, environment):
     # PC VR uses Godot's built-in OpenXR. The vendor GDExtension is needed by
     # the Android exporter/runtime only. Stage the same sources without this
@@ -90,10 +101,15 @@ def export_windows(engine, exe, environment):
         shutil.copy2(ROOT/"project.godot",project/"project.godot")
         preset=(ROOT/"export_presets.cfg").read_text(encoding="utf-8").split("[preset.1]",1)[0]
         (project/"export_presets.cfg").write_text(preset,encoding="utf-8")
-        run([engine,"--headless","--editor","--path",project,"--import"],"windows-import",env=environment)
+        import_project(engine,project,"windows-import",environment)
         run([engine,"--headless","--path",project,"--export-release","Windows Desktop",exe,"--quit"],"windows-export",env=environment)
     stale=exe.parent/"libgodotopenxrvendors.dll"
     if stale.exists(): stale.unlink()
+    pack=exe.with_suffix(".pck")
+    if not pack.is_file(): raise RuntimeError("Windows export did not produce its PCK")
+    version=run([engine,"--version"],"windows-engine-version").strip()
+    official=Path(os.environ["APPDATA"])/"Godot/export_templates"/".".join(version.split(".")[:4])/"windows_release_x86_64.exe"
+    if exe.read_bytes()!=official.read_bytes(): raise RuntimeError("The executable must match the unmodified official export template")
 
 
 def verify_apk(apk, sdk, environment):
@@ -141,7 +157,7 @@ def main():
     templates = Path(os.environ["APPDATA"]) / "Godot/export_templates" / ".".join(version.split(".")[:4])
     environment = configure_android(args.sdk.resolve(), args.jdk.resolve(), templates)
     if not args.verify_only:
-        run([engine, "--headless", "--editor", "--path", ROOT, "--import"], "import", env=environment)
+        import_project(engine,ROOT,"import",environment)
     exe = BUILDS / "windows/ITSupportSimulator.exe"
     apk = BUILDS / "pico4/ITSupportSimulator-PICO4.apk"
     if not args.verify_only: export_windows(engine,exe,environment)
@@ -154,7 +170,7 @@ def main():
     if not args.verify_only:
         run([android_engine, "--headless", "--path", ROOT, "--export-debug", "PICO 4", apk, "--quit"], "pico4-export", env=environment)
     android = verify_apk(apk, args.sdk.resolve(), environment)
-    for source in [ROOT / "README.md", ROOT / "GODOT-LICENSE.txt", ROOT / "NAVOD_PICO4.md"]: shutil.copy2(source, exe.parent / source.name)
+    for source in [ROOT / "README.md", ROOT / "GODOT-LICENSE.txt", ROOT / "NAVOD_PICO4.md", ROOT/"SPUSTENI-WINDOWS.txt"]: shutil.copy2(source, exe.parent / source.name)
     shutil.copytree(ROOT / "docs", exe.parent / "docs", dirs_exist_ok=True)
     limits = exe.parent / "data/programming/LIMITS.txt"
     limits.parent.mkdir(parents=True, exist_ok=True)
@@ -162,16 +178,20 @@ def main():
     shutil.copytree(ROOT / "addons/godotopenxrvendors", exe.parent / "licenses/OpenXR-Vendors",
                     ignore=shutil.ignore_patterns(".bin", ".gitignore", "*.gdextension*", "*CHANGES*"), dirs_exist_ok=True)
     archive = BUILDS / "ITSupportSimulator-Windows.zip"
+    pack=exe.with_suffix(".pck")
+    (exe.parent/"SHA256SUMS.txt").write_text("\n".join(checksum(path)["sha256"]+"  "+path.name for path in [exe,pack])+"\n",encoding="utf-8")
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as output:
         for source in exe.parent.rglob("*"):
             if source.is_file(): output.write(source, source.relative_to(exe.parent))
     report = {"engine": version, "windows": windows, "pico4": android,
               "hardware_tracking": "NOT TESTED", "pico_72_fps": "NOT MEASURED",
-              "artifacts": [checksum(exe), checksum(archive), checksum(apk)]}
+              "windows_distribution":{"embedded_pck":False,"official_template_unchanged":True,"authenticode":"UNSIGNED; no signing certificate available","smartscreen":"Unknown-publisher warnings may remain; no reputation bypass or security settings changed"},
+              "artifacts": [checksum(exe), checksum(pack), checksum(archive), checksum(apk)]}
     previous_path=BUILDS/"VERIFICATION.json"
     if previous_path.exists():
         previous=json.loads(previous_path.read_text(encoding="utf-8"))
-        if any(item.get("sha256")==report["artifacts"][0]["sha256"] for item in previous.get("artifacts",[])):
+        # EXE stays identical between releases; PCK identifies this game's build.
+        if any(item.get("sha256")==checksum(pack)["sha256"] for item in previous.get("artifacts",[])):
             packaged=previous.get("windows",{}).get("packaged_tests")
             if packaged: report["windows"]["packaged_tests"]=packaged
     (BUILDS / "VERIFICATION.json").write_text(json.dumps(report, indent=2), encoding="utf-8")

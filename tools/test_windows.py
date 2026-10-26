@@ -1,4 +1,4 @@
-"""Verify the actual standalone EXE and its embedded game data in isolation."""
+"""Verify the standalone EXE and its accompanying PCK in isolation."""
 import argparse
 import hashlib
 import json
@@ -42,6 +42,9 @@ def main():
         isolated=Path(tmp)
         exe=isolated/'ITSupportSimulator.exe'
         shutil.copy2(source,exe)
+        pack=source.with_suffix('.pck')
+        if pack.exists(): shutil.copy2(pack,exe.with_suffix('.pck'))
+        main_pack=exe.with_suffix('.pck') if pack.exists() else exe
         # Copy any native dependencies that accompany the supplied export.
         for library in source.parent.glob('*.dll'): shutil.copy2(library,isolated/library.name)
         # Export templates disable --script/--path. Boot the real main scene
@@ -51,13 +54,13 @@ def main():
         if not args.headless:
             results['native_graphical']=run([exe,'--quit-after','120','--','--test-world'],
                                             isolated,logs/'native-graphical.log')
-        # The editor runs external tests against precisely the embedded pack.
+        # The editor runs external tests against precisely the distributed pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['programming_runtime','programming_catalog','programming_academy','programming_integration','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')
-            command=[engine,'--main-pack',exe,'--script',script]
+            command=[engine,'--main-pack',main_pack,'--script',script]
             if args.headless: command+=['--headless']
             command+=['--']
             if not args.headless: command+=['--screenshots']
@@ -65,12 +68,15 @@ def main():
                 command+=['--verify-packaged',f'--lesson-solutions={ROOT/"tests/lesson_solutions.json"}']
             results[name]=run(command,isolated,logs/f'{name}.log')
     report={'sha256':digest,'bytes':source.stat().st_size,'results':results}
+    if pack.exists(): report['pck_sha256']=hashlib.sha256(pack.read_bytes()).hexdigest()
     (logs/'results.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     if not all(results.values()): raise SystemExit(1)
     manifest=ROOT/'builds/VERIFICATION.json'
     if manifest.exists():
         verification=json.loads(manifest.read_text(encoding='utf-8'))
         if any(item.get('sha256')==digest for item in verification.get('artifacts',[])):
+            if pack.exists() and not any(item.get('sha256')==report['pck_sha256'] for item in verification.get('artifacts',[])):
+                raise RuntimeError('The tested PCK does not match the distribution manifest')
             verification['windows']['packaged_tests']=results
             manifest.write_text(json.dumps(verification,indent=2),encoding='utf-8')
     print('WINDOWS PACKAGE PASS: '+digest,flush=True)

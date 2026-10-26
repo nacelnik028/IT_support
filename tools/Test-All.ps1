@@ -1,7 +1,7 @@
 param([Parameter(Mandatory=$true)][string]$GodotPath)
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
-foreach ($test in @('programming_runtime','programming_catalog','programming_academy','programming_integration','xr_modes','terminal_sessions','platform_context','console_ux','ui_design','world_ui','stage1','campaign','regression','extended','session_safety','save_safety','physical3d','world3d','door3d','world_playthrough','training_rooms','tutorial_first','tutorial_navigation','lessons','training_features','ui_safety','ui_smoke','training_ui','display_settings')) {
+foreach ($test in @('programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','xr_modes','terminal_sessions','platform_context','console_ux','ui_design','world_ui','stage1','campaign','regression','extended','session_safety','save_safety','physical3d','world3d','door3d','world_playthrough','training_rooms','tutorial_first','tutorial_navigation','lessons','training_features','ui_safety','ui_smoke','training_ui','display_settings')) {
     $testArguments = @('--headless','--path',$projectRoot,'--script',"tests/$test.gd")
     if ($test -eq 'training_ui') { $testArguments += @('--','--all-modes') }
     # Capture native stderr too; print the complete failing suite before throwing.

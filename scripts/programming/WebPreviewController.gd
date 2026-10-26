@@ -8,6 +8,15 @@ var fields={}
 var groups={}
 var feedback: Label
 
+func clear_preview():
+	for child in get_children(): remove_child(child); child.queue_free()
+	document=null; controls={}; fields={}; groups={}
+	var empty=Label.new()
+	empty.text="NÁHLED STRÁNKY\n\nSpusť svůj kód tlačítkem Spustit.\nPotom zde vyzkoušej odkazy, tlačítka a formuláře."
+	empty.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; empty.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	empty.add_theme_color_override("font_color",preload("res://scripts/ui/AcademyTheme.gd").MUTED)
+	add_child(empty)
+
 func render_files(files: Dictionary):
 	document=Document.new()
 	var result=document.load_files(files)

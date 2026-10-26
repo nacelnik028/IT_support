@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -88,8 +89,11 @@ def main():
             template_version=run([original_template, '--version'], logs / 'windows-template-version.log').split()[0]
             shutil.copy2(original_template, template)
         else:
-            template_version=run([target, '--version'], logs / 'windows-original-version.log').split()[0]
-            extract_template(target.read_bytes(), template)
+            version=run([engine,'--version'],logs/'windows-editor-version.log').split()[0]
+            installed=Path(os.environ['APPDATA'])/'Godot/export_templates'/'.'.join(version.split('.')[:4])/'windows_debug_x86_64.exe'
+            if not installed.is_file(): raise FileNotFoundError('Install matching official export templates or supply --template')
+            template_version=run([installed,'--version'],logs/'windows-template-version.log').split()[0]
+            shutil.copy2(installed,template)
         editor_version = run([engine, '--version'], logs / 'windows-editor-version.log').split()[0]
         if editor_version != template_version:
             raise ValueError(f'Editor/template mismatch: {editor_version} / {template_version}')
@@ -99,23 +103,29 @@ def main():
             shutil.copytree(ROOT / folder, project / folder)
         shutil.copy2(ROOT / 'project.godot', project / 'project.godot')
         preset = (ROOT / 'export_presets.cfg').read_text(encoding='utf-8-sig')
-        preset = preset.replace('binary_format/embed_pck=false', 'binary_format/embed_pck=true')
+        preset = preset.replace('binary_format/embed_pck=true', 'binary_format/embed_pck=false')
         preset = preset.replace('[preset.0.options]', '[preset.0.options]\ncustom_template/debug='
                                 + json.dumps(template.as_posix()) + '\ndebug/export_console_wrapper=0')
         (project / 'export_presets.cfg').write_text(preset, encoding='utf-8')
+        authored=(project/'project.godot').read_bytes()
         run([engine, '--headless', '--editor', '--import', '--path', project], logs / 'windows-build-import.log')
+        (project/'project.godot').write_bytes(authored)
         result = temporary / 'ITSupportSimulator.exe'
         run([engine, '--headless', '--path', project, '--export-debug', 'Windows Desktop', result],
             logs / 'windows-build-export.log')
         binary = result.read_bytes()
-        embedded_pack(binary)
-        if len(binary) >= 100 * 1024 * 1024:
-            raise ValueError('EXE exceeds the GitHub 100 MiB file limit; previous build was preserved')
+        pack=result.with_suffix('.pck')
+        if binary[:2]!=b'MZ' or not pack.is_file() or pack.read_bytes()[:4]!=b'GDPC':
+            raise ValueError('Expected an unmodified Windows runtime and an external Godot PCK')
+        if binary!=template.read_bytes(): raise ValueError('The exported runtime was unexpectedly modified')
+        staged_pack=target.with_suffix('.pck.tmp')
+        shutil.copy2(pack,staged_pack); staged_pack.replace(target.with_suffix('.pck'))
         staged = target.with_suffix('.exe.tmp')
         shutil.copy2(result, staged)
         staged.replace(target)
         info = {'engine': editor_version, 'bytes': len(binary),
-                'sha256': hashlib.sha256(binary).hexdigest(), 'embedded_pck': True}
+                'sha256': hashlib.sha256(binary).hexdigest(), 'embedded_pck': False,
+                'pck_sha256':hashlib.sha256(pack.read_bytes()).hexdigest()}
         (logs / 'windows-build.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
         print(json.dumps(info, indent=2))
 

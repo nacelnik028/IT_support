@@ -96,6 +96,8 @@ func _ready():
 	console.add_theme_stylebox_override("read_only",shell.ui.box(Color("0a121a"),Color("253e4e"),4))
 	input_console.add_theme_stylebox_override("normal",shell.ui.box(Color("0a121a"),Color("253e4e"),4))
 	console.add_theme_font_size_override("font_size",18)
+	console.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
+	input_console.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
 	console.add_theme_color_override("font_readonly_color",Design.TEXT)
 	populate(); show_dashboard()
 
@@ -159,6 +161,7 @@ func load_current():
 	console.text="Napiš vlastní řešení a spusť ho. Testy používají více vstupů."
 	input_console.text="\n".join(task.tests[0].get("inputs",[])) if task.category=="python" else ""
 	preview.visible=task.category!="python"
+	preview.clear_preview()
 	if not manager.queue.is_empty(): details.text+=" · Série %d/%d" % [manager.position+1,manager.queue.size()]
 	update_instruction()
 	populate()
@@ -198,7 +201,7 @@ func test_code():
 
 func reset_code():
 	if manager.current.is_empty(): return
-	manager.files=manager.current.starter.duplicate(true); clear_buffers(); switch_file(file_name); manager.step=0; manager.last_run={}; manager.edited_after_run=false; console.text="Obnoveno počáteční zadání."; update_instruction()
+	manager.files=manager.current.starter.duplicate(true); clear_buffers(); switch_file(file_name); manager.step=0; manager.last_run={}; manager.edited_after_run=false; console.text="Obnoveno počáteční zadání."; preview.clear_preview(); update_instruction()
 
 func show_example():
 	if manager.current.is_empty() or manager.mode!="learn": return

@@ -69,12 +69,22 @@ func run():
 	check(ui.editor==html_editor and ui.editor.get_caret_column()==caret,"Each file retains its own editor and caret")
 	ui.editor.undo(); check(not ui.editor.text.contains("Moje změna"),"Native undo survives changing files")
 	ui.editor.redo(); check(ui.editor.text.contains("Moje změna"),"Native redo survives changing files")
+	ui.run_code(); check(ui.preview.document!=null,"Run creates an actual preview document")
+	ui.launch("WEB28",false); check(ui.preview.document==null,"A new exercise cannot show the previous exercise's page")
 	check(manager.generate_series("python","beginner",2,17),"Generate practice series")
 	ui.load_current(); ui.mode_picker.select(2); ui.change_mode(2)
 	check(manager.mode=="exam" and ui.hint_button.disabled and ui.example_button.disabled,"Mode changes also work for generated tasks")
 	shell.return_to_world(); shell.open_programming("web")
 	check(ui.selected_category=="web" and manager.current.is_empty(),"Changing stations updates the filter and cancels unrelated exercise")
 	check(ui.console.get_theme_color("font_readonly_color")==shell.ui.Design.TEXT,"Readable output matches the common theme")
+	shell.ui.display_settings.text_scale=1.3; shell.ui.theme=shell.ui.make_theme(); shell.apply_ui_preferences()
+	ui.launch("WEB30",true)
+	for i in 8: await process_frame
+	check(ui.get_global_rect().end.x<=root.size.x and ui.get_global_rect().end.y<=root.size.y,"Editor fits the viewport at 130% text size")
+	check(ui.test_button.get_global_rect().end.y<ui.console.get_global_rect().position.y,"Primary actions remain above the console")
+	if "--screenshots" in OS.get_cmdline_user_args():
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://test-output/programming-polish-130.png")
 	print("PROGRAMMING POLISH ",checks," checks, ",failures," failures")
 	shell.queue_free(); await process_frame
 	quit(1 if failures else 0)
