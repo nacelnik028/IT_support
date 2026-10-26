@@ -1,5 +1,7 @@
 .godot/
 build/
+builds/
+android/
 test-output/
 *.tmp
 *.bak

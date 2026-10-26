@@ -32,6 +32,17 @@ window/size/min_height=720
 [rendering]
 
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 environment/ssil/quality=1
 anti_aliasing/quality/msaa_3d=2
 environment/defaults/default_clear_color=Color(0.025, 0.04, 0.075, 1)
+
+[xr]
+
+openxr/enabled=false
+openxr/enabled.android=true
+openxr/default_action_map="res://scenes/xr/academy_actions.tres"
+openxr/extensions/hand_tracking=false
+openxr/extensions/eye_gaze_interaction=false
+openxr/extensions/spatial_entity/enabled=false
+shaders/enabled=true

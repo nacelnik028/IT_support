@@ -1,6 +1,7 @@
 extends Control
 
 signal world_requested(destination: String)
+signal play_mode_requested(mode: String)
 signal lesson_launched
 signal preferences_changed
 signal settings_closed

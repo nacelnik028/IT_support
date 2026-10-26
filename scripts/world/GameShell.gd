@@ -27,6 +27,9 @@ var leaving_scene = false
 var settings_from_pause = false
 var controls_label: Label
 var introduction_step = 0
+var ui_layer: CanvasLayer
+var xr_rig
+var vr_active = false
 
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
@@ -36,6 +39,7 @@ func _ready():
 	world = preload("res://scenes/world/Datacenter3D.tscn").instantiate()
 	add_child(world)
 	var layer = CanvasLayer.new()
+	ui_layer = layer
 	add_child(layer)
 	backing = ColorRect.new()
 	backing.color = ui_background()
@@ -50,6 +54,7 @@ func _ready():
 	ui.settings_closed.connect(func():
 		if settings_from_pause: settings_from_pause=false; pause_menu())
 	ui.world_requested.connect(enter_world)
+	ui.play_mode_requested.connect(request_play_mode)
 	ui.lesson_launched.connect(func(): enter_world())
 	world.player.interaction_requested.connect(interact)
 	world.player.focus_changed.connect(func(target):
@@ -128,6 +133,8 @@ func _ready():
 	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
 	ui.game.reconcile_room()
+	if OS.has_feature("android") or "--vr" in OS.get_cmdline_user_args(): call_deferred("start_vr")
+	if "--export-smoke" in OS.get_cmdline_user_args(): call_deferred("export_smoke")
 
 func hud_plate(at: Vector2, dimensions: Vector2, border: Color) -> Panel:
 	var plate = Panel.new()
@@ -145,6 +152,7 @@ func ui_background() -> Color:
 
 func apply_ui_preferences():
 	ui.display_settings.apply_world(world)
+	if vr_active: apply_vr_quality()
 	hud.theme=ui.theme
 	overlay.theme=ui.theme
 	app_bar.theme=ui.theme
@@ -155,7 +163,8 @@ func _process(delta):
 	ui.game.reconcile_room()
 	notice_time = maxf(0.0,notice_time-delta)
 	room_notice.visible = notice_time>0.0 and mode=="world" and not (ui.game.active and ui.game.session_kind in ["lesson","random"])
-	chrome.scale = get_viewport().get_visible_rect().size/Vector2(1600,900)
+	chrome.scale = Vector2.ONE if vr_active else get_viewport().get_visible_rect().size/Vector2(1600,900)
+	if vr_active: ui.scale=Vector2.ONE
 	if mode == "app" and ui.page == "menu": set_mode("menu")
 	update_time += delta
 	save_time += delta
@@ -209,6 +218,7 @@ func set_mode(value: String):
 	app_bar.visible = value == "app"
 	overlay.visible = value in ["detail","pause","tasks","introduction"]
 	world.player.set_enabled(value == "world")
+	if vr_active: xr_rig.mode_changed()
 
 func enter_world(destination: String = "Serverovna"):
 	if destination == "Hlavní serverovna":
@@ -235,7 +245,7 @@ func enter_world(destination: String = "Serverovna"):
 	set_mode("world")
 	if ui.first_shift_requested:
 		ui.first_shift_requested=false
-		if not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
+		if not vr_active and not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
 
 func show_introduction():
 	set_mode("introduction")
@@ -477,6 +487,8 @@ func pause_menu():
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
+	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
+	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
 	v.add_child(ui.button("Seznámení s ovládáním",func(): introduction_step=0; show_introduction()))
 	v.add_child(ui.button("Uložit a hlavní menu",func():
 		if ui.game.save() == OK:
@@ -484,6 +496,115 @@ func pause_menu():
 			ui.draw_ui()
 			set_mode("menu")
 		else: v.add_child(ui.label(ui.game.save_message,16,ui.ORANGE))))
+
+func request_play_mode(value: String):
+	if value == "desktop" and vr_active and not OS.has_feature("android"):
+		store_pose()
+		xr_rig.deactivate()
+		vr_active=false
+		ui.display_settings.apply_preferences()
+		ui.display_settings.apply_world(world)
+		return
+	if value != "vr": return
+	if vr_active: enter_world(); return
+	var interface = XRServer.find_interface("OpenXR")
+	if interface != null and interface.is_initialized(): start_vr(); return
+	if "--vr" in OS.get_cmdline_user_args(): show_vr_error(); return
+	# OpenXR graphics integration must be created at engine startup.
+	if ui.game.save()!=OK: ui.show_message("Nelze přepnout režim",ui.game.save_message); return
+	var arguments=PackedStringArray(["--xr-mode","on","--rendering-method","gl_compatibility"])
+	if OS.has_feature("editor"): arguments.append_array(["--path",ProjectSettings.globalize_path("res://")])
+	arguments.append("--")
+	arguments.append("--vr")
+	if "--test-world" in OS.get_cmdline_user_args(): arguments.append("--test-world")
+	if OS.create_instance(arguments)<=0: show_vr_error(); return
+	get_tree().quit()
+
+func start_vr():
+	var interface=XRServer.find_interface("OpenXR")
+	if interface == null or not interface.is_initialized(): show_vr_error(); return
+	if not is_instance_valid(xr_rig):
+		xr_rig=preload("res://scenes/xr/XRPlayer.tscn").instantiate()
+		xr_rig.shell=self
+		world.player.add_child(xr_rig)
+	vr_active=true
+	xr_rig.activate()
+	apply_vr_quality()
+	enter_world()
+	print("VR initialized; tracking and device performance require hardware validation.")
+
+func show_vr_error():
+	ui.page="menu"
+	ui.draw_ui()
+	set_mode("menu")
+	ui.show_message("VR headset není dostupný","OpenXR se nepodařilo inicializovat. Připoj PICO 4 přes kompatibilní PC VR připojení, zapni OpenXR runtime a spusť hru znovu. Můžeš pokračovat v klasickém 3D. Na PICO používej standalone APK.")
+
+func apply_vr_quality():
+	world.get_viewport().msaa_3d=Viewport.MSAA_2X
+	for env in world.find_children("*","WorldEnvironment",true,false):
+		env.environment.ssao_enabled=false
+		env.environment.ssil_enabled=false
+		env.environment.ssr_enabled=false
+	for light in world.find_children("*","Light3D",true,false): light.shadow_enabled=false
+	if OS.has_feature("android"): world.fans.clear()
+
+func show_vr_settings():
+	set_mode("pause")
+	var v=panel("Komfort VR","Teleport: drž klik levého joysticku, zamiř na volnou podlahu a uvolni. Pravý joystick: snap turn; v monitoru posun obsahu. B/Y nebo menu: pauza. A/X: mise / přemístit monitor.")
+	var settings=xr_rig.settings
+	var movement=OptionButton.new()
+	for caption in ["Teleportace (výchozí)","Plynulá chůze levým joystickem"]: movement.add_item(caption)
+	movement.select(1 if settings.locomotion=="smooth" else 0)
+	movement.item_selected.connect(func(i): settings.locomotion="smooth" if i==1 else "teleport")
+	v.add_child(movement)
+	var turn=OptionButton.new()
+	for degrees in [15,30,45]: turn.add_item("Snap turn %d°" % degrees)
+	turn.select([15,30,45].find(settings.snap_degrees))
+	turn.item_selected.connect(func(i): settings.snap_degrees=[15,30,45][i])
+	v.add_child(turn)
+	var speed=HSlider.new()
+	speed.min_value=0.8; speed.max_value=2.5; speed.step=0.1; speed.value=settings.speed
+	v.add_child(ui.label("Rychlost chůze (0,8–2,5 m/s)",18))
+	v.add_child(speed)
+	speed.value_changed.connect(func(value): settings.speed=value)
+	var seated=CheckButton.new()
+	seated.text="Hraní vsedě — dorovnat výšku očí"
+	seated.button_pressed=settings.seated
+	seated.toggled.connect(func(value): settings.seated=value; xr_rig.calibrate_height())
+	v.add_child(seated)
+	v.add_child(ui.button("Znovu nastavit výšku",xr_rig.calibrate_height))
+	v.add_child(ui.button("Uložit komfort a pokračovat",func():
+		if settings.save_settings()==OK: return_to_world()
+		else: v.add_child(ui.label("Nastavení se nepodařilo uložit.",18))))
+
+func show_progress_transfer():
+	set_mode("pause")
+	var v=panel("Přenos uloženého postupu","Postup i infrastrukturu přenese soubor user://academy-transfer.json. Na PICO jej zkopíruj pomocí ADB; návod je v README. Import vytvoří zálohu a vrátí tě do menu.")
+	v.add_child(ui.button("Exportovat postup",func():
+		store_pose()
+		if ui.game.save()==OK:
+			var error=ui.game.Saves.export_progress("user://academy-transfer.json")
+			v.add_child(ui.label("Export: "+error_string(error)+"\n"+ProjectSettings.globalize_path("user://academy-transfer.json"),16))))
+	v.add_child(ui.button("Importovat postup",func():
+		if ui.game.game_mode.is_training(): enter_world("Hlavní serverovna")
+		var error=ui.game.Saves.import_progress("user://academy-transfer.json")
+		if error==OK: get_tree().reload_current_scene()
+		else: v.add_child(ui.label("Import: "+error_string(error),18))))
+	v.add_child(ui.button("Zpět",pause_menu))
+
+func export_smoke():
+	if "--test-world" not in OS.get_cmdline_user_args(): get_tree().quit(2); return
+	await get_tree().process_frame
+	print("EXPORT_SMOKE menu=",mode," missions=",ui.game.missions.size()," lessons=",ui.game.tutorial.lessons.size())
+	enter_world()
+	await get_tree().process_frame
+	print("EXPORT_SMOKE world=",mode," objects=",world.devices.size())
+	enter_world("Trénink")
+	await get_tree().process_frame
+	print("EXPORT_SMOKE training=",ui.game.game_mode.is_training())
+	enter_world("Hlavní serverovna")
+	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
+	get_tree().quit()
 
 func show_tasks():
 	ui.game.reconcile_room()

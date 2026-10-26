@@ -20,12 +20,19 @@ static func draw(ui):
 	left.add_child(ui.label("DATACENTER\nACADEMY",54))
 	left.add_child(ui.label("Tvá první směna začíná tady.",23))
 	left.add_child(ui.label("Konfiguruj servery. Vyřeš incident.\nUdrž datacentrum v provozu.",17,ui.MUTED))
-	var primary = ui.button("Pokračovat v rozehrané směně" if ui.game.active else "Zahájit první směnu   →",func():
+	var primary = ui.button("Pokračovat ve VR" if OS.has_feature("android") else "HRÁT V KLASICKÉM 3D",func():
+		if ui.world_enabled and not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
 		if not ui.game.active: ui.first_shift_requested=true; ui.game.start_mission(0)
 		ui.navigate("Serverovna"),true)
 	primary.custom_minimum_size.y = 54
 	left.add_child(primary)
 	ui.register_target("menu:primary",primary)
+	if not OS.has_feature("android") and ui.world_enabled:
+		var vr = ui.button("HRÁT VE VR  /  PICO 4 · OpenXR",func(): ui.play_mode_requested.emit("vr"))
+		vr.custom_minimum_size.y=48
+		left.add_child(vr)
+		ui.register_target("menu:vr",vr)
+		left.add_child(ui.label("3D: klávesnice a myš. PC VR: připojený headset a OpenXR runtime.\nOba režimy používají stejnou uloženou směnu.",13,ui.MUTED))
 	if ui.game.active: left.add_child(ui.label("ROZEHRÁNO  /  "+ui.game.current.title,13,ui.CYAN))
 	var choices = ui.vbox(left,8)
 	choices.add_child(ui.button("Kampaň a přehled ticketů",func():

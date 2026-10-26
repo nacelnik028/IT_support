@@ -31,6 +31,27 @@ static func load_game() -> Dictionary:
 static func valid_session(data: Dictionary) -> bool:
 	return rules().session(data)
 
+static func export_progress(destination: String) -> Error:
+	var data=load_game()
+	if data.is_empty(): return ERR_INVALID_DATA
+	if ProjectSettings.globalize_path(destination)==ProjectSettings.globalize_path(save_path()): return ERR_INVALID_PARAMETER
+	var file=FileAccess.open(destination,FileAccess.WRITE)
+	if file==null: return FileAccess.get_open_error()
+	file.store_string(JSON.stringify(data,"\t"))
+	file.flush()
+	var error=file.get_error()
+	file.close()
+	return error
+
+static func import_progress(source: String) -> Error:
+	var parser=JSON.new()
+	if parser.parse(FileAccess.get_file_as_string(source))!=OK or not rules().valid(parser.data): return ERR_INVALID_DATA
+	if FileAccess.file_exists(save_path()):
+		var backup=save_path()+".before-import-"+str(Time.get_unix_time_from_system())+".bak"
+		var error=DirAccess.copy_absolute(ProjectSettings.globalize_path(save_path()),ProjectSettings.globalize_path(backup))
+		if error!=OK: return error
+	return save_game(parser.data)
+
 static func failed(error: Error, message: String) -> Error:
 	last_message=message+". Aktuální změny jsou pouze v paměti. Zkontroluj místo na disku a přístup ke složce, potom zkus uložení znovu."
 	return error

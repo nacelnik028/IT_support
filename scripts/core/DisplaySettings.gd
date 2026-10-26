@@ -95,6 +95,7 @@ func apply_world(world: Node):
 		node.shadow_enabled=node.get_meta("original_shadow") and quality!="Úsporná"
 
 func apply(window: Window):
+	if OS.has_feature("android"): return
 	# The viewport really renders at the selected resolution in both modes.
 	window.content_scale_mode=Window.CONTENT_SCALE_MODE_VIEWPORT
 	window.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_KEEP
