@@ -16,7 +16,8 @@ Nová sada `tests/terminal_sessions.gd` je součástí `Test-All.ps1`.
 Celá sada nyní obsahuje **24 sad PASS**, bez runtime chyb a varování. Nová
 sada má 63 kontrol headless i graficky; nad vloženým PCK přidává kontrolu,
 že se skutečně používají zabalená herní data. Obnovena byla také Git historie
-původního repozitáře. Výsledky kontroly nového EXE jsou v `build/BUILD_INFO.md`.
+původního repozitáře. Výsledky historické kontroly EXE shrnuje `TEST_REPORT.md`;
+distribuční složka `build/` se již v repozitáři neuchovává.
 
 ## Co je přítomné
 

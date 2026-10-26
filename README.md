@@ -11,9 +11,9 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 **V Godotu:** importuj `project.godot` v této složce a stiskni **F5**.
 Hlavní scéna je `scenes/world/Game.tscn`. Není třeba žádný plugin ani internet.
 
-**Windows bez otevření editoru:** spusť `build/ITSupportSimulator.exe`.
-Herní data jsou vložená přímo v EXE; stačí přenést tento jediný soubor.
-Používá Windows x86_64 Debug šablonu Godotu a nevyžaduje instalaci editoru.
+Repozitář obsahuje zdrojový projekt bez distribuční složky `build/`.
+Pro spuštění v Godotu tato složka není potřeba. Export samostatného Windows
+EXE bude řešen novým postupem samostatně.
 
 ## Ovládání a první směna
 
@@ -274,32 +274,18 @@ v `data/missions/legacy_campaign.json` a testy kontrolují jejich shodu.
 trvalé obsahové změny i v něm. Pro běžné nové mise samotný JSON stačí.
 Referenční postup pro regresi přidej do `tests/solutions.json`.
 
-## Ověření a sestavení
+## Ověření
 
 V PowerShellu s cestou ke console variantě Godotu:
 
 ```powershell
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
-./tools/Build-Windows.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
 
-Sestavení vyžaduje Python 3; skript používá také dostupné `uv`, případně lze
-zadat `-PythonPath 'C:/cesta/python.exe'`. `tools/build_windows.py` v dočasné
-kopii znovu použije engine z existujícího EXE a oficiálním exportérem vloží
-aktuální herní data. Zdrojový projekt i exportní preset zůstávají zachované.
-Samostatnou oficiální Windows Debug šablonu lze zadat přepínačem `--template`
-při přímém spuštění Python skriptu. Před nahrazením EXE se ověřuje struktura,
-shoda verzí enginu a velikost pod 100 MiB.
-
-Samostatné EXE i přímo jeho zabalená herní data ověří:
-
-```powershell
-python tools/test_windows.py --godot 'C:/cesta/Godot.exe'
-```
-
-Test spouští samotné EXE bez zdrojového projektu a odděleně ověřuje vložený
-PCK přes plný Godot editor. Používá izolované save/config cesty; grafické
-testy vyžadují GPU. Pro prostředí bez grafiky lze přidat `--headless`.
+Dosavadní exportní skripty `Build-Windows.ps1`, `build_windows.py` a
+`test_windows.py` zůstávají v `tools/` jako původní postup. Bez distribučního
+EXE nebo samostatné exportní šablony původní sestavení nelze použít.
+Nový způsob exportu není součástí této úpravy ani níže uvedených testů hry.
 
 Ostrost skutečného obrazu ověřuje grafický test (vyžaduje grafickou kartu,
 spouštěj bez `--headless`):
