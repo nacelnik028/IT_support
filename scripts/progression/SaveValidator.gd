@@ -54,6 +54,7 @@ func programming(data) -> bool:
 		var record=data.results[id]
 		if not record is Dictionary or not required(record,{"best":0,"passed":false,"exam":0}): return false
 		if not integer(record.best,0,100) or not integer(record.exam,0,100): return false
+		if record.has("paid") and not integer(record.paid,0,100): return false
 	for value in data.get("lessons",{}).values():
 		if not value is bool: return false
 	for value in data.get("mistakes",{}).values():

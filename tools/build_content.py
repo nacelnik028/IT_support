@@ -224,3 +224,8 @@ write('data/knowledge/articles.json',articles)
 if (ROOT/'tools/build_extension.py').exists():
     import build_extension
     build_extension.build()
+
+# Programming content has its own deterministic generator and does not alter IT.
+if (ROOT/'tools/build_programming.py').exists():
+    import build_programming
+    build_programming.build()

@@ -36,8 +36,8 @@ func _ready():
 	keyboard = preload("res://scripts/xr/VirtualKeyboard.gd").new()
 	keyboard.viewport = viewport
 	layer.add_child(keyboard)
-	keyboard.position = Vector2(170,920)
-	keyboard.size = Vector2(1260,270)
+	keyboard.position = Vector2(170,900)
+	keyboard.size = Vector2(1260,296)
 	cursor = ColorRect.new()
 	cursor.color = Color("ffe18b")
 	cursor.size = Vector2(10,10)
@@ -103,3 +103,11 @@ func scroll(amount: float):
 
 func _process(_delta):
 	if visible: keyboard.track_focus()
+
+func _input(event):
+	# Physical/Bluetooth keyboards use the same control as the virtual keys.
+	if not visible or not event is InputEventKey or event.keycode in [KEY_ESCAPE,KEY_F11]: return
+	var focus=viewport.gui_get_focus_owner()
+	if focus is TextEdit or focus is LineEdit:
+		viewport.push_input(event,true)
+		get_viewport().set_input_as_handled()

@@ -53,7 +53,7 @@ def main():
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the embedded pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['programming_runtime','programming_catalog','programming_academy','programming_integration','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')

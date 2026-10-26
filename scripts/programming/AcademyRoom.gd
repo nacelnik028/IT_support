@@ -62,4 +62,4 @@ func toggle_door():
 func sync():
 	if world.game==null: return
 	dashboard.text=world.game.programming.dashboard()
-	for object in objects: object.set_guided(world.game.game_mode.is_programming() and world.game.programming.mode=="learn" and not world.game.programming.current.is_empty() and object.console==world.game.programming.current.category)
+	for object in objects: object.set_guided(world.game.game_mode.is_programming() and world.game.programming.mode=="learn" and not world.game.programming.current.is_empty() and object.console==("python" if world.game.programming.current.category=="python" else "web"))

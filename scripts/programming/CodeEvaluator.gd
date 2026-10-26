@@ -13,6 +13,14 @@ func evaluate(task: Dictionary, files: Dictionary, hints: int = 0, mode: String 
 			if test.has("call") and r.ok:
 				var value=runtime.invoke(test.call.name,test.call.args)
 				ok=ok and runtime.error=="" and runtime.equal(value,test.call.value)
+			if test.has("rolls") and r.ok:
+				var seen=[]
+				for i in int(test.rolls.count):
+					var value=runtime.invoke(test.rolls.name,[])
+					ok=ok and runtime.error=="" and runtime.is_integer(value)
+					if runtime.is_integer(value): ok=ok and value>=test.rolls.minimum and value<=test.rolls.maximum
+					if not value in seen: seen.append(value)
+				ok=ok and seen.size()>1
 			for key in test.get("vars",{}): ok=ok and r.globals.has(key) and runtime.equal(r.globals.get(key),test.vars[key])
 			for key in test.get("written",{}): ok=ok and r.files.get(key)==test.written[key]
 			for construct in task.get("constructs",[]): ok=ok and r.trace.get(construct,0)>0

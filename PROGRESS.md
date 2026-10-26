@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Programming Academy — etapy 5–9 (2026-10-26)
+- Dokončen katalog všech 30 Python + 30 webových úloh, 15 + 13 lekcí a 12 opravovacích variant. Každá položka obsahuje skutečné soubory, vysvětlení, cíle, nápovědy, referenční řešení a spustitelné testy. tools/build_programming.py je deterministický a volá se i z build_content.py; původní IT katalogy se nemění.
+- WebDocument sestavuje strom HTML, kontroluje vnoření/atributy/popisky, CSS selektory/kaskádu a podporované deklarace. WebPreviewController vykresluje upravený obsah, barvy, boxy, jednoduchý flex/grid, tabulky, odkazy a formuláře. LearningJavaScript parsuje podporované DOM dotazy/registrace kliknutí/textContent; kliknutí skutečně změní strom i Control UI. Rozsah není plný prohlížeč a je výslovně uveden v editoru.
+- Všechny lekce fungují v learn/practice/exam. Generátor 1–20 úloh mění vstupy i testy, každou variantu přehrává referenčním řešením. Dashboard ukazuje dokončení, průměr, chyby, nejlepší zkoušky a XP; opakování i varianty sdílejí omezené odměny základní úlohy.
+- VR používá původní ray/trigger/drag/scroll monitor, rozšířenou klávesnici se všemi požadovanými znaky a odsazením, přepínání souborů a zoom 16–36. Přidáno předávání fyzické/Bluetooth klávesnice do zaměřeného pole. Žádné nativní desktopové závislosti nové učebny.
+- Testy: runtime 31/31, katalog 1071/1071 (všechna správná/chybná řešení, alternativní Python/HTML/JS), academy 63/63, integration 761/761 v headless i GPU Compatibility (28×3 lekcí, skutečná změna CSS/DOM, 252 generovaných variant, syntetické XR vstupy). Grafické snímky prohlédnuty; opravena nevhodná automatická výška záhlaví, přidáno neprůhledné pozadí editoru.
+- Úplný první Test-All byl přerušen po úspěchu původních lekcí kvůli varování Vendors: editor import odstranil explicitní výchozí XR nastavení. Nastavení obnoveno, běží závěrečné ověření. Starý WorldMCP při jednom GPU běhu selhal na načasování obnovy wizardu; samostatný nový ProgrammingMCP a úplné původní UI regrese následují. Netvrdit finální export/dokončení před etapou 10.
+- Dokumentace docs/PROGRAMMING_ACADEMY.md a data/programming/LIMITS.txt popisuje přesné limity. Fyzický PICO/ADB test není dosud proveden. Další krok: finální Test-All, MCP, grafická kontrola, Windows/APK export, ověření přesného PCK a push autorizovaný uživatelem.
+
 ## Programming Academy — etapy 1–4, první funkční lekce (2026-10-26)
 - Checkpoint před implementací: 5661021. Notion hlavní stránka a obě příručky načteny MCP; offline kopie data/knowledge/programming_notion_*.md. Původní katalogy a legacy24 se nemění.
 - Nová skutečně průchozí učebna severně od serverovny, posuvné dveře s ovladači po obou stranách, pět počítačů, Python/Web/Exam stanoviště, Ada instruktor a studijní tabule. Scéna vytvořena Godot MCP.

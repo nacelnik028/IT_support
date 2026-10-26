@@ -369,6 +369,9 @@ func interact(object):
 func open_programming(category: String = "dashboard"):
 	if not ui.game.game_mode.is_programming(): return
 	if is_instance_valid(code_editor):
+		if category=="exam":
+			code_editor.mode_picker.select(2)
+			if not ui.game.programming.current.is_empty(): code_editor.launch(ui.game.programming.current.get("base_id",ui.game.programming.current.id),false)
 		set_mode("coding")
 		return
 	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
@@ -376,8 +379,8 @@ func open_programming(category: String = "dashboard"):
 	code_editor.manager=ui.game.programming; code_editor.shell=self
 	overlay.add_child(code_editor)
 	if category in ["python","web"]:
-		code_editor.selected_category="python" if category=="python" else "html"
-		code_editor.category_picker.select(1 if category=="python" else 2)
+		code_editor.selected_category=category
+		code_editor.category_picker.select(1 if category=="python" else 5)
 		code_editor.populate()
 	if category=="exam": code_editor.mode_picker.select(2)
 	set_mode("coding")
@@ -516,6 +519,7 @@ func pause_menu():
 	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
+	v.add_child(ui.button("Programming Academy",func(): enter_world("Programming Academy")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
 	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
@@ -632,7 +636,20 @@ func export_smoke():
 	enter_world("Trénink")
 	await get_tree().process_frame
 	print("EXPORT_SMOKE training=",ui.game.game_mode.is_training())
+	enter_world("Programming Academy")
+	print("EXPORT_SMOKE programming=",ui.game.game_mode.is_programming()," tasks=",ui.game.programming.catalog.missions.size()," lessons=",ui.game.programming.catalog.lessons.size())
+	ui.game.programming.start("PY01","practice")
+	ui.game.programming.edit("main.py","print('Ahoj, světe!')")
+	print("EXPORT_SMOKE python=",ui.game.programming.test_program().ok)
+	ui.game.programming.start("WEB28","practice")
+	for filename in ui.game.programming.current.example: ui.game.programming.edit(filename,ui.game.programming.current.example[filename])
+	open_programming("web")
+	code_editor.load_current()
+	code_editor.run_code()
+	print("EXPORT_SMOKE web=",ui.game.programming.test_program().ok," preview=",code_editor.preview.document.nodes.size()>0)
+	print("EXPORT_SMOKE limits=",FileAccess.file_exists("res://data/programming/LIMITS.txt"))
 	enter_world("Hlavní serverovna")
+	print("EXPORT_SMOKE programming_cancelled=",ui.game.programming.current.is_empty())
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
 	get_tree().quit()
 

@@ -17,6 +17,7 @@ var queue: Array = []
 var position=0
 var is_lesson=false
 var edited_after_run=false
+var series_mode="practice"
 
 func _init():
 	var path="res://data/programming/catalog.json"
@@ -24,13 +25,13 @@ func _init():
 
 func allowed() -> bool: return available.is_valid() and available.call()
 
-func start(id: String, learning_mode: String, lesson: bool = false) -> bool:
+func start(id: String, learning_mode: String, lesson: bool = false, preserve_series: bool = false) -> bool:
 	if not allowed() or not learning_mode in ["learn","practice","exam"]: return false
 	var task={}
 	for candidate in catalog.get("missions",[])+catalog.get("debugging",[]):
 		if candidate.id==id: task=candidate; break
 	if task.is_empty(): return false
-	cancel(false)
+	cancel(not preserve_series)
 	current=task.duplicate(true); files=current.starter.duplicate(true); mode=learning_mode; is_lesson=lesson
 	return true
 
@@ -73,7 +74,9 @@ func record(result: Dictionary):
 	var old=progress.results.get(id,{"best":0,"passed":false,"exam":0})
 	var gained=0
 	if result.ok:
-		gained=maxi(0,int(result.score)-int(old.best))*int(current.reward)/100
+		var paid=int(old.get("paid",old.best if old.passed else 0))
+		gained=int(float(maxi(0,int(result.score)-paid))*int(current.reward)/100.0)
+		old.paid=maxi(paid,int(result.score))
 		old.passed=true
 		if is_lesson: progress.lessons[current.lesson]=true
 	old.best=maxi(int(old.best),int(result.score))
@@ -99,4 +102,25 @@ func dashboard() -> String:
 		total+=int(record_data.best); best=maxi(best,int(record_data.exam))
 	var weak=progress.mistakes.keys()
 	weak.sort_custom(func(a,b): return progress.mistakes[a]>progress.mistakes[b])
-	return "Moje programátorské znalosti\nPython lekce: %d / 15 · Web lekce: %d / 13\nÚspěšné úlohy: %d · Průměr nejlepších výsledků: %d %%\nNejlepší zkouška: %d / 100 · XP: %d\nDoporučené opakování: %s" % [py,web,passed,int(float(total)/maxi(1,progress.results.size())),best,progress.xp,", ".join(weak.slice(0,3)) if not weak.is_empty() else "Vyber první lekci a napiš vlastní řešení."]
+	var errors=[]; var exams=[]; var result_ids=progress.results.keys()
+	for topic in weak.slice(0,3): errors.append(str(topic)+": "+str(progress.mistakes[topic])+" neúspěšných testů")
+	result_ids.sort_custom(func(a,b): return progress.results[a].exam>progress.results[b].exam)
+	for id in result_ids.slice(0,5):
+		if int(progress.results[id].exam)>0: exams.append(str(id)+" "+str(progress.results[id].exam)+"/100")
+	return "Moje programátorské znalosti\nPython lekce: %d / 15 · Web lekce: %d / 13\nÚspěšné úlohy: %d / 60 · Průměr nejlepších výsledků: %d %%\nNejlepší zkouška: %d / 100 · XP: %d\nZkoušky: %s\nNejčastější chyby: %s\nDoporučené opakování: %s" % [py,web,passed,int(float(total)/maxi(1,progress.results.size())),best,progress.xp,", ".join(exams),"; ".join(errors),", ".join(weak.slice(0,3)) if not weak.is_empty() else "Vyber první lekci a napiš vlastní řešení."]
+
+func generate_series(category: String, difficulty: String, count: int, seed_value: int) -> bool:
+	if not allowed(): return false
+	var generated=preload("res://scripts/programming/PracticeGenerator.gd").new().generate(catalog,category,difficulty,count,seed_value)
+	if generated.is_empty(): return false
+	cancel(); queue=generated; position=-1; series_mode="exam" if difficulty=="exam" else "practice"
+	return next_generated()
+
+func next_generated() -> bool:
+	if not allowed() or position+1>=queue.size(): return false
+	if position>=0 and (last_result.is_empty() or not last_result.ok): return false
+	position+=1
+	var task=queue[position]
+	if not start(task.base_id,series_mode,false,true): return false
+	current=task.duplicate(true); files=current.starter.duplicate(true)
+	return true

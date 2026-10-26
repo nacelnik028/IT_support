@@ -6,6 +6,13 @@ Obsahuje65 praktických misí,21 interaktivních
 lekcí ve třech režimech, náhodné procvičování, osobní přehled znalostí a50
 studijních článků z poskytnutých Notion příruček. Původních24 misí zůstalo zachováno.
 
+Nová **Programming Academy** přidává třetí 3D místnost, editor vlastního kódu,
+15 Python + 13 webových lekcí, 60 praktických úloh a 12 opravovacích variant.
+Vstup je dveřmi severně od serverovny nebo Pauza → Programming Academy.
+Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS náhled
+pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
+jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
+
 ## Spuštění
 
 **Windows:** rozbal celý `builds/ITSupportSimulator-Windows.zip` a spusť

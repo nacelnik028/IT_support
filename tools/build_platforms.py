@@ -73,7 +73,7 @@ def verify_windows(exe):
             command += ["--", "--test-world", "--export-smoke"]
             run(command, name, cwd=isolated, timeout=60)
             content = game_log.read_text(encoding="utf-8")
-            for expected in ["menu=menu missions=65 lessons=21", "world=world objects=79", "training=true", "return_main=true"]:
+            for expected in ["menu=menu missions=65 lessons=21", "world=world objects=90", "training=true", "programming=true tasks=60 lessons=28", "python=true", "web=true preview=true", "limits=true", "programming_cancelled=true", "return_main=true"]:
                 if expected not in content: raise RuntimeError(f"Missing native evidence: {expected}")
             if re.search(r"(?m)^(SCRIPT ERROR:|ERROR:|WARNING:)", content): raise RuntimeError(content)
             results[name] = "PASS"

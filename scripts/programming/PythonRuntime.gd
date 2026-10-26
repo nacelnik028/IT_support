@@ -52,11 +52,12 @@ func bounded(value):
 	return value
 
 func run(source: String, test_inputs: Array = [], initial: Dictionary = {}, virtual_files: Dictionary = {}, seed_value: int = 42) -> Dictionary:
-	globals=initial.duplicate(true); files=virtual_files.duplicate(true); inputs=test_inputs.duplicate()
+	globals=normalize(initial); files=virtual_files.duplicate(true); inputs=test_inputs.duplicate()
 	output=""; error=""; steps=0; allocated=0; call_depth=0; fatal=false; trace={}; error_line=1
 	started=Time.get_ticks_msec(); rng.seed=seed_value
 	var parser=Parser.new()
 	ast=parser.parse(source)
+	trace.comment=parser.comments
 	if parser.error!="": error=parser.error
 	else:
 		var flow=block(ast,globals)
@@ -65,6 +66,18 @@ func run(source: String, test_inputs: Array = [], initial: Dictionary = {}, virt
 
 func result() -> Dictionary:
 	return {"ok":error=="","output":output,"error":error,"line":error_line,"globals":globals,"files":files,"steps":steps,"ast":ast,"trace":trace}
+
+func normalize(v):
+	if v is float and is_finite(v) and v==floor(v) and absf(v)<=1.0e12: return int(v)
+	if v is Array:
+		var result_items=[]
+		for item in v: result_items.append(normalize(item))
+		return result_items
+	if v is Dictionary:
+		var result_items={}
+		for key in v: result_items[key]=normalize(v[key])
+		return result_items
+	return v
 
 func invoke(name: String, args: Array):
 	if not globals.has(name): return fail("NameError","Chybí funkce "+name)
@@ -140,6 +153,7 @@ func assign(target: Dictionary, value, env: Dictionary):
 		for i in items.size(): assign(target.items[i],items[i],env)
 	elif target.k=="index":
 		var base=evaluate(target.base,env); var index=evaluate(target.index,env)
+		if contains_reference(value,base): fail("ValueError","Cyklické kolekce nejsou podporované."); return
 		if base is Dictionary:
 			if not hashable(index): return
 			base[index]=value; bounded(base)
@@ -159,6 +173,7 @@ func evaluate(n: Dictionary, env: Dictionary):
 	return bounded(value) if error=="" else null
 
 func eval_node(n: Dictionary, env: Dictionary):
+	trace[n.k]=int(trace.get(n.k,0))+1
 	match n.k:
 		"literal": return n.value
 		"name":
@@ -182,7 +197,8 @@ func eval_node(n: Dictionary, env: Dictionary):
 		"list","tuple","set":
 			var items=[]
 			for item in n.items: items.append(evaluate(item,env))
-			return items if n.k=="list" else Value.new(n.k,unique(items) if n.k=="set" else items)
+			if n.k=="list": return items
+			return Value.new(n.k,unique(items) if n.k=="set" else items)
 		"dict":
 			var items={}
 			for pair in n.items:
@@ -191,11 +207,20 @@ func eval_node(n: Dictionary, env: Dictionary):
 				items[key]=evaluate(pair[1],env)
 			return items
 		"binary":
+			trace[n.op]=int(trace.get(n.op,0))+1
 			var left=evaluate(n.left,env)
 			if n.op=="and": return evaluate(n.right,env) if truth(left) else left
 			if n.op=="or": return left if truth(left) else evaluate(n.right,env)
 			return binary(n.op,left,evaluate(n.right,env))
+		"compare":
+			var previous=evaluate(n.first,env)
+			for pair in n.pairs:
+				var next=evaluate(pair.value,env)
+				if not truth(binary(pair.op,previous,next)): return false
+				previous=next
+			return true
 		"unary":
+			trace[n.op]=int(trace.get(n.op,0))+1
 			var value=evaluate(n.value,env)
 			if n.op=="not": return not truth(value)
 			if not number(value): return fail("TypeError","Znaménko vyžaduje číslo.")
@@ -219,7 +244,9 @@ func eval_node(n: Dictionary, env: Dictionary):
 			var a=0 if start==null else int(start); var b=values.size() if stop==null else int(stop)
 			a=clampi(a+values.size() if a<0 else a,0,values.size()); b=clampi(b+values.size() if b<0 else b,0,values.size())
 			var part=values.slice(a,maxi(a,b))
-			return "".join(part) if base is String else (Value.new("tuple",part) if base is Value and base.kind=="tuple" else part)
+			if base is String: return "".join(part)
+			if base is Value and base.kind=="tuple": return Value.new("tuple",part)
+			return part
 		"comprehension":
 			var values=sequence(evaluate(n.iter,env)); var result_items=[]; var local=env.duplicate()
 			for value in values:
@@ -281,6 +308,8 @@ func binary(op: String, a, b):
 			found=a in b
 		else: found=a in sequence(b)
 		return found if op=="in" else not found
+	if a is bool: a=int(a)
+	if b is bool: b=int(b)
 	if op in ["<",">","<=",">="]:
 		if not ((number(a) and number(b)) or (a is String and b is String)): return fail("TypeError","Tyto typy nelze porovnávat.")
 		match op:
@@ -308,12 +337,15 @@ func binary(op: String, a, b):
 			if float(b)==0.0: return fail("ZeroDivisionError","Nulou nelze dělit.")
 			if op=="/": return float(a)/float(b)
 			var quotient=floor(float(a)/float(b))
-			if op=="//": return int(quotient) if is_integer(a) and is_integer(b) else quotient
+			if op=="//":
+				if is_integer(a) and is_integer(b): return int(quotient)
+				return quotient
 			return a-b*int(quotient)
 		"**":
 			if absf(float(b))>32 or (float(a)<0 and float(b)!=floor(float(b))) or (float(a)==0 and float(b)<0): return fail("ValueError","Mocnina je mimo podporovaný rozsah.")
 			var value=pow(float(a),float(b))
-			return bounded(int(value) if is_integer(a) and is_integer(b) and b>=0 and absf(value)<=1.0e12 else value)
+			if is_integer(a) and is_integer(b) and b>=0 and absf(value)<=1.0e12: return bounded(int(value))
+			return bounded(value)
 	return fail("SyntaxError","Nepodporovaný operátor "+op)
 
 func equal(a,b) -> bool:
@@ -404,9 +436,15 @@ func builtin(name: String, args: Array, kwargs: Dictionary):
 			"str": return "" if args.is_empty() else display(value)
 			"bool": return truth(value)
 			"int","float":
-				if value==null and args.is_empty(): return 0 if name=="int" else 0.0
-				if number(value): return int(value) if name=="int" else float(value)
-				if value is String and (value.strip_edges().is_valid_int() if name=="int" else value.strip_edges().is_valid_float()): return bounded(int(value) if name=="int" else float(value))
+				if value==null and args.is_empty():
+					if name=="int": return 0
+					return 0.0
+				if number(value):
+					if name=="int": return int(value)
+					return float(value)
+				if value is String and (value.strip_edges().is_valid_int() if name=="int" else value.strip_edges().is_valid_float()):
+					if name=="int": return bounded(int(value))
+					return bounded(float(value))
 				return fail("ValueError","Hodnotu nelze převést na "+name+".")
 			"dict":
 				if args.is_empty(): return {}
@@ -414,7 +452,8 @@ func builtin(name: String, args: Array, kwargs: Dictionary):
 				return fail("TypeError","dict() zde přijímá jen slovník.")
 			_:
 				var items=[] if args.is_empty() else sequence(value)
-				return items if name=="list" else Value.new(name,unique(items) if name=="set" else items)
+				if name=="list": return items
+				return Value.new(name,unique(items) if name=="set" else items)
 	if name=="type":
 		if not arity(args,1,1): return null
 		var v=args[0]; var kind="NoneType"
@@ -438,38 +477,44 @@ func builtin(name: String, args: Array, kwargs: Dictionary):
 		while (a<b if step>0 else a>b): items.append(a); a+=step
 		return items
 	if name in ["sum","min","max","sorted"]:
-		if not arity(args,1,MAX_ITEMS): return null
+		if not arity(args,1,1 if name=="sorted" else 2 if name=="sum" else MAX_ITEMS): return null
 		var items=sequence(args[0]) if args.size()==1 or name in ["sum","sorted"] else args.duplicate()
 		if error!="": return null
 		if name=="sum":
-			var total=0
+			var total=args[1] if args.size()==2 else 0
 			for value in items: total=binary("+",total,value)
 			return total
 		if items.is_empty() and name!="sorted": return fail("ValueError","Prázdná kolekce nemá minimum ani maximum.")
 		if not items.all(number) and not items.all(func(v): return v is String): return fail("TypeError","Řazení potřebuje srovnatelné hodnoty.")
-		items.sort()
+		items.sort_custom(func(a,b): return binary("<",a,b))
 		if name=="sorted": return items
 		return items[0] if name=="min" else items.back()
 	if name in ["abs","round"]:
 		if not arity(args,1,2 if name=="round" else 1) or not number(args[0]): return fail("TypeError","Očekáváno číslo.")
 		if name=="abs": return abs(args[0])
+		if args.size()==2 and not is_integer(args[1]): return fail("TypeError","Počet desetinných míst musí být celé číslo.")
 		var digits=int(args[1]) if args.size()==2 else 0
 		if digits < -8 or digits > 8: return fail("ValueError","Podporováno -8 až 8 desetinných míst.")
 		# Python uses ties to even, including negative values.
 		var scale_value=pow(10.0,digits); var scaled=float(args[0])*scale_value; var lo=floor(scaled)
 		var rounded=lo if scaled-lo<0.5 or (is_equal_approx(scaled-lo,0.5) and int(lo)%2==0) else lo+1
-		return int(rounded) if args.size()==1 else rounded/scale_value
+		if args.size()==1: return int(rounded)
+		return rounded/scale_value
 	if name in ["enumerate","zip"]:
 		if not arity(args,1,2): return null
+		if name=="enumerate" and args.size()==2 and not is_integer(args[1]): return fail("TypeError","Počáteční index enumerate musí být celé číslo.")
 		var first=sequence(args[0]); var second=sequence(args[1]) if name=="zip" and args.size()==2 else []
-		var items=[]; var count=mini(first.size(),second.size()) if name=="zip" else first.size()
-		for i in count: items.append(Value.new("tuple",[first[i],second[i]] if name=="zip" else [i,first[i]]))
+		var items=[]; var count=mini(first.size(),second.size()) if name=="zip" and args.size()==2 else first.size()
+		for i in count:
+			if name=="enumerate": items.append(Value.new("tuple",[i+(int(args[1]) if args.size()==2 else 0),first[i]]))
+			else: items.append(Value.new("tuple",[first[i],second[i]] if args.size()==2 else [first[i]]))
 		return items
 	if name=="open":
 		if not arity(args,1,2) or not args[0] is String: return fail("TypeError","open potřebuje název virtuálního souboru.")
 		var path=str(args[0]); var mode=str(args[1]) if args.size()==2 else "r"
 		if path=="" or path.length()>80 or "/" in path or "\\" in path or ":" in path or path.begins_with("."): return fail("SandboxError","Povoleny jsou jen názvy souborů uvnitř virtuální mise.")
-		if not mode in ["r","w","a"] or kwargs.get("encoding","utf-8").to_lower()!="utf-8": return fail("ValueError","Podporované režimy: r/w/a, encoding utf-8.")
+		var encoding=kwargs.get("encoding","utf-8")
+		if not encoding is String or not mode in ["r","w","a"] or str(encoding).to_lower()!="utf-8": return fail("ValueError","Podporované režimy: r/w/a, encoding utf-8.")
 		if mode=="r" and not files.has(path): return fail("FileNotFoundError","Virtuální soubor neexistuje.")
 		if files.size()>=16 and not files.has(path): return fail("LimitError","Nejvýše 16 virtuálních souborů.")
 		if mode=="w" or not files.has(path): files[path]=""
@@ -563,6 +608,7 @@ func method(base, name: String, args: Array, kwargs: Dictionary):
 
 func contains_reference(value, target, level: int = 0) -> bool:
 	if level>20: return true
+	if value is Value and value.kind in ["tuple","set"]: return contains_reference(value.data,target,level+1)
 	if value is Array or value is Dictionary:
 		if is_same(value,target): return true
 		for item in (value.values() if value is Dictionary else value):
@@ -574,7 +620,9 @@ func module_call(module: String, name: String, args: Array):
 		if not name in ["sqrt","floor","ceil","sin","cos","fabs"] or not arity(args,1,1) or not number(args[0]): return fail("TypeError","math podporuje sqrt/floor/ceil/sin/cos/fabs s jedním číslem.")
 		var v=float(args[0])
 		match name:
-			"sqrt": return sqrt(v) if v>=0 else fail("ValueError","Odmocnina záporného čísla.")
+			"sqrt":
+				if v<0: return fail("ValueError","Odmocnina záporného čísla.")
+				return sqrt(v)
 			"floor": return int(floor(v))
 			"ceil": return int(ceil(v))
 			"sin": return sin(v)

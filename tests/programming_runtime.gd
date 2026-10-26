@@ -11,6 +11,7 @@ func check(ok: bool, message: String):
 func _init(): call_deferred("run")
 func run():
 	var cases=[
+		["print(True + 2, False * 9)\nprint(3 < 2 < 1, 1 < 2 < 3)\nprint(list(zip([1, 2])))\nprint(list(enumerate(['a'], 3)))",[],"3 0\nFalse True\n[(1,), (2,)]\n[(3, 'a')]\n"],
 		["print('Ahoj, světe!')",[],"Ahoj, světe!\n"],
 		["jmeno = input()\nprint('Ahoj,', jmeno)",["Eva"],"Ahoj, Eva\n"],
 		["a = 3\na += 4\nprint(a * 2, 7 / 2, -7 // 2, -7 % 2)",[],"14 3.5 -4 1\n"],
@@ -27,7 +28,7 @@ func run():
 	for c in cases:
 		var r=Runtime.new().run(c[0],c[1])
 		check(r.ok and r.output==c[2],c[0]+" → "+r.error+" / "+r.output)
-	for source in ["if True\n    print(1)","a = [1]\nprint(a[4])","import os","open('../academy_save.json', 'w')","print('x' * 999999999)","while True:\n    pass","def f():\n    return f()\nf()","print(int('text'))","print(1 / 0)","print(range(1000000000))","print((1).__class__)"]:
+	for source in ["if True\n    print(1)","a = [1]\nprint(a[4])","import os","open('../academy_save.json', 'w')","print('x' * 999999999)","while True:\n    pass","def f():\n    return f()\nf()","print(int('text'))","print(1 / 0)","print(range(1000000000))","print((1).__class__)","open('a', 'w', encoding=1)","a = [1]\na[0] = a","a = {}\nt = (a,)\na['x'] = t","a = (1, 2)\na[0] = 3","try:\n    while True:\n        pass\nexcept Exception:\n    print('unik')"]:
 		var r=Runtime.new().run(source)
 		check(not r.ok,"Rejected: "+source)
 	var isolated=Runtime.new()

@@ -1,1 +1,4150 @@
-{"missions":[{"id":"PY01","title":"Ahoj, světe","description":"Vypiš přesně Ahoj, světe! pomocí print().","category":"python","difficulty":1,"starter":{"main.py":"# Napiš svůj první program\n"},"tests":[{"output":"Ahoj, světe!\n"}],"constructs":["print"],"topic":"Výpis","lesson":"PYL01","objectives":["Použít print"],"hints":["Text vlož do uvozovek uvnitř print()."],"explanation":"print() vypíše hodnotu. Text uzavři do uvozovek, závorky patří k volání funkce.","errors":"Neuzavřené uvozovky nebo závorky vyvolají SyntaxError.","example":{"main.py":"print(\"Ahoj, světe!\")\n"},"reward":100}],"lessons":[{"id":"PYL01","title":"Výpis, komentáře a vstup","mission":"PY01","category":"python","explanation":"print() vypisuje hodnoty. Text je v uvozovkách. # zahajuje komentář. input() načítá text z virtuální konzole.","example":"print(\"Ahoj, světe!\")","practice":"Změň pozdrav, spusť znovu a sleduj změnu výstupu."}],"debugging":[]}
+{
+  "missions": [
+    {
+      "id": "PY01",
+      "title": "Ahoj, světe",
+      "description": "Pomocí print() vypiš přesně Ahoj, světe!",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Pomocí print() vypiš přesně Ahoj, světe!\n"
+      },
+      "tests": [
+        {
+          "output": "Ahoj, světe!\n",
+          "inputs": [],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "print"
+      ],
+      "lesson": "PYL01",
+      "topic": "Výpis, komentáře a vstup",
+      "objectives": [
+        "Pomocí print() vypiš přesně Ahoj, světe!",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pomocí print() vypiš přesně Ahoj, světe!"
+      ],
+      "explanation": "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print(\"Ahoj, světe!\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY02",
+      "title": "Komentáře",
+      "description": "Přidej komentář a vypiš jen Aktivní kód. Text komentáře se nesmí vykonat.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Přidej komentář a vypiš jen Aktivní kód. Text komentáře se nesmí vykonat.\n"
+      },
+      "tests": [
+        {
+          "output": "Aktivní kód\n",
+          "inputs": [],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "comment",
+        "print"
+      ],
+      "lesson": "PYL01",
+      "topic": "Výpis, komentáře a vstup",
+      "objectives": [
+        "Přidej komentář a vypiš jen Aktivní kód. Text komentáře se nesmí vykonat.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+        "Prohlédni výsledek Spustit a řádek chyby. Přidej komentář a vypiš jen Aktivní kód. Text komentáře se nesmí vykonat."
+      ],
+      "explanation": "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "# print(\"Toto je komentář\")\nprint(\"Aktivní kód\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY03",
+      "title": "Představ se",
+      "description": "Načti jméno přes input() a vypiš Ahoj, JMÉNO!",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti jméno přes input() a vypiš Ahoj, JMÉNO!\n"
+      },
+      "tests": [
+        {
+          "output": "Ahoj, Eva!\n",
+          "inputs": [
+            "Eva"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Ahoj, Adam!\n",
+          "inputs": [
+            "Adam"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "input"
+      ],
+      "lesson": "PYL01",
+      "topic": "Výpis, komentáře a vstup",
+      "objectives": [
+        "Načti jméno přes input() a vypiš Ahoj, JMÉNO!",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti jméno přes input() a vypiš Ahoj, JMÉNO!"
+      ],
+      "explanation": "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "jmeno = input()\nprint(f\"Ahoj, {jmeno}!\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY04",
+      "title": "Moje proměnné",
+      "description": "Vytvoř vek=15, cena=19.5, jmeno='Eva', student=True, vysledek=None a vypiš jmeno a vek.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Vytvoř vek=15, cena=19.5, jmeno='Eva', student=True, vysledek=None a vypiš jmeno a vek.\n"
+      },
+      "tests": [
+        {
+          "output": "Eva 15\n",
+          "inputs": [],
+          "globals": {},
+          "vars": {
+            "vek": 15,
+            "cena": 19.5,
+            "jmeno": "Eva",
+            "student": true,
+            "vysledek": null
+          }
+        }
+      ],
+      "constructs": [
+        "assign"
+      ],
+      "lesson": "PYL02",
+      "topic": "Proměnné a datové typy",
+      "objectives": [
+        "Vytvoř vek=15, cena=19.5, jmeno='Eva', student=True, vysledek=None a vypiš jmeno a vek.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Přiřazení = uloží hodnotu pod jméno. int je celé číslo, float desetinné číslo, str text a bool pravdivostní hodnota. None vyjadřuje nepřítomnost hodnoty. input() vrací str; pro výpočet jej převeď.",
+        "Prohlédni výsledek Spustit a řádek chyby. Vytvoř vek=15, cena=19.5, jmeno='Eva', student=True, vysledek=None a vypiš jmeno a vek."
+      ],
+      "explanation": "Přiřazení = uloží hodnotu pod jméno. int je celé číslo, float desetinné číslo, str text a bool pravdivostní hodnota. None vyjadřuje nepřítomnost hodnoty. input() vrací str; pro výpočet jej převeď.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "vek = 15\ncena = 19.5\njmeno = \"Eva\"\nstudent = True\nvysledek = None\nprint(jmeno, vek)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY05",
+      "title": "Převod věku",
+      "description": "Načti věk jako text, převeď na int a vypiš věk za rok.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti věk jako text, převeď na int a vypiš věk za rok.\n"
+      },
+      "tests": [
+        {
+          "output": "16\n",
+          "inputs": [
+            "15"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "42\n",
+          "inputs": [
+            "41"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "int",
+        "input"
+      ],
+      "lesson": "PYL02",
+      "topic": "Proměnné a datové typy",
+      "objectives": [
+        "Načti věk jako text, převeď na int a vypiš věk za rok.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Přiřazení = uloží hodnotu pod jméno. int je celé číslo, float desetinné číslo, str text a bool pravdivostní hodnota. None vyjadřuje nepřítomnost hodnoty. input() vrací str; pro výpočet jej převeď.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti věk jako text, převeď na int a vypiš věk za rok."
+      ],
+      "explanation": "Přiřazení = uloží hodnotu pod jméno. int je celé číslo, float desetinné číslo, str text a bool pravdivostní hodnota. None vyjadřuje nepřítomnost hodnoty. input() vrací str; pro výpočet jej převeď.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "vek = int(input())\nprint(vek + 1)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY06",
+      "title": "Kalkulačka",
+      "description": "Načti dvě celá čísla. Na čtyřech řádcích vypiš součet, rozdíl, součin a podíl.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti dvě celá čísla. Na čtyřech řádcích vypiš součet, rozdíl, součin a podíl.\n"
+      },
+      "tests": [
+        {
+          "output": "12\n4\n32\n2.0\n",
+          "inputs": [
+            "8",
+            "4"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "10\n6\n16\n4.0\n",
+          "inputs": [
+            "8",
+            "2"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [],
+      "lesson": "PYL03",
+      "topic": "Aritmetické a logické operátory",
+      "objectives": [
+        "Načti dvě celá čísla. Na čtyřech řádcích vypiš součet, rozdíl, součin a podíl.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti dvě celá čísla. Na čtyřech řádcích vypiš součet, rozdíl, součin a podíl."
+      ],
+      "explanation": "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "a = int(input())\nb = int(input())\nprint(a + b)\nprint(a - b)\nprint(a * b)\nprint(a / b)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY07",
+      "title": "Sudé nebo liché",
+      "description": "Načti celé číslo a pomocí modulo vypiš sude nebo liche.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti celé číslo a pomocí modulo vypiš sude nebo liche.\n"
+      },
+      "tests": [
+        {
+          "output": "sude\n",
+          "inputs": [
+            "12"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "liche\n",
+          "inputs": [
+            "7"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "sude\n",
+          "inputs": [
+            "0"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "if",
+        "%"
+      ],
+      "lesson": "PYL03",
+      "topic": "Aritmetické a logické operátory",
+      "objectives": [
+        "Načti celé číslo a pomocí modulo vypiš sude nebo liche.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti celé číslo a pomocí modulo vypiš sude nebo liche."
+      ],
+      "explanation": "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "n = int(input())\nif n % 2 == 0:\n    print(\"sude\")\nelse:\n    print(\"liche\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY08",
+      "title": "Logické podmínky",
+      "description": "Pro dodané a,b vypiš hodnotu a > 5 and not b == 0 or a == 0.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Pro dodané a,b vypiš hodnotu a > 5 and not b == 0 or a == 0.\n"
+      },
+      "tests": [
+        {
+          "output": "True\n",
+          "inputs": [],
+          "globals": {
+            "a": 10,
+            "b": 2
+          }
+        },
+        {
+          "output": "False\n",
+          "inputs": [],
+          "globals": {
+            "a": 10,
+            "b": 0
+          }
+        },
+        {
+          "output": "True\n",
+          "inputs": [],
+          "globals": {
+            "a": 0,
+            "b": 0
+          }
+        }
+      ],
+      "constructs": [
+        "and",
+        "or"
+      ],
+      "lesson": "PYL03",
+      "topic": "Aritmetické a logické operátory",
+      "objectives": [
+        "Pro dodané a,b vypiš hodnotu a > 5 and not b == 0 or a == 0.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pro dodané a,b vypiš hodnotu a > 5 and not b == 0 or a == 0."
+      ],
+      "explanation": "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print(a > 5 and not b == 0 or a == 0)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY09",
+      "title": "Úprava textu",
+      "description": "Načti text. Vypiš jej bez krajních mezer nejprve malými a pak velkými písmeny.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti text. Vypiš jej bez krajních mezer nejprve malými a pak velkými písmeny.\n"
+      },
+      "tests": [
+        {
+          "output": "python\nPYTHON\n",
+          "inputs": [
+            " Python "
+          ],
+          "globals": {}
+        },
+        {
+          "output": "server\nSERVER\n",
+          "inputs": [
+            " SERVER "
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "strip",
+        "lower",
+        "upper"
+      ],
+      "lesson": "PYL04",
+      "topic": "Řetězce, metody a f-stringy",
+      "objectives": [
+        "Načti text. Vypiš jej bez krajních mezer nejprve malými a pak velkými písmeny.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti text. Vypiš jej bez krajních mezer nejprve malými a pak velkými písmeny."
+      ],
+      "explanation": "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "text = input().strip()\nprint(text.lower())\nprint(text.upper())\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY10",
+      "title": "Textový profil",
+      "description": "Načti jméno a věk. Pomocí f-stringu vypiš JMÉNO: VĚK let.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti jméno a věk. Pomocí f-stringu vypiš JMÉNO: VĚK let.\n"
+      },
+      "tests": [
+        {
+          "output": "Eva: 16 let\n",
+          "inputs": [
+            "Eva",
+            "16"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Jan: 20 let\n",
+          "inputs": [
+            "Jan",
+            "20"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "format"
+      ],
+      "lesson": "PYL04",
+      "topic": "Řetězce, metody a f-stringy",
+      "objectives": [
+        "Načti jméno a věk. Pomocí f-stringu vypiš JMÉNO: VĚK let.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti jméno a věk. Pomocí f-stringu vypiš JMÉNO: VĚK let."
+      ],
+      "explanation": "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "jmeno = input()\nvek = int(input())\nprint(f\"{jmeno}: {vek} let\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY11",
+      "title": "Práce s indexy",
+      "description": "Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku.\n"
+      },
+      "tests": [
+        {
+          "output": "P\nn\nyth\n",
+          "inputs": [],
+          "globals": {
+            "text": "Python"
+          }
+        },
+        {
+          "output": "S\nr\nerv\n",
+          "inputs": [],
+          "globals": {
+            "text": "Server"
+          }
+        }
+      ],
+      "constructs": [
+        "index",
+        "slice"
+      ],
+      "lesson": "PYL04",
+      "topic": "Řetězce, metody a f-stringy",
+      "objectives": [
+        "Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku."
+      ],
+      "explanation": "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print(text[0])\nprint(text[-1])\nprint(text[1:4])\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY12",
+      "title": "Nákupní seznam",
+      "description": "Do dodaného seznamu nakup přidej 'disk' pomocí append a vypiš celý seznam.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Do dodaného seznamu nakup přidej 'disk' pomocí append a vypiš celý seznam.\n"
+      },
+      "tests": [
+        {
+          "output": "['kabel', 'disk']\n",
+          "inputs": [],
+          "globals": {
+            "nakup": [
+              "kabel"
+            ]
+          }
+        },
+        {
+          "output": "['RAM', 'SSD', 'disk']\n",
+          "inputs": [],
+          "globals": {
+            "nakup": [
+              "RAM",
+              "SSD"
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "append"
+      ],
+      "lesson": "PYL05",
+      "topic": "Seznamy a indexování",
+      "objectives": [
+        "Do dodaného seznamu nakup přidej 'disk' pomocí append a vypiš celý seznam.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+        "Prohlédni výsledek Spustit a řádek chyby. Do dodaného seznamu nakup přidej 'disk' pomocí append a vypiš celý seznam."
+      ],
+      "explanation": "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "nakup.append(\"disk\")\nprint(nakup)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY13",
+      "title": "Seřaď čísla",
+      "description": "Seřaď dodaná cisla metodou sort. Vypiš seznam a na druhém řádku minimum, maximum a součet.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Seřaď dodaná cisla metodou sort. Vypiš seznam a na druhém řádku minimum, maximum a součet.\n"
+      },
+      "tests": [
+        {
+          "output": "[1, 2, 5, 9]\n1 9 17\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              5,
+              2,
+              9,
+              1
+            ]
+          }
+        },
+        {
+          "output": "[-3, 0, 8]\n-3 8 5\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              8,
+              -3,
+              0
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "sort",
+        "min",
+        "max",
+        "sum"
+      ],
+      "lesson": "PYL05",
+      "topic": "Seznamy a indexování",
+      "objectives": [
+        "Seřaď dodaná cisla metodou sort. Vypiš seznam a na druhém řádku minimum, maximum a součet.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+        "Prohlédni výsledek Spustit a řádek chyby. Seřaď dodaná cisla metodou sort. Vypiš seznam a na druhém řádku minimum, maximum a součet."
+      ],
+      "explanation": "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "cisla.sort()\nprint(cisla)\nprint(min(cisla), max(cisla), sum(cisla))\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY14",
+      "title": "Dvojnásobky",
+      "description": "Použij list comprehension a vypiš dvojnásobky dodaného seznamu cisla.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Použij list comprehension a vypiš dvojnásobky dodaného seznamu cisla.\n"
+      },
+      "tests": [
+        {
+          "output": "[2, 4, 6]\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "output": "[-4, 0, 10]\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              -2,
+              0,
+              5
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "comprehension"
+      ],
+      "lesson": "PYL05",
+      "topic": "Seznamy a indexování",
+      "objectives": [
+        "Použij list comprehension a vypiš dvojnásobky dodaného seznamu cisla.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+        "Prohlédni výsledek Spustit a řádek chyby. Použij list comprehension a vypiš dvojnásobky dodaného seznamu cisla."
+      ],
+      "explanation": "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print([x * 2 for x in cisla])\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY15",
+      "title": "Hráčský profil",
+      "description": "Načti jméno, vytvoř slovník hrac s klíči jmeno a skore=10, zvyš skóre o 5 a vypiš jméno a skóre.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Načti jméno, vytvoř slovník hrac s klíči jmeno a skore=10, zvyš skóre o 5 a vypiš jméno a skóre.\n"
+      },
+      "tests": [
+        {
+          "output": "Eva 15\n",
+          "inputs": [
+            "Eva"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Jan 15\n",
+          "inputs": [
+            "Jan"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "dict"
+      ],
+      "lesson": "PYL06",
+      "topic": "Slovníky, n-tice a množiny",
+      "objectives": [
+        "Načti jméno, vytvoř slovník hrac s klíči jmeno a skore=10, zvyš skóre o 5 a vypiš jméno a skóre.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Slovník přiřazuje klíčům hodnoty; get umí výchozí hodnotu. Tuple je neměnná posloupnost. Set obsahuje unikátní položky bez garantovaného pořadí. Prázdný set se vytváří set(), {} je slovník.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti jméno, vytvoř slovník hrac s klíči jmeno a skore=10, zvyš skóre o 5 a vypiš jméno a skóre."
+      ],
+      "explanation": "Slovník přiřazuje klíčům hodnoty; get umí výchozí hodnotu. Tuple je neměnná posloupnost. Set obsahuje unikátní položky bez garantovaného pořadí. Prázdný set se vytváří set(), {} je slovník.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "hrac = {\"jmeno\": input(), \"skore\": 10}\nhrac[\"skore\"] += 5\nprint(hrac[\"jmeno\"], hrac[\"skore\"])\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY16",
+      "title": "Unikátní položky",
+      "description": "Z dodané polozky vytvoř set a vypiš jeho délku. Vytvoř tuple (10,20) a vypiš jeho druhou položku.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "# Z dodané polozky vytvoř set a vypiš jeho délku. Vytvoř tuple (10,20) a vypiš jeho druhou položku.\n"
+      },
+      "tests": [
+        {
+          "output": "3\n20\n",
+          "inputs": [],
+          "globals": {
+            "polozky": [
+              1,
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "output": "1\n20\n",
+          "inputs": [],
+          "globals": {
+            "polozky": [
+              4,
+              4
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "set",
+        "tuple"
+      ],
+      "lesson": "PYL06",
+      "topic": "Slovníky, n-tice a množiny",
+      "objectives": [
+        "Z dodané polozky vytvoř set a vypiš jeho délku. Vytvoř tuple (10,20) a vypiš jeho druhou položku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Slovník přiřazuje klíčům hodnoty; get umí výchozí hodnotu. Tuple je neměnná posloupnost. Set obsahuje unikátní položky bez garantovaného pořadí. Prázdný set se vytváří set(), {} je slovník.",
+        "Prohlédni výsledek Spustit a řádek chyby. Z dodané polozky vytvoř set a vypiš jeho délku. Vytvoř tuple (10,20) a vypiš jeho druhou položku."
+      ],
+      "explanation": "Slovník přiřazuje klíčům hodnoty; get umí výchozí hodnotu. Tuple je neměnná posloupnost. Set obsahuje unikátní položky bez garantovaného pořadí. Prázdný set se vytváří set(), {} je slovník.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "unikatni = set(polozky)\nsouradnice = (10, 20)\nprint(len(unikatni))\nprint(souradnice[1])\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY17",
+      "title": "Věkové kategorie",
+      "description": "Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.\n"
+      },
+      "tests": [
+        {
+          "output": "dospely\n",
+          "inputs": [
+            "18"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "student\n",
+          "inputs": [
+            "16"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "dite\n",
+          "inputs": [
+            "10"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "if"
+      ],
+      "lesson": "PYL07",
+      "topic": "Podmínky if, elif, else",
+      "objectives": [
+        "Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else."
+      ],
+      "explanation": "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "vek = int(input())\nif vek >= 18:\n    print(\"dospely\")\nelif vek >= 15:\n    print(\"student\")\nelse:\n    print(\"dite\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY18",
+      "title": "Kontrola hodnot",
+      "description": "Pro dodané teplota a volne vypiš OK, pokud teplota < 80 a volne > 10, jinak ALARM.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Pro dodané teplota a volne vypiš OK, pokud teplota < 80 a volne > 10, jinak ALARM.\n"
+      },
+      "tests": [
+        {
+          "output": "OK\n",
+          "inputs": [],
+          "globals": {
+            "teplota": 50,
+            "volne": 20
+          }
+        },
+        {
+          "output": "ALARM\n",
+          "inputs": [],
+          "globals": {
+            "teplota": 90,
+            "volne": 20
+          }
+        },
+        {
+          "output": "ALARM\n",
+          "inputs": [],
+          "globals": {
+            "teplota": 50,
+            "volne": 5
+          }
+        }
+      ],
+      "constructs": [
+        "if"
+      ],
+      "lesson": "PYL07",
+      "topic": "Podmínky if, elif, else",
+      "objectives": [
+        "Pro dodané teplota a volne vypiš OK, pokud teplota < 80 a volne > 10, jinak ALARM.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pro dodané teplota a volne vypiš OK, pokud teplota < 80 a volne > 10, jinak ALARM."
+      ],
+      "explanation": "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "if teplota < 80 and volne > 10:\n    print(\"OK\")\nelse:\n    print(\"ALARM\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY19",
+      "title": "Sudá čísla",
+      "description": "Pomocí for vypiš sudá čísla 2 až 20, každé na vlastním řádku.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Pomocí for vypiš sudá čísla 2 až 20, každé na vlastním řádku.\n"
+      },
+      "tests": [
+        {
+          "output": "2\n4\n6\n8\n10\n12\n14\n16\n18\n20\n",
+          "inputs": [],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "for"
+      ],
+      "lesson": "PYL08",
+      "topic": "Cykly for a while",
+      "objectives": [
+        "Pomocí for vypiš sudá čísla 2 až 20, každé na vlastním řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pomocí for vypiš sudá čísla 2 až 20, každé na vlastním řádku."
+      ],
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "for n in range(2, 21, 2):\n    print(n)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY20",
+      "title": "Odpočítávání",
+      "description": "Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.\n"
+      },
+      "tests": [
+        {
+          "output": "3\n2\n1\n",
+          "inputs": [
+            "3"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "5\n4\n3\n2\n1\n",
+          "inputs": [
+            "5"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "while"
+      ],
+      "lesson": "PYL08",
+      "topic": "Cykly for a while",
+      "objectives": [
+        "Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku."
+      ],
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "n = int(input())\nwhile n > 0:\n    print(n)\n    n -= 1\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY21",
+      "title": "Zastav cyklus",
+      "description": "Procházej čísla 1–10. Pomocí continue přeskoč 3, pomocí break skonči před 7. Zbytek vypiš po řádcích.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Procházej čísla 1–10. Pomocí continue přeskoč 3, pomocí break skonči před 7. Zbytek vypiš po řádcích.\n"
+      },
+      "tests": [
+        {
+          "output": "1\n2\n4\n5\n6\n",
+          "inputs": [],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "for",
+        "break",
+        "continue"
+      ],
+      "lesson": "PYL08",
+      "topic": "Cykly for a while",
+      "objectives": [
+        "Procházej čísla 1–10. Pomocí continue přeskoč 3, pomocí break skonči před 7. Zbytek vypiš po řádcích.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+        "Prohlédni výsledek Spustit a řádek chyby. Procházej čísla 1–10. Pomocí continue přeskoč 3, pomocí break skonči před 7. Zbytek vypiš po řádcích."
+      ],
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "for n in range(1, 11):\n    if n == 3:\n        continue\n    if n == 7:\n        break\n    print(n)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY22",
+      "title": "Obsah obdélníku",
+      "description": "Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.\n"
+      },
+      "tests": [
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              5,
+              4
+            ],
+            "value": 20
+          }
+        },
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              10,
+              2
+            ],
+            "value": 20
+          }
+        },
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              3,
+              7
+            ],
+            "value": 21
+          }
+        }
+      ],
+      "constructs": [
+        "def"
+      ],
+      "lesson": "PYL09",
+      "topic": "Funkce, parametry a return",
+      "objectives": [
+        "Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+        "Prohlédni výsledek Spustit a řádek chyby. Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí."
+      ],
+      "explanation": "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "def obsah_obdelniku(sirka, vyska):\n    return sirka * vyska\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY23",
+      "title": "Vlastní pozdrav",
+      "description": "Funkce pozdrav(jmeno='světe') vrátí text Ahoj, JMÉNO! Přijmi i volání bez argumentu.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Funkce pozdrav(jmeno='světe') vrátí text Ahoj, JMÉNO! Přijmi i volání bez argumentu.\n"
+      },
+      "tests": [
+        {
+          "call": {
+            "name": "pozdrav",
+            "args": [],
+            "value": "Ahoj, světe!"
+          }
+        },
+        {
+          "call": {
+            "name": "pozdrav",
+            "args": [
+              "Eva"
+            ],
+            "value": "Ahoj, Eva!"
+          }
+        }
+      ],
+      "constructs": [
+        "def"
+      ],
+      "lesson": "PYL09",
+      "topic": "Funkce, parametry a return",
+      "objectives": [
+        "Funkce pozdrav(jmeno='světe') vrátí text Ahoj, JMÉNO! Přijmi i volání bez argumentu.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+        "Prohlédni výsledek Spustit a řádek chyby. Funkce pozdrav(jmeno='světe') vrátí text Ahoj, JMÉNO! Přijmi i volání bez argumentu."
+      ],
+      "explanation": "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "def pozdrav(jmeno=\"světe\"):\n    return \"Ahoj, \" + jmeno + \"!\"\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY24",
+      "title": "Analýza čísel",
+      "description": "Pro dodaná cisla vypiš na řádcích len, sum, min, max a sorted.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Pro dodaná cisla vypiš na řádcích len, sum, min, max a sorted.\n"
+      },
+      "tests": [
+        {
+          "output": "3\n9\n1\n5\n[1, 3, 5]\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              5,
+              1,
+              3
+            ]
+          }
+        },
+        {
+          "output": "4\n6\n-2\n4\n[-2, 1, 3, 4]\n",
+          "inputs": [],
+          "globals": {
+            "cisla": [
+              4,
+              -2,
+              1,
+              3
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "len",
+        "sum",
+        "min",
+        "max",
+        "sorted"
+      ],
+      "lesson": "PYL10",
+      "topic": "Vestavěné funkce",
+      "objectives": [
+        "Pro dodaná cisla vypiš na řádcích len, sum, min, max a sorted.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "len vrací délku, sum součet, min/max krajní hodnoty a sorted nový seřazený seznam. abs vrátí absolutní hodnotu. round používá zaokrouhlení půlek k sudému. enumerate poskytuje index a hodnotu, zip dvojice hodnot.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pro dodaná cisla vypiš na řádcích len, sum, min, max a sorted."
+      ],
+      "explanation": "len vrací délku, sum součet, min/max krajní hodnoty a sorted nový seřazený seznam. abs vrátí absolutní hodnotu. round používá zaokrouhlení půlek k sudému. enumerate poskytuje index a hodnotu, zip dvojice hodnot.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print(len(cisla))\nprint(sum(cisla))\nprint(min(cisla))\nprint(max(cisla))\nprint(sorted(cisla))\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY25",
+      "title": "Matematický pomocník",
+      "description": "Importuj math, načti číslo a vypiš jeho odmocninu pomocí math.sqrt.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Importuj math, načti číslo a vypiš jeho odmocninu pomocí math.sqrt.\n"
+      },
+      "tests": [
+        {
+          "output": "9.0\n",
+          "inputs": [
+            "81"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "12.0\n",
+          "inputs": [
+            "144"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "import",
+        "sqrt"
+      ],
+      "lesson": "PYL11",
+      "topic": "Moduly math a random",
+      "objectives": [
+        "Importuj math, načti číslo a vypiš jeho odmocninu pomocí math.sqrt.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "import zpřístupní modul pod jeho jménem. math.sqrt počítá odmocninu a math.pi obsahuje číslo pí. random.randint(a,b) zahrnuje obě meze, random.choice vybírá položku. Výukový runtime povoluje jen dokumentované členy těchto dvou modulů.",
+        "Prohlédni výsledek Spustit a řádek chyby. Importuj math, načti číslo a vypiš jeho odmocninu pomocí math.sqrt."
+      ],
+      "explanation": "import zpřístupní modul pod jeho jménem. math.sqrt počítá odmocninu a math.pi obsahuje číslo pí. random.randint(a,b) zahrnuje obě meze, random.choice vybírá položku. Výukový runtime povoluje jen dokumentované členy těchto dvou modulů.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "import math\nn = float(input())\nprint(math.sqrt(n))\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY26",
+      "title": "Hrací kostka",
+      "description": "Importuj random a napiš funkci hod(), která vrací náhodnou hodnotu 1–6. Testy ověří více hodů a variabilitu.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Importuj random a napiš funkci hod(), která vrací náhodnou hodnotu 1–6. Testy ověří více hodů a variabilitu.\n"
+      },
+      "tests": [
+        {
+          "rolls": {
+            "name": "hod",
+            "minimum": 1,
+            "maximum": 6,
+            "count": 16
+          },
+          "seed": 1
+        },
+        {
+          "rolls": {
+            "name": "hod",
+            "minimum": 1,
+            "maximum": 6,
+            "count": 16
+          },
+          "seed": 42
+        },
+        {
+          "rolls": {
+            "name": "hod",
+            "minimum": 1,
+            "maximum": 6,
+            "count": 16
+          },
+          "seed": 97
+        }
+      ],
+      "constructs": [
+        "import"
+      ],
+      "lesson": "PYL11",
+      "topic": "Moduly math a random",
+      "objectives": [
+        "Importuj random a napiš funkci hod(), která vrací náhodnou hodnotu 1–6. Testy ověří více hodů a variabilitu.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "import zpřístupní modul pod jeho jménem. math.sqrt počítá odmocninu a math.pi obsahuje číslo pí. random.randint(a,b) zahrnuje obě meze, random.choice vybírá položku. Výukový runtime povoluje jen dokumentované členy těchto dvou modulů.",
+        "Prohlédni výsledek Spustit a řádek chyby. Importuj random a napiš funkci hod(), která vrací náhodnou hodnotu 1–6. Testy ověří více hodů a variabilitu."
+      ],
+      "explanation": "import zpřístupní modul pod jeho jménem. math.sqrt počítá odmocninu a math.pi obsahuje číslo pí. random.randint(a,b) zahrnuje obě meze, random.choice vybírá položku. Výukový runtime povoluje jen dokumentované členy těchto dvou modulů.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "import random\ndef hod():\n    return random.randint(1, 6)\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY27",
+      "title": "Nesprávný vstup",
+      "description": "Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.\n"
+      },
+      "tests": [
+        {
+          "output": "16\n",
+          "inputs": [
+            "15"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Zadej číslo\n",
+          "inputs": [
+            "abc"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Zadej číslo\n",
+          "inputs": [
+            "3.5"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "try"
+      ],
+      "lesson": "PYL12",
+      "topic": "Ošetření chyb",
+      "objectives": [
+        "Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "try spustí rizikovou operaci, except ValueError zachytí neplatný převod čísla. Zachycuj očekávanou chybu, neopisuj poškozený vstup jako správný výsledek. Chyby limitů a izolace nelze zachytit.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo."
+      ],
+      "explanation": "try spustí rizikovou operaci, except ValueError zachytí neplatný převod čísla. Zachycuj očekávanou chybu, neopisuj poškozený vstup jako správný výsledek. Chyby limitů a izolace nelze zachytit.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "try:\n    vek = int(input())\n    print(vek + 1)\nexcept ValueError:\n    print(\"Zadej číslo\")\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY28",
+      "title": "Poznámkový blok",
+      "description": "Načti text, přes with jej zapiš do poznamky.txt, soubor znovu otevři a načtený obsah vypiš.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Načti text, přes with jej zapiš do poznamky.txt, soubor znovu otevři a načtený obsah vypiš.\n"
+      },
+      "tests": [
+        {
+          "output": "Server funguje\n",
+          "inputs": [
+            "Server funguje"
+          ],
+          "globals": {},
+          "written": {
+            "poznamky.txt": "Server funguje"
+          }
+        },
+        {
+          "output": "Záloha hotova\n",
+          "inputs": [
+            "Záloha hotova"
+          ],
+          "globals": {},
+          "written": {
+            "poznamky.txt": "Záloha hotova"
+          }
+        }
+      ],
+      "constructs": [
+        "with",
+        "write",
+        "read"
+      ],
+      "lesson": "PYL13",
+      "topic": "Čtení a zápis souborů",
+      "objectives": [
+        "Načti text, přes with jej zapiš do poznamky.txt, soubor znovu otevři a načtený obsah vypiš.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "with open(name, mode, encoding='utf-8') automaticky zavře soubor. w přepisuje, a přidává, r čte. write zapisuje text a read čte zbývající obsah. V této učebně jde vždy o virtuální soubory v paměti daného běhu.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti text, přes with jej zapiš do poznamky.txt, soubor znovu otevři a načtený obsah vypiš."
+      ],
+      "explanation": "with open(name, mode, encoding='utf-8') automaticky zavře soubor. w přepisuje, a přidává, r čte. write zapisuje text a read čte zbývající obsah. V této učebně jde vždy o virtuální soubory v paměti daného běhu.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "text = input()\nwith open(\"poznamky.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(text)\nwith open(\"poznamky.txt\", \"r\") as f:\n    print(f.read())\n"
+      },
+      "reward": 100
+    },
+    {
+      "id": "PY29",
+      "title": "Hádej číslo",
+      "description": "Máš proměnnou tajne (1–10). Načítej nejvýše 5 tipů. Vypiš vyssi/nizsi podle směru; po uhodnutí spravne a skonči, jinak po pátém tipu konec.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Máš proměnnou tajne (1–10). Načítej nejvýše 5 tipů. Vypiš vyssi/nizsi podle směru; po uhodnutí spravne a skonči, jinak po pátém tipu konec.\n"
+      },
+      "tests": [
+        {
+          "output": "vyssi\nnizsi\nspravne\n",
+          "inputs": [
+            "3",
+            "9",
+            "7"
+          ],
+          "globals": {
+            "tajne": 7
+          }
+        },
+        {
+          "output": "spravne\n",
+          "inputs": [
+            "2"
+          ],
+          "globals": {
+            "tajne": 2
+          }
+        },
+        {
+          "output": "vyssi\nvyssi\nvyssi\nvyssi\nvyssi\nkonec\n",
+          "inputs": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+          ],
+          "globals": {
+            "tajne": 9
+          }
+        }
+      ],
+      "constructs": [
+        "while",
+        "if",
+        "input"
+      ],
+      "lesson": "PYL14",
+      "topic": "Projekt Hádání čísla",
+      "objectives": [
+        "Máš proměnnou tajne (1–10). Načítej nejvýše 5 tipů. Vypiš vyssi/nizsi podle směru; po uhodnutí spravne a skonči, jinak po pátém tipu konec.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Spoj input, převod na int, podmínky a cyklus. Porovnej tip s tajným číslem, poraď směr a při úspěchu skonči. Omez počet pokusů na pět. Pro automatické testy dostaneš tajné číslo jako proměnnou tajne.",
+        "Prohlédni výsledek Spustit a řádek chyby. Máš proměnnou tajne (1–10). Načítej nejvýše 5 tipů. Vypiš vyssi/nizsi podle směru; po uhodnutí spravne a skonči, jinak po pátém tipu konec."
+      ],
+      "explanation": "Spoj input, převod na int, podmínky a cyklus. Porovnej tip s tajným číslem, poraď směr a při úspěchu skonči. Omez počet pokusů na pět. Pro automatické testy dostaneš tajné číslo jako proměnnou tajne.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "pokusy = 0\nwhile pokusy < 5:\n    tip = int(input())\n    pokusy += 1\n    if tip < tajne:\n        print(\"vyssi\")\n    elif tip > tajne:\n        print(\"nizsi\")\n    else:\n        print(\"spravne\")\n        break\nif pokusy == 5 and tip != tajne:\n    print(\"konec\")\n"
+      },
+      "reward": 250
+    },
+    {
+      "id": "PY30",
+      "title": "Analýza serverových logů",
+      "description": "Server PVE-01 poskytuje seznam logs. Spočítej záznamy s úrovní ERROR a WARNING. Vypiš ERROR N a WARNING M na samostatných řádcích. Nepřepisuj vstupní logs.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "# Server PVE-01 poskytuje seznam logs. Spočítej záznamy s úrovní ERROR a WARNING. Vypiš ERROR N a WARNING M na samostatných řádcích. Nepřepisuj vstupní logs.\n"
+      },
+      "tests": [
+        {
+          "output": "ERROR 2\nWARNING 1\n",
+          "inputs": [],
+          "globals": {
+            "logs": [
+              "INFO boot",
+              "ERROR disk",
+              "WARNING space",
+              "ERROR vm"
+            ]
+          }
+        },
+        {
+          "output": "ERROR 0\nWARNING 2\n",
+          "inputs": [],
+          "globals": {
+            "logs": [
+              "WARNING cpu",
+              "INFO ok",
+              "WARNING ram"
+            ]
+          }
+        },
+        {
+          "output": "ERROR 3\nWARNING 1\n",
+          "inputs": [],
+          "globals": {
+            "logs": [
+              "ERROR backup",
+              "ERROR network",
+              "ERROR disk",
+              "WARNING temp",
+              "INFO ok"
+            ]
+          }
+        }
+      ],
+      "constructs": [
+        "assign",
+        "for",
+        "if",
+        "print"
+      ],
+      "lesson": "PYL15",
+      "topic": "Závěrečné procvičování Pythonu",
+      "objectives": [
+        "Server PVE-01 poskytuje seznam logs. Spočítej záznamy s úrovní ERROR a WARNING. Vypiš ERROR N a WARNING M na samostatných řádcích. Nepřepisuj vstupní logs.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Zpracuj skutečná data, ne předem spočítanou odpověď. Projdi serverové logy, zjisti úroveň každého záznamu a zvyš odpovídající čítač. Změna počtu nebo pořadí událostí musí automaticky změnit výsledek.",
+        "Prohlédni výsledek Spustit a řádek chyby. Server PVE-01 poskytuje seznam logs. Spočítej záznamy s úrovní ERROR a WARNING. Vypiš ERROR N a WARNING M na samostatných řádcích. Nepřepisuj vstupní logs."
+      ],
+      "explanation": "Zpracuj skutečná data, ne předem spočítanou odpověď. Projdi serverové logy, zjisti úroveň každého záznamu a zvyš odpovídající čítač. Změna počtu nebo pořadí událostí musí automaticky změnit výsledek.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "errors = 0\nwarnings = 0\nfor log in logs:\n    if log.startswith(\"ERROR \"):\n        errors += 1\n    elif log.startswith(\"WARNING \"):\n        warnings += 1\nprint(\"ERROR\", errors)\nprint(\"WARNING\", warnings)\n"
+      },
+      "reward": 250
+    },
+    {
+      "id": "WEB01",
+      "title": "První HTML stránka",
+      "description": "Vytvoř HTML5 dokument s html, head, title a body; v body musí být neprázdný h1.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř HTML5 dokument s html, head, title a body; v body musí být neprázdný h1. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "document"
+        },
+        {
+          "kind": "nonempty",
+          "selector": "body h1"
+        }
+      ],
+      "lesson": "WEBL01",
+      "topic": "Základní HTML dokument",
+      "objectives": [
+        "Vytvoř HTML5 dokument s html, head, title a body; v body musí být neprázdný h1.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "HTML je značkovací jazyk pro strukturu. DOCTYPE html volí moderní režim; html je kořen, head obsahuje metadata a body viditelný obsah. title je název dokumentu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "HTML je značkovací jazyk pro strukturu. DOCTYPE html volí moderní režim; html je kořen, head obsahuje metadata a body viditelný obsah. title je název dokumentu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Ahoj, světe!</h1>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB02",
+      "title": "Čeština na webu",
+      "description": "Nastav html lang='cs', meta charset='UTF-8' a neprázdný title.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Nastav html lang='cs', meta charset='UTF-8' a neprázdný title. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "document"
+        },
+        {
+          "kind": "attr",
+          "selector": "html",
+          "attr": "lang",
+          "value": "cs"
+        },
+        {
+          "kind": "attr",
+          "selector": "meta",
+          "attr": "charset",
+          "value": "utf-8"
+        },
+        {
+          "kind": "nonempty",
+          "selector": "title"
+        }
+      ],
+      "lesson": "WEBL01",
+      "topic": "Základní HTML dokument",
+      "objectives": [
+        "Nastav html lang='cs', meta charset='UTF-8' a neprázdný title.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "HTML je značkovací jazyk pro strukturu. DOCTYPE html volí moderní režim; html je kořen, head obsahuje metadata a body viditelný obsah. title je název dokumentu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "HTML je značkovací jazyk pro strukturu. DOCTYPE html volí moderní režim; html je kořen, head obsahuje metadata a body viditelný obsah. title je název dokumentu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Český web</h1>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB03",
+      "title": "Nadpisy a odstavce",
+      "description": "Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "body h1",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body h2",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body p",
+          "count": 2
+        }
+      ],
+      "lesson": "WEBL02",
+      "topic": "Nadpisy, odstavce a text",
+      "objectives": [
+        "Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Academy</h1><h2>Studium</h2><p>První odstavec.</p><p>Druhý odstavec.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB04",
+      "title": "Zvýrazni text",
+      "description": "Použij strong, em, mark, br a hr uvnitř stránky.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Použij strong, em, mark, br a hr uvnitř stránky. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "strong",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "em",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "mark",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "br",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "hr",
+          "count": 1
+        }
+      ],
+      "lesson": "WEBL02",
+      "topic": "Nadpisy, odstavce a text",
+      "objectives": [
+        "Použij strong, em, mark, br a hr uvnitř stránky.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<p><strong>Důležité</strong> a <em>zdůrazněné</em><br><mark>Označeno</mark></p><hr>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB05",
+      "title": "Můj první odkaz",
+      "description": "Vytvoř neprázdný odkaz a s href='https://developer.mozilla.org/'.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř neprázdný odkaz a s href='https://developer.mozilla.org/'. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "href",
+          "value": "https://developer.mozilla.org/"
+        },
+        {
+          "kind": "nonempty",
+          "selector": "a"
+        }
+      ],
+      "lesson": "WEBL03",
+      "topic": "Odkazy a obrázky",
+      "objectives": [
+        "Vytvoř neprázdný odkaz a s href='https://developer.mozilla.org/'.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<a href=\"https://developer.mozilla.org/\">Dokumentace</a>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB06",
+      "title": "Externí odkaz",
+      "description": "Odkaz na https://developer.mozilla.org/ otevři do _blank s rel obsahujícím noopener noreferrer.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Odkaz na https://developer.mozilla.org/ otevři do _blank s rel obsahujícím noopener noreferrer. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "href",
+          "value": "https://developer.mozilla.org/"
+        },
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "target",
+          "value": "_blank"
+        },
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "rel",
+          "contains": true,
+          "value": "noopener"
+        },
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "rel",
+          "contains": true,
+          "value": "noreferrer"
+        },
+        {
+          "kind": "element",
+          "selector": "a",
+          "attrs": {
+            "href": "https://developer.mozilla.org/",
+            "target": "_blank",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ]
+          }
+        }
+      ],
+      "lesson": "WEBL03",
+      "topic": "Odkazy a obrázky",
+      "objectives": [
+        "Odkaz na https://developer.mozilla.org/ otevři do _blank s rel obsahujícím noopener noreferrer.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<a href=\"https://developer.mozilla.org/\" target=\"_blank\" rel=\"noopener noreferrer\">MDN</a>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB07",
+      "title": "Přidej obrázek",
+      "description": "Použij img se src='server.svg' a smysluplným alt. Tento obrázek je v náhledu dostupný lokálně.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Použij img se src='server.svg' a smysluplným alt. Tento obrázek je v náhledu dostupný lokálně. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "image",
+          "selector": "img"
+        },
+        {
+          "kind": "attr",
+          "selector": "img",
+          "attr": "src",
+          "value": "server.svg"
+        }
+      ],
+      "lesson": "WEBL03",
+      "topic": "Odkazy a obrázky",
+      "objectives": [
+        "Použij img se src='server.svg' a smysluplným alt. Tento obrázek je v náhledu dostupný lokálně.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<img src=\"server.svg\" alt=\"Symbol serverové akademie\">\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB08",
+      "title": "Seznam koníčků",
+      "description": "Vytvoř ul se třemi li a ol se dvěma li.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř ul se třemi li a ol se dvěma li. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "ul li",
+          "count": 3
+        },
+        {
+          "kind": "exists",
+          "selector": "ol li",
+          "count": 2
+        }
+      ],
+      "lesson": "WEBL04",
+      "topic": "Seznamy",
+      "objectives": [
+        "Vytvoř ul se třemi li a ol se dvěma li.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "ul je nečíslovaný a ol číslovaný seznam. Jejich položky jsou li. Vnořený seznam patří dovnitř položky nadřazeného seznamu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "ul je nečíslovaný a ol číslovaný seznam. Jejich položky jsou li. Vnořený seznam patří dovnitř položky nadřazeného seznamu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<ul><li>Programování</li><li>Hry</li><li>Hudba</li></ul><ol><li>Napiš</li><li>Otestuj</li></ol>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB09",
+      "title": "Školní rozvrh",
+      "description": "Vytvoř table alespoň se třemi řádky tr, dvěma záhlavími th a čtyřmi datovými buňkami td.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř table alespoň se třemi řádky tr, dvěma záhlavími th a čtyřmi datovými buňkami td. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "table tr",
+          "count": 3
+        },
+        {
+          "kind": "exists",
+          "selector": "table th",
+          "count": 2
+        },
+        {
+          "kind": "exists",
+          "selector": "table td",
+          "count": 4
+        }
+      ],
+      "lesson": "WEBL05",
+      "topic": "Tabulky",
+      "objectives": [
+        "Vytvoř table alespoň se třemi řádky tr, dvěma záhlavími th a čtyřmi datovými buňkami td.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "table popisuje tabulková data, tr řádek, th záhlaví a td buňku. caption pojmenuje tabulku. thead/tbody organizují oddíly, scope='col' nebo 'row' pomáhá určit záhlaví.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "table popisuje tabulková data, tr řádek, th záhlaví a td buňku. caption pojmenuje tabulku. thead/tbody organizují oddíly, scope='col' nebo 'row' pomáhá určit záhlaví.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<table><caption>Provoz IT</caption><thead><tr><th scope=\"col\">Služba</th><th scope=\"col\">Dostupnost</th></tr></thead><tbody><tr><td>Helpdesk</td><td>8–16</td></tr><tr><td>Monitoring</td><td>24/7</td></tr></tbody></table>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB10",
+      "title": "Přístupná tabulka",
+      "description": "Přidej caption, thead/tbody a záhlaví th scope='col'.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Přidej caption, thead/tbody a záhlaví th scope='col'. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "table caption",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "table thead th",
+          "count": 2
+        },
+        {
+          "kind": "exists",
+          "selector": "table tbody td",
+          "count": 2
+        },
+        {
+          "kind": "attr",
+          "selector": "th",
+          "attr": "scope",
+          "value": "col"
+        }
+      ],
+      "lesson": "WEBL05",
+      "topic": "Tabulky",
+      "objectives": [
+        "Přidej caption, thead/tbody a záhlaví th scope='col'.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "table popisuje tabulková data, tr řádek, th záhlaví a td buňku. caption pojmenuje tabulku. thead/tbody organizují oddíly, scope='col' nebo 'row' pomáhá určit záhlaví.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "table popisuje tabulková data, tr řádek, th záhlaví a td buňku. caption pojmenuje tabulku. thead/tbody organizují oddíly, scope='col' nebo 'row' pomáhá určit záhlaví.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<table><caption>Provoz IT</caption><thead><tr><th scope=\"col\">Služba</th><th scope=\"col\">Dostupnost</th></tr></thead><tbody><tr><td>Helpdesk</td><td>8–16</td></tr><tr><td>Monitoring</td><td>24/7</td></tr></tbody></table>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB11",
+      "title": "Struktura webu",
+      "description": "Použij header, nav s odkazem, main se section a footer. Do section přidej div se span.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Použij header, nav s odkazem, main se section a footer. Do section přidej div se span. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "header",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "nav a",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "main section",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "footer",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "section div span",
+          "count": 1
+        }
+      ],
+      "lesson": "WEBL06",
+      "topic": "Kontejnery a sémantické elementy",
+      "objectives": [
+        "Použij header, nav s odkazem, main se section a footer. Do section přidej div se span.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "div je obecný blok, span řádkový kontejner. header/nav/main/section/article/aside/footer dávají obsahu význam. main obsahuje hlavní obsah dokumentu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "div je obecný blok, span řádkový kontejner. header/nav/main/section/article/aside/footer dávají obsahu význam. main obsahuje hlavní obsah dokumentu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<header><h1>Firma</h1><nav><a href=\"#sluzby\">Služby</a></nav></header><main><section id=\"sluzby\"><div><span>Správa IT</span></div></section></main><footer>IT firma</footer>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB12",
+      "title": "ID a Class",
+      "description": "Přidej prvek id='uvod' a třídu karta. Napiš CSS .karta s padding a #uvod s color.",
+      "category": "css",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Přidej prvek id='uvod' a třídu karta. Napiš CSS .karta s padding a #uvod s color. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "#uvod.karta",
+          "count": 1
+        },
+        {
+          "kind": "css",
+          "selector": "#uvod",
+          "property": "color"
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "padding"
+        }
+      ],
+      "lesson": "WEBL07",
+      "topic": "Atributy id a class",
+      "objectives": [
+        "Přidej prvek id='uvod' a třídu karta. Napiš CSS .karta s padding a #uvod s color.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div id=\"uvod\" class=\"karta\">Vítej</div>\n</body>\n</html>",
+        "style.css": ".karta { padding: 16px; }\n#uvod { color: teal; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB13",
+      "title": "HTML atributy",
+      "description": "Přidej odstavec s title, jiný s hidden a input s required.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Přidej odstavec s title, jiný s hidden a input s required. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "attr",
+          "selector": "p",
+          "attr": "title"
+        },
+        {
+          "kind": "attr",
+          "selector": "p",
+          "attr": "hidden"
+        },
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "required"
+        }
+      ],
+      "lesson": "WEBL07",
+      "topic": "Atributy id a class",
+      "objectives": [
+        "Přidej odstavec s title, jiný s hidden a input s required.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<p title=\"Úvod\">Vítej</p><p hidden>Skryto</p><input required>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB14",
+      "title": "Navigace na stránce",
+      "description": "Vytvoř nav a s místním odkazem #id na existující section.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř nav a s místním odkazem #id na existující section. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "section",
+          "count": 1
+        },
+        {
+          "kind": "anchor",
+          "selector": "nav a"
+        }
+      ],
+      "lesson": "WEBL07",
+      "topic": "Atributy id a class",
+      "objectives": [
+        "Vytvoř nav a s místním odkazem #id na existující section.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<nav><a href=\"#kontakt\">Kontakt</a></nav><section id=\"kontakt\"><h2>Kontakt</h2></section>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB15",
+      "title": "Kontaktní formulář",
+      "description": "Vytvoř form se dvěma pojmenovanými input poli a submit tlačítkem.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř form se dvěma pojmenovanými input poli a submit tlačítkem. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "form input",
+          "count": 2
+        },
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "name"
+        },
+        {
+          "kind": "attr",
+          "selector": "form button",
+          "attr": "type",
+          "value": "submit"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Vytvoř form se dvěma pojmenovanými input poli a submit tlačítkem.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB16",
+      "title": "Popisky polí",
+      "description": "Vytvoř form se dvěma input poli. Ke každému přiřaď neprázdný label přes for/id nebo obalením.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř form se dvěma input poli. Ke každému přiřaď neprázdný label přes for/id nebo obalením. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "form input",
+          "count": 2
+        },
+        {
+          "kind": "labels",
+          "selector": "form input"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Vytvoř form se dvěma input poli. Ke každému přiřaď neprázdný label přes for/id nebo obalením.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB17",
+      "title": "Validace vstupu",
+      "description": "Ve form přidej povinný email a number vstup s popisky.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Ve form přidej povinný email a number vstup s popisky. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "type",
+          "value": "email"
+        },
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "type",
+          "value": "number"
+        },
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "required"
+        },
+        {
+          "kind": "labels",
+          "selector": "form input"
+        },
+        {
+          "kind": "element",
+          "selector": "form input",
+          "attrs": {
+            "type": "email",
+            "required": true
+          }
+        },
+        {
+          "kind": "element",
+          "selector": "form input",
+          "attrs": {
+            "type": "number",
+            "required": true
+          }
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Ve form přidej povinný email a number vstup s popisky.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><label for=\"e\">E-mail</label><input id=\"e\" type=\"email\" required><label for=\"n\">Počet</label><input id=\"n\" type=\"number\" required><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB18",
+      "title": "Výběrová pole",
+      "description": "Přidej checkbox, dvě radio se stejným name a select se dvěma option.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Přidej checkbox, dvě radio se stejným name a select se dvěma option. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "type",
+          "value": "checkbox"
+        },
+        {
+          "kind": "attr",
+          "selector": "input",
+          "attr": "type",
+          "value": "radio"
+        },
+        {
+          "kind": "exists",
+          "selector": "select option",
+          "count": 2
+        },
+        {
+          "kind": "radio",
+          "selector": "form input"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Přidej checkbox, dvě radio se stejným name a select se dvěma option.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><input type=\"checkbox\" name=\"souhlas\"><input type=\"radio\" name=\"priorita\" value=\"low\"><input type=\"radio\" name=\"priorita\" value=\"high\"><select><option>Dotaz</option><option>Incident</option></select></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB19",
+      "title": "Textová zpráva",
+      "description": "Vlož do form textarea s labelem a tlačítko type='submit'.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vlož do form textarea s labelem a tlačítko type='submit'. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "form textarea",
+          "count": 1
+        },
+        {
+          "kind": "labels",
+          "selector": "textarea"
+        },
+        {
+          "kind": "attr",
+          "selector": "form button",
+          "attr": "type",
+          "value": "submit"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Vlož do form textarea s labelem a tlačítko type='submit'.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB20",
+      "title": "Oprav přístupnost",
+      "description": "Vytvoř stránku s img a form se dvěma input poli; všechny obrázky mají alt, vstupy label a id jsou jedinečná.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!-- Vytvoř stránku s img a form se dvěma input poli; všechny obrázky mají alt, vstupy label a id jsou jedinečná. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "img",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "form input",
+          "count": 2
+        },
+        {
+          "kind": "accessibility"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Vytvoř stránku s img a form se dvěma input poli; všechny obrázky mají alt, vstupy label a id jsou jedinečná.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<img src=\"server.svg\" alt=\"Server\"><form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB21",
+      "title": "Barevná stránka",
+      "description": "Pomocí CSS změň color na h1 a background-color na body.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Pomocí CSS změň color na h1 a background-color na body. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "property": "background-color"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Pomocí CSS změň color na h1 a background-color na body.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Barevný helpdesk</h1><p>Vítej</p>\n</body>\n</html>",
+        "style.css": "body { background-color: #e8f7ff; }\nh1 { color: teal; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB22",
+      "title": "Odsazení a okraje",
+      "description": "Vytvoř div.karta a pomocí CSS mu nastav margin a padding.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř div.karta a pomocí CSS mu nastav margin a padding. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "div.karta",
+          "count": 1
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "margin"
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "padding"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Vytvoř div.karta a pomocí CSS mu nastav margin a padding.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div class=\"karta\"><p>Obsah karty</p></div>\n</body>\n</html>",
+        "style.css": ".karta { margin: 12px; padding: 20px; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB23",
+      "title": "Karta obsahu",
+      "description": "Vytvoř .karta s border, border-radius a padding. Sleduj box model v náhledu.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř .karta s border, border-radius a padding. Sleduj box model v náhledu. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": ".karta",
+          "count": 1
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "border"
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "border-radius"
+        },
+        {
+          "kind": "css",
+          "selector": ".karta",
+          "property": "padding"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Vytvoř .karta s border, border-radius a padding. Sleduj box model v náhledu.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<article class=\"karta\"><h2>Správa serverů</h2><p>Datacenter Academy</p></article>\n</body>\n</html>",
+        "style.css": ".karta { border: 2px solid teal; border-radius: 12px; padding: 20px; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB24",
+      "title": "Flex layout",
+      "description": "Vytvoř kontejner .radek se třemi div a nastav display:flex a gap.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř kontejner .radek se třemi div a nastav display:flex a gap. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": ".radek div",
+          "count": 3
+        },
+        {
+          "kind": "css",
+          "selector": ".radek",
+          "property": "display",
+          "value": "flex"
+        },
+        {
+          "kind": "css",
+          "selector": ".radek",
+          "property": "gap"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Vytvoř kontejner .radek se třemi div a nastav display:flex a gap.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div class=\"radek\"><div>Python</div><div>HTML</div><div>CSS</div></div>\n</body>\n</html>",
+        "style.css": ".radek { display: flex; gap: 12px; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB25",
+      "title": "Grid layout",
+      "description": "Vytvoř .mrizka se čtyřmi div. Použij display:grid a grid-template-columns pro dva sloupce.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř .mrizka se čtyřmi div. Použij display:grid a grid-template-columns pro dva sloupce. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": ".mrizka div",
+          "count": 4
+        },
+        {
+          "kind": "css",
+          "selector": ".mrizka",
+          "property": "display",
+          "value": "grid"
+        },
+        {
+          "kind": "css",
+          "selector": ".mrizka",
+          "property": "grid-template-columns"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Vytvoř .mrizka se čtyřmi div. Použij display:grid a grid-template-columns pro dva sloupce.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div class=\"mrizka\"><div>A</div><div>B</div><div>C</div><div>D</div></div>\n</body>\n</html>",
+        "style.css": ".mrizka { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB26",
+      "title": "Externí CSS",
+      "description": "Připoj style.css přes link rel='stylesheet'. V externím souboru nastav color pro h1.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Připoj style.css přes link rel='stylesheet'. V externím souboru nastav color pro h1. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "stylesheet"
+        },
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Připoj style.css přes link rel='stylesheet'. V externím souboru nastav color pro h1.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Externí styly</h1>\n</body>\n</html>",
+        "style.css": "h1 { color: royalblue; }",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB27",
+      "title": "Speciální znaky",
+      "description": "V odstavci zobraz značku <p> pomocí &lt; a &gt;. Přidej HTML komentář.",
+      "category": "web",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- V odstavci zobraz značku <p> pomocí &lt; a &gt;. Přidej HTML komentář. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "entity"
+        },
+        {
+          "kind": "exists",
+          "selector": "p",
+          "count": 1
+        }
+      ],
+      "lesson": "WEBL11",
+      "topic": "Entity a komentáře",
+      "objectives": [
+        "V odstavci zobraz značku <p> pomocí &lt; a &gt;. Přidej HTML komentář.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "&lt; a &gt; zapisují znaky < a > jako text, &amp; ampersand, &quot; uvozovku a &nbsp; nezlomitelnou mezeru. HTML komentář začíná <!-- a končí -->; do obsahu se nevykreslí.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "&lt; a &gt; zapisují znaky < a > jako text, &amp; ampersand, &quot; uvozovku a &nbsp; nezlomitelnou mezeru. HTML komentář začíná <!-- a končí -->; do obsahu se nevykreslí.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<!-- Vysvětlení --><p>Značka se píše &lt;p&gt; &amp; text.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB28",
+      "title": "JavaScript tlačítko",
+      "description": "Tlačítko id='tlacitko' po kliknutí změní text prvku id='vysledek' na Ahoj!. Použij připojený script.js nebo inline script.",
+      "category": "javascript",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Tlačítko id='tlacitko' po kliknutí změní text prvku id='vysledek' na Ahoj!. Použij připojený script.js nebo inline script. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "click",
+          "selector": "#tlacitko",
+          "target": "#vysledek",
+          "value": "Ahoj!"
+        }
+      ],
+      "lesson": "WEBL10",
+      "topic": "Základy JavaScriptu",
+      "objectives": [
+        "Tlačítko id='tlacitko' po kliknutí změní text prvku id='vysledek' na Ahoj!. Použij připojený script.js nebo inline script.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "JavaScript reaguje na události. document.getElementById vyhledá prvek, addEventListener('click', function(){...}) registruje obsluhu a textContent změní jeho text. Náhled interpretuje jen uvedenou omezenou gramatiku.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "JavaScript reaguje na události. document.getElementById vyhledá prvek, addEventListener('click', function(){...}) registruje obsluhu a textContent změní jeho text. Náhled interpretuje jen uvedenou omezenou gramatiku.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<script src=\"script.js\" defer></script>\n</head>\n<body>\n<button id=\"tlacitko\" type=\"button\">Klikni</button><p id=\"vysledek\">Zatím nic.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": "document.getElementById(\"tlacitko\").addEventListener(\"click\", function () {\n    document.getElementById(\"vysledek\").textContent = \"Ahoj!\";\n});"
+      },
+      "reward": 100
+    },
+    {
+      "id": "WEB29",
+      "title": "Osobní vizitka",
+      "description": "Vytvoř stránku s main, h1, dvěma odstavci, seznamem tří koníčků, obrázkem s alt, odkazem a externím CSS.",
+      "category": "web",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř stránku s main, h1, dvěma odstavci, seznamem tří koníčků, obrázkem s alt, odkazem a externím CSS. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "document"
+        },
+        {
+          "kind": "exists",
+          "selector": "main h1",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "main p",
+          "count": 2
+        },
+        {
+          "kind": "exists",
+          "selector": "ul li",
+          "count": 3
+        },
+        {
+          "kind": "image",
+          "selector": "img"
+        },
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "href"
+        },
+        {
+          "kind": "stylesheet"
+        },
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        }
+      ],
+      "lesson": "WEBL12",
+      "topic": "Projekt vlastní stránky",
+      "objectives": [
+        "Vytvoř stránku s main, h1, dvěma odstavci, seznamem tří koníčků, obrázkem s alt, odkazem a externím CSS.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "Spoj sémantickou strukturu, smysluplné nadpisy, obsah, odkazy a externí styly. Ověř čitelnost, přístupné popisky a jedinečnost id v náhledu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "Spoj sémantickou strukturu, smysluplné nadpisy, obsah, odkazy a externí styly. Ověř čitelnost, přístupné popisky a jedinečnost id v náhledu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<main><h1>Alex</h1><p>Učím se programovat.</p><p>Vítej na mém webu.</p><ul><li>Kód</li><li>Hry</li><li>Hudba</li></ul><img src=\"server.svg\" alt=\"Akademie\"><a href=\"https://developer.mozilla.org/\">Dokumentace</a></main>\n</body>\n</html>",
+        "style.css": "h1 { color: teal; }\nmain { padding: 20px; }",
+        "script.js": ""
+      },
+      "reward": 250
+    },
+    {
+      "id": "WEB30",
+      "title": "Firemní IT Helpdesk",
+      "description": "Vytvoř český HTML5 web helpdesku: h1, nav s místním odkazem, main se sekcí služeb, seznam tří služeb, tabulka provozu (caption, th, td), kontaktní form (jméno, email, zpráva, submit, správné label), externí CSS a upravený vzhled.",
+      "category": "web",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!-- Vytvoř český HTML5 web helpdesku: h1, nav s místním odkazem, main se sekcí služeb, seznam tří služeb, tabulka provozu (caption, th, td), kontaktní form (jméno, email, zpráva, submit, správné label), externí CSS a upravený vzhled. -->\n",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "document"
+        },
+        {
+          "kind": "attr",
+          "selector": "html",
+          "attr": "lang",
+          "value": "cs"
+        },
+        {
+          "kind": "exists",
+          "selector": "h1",
+          "count": 1
+        },
+        {
+          "kind": "anchor",
+          "selector": "nav a"
+        },
+        {
+          "kind": "exists",
+          "selector": "main section",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "section ul li",
+          "count": 3
+        },
+        {
+          "kind": "exists",
+          "selector": "table caption",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "table th",
+          "count": 2
+        },
+        {
+          "kind": "exists",
+          "selector": "table td",
+          "count": 2
+        },
+        {
+          "kind": "exists",
+          "selector": "form input",
+          "count": 2
+        },
+        {
+          "kind": "attr",
+          "selector": "form input",
+          "attr": "type",
+          "value": "email"
+        },
+        {
+          "kind": "exists",
+          "selector": "form textarea",
+          "count": 1
+        },
+        {
+          "kind": "attr",
+          "selector": "form button",
+          "attr": "type",
+          "value": "submit"
+        },
+        {
+          "kind": "labels",
+          "selector": "form input"
+        },
+        {
+          "kind": "labels",
+          "selector": "form textarea"
+        },
+        {
+          "kind": "accessibility"
+        },
+        {
+          "kind": "stylesheet"
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "property": "background-color"
+        },
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        }
+      ],
+      "lesson": "WEBL13",
+      "topic": "Závěrečné procvičování webu",
+      "objectives": [
+        "Vytvoř český HTML5 web helpdesku: h1, nav s místním odkazem, main se sekcí služeb, seznam tří služeb, tabulka provozu (caption, th, td), kontaktní form (jméno, email, zpráva, submit, správné label), externí CSS a upravený vzhled.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "Web helpdesku má srozumitelnou navigaci, seznam služeb, tabulku provozu a označená pole formuláře. Otestuj místní odkazy i formulář; lokální náhled nikam neposílá data.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "Web helpdesku má srozumitelnou navigaci, seznam služeb, tabulku provozu a označená pole formuláře. Otestuj místní odkazy i formulář; lokální náhled nikam neposílá data.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<header><h1>IT Helpdesk</h1><nav><a href=\"#sluzby\">Služby</a><a href=\"#kontakt\">Kontakt</a></nav></header><main><section id=\"sluzby\"><h2>Naše služby</h2><ul><li>Správa serverů</li><li>Zálohy</li><li>Síť</li></ul></section><table><caption>Provoz IT</caption><thead><tr><th scope=\"col\">Služba</th><th scope=\"col\">Dostupnost</th></tr></thead><tbody><tr><td>Helpdesk</td><td>8–16</td></tr><tr><td>Monitoring</td><td>24/7</td></tr></tbody></table><section id=\"kontakt\"><h2>Napiš nám</h2><form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form></section></main><footer>IT společnost</footer>\n</body>\n</html>",
+        "style.css": "body { background-color: #e8f3fa; padding: 18px; }\nh1 { color: teal; }\nsection { padding: 12px; border: 1px solid teal; border-radius: 8px; }",
+        "script.js": ""
+      },
+      "reward": 250
+    }
+  ],
+  "lessons": [
+    {
+      "id": "PYL01",
+      "title": "Výpis, komentáře a vstup",
+      "category": "python",
+      "mission": "PY01",
+      "explanation": "print() vypisuje hodnoty oddělené mezerou. Text patří do uvozovek. Závorky předávají argumenty funkci. # zahajuje komentář. input() vrací text z virtuální konzole.",
+      "example": {
+        "main.py": "print(\"Ahoj, světe!\")\n"
+      },
+      "practice": "Pomocí print() vypiš přesně Ahoj, světe!",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL02",
+      "title": "Proměnné a datové typy",
+      "category": "python",
+      "mission": "PY04",
+      "explanation": "Přiřazení = uloží hodnotu pod jméno. int je celé číslo, float desetinné číslo, str text a bool pravdivostní hodnota. None vyjadřuje nepřítomnost hodnoty. input() vrací str; pro výpočet jej převeď.",
+      "example": {
+        "main.py": "vek = 15\ncena = 19.5\njmeno = \"Eva\"\nstudent = True\nvysledek = None\nprint(jmeno, vek)\n"
+      },
+      "practice": "Vytvoř vek=15, cena=19.5, jmeno='Eva', student=True, vysledek=None a vypiš jmeno a vek.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL03",
+      "title": "Aritmetické a logické operátory",
+      "category": "python",
+      "mission": "PY06",
+      "explanation": "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+      "example": {
+        "main.py": "a = int(input())\nb = int(input())\nprint(a + b)\nprint(a - b)\nprint(a * b)\nprint(a / b)\n"
+      },
+      "practice": "Načti dvě celá čísla. Na čtyřech řádcích vypiš součet, rozdíl, součin a podíl.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL04",
+      "title": "Řetězce, metody a f-stringy",
+      "category": "python",
+      "mission": "PY09",
+      "explanation": "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+      "example": {
+        "main.py": "text = input().strip()\nprint(text.lower())\nprint(text.upper())\n"
+      },
+      "practice": "Načti text. Vypiš jej bez krajních mezer nejprve malými a pak velkými písmeny.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL05",
+      "title": "Seznamy a indexování",
+      "category": "python",
+      "mission": "PY12",
+      "explanation": "List je měnitelná uspořádaná kolekce. append přidá jednu hodnotu, extend kolekci hodnot. sort() mění původní seznam a vrací None; sorted() vytváří nový seznam. Comprehension vytvoří hodnotu pro každou položku vstupu.",
+      "example": {
+        "main.py": "nakup.append(\"disk\")\nprint(nakup)\n"
+      },
+      "practice": "Do dodaného seznamu nakup přidej 'disk' pomocí append a vypiš celý seznam.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL06",
+      "title": "Slovníky, n-tice a množiny",
+      "category": "python",
+      "mission": "PY15",
+      "explanation": "Slovník přiřazuje klíčům hodnoty; get umí výchozí hodnotu. Tuple je neměnná posloupnost. Set obsahuje unikátní položky bez garantovaného pořadí. Prázdný set se vytváří set(), {} je slovník.",
+      "example": {
+        "main.py": "hrac = {\"jmeno\": input(), \"skore\": 10}\nhrac[\"skore\"] += 5\nprint(hrac[\"jmeno\"], hrac[\"skore\"])\n"
+      },
+      "practice": "Načti jméno, vytvoř slovník hrac s klíči jmeno a skore=10, zvyš skóre o 5 a vypiš jméno a skóre.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL07",
+      "title": "Podmínky if, elif, else",
+      "category": "python",
+      "mission": "PY17",
+      "explanation": "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+      "example": {
+        "main.py": "vek = int(input())\nif vek >= 18:\n    print(\"dospely\")\nelif vek >= 15:\n    print(\"student\")\nelse:\n    print(\"dite\")\n"
+      },
+      "practice": "Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL08",
+      "title": "Cykly for a while",
+      "category": "python",
+      "mission": "PY19",
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "example": {
+        "main.py": "for n in range(2, 21, 2):\n    print(n)\n"
+      },
+      "practice": "Pomocí for vypiš sudá čísla 2 až 20, každé na vlastním řádku.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL09",
+      "title": "Funkce, parametry a return",
+      "category": "python",
+      "mission": "PY22",
+      "explanation": "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+      "example": {
+        "main.py": "def obsah_obdelniku(sirka, vyska):\n    return sirka * vyska\n"
+      },
+      "practice": "Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL10",
+      "title": "Vestavěné funkce",
+      "category": "python",
+      "mission": "PY24",
+      "explanation": "len vrací délku, sum součet, min/max krajní hodnoty a sorted nový seřazený seznam. abs vrátí absolutní hodnotu. round používá zaokrouhlení půlek k sudému. enumerate poskytuje index a hodnotu, zip dvojice hodnot.",
+      "example": {
+        "main.py": "print(len(cisla))\nprint(sum(cisla))\nprint(min(cisla))\nprint(max(cisla))\nprint(sorted(cisla))\n"
+      },
+      "practice": "Pro dodaná cisla vypiš na řádcích len, sum, min, max a sorted.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL11",
+      "title": "Moduly math a random",
+      "category": "python",
+      "mission": "PY25",
+      "explanation": "import zpřístupní modul pod jeho jménem. math.sqrt počítá odmocninu a math.pi obsahuje číslo pí. random.randint(a,b) zahrnuje obě meze, random.choice vybírá položku. Výukový runtime povoluje jen dokumentované členy těchto dvou modulů.",
+      "example": {
+        "main.py": "import math\nn = float(input())\nprint(math.sqrt(n))\n"
+      },
+      "practice": "Importuj math, načti číslo a vypiš jeho odmocninu pomocí math.sqrt.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL12",
+      "title": "Ošetření chyb",
+      "category": "python",
+      "mission": "PY27",
+      "explanation": "try spustí rizikovou operaci, except ValueError zachytí neplatný převod čísla. Zachycuj očekávanou chybu, neopisuj poškozený vstup jako správný výsledek. Chyby limitů a izolace nelze zachytit.",
+      "example": {
+        "main.py": "try:\n    vek = int(input())\n    print(vek + 1)\nexcept ValueError:\n    print(\"Zadej číslo\")\n"
+      },
+      "practice": "Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL13",
+      "title": "Čtení a zápis souborů",
+      "category": "python",
+      "mission": "PY28",
+      "explanation": "with open(name, mode, encoding='utf-8') automaticky zavře soubor. w přepisuje, a přidává, r čte. write zapisuje text a read čte zbývající obsah. V této učebně jde vždy o virtuální soubory v paměti daného běhu.",
+      "example": {
+        "main.py": "text = input()\nwith open(\"poznamky.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(text)\nwith open(\"poznamky.txt\", \"r\") as f:\n    print(f.read())\n"
+      },
+      "practice": "Načti text, přes with jej zapiš do poznamky.txt, soubor znovu otevři a načtený obsah vypiš.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL14",
+      "title": "Projekt Hádání čísla",
+      "category": "python",
+      "mission": "PY29",
+      "explanation": "Spoj input, převod na int, podmínky a cyklus. Porovnej tip s tajným číslem, poraď směr a při úspěchu skonči. Omez počet pokusů na pět. Pro automatické testy dostaneš tajné číslo jako proměnnou tajne.",
+      "example": {
+        "main.py": "pokusy = 0\nwhile pokusy < 5:\n    tip = int(input())\n    pokusy += 1\n    if tip < tajne:\n        print(\"vyssi\")\n    elif tip > tajne:\n        print(\"nizsi\")\n    else:\n        print(\"spravne\")\n        break\nif pokusy == 5 and tip != tajne:\n    print(\"konec\")\n"
+      },
+      "practice": "Máš proměnnou tajne (1–10). Načítej nejvýše 5 tipů. Vypiš vyssi/nizsi podle směru; po uhodnutí spravne a skonči, jinak po pátém tipu konec.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "PYL15",
+      "title": "Závěrečné procvičování Pythonu",
+      "category": "python",
+      "mission": "PY30",
+      "explanation": "Zpracuj skutečná data, ne předem spočítanou odpověď. Projdi serverové logy, zjisti úroveň každého záznamu a zvyš odpovídající čítač. Změna počtu nebo pořadí událostí musí automaticky změnit výsledek.",
+      "example": {
+        "main.py": "errors = 0\nwarnings = 0\nfor log in logs:\n    if log.startswith(\"ERROR \"):\n        errors += 1\n    elif log.startswith(\"WARNING \"):\n        warnings += 1\nprint(\"ERROR\", errors)\nprint(\"WARNING\", warnings)\n"
+      },
+      "practice": "Server PVE-01 poskytuje seznam logs. Spočítej záznamy s úrovní ERROR a WARNING. Vypiš ERROR N a WARNING M na samostatných řádcích. Nepřepisuj vstupní logs.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0."
+    },
+    {
+      "id": "WEBL01",
+      "title": "Základní HTML dokument",
+      "category": "web",
+      "mission": "WEB01",
+      "explanation": "HTML je značkovací jazyk pro strukturu. DOCTYPE html volí moderní režim; html je kořen, head obsahuje metadata a body viditelný obsah. title je název dokumentu.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Ahoj, světe!</h1>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Vytvoř HTML5 dokument s html, head, title a body; v body musí být neprázdný h1.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL02",
+      "title": "Nadpisy, odstavce a text",
+      "category": "web",
+      "mission": "WEB03",
+      "explanation": "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Academy</h1><h2>Studium</h2><p>První odstavec.</p><p>Druhý odstavec.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL03",
+      "title": "Odkazy a obrázky",
+      "category": "web",
+      "mission": "WEB05",
+      "explanation": "a s href vytvoří odkaz. #id odkazuje na sekci. Externí target='_blank' doplň rel='noopener noreferrer'. img má src a alt; smysluplný alternativní text popisuje obsah obrázku.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<a href=\"https://developer.mozilla.org/\">Dokumentace</a>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Vytvoř neprázdný odkaz a s href='https://developer.mozilla.org/'.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL04",
+      "title": "Seznamy",
+      "category": "web",
+      "mission": "WEB08",
+      "explanation": "ul je nečíslovaný a ol číslovaný seznam. Jejich položky jsou li. Vnořený seznam patří dovnitř položky nadřazeného seznamu.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<ul><li>Programování</li><li>Hry</li><li>Hudba</li></ul><ol><li>Napiš</li><li>Otestuj</li></ol>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Vytvoř ul se třemi li a ol se dvěma li.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL05",
+      "title": "Tabulky",
+      "category": "web",
+      "mission": "WEB09",
+      "explanation": "table popisuje tabulková data, tr řádek, th záhlaví a td buňku. caption pojmenuje tabulku. thead/tbody organizují oddíly, scope='col' nebo 'row' pomáhá určit záhlaví.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<table><caption>Provoz IT</caption><thead><tr><th scope=\"col\">Služba</th><th scope=\"col\">Dostupnost</th></tr></thead><tbody><tr><td>Helpdesk</td><td>8–16</td></tr><tr><td>Monitoring</td><td>24/7</td></tr></tbody></table>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Vytvoř table alespoň se třemi řádky tr, dvěma záhlavími th a čtyřmi datovými buňkami td.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL06",
+      "title": "Kontejnery a sémantické elementy",
+      "category": "web",
+      "mission": "WEB11",
+      "explanation": "div je obecný blok, span řádkový kontejner. header/nav/main/section/article/aside/footer dávají obsahu význam. main obsahuje hlavní obsah dokumentu.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<header><h1>Firma</h1><nav><a href=\"#sluzby\">Služby</a></nav></header><main><section id=\"sluzby\"><div><span>Správa IT</span></div></section></main><footer>IT firma</footer>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Použij header, nav s odkazem, main se section a footer. Do section přidej div se span.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL07",
+      "title": "Atributy id a class",
+      "category": "web",
+      "mission": "WEB12",
+      "explanation": "id je jedinečný identifikátor, class může označit více prvků. CSS používá #id a .class. title je doplňující popis, hidden skrývá prvek, disabled zakazuje vstup a required jej činí povinným.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div id=\"uvod\" class=\"karta\">Vítej</div>\n</body>\n</html>",
+        "style.css": ".karta { padding: 16px; }\n#uvod { color: teal; }",
+        "script.js": ""
+      },
+      "practice": "Přidej prvek id='uvod' a třídu karta. Napiš CSS .karta s padding a #uvod s color.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL08",
+      "title": "Formuláře",
+      "category": "web",
+      "mission": "WEB15",
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "Vytvoř form se dvěma pojmenovanými input poli a submit tlačítkem.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL09",
+      "title": "CSS: barvy, mezery a layout",
+      "category": "web",
+      "mission": "WEB21",
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Barevný helpdesk</h1><p>Vítej</p>\n</body>\n</html>",
+        "style.css": "body { background-color: #e8f7ff; }\nh1 { color: teal; }",
+        "script.js": ""
+      },
+      "practice": "Pomocí CSS změň color na h1 a background-color na body.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL10",
+      "title": "Základy JavaScriptu",
+      "category": "web",
+      "mission": "WEB28",
+      "explanation": "JavaScript reaguje na události. document.getElementById vyhledá prvek, addEventListener('click', function(){...}) registruje obsluhu a textContent změní jeho text. Náhled interpretuje jen uvedenou omezenou gramatiku.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<script src=\"script.js\" defer></script>\n</head>\n<body>\n<button id=\"tlacitko\" type=\"button\">Klikni</button><p id=\"vysledek\">Zatím nic.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": "document.getElementById(\"tlacitko\").addEventListener(\"click\", function () {\n    document.getElementById(\"vysledek\").textContent = \"Ahoj!\";\n});"
+      },
+      "practice": "Tlačítko id='tlacitko' po kliknutí změní text prvku id='vysledek' na Ahoj!. Použij připojený script.js nebo inline script.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL11",
+      "title": "Entity a komentáře",
+      "category": "web",
+      "mission": "WEB27",
+      "explanation": "&lt; a &gt; zapisují znaky < a > jako text, &amp; ampersand, &quot; uvozovku a &nbsp; nezlomitelnou mezeru. HTML komentář začíná <!-- a končí -->; do obsahu se nevykreslí.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<!-- Vysvětlení --><p>Značka se píše &lt;p&gt; &amp; text.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "practice": "V odstavci zobraz značku <p> pomocí &lt; a &gt;. Přidej HTML komentář.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL12",
+      "title": "Projekt vlastní stránky",
+      "category": "web",
+      "mission": "WEB29",
+      "explanation": "Spoj sémantickou strukturu, smysluplné nadpisy, obsah, odkazy a externí styly. Ověř čitelnost, přístupné popisky a jedinečnost id v náhledu.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<main><h1>Alex</h1><p>Učím se programovat.</p><p>Vítej na mém webu.</p><ul><li>Kód</li><li>Hry</li><li>Hudba</li></ul><img src=\"server.svg\" alt=\"Akademie\"><a href=\"https://developer.mozilla.org/\">Dokumentace</a></main>\n</body>\n</html>",
+        "style.css": "h1 { color: teal; }\nmain { padding: 20px; }",
+        "script.js": ""
+      },
+      "practice": "Vytvoř stránku s main, h1, dvěma odstavci, seznamem tří koníčků, obrázkem s alt, odkazem a externím CSS.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    },
+    {
+      "id": "WEBL13",
+      "title": "Závěrečné procvičování webu",
+      "category": "web",
+      "mission": "WEB30",
+      "explanation": "Web helpdesku má srozumitelnou navigaci, seznam služeb, tabulku provozu a označená pole formuláře. Otestuj místní odkazy i formulář; lokální náhled nikam neposílá data.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<header><h1>IT Helpdesk</h1><nav><a href=\"#sluzby\">Služby</a><a href=\"#kontakt\">Kontakt</a></nav></header><main><section id=\"sluzby\"><h2>Naše služby</h2><ul><li>Správa serverů</li><li>Zálohy</li><li>Síť</li></ul></section><table><caption>Provoz IT</caption><thead><tr><th scope=\"col\">Služba</th><th scope=\"col\">Dostupnost</th></tr></thead><tbody><tr><td>Helpdesk</td><td>8–16</td></tr><tr><td>Monitoring</td><td>24/7</td></tr></tbody></table><section id=\"kontakt\"><h2>Napiš nám</h2><form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form></section></main><footer>IT společnost</footer>\n</body>\n</html>",
+        "style.css": "body { background-color: #e8f3fa; padding: 18px; }\nh1 { color: teal; }\nsection { padding: 12px; border: 1px solid teal; border-radius: 8px; }",
+        "script.js": ""
+      },
+      "practice": "Vytvoř český HTML5 web helpdesku: h1, nav s místním odkazem, main se sekcí služeb, seznam tří služeb, tabulka provozu (caption, th, td), kontaktní form (jméno, email, zpráva, submit, správné label), externí CSS a upravený vzhled.",
+      "steps": [
+        "Napiš nebo uprav kód.",
+        "Spusť a prohlédni výsledek.",
+        "Změň kód a spusť znovu.",
+        "Samostatně splň zadání a otestuj všechny případy."
+      ],
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS."
+    }
+  ],
+  "debugging": [
+    {
+      "id": "DBG01",
+      "title": "Chybějící dvojtečka",
+      "description": "Najdi a oprav chybu: Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "vek = int(input())\nif vek >= 18\n    print(\"dospely\")"
+      },
+      "tests": [
+        {
+          "output": "dospely\n",
+          "inputs": [
+            "18"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "student\n",
+          "inputs": [
+            "16"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "dite\n",
+          "inputs": [
+            "10"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "if"
+      ],
+      "lesson": "PYL07",
+      "topic": "Podmínky if, elif, else",
+      "objectives": [
+        "Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti věk. Vypiš dospely pro 18+, student pro 15–17, jinak dite. Použij if/elif/else."
+      ],
+      "explanation": "Podmínka vybírá větev programu. Vyhodnotí se první pravdivá větev, další se přeskočí. Za if/elif/else patří dvojtečka. Blok odsaď čtyřmi mezerami a stejné úrovně zarovnej.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "vek = int(input())\nif vek >= 18:\n    print(\"dospely\")\nelif vek >= 15:\n    print(\"student\")\nelse:\n    print(\"dite\")\n"
+      },
+      "reward": 100,
+      "base_id": "PY17"
+    },
+    {
+      "id": "DBG02",
+      "title": "Chybné odsazení",
+      "description": "Najdi a oprav chybu: Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "n = int(input())\nwhile n > 0:\nprint(n)\n    n -= 1"
+      },
+      "tests": [
+        {
+          "output": "3\n2\n1\n",
+          "inputs": [
+            "3"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "5\n4\n3\n2\n1\n",
+          "inputs": [
+            "5"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "while"
+      ],
+      "lesson": "PYL08",
+      "topic": "Cykly for a while",
+      "objectives": [
+        "Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku."
+      ],
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "n = int(input())\nwhile n > 0:\n    print(n)\n    n -= 1\n"
+      },
+      "reward": 100,
+      "base_id": "PY20"
+    },
+    {
+      "id": "DBG03",
+      "title": "Přiřazení místo porovnání",
+      "description": "Najdi a oprav chybu: Načti celé číslo a pomocí modulo vypiš sude nebo liche.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "n = int(input())\nif n % 2 = 0:\n    print(\"sude\")\nelse:\n    print(\"liche\")"
+      },
+      "tests": [
+        {
+          "output": "sude\n",
+          "inputs": [
+            "12"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "liche\n",
+          "inputs": [
+            "7"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "sude\n",
+          "inputs": [
+            "0"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "if",
+        "%"
+      ],
+      "lesson": "PYL03",
+      "topic": "Aritmetické a logické operátory",
+      "objectives": [
+        "Načti celé číslo a pomocí modulo vypiš sude nebo liche.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti celé číslo a pomocí modulo vypiš sude nebo liche."
+      ],
+      "explanation": "+ - * / počítají, // dělí se zaokrouhlením dolů, % vrací zbytek a ** mocninu. == porovnává, = přiřazuje. and/or vyhodnocují zleva s krátkým vyhodnocením; not obrací pravdivost.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "n = int(input())\nif n % 2 == 0:\n    print(\"sude\")\nelse:\n    print(\"liche\")\n"
+      },
+      "reward": 100,
+      "base_id": "PY07"
+    },
+    {
+      "id": "DBG04",
+      "title": "Index mimo rozsah",
+      "description": "Najdi a oprav chybu: Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku.",
+      "category": "python",
+      "difficulty": 1,
+      "starter": {
+        "main.py": "print(text[99])\nprint(text[-1])\nprint(text[1:4])"
+      },
+      "tests": [
+        {
+          "output": "P\nn\nyth\n",
+          "inputs": [],
+          "globals": {
+            "text": "Python"
+          }
+        },
+        {
+          "output": "S\nr\nerv\n",
+          "inputs": [],
+          "globals": {
+            "text": "Server"
+          }
+        }
+      ],
+      "constructs": [
+        "index",
+        "slice"
+      ],
+      "lesson": "PYL04",
+      "topic": "Řetězce, metody a f-stringy",
+      "objectives": [
+        "Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+        "Prohlédni výsledek Spustit a řádek chyby. Pro dodaný text vypiš první znak, poslední znak a výřez [1:4], každý na řádku."
+      ],
+      "explanation": "Řetězce jsou neměnné. strip() vrátí text bez krajních mezer, lower()/upper() mění velikost písmen. Indexy začínají nulou, -1 označuje poslední znak. Výřez [start:stop] nezahrnuje stop. f-string vkládá výrazy ve složených závorkách.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "print(text[0])\nprint(text[-1])\nprint(text[1:4])\n"
+      },
+      "reward": 100,
+      "base_id": "PY11"
+    },
+    {
+      "id": "DBG05",
+      "title": "Neošetřený vstup",
+      "description": "Najdi a oprav chybu: Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "vek = int(input())\nprint(vek + 1)"
+      },
+      "tests": [
+        {
+          "output": "16\n",
+          "inputs": [
+            "15"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Zadej číslo\n",
+          "inputs": [
+            "abc"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "Zadej číslo\n",
+          "inputs": [
+            "3.5"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "try"
+      ],
+      "lesson": "PYL12",
+      "topic": "Ošetření chyb",
+      "objectives": [
+        "Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "try spustí rizikovou operaci, except ValueError zachytí neplatný převod čísla. Zachycuj očekávanou chybu, neopisuj poškozený vstup jako správný výsledek. Chyby limitů a izolace nelze zachytit.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti vstup a vypiš celé číslo za rok; ValueError zachyť a vypiš Zadej číslo."
+      ],
+      "explanation": "try spustí rizikovou operaci, except ValueError zachytí neplatný převod čísla. Zachycuj očekávanou chybu, neopisuj poškozený vstup jako správný výsledek. Chyby limitů a izolace nelze zachytit.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "try:\n    vek = int(input())\n    print(vek + 1)\nexcept ValueError:\n    print(\"Zadej číslo\")\n"
+      },
+      "reward": 100,
+      "base_id": "PY27"
+    },
+    {
+      "id": "DBG06",
+      "title": "Nekonečný cyklus",
+      "description": "Najdi a oprav chybu: Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "n = int(input())\nwhile n > 0:\n    print(n)"
+      },
+      "tests": [
+        {
+          "output": "3\n2\n1\n",
+          "inputs": [
+            "3"
+          ],
+          "globals": {}
+        },
+        {
+          "output": "5\n4\n3\n2\n1\n",
+          "inputs": [
+            "5"
+          ],
+          "globals": {}
+        }
+      ],
+      "constructs": [
+        "while"
+      ],
+      "lesson": "PYL08",
+      "topic": "Cykly for a while",
+      "objectives": [
+        "Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+        "Prohlédni výsledek Spustit a řádek chyby. Načti celé kladné číslo. Pomocí while odpočítej k 1 včetně, každý údaj na řádku."
+      ],
+      "explanation": "for prochází kolekci. range(start, stop, step) nezahrnuje stop. while opakuje blok, dokud je podmínka pravdivá. Měň řídicí hodnotu. continue přeskočí zbytek iterace, break ukončí nejbližší cyklus.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "n = int(input())\nwhile n > 0:\n    print(n)\n    n -= 1\n"
+      },
+      "reward": 100,
+      "base_id": "PY20"
+    },
+    {
+      "id": "DBG07",
+      "title": "Chybějící return",
+      "description": "Najdi a oprav chybu: Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.",
+      "category": "python",
+      "difficulty": 2,
+      "starter": {
+        "main.py": "def obsah_obdelniku(sirka, vyska):\n    print(sirka * vyska)"
+      },
+      "tests": [
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              5,
+              4
+            ],
+            "value": 20
+          }
+        },
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              10,
+              2
+            ],
+            "value": 20
+          }
+        },
+        {
+          "call": {
+            "name": "obsah_obdelniku",
+            "args": [
+              3,
+              7
+            ],
+            "value": 21
+          }
+        }
+      ],
+      "constructs": [
+        "def"
+      ],
+      "lesson": "PYL09",
+      "topic": "Funkce, parametry a return",
+      "objectives": [
+        "Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí.",
+        "Ověřit řešení pro všechny testovací vstupy"
+      ],
+      "hints": [
+        "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+        "Prohlédni výsledek Spustit a řádek chyby. Napiš funkci obsah_obdelniku(sirka, vyska), která vrátí obsah. Výpis nestačí."
+      ],
+      "explanation": "def definuje opakovaně volaný blok. Parametry přijímají argumenty; mohou mít výchozí hodnoty. return vrací hodnotu volajícímu. print výsledek pouze vypisuje. Funkce bez return vrací None.",
+      "errors": "Zkontroluj dvojtečky, uvozovky, odsazení a datové typy. = přiřazuje, == porovnává; první index je 0.",
+      "example": {
+        "main.py": "def obsah_obdelniku(sirka, vyska):\n    return sirka * vyska\n"
+      },
+      "reward": 100,
+      "base_id": "PY22"
+    },
+    {
+      "id": "DBG08",
+      "title": "Neuzavřený kontejner",
+      "description": "Najdi a oprav chybu: Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Web</h1><h2>Sekce</h2><div><p>Jeden</p><p>Dva</p>\n</body>\n</html>",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "body h1",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body h2",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body p",
+          "count": 2
+        }
+      ],
+      "lesson": "WEBL02",
+      "topic": "Nadpisy, odstavce a text",
+      "objectives": [
+        "Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Academy</h1><h2>Studium</h2><p>První odstavec.</p><p>Druhý odstavec.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100,
+      "base_id": "WEB03"
+    },
+    {
+      "id": "DBG09",
+      "title": "Alt, label a duplicitní id",
+      "description": "Najdi a oprav chybu: Vytvoř stránku s img a form se dvěma input poli; všechny obrázky mají alt, vstupy label a id jsou jedinečná.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<img src=\"server.svg\"><form><input id=\"x\"><input id=\"x\"></form>\n</body>\n</html>",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "img",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "form input",
+          "count": 2
+        },
+        {
+          "kind": "accessibility"
+        }
+      ],
+      "lesson": "WEBL08",
+      "topic": "Formuláře",
+      "objectives": [
+        "Vytvoř stránku s img a form se dvěma input poli; všechny obrázky mají alt, vstupy label a id jsou jedinečná.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "form obsahuje vstupy. label se propojí atributem for s id pole nebo pole obalí. input type email/number poskytuje základní validaci. textarea je víceřádkový vstup, select volba. HTML samo nezpracuje zprávu na serveru.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<img src=\"server.svg\" alt=\"Server\"><form><label for=\"jmeno\">Jméno</label><input id=\"jmeno\" name=\"jmeno\" required><label for=\"email\">E-mail</label><input id=\"email\" name=\"email\" type=\"email\" required><label for=\"zprava\">Zpráva</label><textarea id=\"zprava\" name=\"zprava\"></textarea><button type=\"submit\">Odeslat</button></form>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100,
+      "base_id": "WEB20"
+    },
+    {
+      "id": "DBG10",
+      "title": "Chybná cesta CSS",
+      "description": "Najdi a oprav chybu: Připoj style.css přes link rel='stylesheet'. V externím souboru nastav color pro h1.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n<link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n<h1>Web</h1>\n</body>\n</html>",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "stylesheet"
+        },
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Připoj style.css přes link rel='stylesheet'. V externím souboru nastav color pro h1.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Externí styly</h1>\n</body>\n</html>",
+        "style.css": "h1 { color: royalblue; }",
+        "script.js": ""
+      },
+      "reward": 100,
+      "base_id": "WEB26"
+    },
+    {
+      "id": "DBG11",
+      "title": "Chybný selektor",
+      "description": "Najdi a oprav chybu: Pomocí CSS změň color na h1 a background-color na body.",
+      "category": "css",
+      "difficulty": 2,
+      "starter": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Barvy</h1>\n</body>\n</html>",
+        "style.css": "nadpis { color: teal; }\nbody { background-color: white; }",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "css",
+          "selector": "h1",
+          "property": "color"
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "property": "background-color"
+        }
+      ],
+      "lesson": "WEBL09",
+      "topic": "CSS: barvy, mezery a layout",
+      "objectives": [
+        "Pomocí CSS změň color na h1 a background-color na body.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "CSS selektor vybírá prvky. color a background-color mění barvy. padding jsou vnitřní mezery, margin vnější. border a border-radius ohraničují box. display:flex řadí prvky, grid tvoří mřížku. Externí CSS připoj link rel='stylesheet'.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<h1>Barevný helpdesk</h1><p>Vítej</p>\n</body>\n</html>",
+        "style.css": "body { background-color: #e8f7ff; }\nh1 { color: teal; }",
+        "script.js": ""
+      },
+      "reward": 100,
+      "base_id": "WEB21"
+    },
+    {
+      "id": "DBG12",
+      "title": "Špatné vnoření",
+      "description": "Najdi a oprav chybu: Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+      "category": "web",
+      "difficulty": 1,
+      "starter": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Web</h1><h2>Sekce</h2><strong><em>Text</strong></em><p>Jeden</p><p>Dva</p>\n</body>\n</html>",
+        "style.css": "/* Vlastní styly */\n",
+        "script.js": "// Vlastní interakce\n"
+      },
+      "tests": [
+        {
+          "kind": "exists",
+          "selector": "body h1",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body h2",
+          "count": 1
+        },
+        {
+          "kind": "exists",
+          "selector": "body p",
+          "count": 2
+        }
+      ],
+      "lesson": "WEBL02",
+      "topic": "Nadpisy, odstavce a text",
+      "objectives": [
+        "Přidej do body jeden h1, alespoň jeden h2 a dva odstavce p.",
+        "Ověřit živý náhled a strukturální testy"
+      ],
+      "hints": [
+        "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+        "Zkontroluj elementy, jejich rodiče, atributy a přiřazené selektory."
+      ],
+      "explanation": "h1–h6 vyjadřují úroveň nadpisu. p je odstavec; strong důležitost, em důraz, mark označení. br zalomí řádek, hr oddělí témata. Nadpisy vybírej podle významu.",
+      "errors": "Časté chyby: špatné vnoření, neuzavřená značka, chybějící alt/label, duplicitní id nebo nesprávná cesta k CSS.",
+      "example": {
+        "index.html": "<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n<meta charset=\"UTF-8\">\n<title>IT Academy</title>\n\n</head>\n<body>\n<h1>Academy</h1><h2>Studium</h2><p>První odstavec.</p><p>Druhý odstavec.</p>\n</body>\n</html>",
+        "style.css": "",
+        "script.js": ""
+      },
+      "reward": 100,
+      "base_id": "WEB03"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ var tokens: Array = []
 var pos = 0
 var error = ""
 var depth = 0
+var comments = 0
 const PRECEDENCE = {"or":1,"and":2,"==":3,"!=":3,"<":3,">":3,"<=":3,">=":3,"in":3,"not in":3,"+":4,"-":4,"*":5,"/":5,"//":5,"%":5,"**":7}
 
 func fail(message: String):
@@ -31,7 +32,7 @@ func emit(kind: String, value, line: int):
 	tokens.append({"t":kind,"v":value,"line":line})
 
 func lex(source: String):
-	tokens=[]; pos=0; error=""; depth=0
+	tokens=[]; pos=0; error=""; depth=0; comments=0
 	if source.length()>32768: fail("Zdroj smí mít nejvýše 32 768 znaků."); return
 	var indents=[0]
 	var brackets=[]
@@ -42,7 +43,8 @@ func lex(source: String):
 		while i<line.length() and line[i] in [" ","\t"]:
 			if line[i]=="\t": fail("Použij mezery místo tabulátoru."); return
 			i+=1
-		if i==line.length() or line[i]=="#": continue
+		if i==line.length(): continue
+		if line[i]=="#": comments+=1; continue
 		if brackets.is_empty():
 			if i>indents.back(): indents.append(i); emit("op","INDENT",n+1)
 			while i<indents.back(): indents.pop_back(); emit("op","DEDENT",n+1)
@@ -50,7 +52,7 @@ func lex(source: String):
 		while i<line.length():
 			var c=line[i]
 			if c==" ": i+=1; continue
-			if c=="#": break
+			if c=="#": comments+=1; break
 			var formatted=c in ["f","F"] and i+1<line.length() and line[i+1] in ["'",'"']
 			if c in ["'",'"'] or formatted:
 				if formatted: i+=1; c=line[i]
@@ -169,14 +171,19 @@ func expression(minimum: int = 0) -> Dictionary:
 		take()
 		if op=="not in": take()
 		var right=expression(PRECEDENCE[op]+(0 if op=="**" else 1))
-		left={"k":"binary","op":op,"left":left,"right":right}
+		if PRECEDENCE[op]==3:
+			if left.k!="compare": left={"k":"compare","first":left,"pairs":[]}
+			left.pairs.append({"op":op,"value":right})
+		else: left={"k":"binary","op":op,"left":left,"right":right}
 	depth-=1
 	return left
 
 func atom() -> Dictionary:
 	var t=take()
 	var node={"k":"literal","value":null}
-	if t.t=="number": node.value=float(t.v) if "." in t.v else int(t.v)
+	if t.t=="number":
+		if "." in t.v: node.value=float(t.v)
+		else: node.value=int(t.v)
 	elif t.t=="string": node.value=t.v
 	elif t.t=="format": node={"k":"format","value":t.v}
 	elif t.v in ["True","False","None"]: node.value={"True":true,"False":false,"None":null}[t.v]
