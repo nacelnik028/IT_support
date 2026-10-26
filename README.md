@@ -12,9 +12,8 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 Hlavní scéna je `scenes/world/Game.tscn`. Není třeba žádný plugin ani internet.
 
 **Windows bez otevření editoru:** spusť `build/ITSupportSimulator.exe`.
-Vedle něj ponech `ITSupportSimulator.pck`. Přenášej celou složku `build`.
-Balíček obsahuje místní plný Godot engine a exportovaný PCK; běžné exportní
-šablony nebyly nainstalované. Proto je EXE větší než standardní export.
+Herní data jsou vložená přímo v EXE; stačí přenést tento jediný soubor.
+Používá Windows x86_64 Debug šablonu Godotu a nevyžaduje instalaci editoru.
 
 ## Ovládání a první směna
 
@@ -178,6 +177,10 @@ Hyper-V: `Get-VM`, `Get-VMHost`, `Get-VMSwitch`, `Get-VMNetworkAdapter`,
 `Get-VMSnapshot`, `Get-Disk`, `Get-Volume`, `Get-PhysicalDisk`,
 `Get-Service vmms`, `Get-WinEvent`, `Start-VM -Name FS01`, `Stop-VM -Name FS01`.
 Podporované dotazy na VM přijímají `-Name` / `-VMName` a jména v uvozovkách.
+Diagnostika čte vybraného hostitele. Start a vypnutí přes terminál používají
+stejné hodnocení, události výuky a ukládání jako formuláře. Ve volném tréninku
+a výukových režimech s povoleným undo je lze vrátit jako poslední zásah;
+diagnostické dotazy historii zásahů nemění.
 
 Parser nevytváří procesy. Bash/PowerShell nejsou skutečně spuštěny.
 Řetězení, pipe, přesměrování a expanze jsou odmítnuty.
@@ -280,6 +283,24 @@ V PowerShellu s cestou ke console variantě Godotu:
 ./tools/Build-Windows.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
 
+Sestavení vyžaduje Python 3; skript používá také dostupné `uv`, případně lze
+zadat `-PythonPath 'C:/cesta/python.exe'`. `tools/build_windows.py` v dočasné
+kopii znovu použije engine z existujícího EXE a oficiálním exportérem vloží
+aktuální herní data. Zdrojový projekt i exportní preset zůstávají zachované.
+Samostatnou oficiální Windows Debug šablonu lze zadat přepínačem `--template`
+při přímém spuštění Python skriptu. Před nahrazením EXE se ověřuje struktura,
+shoda verzí enginu a velikost pod 100 MiB.
+
+Samostatné EXE i přímo jeho zabalená herní data ověří:
+
+```powershell
+python tools/test_windows.py --godot 'C:/cesta/Godot.exe'
+```
+
+Test spouští samotné EXE bez zdrojového projektu a odděleně ověřuje vložený
+PCK přes plný Godot editor. Používá izolované save/config cesty; grafické
+testy vyžadují GPU. Pro prostředí bez grafiky lze přidat `--headless`.
+
 Ostrost skutečného obrazu ověřuje grafický test (vyžaduje grafickou kartu,
 spouštěj bez `--headless`):
 
@@ -293,6 +314,8 @@ v `test-output/*-4k-native.png` a `*-4k-magnified.png`. Při úpravách UI zacho
 `oversampling_with_scale` na kořeni UIController a používej DPITexture pro ikony;
 viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html#font-and-image-oversampling).
 
+- `terminal_sessions.gd`: skutečné UI terminálu, správný hostitel, undo,
+  ukládání a jeho selhání, kroky/hodnocení všech tří výukových režimů a ochrana kampaně.
 - `platform_context.gd`: odmítnutí nesprávné platformy a neplatných cílů bez změn infrastruktury.
 - `console_ux.gd`: skutečná kliknutí šesti kroky, kontext, posuv, fokus,
   formuláře, VM101 v síti, timeout obrazu a preference; `-- --screenshots` pořídí snímky.
@@ -379,8 +402,8 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   synchronizovaný stavový snímek; nejsou simulovány reálné intervaly přenosu.
 - RAID výpočty jsou orientační před metadata/filesystemem. VHDX a kapacitní
   vrstvy pracují s výukovými jednotkami GB; TB/TiB je zvlášť v RAID kalkulátoru.
-- Není vytvořen instalátor ani standardní template export. Windows balíček
-  používá plný místní engine (přibližně181MB) vedle malého herního PCK.
+- Není vytvořen instalátor. Samostatné Windows EXE používá Debug šablonu
+  a vložený PCK; obsahuje také diagnostické funkce enginu.
 
 ## Primární studijní zdroje
 

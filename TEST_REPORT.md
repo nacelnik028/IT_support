@@ -1,5 +1,29 @@
 # Ověření rozšířené hratelné verze
 
+## Opravy terminálu a Windows EXE — 26. 10. 2026
+
+Celý `tools/Test-All.ps1`: **24 sad PASS, exit 0, bez runtime chyb a varování**.
+65 misí v modelu i UI, 21 lekcí × 3 režimy, 1075 výukových kontrol,
+336 výukových UI akcí, 474 kontrol ukládání a 700 kontrol navigace.
+Nová sada `terminal_sessions.gd`: **63 headless i GPU kontrol PASS**.
+Chrání správný kontext hostitele, undo pro oba hypervisory, výukové události,
+hodnocení chyb, odloženou kampaň a opakování skutečně selhaného zápisu.
+
+Výsledný samostatný EXE má 104 340 256 bajtů a vložený PCK. `tools/test_windows.py`
+ověřil přímý start tohoto EXE bez zdrojového projektu headless i graficky na
+Windows (oba exit 0, čisté logy). Nad daty vloženými přímo v témže EXE prošlo
+**64 kontrol terminálu, 162 kontrol UI, 27 kontrol 3D UI a 39 kontrol servisu**,
+včetně 4K; vše bez runtime chyb a varování. Použit Forward+/Vulkan / Intel UHD.
+Šablona nepovoluje externí `--script`/`--path`; podrobné testy proto používají
+plný editor přes `--main-pack`, přímý start EXE se kontroluje zvlášť.
+
+Přesný SHA256 ověřeného souboru a stavy kontrol jsou v `build/VERIFICATION.json`.
+Logy: `test-output/terminal-fix-test-all.log`, `terminal-sessions-gpu.log` a
+`test-output/windows-package/`; screenshoty v jeho podadresáři `screenshots`.
+Použité jsou izolované SaveManager/DisplaySettings cesty, přímý EXE start
+má `--test-world`. Hráčův save nebyl změněn. Obsah misí/lekcí včetně legacy24
+zůstává shodný; generátory obsahu nebylo třeba měnit.
+
 ## Profesionální UI při zachování 3D — 25. 10. 2026
 
 Celý `tools/Test-All.ps1`: **23 sad PASS, exit 0, bez runtime chyb/varování**.

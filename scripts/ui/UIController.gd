@@ -1318,9 +1318,8 @@ func draw_terminal():
 	input.text_submitted.connect(func(command):
 		command_history.append(command)
 		history_position=command_history.size()
-		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+preload("res://scripts/simulation/TerminalParser.gd").execute(game.sim,command,terminal_host)+"\n"
+		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+game.execute_terminal(command,terminal_host)+"\n"
 		terminal_history=terminal_history.right(14000)
-		game.save()
 		form_drafts.erase(form_scopes._terminal)
 		form_controls.erase("_terminal")
 		draw_ui())

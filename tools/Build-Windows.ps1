@@ -1,4 +1,4 @@
-param([string]$GodotPath = '')
+param([string]$GodotPath = '', [string]$PythonPath = '')
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 if (-not $GodotPath) {
@@ -7,19 +7,9 @@ if (-not $GodotPath) {
     else { throw 'Zadej -GodotPath s cestou ke spustitelnému Godotu 4.x.' }
 }
 $enginePath = (Resolve-Path -LiteralPath $GodotPath).Path
-$buildPath = Join-Path $projectRoot 'build'
-New-Item -ItemType Directory -Force -Path $buildPath | Out-Null
-$packPath = Join-Path $buildPath 'ITSupportSimulator.pck'
-& $enginePath --headless --path $projectRoot --export-pack 'Windows Desktop' $packPath
-if ($LASTEXITCODE -ne 0) { throw 'Vytvoreni PCK selhalo.' }
-# Portable engine + PCK works without installed export templates.
-$desktopEngine = $enginePath -replace '_console.exe$', '.exe'
-if (-not (Test-Path -LiteralPath $desktopEngine)) { $desktopEngine = $enginePath }
-Copy-Item -LiteralPath $desktopEngine -Destination (Join-Path $buildPath 'ITSupportSimulator.exe') -Force
-Copy-Item -LiteralPath (Join-Path $projectRoot 'README.md') -Destination (Join-Path $buildPath 'README.md') -Force
-foreach ($document in @('TRAINING.md','TEST_REPORT.md')) {
-    $documentPath = Join-Path $projectRoot $document
-    if (Test-Path -LiteralPath $documentPath) { Copy-Item -LiteralPath $documentPath -Destination $buildPath -Force }
-}
-Copy-Item -LiteralPath (Join-Path $projectRoot 'GODOT-LICENSE.txt') -Destination $buildPath -Force
-Write-Output "Hotovo: $buildPath/ITSupportSimulator.exe (ponech vedle nej soubor PCK)."
+$builder = Join-Path $PSScriptRoot 'build_windows.py'
+if ($PythonPath) { & $PythonPath $builder --godot $enginePath }
+elseif (Get-Command uv -ErrorAction SilentlyContinue) { & uv run --no-project --python 3.14 python $builder --godot $enginePath }
+else { & python $builder --godot $enginePath }
+if ($LASTEXITCODE -ne 0) { throw 'Sestaveni samostatneho EXE selhalo; zkontroluj test-output/windows-build-*.log.' }
+Write-Output "Hotovo: $projectRoot/build/ITSupportSimulator.exe (herni data jsou uvnitr EXE)."

@@ -1,0 +1,12 @@
+{
+  "sha256": "372936020238d3b93b44af169e99d309dcc654a4649f2494b6f16b64c5b8f74f",
+  "bytes": 104340256,
+  "results": {
+    "native_headless": true,
+    "native_graphical": true,
+    "terminal_sessions": true,
+    "ui_design": true,
+    "world_ui": true,
+    "world_playthrough": true
+  }
+}

@@ -1,7 +1,7 @@
 extends RefCounted
 
 # This parser reads and edits dictionaries only. It deliberately has no OS execution API.
-static func execute(sim, line: String, context: String = "PVE-01") -> String:
+static func execute(sim, line: String, context: String = "PVE-01", action_handler: Callable = Callable()) -> String:
 	var command = line.strip_edges()
 	if command == "": return ""
 	for forbidden in [";","|","&",">","<","`","$(","\n"]:
@@ -16,9 +16,10 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 	var s = sim.state
 	if verb in ["help","?","get-help"]:
 		return "LINUX / PVE:\nqm list | qm config 100 | qm start 100 | qm shutdown 100\npct list | pvesm status | pveversion -v\nzpool status | zpool list | lsblk | df -h | lvs\nip -br address | ip route | pvecm status\n\nPOWERSHELL / HYPER-V:\nGet-VM [-Name 'FS01'] | Get-VMHost | Get-VMSwitch\nGet-VMNetworkAdapter | Get-VMHardDiskDrive | Get-VMMemory\nGet-VMIntegrationService | Get-VMSnapshot\nGet-Disk | Get-Volume | Get-PhysicalDisk | Get-Service vmms\nGet-WinEvent | Start-VM -Name FS01 | Stop-VM -Name FS01\n\nPřepni cílový hostitel nad terminálem. Formuláře konzolí mění tentýž stav."
+	if not s.hosts.has(context): return "Neznámý cílový hostitel. Vyber PVE-01, PVE-02, HV-01 nebo HV-02."
 	var ps = verb.begins_with("get-") or verb in ["start-vm","stop-vm"]
-	if ps and not context.begins_with("HV"): return "Tento příkaz patří do PowerShellu. Vyber HV-01 nebo HV-02."
-	if not ps and not context.begins_with("PVE"): return "Tento příkaz patří na PVE hostitele. Vyber PVE-01 nebo PVE-02."
+	if ps and s.hosts[context].kind != "Hyper-V": return "Tento příkaz patří do PowerShellu. Vyber HV-01 nebo HV-02."
+	if not ps and s.hosts[context].kind != "Proxmox": return "Tento příkaz patří na PVE hostitele. Vyber PVE-01 nebo PVE-02."
 	s.diagnostic.viewed = true
 	s.journal.append("Terminál " + context + ": " + command)
 	if verb == "qm":
@@ -27,7 +28,7 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 		var vm = sim.get_vm(str(args[2]))
 		if vm.is_empty() or vm.host != context: return "qm: VMID na vybraném PVE uzlu neexistuje."
 		if args[1]=="config": return JSON.stringify(vm,"  ")
-		if args[1] in ["start","shutdown"]: return sim.act("power",{"vm":args[2],"power":"Start" if args[1]=="start" else "Shutdown"}).text
+		if args[1] in ["start","shutdown"]: return power(sim,str(args[2]),args[1]=="start",action_handler)
 		return "qm: nepodporovaná operace. Použij help."
 	if verb=="pct":
 		if args.size()!=2 or args[1]!="list": return "Použití: pct list"
@@ -37,7 +38,7 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 		return "Name        Type      Status    TotalGB UsedGB AvailableGB\nlocal-lvm   lvmthin   %s    %.0f     %.0f    %.0f\nPBS         pbs       %s" % ["active" if s.storage.used<s.storage.capacity else "full",float(s.storage.capacity),float(s.storage.used),float(s.storage.capacity-s.storage.used),"active" if s.backup.configured else "inactive"]
 	if verb=="pveversion":
 		if args.size()>2 or (args.size()==2 and args[1]!="-v"): return "Použití: pveversion [-v]"
-		return "proxmox-ve: 9.2 (výuková simulace)\nRepo: %s / updated: %s" % [s.hosts["PVE-01"].repo,s.hosts["PVE-01"].updated]
+		return "proxmox-ve: 9.2 (výuková simulace)\nRepo: %s / updated: %s" % [s.hosts[context].repo,s.hosts[context].updated]
 	if verb=="zpool":
 		if args.size()<2 or not args[1] in ["list","status"]: return "Použití: zpool status [-P] [tank] | zpool list"
 		if args[1]=="list": return "NAME SIZE ALLOC FREE HEALTH\ntank %sG %sG %sG %s" % [s.zfs.capacity,s.storage.used,maxf(s.zfs.capacity-s.storage.used,0),s.zfs.health.to_upper()]
@@ -72,7 +73,7 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 			else: return "PowerShell parser: nepodporovaný nebo neúplný parametr " + str(args[i])
 		if verb=="get-vmhost":
 			var h=s.hosts[context]
-			return "%s | RAM %s GB | reserve %s GB | VMMS %s" % [context,h.ram,h.get("reserve",4),s.hosts["HV-01"].vmms]
+			return "%s | RAM %s GB | reserve %s GB | VMMS %s" % [context,h.ram,h.get("reserve",4),h.vmms]
 		if verb=="get-vmswitch": return JSON.stringify(s.network.switches,"  ")
 		if verb=="get-service": return "vmms " + ("Running" if s.hosts[context].get("vmms",true) else "Stopped")
 		if verb=="get-disk": return JSON.stringify(s.disk,"  ")
@@ -95,10 +96,17 @@ static func execute(sim, line: String, context: String = "PVE-01") -> String:
 				"get-vmsnapshot": rows.append(vm.name+": "+JSON.stringify(vm.get("checkpoints",[])))
 				"start-vm","stop-vm":
 					if name_filter=="": return "Uveď -Name konkrétní VM. Hromadné zásahy nejsou podporované."
-					return sim.act("power",{"vm":id,"power":"Start" if verb=="start-vm" else "Shutdown"}).text
+					return power(sim,str(id),verb=="start-vm",action_handler)
 				_: return "Neznámý simulovaný příkaz. Zadej help."
 		return "\n".join(rows) if not rows.is_empty() else "Žádná odpovídající VM. Ověř jméno / VMID."
 	return "Neznámý simulovaný příkaz '%s'. Zadej help. Nic nebylo spuštěno v OS." % args[0]
+
+static func power(sim, vm: String, start: bool, action_handler: Callable) -> String:
+	var params={"vm":vm,"power":"Start" if start else "Shutdown"}
+	# The game supplies its action pipeline; standalone simulator callers keep
+	# the same API without depending on UI, sessions or persistence.
+	var result=action_handler.call("power",params) if action_handler.is_valid() else sim.act("power",params)
+	return result.text
 
 static func vm_table(s: Dictionary, context: String) -> String:
 	var rows=["VMID NAME STATE RAM(GB) DISK(GB) NODE"]

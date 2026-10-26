@@ -6,6 +6,7 @@ signal room_changed(training_room: bool)
 const Simulator = preload("res://scripts/simulation/InfrastructureSimulator.gd")
 const Evaluator = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 const Saves = preload("res://scripts/progression/SaveManager.gd")
+const Terminal = preload("res://scripts/simulation/TerminalParser.gd")
 const Tutorials=preload("res://scripts/training/TutorialManager.gd")
 var tutorial=Tutorials.new()
 var session_kind="campaign"
@@ -234,6 +235,19 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	result.saved = error==OK
 	result.save_error = error
 	return result
+
+func execute_terminal(command: String, host: String) -> String:
+	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+		return "V této místnosti není aktivní odpovídající úkol."
+	var execution={"applied":false}
+	var dispatch=func(action: String, params: Dictionary):
+		execution.applied=true
+		return apply(action,params)
+	var output=Terminal.execute(sim,command,host,dispatch)
+	# apply() already records undo, tutorial events, errors and persistence.
+	# Queries only persist their diagnostic/journal evidence, without undo.
+	if not execution.applied: save()
+	return output
 
 func undo() -> bool:
 	if training and not undo_states.is_empty():

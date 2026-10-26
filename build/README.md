@@ -4,7 +4,7 @@
 
 Stáhni tento jediný soubor a spusť ho dvojklikem ve Windows 10/11 (64bit).
 Celá hra je uvnitř EXE; nemusíš nic instalovat ani ručně rozbalovat.
-Soubor má **104 339 040 bajtů (přibližně 99,5 MiB)**.
+Soubor má **104 340 256 bajtů (přibližně 99,5 MiB)**.
 
 EXE je nyní uložené přímo v Gitu. Úplná binárka je tedy také ve staženém
 zdrojovém repozitáři ve složce `build`; Git LFS ke stažení hry nepotřebuješ.
