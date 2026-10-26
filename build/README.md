@@ -1,23 +1,20 @@
-# IT Support Simulator: Datacenter Academy — Windows release
+# IT Support Simulator: Datacenter Academy — Windows build
 
-**[Stáhnout přímo ITSupportSimulator.exe](https://media.githubusercontent.com/media/nacelnik028/IT_support/main/build/ITSupportSimulator.exe)**
+**[Stáhnout ITSupportSimulator.exe](https://raw.githubusercontent.com/nacelnik028/IT_support/main/build/ITSupportSimulator.exe)**
 
 Stáhni tento jediný soubor a spusť ho dvojklikem ve Windows 10/11 (64bit).
-Celá hra je uvnitř EXE; nepotřebuješ nic rozbalovat, instalovat ani otevírat v Godotu.
-Skutečný soubor má **110 430 816 bajtů (přibližně 105 MiB)**.
+Celá hra je uvnitř EXE; nemusíš nic instalovat ani ručně rozbalovat.
+Soubor má **104 339 040 bajtů (přibližně 99,5 MiB)**.
 
-Přímý odkaz výše míří na úplný obsah uložený na GitHubu přes Git LFS.
-Raw odkaz přes raw.githubusercontent.com může vracet pouze 134bajtový
-textový odkaz Git LFS. Úplnou binárku stáhneš přímým odkazem výše.
-Pro stažení jediného spustitelného souboru použij odkaz výše.
+EXE je nyní uložené přímo v Gitu. Úplná binárka je tedy také ve staženém
+zdrojovém repozitáři ve složce `build`; Git LFS ke stažení hry nepotřebuješ.
 
-Pro klonování repozitáře s plnou binárkou použij `git lfs pull`.
+Použita oficiální Windows Debug šablona Godot 4.7.2 pro x86_64.
+Podrobnosti o sestavení a ověření jsou v `BUILD_INFO.md`, kontrolní součty
+v `SHA256SUMS` a licence enginu v `GODOT-LICENSE.txt`.
 
-Při potížích s Vulkanem lze použít PowerShell:
+Pro grafické karty bez vhodné podpory Vulkan lze použít PowerShell:
 
 ```powershell
 .\ITSupportSimulator.exe --rendering-method gl_compatibility
 ```
-
-Sestaveno oficiální release šablonou Godot 4.7.2 pro Windows x86_64.
-Licenci enginu obsahuje `GODOT-LICENSE.txt`; kontrolní součty jsou v `SHA256SUMS`.

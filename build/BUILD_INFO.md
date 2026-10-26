@@ -1,24 +1,21 @@
-# Windows release — 2026-10-26
+# Samostatná Windows hra — 2026-10-26
 
-- Zdrojový commit hry: `f5acc3f065ba65dd187dfc2194990b19858e88b7`.
-- Engine a oficiální Windows release šablona: Godot 4.7.2.stable.official.ed1daf0bf.
-- Platforma: Windows x86_64; herní PCK je vložené v `ITSupportSimulator.exe`.
-- Oficiální stažené archivy ověřeny přes SHA512 z Godot release.
-- Export proběhl v dočasné kopii; původní herní zdroje a exportní preset jsou nezměněné.
-- Všech 23 sad z `tools/Test-All.ps1` prošlo headless na Linuxu, bez runtime chyb a varování.
-  Zahrnuje 65 misí v modelu i UI, 21 lekcí ve třech režimech (1075 kontrol),
-  336 výukových UI akcí a 474 kontrol ukládání.
-- Prostředky zabalené přímo v tomto EXE prošly dalšími 34 kontrolami servisního
-  průchodu, 27 kontrolami herního UI a 162 kontrolami rozhraní. Použit Linux
-  Godot editor s `--main-pack`; ověřena také PE x86_64 struktura a vložený PCK.
-- Grafické spuštění EXE na Windows ani GPU testy nebyly v tomto Linux prostředí provedeny.
-- Testy používají oddělené save/config cesty. Kontrolní součty distribuce jsou v `SHA256SUMS`.
+- Zdrojový commit herního obsahu: `f5acc3f065ba65dd187dfc2194990b19858e88b7`.
+- Engine: oficiální Godot 4.7.2.stable.official.ed1daf0bf.
+- Platforma: Windows x86_64; herní PCK je vložené přímo v `ITSupportSimulator.exe`.
+- Varianta exportu: Debug (`--export-debug`) s oficiální Windows šablonou. Tato varianta se i s herními daty vejde pod GitHub limit 100 MiB, takže umožňuje uložit skutečnou binárku přímo v běžném Gitu. Obsahuje diagnostické funkce Godotu.
+- Velikost EXE: 104 339 040 bajtů. Ve složce `build` není distribuční ZIP ani vedlejší PCK.
+- `build/.gitattributes` vypíná LFS filtr pro EXE. Přímé raw stažení i archiv aktuálního repozitáře tak mohou obsahovat celé spustitelné EXE.
+- Export proběhl v dočasné kopii projektu. Původní zdrojové soubory, testy, katalogy a exportní preset jsou nezměněné. Originální stažené Godot archivy byly ověřeny pevně připnutými SHA512 součty.
 
-Pro opakovaný build v připraveném cloudovém prostředí je uložen
-`/workspace/.cloud-setup/it-support/build-release.py` a postup v nastavení prostředí.
+## Ověření
 
-## Přímé stažení jediného EXE
+- Původní úplná sada 23 testů nad stejnými herními zdroji prošla bez chyb a varování: 65 misí v modelu i UI, 21 lekcí ve třech režimech, 336 výukových UI akcí a 474 kontrol ukládání.
+- Toto nové EXE prošlo spuštěním jako Windows binárka přes Wine 10.0: `--headless --quit-after 30`, načtení hlavní scény, ukončení s kódem 0 a bez Godot runtime chyb a varování. Wine má samostatný prefix mimo uživatelské herní uložené pozice.
+- Přímo herní data zabalená v tomto EXE prošla dalšími 34 kontrolami servisního průchodu, 27 kontrolami herního UI a 162 kontrolami rozhraní. Tyto testy běžely Linux Godot editorem přes `--main-pack`, mají vlastní SaveManager.path_override a DisplaySettings.path_override.
+- Ověřena struktura PE x86_64, vložený PCK, velikost pod 100 MiB a SHA256 distribuce.
+- Grafické hraní na fyzickém Windows počítači nebylo v tomto cloudovém prostředí ověřeno.
 
-- Na žádost uživatele je hlavním odkazem přímo celý soubor: https://media.githubusercontent.com/media/nacelnik028/IT_support/main/build/ITSupportSimulator.exe. Jde o standardní GitHub LFS media cestu pro již nahraný a zpětným stažením ověřený objekt.
-- Distribuce obsahuje samostatné EXE s vloženým PCK. Pro spuštění se stahuje jediný soubor; distribuční ZIP byl na žádost uživatele odstraněn.
-- Přímý HTTP požadavek na media.githubusercontent.com není v tomto cloudovém prostředí povolen egress proxy; samotný objekt byl ověřen přes nativní Git LFS.
+Opakované sestavení: `/workspace/.cloud-setup/it-support/build-release.py`.
+Windows kontrola: `/workspace/.cloud-setup/it-support/test-windows.py`.
+Instalace a aktivace nástrojů jsou uložené v nastavení prostředí.
