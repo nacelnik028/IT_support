@@ -1,0 +1,109 @@
+{
+  "base_commit": "99c201215f83408f333829ed05aa0489253acc14",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "full_regression": {
+    "ui_workflow": "PASS",
+    "programming_runtime": "PASS",
+    "programming_catalog": "PASS",
+    "programming_academy": "PASS",
+    "programming_integration": "PASS",
+    "programming_polish": "PASS",
+    "programming_location": "PASS",
+    "xr_modes": "PASS",
+    "terminal_sessions": "PASS",
+    "platform_context": "PASS",
+    "console_ux": "PASS",
+    "ui_design": "PASS",
+    "world_ui": "PASS",
+    "stage1": "PASS",
+    "campaign": "PASS",
+    "regression": "PASS",
+    "extended": "PASS",
+    "session_safety": "PASS",
+    "save_safety": "PASS",
+    "physical3d": "PASS",
+    "world3d": "PASS",
+    "door3d": "PASS",
+    "world_playthrough": "PASS",
+    "training_rooms": "PASS",
+    "tutorial_first": "PASS",
+    "tutorial_navigation": "PASS",
+    "lessons": "PASS",
+    "training_features": "PASS",
+    "ui_safety": "PASS",
+    "ui_smoke": "PASS",
+    "training_ui": "PASS",
+    "display_settings": "PASS"
+  },
+  "training_ui": {
+    "all_modes": true,
+    "actions": 336,
+    "failures": 0
+  },
+  "ui_workflow": {
+    "headless_checks": 357,
+    "graphical_checks": 357,
+    "failures": 0,
+    "resolutions": [
+      "1280x720",
+      "1920x1080",
+      "3840x2160"
+    ],
+    "text_scales": [
+      1.0,
+      1.3
+    ],
+    "renderer": "OpenGL Compatibility, Mesa llvmpipe, Xvfb",
+    "actual_main_scene": true,
+    "real_input_events": true
+  },
+  "render_quality": {
+    "checks": 8,
+    "failures": 0,
+    "svg_gpu_texture": [
+      38,
+      38
+    ]
+  },
+  "pack_regression": {
+    "native_checks_runtime": "Wine",
+    "editor_pack_checks_runtime": "Linux",
+    "sha256": "daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b",
+    "bytes": 104720824,
+    "results": {
+      "native_headless": true,
+      "ui_workflow": true,
+      "programming_runtime": true,
+      "programming_catalog": true,
+      "programming_academy": true,
+      "programming_integration": true,
+      "programming_polish": true,
+      "programming_location": true,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": true
+    }
+  },
+  "wine_graphical": {
+    "sha256": "daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b",
+    "bytes": 104720824,
+    "runtime": "Wine 10.0, Xvfb, Mesa llvmpipe",
+    "renamed_exe_only": true,
+    "different_working_directory": true,
+    "menu_window_title": "IT Support Simulator: Training academy (DEBUG)",
+    "normal_window_close_exit": 0,
+    "functional_smoke_exit": 0,
+    "native_windows": false
+  },
+  "screenshots": {
+    "baseline": 60,
+    "final": 72,
+    "tracked_representatives": 25
+  },
+  "native_windows_verified": false,
+  "physical_headset_verified": false,
+  "github_download_verified": false,
+  "archive_zip_apk_rebuilt": false
+}

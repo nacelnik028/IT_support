@@ -12,6 +12,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot', required=True)
     parser.add_argument('--suite', action='append', help='Run only this existing suite (repeatable)')
+    parser.add_argument('--log-dir', type=Path, default=ROOT / 'test-output', help='Separate logs for this run')
     parser.add_argument('--graphical', action='store_true')
     parser.add_argument('--screenshots', action='store_true')
     args = parser.parse_args()
@@ -21,8 +22,8 @@ def main():
         unknown = set(args.suite) - set(names)
         if unknown: parser.error(f'Unknown suites: {sorted(unknown)}')
         names = [name for name in names if name in args.suite]
-    logs = ROOT / 'test-output'
-    logs.mkdir(exist_ok=True)
+    logs = args.log_dir
+    logs.mkdir(parents=True, exist_ok=True)
     failed = []
     for name in names:
         command = [args.godot, '--audio-driver', 'Dummy', '--path', str(ROOT), '--script', f'tests/{name}.gd']

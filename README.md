@@ -1,4 +1,4 @@
-# IT Support Simulator: Datacenter Academy
+# IT Support Simulator: Training academy
 
 Český offline 3D simulátor IT administrátora z první osoby pro Godot4.x.
 Vytvořeno a ověřeno v Godotu4.7.2.stable.official.ed1daf0bf.
@@ -8,10 +8,20 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 
 Nová **Programming Academy** přidává třetí 3D místnost, editor vlastního kódu,
 15 Python + 13 webových lekcí, 60 praktických úloh a 12 opravovacích variant.
-Vstup je dveřmi vlevo od racků (západní stěna serverovny) nebo Pauza → Programming Academy.
+Vstup je dveřmi vlevo od racků (západní stěna serverovny) z hlavního menu přes Programovací učebnu nebo Pauza → Programovací učebna.
 Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS náhled
 pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
+
+## Aktuální rozhraní
+
+Kompaktní menu rozlišuje pracovní směnu, IT tréninkovou akademii a programovací
+učebnu. Hlavní akce, VR, Nastavení a Ukončit jsou dostupné i v 720p při 130 % textu.
+Editor nabízí **Spustit kód** a **Ověřit řešení**, samostatné záložky Výstup / Chyby /
+Ověření a přechod z chyby na známý řádek. Po editaci označí předchozí ověření jako
+zastaralé. Formuláře rozlišují koncept, použití v simulaci a skutečné uložení.
+Přejmenování zachovává původní složku uložených pozic a nastavení.
+[Snímky před a po, reprodukce a omezení](docs/ui-review/2026-11-02-ux/README.md).
 
 ## Spuštění
 
@@ -22,7 +32,7 @@ Soubor je přímo v Gitu bez LFS; použij stažení původního souboru (Raw),
 ne ukládání HTML stránky GitHubu. Kontrolní součet je v `build/SHA256SUMS`.
 [Reprodukovatelné sestavení a ověření](build/README.md).
 Starší `builds/ITSupportSimulator-Windows.zip` a PICO APK zůstávají archivními
-artefakty z 26. 10.; neobsahují nynější přesun programovací učebny.
+artefakty z 26. 10.; neobsahují nynější přesun učebny ani nové UI a název.
 
 PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.

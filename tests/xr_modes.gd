@@ -53,7 +53,7 @@ func run():
 	root.add_child(shell)
 	await frames()
 	check(shell.ui.ui_targets.has("menu:vr"),"Menu nabízí VR")
-	check(shell.ui.ui_targets["menu:primary"].text.contains("KLASICKÉM 3D"),"Menu nabízí desktop")
+	check(shell.ui.ui_targets["menu:primary"].text.to_lower().contains("klasické 3d"),"Menu nabízí desktop")
 	shell.start_vr()
 	check(not shell.vr_active and shell.mode=="menu","Chybějící OpenXR vrací menu")
 	for child in shell.ui.get_children():

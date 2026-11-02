@@ -21,7 +21,7 @@ func _draw():
 	if game==null or game.sim.state.is_empty(): return
 	var s = game.training_sim.state if laboratory else game.main_sim.state
 	if application=="Trénink":
-		draw_string(font,Vector2(35,120),"IT TRAINING ACADEMY",HORIZONTAL_ALIGNMENT_LEFT,-1,36,INK)
+		draw_string(font,Vector2(35,120),"IT TRÉNINKOVÁ AKADEMIE",HORIZONTAL_ALIGNMENT_LEFT,-1,36,INK)
 		for i in 3:
 			draw_rect(Rect2(35,155+i*95,w-70,75),Color("152638"))
 			draw_string(font,Vector2(60,200+i*95),["01   UČÍM SE","02   PROCVIČOVÁNÍ","03   ZKOUŠKA"][i],HORIZONTAL_ALIGNMENT_LEFT,-1,25,ACCENT)

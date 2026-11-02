@@ -27,7 +27,7 @@ var root_box: Control
 var center: VBoxContainer
 var notice = ""
 var bad_notice = false
-var terminal_history = "DATACENTER ACADEMY • bezpečný simulovaný terminál\nZadej help pro seznam podporovaných příkazů.\n"
+var terminal_history = "TRAINING ACADEMY • bezpečný simulovaný terminál\nZadej help pro seznam podporovaných příkazů.\n"
 var command_history: Array = []
 var history_position = 0
 var sound_on = true
@@ -51,6 +51,9 @@ var persistence_box: VBoxContainer
 var form_drafts: Dictionary={}
 var form_scopes: Dictionary={}
 var form_defaults: Dictionary={}
+var form_outcomes: Dictionary={}
+var form_states: Dictionary={}
+var operation_scope=""
 var draft_revision=-1
 var save_caption: Label
 const Forms = preload("res://scripts/ui/FormValues.gd")
@@ -175,6 +178,7 @@ func clear_ui():
 	form_buttons.clear()
 	form_scopes.clear()
 	form_defaults.clear()
+	form_states.clear()
 	settings_controls.clear()
 	if is_instance_valid(root_box):
 		remove_child(root_box)
@@ -190,6 +194,10 @@ func clear_ui():
 	refresh_persistence_status()
 
 func refresh_persistence_status():
+	if not game.unsaved:
+		for outcome in form_outcomes.values():
+			if outcome.get("kind","")=="applied": outcome.saved=true
+	for action in form_states: refresh_form_state(action)
 	if is_instance_valid(save_caption): save_caption.text="Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen."
 	if not is_instance_valid(persistence_box): return
 	for child in persistence_box.get_children():
@@ -213,6 +221,7 @@ func draw_ui():
 	if draft_revision==game.session_revision: capture_form_drafts()
 	else:
 		form_drafts.clear()
+		form_outcomes.clear()
 		working_context.views.clear()
 		wizard_step=0
 		wizard_unlocked=0
@@ -231,7 +240,7 @@ func draw_ui():
 	var top = hbox(whole)
 	var brand = vbox(top,2)
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	brand.add_child(label("DATACENTER / ACADEMY",20,WHITE))
+	brand.add_child(label("TRAINING / ACADEMY",20,WHITE))
 	brand.add_child(label("NORTHSTAR IT  /  OPERATIONS CENTER",10,MUTED))
 	top.add_child(label("ÚROVEŇ %d   •   %d XP" % [1+int(float(game.progress.xp)/600.0),int(game.progress.xp)],15))
 	top.add_child(button("Uložit a menu",save_and_menu))
@@ -782,6 +791,8 @@ func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
 	var action_button=button(action.label,func():
 		var problem=Forms.validate(self,action,inputs)
 		if problem!="":
+			form_outcomes[scope]={"kind":"rejected","values":read_form(inputs)}
+			refresh_form_state(action.id)
 			for field in action.fields:
 				if not problem.begins_with(str(field.label)+":"): continue
 				var error=errors[field.key]
@@ -817,8 +828,23 @@ func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
 		c.add_child(button("Operace je dostupná na "+fixed+" — vybrat hostitele",func(): capture_form_drafts(); selected_vm=""; host=fixed; draw_ui()))
 	var footer=card(action_parent) if action_parent!=null else c
 	footer.add_child(action_button)
-	if notice!="":
-		var message=label(({"error":"Chyba: ","warning":"Upozornění: "}.get(notice_kind,"Hotovo: "))+notice,13,Design.ERROR if bad_notice else (ORANGE if notice_kind=="warning" else Design.SUCCESS))
+	var state_label=label("",13,MUTED)
+	footer.add_child(state_label); form_states[action.id]=state_label
+	register_target("state:"+str(action.id),state_label)
+	for input in inputs.values():
+		var mark=func(_value=null): refresh_form_state(action.id)
+		if input is SpinBox:
+			input.value_changed.connect(mark); input.get_line_edit().text_changed.connect(mark)
+		elif input is LineEdit: input.text_changed.connect(mark)
+		elif input is OptionButton: input.item_selected.connect(mark)
+		elif input is CheckButton: input.toggled.connect(mark)
+		elif input.has_meta("selection"):
+			for check in input.get_child(0).get_children(): check.toggled.connect(mark)
+	refresh_form_state(action.id)
+	if notice!="" and operation_scope==scope and last_action==str(action.id):
+		var pending_save=form_outcomes.get(scope,{}).get("kind","")=="applied" and not form_outcomes.get(scope,{}).get("saved",false)
+		var prefix="Použito v simulaci, na disk neuloženo: " if pending_save else {"error":"Změna odmítnuta: ","warning":"Upozornění: "}.get(notice_kind,"Výsledek simulace: ")
+		var message=label(prefix+notice,13,Design.ERROR if bad_notice else (ORANGE if pending_save or notice_kind=="warning" else Design.SUCCESS))
 		message.max_lines_visible=3
 		message.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 		footer.add_child(message)
@@ -826,6 +852,16 @@ func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
 		if bad_notice: c.add_child(button("Vysvětlení a související výuka",show_operation_help))
 	form_buttons[action.id]=action_button
 	register_target("action:"+str(action.id),action_button)
+
+func refresh_form_state(action: String):
+	if not form_states.has(action) or not is_instance_valid(form_states[action]) or not form_controls.has(action): return
+	var values=read_form(form_controls[action])
+	var outcome=form_outcomes.get(form_scopes[action],{})
+	var rejected=outcome.get("kind","")=="rejected" and outcome.get("values",{})==values
+	var dirty=values!=form_defaults[action]
+	var caption="Změna odmítnuta / zkontroluj označené pole." if rejected else "Rozepsané změny / ještě nepoužito." if dirty else "Použito, ale neuloženo / opakuj uložení nahoře." if outcome.get("kind","")=="applied" and not outcome.get("saved",false) else "Použito a uloženo." if outcome.get("kind","")=="applied" else "Beze změn / hodnoty aktuální simulace."
+	form_states[action].text=caption
+	form_states[action].add_theme_color_override("font_color",Design.ERROR if rejected else ORANGE if dirty or (outcome.get("kind","")=="applied" and not outcome.get("saved",false)) else Design.SUCCESS if outcome.get("kind","")=="applied" else MUTED)
 
 func get_scroll_ancestors(control: Control) -> Array:
 	var result=[]
@@ -868,6 +904,7 @@ func restore_form(inputs: Dictionary, values: Dictionary):
 		elif input is SpinBox:
 			input.value=value.value
 			input.set_meta("restored_value",input.value)
+			input.set_meta("restored_text",value.text)
 			input.get_line_edit().text=value.text
 		elif input.has_meta("selection"):
 			for check in input.get_child(0).get_children(): check.button_pressed=check.get_meta("disk_id") in value
@@ -912,7 +949,11 @@ func confirm_action(action: Dictionary, params: Dictionary):
 func perform(action: String, params: Dictionary):
 	last_action=action
 	var tutorial_step=game.tutorial.session.get("step",-1)
+	var submitted_scope=form_scopes.get(action,"")
+	var submitted_values=read_form(form_controls[action]) if form_controls.has(action) else {}
 	var result=game.apply(action,params)
+	operation_scope=submitted_scope
+	if submitted_scope!="": form_outcomes[submitted_scope]={"kind":"applied" if result.ok else "rejected","values":submitted_values,"saved":not game.unsaved}
 	if result.ok and tab=="Průvodce VM" and action in Console.STEPS:
 		if action=="vm_identity": wizard_vm=str(params.id); selected_vm=wizard_vm
 		var guided_target=game.tutorial.target(game.sim.state).split(":") if game.tutorial.guided() else []
@@ -993,7 +1034,7 @@ func cancel_training_ui():
 	selected_vm = ""
 	notice = ""
 	full_notice = ""
-	terminal_history = "DATACENTER ACADEMY • bezpečný simulovaný terminál\n"
+	terminal_history = "TRAINING ACADEMY • bezpečný simulovaný terminál\n"
 
 func return_to_campaign():
 	if world_enabled: world_requested.emit("Hlavní serverovna")

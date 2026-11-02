@@ -104,6 +104,13 @@ static func build(text_scale: float) -> Theme:
 		t.set_stylebox("grabber_pressed", type, surface(ACCENT, ACCENT, 4, 4))
 	t.set_stylebox("background", "ProgressBar", surface(Color("10191f"), Color.TRANSPARENT, 4))
 	t.set_stylebox("fill", "ProgressBar", surface(ACCENT, Color.TRANSPARENT, 4))
+	t.set_stylebox("panel","TabContainer",surface(PANEL,BORDER,6,8))
+	t.set_stylebox("tab_selected","TabContainer",surface(Color("233d40"),ACCENT,4,10))
+	t.set_stylebox("tab_unselected","TabContainer",surface(RAISED,BORDER,4,10))
+	t.set_stylebox("tab_hovered","TabContainer",surface(Color("31434e"),ACCENT,4,10))
+	t.set_stylebox("tab_focus","TabContainer",focus_ring(ACCENT))
+	t.set_color("font_selected_color","TabContainer",ACCENT)
+	t.set_color("font_unselected_color","TabContainer",MUTED)
 	preload("res://scripts/ui/VectorIcons.gd").apply(t)
 	return t
 

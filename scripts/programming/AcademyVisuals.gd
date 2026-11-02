@@ -69,7 +69,7 @@ func chair(at: Vector3, accent: Color):
 
 func study_wall():
 	Geo.text(room,"NORTHSTAR  /  ACADEMY 03",Vector3(0,3.48,-20.73),32,0.003,Design.MUTED)
-	Geo.text(room,"PROGRAMMING ACADEMY",Vector3(0,3.13,-20.73),56,0.0035,PYTHON)
+	Geo.text(room,"PROGRAMOVACÍ UČEBNA",Vector3(0,3.13,-20.73),56,0.0035,PYTHON)
 	var board=world.devices["PROGRAM-DASHBOARD"]; board.position=Vector3(4,1.9,-20.6)
 	room.dashboard.font_size=27; room.dashboard.pixel_size=0.002; room.dashboard.width=2300; room.dashboard.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	var teacher=world.devices["PROGRAM-INSTRUCTOR"]
@@ -99,6 +99,6 @@ func entrance():
 	for x in [-8.04,-4.96]:
 		Geo.bevel(room,Vector3(x,1.45,-7),Vector3(0.13,2.9,0.31),Color("6d818d"),0.7,0.018)
 		Geo.box(room,Vector3(x,1.45,-6.82),Vector3(0.025,2.75,0.015),PYTHON,0,0.8)
-	room.door_notice=Geo.text(room,"PROGRAMMING ACADEMY / [E] OTEVŘÍT",Vector3(-6.5,3.25,-6.8),34,0.0032,PYTHON)
+	room.door_notice=Geo.text(room,"PROGRAMOVACÍ UČEBNA / [E] OTEVŘÍT",Vector3(-6.5,3.25,-6.8),34,0.0032,PYTHON)
 	# The inside control must face the inside, including its text plane.
 	room.door_panels[1].label.position.z=-0.08

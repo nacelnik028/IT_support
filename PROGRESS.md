@@ -1,5 +1,35 @@
 # Datacenter Academy — stav vývoje
 
+## UI/UX a název Training academy — 2. 11. 2026
+
+- Navázáno na uživatelem určený čistý commit 99c201215f83408f333829ed05aa0489253acc14.
+  Západní místnost, původní severní uzávěr a pozastavení při ztrátě fokusu zůstávají.
+- Menu má kompaktní identitu, oddělené 3D/VR a popsané vstupy do tří existujících
+  částí hry. Programování používá stejný enter_world přechod jako pauza, bez
+  automatického spuštění úlohy; kampaň se obnovuje přes stávající správu relací.
+- Oznámení místnosti je u levého dolního okraje a mizí po 4 s. Kritické neuložení
+  zůstává v HUD i v prázdné učebně; v editoru má trvalý řádek s opakováním zápisu.
+- Editor: Spustit kód / Ověřit řešení, tooltipy, Výstup / Chyby / Ověření, kliknutí
+  na známý soubor/řádek, zvýraznění a označení předchozího výsledku po změně kódu.
+  Nativní buffery, undo/redo, výběr, kurzor a vstupy zůstávají zachované.
+- Formuláře mají stav vázaný na platformu, hostitele, VM a operaci. Použití v modelu
+  není potvrzení zápisu. Obnovu surového číselného textu je nutné provést jeden
+  snímek po obnovení fokusu SpinBoxu, který jinak koncept přeformátuje.
+- Přejmenováno na Training academy v menu, okně, terminálu a 3D značení.
+  Custom user directory zachovává původní cesty save/config pro Linux/Windows/macOS.
+- Bez změn katalogů, referenčních řešení, simulace, XP nebo pravidel vyhodnocování.
+  Interpreter pouze předává přesná metadata řádku chyby. Nové UI navazuje na
+  AcademyTheme a stávající komponenty; nevznikají nové fonty ani herní assety.
+- UI workflow: 357/357 headless i graficky; kvalita 4K 8/8; přesný Windows pack
+  12 sad PASS. Úplný závěrečný běh 32 sad: 32 sad PASS, 0 selhání.
+- EXE: Windows x86_64 Debug, 104 720 824 B, vložený PCK, rezerva 136 776 B.
+  SHA256 daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b.
+  Detaily a rozlišení Wine/Linux/nativní Windows jsou v TEST_REPORT.md a build/.
+- Screenshoty v docs/ui-review/2026-11-02-ux; plná matice v test-output/ux-before
+  a ux-after. Opakovatelné install_script a start_skill jsou uložené v návrhu
+  cloud prostředí. Publikaci provádí uživatel; push není proveden.
+
+
 ## Přesun programovací učebny a spolehlivý Windows build — 2. 11. 2026
 
 - Navázáno na čistý checkout 4000cb0, bez obnovování projektu. Ověřena

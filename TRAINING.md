@@ -4,7 +4,7 @@ Centrum používá vlastní instanci InfrastructureSimulator se stejnými konzol
 formuláři, terminálem, sítí, storage a hodnocením jako kampaň. Jeho změny nemění
 hlavní infrastrukturu. Fyzické racky, LED a monitory čtou stav příslušné místnosti.
 
-## IT Training Academy ve3D
+## IT tréninková akademie ve3D
 
 Do samostatné místnosti dojdeš dveřmi napravo od serverovny. Pevný nástěnný
 panel z obou stran přes E otevírá i zavírá; po zasunutí křídla zůstává přístupný.
@@ -54,6 +54,11 @@ se při obnovení bezpečně přesune do hlavní uličky bez změny postupu.
 Desktopová hra při ztrátě fokusu přejde z chůze do pauzy a uvolní držené
 pohybové klávesy. Po návratu zvol Pokračovat. Rozepsaná konzole se při
 přepnutí do jiné aplikace nezavírá. VR nadále používá vlastní správu fokusu.
+
+Do serverového tréninku vede hlavní menu → IT tréninková akademie nebo stejná
+položka v pauze. Programovací učebna má samostatný vstup; rozpracovaná kampaň
+se při obou návštěvách zachovává. Oznámení změny místnosti je kompaktní a dočasné;
+chyba zápisu a možnost opakování uložení zůstávají dohledatelné.
 
 ## Výukové režimy
 

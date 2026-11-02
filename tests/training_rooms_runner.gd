@@ -75,7 +75,7 @@ func run():
 	Input.action_release("walk_forward")
 	check(game.game_mode.is_training(),"A: walking through door enters TRAINING")
 	check(not game.active and game.suspended_campaign.id==4,"A: working mission paused before selecting lesson")
-	check(shell.room_notice.text.contains("Vstoupil jsi do tréninkového centra."),"A: entry notification")
+	check(shell.room_notice.text.contains("IT tréninková akademie /"),"A: entry notification")
 	check(not game.start_mission(0) and not game.complete().ok,"A: campaign cannot start or complete in training room")
 	await capture("entry")
 	for lesson_mode in ["learn","practice","exam"]:
@@ -113,7 +113,7 @@ func run():
 	check(game.training_sim.state.disks["0"].health!="Missing" and game.undo_states.is_empty(),"B: training infrastructure, faults and undo reset")
 	check(game.progress==career and not game.education.lessons.has("1002"),"B: unfinished lesson creates no result and preserves career")
 	check(not game.restore_session(unfinished),"F: restoring training snapshot in MAIN rejected")
-	check(shell.room_notice.text.contains("Trénink ukončen."),"B: exit notification")
+	check(shell.room_notice.text.contains("Odchod z IT tréninkové akademie."),"B: exit notification")
 	await capture("exit")
 	await move_to(Vector3(10,0.02,3.5))
 	check(game.game_mode.is_training() and not game.active and not game.tutorial.active(),"C: returning to room does not restart unfinished lesson")

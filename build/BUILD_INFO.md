@@ -1,26 +1,22 @@
-# Ověřené sestavení — 2. 11. 2026
+# Aktuální sestavení UI/UX — 2. 11. 2026
 
-- Engine a oficiální šablona: `4.7.2.stable.official.ed1daf0bf`.
+- Název: **IT Support Simulator: Training academy**.
+- Základ zdrojů: `99c201215f83408f333829ed05aa0489253acc14` + nová UI/UX etapa.
+- Editor a oficiální šablona: `4.7.2.stable.official.ed1daf0bf`.
+  Oba původní archivy ověřeny proti oficiálním SHA512; TLS zůstalo zapnuté.
 - Export: **Windows x86_64 Debug**, herní data vložená v EXE.
-- Soubor: `build/ITSupportSimulator.exe`, **104,713,528 bajtů**.
-- Limit GitHubu: 104 857 600 bajtů; rezerva **144,072 bajtů**.
-- SHA256: `ea2b6a5fedf2d0ba390269c4d4c513e28f62aafc8a29b2cc2f3afaad83604c41`.
-- Ověřený x86_64 PE, sekce PCK a platné GDPC záhlaví i footer;
-  vložený pack má 1,536,812 bajtů. Soubor není Git LFS pointer.
-- Přesné EXE přejmenované v oddělené složce bez PCK a z jiné pracovní
-  složky: Wine headless smoke PASS, exit 0. Obsah 65/21 a 60/28,
-  západní učebna, Python, HTML/JS náhled a návrat do kampaně.
-- Přesný vložený pack: všech 11 vybraných regresních sad PASS,
-  včetně 114 kontrol skutečného průchodu a 31 kontrol world_ui.
-  Testy spouštěl Linux editor s `--main-pack`, nikoli Windows runtime.
-- Skutečné Windows EXE otevřené graficky ve Wine/Xvfb/Mesa: menu
-  prohlédnuto a zachyceno, standardní zavření okna exit 0.
-  Wine hlásí nepodporovaný dotaz na SDR white level; některé symbolové
-  fallbacky fontů se liší od Linuxu. Nejde o nativní Windows ověření.
-- Screenshot: `docs/ui-review/2026-11-02/windows-exe-wine.png`.
-- Bez Authenticode podpisu. SmartScreen se neobchází.
-- Starý Windows ZIP a PICO APK v builds/ nebyly přestavěny.
-
-Postup sestavení je verzovaný v `tools/build_windows.py`; PS1 wrapper
-používá stejnou implementaci. Detailní příkazy jsou v `build/README.md`.
-Publikace na GitHubu ani následné stažení této verze nejsou provedené.
+- Soubor: `build/ITSupportSimulator.exe`, **104 720 824 bajtů**.
+- Limit: 104 857 600 bajtů; rezerva **136 776 bajtů**.
+- SHA256: `daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b`.
+- Ověřen x86_64 PE, sekce packu, GDPC hlavička/footer a vložený pack 1 544 108 B.
+  EXE není LFS pointer; úplný Git blob má 104 720 824 B a shodný SHA256.
+- Přesné přejmenované EXE v samostatné složce bez PCK, spuštěné z jiné pracovní
+  složky: Wine headless smoke PASS (65/21, 60/28, západní učebna, Python, web,
+  návrat kampaně). Grafické ověření: Wine/Xvfb/Mesa skutečné menu 1600×900 zachyceno a prohlédnuto, běžné zavření i funkční export smoke exit 0. Nejde o nativní Windows.
+- Přesný vložený pack prošel 12 regresními sadami Linux editoru, včetně nového
+  ui_workflow 357 kontrol, programování, XR, terminálu, UI, fyzického průchodu
+  a opakované návštěvy západní učebny. Všech 12 exit 0 a čisté logy.
+- Sestavení vytvořil tools/build_windows.py oficiálním exportérem bez úprav PE,
+  UPX či vynechání obsahu. Shodný SHA256 je v SHA256SUMS a BUILD_INFO.json.
+- Nativní Windows, fyzický headset a následné stažení z GitHubu nebyly ověřeny.
+  Bez Authenticode podpisu; archivní Windows ZIP a PICO APK nejsou aktualizované.

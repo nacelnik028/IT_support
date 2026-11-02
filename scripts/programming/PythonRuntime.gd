@@ -58,7 +58,7 @@ func run(source: String, test_inputs: Array = [], initial: Dictionary = {}, virt
 	var parser=Parser.new()
 	ast=parser.parse(source)
 	trace.comment=parser.comments
-	if parser.error!="": error=parser.error
+	if parser.error!="": error=parser.error; error_line=parser.error_line
 	else:
 		var flow=block(ast,globals)
 		if error=="" and flow.kind!="normal": fail("SyntaxError","return, break nebo continue mimo povolený blok.")

@@ -1,6 +1,6 @@
 # Samostatné Windows EXE
 
-Spusť `ITSupportSimulator.exe`. Obsahuje celou hru včetně Python/Web učebny
+Spusť `ITSupportSimulator.exe` (Training academy). Obsahuje celou hru včetně Python/Web učebny
 vlevo od serverů. PCK, Godot editor ani instalátor nejsou potřeba.
 EXE je Windows x86_64 **Debug**, nikoli Release, uložené přímo v Gitu bez LFS.
 Musí mít méně než 104 857 600 bajtů. SHA256 ověř proti `SHA256SUMS`.
@@ -49,3 +49,11 @@ Aktuální prostředí je Linux. Wine headless ani grafický Xvfb/Mesa běh nejs
 nativní hraní na Windows. Podpis vydavatele není přidán; SmartScreen může
 zobrazit neznámého vydavatele. Žádná ochrana Windows se nevypíná.
 Archivní Windows ZIP a PICO APK v `builds/` nebyly touto etapou přestavěny.
+
+## Aktuální UI/UX verze
+
+Nové kompaktní menu, programovací editor a pravdivé stavy uložení jsou uvnitř
+samotného EXE. Velikost je 104 720 824 B, export Windows x86_64 Debug.
+Přejmenování nemění původní složku uložených pozic. Přesné výsledky, hash EXE, velikost
+obsaženého packu a omezení ověření uvádí BUILD_INFO.md a TEST_REPORT.md.
+Snímky jsou v docs/ui-review/2026-11-02-ux.

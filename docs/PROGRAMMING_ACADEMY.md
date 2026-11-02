@@ -1,16 +1,24 @@
-# Programming Academy
+# Programovací učebna (Programming Academy)
 
 Třetí oblast existující hry obsahuje 30 Python úloh PY01–PY30, 30 webových úloh WEB01–WEB30, 15 Python a 13 webových lekcí a 12 opravovacích variant DBG01–DBG12. Původní IT katalogy zůstávají samostatné.
 
 ## Použití
 
-Učebna je vlevo od racků v západní stěně serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je Pauza → Programming Academy. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
+Učebna je vlevo od racků v západní stěně serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je hlavní menu → Programovací učebna nebo Pauza → Programovací učebna. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
 
 Vyber lekci, úlohu či opravu a režim. Učím se obsahuje výklad a samostatně otevřenou ukázku. Vyžaduje úpravu, spuštění, další úpravu a spuštění a potom úspěšný test zadání. Procvičování má volitelné nápovědy. Zkouška blokuje nápovědy i ukázku. CodeEdit má odsazení, syntax highlighting, výběr textu, číslování řádků, desktopový clipboard/undo/redo a zoom A−/A+.
 
-Python input() čte řádky virtuální vstupní konzole. Spustit používá první datovou sadu, Otestovat všechny sady. Dodaná data zůstávají v pojmenovaných proměnných; například logs pro závěrečnou analýzu serveru PVE-01. Web přepíná index.html/style.css/script.js; Spustit obnoví interaktivní náhled. Odkazy na sekce, formuláře a podporované DOM kliknutí reagují.
+Python input() čte řádky virtuální vstupní konzole. Spustit kód používá první datovou sadu a vlastní vstupy; Ověřit řešení kontroluje všechny sady. Dodaná data zůstávají v pojmenovaných proměnných; například logs pro závěrečnou analýzu serveru PVE-01. Web přepíná index.html/style.css/script.js; Spustit kód obnoví interaktivní náhled. Odkazy na sekce, formuláře a podporované DOM kliknutí reagují.
 
 Generátor nabízí Python/HTML/CSS/JavaScript/smíšený trénink, začátečníka/pokročilého/zkoušku a 1–20 úloh. Mění skutečné vstupy a výsledky; webové varianty dostanou další strukturální požadavek. Před spuštěním ověří každou variantu referenčním řešením. Další úloha je dostupná po úspěšném testu. Základní JS událost je dostupná na obou obtížnostech s měněným doplňujícím požadavkem.
+
+Výstup programu, chyby a výsledky ověřování mají samostatné posuvné záložky.
+Přesná diagnostika soubor/řádek je kliknutelná a zvýrazní příslušný řádek; bez
+známé polohy nevzniká odkaz. Editace zachovává nejlepší uložený výsledek, ale
+označí předchozí ověření jako neaktuální. Při přepínání souborů zůstávají nativní
+CodeEdit buffery s undo/redo, kurzorem, výběrem a posuvem. Chyba zápisu zůstává
+viditelná nad editorem s existující cestou opakování zápisu. Zdrojové soubory
+stále nejsou trvale ukládané mezi návštěvami.
 
 ## Rozsah a izolace
 

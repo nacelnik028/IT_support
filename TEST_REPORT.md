@@ -1,7 +1,87 @@
 # Ověření rozšířené hratelné verze
 
+## Training academy — UI/UX, 2. 11. 2026
 
-## Aktuální ověření — 2. 11. 2026
+Tato aktuální sekce nahrazuje starší tvrzení o rozhraní a distribuci. Základ
+je uživatelem určený commit `99c201215f83408f333829ed05aa0489253acc14`.
+Načtena skutečná verze Godotu 4.7.2.stable.official.ed1daf0bf; editor i šablony
+mají ověřené oficiální SHA512. Godot 4.6.3 nebyl použit pro validaci projektu.
+
+| Ověření aktuální verze | Výsledek |
+|---|---|
+| Úplný `tools/test_all.py` podle aktuálního `Test-All.ps1` | 32 sad PASS, 0 selhání |
+| Nový `ui_workflow.gd`, headless | 357 kontrol, 0 selhání |
+| Stejný workflow graficky, skutečná hlavní scéna | 357 kontrol, 0 selhání |
+| 4K skutečné písmo a SVG (`render_quality`) | 8 kontrol, 0 selhání |
+| Přesný vložený pack výsledného EXE, Linux editor | všech 12 sad PASS |
+| Přesné přejmenované samotné EXE, Wine headless | PASS, exit 0 |
+| Přesné přejmenované samotné EXE, Wine graficky | menu a funkční smoke PASS; běžné zavření exit 0 |
+| Nativní Windows / fyzický headset | neprovedeno |
+
+Nový workflow používá skutečné události myši a klávesnice; před GameManager
+nastavuje vlastní SaveManager.path_override i DisplaySettings.path_override.
+Kontroluje dostupnost všech desktopových tlačítek menu bez posuvu, 3D/VR,
+přímý vstup do programování bez zahájení úlohy a obnovení kampaně. Pokrývá
+mizení běžného oznámení a trvalost kritického neuložení i v prázdné učebně.
+Editor: rozdíl run/verify, samostatný výstup a chyby, kliknutí na skutečný
+soubor/řádek, zvýraznění, nativní undo/redo, kurzor/výběr, vstupy, zastaralé
+ověření a zachování uloženého nejlepšího výsledku. Formuláře: koncept,
+odmítnutí bez trestu či změny infrastruktury, úspěch modelu při selhání zápisu,
+existující opakování zápisu, izolace hostitele a surový číselný koncept.
+
+Výchozí relevantní programovací a UI sady prošly před implementací. Uchovaná
+kopie původního commitu při srovnávacím běhu nového workflow reprodukovala
+6 ztrát číselného konceptu v šesti kombinacích; finální verze nemá tuto chybu.
+Během implementace byly opraveny zastaralé přesné textové kontroly xr_modes
+(3D tlačítko) a training_rooms (názvy oznámení); žádné assertions se nevypínaly.
+Starší neúspěšné logy nejsou zaměňované za závěrečný úplný běh.
+
+Grafika: 1280×720, 1920×1080, 3840×2160, každé 100 % i 130 %. Linux,
+Compatibility/Mesa llvmpipe, Xvfb, shodná testovací preference Úsporná,
+RenderingServer.force_draw s --disable-render-loop/--manual-capture.
+Běží skutečný framebuffer a všechny vstupy/layout kontroly. Prohlédnuty
+menu včetně VR, HUD, formuláře a chyby, editor/výstup/chyby/ověření,
+nastavení i lekce. 4K SVG textura 38×38; ostrost hran native/magnified:
+menu 0.389/0.197, rack 0.425/0.178, terminál 0.277/0.136.
+
+**EXE:** build/ITSupportSimulator.exe, Windows x86_64 Debug, **104 720 824 B**,
+vložený pack **1 544 108 B**, rezerva **136 776 B** do 100 MiB.
+SHA256 `daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b`.
+Oficiální exportér, platné PE/GDPC, bez vedlejšího PCK, bez UPX/úprav PE.
+Wine 10.0 spouštěl kopii pod jiným názvem z odlišného pracovního adresáře.
+GUI ukázalo titulek „IT Support Simulator: Training academy (DEBUG)“.
+Wine hlásí nepodporovaný dotaz na SDR white level; GUI přesto skutečně
+vykreslilo menu a prošlo smoke. Linux/Xvfb hlásí nepodporované přepnutí VSync.
+Tato omezení se neoznačují za herní chyby ani za čisté nativní Windows logy.
+
+Pack regression: ui_workflow 357, programming_runtime 31, programming_catalog
+1071, programming_academy 63, programming_integration 765 (252 generovaných
+variant), programming_polish 27, programming_location 114, xr_modes 69,
+terminal_sessions 64, ui_design 162, world_ui 31, world_playthrough 34;
+vše bez selhání. Tyto testy běžel Linux editor s --main-pack, nikoli Windows runtime.
+
+Snímky: [verzovaný výběr před/po](docs/ui-review/2026-11-02-ux/README.md),
+plná místní matice test-output/ux-before (60 PNG) a ux-after (72 PNG).
+Logy finálních běhů: test-output/final/regression.log a regression/,
+ui-workflow-graphical.log, render-quality.log, build.log, pack-final.log,
+wine-graphical.json. Přesné pack logy jsou také v test-output/windows-package/.
+Souběžné headless běhy měly různé datové složky; grafické běhy byly postupné.
+
+Přejmenování zachovává původní user data cestu přes Godot custom user dir;
+Linux cesta je skutečně ověřená, ve Wine vzniká kompatibilní Windows cesta.
+Žádné katalogy, první 24 mise, legacy_campaign.json, referenční postupy ani
+simulační pravidla nebyly změněné. Desktop focus pause/F11/obrazová potvrzení
+ověřují původní world_ui a display_settings regrese. XR ověření je syntetické.
+
+Opakovatelné cloud `install_script` a `start_skill` byly uložené do návrhu,
+instalační refresh byl vykonaný. Uložení návrhu není publikace ani ověření
+obnovy v novém tasku. Publikaci provádí uživatel v nastavení prostředí.
+EXE je nepodepsané; archivní ZIP/APK zůstávají staré. Push, publikace,
+nativní Windows, fyzické VR a stažení nové verze z GitHubu nebyly provedeny.
+
+
+
+## Předchozí etapa — přesun učebny, 2. 11. 2026
 
 Tato sekce se vztahuje k nynější etapě. Následující záznamy z října jsou
 historické a nedokládají ověření nového EXE na Windows.

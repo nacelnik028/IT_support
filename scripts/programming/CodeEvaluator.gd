@@ -4,10 +4,12 @@ const Runtime=preload("res://scripts/programming/PythonRuntime.gd")
 
 func evaluate(task: Dictionary, files: Dictionary, hints: int = 0, mode: String = "practice") -> Dictionary:
 	var checks=[]
+	var diagnostics=[]
 	if task.category=="python":
 		for test in task.tests:
 			var runtime=Runtime.new()
 			var r=runtime.run(files.get("main.py",""),test.get("inputs",[]),test.get("globals",{}),test.get("files",{}),int(test.get("seed",42)))
+			if not r.ok: diagnostics.append({"file":"main.py","line":int(r.get("line",0)),"text":r.get("error","")})
 			var ok=r.ok
 			if test.has("output"): ok=ok and r.output.strip_edges()==str(test.output).strip_edges()
 			if test.has("call") and r.ok:
@@ -31,4 +33,4 @@ func evaluate(task: Dictionary, files: Dictionary, hints: int = 0, mode: String 
 	var score=maxi(0,correctness-mini(20,hints*5))
 	var messages=[]
 	for check_data in checks: messages.append(check_data.text)
-	return {"ok":correctness==100,"score":score,"checks":checks,"text":"Výsledek: %d/100 · %d/%d testů\n%s\n%s" % [score,count,checks.size(),"\n".join(messages),"Všechny požadavky splněny." if correctness==100 else "Doporučení: "+task.explanation],"mode":mode}
+	return {"ok":correctness==100,"score":score,"checks":checks,"diagnostics":diagnostics,"text":"Výsledek: %d/100 · %d/%d testů\n%s\n%s" % [score,count,checks.size(),"\n".join(messages),"Všechny požadavky splněny." if correctness==100 else "Doporučení: "+task.explanation],"mode":mode}

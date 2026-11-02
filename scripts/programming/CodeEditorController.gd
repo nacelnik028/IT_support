@@ -31,6 +31,16 @@ var reset_button: Button
 var next_button: Button
 var summary: Label
 var brief_text=""
+var save_row: HBoxContainer
+var save_state: Label
+var output_tabs: TabContainer
+var errors_panel: VBoxContainer
+var errors_list: VBoxContainer
+var verification: TextEdit
+var verification_state: Label
+var verified_files: Dictionary={}
+var diagnostic_files: Dictionary={}
+
 
 func _exit_tree():
 	# Inactive file buffers retain native undo/caret state outside the split.
@@ -45,7 +55,7 @@ func _ready():
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,14)
 	var root=VBoxContainer.new(); margin.add_child(root)
 	var top=HBoxContainer.new(); root.add_child(top)
-	var heading=label("NORTHSTAR  /  PROGRAMMING ACADEMY",22)
+	var heading=label("NORTHSTAR  /  PROGRAMOVACÍ UČEBNA",20)
 	heading.autowrap_mode=TextServer.AUTOWRAP_OFF
 	top.add_child(heading)
 	top.add_child(button("Zpět do učebny  [Esc]",shell.return_to_world))
@@ -58,8 +68,13 @@ func _ready():
 	tools_row.add_child(button("Moje znalosti",show_dashboard))
 	tools_row.add_child(button("Podporovaný rozsah",show_limits))
 	next_button=button("Další úloha →",next_generated); tools_row.add_child(next_button)
+	save_row=HBoxContainer.new(); root.add_child(save_row)
+	save_state=label("",14); save_state.add_theme_color_override("font_color",Design.GOLD); save_row.add_child(save_state)
+	save_row.add_child(button("Zkusit uložit znovu",func(): shell.ui.game.save()))
+	shell.ui.game.persistence_changed.connect(refresh_save_state)
+	refresh_save_state()
 	var body=HBoxContainer.new(); root.add_child(body); body.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	var sidebar=VBoxContainer.new(); body.add_child(sidebar); sidebar.custom_minimum_size.x=330
+	var sidebar=VBoxContainer.new(); body.add_child(sidebar); sidebar.custom_minimum_size.x=290
 	category_picker=OptionButton.new()
 	for caption in ["Všechny oblasti","Python","HTML","CSS","JavaScript","Celý webový vývoj"]: category_picker.add_item(caption)
 	sidebar.add_child(category_picker)
@@ -72,14 +87,16 @@ func _ready():
 	task_list=VBoxContainer.new(); list_scroll.add_child(task_list); task_list.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	summary=label("",14); summary.add_theme_color_override("font_color",Design.MUTED); sidebar.add_child(summary)
 	var main=VBoxContainer.new(); main.size_flags_horizontal=Control.SIZE_EXPAND_FILL; body.add_child(main)
-	details=label("Vyber lekci nebo praktický úkol.",20); main.add_child(details)
-	lesson_text=RichTextLabel.new(); lesson_text.custom_minimum_size.y=136; main.add_child(lesson_text)
+	details=label("Vyber lekci nebo praktický úkol.",18); details.max_lines_visible=2; details.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS; main.add_child(details)
+	lesson_text=RichTextLabel.new(); lesson_text.custom_minimum_size.y=84; main.add_child(lesson_text)
 	instruction=label("",17); main.add_child(instruction)
 	var actions=HFlowContainer.new(); main.add_child(actions)
 	file_picker=OptionButton.new(); actions.add_child(file_picker)
 	file_picker.item_selected.connect(func(i): manager.edit(file_name,editor.text); switch_file(file_picker.get_item_text(i)))
-	run_button=button("▶ Spustit",run_code); actions.add_child(run_button)
-	test_button=button("✓ Otestovat",test_code,true); actions.add_child(test_button)
+	run_button=button("Spustit kód",run_code); actions.add_child(run_button)
+	test_button=button("Ověřit řešení",test_code,true); actions.add_child(test_button)
+	run_button.tooltip_text="Provede program s tvými vstupy nebo obnoví webový náhled. Neověřuje splnění úlohy."
+	test_button.tooltip_text="Zkontroluje požadavky zadání všemi existujícími testy a pokusí se uložit výsledek. Samotné spuštění úlohu nesplní."
 	reset_button=button("Resetovat",reset_code); actions.add_child(reset_button)
 	hint_button=button("Nápověda",func(): console.text=manager.hint()); actions.add_child(hint_button)
 	hint_button.theme_type_variation="InstructorButton"
@@ -87,18 +104,29 @@ func _ready():
 	actions.add_child(button("A−",func(): zoom(-2)))
 	actions.add_child(button("A+",func(): zoom(2)))
 	actions.add_child(button("Odsadit",func(): editor.insert_text_at_caret("    "); editor.grab_focus()))
-	code_split=HSplitContainer.new(); main.add_child(code_split); code_split.custom_minimum_size.y=280; code_split.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	code_split=HSplitContainer.new(); main.add_child(code_split); code_split.custom_minimum_size.y=180; code_split.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	editor=create_editor("main.py"); buffers["main.py"]=editor; code_split.add_child(editor)
-	preview=preload("res://scripts/programming/WebPreviewController.gd").new(); code_split.add_child(preview); preview.custom_minimum_size.x=400; preview.hide()
+	preview=preload("res://scripts/programming/WebPreviewController.gd").new(); code_split.add_child(preview); preview.custom_minimum_size.x=300; preview.hide()
 	var bottom=HBoxContainer.new(); main.add_child(bottom)
-	input_console=TextEdit.new(); input_console.custom_minimum_size=Vector2(220,106); input_console.placeholder_text="Virtuální input()\nJeden vstup na řádek"; bottom.add_child(input_console)
-	console=TextEdit.new(); console.editable=false; console.custom_minimum_size.y=106; console.size_flags_horizontal=Control.SIZE_EXPAND_FILL; bottom.add_child(console)
-	console.add_theme_stylebox_override("read_only",shell.ui.box(Color("0a121a"),Color("253e4e"),4))
+	var input_box=VBoxContainer.new(); bottom.add_child(input_box); input_box.custom_minimum_size.x=220
+	input_box.add_child(label("Vstupy pro input()",13))
+	input_console=TextEdit.new(); input_console.size_flags_vertical=Control.SIZE_EXPAND_FILL; input_console.custom_minimum_size=Vector2(220,84); input_console.placeholder_text="Jeden vstup na řádek"; input_box.add_child(input_console)
+	output_tabs=TabContainer.new(); bottom.add_child(output_tabs)
+	output_tabs.size_flags_horizontal=Control.SIZE_EXPAND_FILL; output_tabs.custom_minimum_size.y=136
+	console=TextEdit.new(); console.name="Výstup"; console.editable=false; output_tabs.add_child(console)
+	errors_panel=VBoxContainer.new(); errors_panel.name="Chyby"; output_tabs.add_child(errors_panel)
+	var error_scroll=ScrollContainer.new(); error_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; errors_panel.add_child(error_scroll)
+	errors_list=VBoxContainer.new(); errors_list.size_flags_horizontal=Control.SIZE_EXPAND_FILL; error_scroll.add_child(errors_list)
+	var results=VBoxContainer.new(); results.name="Ověření"; output_tabs.add_child(results)
+	verification_state=label("Dosud neověřeno. Spuštění kódu úlohu nesplní.",14); results.add_child(verification_state)
+	verification=TextEdit.new(); verification.editable=false; verification.size_flags_vertical=Control.SIZE_EXPAND_FILL; results.add_child(verification)
+	for output in [console,verification]:
+		output.add_theme_stylebox_override("read_only",shell.ui.box(Color("0a121a"),Color("253e4e"),4))
+		output.add_theme_font_size_override("font_size",18)
+		output.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
+		output.add_theme_color_override("font_readonly_color",Design.TEXT)
 	input_console.add_theme_stylebox_override("normal",shell.ui.box(Color("0a121a"),Color("253e4e"),4))
-	console.add_theme_font_size_override("font_size",18)
-	console.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
 	input_console.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
-	console.add_theme_color_override("font_readonly_color",Design.TEXT)
 	populate(); show_dashboard()
 
 func label(text: String, font_size: int) -> Label:
@@ -108,13 +136,13 @@ func button(text: String, action: Callable, primary: bool = false) -> Button:
 	return shell.ui.button(text,action,primary)
 
 func create_editor(filename: String) -> CodeEdit:
-	var control=CodeEdit.new(); control.size_flags_horizontal=Control.SIZE_EXPAND_FILL; control.custom_minimum_size.x=520
+	var control=CodeEdit.new(); control.size_flags_horizontal=Control.SIZE_EXPAND_FILL; control.custom_minimum_size.x=380
 	control.gutters_draw_line_numbers=true; control.indent_use_spaces=true; control.indent_size=4; control.indent_automatic=true; control.auto_brace_completion_enabled=true
 	control.highlight_current_line=true
 	var font=SystemFont.new(); font.font_names=PackedStringArray(["Consolas","DejaVu Sans Mono","monospace"]); control.add_theme_font_override("font",font)
 	control.add_theme_font_size_override("font_size",int(manager.progress.settings.get("font_size",22)))
 	control.text_changed.connect(func():
-		if not changing and control==editor and file_name==filename: manager.edit(filename,control.text); update_instruction())
+		if not changing and control==editor and file_name==filename: manager.edit(filename,control.text); update_instruction(); refresh_verification(); clear_error_marks(control))
 	return control
 
 func clear_buffers():
@@ -140,13 +168,14 @@ func populate():
 		if manager.progress.lessons.has(item.id) or manager.progress.results.get(item.id,{}).get("passed",false): text="✓ "+text
 		var node=button(text,func(): launch(item.mission if task_kind=="lessons" else item.id,task_kind=="lessons"))
 		node.theme_type_variation="ActiveNavButton" if manager.current.get("id","")==item.get("mission",item.id) else "NavButton"
-		node.alignment=HORIZONTAL_ALIGNMENT_LEFT; node.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; node.custom_minimum_size=Vector2(305,54); task_list.add_child(node)
+		node.alignment=HORIZONTAL_ALIGNMENT_LEFT; node.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; node.custom_minimum_size=Vector2(270,54); task_list.add_child(node)
 
 func launch(id: String, lesson: bool):
 	if not manager.start(id,["learn","practice","exam"][mode_picker.selected],lesson): return
 	load_current()
 
 func load_current():
+	reset_feedback()
 	clear_buffers()
 	file_picker.clear()
 	for filename in manager.files: file_picker.add_item(filename)
@@ -184,24 +213,74 @@ func switch_file(filename: String):
 
 func update_instruction():
 	if manager.current.is_empty(): instruction.text=""; return
-	var steps=["1/4 · Napiš nebo uprav kód v editoru.","2/4 · Klikni Spustit a zkontroluj konzoli nebo náhled.","3/4 · Změň kód a znovu ho spusť; pozoruj rozdíl.","4/4 · Splň zadání a klikni Otestovat."]
+	var steps=["1/4 · Napiš nebo uprav kód v editoru.","2/4 · Klikni Spustit kód a zkontroluj konzoli nebo náhled.","3/4 · Změň kód a znovu ho spusť; pozoruj rozdíl.","4/4 · Splň zadání a klikni Ověřit řešení."]
 	instruction.text=steps[mini(manager.step,3)] if manager.mode=="learn" and manager.is_lesson else "Zkouška bez nápovědy" if manager.mode=="exam" else "Vyřeš zadání vlastním postupem a ověř ho testy."
 
 func run_code():
 	manager.edit(file_name,editor.text)
 	var inputs=Array(input_console.text.split("\n")) if input_console.text!="" else []
 	var result=manager.run_program(inputs)
-	console.text=result.get("output","") if result.ok else ("Řádek %d: " % result.line if result.has("line") else "")+result.get("error","Chyba")
+	console.text=result.get("output","")
+	clear_diagnostics()
+	if not result.ok:
+		add_diagnostic(result.get("error","Chyba bez přesné polohy."),"main.py" if not manager.current.is_empty() and manager.current.category=="python" else "",int(result.get("line",0)))
+	output_tabs.current_tab=0 if result.ok else 1
 	if not manager.current.is_empty() and manager.current.category!="python": preview.render_files(manager.files)
 	update_instruction()
 
 func test_code():
 	manager.edit(file_name,editor.text)
-	var result=manager.test_program(); console.text=result.text+"\nXP: "+str(result.get("xp",0)); populate()
+	var result=manager.test_program()
+	verified_files=manager.files.duplicate(true)
+	verification.text=result.text+"\nXP: "+str(result.get("xp",0))
+	clear_diagnostics()
+	for diagnostic in result.get("diagnostics",[]): add_diagnostic(diagnostic.text,diagnostic.get("file",""),int(diagnostic.get("line",0)))
+	refresh_verification(); output_tabs.current_tab=2; populate()
 
 func reset_code():
 	if manager.current.is_empty(): return
-	manager.files=manager.current.starter.duplicate(true); clear_buffers(); switch_file(file_name); manager.step=0; manager.last_run={}; manager.edited_after_run=false; console.text="Obnoveno počáteční zadání."; preview.clear_preview(); update_instruction()
+	reset_feedback(); manager.files=manager.current.starter.duplicate(true); clear_buffers(); switch_file(file_name); manager.step=0; manager.last_run={}; manager.edited_after_run=false; console.text="Obnoveno počáteční zadání."; preview.clear_preview(); update_instruction()
+
+func refresh_save_state():
+	save_row.visible=shell.ui.game.unsaved
+	save_state.text="Výsledek nebo postup není uložený na disk. Zdrojový kód zůstává pouze v této návštěvě."
+
+func refresh_verification():
+	if verified_files.is_empty():
+		verification_state.text="Dosud neověřeno. Spuštění kódu úlohu nesplní."
+		verification_state.add_theme_color_override("font_color",Design.MUTED)
+		return
+	var stale=manager.files!=verified_files
+	verification_state.text="Předchozí ověření / kód se změnil. Ověř řešení znovu." if stale else "Ověření této verze / splněno." if manager.last_result.get("ok",false) else "Ověření této verze / požadavky zatím nesplněny."
+	verification_state.add_theme_color_override("font_color",Design.GOLD if stale else Design.SUCCESS if manager.last_result.get("ok",false) else Design.ERROR)
+
+func clear_error_marks(control: CodeEdit):
+	for line in control.get_line_count(): control.set_line_background_color(line,Color.TRANSPARENT)
+
+func clear_diagnostics():
+	diagnostic_files=manager.files.duplicate(true)
+	for child in errors_list.get_children(): errors_list.remove_child(child); child.queue_free()
+	for control in buffers.values(): clear_error_marks(control)
+
+func reset_feedback():
+	verified_files.clear(); verification.text=""; refresh_verification(); clear_diagnostics(); output_tabs.current_tab=0
+
+func add_diagnostic(text: String, filename: String, line: int):
+	var valid=manager.files.has(filename) and line>0 and line<=str(manager.files[filename]).split("\n").size()
+	if valid:
+		var link=button("%s:%d / %s" % [filename,line,text],func(): jump_to_error(filename,line))
+		link.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; link.alignment=HORIZONTAL_ALIGNMENT_LEFT; errors_list.add_child(link)
+	else: errors_list.add_child(label(text+"\nPřesná poloha není dostupná.",15))
+
+func jump_to_error(filename: String, line: int):
+	if manager.files!=diagnostic_files:
+		errors_list.add_child(label("Kód se změnil. Spusť ho nebo ověř znovu pro aktuální polohu chyby.",15)); return
+	if not manager.files.has(filename): return
+	switch_file(filename)
+	var index=line-1
+	if index<0 or index>=editor.get_line_count(): return
+	editor.deselect(); editor.set_caret_line(index); editor.set_caret_column(0)
+	editor.set_line_background_color(index,Color("56303a")); editor.center_viewport_to_caret(); editor.grab_focus()
 
 func show_example():
 	if manager.current.is_empty() or manager.mode!="learn": return
@@ -226,7 +305,7 @@ func focus_station(category: String):
 	if category in ["python","web"]:
 		selected_category=category; category_picker.select(1 if category=="python" else 5)
 		if not manager.current.is_empty() and (manager.current.category=="python")!=(category=="python"):
-			manager.cancel(); clear_buffers(); editor=create_editor("main.py"); buffers["main.py"]=editor; code_split.add_child(editor); code_split.move_child(editor,0)
+			manager.cancel(); reset_feedback(); clear_buffers(); editor=create_editor("main.py"); buffers["main.py"]=editor; code_split.add_child(editor); code_split.move_child(editor,0)
 			preview.hide(); file_picker.clear(); details.text="Vyber lekci · "+("Python Lab" if category=="python" else "Web Development Lab"); instruction.text=""; show_dashboard()
 		populate()
 	elif category=="exam":

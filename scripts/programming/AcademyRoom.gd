@@ -19,7 +19,7 @@ func build(owner_world):
 	Geo.solid(self,Vector3(0,2,-21),Vector3(18,4,0.25),Color("263b4c"))
 	for x in [-9,9]: Geo.solid(self,Vector3(x,2,-14),Vector3(0.25,4,14),Color("304a58"))
 	Geo.box(self,Vector3(0,4,-14),Vector3(18,0.15,14),Color("1b2835"))
-	Geo.text(self,"PROGRAMMING ACADEMY",Vector3(0,3.35,-20.8),64,0.0045,Color("76e8cd"))
+	Geo.text(self,"PROGRAMOVACÍ UČEBNA",Vector3(0,3.35,-20.8),64,0.0045,Color("76e8cd"))
 	Geo.text(self,"A / PYTHON LAB                 B / WEB DEVELOPMENT                 C / EXAMINATION",Vector3(0,2.95,-20.8),30,0.003)
 	for x in [-6,0,6]:
 		for z in [-11,-17]:
@@ -40,9 +40,9 @@ func build(owner_world):
 	Geo.box(teacher.visual,Vector3(0,0.45,0.12),Vector3(0.55,0.55,0.06),Color("64edcf"),0,1)
 	Geo.text(teacher.visual,"ADA / INSTRUKTOR\nVítej! Vyber si lekci.\n[E] STUDIUM",Vector3(0,-0.35,0.12),27,0.002)
 	add_item("PROGRAM-TERMINAL","Terminál výběru lekcí",Vector3(4,1.4,-9),Vector3(1,1,0.15),"dashboard")
-	door=world.item("PROGRAM-DOOR","Dveře — Programming Academy","program_door",Vector3(-6.5,1.4,-7),Vector3(2.9,2.8,0.15))
+	door=world.item("PROGRAM-DOOR","Dveře — programovací učebna","program_door",Vector3(-6.5,1.4,-7),Vector3(2.9,2.8,0.15))
 	for z in [-6.65,-7.35]:
-		var button=world.item("PROGRAM-DOOR-"+str(z),"Otevřít / zavřít Programming Academy [E]","program_door",Vector3(-4.65,1.35,z),Vector3(0.35,0.5,0.12))
+		var button=world.item("PROGRAM-DOOR-"+str(z),"Otevřít / zavřít programovací učebna [E]","program_door",Vector3(-4.65,1.35,z),Vector3(0.35,0.5,0.12))
 		var label=Geo.text(button.visual,"[E]\nDVEŘE",Vector3(0,0,0.08),24,0.0015)
 		if z<-7: label.rotation.y=PI
 		door_panels.append({"object":button,"label":label})
@@ -82,10 +82,10 @@ func toggle_door() -> bool:
 		door_notice.text="PRŮCHOD OBSAZENÝ / USTUP OD DVEŘÍ"; return false
 	door_open=not door_open
 	door_tween=create_tween(); door_tween.tween_property(door,"position:x",-9.6 if door_open else -6.5,0.35)
-	door_notice.text="PROGRAMMING ACADEMY / "+("OTEVŘENO" if door_open else "[E] OTEVŘÍT")
+	door_notice.text="PROGRAMOVACÍ UČEBNA / "+("OTEVŘENO" if door_open else "[E] OTEVŘÍT")
 	for panel in door_panels:
 		panel.label.text="[E]\n"+("ZAVŘÍT" if door_open else "OTEVŘÍT")
-		panel.object.caption=("Zavřít" if door_open else "Otevřít")+" dveře — Programming Academy [E]"
+		panel.object.caption=("Zavřít" if door_open else "Otevřít")+" dveře — programovací učebna [E]"
 	return true
 
 func sync():

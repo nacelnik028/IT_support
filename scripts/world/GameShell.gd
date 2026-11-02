@@ -23,6 +23,7 @@ var context_plate: Panel
 var instruction_plate: Panel
 var room_notice: Label
 var notice_time = 0.0
+var previous_room = "main"
 var leaving_scene = false
 var settings_from_pause = false
 var controls_label: Label
@@ -130,11 +131,11 @@ func _ready():
 	chrome.add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.theme = ui.theme
-	room_notice = ui.label("",19)
+	room_notice = ui.label("",15)
 	chrome.add_child(room_notice)
-	room_notice.position = Vector2(300,595)
-	room_notice.size = Vector2(1000,125)
-	room_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	room_notice.position = Vector2(22,778)
+	room_notice.size = Vector2(480,60)
+	room_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	room_notice.add_theme_stylebox_override("normal",ui.box(Color(0.02,0.05,0.08,0.95),ui.CYAN,8))
 	room_notice.hide()
 	world.training_zone.game = ui.game
@@ -186,9 +187,9 @@ func _process(delta):
 		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
 		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
 		status_label.text = "SERVEROVNA 01"
-		if ui.game.game_mode.is_programming(): status_label.text="PROGRAMMING ACADEMY\nVyber lekci u počítače nebo instruktora."
+		if ui.game.game_mode.is_programming(): status_label.text="PROGRAMOVACÍ UČEBNA\nPython / tvorba webu · lekce u počítače"
 		if ui.game.game_mode.is_training():
-			status_label.text = "Tréninkové centrum – vyber si lekci"
+			status_label.text = "IT TRÉNINKOVÁ AKADEMIE · výběr lekcí"
 			if ui.game.active and ui.game.session_kind=="lesson": status_label.text="VÝUKA / "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(ui.game.tutorial.session.mode,"Lekce")
 			elif ui.game.active and ui.game.session_kind=="random": status_label.text="NÁHODNÉ PROCVIČOVÁNÍ"
 		if ui.game.active:
@@ -201,7 +202,7 @@ func _process(delta):
 				status_label.text += "\nDalší cíl: "+str(next[0].label) if not next.is_empty() else "\n✓ Vše ověřeno · předej ticket"
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
-			if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
+		if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
 		update_guidance()
 		instruction_plate.visible = instruction.text!=""
 		instruction.size.y=0
@@ -527,8 +528,8 @@ func pause_menu():
 	v.add_child(ui.button("Pokračovat",return_to_world,true))
 	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
-	v.add_child(ui.button("IT Training Academy",func(): enter_world("Trénink")))
-	v.add_child(ui.button("Programming Academy",func(): enter_world("Programming Academy")))
+	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
+	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
 	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
@@ -755,9 +756,10 @@ func on_room_changed(training_room: bool):
 	if mode != "menu": set_mode("world")
 	ui.page = "Trénink" if training_room else "Serverovna"
 	ui.draw_ui()
-	room_notice.text = "Vstoupil jsi do tréninkového centra.\nZde můžeš bezpečně procvičovat správu serverů bez ovlivnění hlavní infrastruktury.\nTréninkové centrum – vyber si lekci" if training_room else "Trénink ukončen.\nVrátil ses do hlavní serverovny. Rozpracované cvičení bylo zrušeno."
-	if ui.game.game_mode.is_programming(): room_notice.text="Vítej v Programming Academy.\nPython Lab · Web Development Lab · Examination Zone\nU počítače stiskni E a vyber si lekci."
-	notice_time = 6.0
+	var current_room="programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
+	room_notice.text={"programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,"Odchod z programovací učebny. Kampaň obnovena." if previous_room=="programming" else "Odchod z IT tréninkové akademie. Kampaň obnovena.")
+	previous_room=current_room
+	notice_time = 4.0
 	room_notice.show()
 
 func _exit_tree():

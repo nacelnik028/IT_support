@@ -37,8 +37,10 @@ func run():
 	check(root.get_texture().get_image().get_size()==Vector2i(3840,2160),"Skutečný4K framebuffer")
 	check(ui.oversampling_with_scale==CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED,"Ostré vykreslování zapnuté při běžném startu")
 	# Compare pixels of actual game text, not merely framebuffer dimensions.
-	var heading=find_label(ui,"DATACENTER\nACADEMY")
+	var heading=find_label(ui,"TRAINING ACADEMY")
 	await compare_text(heading.get_global_rect(),"menu")
+	ui.navigate("Serverovna")
+	await settle()
 	var rack=find_rack(ui)
 	var rack_name=rack.get_global_transform()*Rect2(25,14,100,24)
 	await compare_text(rack_name,"rack")
@@ -99,7 +101,8 @@ func edge_quality(image: Image) -> float:
 func settle():
 	await process_frame
 	await process_frame
-	await RenderingServer.frame_post_draw
+	if "--manual-capture" in OS.get_cmdline_user_args(): RenderingServer.force_draw()
+	else: await RenderingServer.frame_post_draw
 
 func find_label(node: Node,text: String):
 	if node is Label and node.text==text: return node

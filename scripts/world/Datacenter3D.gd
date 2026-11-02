@@ -109,7 +109,7 @@ func build_room():
 	key.light_energy = 0.6
 	key.shadow_enabled = true
 	add_child(key)
-	Geo.text(self,"NORTHSTAR  /  DATACENTER ACADEMY",Vector3(-3,3.4,-6.8),60,0.004)
+	Geo.text(self,"NORTHSTAR  /  TRAINING ACADEMY",Vector3(-3,3.4,-6.8),60,0.004)
 	Geo.text(self,"SERVEROVNA 01     •     FYZICKÝ PŘÍSTUP",Vector3(-3,3.05,-6.8),32,0.003)
 
 func item(id: String, title: String, type: String, at: Vector3, dimensions: Vector3, console: String = "Proxmox"):
@@ -229,13 +229,13 @@ func build_academy():
 	Geo.box(self,Vector3(15,4,0),Vector3(12,0.15,14),Color("24333c"))
 	for x in range(10,21): Geo.box(self,Vector3(x,0.002,0),Vector3(0.01,0.005,14),Color("354551"))
 	for z in range(-7,8): Geo.box(self,Vector3(15,0.002,z),Vector3(12,0.005,0.01),Color("354551"))
-	var door = item("ACADEMY-DOOR","Dveře — IT Training Academy","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
+	var door = item("ACADEMY-DOOR","Dveře — IT tréninková akademie","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
 	var door_label = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
 	door_label.rotation.y = -PI/2
 	Geo.box(self,Vector3(8.82,2.95,3.5),Vector3(0.035,0.06,3.15),Color("f4c472"),0,1)
 	for side in [-1,1]:
 		var panel_id = "DOOR-CONTROL-"+("OPS" if side<0 else "ACADEMY")
-		var panel = item(panel_id,"Otevřít dveře — IT Training Academy","door",Vector3(9+side*0.28,1.35,1.65),Vector3(0.14,0.48,0.32))
+		var panel = item(panel_id,"Otevřít dveře — IT tréninková akademie","door",Vector3(9+side*0.28,1.35,1.65),Vector3(0.14,0.48,0.32))
 		var face = Node3D.new()
 		panel.visual.add_child(face)
 		face.rotation.y = side*PI/2
@@ -243,9 +243,9 @@ func build_academy():
 		Geo.box(face,Vector3.ZERO,Vector3(0.27,0.4,0.025),Color("073e47"),0,0.6)
 		var words = Geo.text(face,"DVEŘE\n[E] OTEVŘÍT",Vector3(0,0,0.018),28,0.0014)
 		door_panels.append({"object":panel,"label":words})
-	door_status = Geo.text(self,"IT TRAINING ACADEMY",Vector3(8.8,3.25,3.5),36,0.003)
+	door_status = Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(8.8,3.25,3.5),36,0.003)
 	door_status.rotation.y = -PI/2
-	Geo.text(self,"IT TRAINING ACADEMY",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
+	Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
 	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
 	for x in [12,18]:
 		for z in [-4,0,4]:
@@ -316,10 +316,10 @@ func move_door(opened: bool):
 
 func update_door_controls():
 	for control in door_panels:
-		control.object.caption = ("Zavřít" if door_open else "Otevřít")+" dveře — IT Training Academy"
+		control.object.caption = ("Zavřít" if door_open else "Otevřít")+" dveře — IT tréninková akademie"
 		control.label.text = "DVEŘE\n[E] "+("ZAVŘÍT" if door_open else "OTEVŘÍT")
 		control.object.set_status("Warning" if door_feedback!="" else "Healthy")
-	door_status.text = door_feedback if door_feedback!="" else "IT TRAINING ACADEMY / "+("OTEVŘENO" if door_open else "ZAVŘENO")
+	door_status.text = door_feedback if door_feedback!="" else "IT TRÉNINKOVÁ AKADEMIE / "+("OTEVŘENO" if door_open else "ZAVŘENO")
 
 func _physics_process(_delta):
 	# Reopen if somebody walks into the opening during a closing animation.

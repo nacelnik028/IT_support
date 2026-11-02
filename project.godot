@@ -14,7 +14,12 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="IT Support Simulator: Datacenter Academy"
+config/name="IT Support Simulator: Training academy"
+; Preserve supported saves and settings when changing the displayed product name.
+config/use_custom_user_dir=true
+config/custom_user_dir_name="godot/app_userdata/IT Support Simulator- Datacenter Academy"
+config/custom_user_dir_name.windows="Godot/app_userdata/IT Support Simulator- Datacenter Academy"
+config/custom_user_dir_name.macos="Godot/app_userdata/IT Support Simulator- Datacenter Academy"
 run/main_scene="res://scenes/world/Game.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://assets/icons/academy.svg"

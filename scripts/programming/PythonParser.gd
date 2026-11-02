@@ -5,12 +5,16 @@ extends RefCounted
 var tokens: Array = []
 var pos = 0
 var error = ""
+var error_line = 0
+var lex_line = 0
 var depth = 0
 var comments = 0
 const PRECEDENCE = {"or":1,"and":2,"==":3,"!=":3,"<":3,">":3,"<=":3,">=":3,"in":3,"not in":3,"+":4,"-":4,"*":5,"/":5,"//":5,"%":5,"**":7}
 
 func fail(message: String):
-	if error == "": error = "SyntaxError · řádek %d: %s" % [peek().line,message]
+	if error == "":
+		error_line=lex_line if lex_line>0 else int(peek().line)
+		error = "SyntaxError · řádek %d: %s" % [error_line,message]
 
 func peek(offset: int = 0) -> Dictionary:
 	return tokens[clampi(pos+offset,0,tokens.size()-1)] if not tokens.is_empty() else {"v":"EOF","line":1,"t":"EOF"}
@@ -32,12 +36,13 @@ func emit(kind: String, value, line: int):
 	tokens.append({"t":kind,"v":value,"line":line})
 
 func lex(source: String):
-	tokens=[]; pos=0; error=""; depth=0; comments=0
+	tokens=[]; pos=0; error=""; depth=0; comments=0; error_line=0; lex_line=0
 	if source.length()>32768: fail("Zdroj smí mít nejvýše 32 768 znaků."); return
 	var indents=[0]
 	var brackets=[]
 	var lines=source.replace("\r","").split("\n")
 	for n in lines.size():
+		lex_line=n+1
 		var line=lines[n]
 		var i=0
 		while i<line.length() and line[i] in [" ","\t"]:
@@ -94,6 +99,7 @@ func lex(source: String):
 	if not brackets.is_empty(): fail("Neuzavřené závorky."); return
 	while indents.size()>1: indents.pop_back(); emit("op","DEDENT",lines.size())
 	emit("EOF","EOF",lines.size())
+	lex_line=0
 
 func parse(source: String) -> Array:
 	lex(source)
