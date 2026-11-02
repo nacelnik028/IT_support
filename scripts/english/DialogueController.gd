@@ -12,6 +12,7 @@ var actions: Array=[]
 var buttons: Array=[]
 var content: VBoxContainer
 var last_dispatch=-1000
+var shown_session_id=""
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -32,24 +33,31 @@ func action(text: String, callback: Callable, primary: bool = false) -> Button:
 	return button
 
 func draw():
+	if page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
+	elif page=="dialog" and not manager.session.is_empty():
+		selected_mode=manager.session.mode
+		if shown_session_id!=manager.session.id:
+			shown_session_id=manager.session.id; help_text=""; show_translation=false
 	for child in get_children(): remove_child(child); child.queue_free()
 	buttons.clear(); actions.clear()
 	var shade=ColorRect.new(); shade.color=Color("101e2b"); add_child(shade); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin=MarginContainer.new(); add_child(margin); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right"]: margin.add_theme_constant_override("margin_"+side,100)
 	for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,28)
-	content=VBoxContainer.new(); content.add_theme_constant_override("separation",10); margin.add_child(content)
+	var layout=VBoxContainer.new(); margin.add_child(layout)
+	var scroll=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; scroll.follow_focus=true; layout.add_child(scroll)
+	content=VBoxContainer.new(); content.size_flags_horizontal=Control.SIZE_EXPAND_FILL; content.add_theme_constant_override("separation",10); scroll.add_child(content)
 	label_text("ENGLISH IN LONDON  /  "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(selected_mode,"Učím se"),26,Color("77deca"))
 	if page=="intro":
 		label_text("Vítej v Londýně",28)
 		label_text("U přepážky vyber situaci a anglické repliky. Zkontroluj košík, přilož cvičnou kartu u terminálu a ukaž lístek u kontroly. Alex u mostu poradí cestu k věži.\n\nPC: E, myš nebo šipky / Tab a Enter; repliky také 1–4. Esc zavře panel.\nPICO: oba paprsky a trigger, B/Y zavře panel, A/X přemístí panel. Levý stick klik teleportuje při zavřeném panelu.\n\nCvičné ceny, offline hra. Hodnotíme volbu replik a splnění úkolu. Big Ben je zvon v Elizabeth Tower.",22)
 		action("Začít / přeskočit seznámení",func():
 			manager.progress.intro_seen=true; shell.ui.game.save(); page="home"; draw(),true)
+	elif page.begins_with("quiz"): preload("res://scripts/english/LondonQuizUI.gd").draw(self)
 	elif page=="home": draw_home()
 	elif page=="progress": draw_progress()
 	else: draw_session()
-	var spacer=Control.new(); spacer.size_flags_vertical=Control.SIZE_EXPAND_FILL; content.add_child(spacer)
-	var footer=HBoxContainer.new(); footer.add_theme_constant_override("separation",14); content.add_child(footer)
+	var footer=HBoxContainer.new(); footer.add_theme_constant_override("separation",14); layout.add_child(footer)
 	for item in [["Zpět do pavilonu [Esc]",shell.return_to_world],["Situace / restart",func(): page="home"; draw()],["Moje výsledky",func(): page="progress"; draw()]]:
 		var b=shell.ui.button(item[0],item[1]); b.custom_minimum_size.y=48; footer.add_child(b); buttons.append(b)
 	if shell.ui.game.unsaved:
@@ -83,16 +91,19 @@ func draw_home():
 					shell.room_notice.text+=" [E] otevře rozhovor."; shell.notice_time=8
 				else: draw())
 	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
+	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
 	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",func(): page="dialog"; draw())
 
 func draw_progress():
 	label_text("Uložený postup  /  %d z 6 situací" % manager.progress.results.size(),24)
+	if not manager.progress.archive.is_empty(): label_text("Starší A1–A2 výsledky: %d / 6 situací v archivu. Nezapočítávají se do nových B1–B2 výsledků." % manager.progress.archive.get("results",{}).size(),18)
 	var scroll=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; content.add_child(scroll)
 	var lines=VBoxContainer.new(); lines.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(lines)
 	for d in manager.catalog.scenarios:
 		var result=manager.progress.results.get(d.id,{})
 		lines.add_child(shell.ui.label(d.title+": "+("%d / 100 • dokončeno %d× • nápovědy %d" % [int(result.best),int(result.completed),int(result.hints)] if not result.is_empty() else "zatím nedokončeno"),21))
 	lines.add_child(shell.ui.label("Procvičené formulace:\n"+"\n".join(manager.progress.phrases),19))
+	for id in manager.progress.archive.get("results",{}): lines.add_child(shell.ui.label("Archiv A1–A2 / "+id+": "+str(int(manager.progress.archive.results[id].best))+" / 100",18))
 	for record in manager.progress.attempts.slice(maxi(0,manager.progress.attempts.size()-6)):
 		lines.add_child(shell.ui.label("%s / %s: %d bodů, %d nápověd" % [record.id,record.mode,int(record.score),int(record.hints)],18))
 
@@ -111,7 +122,7 @@ func draw_session():
 		return
 	label_text("Sam" if s.id!="LON06" else "Alex",16,Color("77deca"))
 	label_text(s.npc,25)
-	if s.id!="LON06": label_text("Košík: %d adult + %d child • %s • %s   |   Rozpočet %s   |   %s" % [int(s.cart.adult),int(s.cart.child),s.cart.time if s.cart.time!="" else "čas nevybrán",manager.money(manager.total()),manager.money(int(s.goal.budget)-int(s.spent)),"ZAPLACENO" if s.paid else "POTVRZENO" if s.confirmed else "NEPOTVRZENO"],17)
+	if s.id!="LON06": label_text("Košík: %d adult + %d child • %s • %s • %s | Rozpočet %s | %s" % [int(s.cart.adult),int(s.cart.child),s.cart.product,s.cart.time if s.cart.time!="" else "čas nevybrán",manager.money(manager.total()),manager.money(int(s.goal.budget)-int(s.spent)),"ZAPLACENO" if s.paid else "POTVRZENO" if s.confirmed else "NEPOTVRZENO"],17)
 	if show_translation and s.mode!="exam": label_text(s.translation,18,Color("f3d598"))
 	if help_text!="" and s.mode!="exam": label_text(help_text,17,Color("f3d598"))
 	if s.feedback!="" and s.mode!="exam": label_text(s.feedback,17,Color("f3d598"))
@@ -133,6 +144,11 @@ func draw_session():
 	for option in options:
 		actions.append(option.id)
 		action("%d  %s" % [actions.size(),option.text],func(): choose(option.id,token))
+	if not s.paid and not s.node in ["walk","gate"] and shell.world.english_room.near("info" if s.id=="LON06" else "tickets"):
+		action("Zpět k objednávce" if s.node in ["questions","answer"] else "Zeptat se na nabídku…" if s.id!="LON06" else "Požádat o zopakování…",func():
+			if s.node in ["questions","answer"]: s.node=s.return_node; manager.revision+=1
+			else: manager.open_questions(token,2 if s.id=="LON06" else 0)
+			draw())
 	if s.mode!="exam" and s.node!="pay":
 		var row=HBoxContainer.new(); row.add_theme_constant_override("separation",12); content.add_child(row)
 		for item in [["Překlad",toggle_translation],["Nápověda",request_hint]]:
@@ -163,5 +179,11 @@ func _unhandled_key_input(event):
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	var index=int(event.keycode)-KEY_1
 	if index>=0 and index<actions.size():
-		choose(actions[index],manager.revision)
+		if page=="quiz": quiz_choose(actions[index],manager.quiz.revision)
+		else: choose(actions[index],manager.revision)
 		get_viewport().set_input_as_handled()
+
+func quiz_choose(id: String, token: int):
+	if Time.get_ticks_msec()-last_dispatch<220: return
+	last_dispatch=Time.get_ticks_msec()
+	manager.quiz.answer(id,token); draw()

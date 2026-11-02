@@ -58,7 +58,7 @@ def main():
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the distributed pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['package_content','academy_hub','london_quiz','english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')
@@ -69,6 +69,8 @@ def main():
             if not args.headless: command+=['--screenshots']
             if name=='terminal_sessions':
                 command+=['--verify-packaged',f'--lesson-solutions={ROOT/"tests/lesson_solutions.json"}']
+            if name=='package_content':
+                command += [f'--reference={ROOT.as_posix()}', f'--inventory-out={(logs/"inventory.json").as_posix()}']
             results[name]=run(command,isolated,logs/f'{name}.log')
     report={'native_checks_runtime':'Wine' if runner else 'Windows','editor_pack_checks_runtime':'Linux' if __import__('os').name!='nt' else 'Windows','sha256':digest,'bytes':source.stat().st_size,'results':results}
     if pack.exists(): report['pck_sha256']=hashlib.sha256(pack.read_bytes()).hexdigest()

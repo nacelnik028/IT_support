@@ -193,6 +193,8 @@ static func text(parent: Node3D, words: String, at: Vector3, font_size: int = 40
 	label.pixel_size = pixel_size
 	label.modulate = color
 	label.outline_size = 0
+	# Back faces of floating signs must not read as mirrored instructions.
+	label.double_sided = false
 	label.position = at
 	parent.add_child(label)
 	return label
@@ -239,7 +241,7 @@ static func collect_static(node: Node, groups: Dictionary):
 	if node.has_method("set_focus") or node.get_meta("dynamic",false): return
 	if node is MeshInstance3D and node.mesh != null and node.material_override != null:
 		# Keep all three rooms as separate culling groups.
-		var room = "english" if node.global_position.z>7.15 else "programming" if node.global_position.x < -9 else "academy" if node.global_position.x>9 else "operations"
+		var room = "hub" if node.global_position.z < -7 and node.global_position.x >= -9 or node.global_position.x>21 else "english" if node.global_position.z>7.15 else "programming" if node.global_position.x < -9 else "academy" if node.global_position.x>9 else "operations"
 		var key = room+str(node.mesh.get_instance_id())+":"+str(node.material_override.get_instance_id())
 		if not groups.has(key): groups[key] = []
 		groups[key].append(node)

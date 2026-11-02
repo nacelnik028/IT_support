@@ -48,6 +48,11 @@ func visible_button(button: Button) -> bool:
 func click_button(button: Button, hand_index: int = -1):
 	check(is_instance_valid(button),"Skutečné tlačítko existuje")
 	if not is_instance_valid(button): return
+	var ancestor=button.get_parent()
+	while ancestor!=null:
+		if ancestor is ScrollContainer: ancestor.ensure_control_visible(button)
+		ancestor=ancestor.get_parent()
+	await frames()
 	await create_timer(0.23).timeout
 	if hand_index<0:
 		check(visible_button(button),"Celé tlačítko viditelné: "+button.text)
@@ -86,6 +91,27 @@ func choice(id: String, hand_index: int = -1):
 	await click_button(find_button(option.text),hand_index)
 	check(m.revision==revision+1,"Právě jedna replika přes skutečné UI: "+id)
 
+func ask_question(topic: String, hand_index: int = -1):
+	var cart=m.session.cart.duplicate(true)
+	var caption="Požádat o zopakování…" if m.session.id=="LON06" else "Zeptat se na nabídku…"
+	await click_button(find_button(caption),hand_index)
+	for i in 3:
+		if m.choices().any(func(c): return c.id=="q_"+topic): break
+		await choice("questions_next",hand_index)
+	await choice("q_"+topic,hand_index)
+	check(m.session.cart==cart,"Dotaz přes UI zachovává košík")
+	await choice("understood",hand_index)
+	check(topic in m.session.understood,"UI ověřilo porozumění "+topic)
+
+func inquiries(id: String, hand_index: int = -1):
+	match id:
+		"LON01": await ask_question("options",hand_index); await ask_question("included",hand_index)
+		"LON02": await ask_question("family",hand_index); await ask_question("included",hand_index)
+		"LON03": await ask_question("options",hand_index); await ask_question("included",hand_index)
+		"LON04": await ask_question("availability",hand_index); await ask_question("recommend",hand_index)
+		"LON05": await ask_question("change",hand_index)
+		"LON06": await ask_question("repeat",hand_index)
+
 func walk_to(point: Vector3):
 	shell.return_to_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var p=shell.world.player
@@ -123,18 +149,21 @@ func run_scenario(id: String, hand_index: int = -1):
 	shell.open_english("info" if id=="LON06" else "tickets")
 	await frames()
 	if id=="LON06":
-		await choice("directions",hand_index); await choice("route",hand_index)
+		await choice("directions",hand_index); await inquiries(id,hand_index); await choice("route",hand_index)
 		check(not m.arrive_tower(),"Nestačí kliknout směr")
 		if hand_index<0:
 			shell.return_to_world(); await walk_to(Vector3(8,0.02,11.4)); await walk_to(Vector3(8,0.02,18.5)); await walk_to(Vector3(8,0.02,24)); await walk_to(Vector3(4,0.02,24))
 		else: check(rig.teleport_to(Vector3(4,0,24)),"Teleport k věži")
 		check(m.arrive_tower(),"Světová poloha dokončí směr")
 	else:
+		await inquiries(id,hand_index)
 		if id=="LON05": await choice("change",hand_index)
 		if id=="LON03": await choice("price",hand_index)
 		await choice("order_alt",hand_index)
+		await choice("product_standard",hand_index)
 		if id=="LON04": await choice("time_14:00",hand_index); await choice("next",hand_index)
 		else: await choice("time_"+m.session.goal.time,hand_index)
+		if id in ["LON03","LON05"]: await ask_question("total",hand_index)
 		await choice("confirm",hand_index)
 		p.position=Vector3(10,0.02,8.7); shell.open_english("terminal"); await frames()
 		await click_button(shell.english_dialog.buttons[0],hand_index)
@@ -144,6 +173,28 @@ func run_scenario(id: String, hand_index: int = -1):
 		await click_button(shell.english_dialog.buttons[0],hand_index)
 		check(m.session.ticket.used,"Konkrétní lístek z peněženky spotřebován")
 	check(m.session.completed,"Celý UI scénář "+id+" / hand "+str(hand_index))
+
+func run_quiz(hand_index: int = -1):
+	if hand_index<0: await use("LONDON-QUIZ",Vector3(3,0.02,11))
+	else:
+		shell.world.player.position=Vector3(3,0.02,11); shell.open_english("quiz"); await frames()
+	await click_button(find_button("Spustit 20 otázek"),hand_index)
+	var quiz=m.quiz
+	check(quiz.session.queue.size()==20,"Skutečné UI zahájí celý kvíz")
+	for i in 20:
+		var q=quiz.definition()
+		var answer=q.options.filter(func(o): return o.id==q.answer)[0]
+		var hand=i%2 if hand_index>=0 else -1
+		if i==0:
+			await click_button(find_button(q.options[1].text),hand)
+			check(not quiz.session.current.correct,"Kvíz přes UI eviduje konkrétní chybu")
+		await click_button(find_button(answer.text),hand)
+		check(quiz.session.current.correct or quiz.session.current.corrected,"Skutečný PC/XR výběr odpovědi "+q.id)
+		await click_button(find_button("Odevzdat sérii" if i==19 else "Další otázka"),hand)
+	check(quiz.session.completed and quiz.session.score==95,"Celý skutečný kvíz, oprava nezfalšuje skóre")
+	check(quiz.progress.results.size()==20 and not shell.ui.game.unsaved,"20 uložených výsledků kvízu z PC/XR")
+	var labels=shell.english_dialog.content.find_children("*","Label",true,false)
+	check(labels.any(func(l): return l.text.contains("Tvoje odpověď:")) and labels.any(func(l): return l.text.contains("Zdroj: https://")),"Souhrn konkrétních odpovědí a vysvětlení")
 
 func run():
 	shots=DisplayServer.get_name()!="headless" and "--screenshots" in OS.get_cmdline_user_args()
@@ -171,10 +222,11 @@ func run():
 	m.start("LON01","learn",0); shell.open_english(); await frames()
 	var option=m.choices()[0]; var button=find_button(option.text); button.grab_focus(); await key(KEY_DOWN)
 	check(shell.get_viewport().gui_get_focus_owner()!=button,"Šipky mění fokus")
-	button.grab_focus(); await key(KEY_ENTER); check(m.session.node=="time","Enter odešle zaměřenou repliku")
+	button.grab_focus(); await key(KEY_ENTER); check(m.session.node=="product","Enter odešle zaměřenou repliku")
 	await create_timer(0.23).timeout
-	await key(KEY_1); check(m.session.node=="confirm","Číslo volí skutečnou repliku")
+	await key(KEY_1); check(m.session.node in ["time","product"],"Číslo volí skutečnou repliku podle stabilního záměru")
 	for id in m.IDS: await run_scenario(id)
+	await run_quiz()
 	# All UI stages and help must fit every supported size with larger text too.
 	for resolution in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(3840,2160)]:
 		for scale_value in [1.0,1.3]:
@@ -187,6 +239,22 @@ func run():
 			await capture("dialog-%d-%d" % [resolution.x,roundi(scale_value*100)])
 			shell.english_dialog.page="home"; shell.english_dialog.draw(); await frames()
 			for b in shell.english_dialog.buttons: check(visible_button(b),"Výběr situací bez ořezu")
+			# Long B1–B2 replies and the quiz use the same focus-following scroll
+			# area on PC and XR; every action must remain reachable at 130%.
+			m.cancel(); m.start("LON03","learn",2)
+			m.open_questions(m.revision); m.act("q_options",m.revision)
+			shell.english_dialog.page="dialog"; shell.english_dialog.draw(); await frames()
+			for b in shell.english_dialog.buttons:
+				var ancestor=b.get_parent()
+				while ancestor!=null:
+					if ancestor is ScrollContainer: ancestor.ensure_control_visible(b)
+					ancestor=ancestor.get_parent()
+				await frames(2); check(visible_button(b),"B1–B2 odpověď, dosažitelná akce ve všech velikostech")
+			await capture("customer-question-%d-%d" % [resolution.x,roundi(scale_value*100)])
+			m.quiz.start("exam",20,71); shell.english_dialog.page="quiz"; shell.english_dialog.draw(); await frames()
+			check(shell.english_dialog.content.find_children("*","Label",true,false).any(func(l): return l.text.begins_with("ENGLISH IN LONDON") and l.text.ends_with("Zkouška")),"Záhlaví odpovídá skutečnému zkouškovému režimu")
+			for b in shell.english_dialog.buttons: check(visible_button(b),"Kvíz bez ořezu a bez nápovědy ve zkoušce")
+			await capture("quiz-%d-%d" % [resolution.x,roundi(scale_value*100)])
 			shell.ui.page="menu"; shell.ui.draw_ui(); shell.set_mode("menu"); await frames()
 			check(visible_button(shell.ui.ui_targets["menu:english"]),"Londýn v menu")
 	# World overview and both landmark meshes are captured on the GPU.
@@ -215,6 +283,7 @@ func run():
 	shell.enter_world("English in London"); await frames()
 	check(rig.can_teleport(Vector3(8,0,21.5)) and not rig.can_teleport(Vector3(14,0,21.5)),"Teleport na most, nikoli do řeky")
 	for i in 6: await run_scenario(m.IDS[i],i%2)
+	await run_quiz(0)
 	check(m.progress.results.size()==6,"PC a XR sdílejí skutečné výsledky")
 	p.position=Vector3(12,0.02,8.8); m.cancel(); m.start("LON01","learn",0); shell.open_english(); await frames()
 	var anchored=rig.monitor.global_transform; rig.head.position.x+=0.1; await frames()

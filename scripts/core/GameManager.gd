@@ -20,6 +20,7 @@ var game_mode = Modes.new()
 var room_probe = Callable()
 var programming_probe = Callable()
 var english_probe = Callable()
+var hub_probe = Callable()
 var reconciling_room=false
 var programming = preload("res://scripts/programming/AcademyManager.gd").new()
 var english = preload("res://scripts/english/EnglishManager.gd").new()
@@ -59,7 +60,7 @@ func _init():
 	var saved = Saves.load_game()
 	load_warning = Saves.last_message
 	if not saved.is_empty():
-		english.progress.merge(saved.get("english",{}),true)
+		english.load_progress(saved.get("english",{}))
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
 		var normalized_scores={}
@@ -94,6 +95,7 @@ func reconcile_room():
 	reconciling_room=true
 	if english_probe.is_valid() and english_probe.call(): enter_english()
 	elif programming_probe.is_valid() and programming_probe.call(): enter_programming()
+	elif hub_probe.is_valid() and hub_probe.call(): enter_hub()
 	elif room_probe.is_valid():
 		if room_probe.call(): enter_training()
 		else: leave_training()
@@ -107,10 +109,22 @@ func main_available() -> bool:
 	reconcile_room()
 	return game_mode.current==Modes.Mode.MAIN
 
+func enter_hub() -> bool:
+	if hub_probe.is_valid() and not hub_probe.call(): return false
+	if game_mode.is_hub(): return true
+	if game_mode.is_away(): leave_training()
+	suspend_session()
+	game_mode.switch_to(Modes.Mode.HUB)
+	active=false; current={}; training=false; session_kind="campaign"; finished=false
+	tutorial.cancel(); undo_states.clear(); training_sim.reset({}); sim=training_sim
+	session_revision+=1
+	save(); room_changed.emit(false)
+	return true
+
 func enter_programming() -> bool:
 	if programming_probe.is_valid() and not programming_probe.call(): return false
 	if game_mode.is_programming(): return true
-	if game_mode.is_education(): leave_training()
+	if game_mode.is_away(): leave_training()
 	suspend_session()
 	game_mode.switch_to(Modes.Mode.PROGRAMMING_ACADEMY)
 	programming.cancel()
@@ -123,7 +137,7 @@ func enter_programming() -> bool:
 func enter_english() -> bool:
 	if english_probe.is_valid() and not english_probe.call(): return false
 	if game_mode.is_english(): return true
-	if game_mode.is_education(): leave_training()
+	if game_mode.is_away(): leave_training()
 	suspend_session()
 	game_mode.switch_to(Modes.Mode.ENGLISH_LONDON)
 	english.cancel()
@@ -135,7 +149,7 @@ func enter_english() -> bool:
 
 func enter_training() -> bool:
 	if room_probe.is_valid() and not room_probe.call(): return false
-	if game_mode.is_programming() or game_mode.is_english(): leave_training()
+	if game_mode.is_programming() or game_mode.is_english() or game_mode.is_hub(): leave_training()
 	if game_mode.is_training(): return true
 	suspend_session()
 	game_mode.switch_to(Modes.Mode.TRAINING)
@@ -161,7 +175,7 @@ func clear_training_sessions():
 		if education.lessons[key].status == "Rozpracováno": education.lessons.erase(key)
 
 func leave_training() -> bool:
-	if not game_mode.is_education(): return false
+	if not game_mode.is_away(): return false
 	programming.cancel()
 	english.cancel()
 	game_mode.switch_to(Modes.Mode.MAIN)
@@ -414,7 +428,8 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 	return true
 
 func resume_campaign():
-	if game_mode.is_education():
+	if game_mode.is_away():
+		if hub_probe.is_valid() and hub_probe.call(): return
 		if english_probe.is_valid() and english_probe.call(): return
 		if programming_probe.is_valid() and programming_probe.call(): return
 		if room_probe.is_valid() and room_probe.call(): return

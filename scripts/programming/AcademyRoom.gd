@@ -54,7 +54,9 @@ func build(owner_world):
 		if node!=self and node not in existing: node.reparent(self)
 	# The server room already owns the shared wall and doorway lintel. Close only
 	# the span beyond its north edge (world z < -7), avoiding coplanar wall faces.
-	Geo.solid(self,Vector3(4.75,2,-7),Vector3(8.5,4,0.25),Color("293844"))
+	# A second open entrance faces the new hub (world x=-9, z=-12).
+	for span in [[2.25,3.5],[8,2]]: Geo.solid(self,Vector3(span[0],2,-7),Vector3(span[1],4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(5.5,3.5,-7),Vector3(3,1,0.25),Color("293844"))
 	position=Vector3(-2,0,-6.5)
 	rotation.y=PI/2
 

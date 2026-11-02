@@ -1,5 +1,35 @@
 # Datacenter Academy — stav vývoje
 
+## Rozcestník, B1–B2 a londýnský kvíz — funkční etapa, 2. 11. 2026
+
+- Implementována samostatná severní nástupní hala, čtyři skutečné fyzické cesty
+  bez přesunu pracovišť a neutrální HUB=4. PC/VR start z menu míří do haly;
+  pauza zachovává živou polohu. Kampaň se bezpečně odkládá i přes více oblastí.
+- Na doplnění uživatele odekorován hub i všechny čtyři místnosti: společné
+  procedurální rostliny, lavičky, lamely, technické/studijní značení a londýnské
+  nábřeží, pokladna a městský reliéf. Žádné nové bitmapy, fonty ani monitory.
+- Opraven londýnský otevřený průchod: odstraněno staré falešné křídlo, sloupky
+  a lišty napříč vstupem, opraveno značení z obou stran. Jednostranné cedule
+  již neukazují zrcadlené zadní texty. Postavám doplněny chybějící krky.
+- Všech šest stabilních LON ID má B1–B2 dialogy, skutečné cenové možnosti
+  Standard/Flex, časová omezení, změny počtů/produktu a povinné zákaznické dotazy
+  s ověřením porozumění. Archiv starých A1–A2 výsledků zachovává původní postup.
+- Samostatný offline kvíz LONQ01–LONQ20, oficiální zdroje ověřeny při vývoji,
+  tři režimy, opravy, promíchání, historie a vlastní validované výsledky.
+- Cíleně PASS: hub 52 včetně skutečné chůze a teleportovacího oblouku proti
+  zavřeným/otevřeným dveřím; model B1–B2 1809; kvíz 527; PC + syntetické XR UI
+  1037 headless / 1063 graficky v rozšířené matici. Úplná regrese a
+  nové distribuční exporty se dokončují v navazující ověřovací etapě.
+- Vizuální audit Compatibility po dekoraci: 280 materiálových instancí,
+  0 chybějících přiřazení, 27 strukturálních stěn a 0 koplanárních překryvů.
+  Podklady a omezení jsou v docs/MATERIAL_AUDIT.md a docs/ui-review/2026-11-02-hub.
+- Původní první kompletní běh odhalil očekávání již znovu otevřeného starého
+  severního prahu. Bezpečná pozice se nyní zachová; test dál porovnává XP,
+  programovací výsledky i migraci skutečně neplatné severní polohy.
+- build_windows.py zmenšuje pouze mezery JSON v izolované exportní kopii,
+  každou hodnotu ověří zpětným parse. Nemění autorské IT katalogy ani PE šablonu.
+  Nové balíčky se ověřují i kontrolou všech skutečně zabalených JSON a materiálů.
+
 ## English in London — finální předání a navazující prompt, 2. 11. 2026
 
 - Finální herní zdroje `42600a3`. Nový kompletní Test-All.ps1: **34 sad PASS**,

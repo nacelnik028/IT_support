@@ -1,64 +1,89 @@
-# English in London
+# English in London — B1–B2
 
-Čtvrtý pavilon je jižně od serverovny, za třímetrovým průchodem označeným
-**04 / Angličtina v Londýně**, vedle prosklené stěny. Zkratka **English in London**
-je v hlavním menu i v pauze. Programovací učebna a původní dveře zůstávají na místě.
+Do existujícího londýnského pavilonu vede portál 04 z rozcestníku a východní
+chodba. Zůstal také jižní průchod ze serverovny, zkratka v menu a pauze.
+London Eye, věž, Temže, široký most, Sam, Alex, terminál i kontrola jsou na svých
+dosavadních místech. Zjednodušené vzdálenosti a 24 kabinek herního modelu
+nepředstavují turistickou mapu; skutečné kolo má 32 kabinek.
 
-U přepážky **London Eye Tickets / Sam** vyber situaci a režim. První návštěva
-nabídne přeskočitelné seznámení. Zadání, košík, rozpočet a skutečná cena jsou
-viditelné po celou dobu nákupu. Rozhovor používá anglické repliky a cvičné ceny
-£30 adult / £20 child, nikoli současnou komerční nabídku. Hra funguje offline.
+## Nákup a komunikace
 
-PC používá WASD, myš a E. Dialog: myš, šipky nebo Tab, Enter a číselné zkratky
-1–4 pro repliky. Esc zavře panel a obnoví pohyb. Otevřené UI blokuje chůzi.
-Na PICO fungují oba paprsky a trigger. B/Y zavře panel, A/X jej přemístí před
-aktuální pohled; potom zůstává ukotvený ve světě. Výšku, snap turn a způsob
-pohybu nastavuje stávající Komfort VR. Levý stick klik nabízí teleport při
-zavřeném panelu. Řeka odmítá teleport mimo most.
+U Sama / London Eye Tickets stiskni E nebo použij paprsek. Vyber situaci a režim.
+**Zeptat se na nabídku…** otevírá po třech zákaznických dotazech a další stránku.
+Po odpovědi prodavače vyber, co jsi pochopil/a; lze žádat upřesnění a vrátit se
+do objednávky. Dotaz nemění košík, potvrzení ani platbu.
 
-Po potvrzení objednávky zavři dialog, dojdi k terminálu vlevo od Sama a stiskni E
-nebo použij paprsek. **Přiložit CVIČNOU KARTU** zaplatí přesný součet jednou.
-Poděkuj anglickou replikou. Konkrétní vstupenka s ID, počty, časem a zaplacenou
-částkou je v peněžence v dialogu. U označeného vstupu poblíž kola ji přes E nebo
-trigger předlož. Použitý lístek se podruhé nepřijme; platný lístek otevře závoru.
+Hráč se ptá na nabídku, rodinné podmínky, zahrnuté služby, dostupné časy,
+doporučení alternativy, opravu objednávky, součet a platbu. Odpovědi čerpají
+ze skutečných údajů aktuální varianty. Některé dotazy a jejich porozumění jsou
+povinnými komunikačními cíli. Správný počet lístků sám o sobě nestačí.
 
-Šest samostatných situací má ID LON01–LON06:
+| Cvičná nabídka | Dospělý | Dítě | Podmínky scénáře |
+|---|---:|---:|---|
+| Standard | £30 | £20 | Pevný čas po potvrzení; lze znovu vybrat nabídku. |
+| Flex | £40 | £25 | Změna času před platbou; každá změna ruší potvrzení. |
 
-1. One adult ticket — dospělý, čas, karta a poděkování.
-2. A family visit — v základu dospělý a dítě; procvičování mění počty na
-   dva dospělé a dítě nebo dospělého a dvě děti, včetně správné ceny a rozpočtu.
-3. How much is it? — otázka na cenu a nákup v rozpočtu.
-4. That time is sold out — nejprve otázka na vyprodaný čas, potom alternativa.
-5. Let me change that — oprava dvou dospělých na jednoho před platbou.
-6. Excuse me, where is Elizabeth Tower? — rozhovor s Alexem u INFORMATION,
-   porozumění směru a skutečný příchod přes most na stanoviště u věže; E ověří cíl.
+Obě nabídky obsahují jednu vyhlídkovou návštěvu bez plavby a bez povinného
+poplatku. Rodinná sleva zde není. Cvičné dětské rozmezí je 6–15 let s dospělým.
+Vše jsou **fiktivní výuková pravidla a ceny**, nikoli obchodní podmínky London Eye.
+Peníze se počítají v celočíselných pencích, včetně příplatku Flex.
 
-Učím se nabízí překlad na vyžádání, slovní pomoc a opravu. Procvičování střídá
-skutečné časy a rozpočty. Zkouška skrývá pomoc a ukáže chyby až ve výsledku.
-Pořadí odpovědí se mění, záměry mají stabilní identifikátory. Existují dvě
-ekvivalentní správné žádosti. Jazykově přijatelná věta se špatným počtem nebo časem
-nesplní zadání. Chybný zaplacený nákup lze restartovat přes Situace / restart.
+Po výběru počtů, produktu a času ověř součet. Potvrzená objednávka pokračuje
+u označeného terminálu vedle přepážky: **Přiložit CVIČNOU KARTU**. Platba
+proběhne jednou a vydá konkrétní lístek s ID, produktem, počty, časem a částkou.
+Poděkuj a u vstupní kontroly předlož lístek. Použitou vstupenku nelze použít znovu.
+Nákup neprovádí skutečnou platbu. Zaplacenou chybnou objednávku opakuj novým pokusem.
 
-Moje výsledky uchovávají přehled šesti situací, nejlepší skóre, počet dokončení,
-použitou pomoc, poslední pokusy a procvičené formulace. Angličtina nepřidává XP.
-Dočasný nákup a vstupenka se neukládají. Odchod fyzicky, teleportem, zkratkou,
-do menu nebo změnou scény zruší relaci a obnoví odloženou kampaň. Starší save
-bez volitelné větve `english` zůstává kompatibilní se schématem 2. Selhání zápisu
-zobrazuje NEULOŽENO s opakováním skutečného atomického zápisu.
+## Šest situací, tři varianty a tři režimy
 
-Procedurální kolo má dvojitou obruč, paprsky, konstrukci a 24 kabinek. Věž má
-čtyři ciferníky a horní střechu; Big Ben je jméno velkého zvonu. Pavilon má Temži,
-most, zábradlí a lavičky. Vzdálenosti jsou upravené pro výuku. Geografické podklady:
-[London Eye / South Bank](https://support.londoneye.com/hc/en-us/articles/212636869-Where-is-the-London-Eye-located),
-[UK Parliament / Elizabeth Tower](https://www.parliament.uk/about/living-heritage/building/palace/architecture/palacestructure/towers-of-parliament/).
+| ID | Komunikační a věcný cíl |
+|---|---|
+| LON01 | Vysvětlit plán a důvod, zjistit nabídku i služby, vybrat čas v omezeném rozmezí. |
+| LON02 | Porozumět věku a doprovodu, zvolit skutečné druhy a počty, zkontrolovat celou rodinu. |
+| LON03 | Porovnat dvě dostupné nabídky, zohlednit příplatek/potřebu flexibility a rozpočet, ověřit součet. |
+| LON04 | Zjistit vyprodaný termín, vyjednat dostupnou a časově vhodnou alternativu; třetí varianta odmítá i dostupných 15:00 a potřebuje 16:00. |
+| LON05 | Vysvětlit nedorozumění a konkrétní změnu, změnit košík i cenu, znovu ověřit a potvrdit. |
+| LON06 | Delší pokyny s lavičkami, frontou a mostem, vlastní žádost o zopakování, ověření porozumění a skutečný příchod k věži. |
 
-Model je v `scripts/english/EnglishManager.gd`, sdílené PC/XR UI v
-`DialogueController.gd`, geometrie v `EnglishRoom.gd`, data v
-`data/english/scenarios.json`. Katalog se negeneruje existujícím IT generátorem;
-staré mise, lekce a legacy24 se nemění. Nový režim má hodnotu 3, původní 0/1/2
-zůstávají. Boolean `room_changed` zůstává kompatibilní; skutečnou oblast určuje
-GameModeManager a nové prostorové čidlo.
+Učím se nabízí český překlad a oporu na vyžádání. Procvičování obměňuje skutečné
+počty, časy, rozpočty a potřebné produkty. Zkouška skrývá pomoc a konkrétní chyby
+do výsledku. Formulace mají stabilní záměry a promíchané pořadí; více správných
+žádostí vysvětluje skutečný důvod. Jazykově vhodná odpověď může věcně nesplnit
+podmínky. Vyhodnocení rozlišuje chyby v porozumění a věcné cíle.
 
-Volitelné vlastní psaní, zvuk, mikrofon ani hodnocení výslovnosti nejsou součástí
-implementace. Všech šest situací lze dokončit výběrem replik bez klávesnice ve VR.
-Výkon a tracking fyzického PICO vyžadují připojený autorizovaný headset.
+## Otázky na Londýn
+
+**London Quiz** je na označené tabuli vedle Alexe (LONDON-QUIZ, x=3, z=12.5),
+dostupný také z přehledu situací. Nabízí všech 20 otázek LONQ01–LONQ20 nebo
+krátkou sérii pěti. Témata: památky, Big Ben jako zvon, Temže a břehy, mosty,
+doprava, orientace a kultura. Otázky kombinují přímé dotazy a krátké pokyny.
+
+Učím se nabízí vysvětlení, překlad a opravu chybné odpovědi. První odpověď určuje
+skóre a oprava je samostatně zaznamenaná. Procvičování míchá otázky i odpovědi.
+Zkouška neukazuje řešení do odevzdání série. Souhrn obsahuje každou vlastní
+odpověď, konkrétní vysvětlení a zdroj. Výsledky, nejlepší skóre, procvičení a
+historie jsou uloženy podle stabilního ID. Odchod neodevzdá rozpracovaný pokus.
+
+Každá otázka obsahuje oficiální URL a datum ověření 2026-11-02. Zdroje: UK
+Parliament, London Eye, TfL, City Bridge Foundation a National Gallery.
+Katalog je offline; hru nepodmiňuje síť ani otevření webového odkazu.
+`tools/build_london_quiz.py` deterministicky vytváří pouze tento samostatný katalog.
+
+## Ovládání a kompatibilita
+
+PC: WASD, myš, E; dialog a kvíz také šipky/Tab, Enter a repliky 1–4.
+Esc vrací pohyb. Dlouhý souhrn posouvej kolečkem; fokus sleduje posuv.
+PICO: oba paprsky a trigger, pravý stick pro posuv, B/Y zavře, A/X přemístí
+ukotvený panel. Žádná situace nevyžaduje fyzické psaní ani mikrofon.
+
+`english.content_version=2` označuje nové B1–B2 výsledky. Původní výsledky,
+pokusy a fráze A1–A2 se beze ztráty přesunou do čitelného `english.archive`;
+neznamenají automatické zvládnutí nových úloh. Kvíz má větev `english.quiz`.
+Obě větve validuje stávající SaveValidator, atomický save zachovává schéma 2.
+Žádné XP za opakované klikání. Selhání zápisu lze pravdivě opakovat v panelu.
+Dočasný rozhovor, košík a lístek se mezi návštěvami neukládají. Kampaň se bezpečně
+odkládá i při přechodu přes hub nebo jinou vzdělávací oblast.
+
+Jde o procvičení textových situací zaměřených na B1–B2, nikoli hodnocení celé
+CEFR úrovně, poslechu či výslovnosti nebo jazykový certifikát. Syntetické XR
+testy ověřují vstupy a UI; skutečný tracking a výkon PICO vyžadují hardware.

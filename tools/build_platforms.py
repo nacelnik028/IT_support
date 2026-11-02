@@ -189,7 +189,7 @@ def verify_apk(apk, sdk, environment):
     # aapt on Windows cannot reliably decode a Unicode absolute argv path.
     badging = run([tools / "aapt.exe", "dump", "badging", apk.name], "apk-badging", cwd=apk.parent)
     if "native-code: 'arm64-v8a'" not in badging: raise RuntimeError("APK must be ARM64 only")
-    for expected in ["package: name='cz.academy.itsupport'", "versionCode='3'", "versionName='1.2.0'", "application-label:'Training academy'"]:
+    for expected in ["package: name='cz.academy.itsupport'", "versionCode='4'", "versionName='1.3.0'", "application-label:'Training academy'"]:
         if expected not in badging: raise RuntimeError("Unexpected APK identity: " + expected)
     with zipfile.ZipFile(apk) as archive:
         if archive.testzip() is not None: raise RuntimeError("APK ZIP CRC failed")
@@ -211,7 +211,7 @@ def verify_apk(apk, sdk, environment):
         run([sdk / "platform-tools/adb.exe", "-s", serial, "install", "-r", apk], "adb-install", timeout=180)
         run([sdk / "platform-tools/adb.exe", "-s", serial, "shell", "am", "start", "-n", "cz.academy.itsupport/com.godot.game.GodotAppLauncher"], "adb-launch")
         device_result = "Installed/launched; manual tracking and 72 FPS validation still required"
-    return {"signature": "PASS", "zip_crc": "PASS", "arm64_and_openxr_manifest": "PASS", "version_code": 3, "version_name": "1.2.0", "device": device_result}
+    return {"signature": "PASS", "zip_crc": "PASS", "arm64_and_openxr_manifest": "PASS", "version_code": 4, "version_name": "1.3.0", "device": device_result}
 
 
 def main():

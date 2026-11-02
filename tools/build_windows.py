@@ -75,6 +75,16 @@ def main():
         project.mkdir()
         for folder in ['assets', 'data', 'scenes', 'scripts']:
             shutil.copytree(ROOT / folder, project / folder)
+        # JSON whitespace is not game content. Compact only the isolated export
+        # copy; preserve every key, ID, value and the authored source catalogues.
+        # This leaves room below GitHub's 100 MiB limit without changing the PE
+        # template, packaging format, fonts or available courses.
+        for catalog in (project / 'data').rglob('*.json'):
+            original = json.loads(catalog.read_text(encoding='utf-8-sig'))
+            compact = json.dumps(original, ensure_ascii=False, separators=(',', ':'))
+            if json.loads(compact) != original:
+                raise ValueError('JSON export compaction changed content: ' + str(catalog))
+            catalog.write_text(compact, encoding='utf-8')
         shutil.copy2(ROOT / 'project.godot', project / 'project.godot')
         preset = (ROOT / 'export_presets.cfg').read_text(encoding='utf-8-sig').split('[preset.1]',1)[0]
         preset = preset.replace('binary_format/embed_pck=false', 'binary_format/embed_pck=true')
@@ -99,7 +109,8 @@ def main():
         output=run(runner+[renamed,'--headless','--audio-driver','Dummy','--','--test-world','--export-smoke'], logs/'windows-build-smoke.log',cwd=workdir)
         for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
                          'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true',
-                         'english=true scenarios=6 completed=6','english_cancelled=true']:
+                         'english=true scenarios=6 completed=6','english_cancelled=true',
+                         'hub=true neutral=true','quiz=true questions=20 score=100']:
             if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
         if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
         staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)
@@ -112,7 +123,7 @@ def main():
         info={'engine':version,'export':'Windows x86_64 Debug','bytes':len(binary),
               'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
               'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
-              'native_windows_graphical_verified':False}
+              'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction in isolated build copy'}
         (build/'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n',encoding='utf-8')
         (build/'SHA256SUMS').write_text(info['sha256']+'  ITSupportSimulator.exe\n',encoding='utf-8')
         print(json.dumps(info,indent=2))

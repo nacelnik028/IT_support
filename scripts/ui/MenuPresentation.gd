@@ -18,10 +18,10 @@ static func draw(ui):
 	body.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var left=ui.card(body,"Serverovna / pracovní směna","Řeš IT incidenty ve 3D. Rozehraná kampaň a její výsledky zůstávají zachované.")
 	left.add_theme_constant_override("separation",14)
-	var primary=ui.button(("Pokračovat" if ui.game.active else "Zahájit směnu")+"  /  "+("VR" if OS.has_feature("android") else "klasické 3D"),func():
+	var primary=ui.button("Rozcestník akademie  /  "+("VR" if OS.has_feature("android") else "klasické 3D"),func():
 		if ui.world_enabled and not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
-		if not ui.game.active: ui.first_shift_requested=true; ui.game.start_mission(0)
-		ui.navigate("Serverovna"),true)
+		if ui.world_enabled: ui.world_requested.emit("Rozcestník akademie")
+		else: ui.navigate("Serverovna"),true)
 	primary.custom_minimum_size.y=54
 	left.add_child(primary); ui.register_target("menu:primary",primary)
 	if not OS.has_feature("android") and ui.world_enabled:
@@ -53,7 +53,7 @@ static func draw(ui):
 	var code=ui.button("Vstoupit do programovací učebny",func(): ui.world_requested.emit("Programming Academy"))
 	code.disabled=not ui.world_enabled
 	programming.add_child(code); ui.register_target("menu:programming",code)
-	var english=ui.card(right,"English in London","6 situací A1–A2. Lístky, platba a cesta k věži. Vstup na jižní straně serverovny.")
+	var english=ui.card(right,"English in London","6 situací B1–B2 a 20 otázek na Londýn. Lístky, zákaznické dotazy a cesta k věži.")
 	var london=ui.button("Vstoupit do Londýna",func(): ui.world_requested.emit("English in London"))
 	london.disabled=not ui.world_enabled
 	english.add_child(london); ui.register_target("menu:english",london)

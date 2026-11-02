@@ -253,7 +253,8 @@ func can_teleport(point: Vector3) -> bool:
 	var in_main=point.x>=-8.4 and point.x<=20.4 and absf(point.z)<=6.4
 	var in_programming=shell.world.programming_room.contains_point(point)
 	var in_london=shell.world.english_room.walkable_point(point)
-	if point.y < -0.05 or point.y > 0.15 or not (in_main or in_programming or in_london): return false
+	var in_hub=shell.world.hub.floor_point(point)
+	if point.y < -0.05 or point.y > 0.15 or not (in_main or in_programming or in_london or in_hub): return false
 	var shape = CapsuleShape3D.new()
 	shape.radius=0.31
 	shape.height=1.8

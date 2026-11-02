@@ -49,7 +49,7 @@ def main():
                 desktop.writestr(name, data)
             # These are raw packaged JSON files, not files from the checkout.
             for name in ['data/missions/campaign.json', 'data/training/lessons.json',
-                         'data/missions/legacy_campaign.json','data/english/scenarios.json']:
+                         'data/missions/legacy_campaign.json','data/english/scenarios.json','data/english/london_quiz.json']:
                 if android.read('assets/' + name) != (ROOT / name).read_bytes():
                     raise RuntimeError('Outdated packaged catalog: ' + name)
         results['packaged_catalogs_match'] = True
@@ -64,16 +64,19 @@ def main():
             for expected in ['menu=menu missions=65 lessons=21', 'training=true',
                              'programming=true tasks=60 lessons=28', 'python=true',
                              'web=true preview=true', 'return_main=true', 'programming_west=true',
-                             'english=true scenarios=6 completed=6','english_cancelled=true']:
+                             'english=true scenarios=6 completed=6','english_cancelled=true',
+                             'hub=true neutral=true','quiz=true questions=20 score=100']:
                 if expected not in output:
                     raise RuntimeError('Missing packaged smoke evidence: ' + expected)
-        for name in ['english_model', 'english_world', 'ui_workflow', 'programming_location', 'programming_integration',
+        for name in ['package_content','academy_hub','london_quiz','english_model', 'english_world', 'ui_workflow', 'programming_location', 'programming_integration',
                      'xr_modes', 'terminal_sessions']:
             script = temporary / (name + '.gd')
             script.write_text((ROOT / 'tests' / script.name).read_text(encoding='utf-8'), encoding='utf-8')
             command = [engine, '--headless', '--audio-driver', 'Dummy', '--main-pack', pack, '--script', script, '--']
             if name == 'terminal_sessions':
                 command += ['--verify-packaged', f'--lesson-solutions={ROOT / "tests/lesson_solutions.json"}']
+            if name == 'package_content':
+                command += [f'--reference={ROOT.as_posix()}', f'--inventory-out={(logs/"inventory.json").as_posix()}']
             results[name] = run(command, temporary, logs / (name + '.log'))
     report = {'apk_sha256': digest, 'runtime': platform.system() + ' Godot with actual APK resources',
               'android_native_runtime': 'NOT RUN: requires an authorized PICO headset', 'results': results}

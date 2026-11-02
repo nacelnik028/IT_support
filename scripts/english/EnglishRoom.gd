@@ -40,7 +40,11 @@ func build(owner_world):
 	world=owner_world
 	# The server/training rooms own the entire shared north wall. Only one opening.
 	Geo.solid(self,Vector3(10,-0.16,18),Vector3(22,0.3,22),Color("88948d"))
-	for x in [-1,21]: Geo.solid(self,Vector3(x,5.5,18),Vector3(0.25,11,22),Color("365366"))
+	Geo.solid(self,Vector3(-1,5.5,18),Vector3(0.25,11,22),Color("365366"))
+	# East corridor enters north of the queue; wall owned only here.
+	Geo.solid(self,Vector3(21,5.5,7.5),Vector3(0.25,11,1),Color("365366"))
+	Geo.solid(self,Vector3(21,5.5,20),Vector3(0.25,11,18),Color("365366"))
+	Geo.solid(self,Vector3(21,7,9.5),Vector3(0.25,8,3),Color("365366"))
 	Geo.solid(self,Vector3(10,5.5,29),Vector3(22,11,0.25),Color("597482"))
 	Geo.box(self,Vector3(10,11,18),Vector3(22,0.15,22),Color("92abb2"))
 	# Seal the pavilion's north span beyond the original server wall height.
@@ -48,9 +52,11 @@ func build(owner_world):
 	for at in [Vector3(4,6,13),Vector3(16,6,14),Vector3(5,7,25),Vector3(17,6,25)]:
 		var light=OmniLight3D.new(); light.position=at; light.omni_range=14; light.light_energy=3; light.light_color=Color("e2eddf"); add_child(light)
 	for x in [3.4,6.6]: Geo.box(self,Vector3(x,1.5,7),Vector3(0.13,3,0.38),Color("4cbaa9"))
-	sign_text("04 / ENGLISH IN LONDON",Vector3(5,3.25,7.25),28,0.003)
+	sign_text("04 / ENGLISH IN LONDON",Vector3(5,3.25,6.78),28,0.003)
 	sign_text("ZPĚT DO AKADEMIE  ↑",Vector3(5,2.8,7.3),25,0.0025).rotation.y=0
-	sign_text("04 / ANGLIČTINA V LONDÝNĚ  →",Vector3(4.9,2.9,6.78),27,0.0027)
+	Geo.box(self,Vector3(5,3.25,7),Vector3(3,0.4,0.38),Color("1d3c49"))
+	Geo.text(self,"ZPĚT / ROZCESTNÍK  →",Vector3(20.78,2.7,9.5),28,0.0024).rotation.y=-PI/2
+	for z in [7.95,11.05]: Geo.box(self,Vector3(21,1.5,z),Vector3(0.35,3,0.12),Color("4cbaa9"))
 	sign_text("ENGLISH IN LONDON\nVýukový pavilon • upravené vzdálenosti, nejde o turistickou mapu",Vector3(10,9.5,28.8),44,0.005)
 	# Stylised South Bank, Thames and a wide, level, accessible bridge.
 	Geo.box(self,Vector3(10,-0.002,21.5),Vector3(21.7,0.006,3),Color("318b9e"),0.25)
@@ -85,6 +91,8 @@ func build(owner_world):
 	item("LONDON-INFO","Alex — informace a směry [E]","info",STATIONS.info,Vector3(0.8,1.6,0.6))
 	npc(Vector3(6,0,13),Color("547cba"))
 	sign_text("INFORMATION / ALEX\n[E] ÚKOLY A ROZHOVOR",Vector3(6,2.5,13),27,0.0024)
+	var quiz_board=item("LONDON-QUIZ","Otázky na Londýn — B1–B2 [E]","quiz",Vector3(3,1.5,12.5),Vector3(2,1.4,0.16))
+	Geo.text(quiz_board.visual,"LONDON QUIZ\n20 otázek · B1–B2\n[E] ZAČÍT / VÝSLEDKY",Vector3(0,0,-0.1),26,0.0023,Color("b5eee0")).rotation.y=PI
 	item("LONDON-GATE","Vstupní kontrola — předložit konkrétní lístek [E]","gate",STATIONS.gate,Vector3(0.65,1.2,0.55))
 	gate=Geo.solid(self,Vector3(18.7,0.8,18),Vector3(2.6,0.15,0.15),Color("d88465")); gate.set_meta("dynamic",true)
 	for x in [17.4,20]: Geo.solid(self,Vector3(x,0.55,15.4),Vector3(0.1,1.1,5),Color("345565"))
@@ -92,9 +100,11 @@ func build(owner_world):
 	sign_text("ENTRANCE / KONTROLA [E]\nVyhlídková plošina",Vector3(18.5,2.3,18),26,0.0024)
 	item("LONDON-TOWER","Elizabeth Tower — ověřit příchod [E]","tower",STATIONS.tower,Vector3(1.5,1.3,0.2))
 	sign_text("ELIZABETH TOWER\nBig Ben je velký zvon uvnitř věže.\n[E] POTVRDIT NÁVŠTĚVU",Vector3(4,1.7,24.5),26,0.0023)
+	preload("res://scripts/world/AcademyDecor.gd").london(self)
 
 func npc(at: Vector3, coat: Color):
 	Geo.cylinder(self,at+Vector3(0,1.2,0),0.23,0.7,coat)
+	Geo.cylinder(self,at+Vector3(0,1.6,0),0.095,0.22,Color("ddb296"))
 	Geo.cylinder(self,at+Vector3(0,1.82,0),0.18,0.35,Color("ddb296"))
 	for dx in [-0.065,0.065]: Geo.box(self,at+Vector3(dx,1.87,-0.17),Vector3(0.035,0.04,0.02),Color("293c51"))
 	for dx in [-0.14,0.14]: Geo.box(self,at+Vector3(dx,0.48,0),Vector3(0.19,0.85,0.23),Color("293c51"))
@@ -139,7 +149,7 @@ func build_tower():
 func sync():
 	if world.game==null: return
 	var manager=world.game.english
-	var text="CVIČNÉ CENY / PRACTICE PRICES\nAdult "+manager.money(int(manager.catalog.prices.adult))+" / Child "+manager.money(int(manager.catalog.prices.child))+"\n14:00   15:00   16:00"
+	var text="CVIČNÉ CENY / PRACTICE PRICES\nStandard: adult £30 / child £20\nFlex: adult £40 / child £25\nBez plavby, bez povinného poplatku\n14:00   15:00   16:00"
 	var s=manager.session
 	if not s.is_empty(): text+="\nRozpočet "+manager.money(int(s.goal.budget))+"\n"+("Vyprodáno / Sold out: "+s.goal.sold if s.goal.has("sold") else "Všechny časy dostupné")
 	if text!=last_prices: prices.text=text; last_prices=text

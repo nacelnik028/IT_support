@@ -1,0 +1,586 @@
+{
+  "version": 1,
+  "level": "B1–B2",
+  "questions": [
+    {
+      "id": "LONQ01",
+      "topic": "landmarks",
+      "prompt": "What does the name Big Ben refer to precisely?",
+      "translation": "Co přesně označuje Big Ben?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "The main bell"
+        },
+        {
+          "id": "o1",
+          "text": "The whole palace"
+        },
+        {
+          "id": "o2",
+          "text": "A bridge"
+        },
+        {
+          "id": "o3",
+          "text": "A clock hand"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Big Ben is the main bell inside Elizabeth Tower.",
+      "explanation_cs": "Big Ben je hlavní zvon uvnitř Elizabeth Tower.",
+      "source": "https://www.parliament.uk/about/living-heritage/building/palace/architecture/palacestructure/towers-of-parliament/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ02",
+      "topic": "landmarks",
+      "prompt": "Which building contains Elizabeth Tower?",
+      "translation": "Ke které budově patří Elizabeth Tower?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "The Palace of Westminster"
+        },
+        {
+          "id": "o1",
+          "text": "Buckingham Palace"
+        },
+        {
+          "id": "o2",
+          "text": "The National Gallery"
+        },
+        {
+          "id": "o3",
+          "text": "County Hall"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The tower forms part of the Palace of Westminster.",
+      "explanation_cs": "Věž je součástí Westminsterského paláce.",
+      "source": "https://www.parliament.uk/about/living-heritage/building/palace/architecture/palacestructure/towers-of-parliament/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ03",
+      "topic": "history",
+      "prompt": "The Clock Tower was renamed in 2012. Which occasion did this honour?",
+      "translation": "Jakou událost připomíná přejmenování v roce 2012?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Elizabeth II's Diamond Jubilee"
+        },
+        {
+          "id": "o1",
+          "text": "The opening of the Underground"
+        },
+        {
+          "id": "o2",
+          "text": "The first bridge lift"
+        },
+        {
+          "id": "o3",
+          "text": "The end of the Second World War"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The new name marked the Queen's Diamond Jubilee.",
+      "explanation_cs": "Nové jméno připomíná diamantové jubileum Alžběty II.",
+      "source": "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/building-clock-tower/key-dates-/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ04",
+      "topic": "landmarks",
+      "prompt": "You walk around Elizabeth Tower. How many clock faces can you see in total?",
+      "translation": "Kolik ciferníků má věž celkem?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Four"
+        },
+        {
+          "id": "o1",
+          "text": "Two"
+        },
+        {
+          "id": "o2",
+          "text": "One"
+        },
+        {
+          "id": "o3",
+          "text": "Eight"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Its clock has a face on each of four sides.",
+      "explanation_cs": "Ciferník je na každé ze čtyř stran.",
+      "source": "https://www.parliament.uk/about/living-heritage/building/palace/architecture/palacestructure/towers-of-parliament/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ05",
+      "topic": "landmarks",
+      "prompt": "Which description fits the London Eye?",
+      "translation": "Který popis odpovídá London Eye?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "A 135-metre observation wheel"
+        },
+        {
+          "id": "o1",
+          "text": "A 135-metre clock tower"
+        },
+        {
+          "id": "o2",
+          "text": "An underground art gallery"
+        },
+        {
+          "id": "o3",
+          "text": "A bridge across the Thames"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The Eye is an observation wheel, 135 metres tall.",
+      "explanation_cs": "Jde o vyhlídkové kolo vysoké 135 metrů.",
+      "source": "https://www.londoneye.com/plan-your-visit/information-and-support/faqs/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ06",
+      "topic": "visiting",
+      "prompt": "Allow about half an hour for one rotation. Approximately how long is that?",
+      "translation": "Kolik času přibližně vyhradit na jednu otáčku?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "30 minutes"
+        },
+        {
+          "id": "o1",
+          "text": "10 minutes"
+        },
+        {
+          "id": "o2",
+          "text": "60 minutes"
+        },
+        {
+          "id": "o3",
+          "text": "90 minutes"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "A standard rotation takes about 30 minutes.",
+      "explanation_cs": "Běžná otáčka trvá přibližně 30 minut.",
+      "source": "https://www.londoneye.com/plan-your-visit/information-and-support/faqs/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ07",
+      "topic": "landmarks",
+      "prompt": "The real Eye has more pods than this simplified game model. How many are in its design?",
+      "translation": "Kolik kabinek má skutečné kolo, na rozdíl od herní zkratky?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "32"
+        },
+        {
+          "id": "o1",
+          "text": "24"
+        },
+        {
+          "id": "o2",
+          "text": "12"
+        },
+        {
+          "id": "o3",
+          "text": "60"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The real wheel has 32 pods; the game is simplified.",
+      "explanation_cs": "Skutečné kolo má 32 kabinek; hra je zjednodušená.",
+      "source": "https://www.londoneye.com/plan-your-visit/information-and-support/faqs/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ08",
+      "topic": "visiting",
+      "prompt": "Unless you book a private pod, what should you expect?",
+      "translation": "Co očekávat bez objednání soukromé kabinky?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "You may share with other visitors"
+        },
+        {
+          "id": "o1",
+          "text": "You must travel alone"
+        },
+        {
+          "id": "o2",
+          "text": "Every group gets its own pod"
+        },
+        {
+          "id": "o3",
+          "text": "You have to operate the wheel"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Regular pods may be shared with other guests.",
+      "explanation_cs": "Běžnou kabinku mohou sdílet další návštěvníci.",
+      "source": "https://www.londoneye.com/plan-your-visit/information-and-support/faqs/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ09",
+      "topic": "geography",
+      "prompt": "On which bank of the Thames is the London Eye?",
+      "translation": "Na kterém břehu Temže je London Eye?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "The South Bank"
+        },
+        {
+          "id": "o1",
+          "text": "The North Bank"
+        },
+        {
+          "id": "o2",
+          "text": "An island in the middle"
+        },
+        {
+          "id": "o3",
+          "text": "Neither: it is outside London"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The Eye stands on the South Bank.",
+      "explanation_cs": "Kolo stojí na jižním břehu.",
+      "source": "https://www.londoneye.com/plan-your-visit/before-you-visit/directions/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ10",
+      "topic": "geography",
+      "prompt": "Which river separates the Eye from the Houses of Parliament?",
+      "translation": "Která řeka odděluje kolo od parlamentu?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "The Thames"
+        },
+        {
+          "id": "o1",
+          "text": "The Severn"
+        },
+        {
+          "id": "o2",
+          "text": "The Avon"
+        },
+        {
+          "id": "o3",
+          "text": "The Trent"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The Thames runs between these landmarks.",
+      "explanation_cs": "Mezi těmito památkami protéká Temže.",
+      "source": "https://www.londoneye.com/plan-your-visit/before-you-visit/directions/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ11",
+      "topic": "transport",
+      "prompt": "You arrive at Waterloo and want to walk to the Eye. Which signs should you follow?",
+      "translation": "Které značení sledovat z Waterloo ke kolu?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "South Bank"
+        },
+        {
+          "id": "o1",
+          "text": "Tower of London"
+        },
+        {
+          "id": "o2",
+          "text": "Heathrow Airport"
+        },
+        {
+          "id": "o3",
+          "text": "Camden Town"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The Eye's directions tell Waterloo visitors to follow South Bank signs.",
+      "explanation_cs": "Oficiální trasa vede podle značek South Bank.",
+      "source": "https://www.londoneye.com/plan-your-visit/before-you-visit/directions/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ12",
+      "topic": "geography",
+      "prompt": "A friend asks where to find the Eye's ticket office. Which neighbouring building should you name?",
+      "translation": "Ve které sousední budově je pokladna?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "County Hall"
+        },
+        {
+          "id": "o1",
+          "text": "The Palace of Westminster"
+        },
+        {
+          "id": "o2",
+          "text": "The National Gallery"
+        },
+        {
+          "id": "o3",
+          "text": "St Paul's Cathedral"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The ticket office is inside County Hall next to the Eye.",
+      "explanation_cs": "Pokladna sídlí v sousední County Hall.",
+      "source": "https://www.londoneye.com/plan-your-visit/before-you-visit/directions/",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ13",
+      "topic": "bridges",
+      "prompt": "Tower Bridge and London Bridge appear separately on a map. What should you conclude?",
+      "translation": "Co vyvodit ze dvou názvů mostů na mapě?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "They are different bridges"
+        },
+        {
+          "id": "o1",
+          "text": "They are names for the same bridge"
+        },
+        {
+          "id": "o2",
+          "text": "London Bridge is a tower"
+        },
+        {
+          "id": "o3",
+          "text": "Tower Bridge is outside London"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The bridge authority maintains them as separate Thames crossings.",
+      "explanation_cs": "Správce uvádí dva samostatné mosty přes Temži.",
+      "source": "https://www.citybridgefoundation.org.uk/what-we-do/bridges",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ14",
+      "topic": "bridges",
+      "prompt": "Tower Bridge's central road sections rise. Why is this useful?",
+      "translation": "Proč se zvedají střední části Tower Bridge?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "To let tall vessels pass"
+        },
+        {
+          "id": "o1",
+          "text": "To stop the river flowing"
+        },
+        {
+          "id": "o2",
+          "text": "To move the bridge downstream"
+        },
+        {
+          "id": "o3",
+          "text": "To turn the road into a railway"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Its bascules lift to allow river traffic through.",
+      "explanation_cs": "Zvedací části umožňují průjezd lodí.",
+      "source": "https://www.citybridgefoundation.org.uk/what-we-do/bridges",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ15",
+      "topic": "history",
+      "prompt": "Tower Bridge opened in 1894. Which period does that place its opening in?",
+      "translation": "Do kterého století patří otevření roku 1894?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "The nineteenth century"
+        },
+        {
+          "id": "o1",
+          "text": "The seventeenth century"
+        },
+        {
+          "id": "o2",
+          "text": "The eighteenth century"
+        },
+        {
+          "id": "o3",
+          "text": "The twentieth century"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "1894 falls in the nineteenth century.",
+      "explanation_cs": "Rok 1894 patří do devatenáctého století.",
+      "source": "https://www.citybridgefoundation.org.uk/what-we-do/bridges",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ16",
+      "topic": "transport",
+      "prompt": "On the Tube you touch in with your phone. How should you touch out?",
+      "translation": "Přiložíš při vstupu do metra telefon. Čím se odbavit na výstupu?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "With the same phone"
+        },
+        {
+          "id": "o1",
+          "text": "With any bank card"
+        },
+        {
+          "id": "o2",
+          "text": "With a different Oyster card"
+        },
+        {
+          "id": "o3",
+          "text": "You should never touch out"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Use the same card or device at both ends of a Tube journey.",
+      "explanation_cs": "Na obou koncích cesty metrem použij stejné zařízení.",
+      "source": "https://tfl.gov.uk/travel-information/visiting-london/getting-around-london/best-ways-for-visitors-to-pay",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ17",
+      "topic": "transport",
+      "prompt": "You board a London bus using pay as you go. What is the correct touching procedure?",
+      "translation": "Jak se odbavit v londýnském autobusu při pay as you go?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Touch in only"
+        },
+        {
+          "id": "o1",
+          "text": "Touch out only"
+        },
+        {
+          "id": "o2",
+          "text": "Touch in and out"
+        },
+        {
+          "id": "o3",
+          "text": "Touch twice before sitting down"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Buses require a touch in, without a touch out.",
+      "explanation_cs": "V autobuse se přikládá jen při nástupu.",
+      "source": "https://tfl.gov.uk/travel-information/visiting-london/getting-around-london/best-ways-for-visitors-to-pay",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ18",
+      "topic": "transport",
+      "prompt": "You want to pay only for the journeys you make. Which option describes this?",
+      "translation": "Jak se nazývá platba za skutečně uskutečněné cesty?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Pay as you go"
+        },
+        {
+          "id": "o1",
+          "text": "A reserved seat"
+        },
+        {
+          "id": "o2",
+          "text": "A museum membership"
+        },
+        {
+          "id": "o3",
+          "text": "A private pod"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Pay as you go uses contactless or Oyster for journeys taken.",
+      "explanation_cs": "Pay as you go využívá bezkontaktní platbu nebo Oyster.",
+      "source": "https://tfl.gov.uk/travel-information/visiting-london/getting-around-london/best-ways-for-visitors-to-pay",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ19",
+      "topic": "culture",
+      "prompt": "You are meeting at the National Gallery. Which square should you head for?",
+      "translation": "Na které náměstí zamířit k National Gallery?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Trafalgar Square"
+        },
+        {
+          "id": "o1",
+          "text": "Parliament Square"
+        },
+        {
+          "id": "o2",
+          "text": "Leicester Square"
+        },
+        {
+          "id": "o3",
+          "text": "Russell Square"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "The National Gallery faces Trafalgar Square.",
+      "explanation_cs": "National Gallery stojí na Trafalgar Square.",
+      "source": "https://www.nationalgallery.org.uk/visiting/plan-your-visit",
+      "verified": "2026-11-02"
+    },
+    {
+      "id": "LONQ20",
+      "topic": "culture",
+      "prompt": "A notice says: general admission is free; some exhibitions have a charge. What does this mean?",
+      "translation": "Co znamená bezplatný běžný vstup a placené některé výstavy?",
+      "options": [
+        {
+          "id": "o0",
+          "text": "Some special exhibitions may cost extra"
+        },
+        {
+          "id": "o1",
+          "text": "Every exhibition is free"
+        },
+        {
+          "id": "o2",
+          "text": "You must pay for every room"
+        },
+        {
+          "id": "o3",
+          "text": "Only staff may enter for free"
+        }
+      ],
+      "answer": "o0",
+      "explanation": "Free general entry does not include every temporary exhibition.",
+      "explanation_cs": "Běžný vstup zdarma nezahrnuje každou dočasnou výstavu.",
+      "source": "https://www.nationalgallery.org.uk/visiting/plan-your-visit",
+      "verified": "2026-11-02"
+    }
+  ]
+}

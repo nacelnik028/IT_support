@@ -32,6 +32,7 @@ func build(academy):
 	Geo.solid(room,Vector3(7.5,0.5,-12),Vector3(1.1,0.16,2.6),Color("435c6a"))
 	for z in [-13,-11]: Geo.cylinder(room,Vector3(7.5,0.23,z),0.1,0.46,Color("536b78"),0.7)
 	study_wall(); entrance()
+	preload("res://scripts/world/AcademyDecor.gd").programming(room)
 
 func workstation(station: Array):
 	var at=Vector3(station[0],0,station[1]); var accent: Color=station[3]

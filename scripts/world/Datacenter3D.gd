@@ -26,6 +26,7 @@ var screen_time = 0.0
 var training_zone
 var programming_room
 var english_room
+var hub
 
 func _ready():
 	build_room()
@@ -50,6 +51,8 @@ func _ready():
 	english_room=preload("res://scenes/english_london/EnglishLondon.tscn").instantiate()
 	add_child(english_room)
 	english_room.build(self)
+	hub=preload("res://scripts/world/AcademyHub.gd").new()
+	add_child(hub); hub.build(self)
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
@@ -69,11 +72,15 @@ func _ready():
 	Geo.box(screen.visual,Vector3(0,0,0.07),Vector3(4.95,1.35,0.03),Color("07313b"),0,0.25)
 	monitoring = Geo.text(screen.visual,"NORTHSTAR / PROVOZNÍ DOHLED",Vector3(0,0,0.095),38,0.003)
 	visuals.build(self)
+	preload("res://scripts/world/AcademyDecor.gd").technical(self)
 	batched_instances = Geo.batch_static(self)
 
 func build_room():
 	Geo.solid(self,Vector3(0,-0.16,0),Vector3(18,0.3,14),Color("343f4b"),0.25)
-	Geo.solid(self,Vector3(0,2,-7),Vector3(18,4,0.25),Color("293844"))
+	# Northern hub entry, clear of racks, cooling and switchgear.
+	Geo.solid(self,Vector3(-8.25,2,-7),Vector3(1.5,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(2.25,2,-7),Vector3(13.5,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-6,3.5,-7),Vector3(3,1,0.25),Color("293844"))
 	# West doorway: visible on the left when facing the server racks.
 	for z in [-4.25,4.25]: Geo.solid(self,Vector3(-9,2,z),Vector3(0.25,4,5.5),Color("374753"))
 	Geo.solid(self,Vector3(-9,3.5,0),Vector3(0.25,1,3),Color("374753"))
@@ -219,20 +226,19 @@ func build_details():
 	Geo.box(self,Vector3(0.7,0.012,0),Vector3(13,0.008,0.045),Color("d4ad54"))
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
-	for x in range(0,9):
+	for x in [0,1,2,3,7,8]:
 		Geo.box(self,Vector3(x,1.55,6.84),Vector3(0.045,3.1,0.06),Color("5e788a"),0.7)
-	Geo.box(self,Vector3(0,0.38,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
-	Geo.box(self,Vector3(0,2.9,6.8),Vector3(17.7,0.045,0.04),Color("267c94"),0,0.4)
+	for y in [0.38,2.9]:
+		for span in [[-2.75,12.2],[7.75,2.2]]: Geo.box(self,Vector3(span[0],y,6.8),Vector3(span[1],0.045,0.04),Color("267c94"),0,0.4)
 	Geo.text(self,"01  /  IT OPERATIONS",Vector3(-5.4,2.4,6.75),52,0.004).rotation.y = PI
-	# Inset entrance door and safety signage, kept inside the bounded building.
-	Geo.box(self,Vector3(4,1.35,6.78),Vector3(1.55,2.7,0.12),Color("172c39"),0.5)
-	Geo.box(self,Vector3(4.55,1.2,6.69),Vector3(0.06,0.32,0.05),Color("c6d6df"),0.8)
-	Geo.text(self,"VSTUP / PROVOZ",Vector3(4,2.9,6.65),36,0.003,Color("79e4bc")).rotation.y = PI
+	# London is a marked open passage; no decorative door leaf crosses it.
 
 func build_academy():
 	Geo.solid(self,Vector3(15,-0.16,0),Vector3(12,0.3,14),Color("586271"),0.15)
 	Geo.solid(self,Vector3(21,2,0),Vector3(0.25,4,14),Color("354b58"))
-	for z in [-7,7]: Geo.solid(self,Vector3(15,2,z),Vector3(12,4,0.25),Color("405768"))
+	Geo.solid(self,Vector3(15,2,7),Vector3(12,4,0.25),Color("405768"))
+	for span in [[11.75,5.5],[19.25,3.5]]: Geo.solid(self,Vector3(span[0],2,-7),Vector3(span[1],4,0.25),Color("405768"))
+	Geo.solid(self,Vector3(16,3.5,-7),Vector3(3,1,0.25),Color("405768"))
 	Geo.box(self,Vector3(15,4,0),Vector3(12,0.15,14),Color("24333c"))
 	for x in range(10,21): Geo.box(self,Vector3(x,0.002,0),Vector3(0.01,0.005,14),Color("354551"))
 	for z in range(-7,8): Geo.box(self,Vector3(15,0.002,z),Vector3(12,0.005,0.01),Color("354551"))

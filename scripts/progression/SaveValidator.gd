@@ -49,6 +49,12 @@ func valid(data) -> bool:
 
 func english(data) -> bool:
 	if not data is Dictionary or not shape(data,{"results":{},"attempts":[],"phrases":[],"intro_seen":false}): return false
+	if data.has("content_version"):
+		if not integer(data.content_version,2,2): return false
+		var archive=data.get("archive",{})
+		if not archive is Dictionary or archive.has("content_version") or archive.has("archive") or archive.has("quiz") or not english(archive): return false
+		if not london_quiz(data.get("quiz",{})): return false
+	elif data.has("archive") or data.has("quiz"): return false
 	var ids=["LON01","LON02","LON03","LON04","LON05","LON06"]
 	for id in data.get("results",{}):
 		var r=data.results[id]
@@ -63,6 +69,31 @@ func english(data) -> bool:
 		if r.errors.size()>1000: return false
 		for e in r.errors:
 			if not e is Dictionary or not required(e,{"text":"","language_ok":false}) or e.text.length()>1000: return false
+	return true
+
+func london_quiz(data) -> bool:
+	if not data is Dictionary or not shape(data,{"results":{},"attempts":[],"best":0}): return false
+	if not integer(data.get("best",0),0,100) or data.get("attempts",[]).size()>100: return false
+	var questions=JSON.parse_string(FileAccess.get_file_as_string("res://data/english/london_quiz.json")).questions
+	var ids=[]
+	for q in questions: ids.append(q.id)
+	for id in data.get("results",{}):
+		var r=data.results[id]
+		if not id in ids or not r is Dictionary or not required(r,{"best":0,"attempts":0,"practiced":false,"corrected":false}): return false
+		if not integer(r.best,0,100) or not integer(r.attempts,1): return false
+	for record in data.get("attempts",[]):
+		if not record is Dictionary or not required(record,{"mode":"","score":0,"answers":[]}): return false
+		if not record.mode in ["learn","practice","exam"] or not integer(record.score,0,100) or not record.answers.size() in [5,20]: return false
+		var seen=[]; var correct=0
+		for a in record.answers:
+			if not a is Dictionary or not required(a,{"id":"","selected":"","correct":false,"corrected":false,"hints":0}): return false
+			if not a.id in ids or a.id in seen or not integer(a.hints,0,1): return false
+			var q=questions[ids.find(a.id)]
+			if q.options.filter(func(o): return o.id==a.selected).is_empty() or a.correct!=(q.answer==a.selected) or (a.correct and a.corrected): return false
+			if record.mode=="exam" and a.hints>0: return false
+			seen.append(a.id)
+			if a.correct: correct+=1
+		if int(record.score)!=roundi(100.0*correct/seen.size()): return false
 	return true
 
 func programming(data) -> bool:
@@ -256,7 +287,12 @@ func world_state(s: Dictionary) -> bool:
 			if not baseline.hosts.has(id) or not collection[id] is bool: return false
 	for value in w.data_loss.values():
 		if not value is bool: return false
-	if absf(w.player.x)>21 or absf(w.player.z)>7 or absf(w.player.pitch)>1.5: return false
+	var p=w.player
+	var legacy=absf(p.x)<=21 and absf(p.z)<=7
+	var hub=(p.x>=-9 and p.x<=25 and p.z>=-16 and p.z<=-7) or (p.x>=21 and p.x<=25 and p.z>=-16 and p.z<=11.5)
+	var classroom=p.x>=-23 and p.x<=-9 and p.z>=-15.5 and p.z<=2.5
+	var london=p.x>=-1 and p.x<=21 and p.z>=7 and p.z<=29
+	if not (legacy or hub or classroom or london) or absf(p.pitch)>1.5: return false
 	return true
 
 static func shape(value, template) -> bool:

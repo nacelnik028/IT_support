@@ -45,8 +45,10 @@ func _notification(what: int):
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
 	if "--test-world" in OS.get_cmdline_user_args():
-		preload("res://scripts/progression/SaveManager.gd").path_override = "user://academy_test_world_mcp.json"
-		preload("res://scripts/core/DisplaySettings.gd").path_override = "user://academy_test_world_mcp.cfg"
+		var tag=str(OS.get_process_id())
+		preload("res://scripts/progression/SaveManager.gd").path_override = "user://academy_test_world_"+tag+".json"
+		preload("res://scripts/core/DisplaySettings.gd").path_override = "user://academy_test_world_"+tag+".cfg"
+		preload("res://scripts/xr/VRSettings.gd").path_override = "user://academy_test_world_"+tag+"_vr.cfg"
 	world = preload("res://scenes/world/Datacenter3D.tscn").instantiate()
 	add_child(world)
 	var layer = CanvasLayer.new()
@@ -143,6 +145,7 @@ func _ready():
 	ui.game.room_probe = world.training_zone.contains_player
 	ui.game.programming_probe=world.programming_room.contains_player
 	ui.game.english_probe=world.english_room.contains_player
+	ui.game.hub_probe=world.hub.contains_player
 	ui.game.english.location=world.english_room.near
 	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
@@ -191,6 +194,7 @@ func _process(delta):
 		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
 		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
 		status_label.text = "SERVEROVNA 01"
+		if ui.game.game_mode.is_hub(): status_label.text="TRAINING ACADEMY / ROZCESTNÍK\n01 Serverovna · 02 IT trénink\n03 Programování · 04 Londýn"
 		if ui.game.game_mode.is_english():
 			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
 			if not ui.game.english.session.is_empty(): status_label.text+="\n"+ui.game.english.definition().title
@@ -224,7 +228,7 @@ func _process(delta):
 		store_pose()
 
 func set_mode(value: String):
-	if value == "menu" and ui.game.game_mode.is_education():
+	if value == "menu" and ui.game.game_mode.is_away():
 		world.player.position = Vector3(7,0.02,3.5)
 		ui.game.reconcile_room()
 		ui.page = "menu"
@@ -247,16 +251,28 @@ func safe_saved_position(point: Vector3) -> Vector3:
 	# Old programming-room positions now lie beyond the sealed north wall.
 	# Move only the pose; mission state, equipment, XP and results stay untouched.
 	if world.english_room.contains_point(point): return Vector3(5,0.02,5.5)
-	if point.z < -6.6 and not world.programming_room.contains_point(point):
+	if point.z < -7.2 and not world.programming_room.contains_point(point):
 		return Vector3(-7,0.02,0)
 	return point
 
 func enter_world(destination: String = "Serverovna"):
+	# A fresh menu entry starts in the neutral hall. Continue inside the live
+	# world keeps its pose; explicit course shortcuts still target their rooms.
+	if destination=="Rozcestník akademie":
+		pending_cable=""
+		world.player.position=world.hub.SPAWN
+		world.player.velocity=Vector3.ZERO
+		world.player.rotation.y=0; world.player.camera.rotation.x=0
+		ui.game.reconcile_room()
+		pose_revision=ui.game.session_revision
+		set_mode("world")
+		ui.first_shift_requested=false
+		return
 	if destination == "Hlavní serverovna":
 		world.player.position = Vector3(7,0.02,3.5)
 		world.player.velocity = Vector3.ZERO
 		ui.game.reconcile_room()
-	if not ui.game.active and not ui.game.game_mode.is_education(): ui.game.start_mission(0)
+	if not ui.game.active and not ui.game.game_mode.is_away(): ui.game.start_mission(0)
 	if pose_revision != ui.game.session_revision:
 		var pose = ui.game.sim.state.world.player
 		world.player.position = safe_saved_position(Vector3(pose.x,0.02,pose.z))
@@ -351,6 +367,7 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 
 func interact(object):
 	ui.game.reconcile_room()
+	if ui.game.game_mode.is_hub(): return
 	if object.kind=="english":
 		if ui.game.game_mode.is_english():
 			if object.console=="tower" and ui.game.english.arrive_tower(): open_english("tower")
@@ -406,7 +423,7 @@ func open_english(station: String = "tickets", intro: bool = false):
 	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
 	english_dialog=preload("res://scripts/english/DialogueController.gd").new()
 	english_dialog.shell=self; english_dialog.manager=ui.game.english; english_dialog.station=station
-	english_dialog.page="intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
+	english_dialog.page="quiz_home" if station=="quiz" else "intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
 	overlay.add_child(english_dialog)
 	set_mode("english")
 	if vr_active:
@@ -557,12 +574,13 @@ func pause_menu():
 	set_mode("pause")
 	var v = panel("Pauza","Pohyb a fyzické interakce jsou pozastavené.")
 	v.add_child(ui.button("Pokračovat",return_to_world,true))
+	v.add_child(ui.button("Rozcestník akademie",func(): enter_world("Rozcestník akademie")))
 	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
 	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
-	if ui.game.game_mode.is_education(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
+	if ui.game.game_mode.is_away(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
 	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
@@ -607,7 +625,7 @@ func start_vr():
 	vr_active=true
 	xr_rig.activate()
 	apply_vr_quality()
-	enter_world()
+	enter_world("Rozcestník akademie")
 	print("VR initialized; tracking and device performance require hardware validation.")
 
 func show_vr_error():
@@ -673,8 +691,9 @@ func export_smoke():
 	if "--test-world" not in OS.get_cmdline_user_args(): get_tree().quit(2); return
 	await get_tree().process_frame
 	print("EXPORT_SMOKE menu=",mode," missions=",ui.game.missions.size()," lessons=",ui.game.tutorial.lessons.size())
-	enter_world()
+	enter_world("Rozcestník akademie")
 	await get_tree().process_frame
+	print("EXPORT_SMOKE hub=",ui.game.game_mode.is_hub()," neutral=",not ui.game.active)
 	print("EXPORT_SMOKE world=",mode," objects=",world.devices.size())
 	enter_world("Trénink")
 	await get_tree().process_frame
@@ -702,28 +721,46 @@ func export_smoke():
 		world.player.position=Vector3(12,0.02,8.8)
 		if id=="LON06":
 			world.player.position=Vector3(6,0.02,11.4)
-			english.act("directions",english.revision); english.act("route",english.revision)
+			english.act("directions",english.revision)
+			smoke_question(english,"repeat")
+			english.act("route",english.revision)
 			world.player.position=Vector3(4,0.02,24)
 			english.arrive_tower()
 		else:
+			var topics={"LON01":["options","included"],"LON02":["family","included"],"LON03":["options","included"],"LON04":["availability","recommend"],"LON05":["change"]}[id]
+			for topic in topics: smoke_question(english,topic)
 			if id=="LON05": english.act("change",english.revision)
 			if id=="LON03": english.act("price",english.revision)
 			english.act("order",english.revision)
+			english.act("product_standard",english.revision)
 			if id=="LON04": english.act("time_14:00",english.revision); english.act("next",english.revision)
 			else: english.act("time_"+english.session.goal.time,english.revision)
+			if id in ["LON03","LON05"]: smoke_question(english,"total")
 			english.act("confirm",english.revision)
 			world.player.position=Vector3(10,0.02,8.7)
 			english.pay(english.revision); english.act("thanks",english.revision)
 			world.player.position=Vector3(17,0.02,16.6)
 			english.present_ticket()
 	print("EXPORT_SMOKE english=",ui.game.game_mode.is_english()," scenarios=",english.catalog.scenarios.size()," completed=",english.progress.results.size())
+	var quiz=english.quiz
+	quiz.start("exam",20,71)
+	for i in 20: quiz.answer(quiz.definition().answer,quiz.revision); quiz.next(quiz.revision)
+	print("EXPORT_SMOKE quiz=",quiz.session.completed," questions=",quiz.catalog.questions.size()," score=",quiz.session.score)
 	enter_world("Hlavní serverovna")
 	print("EXPORT_SMOKE english_cancelled=",english.session.is_empty())
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
 	get_tree().quit()
 
+func smoke_question(english, topic: String):
+	english.open_questions(english.revision,english.Questions.TOPICS.find(topic)/3)
+	english.act("q_"+topic,english.revision); english.act("understood",english.revision)
+
 func show_tasks():
 	ui.game.reconcile_room()
+	if ui.game.game_mode.is_hub():
+		set_mode("tasks")
+		var v=panel("Rozcestník akademie","01 / Serverovna — kampaň a incidenty\n02 / IT trénink — cvičná infrastruktura\n03 / Programování — Python a web\n04 / English in London — B1–B2 a londýnský kvíz")
+		v.add_child(ui.button("Zpět do haly",return_to_world)); return
 	if ui.game.game_mode.is_english(): open_english(); return
 	if ui.game.game_mode.is_programming(): open_programming(); return
 	if not ui.game.active:
@@ -797,6 +834,7 @@ func update_guidance():
 
 func on_room_changed(training_room: bool):
 	if leaving_scene or not ui.is_inside_tree(): return
+	if ui.game.game_mode.current==0 and not ui.game.active and not world.hub.contains_player() and not world.training_zone.contains_player() and not world.programming_room.contains_player() and not world.english_room.contains_player(): ui.game.resume_campaign()
 	pose_revision = ui.game.session_revision
 	if training_room:
 		var p = world.player
@@ -815,9 +853,9 @@ func on_room_changed(training_room: bool):
 	if mode != "menu": set_mode("world")
 	ui.page = "Trénink" if training_room else "Serverovna"
 	ui.draw_ui()
-	var current_room="english" if ui.game.game_mode.is_english() else "programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
+	var current_room="hub" if ui.game.game_mode.is_hub() else "english" if ui.game.game_mode.is_english() else "programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
 	var exit_text={"english":"Odchod z angličtiny.","programming":"Odchod z programovací učebny.","training":"Odchod z IT tréninkové akademie."}.get(previous_room,"")+" Kampaň obnovena."
-	room_notice.text={"english":"English in London / přepážka Tickets, Alex a most k věži.","programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,exit_text)
+	room_notice.text={"hub":"Rozcestník / kampaň bezpečně odložena. Vyber si označený průchod.","english":"English in London / přepážka Tickets, Alex a most k věži.","programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,exit_text)
 	if current_room=="english" and not ui.game.english.progress.intro_seen:
 		call_deferred("english_welcome")
 	previous_room=current_room
@@ -833,5 +871,6 @@ func _exit_tree():
 		ui.game.room_probe = Callable()
 		ui.game.programming_probe=Callable()
 		ui.game.english_probe=Callable()
+		ui.game.hub_probe=Callable()
 		ui.game.english.location=Callable()
 		ui.game.leave_training()

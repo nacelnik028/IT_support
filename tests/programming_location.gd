@@ -138,7 +138,7 @@ func run():
 	check(game.save()==OK,"Supported legacy doorway pose saves successfully")
 	check(not Saves.load_game().is_empty(),"Legacy doorway save remains valid")
 	shell.pose_revision=-1; shell.enter_world()
-	check(shell.world.player.position==Vector3(-7,0.02,0),"Restoring a pose at the sealed old door moves only the player")
+	check(shell.world.player.position==Vector3(-6.5,0.02,-7),"The old north doorway pose is now a safe hub doorway and remains intact")
 	check(game.progress==progress and game.programming.progress==results,"Pose repair preserves XP and completed programming results")
 	await create_timer(6.2).timeout # Let the real departure notice fade before documenting the view.
 	# Same view as visual_capture.gd baseline, then a frontal server view.

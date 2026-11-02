@@ -13,16 +13,25 @@ Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS n
 pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 
-**English in London** je čtvrtý 3D pavilon: vstup jižním průchodem serverovny
+**Training academy / Rozcestník** je nové společné nástupní místo PC i VR.
+Čtyři skutečné průchody vedou do serverovny (01), IT tréninku (02), programování
+(03) a východní chodbou do Londýna (04). Místnosti a pracoviště zůstávají na svých
+souřadnicích. Pauza → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
+[Dispozice, chování při pokračování a ochrana save](docs/ACADEMY_HUB.md).
+
+**English in London** je čtvrtý 3D pavilon: vstup také jižním průchodem serverovny
 **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Obsahuje prostorové
-London Eye a Elizabeth Tower, šest situací A1–A2, tři režimy, skutečný cvičný
+London Eye a Elizabeth Tower, šest situací B1–B2, tři režimy, skutečný cvičný
 košík, platbu kartou u terminálu a vstupenku použitelnou u kontroly. Vlastní
 výsledky zachovávají kampaň. PC používá E, myš, šipky/Tab, Enter a repliky 1–4;
 PICO oba paprsky a trigger bez povinného psaní. [Podrobný průchod a ovládání](docs/ENGLISH_LONDON.md).
 
-Pro další etapu je připravené [podrobné zadání rozcestníku, oprav materiálů a B1–B2](PROMPT_ACADEMY_HUB_PC_VR.md),
-včetně otázek na Londýn a zákaznických dotazů při nákupu lístků. Jde o budoucí
-zadání; současný Londýn obsahuje původně požadované situace A1–A2.
+U Sama zákazník pokládá otázky na nabídku, podmínky, dostupnost, celkovou cenu,
+změnu i platbu a ověřuje porozumění odpovědi. Standard a Flex mají skutečné
+rozdílné ceny a podmínky; časové limity ovlivňují nákup. **London Quiz** na tabuli
+vedle Alexe (nebo v přehledu situací) nabízí 20 ověřených otázek s vysvětlením
+a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivované.
+[Audit materiálů a snímky před/po](docs/MATERIAL_AUDIT.md).
 
 ## Aktuální rozhraní
 
@@ -47,14 +56,14 @@ Starší Windows ZIP a pracovní exporty byly odstraněny.
 
 PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.
-Menu **HRÁT V KLASICKÉM 3D** otevře původní FPS hru a načte místní postup.
+Menu **Rozcestník akademie / klasické 3D** otevře nástupní halu a zachová místní postup.
 **HRÁT VE VR / PICO 4 · OpenXR** uloží postup a spustí stejnou hru s OpenXR.
 Pro PC VR připoj headset přes funkční PC VR streaming a nastav kompatibilní aktivní
 OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 3D.
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
 **PICO 4:** [`build/pico4/ITSupportSimulator-PICO4.apk`](build/pico4/ITSupportSimulator-PICO4.apk)
-je podepsaný sideload Debug APK 1.2.0 (versionCode 3) pro ARM64, běžný PICO 4,
+je podepsaný sideload Debug APK 1.3.0 (versionCode 4) pro ARM64, běžný PICO 4,
 Android min 29 / target 34. Obsahuje aktuální Training academy se západní učebnou
 a londýnským pavilonem; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
 pro aktualizaci přes `adb install -r`.
@@ -183,7 +192,8 @@ Oficiálně ověřené podklady: [Godot XR Android](https://docs.godotengine.org
 - **WASD** chůze, **myš** rozhlížení, **Shift** rychlá chůze, **E** interakce,
   **F** baterka, **Tab** zadání a skutečné cíle, **Escape** pauza či návrat od
   počítače. Citlivost, klávesy a zvuk nastavíš ve společném Nastavení z menu i pauzy.
-- **Zahájit první směnu / Pokračovat** otevře skutečnou3D serverovnu.
+- **Rozcestník akademie** v menu otevře nástupní halu. **Pokračovat** v pauze
+  zachová aktuální polohu; vstup do serverovny obnoví rozpracovanou směnu.
   Přijdi k zařízení, zaměř jeho čelo a stiskni E. Tyrkysový rám označuje právě
   zaměřený objekt; paprsek neprochází stěnami a dosáhne3,2m.
 - Počítače **ADMIN-01 / Proxmox** a **ADMIN-02 / Hyper-V** otevírají původní
