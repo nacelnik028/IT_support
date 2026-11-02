@@ -53,6 +53,10 @@ static func draw(ui):
 	var code=ui.button("Vstoupit do programovací učebny",func(): ui.world_requested.emit("Programming Academy"))
 	code.disabled=not ui.world_enabled
 	programming.add_child(code); ui.register_target("menu:programming",code)
+	var english=ui.card(right,"English in London","6 situací A1–A2. Lístky, platba a cesta k věži. Vstup na jižní straně serverovny.")
+	var london=ui.button("Vstoupit do Londýna",func(): ui.world_requested.emit("English in London"))
+	london.disabled=not ui.world_enabled
+	english.add_child(london); ui.register_target("menu:english",london)
 	var footer=ui.hbox(all,12)
 	footer.add_child(ui.label("VLASTNÍ TEMPO  /  ČESKÁ VÝUKOVÁ SIMULACE",12,ui.MUTED))
 	for item in [["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:

@@ -32,6 +32,7 @@ var ui_layer: CanvasLayer
 var xr_rig
 var vr_active = false
 var code_editor
+var english_dialog
 
 func _notification(what: int):
 	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT or vr_active: return
@@ -141,6 +142,8 @@ func _ready():
 	world.training_zone.game = ui.game
 	ui.game.room_probe = world.training_zone.contains_player
 	ui.game.programming_probe=world.programming_room.contains_player
+	ui.game.english_probe=world.english_room.contains_player
+	ui.game.english.location=world.english_room.near
 	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
 	ui.game.reconcile_room()
@@ -183,11 +186,15 @@ func _process(delta):
 		update_time = 0.0
 		world.sync_state()
 		world.programming_room.sync()
+		world.english_room.sync()
 		var keys=ui.display_settings.bindings
 		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
 		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
 		status_label.text = "SERVEROVNA 01"
-		if ui.game.game_mode.is_programming(): status_label.text="PROGRAMOVACÍ UČEBNA\nPython / tvorba webu · lekce u počítače"
+		if ui.game.game_mode.is_english():
+			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
+			if not ui.game.english.session.is_empty(): status_label.text+="\n"+ui.game.english.definition().title
+		elif ui.game.game_mode.is_programming(): status_label.text="PROGRAMOVACÍ UČEBNA\nPython / tvorba webu · lekce u počítače"
 		if ui.game.game_mode.is_training():
 			status_label.text = "IT TRÉNINKOVÁ AKADEMIE · výběr lekcí"
 			if ui.game.active and ui.game.session_kind=="lesson": status_label.text="VÝUKA / "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(ui.game.tutorial.session.mode,"Lekce")
@@ -230,6 +237,8 @@ func set_mode(value: String):
 	hud.visible = value == "world"
 	app_bar.visible = value == "app"
 	overlay.visible = value in ["detail","pause","tasks","introduction","coding"]
+	if value=="english": overlay.visible=true
+	if is_instance_valid(english_dialog): english_dialog.visible=value=="english"
 	if is_instance_valid(code_editor): code_editor.visible=value=="coding"
 	world.player.set_enabled(value == "world")
 	if vr_active: xr_rig.mode_changed()
@@ -237,6 +246,7 @@ func set_mode(value: String):
 func safe_saved_position(point: Vector3) -> Vector3:
 	# Old programming-room positions now lie beyond the sealed north wall.
 	# Move only the pose; mission state, equipment, XP and results stay untouched.
+	if world.english_room.contains_point(point): return Vector3(5,0.02,5.5)
 	if point.z < -6.6 and not world.programming_room.contains_point(point):
 		return Vector3(-7,0.02,0)
 	return point
@@ -262,6 +272,10 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.position=world.programming_room.entrance_position()
 		world.player.velocity=Vector3.ZERO
 		world.player.rotation.y=world.programming_room.rotation.y; world.player.camera.rotation.x=0
+	if destination=="English in London":
+		world.player.position=world.english_room.entrance_position()
+		world.player.velocity=Vector3.ZERO
+		world.player.rotation.y=PI; world.player.camera.rotation.x=0
 	ui.game.reconcile_room()
 	pose_revision = ui.game.session_revision
 	if ui.game.session_kind!="lesson":
@@ -337,11 +351,16 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 
 func interact(object):
 	ui.game.reconcile_room()
+	if object.kind=="english":
+		if ui.game.game_mode.is_english():
+			if object.console=="tower" and ui.game.english.arrive_tower(): open_english("tower")
+			elif object.console!="tower": open_english(object.console)
+		return
 	if object.kind=="program_door": world.programming_room.toggle_door(); return
 	if object.kind=="programming":
 		if ui.game.game_mode.is_programming(): open_programming(object.console)
 		return
-	if ui.game.game_mode.is_programming(): return
+	if ui.game.game_mode.is_programming() or ui.game.game_mode.is_english(): return
 	if object.kind != "door":
 		var in_training = ui.game.game_mode.is_training()
 		var training_object = object.laboratory or object.kind == "instructor" or object.device_id == "EXAM-PC"
@@ -381,6 +400,18 @@ func interact(object):
 		"monitor": show_monitor()
 		"door": world.toggle_door()
 		"instructor": open_app("Trénink")
+
+func open_english(station: String = "tickets", intro: bool = false):
+	if not ui.game.game_mode.is_english(): return
+	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
+	english_dialog=preload("res://scripts/english/DialogueController.gd").new()
+	english_dialog.shell=self; english_dialog.manager=ui.game.english; english_dialog.station=station
+	english_dialog.page="intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
+	overlay.add_child(english_dialog)
+	set_mode("english")
+	if vr_active:
+		# Initial placement is anchored near the counter, at the current seated/standing height.
+		xr_rig.monitor.place_in_front(xr_rig.head)
 
 func open_programming(category: String = "dashboard"):
 	if not ui.game.game_mode.is_programming(): return
@@ -530,6 +561,8 @@ func pause_menu():
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
 	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
+	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
+	if ui.game.game_mode.is_education(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
 	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
@@ -661,11 +694,37 @@ func export_smoke():
 	print("EXPORT_SMOKE limits=",FileAccess.file_exists("res://data/programming/LIMITS.txt"))
 	enter_world("Hlavní serverovna")
 	print("EXPORT_SMOKE programming_cancelled=",ui.game.programming.current.is_empty())
+	enter_world("English in London")
+	var english=ui.game.english
+	english.progress.intro_seen=true
+	for id in english.IDS:
+		english.cancel(); english.start(id,"practice",0)
+		world.player.position=Vector3(12,0.02,8.8)
+		if id=="LON06":
+			world.player.position=Vector3(6,0.02,11.4)
+			english.act("directions",english.revision); english.act("route",english.revision)
+			world.player.position=Vector3(4,0.02,24)
+			english.arrive_tower()
+		else:
+			if id=="LON05": english.act("change",english.revision)
+			if id=="LON03": english.act("price",english.revision)
+			english.act("order",english.revision)
+			if id=="LON04": english.act("time_14:00",english.revision); english.act("next",english.revision)
+			else: english.act("time_"+english.session.goal.time,english.revision)
+			english.act("confirm",english.revision)
+			world.player.position=Vector3(10,0.02,8.7)
+			english.pay(english.revision); english.act("thanks",english.revision)
+			world.player.position=Vector3(17,0.02,16.6)
+			english.present_ticket()
+	print("EXPORT_SMOKE english=",ui.game.game_mode.is_english()," scenarios=",english.catalog.scenarios.size()," completed=",english.progress.results.size())
+	enter_world("Hlavní serverovna")
+	print("EXPORT_SMOKE english_cancelled=",english.session.is_empty())
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
 	get_tree().quit()
 
 func show_tasks():
 	ui.game.reconcile_room()
+	if ui.game.game_mode.is_english(): open_english(); return
 	if ui.game.game_mode.is_programming(): open_programming(); return
 	if not ui.game.active:
 		open_app("Trénink")
@@ -756,15 +815,23 @@ func on_room_changed(training_room: bool):
 	if mode != "menu": set_mode("world")
 	ui.page = "Trénink" if training_room else "Serverovna"
 	ui.draw_ui()
-	var current_room="programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
-	room_notice.text={"programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,"Odchod z programovací učebny. Kampaň obnovena." if previous_room=="programming" else "Odchod z IT tréninkové akademie. Kampaň obnovena.")
+	var current_room="english" if ui.game.game_mode.is_english() else "programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
+	var exit_text={"english":"Odchod z angličtiny.","programming":"Odchod z programovací učebny.","training":"Odchod z IT tréninkové akademie."}.get(previous_room,"")+" Kampaň obnovena."
+	room_notice.text={"english":"English in London / přepážka Tickets, Alex a most k věži.","programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,exit_text)
+	if current_room=="english" and not ui.game.english.progress.intro_seen:
+		call_deferred("english_welcome")
 	previous_room=current_room
 	notice_time = 4.0
 	room_notice.show()
+
+func english_welcome():
+	if ui.game.game_mode.is_english() and mode=="world": open_english("tickets",true)
 
 func _exit_tree():
 	leaving_scene = true
 	if is_instance_valid(ui):
 		ui.game.room_probe = Callable()
 		ui.game.programming_probe=Callable()
+		ui.game.english_probe=Callable()
+		ui.game.english.location=Callable()
 		ui.game.leave_training()

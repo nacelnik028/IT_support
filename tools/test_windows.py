@@ -58,7 +58,7 @@ def main():
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the distributed pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')

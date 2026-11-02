@@ -98,7 +98,8 @@ def main():
         workdir.mkdir()
         output=run(runner+[renamed,'--headless','--audio-driver','Dummy','--','--test-world','--export-smoke'], logs/'windows-build-smoke.log',cwd=workdir)
         for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
-                         'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true']:
+                         'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true',
+                         'english=true scenarios=6 completed=6','english_cancelled=true']:
             if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
         if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
         staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)

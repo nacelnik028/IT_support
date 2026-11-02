@@ -25,6 +25,7 @@ var visuals = Visuals.new()
 var screen_time = 0.0
 var training_zone
 var programming_room
+var english_room
 
 func _ready():
 	build_room()
@@ -46,6 +47,9 @@ func _ready():
 	programming_room=preload("res://scenes/programming_academy/academy_room.tscn").instantiate()
 	add_child(programming_room)
 	programming_room.build(self)
+	english_room=preload("res://scenes/english_london/EnglishLondon.tscn").instantiate()
+	add_child(english_room)
+	english_room.build(self)
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)
@@ -79,7 +83,10 @@ func build_room():
 	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))
 	Geo.solid(self,Vector3(9,3.5,3.5),Vector3(0.25,1,3),Color("374753"))
 	Geo.solid(self,Vector3(-8.5,2,7),Vector3(1,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(4,2,7),Vector3(10,4,0.25),Color("293844"))
+	# Fourth pavilion: a 3 m walkable south entrance, owned by this shared wall.
+	Geo.solid(self,Vector3(1.25,2,7),Vector3(4.5,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(7.75,2,7),Vector3(2.5,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(5,3.5,7),Vector3(3,1,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-4.5,3.65,7),Vector3(7,0.7,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-4.5,0.45,7),Vector3(7,0.9,0.25),Color("293844"))
 	Geo.box(self,Vector3(0,4,0),Vector3(18,0.15,14),Color("192530"))

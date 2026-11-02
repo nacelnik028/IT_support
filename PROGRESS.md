@@ -1,5 +1,34 @@
 # Datacenter Academy — stav vývoje
 
+## English in London — implementace PC a VR, 2. 11. 2026
+
+- Přidán čtvrtý fyzický pavilon jižně od serverovny, průchod 04. Procedurální
+  London Eye s 24 kabinkami, čtyřciferníková Elizabeth Tower, Temže, most,
+  lavičky, dva NPC, ceník, terminál a kontrolní závora. Původní učebna se nehýbe.
+- Samostatný katalog LON01–LON06 a skutečný společný model PC/XR: celočíselné
+  pence, košík, dostupnost, potvrzení, jediná platba a konkrétní použitelný lístek.
+  Tři režimy, varianty časů/rozpočtů, více správných formulací, překlad na požádání,
+  vysvětlení chyb a historie frází. Cesta k věži vyžaduje skutečnou návštěvu cíle.
+- Režim ENGLISH_LONDON=3 zachovává původní enum. Odložení/obnova kampaně,
+  přímé přechody mezi oblastmi, fyzický odchod i teleport ruší pouze dočasný
+  nákup/UI. Validovaná volitelná větev english používá původní atomický save,
+  bez XP a změny schématu. Chybu zápisu lze opakovat v panelu.
+- Model: 979 kontrol PASS; skutečné PC UI a oba syntetické XR ovladače, všech
+  šest situací, geometrie a matice 720p/1080p/4K × 100/130 %; grafický běh
+  417 kontrol PASS. Testy mají vlastní SaveManager.path_override a nastavení.
+  Při GPU kontrole opravená kolizní hrana mostu; automatická pěší trasa vede
+  volnou uličkou kolem informačního NPC. Snímky test-output/london-review.
+- Existujících 32 regresních sad PASS. Nové english_model a english_world
+  přidány do Test-All; závěrečný kompletní běh a balíčkové testy následují.
+  IT katalogy, legacy24 a výuková data se nemění. Godot MCP ověřil projekt a verzi.
+- První nové EXE má 104 786 776 B (rezerva 70 824 B), samostatný native smoke
+  z jiné složky PASS včetně všech šesti situací. PICO 1.2.0 / versionCode 3
+  sestaveno, podpis/CRC/ARM64/OpenXR manifest PASS. Autorizovaný headset chybí;
+  tracking, spuštění na Androidu a FPS nejsou vydávány za ověřené.
+- Na následný pokyn se rozcestník nyní neimplementuje. Po dokončení testů a
+  exportů vznikne samostatné podrobné zadání pro další AI. Dokumentace Londýna
+  je v docs/ENGLISH_LONDON.md; distribuce zůstává v build/, builds/ nevzniká.
+
 ## Připravené zadání English in London pro další AI — 2. 11. 2026
 
 - Na žádost uživatele vytvořen `PROMPT_LONDON_ENGLISH_VR.md`: podrobné zadání

@@ -129,6 +129,8 @@ func ray_hit(hand: Node3D, distance: float = 3.2) -> Dictionary:
 func allowed(object) -> bool:
 	if not is_instance_valid(object): return false
 	if "kind" in object:
+		if object.kind=="english": return shell.ui.game.game_mode.is_english()
+		if shell.ui.game.game_mode.is_english(): return false
 		if object.kind=="program_door": return true
 		if object.kind=="programming": return shell.ui.game.game_mode.is_programming()
 		if shell.ui.game.game_mode.is_programming(): return false
@@ -150,6 +152,7 @@ func pressed(hand: XRController3D, action: String):
 		return
 	if shell.mode != "world":
 		if action == "trigger_click":
+			if monitor.pointer_down: return
 			var pixel = monitor.pixel_at(hand.global_position,-hand.global_basis.z)
 			monitor.point(pixel)
 			if pixel.x >= 0:
@@ -247,7 +250,10 @@ func build_physical_targets():
 			index+=1
 
 func can_teleport(point: Vector3) -> bool:
-	if point.y < -0.05 or point.y > 0.15 or point.x < -8.4 or point.x > 20.4 or absf(point.z)>6.4: return false
+	var in_main=point.x>=-8.4 and point.x<=20.4 and absf(point.z)<=6.4
+	var in_programming=shell.world.programming_room.contains_point(point)
+	var in_london=shell.world.english_room.walkable_point(point)
+	if point.y < -0.05 or point.y > 0.15 or not (in_main or in_programming or in_london): return false
 	var shape = CapsuleShape3D.new()
 	shape.radius=0.31
 	shape.height=1.8

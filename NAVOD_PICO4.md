@@ -16,8 +16,11 @@ Pokud hru stahuješ z GitHubu, otevři
 a zvol **Download raw file / Stáhnout**. Při použití níže uvedených příkazů
 ponech APK ve složce `build/pico4` uvnitř projektu.
 
-Aktuální APK je **Training academy 1.1.0 (versionCode 2)** z 2. 11. 2026,
-včetně nové západní programovací učebny a aktuálního UI. Má stejný identifikátor
+Aktuální APK je **Training academy 1.2.0 (versionCode 3)** z 2. 11. 2026,
+včetně západní programovací učebny a English in London se šesti situacemi.
+V angličtině vybírej repliky paprskem a triggerem; B/Y zavře panel, A/X jej
+přemístí. Nákup pokračuje u cvičného terminálu a kontroly vstupenek.
+Má stejný identifikátor
 a podpis jako předchozí verze; `adb install -r` provede aktualizaci.
 Podpis, obsah a herní testy jsou ověřené; spuštění přímo na fyzickém PICO
 zatím ověřené není, protože nebyl připojený autorizovaný headset.

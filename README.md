@@ -13,10 +13,17 @@ Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS n
 pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 
+**English in London** je čtvrtý 3D pavilon: vstup jižním průchodem serverovny
+**04 / Angličtina v Londýně**, případně z menu nebo pauzy. Obsahuje prostorové
+London Eye a Elizabeth Tower, šest situací A1–A2, tři režimy, skutečný cvičný
+košík, platbu kartou u terminálu a vstupenku použitelnou u kontroly. Vlastní
+výsledky zachovávají kampaň. PC používá E, myš, šipky/Tab, Enter a repliky 1–4;
+PICO oba paprsky a trigger bez povinného psaní. [Podrobný průchod a ovládání](docs/ENGLISH_LONDON.md).
+
 ## Aktuální rozhraní
 
-Kompaktní menu rozlišuje pracovní směnu, IT tréninkovou akademii a programovací
-učebnu. Hlavní akce, VR, Nastavení a Ukončit jsou dostupné i v 720p při 130 % textu.
+Kompaktní menu rozlišuje pracovní směnu, IT tréninkovou akademii, programovací
+učebnu a angličtinu. Hlavní akce, VR, Nastavení a Ukončit jsou dostupné i v 720p při 130 % textu.
 Editor nabízí **Spustit kód** a **Ověřit řešení**, samostatné záložky Výstup / Chyby /
 Ověření a přechod z chyby na známý řádek. Po editaci označí předchozí ověření jako
 zastaralé. Formuláře rozlišují koncept, použití v simulaci a skutečné uložení.
@@ -43,9 +50,9 @@ OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
 **PICO 4:** [`build/pico4/ITSupportSimulator-PICO4.apk`](build/pico4/ITSupportSimulator-PICO4.apk)
-je podepsaný sideload Debug APK 1.1.0 (versionCode 2) pro ARM64, běžný PICO 4,
+je podepsaný sideload Debug APK 1.2.0 (versionCode 3) pro ARM64, běžný PICO 4,
 Android min 29 / target 34. Obsahuje aktuální Training academy se západní učebnou
-a novým UI; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
+a londýnským pavilonem; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
 pro aktualizaci přes `adb install -r`.
 Podrobný postup krok za krokem je v **[NAVOD_PICO4.md](NAVOD_PICO4.md)**.
 Zapni vývojářský režim a USB debugging, připoj USB a v headsetu povol počítač:

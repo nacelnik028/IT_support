@@ -1,6 +1,6 @@
 extends RefCounted
 
-enum Mode { MAIN = 0, SERVER_TRAINING = 1, TRAINING = 1, PROGRAMMING_ACADEMY = 2 }
+enum Mode { MAIN = 0, SERVER_TRAINING = 1, TRAINING = 1, PROGRAMMING_ACADEMY = 2, ENGLISH_LONDON = 3 }
 var current: Mode = Mode.MAIN
 
 func is_training() -> bool:
@@ -8,6 +8,9 @@ func is_training() -> bool:
 
 func is_programming() -> bool:
 	return current == Mode.PROGRAMMING_ACADEMY
+
+func is_english() -> bool:
+	return current == Mode.ENGLISH_LONDON
 
 func is_education() -> bool:
 	return current != Mode.MAIN

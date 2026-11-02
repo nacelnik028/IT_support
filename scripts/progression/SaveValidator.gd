@@ -39,11 +39,30 @@ func valid(data) -> bool:
 	if not session(data.get("session",{})) or not session(data.get("suspended_campaign",{}),"campaign"): return false
 	if not education(data.get("education",{})): return false
 	if not programming(data.get("programming",{})): return false
+	if not english(data.get("english",{})): return false
 	var active=data.get("session",{})
 	if active.get("kind","")=="random":
 		var batch=data.get("education",{}).get("random",{})
 		if batch.is_empty() or not batch.has("session"): return false
 		if int(active.id)!=int(batch.queue[int(batch.position)].id) or active.definition!=batch.queue[int(batch.position)]: return false
+	return true
+
+func english(data) -> bool:
+	if not data is Dictionary or not shape(data,{"results":{},"attempts":[],"phrases":[],"intro_seen":false}): return false
+	var ids=["LON01","LON02","LON03","LON04","LON05","LON06"]
+	for id in data.get("results",{}):
+		var r=data.results[id]
+		if not id in ids or not r is Dictionary or not required(r,{"best":0,"completed":0,"hints":0}): return false
+		if not integer(r.best,0,100) or not integer(r.completed,1) or not integer(r.hints,0): return false
+	if data.get("attempts",[]).size()>100 or data.get("phrases",[]).size()>100: return false
+	for phrase in data.get("phrases",[]):
+		if not phrase is String or phrase.length()>300: return false
+	for r in data.get("attempts",[]):
+		if not r is Dictionary or not required(r,{"id":"","mode":"","variant":0,"score":0,"hints":0,"errors":[]}): return false
+		if not r.id in ids or not r.mode in ["learn","practice","exam"] or not integer(r.variant,0,2) or not integer(r.score,0,100) or not integer(r.hints,0): return false
+		if r.errors.size()>1000: return false
+		for e in r.errors:
+			if not e is Dictionary or not required(e,{"text":"","language_ok":false}) or e.text.length()>1000: return false
 	return true
 
 func programming(data) -> bool:
