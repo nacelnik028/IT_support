@@ -57,7 +57,8 @@ z kořene projektu. Windows EXE tento příkaz zachovává.
 ## Aktuální UI/UX verze
 
 Nové kompaktní menu, programovací editor a pravdivé stavy uložení jsou uvnitř
-samotného EXE. Velikost je 104 720 824 B, export Windows x86_64 Debug.
+samotného EXE. Aktuální velikost po opravě zdi u učebny je 104 748 344 B,
+export Windows x86_64 Debug.
 Přejmenování nemění původní složku uložených pozic. Přesné výsledky, hash EXE, velikost
 obsaženého packu a omezení ověření uvádí BUILD_INFO.md a TEST_REPORT.md.
 Snímky jsou v docs/ui-review/2026-11-02-ux.

@@ -1,5 +1,24 @@
 # Ověření rozšířené hratelné verze
 
+## Oprava blikání zdi u programovací učebny — 2. 11. 2026
+
+Před opravou měly tři segmenty stěny AcademyRoom stejné povrchy jako západní
+stěna serverovny; měření nalezlo šest překrývajících se ploch. Po odstranění
+duplicit je překrytých ploch nula. Navazující zeď mimo serverovnu zůstává.
+Otevřené/zavřené dveře z obou stran vizuálně ověřeny v Compatibility i Forward+;
+snímky `test-output/door-wall-before-*.png` a `door-wall-after-*.png`.
+
+Cílené zdrojové testy: programming_location 114, programming_polish 27,
+world3d 35, door3d 15 a training_rooms 68 PASS, bez runtime chyb/varování.
+Nové skutečné Windows EXE i herní prostředky z nového PICO APK prošly stejnou
+kontrolou nulového překrytí (`door-wall-packaged-windows.log` / `pico.log`).
+Samostatné EXE má nativní headless i GPU smoke PASS; APK má platný podpis v2,
+CRC, ARM64 a OpenXR/PICO manifest. Podrobnosti a SHA256 v build/VERIFICATION.json.
+Aktualizované APK dále prošlo test_pico.py: headless i GPU smoke, UI 357,
+průchod 114, programování 765, syntetické XR 69 a terminál 64 PASS.
+Testy používají vlastní save a konfigurace; fyzické PICO není připojené.
+Úplná sada z předchozí sekce nebyla pro tuto jedinou změnu geometrie opakována.
+
 ## Sjednocení build/ a nové PICO APK — 2. 11. 2026, nativní Windows
 
 Navázáno na aktuální origin/main `fed2f4e`. Původní `build/ITSupportSimulator.exe`

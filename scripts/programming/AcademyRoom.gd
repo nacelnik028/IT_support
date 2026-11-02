@@ -52,9 +52,9 @@ func build(owner_world):
 	# World.item registers the identity first; parenting then preserves that identity.
 	for node in world.get_children():
 		if node!=self and node not in existing: node.reparent(self)
-	Geo.solid(self,Vector3(-8.5,2,-7),Vector3(1,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(2,2,-7),Vector3(14,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(-6.5,3.5,-7),Vector3(3,1,0.25),Color("293844"))
+	# The server room already owns the shared wall and doorway lintel. Close only
+	# the span beyond its north edge (world z < -7), avoiding coplanar wall faces.
+	Geo.solid(self,Vector3(4.75,2,-7),Vector3(8.5,4,0.25),Color("293844"))
 	position=Vector3(-2,0,-6.5)
 	rotation.y=PI/2
 

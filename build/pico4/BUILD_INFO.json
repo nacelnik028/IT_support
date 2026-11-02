@@ -3,10 +3,10 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90430147,
-    "sha256": "cbf9dc83fae810157fe806563b4fc59d8feed4371777628ceaa7c1ab788aed0c"
+    "bytes": 90430059,
+    "sha256": "c72ef142e7947a25d2777475b7a0d098d8f51491e0428eb7c934ad2b788b0447"
   },
-  "source_commit": "fed2f4ec411bc5e3f02c61fb214aada2253b4f25",
+  "source_commit": "357c3c0afcb4b16e2695ac69e43ca2fc2237862d",
   "sources": [
     {
       "file": "project.godot",
@@ -70,8 +70,8 @@
     },
     {
       "file": "scripts/programming/AcademyRoom.gd",
-      "bytes": 6324,
-      "sha256": "ae2e15334fb0306828395eb449f68ea2e9a629044d4dc686e6947a40c1780d72"
+      "bytes": 6345,
+      "sha256": "51cc63f9b35f960f7669a9c723eb81be2e8d13855d5ffc4f8a98e7fdd0876b1b"
     },
     {
       "file": "scripts/programming/AcademyRoom.gd.uid",

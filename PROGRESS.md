@@ -1,5 +1,25 @@
 # Datacenter Academy — stav vývoje
 
+## Blikající zeď u programovací učebny — opraveno 2. 11. 2026
+
+- Reprodukováno překrytí tří stěnových segmentů učebny se západní stěnou
+  serverovny: celkem šest totožných viditelných ploch kolem dveří a nad nimi.
+- AcademyRoom již znovu nevytváří sdílenou zeď a překlad. Ponechána pouze
+  navazující část mimo serverovnu, bez mezer a bez změny dveří či jejich ovladačů.
+- Geometrická kontrola před opravou 6 překrytých ploch, po opravě 0. Prohlédnuty
+  snímky z obou stran s otevřenými/zavřenými dveřmi v Compatibility i Forward+.
+- Cílené regrese PASS: programming_location 114, programming_polish 27,
+  world3d 35, door3d 15 a training_rooms 68. SaveManager.path_override zachováno;
+  katalogy, původních24 misí a herní relace se nemění.
+- Nové Windows EXE a PICO APK v zachované složce build/; oba skutečně zabalené
+  projekty ověřeny stejnou geometrií: 0 překrytých ploch. Nativní Windows smoke
+  headless i GPU PASS, PICO podpis/CRC/ARM64/OpenXR manifest PASS. Fyzický headset
+  není připojený. Nové velikosti a hashe jsou v build/VERIFICATION.json.
+- Nové APK navíc prošlo test_pico.py: oba desktopové smoke běhy, UI 357,
+  průchod 114, programování 765, syntetické XR 69 a terminál 64 PASS.
+- Doplněn chybějící tests/programming_location.gd.uid; editor ho jinak při
+  Android importu obnovoval s varováním. Následuje commit a push opravených balíčků.
+
 ## Sjednocení výstupů do build a aktuální PICO — 2. 11. 2026
 
 - Z čistého místního 4000cb0 stažen origin/main, fast-forward na fed2f4e.
