@@ -1,5 +1,18 @@
 # Datacenter Academy — stav vývoje
 
+## Publikace a ověření stažení — 2. 11. 2026
+
+- Na výslovný pokyn uživatele odeslán commit 99c2012 do origin/main běžným
+  fast-forward pushem, bez force. Vzdálený main následně ověřen přes Git.
+- Staženo skutečné build/ITSupportSimulator.exe z raw.githubusercontent.com
+  pro přesný publikovaný commit a jeho zdrojový archiv z codeload.github.com.
+  Oba obsahují celé Windows PE o 104 713 528 bajtech, nikoli LFS pointer.
+- SHA256 přímého EXE i EXE uvnitř archivu souhlasí s build/SHA256SUMS:
+  ea2b6a5fedf2d0ba390269c4d4c513e28f62aafc8a29b2cc2f3afaad83604c41.
+- Tato kontrola potvrzuje publikaci a stažení; nepřidává nativní Windows
+  ani fyzické PICO ověření. Herní zdroje a ověřené EXE se neměnily.
+
+
 ## Přesun programovací učebny a spolehlivý Windows build — 2. 11. 2026
 
 - Navázáno na čistý checkout 4000cb0, bez obnovování projektu. Ověřena
@@ -32,7 +45,8 @@
   limity Wine/Xvfb a aktuální hash EXE jsou v TEST_REPORT.md a build/.
 - Žádné změny legacy24, katalogů či referenčních postupů. Archivní ZIP a
   PICO APK nejsou novou distribucí. Nativní Windows/PICO ověření a
-  následné stažení z GitHubu se neprohlašují za provedené.
+  následné stažení z GitHubu v době této etapy nebyly provedené;
+  pozdější publikaci a stažení dokládá samostatný záznam výše.
 
 
 ## Oprava spuštění přímo ze staženého ZIPu — dokončeno (2026-10-26)

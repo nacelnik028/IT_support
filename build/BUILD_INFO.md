@@ -23,4 +23,7 @@
 
 Postup sestavení je verzovaný v `tools/build_windows.py`; PS1 wrapper
 používá stejnou implementaci. Detailní příkazy jsou v `build/README.md`.
-Publikace na GitHubu ani následné stažení této verze nejsou provedené.
+Commit `99c2012` byl 2. 11. 2026 publikován do GitHub main bez force push.
+Přímé stažení EXE i EXE ve zdrojovém archivu tohoto commitu prošly kontrolou
+MZ, velikosti a výše uvedeného SHA256. Oba obsahují plnou binárku bez LFS.
+Toto ověření nemění uvedená omezení nativního Windows a PICO testování.
