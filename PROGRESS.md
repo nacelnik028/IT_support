@@ -1,5 +1,34 @@
 # Datacenter Academy — stav vývoje
 
+## English in London — finální předání a navazující prompt, 2. 11. 2026
+
+- Finální herní zdroje `42600a3`. Nový kompletní Test-All.ps1: **34 sad PASS**,
+  exit 0 a čistý log london-test-all.log. Anglický model **988**, PC/syntetické
+  XR **409 headless / 417 graficky** PASS. Všech 54 kombinací variant/režimů
+  má dosažitelné a vzájemně konzistentní řešení; další dostupný čas je ověřený.
+- Nové samostatné Windows EXE: **104 786 904 B**, rezerva **70 696 B**.
+  Native headless i GPU start mimo projekt bez PCK PASS. Všech 14 zabalených
+  sad nakonec PASS; původní selhané automatizace jsou zachované v manifestu.
+  Umístění učebny 120 kontrol včetně skutečných kliknutí na Pokračovat;
+  world_playthrough 39 po opravě úplného stisknutí/uvolnění E a obsluhy pauzy.
+- Nové PICO APK: **90 466 889 B**, 1.2.0 / versionCode 3. Podpis, CRC,
+  ARM64/OpenXR manifest PASS. Skutečné prostředky z APK: oba desktopové smoke
+  běhy a sedm sad PASS, model 988, svět 409, UI 363, učebna 114, programování
+  765, XR 69, terminál 64. Otisky skutečných zdrojů a katalogů souhlasí.
+- Oba exporty obsahují stejný nový obsah, bez build/tests/tools/test-output
+  adresářů. build/ zachováno, builds/ nevzniká. Aktuální hashe, původní selhání
+  a následné úspěchy jsou v build/VERIFICATION.json a TEST_REPORT.md.
+- Žádný autorizovaný PICO headset v ADB: Android start, reálný tracking, komfort
+  a FPS NEOVĚŘENY. Syntetické XR ani desktopové APK testy se za hardware nevydávají.
+- Připravený PROMPT_ACADEMY_HUB_PC_VR.md má **481 řádků / 12 hlavních kapitol**:
+  skutečný nástupní hub a fyzické cesty do čtyř místností; kontrola všech textur,
+  materiálů a oprava vadných v celé hře včetně uživatelem hlášeného vstupu Londýna;
+  přepracování šesti situací na B1–B2; nejméně 20 otázek o Londýně; skutečné
+  zákaznické dotazy při nákupu lístků na London Eye. Rozcestník, grafický audit,
+  B1–B2 a nový kvíz jsou na výslovný pokyn budoucí prací další AI.
+- README, návod PICO, dokumentace Londýna, VR/test report a vizuální podklady
+  aktualizovány. Hotové zdroje, exporty a dokumentace uložené v Gitu; bez push.
+
 ## Závěrečná kontrola dialogových údajů — 2. 11. 2026
 
 - Třetí varianta LON04 sjednocena s významem „next available“: po vyprodaném

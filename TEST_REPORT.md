@@ -1,5 +1,61 @@
 # Ověření rozšířené hratelné verze
 
+## English in London — dokončeno 2. 11. 2026, nativní Windows
+
+Čtvrtý fyzický pavilon navazuje jižním průchodem 04 na serverovnu. Obsahuje
+procedurální London Eye a Elizabeth Tower, Temži a most, Sama, Alexe, skutečný
+košík, cvičný terminál, vstupenku s ID a kontrolní závoru. LON01–LON06 mají tři
+režimy a tři varianty; rodina mění také počty dospělých/dětí a součty. Výsledky
+jsou oddělené od kampaně. IT mise, lekce a legacy24 se nemění.
+
+| Co bylo skutečně spuštěno | Výsledek a omezení |
+|---|---|
+| Aktuální Test-All.ps1 nad herními zdroji | **34 sad PASS**, exit 0, bez ERROR/SCRIPT ERROR/WARNING; `test-output/london-test-all.log`. Zahrnuje všech 65 misí, 21×3 lekcí i nový Londýn. |
+| Anglický model | **988 kontrol PASS**, všech 54 kombinací šesti situací, tří režimů a tří variant; negativní platby, rozpočet, změna košíku, součty, nejbližší dostupný čas, duplicitní vstup, lístek, směry, save a selhání zápisu. |
+| PC + syntetické XR ve zdrojích | **409 headless / 417 GPU kontrol PASS**. Skutečné WASD/E, myš, Enter, šipky, čísla a Esc; všechny situace přes UI a oba XR ovladače přes skutečný ray klik do SubViewport. Nejde o fyzický tracking. |
+| Grafická matice Londýna | 720p / 1080p / 4K × 100/130 % textu, bez ořezu akcí. Prohlédnuté snímky v `docs/ui-review/2026-11-02-london/`; GPU Compatibility, NVIDIA RTX 5060. |
+| Samostatné Windows EXE | Native headless i GPU start z izolované složky, bez editoru a sousedního PCK. Smoke dokončí všech šest situací včetně platby a světového cíle a odchodu. PE / vložený PCK a limit 100 MiB PASS. |
+| Přesný zabalený Windows projekt | Všech 14 sad a oba nativní starty nakonec PASS. Londýn 988/417, UI 363, programování 31/1071/63/765/27, umístění učebny 120 včetně pauz a skutečných kliknutí Pokračovat, XR 69, terminál 64, UI design 162, world_ui 31 a průchod 39. První selhané běhy zůstávají zaznamenané odděleně; viz níže. |
+| Skutečný obsah obou balíčků | Anglický katalog a nové rodinné počty ověřeny uvnitř; žádné adresáře build/builds/tests/tools/test-output v zabalených prostředcích. Windows `london-windows-pack-content.log`, APK kontrola skutečného ZIPu. |
+| PICO APK sestavení | Podepsané Debug ARM64, 1.2.0 / versionCode 3, původní cz.academy.itsupport a podpis. Podpis, CRC, min/target SDK 29/34 a OpenXR/PICO manifest PASS. |
+| Prostředky přímo z APK v desktopovém Godotu | Headless i GPU smoke PASS; model 988, svět/PC a syntetické XR 409, UI 363, učebna 114, programování 765, XR 69 a terminál 64 PASS. Otisky zdrojů a katalogů odpovídají. `test-output/pico-package/results.json`. |
+| Fyzické PICO | **NEPROVEDENO** — žádný autorizovaný headset v ADB. Instalace/spuštění Android knihoven, skutečný tracking, komfort a FPS nejsou ověřené. Požadovaných 72 Hz není naměřený výkon. |
+
+Všechny testy izolují save přes SaveManager.path_override a vlastní nastavení
+před konstrukcí GameManageru. Obnova kampaně, přímé přechody mezi oblastmi,
+fyzický odchod, teleport, menu, zrušení UI/nákupu a kompatibilita starého save
+jsou součástí nových regresí. Atomické ukládání a pravdivá chyba zápisu zůstávají.
+
+První grafické automatizace nebyly úspěšné a nejsou vydávány za PASS. UI design
+někdy ztratil syntetický klik rozdělený přes snímky; helper nyní posílá úplný
+press/release s korektní maskou bez mezilehlých nativních událostí. Při pěším
+průchodu byla v diagnostice potvrzena skutečná pauza po ztrátě desktopového
+fokusu (`mode=pause, enabled=false`), nikoli neprostupná geometrie. Automatizace
+nyní ověří bezpečnou pauzu a použije skutečné tlačítko Pokračovat; bezpečnostní
+chování hry se nevypíná. Všechny původní požadavky na chůzi, editor a zachování
+kampaně zůstávají. Stejná příčina při prvním E na NAS byla ošetřena i ve starém
+world_playthrough: test nabízí skutečné Pokračovat a posílá úplný stisk/uvolnění E.
+Opravené externí testy znovu prošly nad přesným finálním EXE.
+První výsledky i následné běhy jsou v `windows-package/reruns.json`,
+`current-corrective-reruns.json` a manifestu.
+Při vývoji byl dále odstraněn nízký kolizní schod mostu; pěší automatizace vede
+volnou uličkou kolem NPC. Finální source i balíčkové průchody jsou čisté.
+
+Finální **EXE 104 786 904 B**, rezerva **70 696 B**, SHA256
+`57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff`.
+**APK 90 466 889 B**, SHA256
+`89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90`.
+Podrobné strojové výsledky jsou v `build/VERIFICATION.json`; oba exporty jsou
+z herních zdrojů commitu `42600a3`. Pozdější změny doplňují testovací automatizaci,
+reporty a navazující prompt a nemění obsah hry v exportech.
+
+Tato kontrola není kompletní schválení všech textur. Uživatel hlásí vadný vzhled
+vstupu / dveří Londýna a výslovně zadal další AI audit a opravu všech vadných
+textur/materiálů. `PROMPT_ACADEMY_HUB_PC_VR.md` dále požaduje skutečný nástupní
+rozcestník, přepracování situací na B1–B2, nejméně 20 otázek o Londýně a skutečné
+zákaznické dotazy při nákupu lístků. Tyto navazující funkce se zde neprohlašují
+za implementované. Volitelné vlastní psaní, zvuk a rozpoznávání řeči nejsou přidány.
+
 ## Oprava blikání zdi u programovací učebny — 2. 11. 2026
 
 Před opravou měly tři segmenty stěny AcademyRoom stejné povrchy jako západní

@@ -1,9 +1,11 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "export": "Windows x86_64 Debug",
-  "bytes": 104748344,
-  "sha256": "a80b189fcfc5600a4940731b5b13f3ce592da1fe734b8a6cc5369f3165f45f3c",
+  "bytes": 104786904,
+  "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
   "embedded_pck": true,
   "verification": "Native Windows headless EXE-only smoke",
-  "native_windows_graphical_verified": true
+  "native_windows_graphical_verified": true,
+  "source_commit": "42600a3add242004e903fa827a7680db55306e90",
+  "github_limit_remaining_bytes": 70696
 }

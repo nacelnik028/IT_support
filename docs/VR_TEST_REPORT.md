@@ -1,4 +1,27 @@
-# PC / PICO 4 – ověření 2026-10-26
+# PC / PICO 4 – ověření
+
+## English in London — 2026-11-02
+
+Nové EXE i APK obsahují šest situací, tři režimy a varianty včetně skutečných
+počtů/cen. Nové společné UI prošlo reálnými ray kliky obou syntetických XR
+ovladačů v SubViewport, včetně press/release, současných triggerů, jediné platby
+a konkrétní vstupenky. Teleport z místnosti a fyzický odchod ruší dialog a vracejí
+kampaň. Snap, tracking/focus a virtuální vstupy nadále ověřuje xr_modes 69.
+
+Celý zdrojový Test-All: 34 sad PASS. Anglický model 988, PC/syntetické XR
+409 headless a 417 graficky PASS. Přesné EXE: nativní headless/GPU smoke a 14
+zabalených sad PASS po zdokumentované opravě automatizace nativní pauzy.
+PICO APK 1.2.0 / versionCode 3: podpis/CRC/ARM64/OpenXR PASS; skutečné prostředky
+APK v desktopovém Godotu: oba smoke běhy a sedm sad PASS včetně Londýna.
+
+Finální model navíc kontroluje nejbližší dostupný čas, celkem má 988 kontrol.
+Žádný autorizovaný PICO nebyl připojený. Android spuštění, fyzický tracking,
+komfort a 72 FPS se neprohlašují za ověřené. Kompletní aktuální rozlišení důkazů,
+hashů a původních selhání je v TEST_REPORT.md a build/VERIFICATION.json.
+Hlášené textury vstupu do Londýna a audit všech materiálů jsou výslovně zahrnuté
+do dalšího zadání PROMPT_ACADEMY_HUB_PC_VR.md; funkční test je nenahrazuje.
+
+## Původní XR etapa — 2026-10-26
 
 Existující projekt Godot 4.7.2, 65 misí, 21 lekcí ve třech režimech. Žádný
 katalog, generátor ani legacy24 se při přidání XR nemění.

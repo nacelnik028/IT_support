@@ -20,6 +20,10 @@ košík, platbu kartou u terminálu a vstupenku použitelnou u kontroly. Vlastn�
 výsledky zachovávají kampaň. PC používá E, myš, šipky/Tab, Enter a repliky 1–4;
 PICO oba paprsky a trigger bez povinného psaní. [Podrobný průchod a ovládání](docs/ENGLISH_LONDON.md).
 
+Pro další etapu je připravené [podrobné zadání rozcestníku, oprav materiálů a B1–B2](PROMPT_ACADEMY_HUB_PC_VR.md),
+včetně otázek na Londýn a zákaznických dotazů při nákupu lístků. Jde o budoucí
+zadání; současný Londýn obsahuje původně požadované situace A1–A2.
+
 ## Aktuální rozhraní
 
 Kompaktní menu rozlišuje pracovní směnu, IT tréninkovou akademii, programovací

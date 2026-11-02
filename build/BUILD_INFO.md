@@ -1,20 +1,20 @@
-# Aktuální sestavení — oprava zdi u programovací učebny, 2. 11. 2026
+# Aktuální sestavení — English in London, 2. 11. 2026
 
 - Název: **IT Support Simulator: Training academy**.
-- Zdrojový základ: `357c3c0` + odstranění duplicitní stěny v AcademyRoom.
-- Editor a oficiální šablona: `4.7.2.stable.official.ed1daf0bf`.
-- Export: **Windows x86_64 Debug**, herní data vložená v EXE.
-- Soubor: `build/ITSupportSimulator.exe`, **104 748 344 bajtů**.
-- Limit: 104 857 600 bajtů; rezerva **109 256 bajtů**.
-- SHA256: `a80b189fcfc5600a4940731b5b13f3ce592da1fe734b8a6cc5369f3165f45f3c`.
-- PE a vložený PCK ověřeny oficiálním exportním postupem tools/build_windows.py.
-  Přejmenované samotné EXE bez PCK mimo projekt: nativní Windows headless
-  smoke PASS. Nativní GPU Compatibility smoke rovněž PASS: 65 misí, 21 lekcí,
-  obě učebny, 60 úloh/28 lekcí programování, Python, web a návrat do serverovny.
-- Stejná geometrická kontrola přímo nad vloženým packem potvrdila nula
-  překrývajících se ploch u dveří. Oba renderery ověřeny také graficky ve zdrojích.
-- Cílené regrese a jejich rozsah uvádějí TEST_REPORT.md a VERIFICATION.json.
-  Starší úplné regresní běhy zůstávají popsané v historických sekcích reportu.
-- Aktualizované PICO APK je v pico4/; podpis a zabalená geometrie ověřeny,
-  skutečný headset není připojený. Jeho otisky zdrojů uvádí pico4/BUILD_INFO.json.
-- EXE zůstává bez Authenticode podpisu. Shodný hash je v SHA256SUMS a BUILD_INFO.json.
+- Herní zdroje: `42600a3add242004e903fa827a7680db55306e90`; pozdější dokumentace a testy nemění zabalený obsah.
+- Editor/šablona: `4.7.2.stable.official.ed1daf0bf`, Windows x86_64 **Debug** s vloženým PCK.
+- Samostatné EXE: **104,786,904 B**, rezerva **70,696 B** do 100 MiB.
+- SHA256 EXE: `57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff`.
+- Native headless/GPU start mimo projekt bez sousedního PCK PASS.
+- Přesný pack: 14 sad včetně modelu 988 a londýnského PC/syntetického XR průchodu 417 PASS.
+- PICO APK 1.2.0 / versionCode 3, ARM64 signed Debug: **90,466,889 B**.
+- SHA256 APK: `89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90`.
+- Podpis, CRC a OpenXR/PICO manifest PASS. Oba desktopové smoke běhy a sedm sad
+  nad skutečnými prostředky APK PASS, včetně modelu 988 a světa/syntetického XR 409.
+- Celý aktuální zdrojový Test-All: 34 sad PASS. Katalogy IT, lekce a legacy24 se nemění.
+- Žádný autorizovaný headset: Android start, fyzický tracking, komfort a FPS neověřeny.
+- Uživatel hlásí vizuální vady vstupu do Londýna; úplný audit a opravy materiálů,
+  hub, B1–B2 a londýnské otázky jsou v navazujícím PROMPT_ACADEMY_HUB_PC_VR.md.
+- Počáteční selhané grafické automatizace a ověřené opravy testů jsou zachované
+  v TEST_REPORT.md a VERIFICATION.json. Bezpečná pauza při ztrátě fokusu se nevypíná.
+- EXE není Authenticode podepsané. SHA256SUMS odpovídá skutečnému souboru.

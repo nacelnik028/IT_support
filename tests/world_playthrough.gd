@@ -47,13 +47,28 @@ func use(id: String, at: Vector3, aim_offset: Vector3 = Vector3.ZERO):
 	p.camera.rotation = Vector3.ZERO
 	p.camera.look_at(shell.world.devices[id].global_position+aim_offset)
 	for i in 3: await physics_frame
+	if shell.mode=="pause":
+		check(not p.enabled,"Ztráta nativního fokusu pozastavila fyzický vstup")
+		for i in 3: await process_frame
+		var resume_button=find_button(shell.overlay,"Pokračovat")
+		check(resume_button!=null,"Pauza nabízí skutečné Pokračovat")
+		if resume_button:
+			var at_button=resume_button.get_global_rect().get_center()
+			for down in [true,false]:
+				var click_event=InputEventMouseButton.new(); click_event.position=at_button; click_event.button_index=MOUSE_BUTTON_LEFT; click_event.pressed=down; click_event.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0
+				root.push_input(click_event,true)
+			await process_frame
+			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+			p.camera.look_at(shell.world.devices[id].global_position+aim_offset)
+			for i in 3: await physics_frame
 	p.poll_target()
 	check(p.target == shell.world.devices[id],"Raycast před E: "+id)
-	var key = InputEventKey.new()
-	key.physical_keycode = KEY_E
-	key.keycode = KEY_E
-	key.pressed = true
-	root.push_input(key,true)
+	for down in [true,false]:
+		var key = InputEventKey.new()
+		key.physical_keycode = KEY_E
+		key.keycode = KEY_E
+		key.pressed = down
+		root.push_input(key,true)
 	await process_frame
 
 func capture(name: String):
@@ -67,7 +82,7 @@ func run():
 	shots = "--screenshots" in OS.get_cmdline_user_args() and DisplayServer.get_name()!="headless"
 	shell = load("res://scenes/world/Game.tscn").instantiate()
 	root.add_child(shell)
-	await process_frame
+	for i in 8: await process_frame
 	shell.ui.game.start_mission(52,true)
 	shell.enter_world()
 	await use("NAS-01",Vector3(3.65,0.02,-0.85),Vector3(0.48,0.32,0.48))

@@ -3,10 +3,10 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90430059,
-    "sha256": "c72ef142e7947a25d2777475b7a0d098d8f51491e0428eb7c934ad2b788b0447"
+    "bytes": 90466889,
+    "sha256": "89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90"
   },
-  "source_commit": "357c3c0afcb4b16e2695ac69e43ca2fc2237862d",
+  "source_commit": "42600a3add242004e903fa827a7680db55306e90",
   "sources": [
     {
       "file": "project.godot",
@@ -16,7 +16,7 @@
     {
       "file": "export_presets.cfg",
       "bytes": 2157,
-      "sha256": "64e23ce4ad75aa47339b419a1ae851efff32d2e78d4354fba44cea33db509a3d"
+      "sha256": "0d61bce26ee994780e0b4ae279833f17cca10ea2f383b9337cc2fbe42e901080"
     },
     {
       "file": "scripts/core/DisplaySettings.gd",
@@ -30,8 +30,8 @@
     },
     {
       "file": "scripts/core/GameManager.gd",
-      "bytes": 20359,
-      "sha256": "f6e00e688a57c9ad419d1e3545037731c5e9e469e041ba19bc82665778939e7e"
+      "bytes": 21547,
+      "sha256": "e41ed32d48a4b2ccee5a83ad8125d2bb8608fb3d0f28fbbb9ce38e4748ffd291"
     },
     {
       "file": "scripts/core/GameManager.gd.uid",
@@ -40,13 +40,43 @@
     },
     {
       "file": "scripts/core/GameModeManager.gd",
-      "bytes": 433,
-      "sha256": "49002367a67299c6dab0ddbb1afe9d5991803b9dc89c1773994f742d8109d6db"
+      "bytes": 520,
+      "sha256": "a0d2cb9444f7e232888fd882b57fa05f58f759326a564f6837a9b397eb8dbacb"
     },
     {
       "file": "scripts/core/GameModeManager.gd.uid",
       "bytes": 20,
       "sha256": "8ae8b25fd5844c61f6009b4e1345f6177929d006e0899d948dfd6033c7cf9e99"
+    },
+    {
+      "file": "scripts/english/DialogueController.gd",
+      "bytes": 10109,
+      "sha256": "9e5bb7c80f798c264eaee47df95eeead794f846ef102628340e9d69687ca2267"
+    },
+    {
+      "file": "scripts/english/DialogueController.gd.uid",
+      "bytes": 20,
+      "sha256": "de89ff58c27de77cc30fec291b37f8ef055739530d55dcc175609affd2899715"
+    },
+    {
+      "file": "scripts/english/EnglishManager.gd",
+      "bytes": 13100,
+      "sha256": "317183990e0a3d9765141675c26b80a518bbe838c42848a1e5f7fe05079281ec"
+    },
+    {
+      "file": "scripts/english/EnglishManager.gd.uid",
+      "bytes": 19,
+      "sha256": "8a7ed81aab215caa2de5dc3597ff12745ea8c383b4cceb62b4e6c424eda8d814"
+    },
+    {
+      "file": "scripts/english/EnglishRoom.gd",
+      "bytes": 9057,
+      "sha256": "a2b4d3eb0df30ae7dd7c34936806b14c92cecd2e915a7fabb77fa3665070ee4b"
+    },
+    {
+      "file": "scripts/english/EnglishRoom.gd.uid",
+      "bytes": 20,
+      "sha256": "5330094ce737ca2e1a17de84e345e5662d7bab5c4ce16fc642aa25c9f1c3bb28"
     },
     {
       "file": "scripts/evaluation/ObjectiveEvaluator.gd",
@@ -180,8 +210,8 @@
     },
     {
       "file": "scripts/progression/SaveValidator.gd",
-      "bytes": 14916,
-      "sha256": "3aa08bd3e7f96e1ad982c8c6862f1c0250db0f6e92ec26702fcc3fa18b54a065"
+      "bytes": 16154,
+      "sha256": "2961dd4fa72aa6386fa60700cc918b19741ce2b6063f65c414bd9b8f97546817"
     },
     {
       "file": "scripts/progression/SaveValidator.gd.uid",
@@ -380,8 +410,8 @@
     },
     {
       "file": "scripts/ui/MenuPresentation.gd",
-      "bytes": 3965,
-      "sha256": "7f3b05cc209c03d9241e6e485ddacfaed39ee8ca6296802a222b31222ca71b60"
+      "bytes": 4313,
+      "sha256": "e4268ba25d8354541a991878b0d3b50a8146d099c07e96f4de6a300f2f4ab973"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
@@ -460,8 +490,8 @@
     },
     {
       "file": "scripts/world/Datacenter3D.gd",
-      "bytes": 21024,
-      "sha256": "50e6dd2d71cd365ab20120f05fe782b1eac23c340def018d65cb8d16e00df15a"
+      "bytes": 21399,
+      "sha256": "cb44aa988df3977478ddc1670d9c3915d05ea8ab640015b8fe498e59f84bf867"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -480,8 +510,8 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "bytes": 37983,
-      "sha256": "75d34bd7c876919f5543d9aa447c01a17cda5c041bcf7222fb4eff86c09fbdd5"
+      "bytes": 41753,
+      "sha256": "0bcc39d21975534c99c31cab96356c8e3c6981c2417d514e918705bc03550bf5"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -490,8 +520,8 @@
     },
     {
       "file": "scripts/world/Geometry.gd",
-      "bytes": 8900,
-      "sha256": "a7d5ee2181a93b5e1b07b0b2bb9d462b2dbacce6d268324bb37215d7ef5688ee"
+      "bytes": 8946,
+      "sha256": "49f269dd87ef32ab60263102df43bfbe7f804f997dac4bef0cda8453f2f9cf8f"
     },
     {
       "file": "scripts/world/Geometry.gd.uid",
@@ -580,8 +610,8 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "bytes": 14287,
-      "sha256": "8f4774a0e06e3103826fc84d983938c038579218e72b9db313511d9ddb73192f"
+      "bytes": 14643,
+      "sha256": "7fe735c06b60e3d770b7ce1d922ab099ac8442af858606df9b683ffba8686b2f"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
@@ -607,6 +637,11 @@
       "file": "scenes/datacenter/Datacenter.tscn",
       "bytes": 263,
       "sha256": "6c1ab3f903e77716feace53827b3a3f8910ad4b2bad06d2b0f17c2c85410941a"
+    },
+    {
+      "file": "scenes/english_london/EnglishLondon.tscn",
+      "bytes": 183,
+      "sha256": "88d7cfbd8cd44de381a8a01196b0a686fb3853016030e1472e48aa4b989a0eec"
     },
     {
       "file": "scenes/main_menu/Main.tscn",
@@ -662,6 +697,11 @@
       "file": "data/actions_base.json",
       "bytes": 60391,
       "sha256": "97b1d75321c90c4b8e07a67d97ed02fdf088562eff595755099cb479455c7f45"
+    },
+    {
+      "file": "data/english/scenarios.json",
+      "bytes": 3695,
+      "sha256": "634a667184beb09de9300342d5685332e3e512636445054b9f4a6da44621b597"
     },
     {
       "file": "data/infrastructure/academy_defaults.json",
@@ -793,8 +833,8 @@
     "signature": "PASS",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 2,
-    "version_name": "1.1.0",
+    "version_code": 3,
+    "version_name": "1.2.0",
     "device": "NOT RUN: no authorized ADB device"
   },
   "hardware_tracking": "NOT TESTED",

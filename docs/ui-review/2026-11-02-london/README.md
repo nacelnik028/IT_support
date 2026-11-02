@@ -2,7 +2,7 @@
 
 Nativní Windows, Godot 4.7.2, NVIDIA RTX 5060, Compatibility. Celá londýnská
 matice s reálnými PC kliky a syntetickými XR paprsky: **417 kontrol, 0 selhání**.
-Headless stejná sada: 409 kontrol; model samostatně: 979 kontrol.
+Headless stejná sada: 409 kontrol; model samostatně: 988 kontrol.
 
 - `pavilion.png`: prostorové London Eye, NPC Alex, most a Elizabeth Tower.
 - `tower.png`: prostorová věž a ciferníky zblízka.

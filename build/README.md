@@ -1,7 +1,8 @@
 # Samostatné Windows EXE
 
 Spusť `ITSupportSimulator.exe` (Training academy). Obsahuje celou hru včetně Python/Web učebny
-vlevo od serverů. PCK, Godot editor ani instalátor nejsou potřeba.
+vlevo od serverů a English in London jižním průchodem 04.
+PCK, Godot editor ani instalátor nejsou potřeba.
 EXE je Windows x86_64 **Debug**, nikoli Release, uložené přímo v Gitu bez LFS.
 Musí mít méně než 104 857 600 bajtů. SHA256 ověř proti `SHA256SUMS`.
 
@@ -30,7 +31,8 @@ zdrojů provede import a oficiální `--export-debug` s `embed_pck=true`.
 Nepoužívá UPX, ruční připojování PCK ani úpravy PE šablony.
 Ověří x86_64 PE a vložený PCK, velikost pod 100 MiB, potom spustí přejmenované
 samotné EXE z jiné pracovní složky bez projektu či PCK. Smoke kontroluje
-obsah 65/21, trénink, západní učebnu 60/28, Python i webový náhled a návrat.
+obsah 65/21, trénink, západní učebnu 60/28, Python i webový náhled, všech šest
+londýnských situací s platbou a světovým cílem a návrat bez dočasné relace.
 Teprve úspěšný výsledek nahradí EXE a vygeneruje `BUILD_INFO.json` a `SHA256SUMS`.
 Chyba ponechá předchozí EXE zachované. Logy jsou v `test-output/windows-*.log`.
 
@@ -48,7 +50,10 @@ pokud je dostupný displej. Testy používají vlastní save a konfiguraci.
 Původní ověření této UI/UX verze proběhlo na Linuxu. Wine headless ani grafický Xvfb/Mesa běh nejsou
 nativní hraní na Windows. Podpis vydavatele není přidán; SmartScreen může
 zobrazit neznámého vydavatele. Žádná ochrana Windows se nevypíná.
-Aktuální PICO APK 1.1.0 je v `pico4/ITSupportSimulator-PICO4.apk`.
+Aktuální ověření English in London proběhlo nativně na Windows, včetně GPU
+Compatibility. Podrobnosti oddělující zdroje, EXE, prostředky APK a chybějící
+headset jsou v TEST_REPORT.md a VERIFICATION.json.
+Aktuální PICO APK 1.2.0 (versionCode 3) je v `pico4/ITSupportSimulator-PICO4.apk`.
 Pochází ze stejných aktuálních herních zdrojů; `pico4/BUILD_INFO.json` obsahuje
 jejich otisky. Ověření přesunu/exportů je v `VERIFICATION.json`.
 Sestavíš ho příkazem `python tools/build_platforms.py --godot C:/Godot/Godot_console.exe --pico-only`
