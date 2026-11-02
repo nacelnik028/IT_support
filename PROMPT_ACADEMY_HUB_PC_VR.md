@@ -1,7 +1,7 @@
-# Zadání pro další AI: rozcestník, oprava všech vadných textur a angličtina B1–B2 — PC a VR / PICO 4
+# Zadání pro další AI: rozcestník, oprava textur, angličtina B1–B2 a otázky na Londýn — PC a VR / PICO 4
 
 Jsi vývojář Godotu a návrhář prostorového prostředí a VR interakcí. V existujícím
-projektu **IT Support Simulator: Training academy** skutečně implementuj tři věci:
+projektu **IT Support Simulator: Training academy** skutečně implementuj čtyři věci:
 
 1. Samostatný přehledný nástupní rozcestník, kde se hráč objeví a odkud fyzicky
    odejde do čtyř stávajících místností.
@@ -11,6 +11,10 @@ projektu **IT Support Simulator: Training academy** skutečně implementuj tři 
 3. Přepracuj všechny londýnské anglické situace na cílovou úroveň **B1–B2**.
    Změň skutečná zadání, dialogy, možnosti, podmínky a vyhodnocení. Nejde o
    přejmenování současných A1–A2 cvičení ani o přepsání IT/programovacích katalogů.
+   Výslovně přidej otázky, které pokládá hráč jako zákazník, když si chce koupit
+   lístky na London Eye, a skutečné reakce prodavače na tyto dotazy.
+4. Přidej skutečně hratelné **otázky na Londýn**, tedy samostatný znalostní kvíz
+   v angličtině B1–B2 s vysvětlením odpovědí a uloženým postupem.
 
 Vše musí plnohodnotně fungovat na Windows PC i samostatném PICO 4 se stejnými
 funkcemi a obsahem. Proveď implementaci, testy a oba nové exporty. Nestačí plán,
@@ -233,6 +237,48 @@ odlišných dosažitelných variant. Varianty mění skutečné údaje a podmín
 NPC, ceníku, košíku, platbě a vyhodnocení; pouhé zamíchání odpovědí nestačí.
 Nepředstírej jazykovou obtížnost složitou větou nad totožným jednoduchým klikem.
 
+### Otázky hráče při nákupu lístků na London Eye
+
+Uživatel výslovně chce přidat otázky do situace, **kdy on sám chce koupit lístky
+na London Eye**. Tento bod nenahrazuj obecným znalostním kvízem o městě: hráč
+je zákazník, ptá se prodavače a podle odpovědí rozhoduje o vlastní objednávce.
+Nabídni smysluplné dotazy před objednáním, při výběru času i při potvrzení.
+Součástí mohou být například tyto anglické formulace:
+
+- What ticket options are available for this afternoon?
+- How much would it cost for two adults and one child?
+- Is there a family option, and what does it include?
+- Does that price include everything, or are there any extra charges?
+- Which time slots are still available?
+- If the three o'clock slot is sold out, what would you recommend instead?
+- Could we choose a later time without exceeding our budget?
+- Would it be possible to change the number of tickets before I pay?
+- Could you confirm the total price and the time of our visit?
+- Can I pay by card, and where should I show the tickets afterwards?
+- I'm not sure I understood that. Could you explain it again, please?
+
+Jsou to návrhy komunikačních záměrů, nikoli povinný seznam vždy zobrazený naráz.
+Přizpůsob je scénáři, úrovni B1–B2, skutečné skupině, času a rozpočtu. Vytvoř
+větvení, kde odpověď NPC poskytne potřebnou informaci a hráč podle ní vybere,
+upřesní, odmítne nebo opraví nabídku. Některá zadání mají výslovně vyžadovat
+správný dotaz a porozumění jeho odpovědi, nikoli jen konečný správný košík.
+
+NPC musí uvádět skutečné cvičné ceny, součty, dostupnost, položky a podmínky
+dané varianty. Rodinnou slevu, příplatek nebo právo na změnu smí nabídnout jen
+tehdy, když je skutečně definovaný a podporovaný modelem. Nevymýšlej skutečné
+obchodní podmínky London Eye a nedělej reálné objednávky či platby.
+
+Dotaz na informace nesmí sám potají objednat či zaplatit vstupenku, vymazat košík
+nebo potvrdit cizí počet osob. Hráč musí mít možnost se doptat a vrátit se
+k objednávce. Změna objednávky musí naopak správně přepočítat cenu a zrušit
+staré potvrzení. Záměry vyhodnocuj podle stabilních ID a stavu, nikoli podle
+pozice tlačítka či libovolného výskytu slova ticket.
+
+Pro VR může tlačítko typu **Zeptat se na nabídku…** otevřít přehledný výběr
+3–4 dotazů a další stránku; po odpovědi NPC se lze vrátit do nákupu. Totéž musí
+fungovat na PC myší i klávesnicí. Otestuj účinek každého dotazu, zachování košíku,
+konzistenci odpovědi, požadované komunikační cíle a celou navazující platbu.
+
 Zachovej oddělení jazykové vhodnosti, splnění komunikačního cíle a splnění
 věcných podmínek. Zdvořilá replika se špatným termínem či rozpočtem musí mít
 odpovídající důsledek. Hráč má rozumět konkrétní chybě a způsobu opravy. V režimu
@@ -260,7 +306,53 @@ Bez skutečně implementovaného zvuku nehodnoť poslech či výslovnost. Výsle
 označ jako procvičení situací zaměřených na B1–B2; několik dialogů nedokládá
 kompletní úroveň CEFR a nesmí automaticky vydávat jazykový certifikát.
 
-## 8. PC a VR jsou dvě povinné plnohodnotné platformy
+## 8. Přidej samostatné otázky na Londýn
+
+Uživatel dále požaduje otázky na Londýn. Připrav nejméně **20 kvalitních otázek**
+v samostatném datovém katalogu se stabilními identifikátory, například LONQ01–LONQ20.
+Nejde o pouhé informační cedule a nejde jen o přejmenování šesti nákupních situací.
+Kvíz musí být dostupný z londýnské oblasti například přes Alexe nebo označenou
+znalostní tabuli a plně dokončitelný myší/klávesnicí i VR paprskem a triggerem.
+
+Pokryj několik smysluplných témat:
+
+- Památky: London Eye, Elizabeth Tower, Big Ben jako zvon, Westminster a další
+  ověřené londýnské památky. Nezaměňuj například Tower Bridge a London Bridge.
+- Temže, nábřeží, mosty a základní orientace ve městě.
+- Doprava a běžné návštěvnické situace: porozumění značkám, pokynům a informacím
+  o dopravě, bez závislosti na aktuálních cenách jízdného či právě platných uzavírkách.
+- Základní kulturní a historické souvislosti a praktický život ve městě.
+
+Faktické odpovědi skutečně ověř z vhodných primárních / oficiálních zdrojů,
+například UK Parliament, London Eye, Transport for London, příslušné muzeum či
+oficiální instituce památky. Ke každé otázce ulož zdroj a srozumitelné vysvětlení.
+Nehádej data, jména ani polohu. U nejednoznačné otázky uprav formulaci nebo ji
+vyřaď. Fiktivní ceny z nákupního tréninku nikdy nevydávej za skutečné londýnské
+reálie. Ověřování zdrojů patří do vývoje; hotová hra funguje plně offline.
+
+Jazyk otázek a odpovědí směřuj k B1–B2. Kombinuj stručné přímé otázky s několika
+krátkými texty, z nichž hráč vyvodí odpověď, porovná dvě možnosti nebo porozumí
+praktickému pokynu. Nezvyšuj obtížnost jen dlouhou větou nebo náhodnou vzácnou
+historickou znalostí. Ověřuj srozumitelný obsah o Londýně a porozumění angličtině.
+
+Nabízej zpravidla 3–4 uvěřitelné možnosti. Správná odpověď nesmí být pořád na
+stejném místě ani jako jediná dlouhá či zdvořilá. Pořadí promíchej bez záměny
+významu. Otázky mohou mít tematické sady a několik variant zadání. Jeden běh
+může nabídnout kratší sérii; všech dvacet musí být skutečně dostupných.
+
+Učím se poskytuje vysvětlení, volitelný český překlad a možnost opravy,
+Procvičování promíchává obsah a Zkouška skrývá pomoc do konečného výsledku.
+Zobraz postup sérií, konkrétní chyby, správná vysvětlení a možnost opakování.
+Nevytvářej falešné hodnocení poslechu, pokud otázka obsahuje jen text.
+
+Otázky mají vlastní uložené výsledky / nejlepší skóre, stav procvičení a historii
+podle stabilního ID. Nekolidují s LON01–LON06 ani IT misemi; rozšiř skutečnou
+validaci a kompatibilní save, ne jen UI seznam. Při odchodu se zruší neodevzdaný
+pokus, permanentní výsledky zůstanou. Žádné neomezené XP za opakování téhož kliku.
+Otestuj všechny otázky, jednoznačnost správných odpovědí, záměnu pořadí,
+vyhodnocení, opravy, režimy, restart, uložení i dokončení oběma způsoby ovládání.
+
+## 9. PC a VR jsou dvě povinné plnohodnotné platformy
 
 ### PC
 
@@ -288,7 +380,7 @@ kompletní úroveň CEFR a nesmí automaticky vydávat jazykový certifikát.
 - Ztráta trackingu nebo focus pozastaví interakce podle současného chování.
 - Žádná automatická jízda kamery ani povinná fyzická klávesnice v headsetu.
 
-## 9. Vizuální kvalita, výkon a rozpočet distribuce
+## 10. Vizuální kvalita, výkon a rozpočet distribuce
 
 Použij společné AcademyTheme a dosavadní jazyk prostředí, ale hub udělej
 přehledný a příjemný. Pro nové modely preferuj úspornou procedurální geometrii,
@@ -301,7 +393,7 @@ PICO používá ARM64, OpenGL Compatibility, multiview a vlastní vendor plugin;
 nepřidávej desktopové závislosti nebo síťovou službu jako podmínku hry.
 
 Předem změř velikosti aktuálních artefaktů. Při napsání tohoto zadání mělo hlavní
-EXE 104 786 776 B, tj. jen 70 824 B rezervy do přímého GitHub limitu 100 MiB.
+EXE 104 786 904 B, tj. jen 70 696 B rezervy do přímého GitHub limitu 100 MiB.
 Tato čísla musíš znovu ověřit. Větší textury nebo nové fonty nemohou být přidávány
 bez rozpočtu. Zvaž sdílení, vhodné rozlišení a oficiální exportní kompresi.
 Nepoužívej UPX, ruční úpravy PE, LFS pointer místo slíbeného EXE nebo vynechání
@@ -321,7 +413,7 @@ Změnu verze / versionCode udržuj shodnou s verifikačními skripty a návody.
 Žádný debug screenshot, testovací scéna nebo starý build nesmí zbytečně zvětšit
 export. Prohlédni skutečný obsah obou nových balíčků.
 
-## 10. Povinné testy a skutečné ověření oprav
+## 11. Povinné testy a skutečné ověření oprav
 
 Každý nový test nastaví `SaveManager.path_override` a vlastní nastavení **před**
 vytvořením GameManageru. Nikdy nepoužívej hráčův academy_save.json. Při souběžných
@@ -344,6 +436,8 @@ Přidej relevantní regresní testy a proveď přinejmenším:
    platební terminál a kontrola lístku zůstávají na správných světových místech.
    Otestuj všechny nové B1–B2 varianty včetně nesplněné podmínky, nepochopené
    nabídky, opravy nedorozumění, chybného součtu a kompatibility starých výsledků.
+   Otestuj také všech nejméně 20 londýnských otázek a jejich zdroje, jednoznačné
+   odpovědi, skutečný kvíz přes PC i VR, souhrn chyb a uložené výsledky.
 7. Oba XR ovladače, press/release, současné paprsky, teleport, snap turn,
    sezení/stání a fyzický odchod s otevřeným panelem. Syntetické vstupy přesně
    označ jako syntetické, nikoli jako hardwarovou zkoušku.
@@ -365,7 +459,7 @@ Selhání nezamlčuj a neopravuj snižováním požadavků testu. Reprodukuj př
 oprav chování a zopakuj související ověření. Automatický test UI nepotvrzuje
 bezchybný vzhled všech povrchů; audit textur vyžaduje skutečnou vizuální kontrolu.
 
-## 11. Co nesmíš poškodit a co předat
+## 12. Co nesmíš poškodit a co předat
 
 Neměň prvních 24 definic ani `data/missions/legacy_campaign.json`. Nepřečísluj
 IT mise, lekce, programovací úlohy ani LON01–LON06. Existující generátory
@@ -373,13 +467,15 @@ IT mise, lekce, programovací úlohy ani LON01–LON06. Existující generátory
 konzistentní; hub a grafické opravy nejsou důvodem k přepsání katalogů.
 
 Předej skutečně hratelný hub, dokončené opravy všech nalezených vadných povrchů,
-všech šest přepracovaných B1–B2 situací s vyhodnocením, fungující fyzické vstupy
-i návraty, správný spawn pro PC/VR a zachovaný save.
+všech šest přepracovaných B1–B2 situací s vyhodnocením, londýnský kvíz s nejméně
+20 ověřenými otázkami, fungující fyzické vstupy i návraty, správný spawn pro
+PC/VR a zachovaný save.
 Aktualizuj README, návody obou platforem, test report, vizuální audit,
 PROGRESS a build manifesty. Přilož rozumné snímky před/po mimo herní export.
 Vytvoř přehledné commity a uveď konkrétní provedené testy a hardwarová omezení.
 
 Závěrečná odpověď má stručně říct, kde se hráč objeví, kudy jde do jednotlivých
 místností, co bylo opraveno na texturním / materiálovém vzhledu a co nově
-procvičují B1–B2 úlohy, jak ovládat PC a PICO a kde jsou nové balíčky. Neskonči
+procvičují B1–B2 úlohy a kde se spouští londýnský kvíz, jak ovládat PC a PICO
+a kde jsou nové balíčky. Neskonči
 po návrhu dispozice, první místnosti nebo jediné opravě londýnských dveří.

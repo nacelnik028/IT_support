@@ -1,5 +1,16 @@
 # Datacenter Academy — stav vývoje
 
+## Závěrečná kontrola dialogových údajů — 2. 11. 2026
+
+- Třetí varianta LON04 sjednocena s významem „next available“: po vyprodaném
+  14:00 nabízí 15:00, nikoli 16:00 při současně dostupném 15:00. Přidána přímá
+  kontrola nejbližšího dostupného času ve všech režimech a variantách.
+- Diagnostika grafického průchodu potvrdila skutečnou bezpečnou pauzu při
+  ztrátě desktopového fokusu. Test ji nyní ověří a pokračuje skutečným kliknutím
+  na Pokračovat; původní požadavky na cestu, editor a kampaň zůstávají zachované.
+- Navazující prompt rozšířen o samostatné otázky na Londýn i skutečné dotazy
+  hráče při nákupu vstupenek. Finální exporty a report následují po této kontrole.
+
 ## Obsahové varianty a zadání navazující etapy — 2. 11. 2026
 
 - Rodinné procvičování nyní mění také skutečné počty: 1 adult + 1 child,

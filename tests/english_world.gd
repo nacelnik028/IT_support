@@ -90,6 +90,11 @@ func walk_to(point: Vector3):
 	shell.return_to_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var p=shell.world.player
 	for i in 500:
+		if shell.mode=="pause":
+			check(not p.enabled,"Nativní ztráta fokusu bezpečně pozastavila pohyb")
+			for candidate in shell.overlay.find_children("*","Button",true,false):
+				if candidate.text=="Pokračovat": await click_button(candidate); break
+			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		if not p.enabled: break
 		var offset=point-p.global_position; offset.y=0
 		if offset.length()<0.14: break
@@ -142,6 +147,7 @@ func run_scenario(id: String, hand_index: int = -1):
 
 func run():
 	shots=DisplayServer.get_name()!="headless" and "--screenshots" in OS.get_cmdline_user_args()
+	await frames()
 	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
 	m=shell.ui.game.english
 	shell.ui.game.start_mission(3)

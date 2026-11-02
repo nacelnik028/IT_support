@@ -42,6 +42,8 @@ func buy(id: String, mode: String, variant: int):
 			act("time_"+m.session.goal.sold)
 			check(m.session.asked_sold and m.session.node=="time" and m.session.cart.time=="","Vyprodaný čas vyvolá upřesnění")
 			act("next")
+			var later=m.catalog.slots.filter(func(slot): return slot>m.session.goal.sold)
+			check(m.session.cart.time==later[0],"Next available opravdu znamená nejbližší dostupný pozdější čas")
 		else: act("time_"+m.session.goal.time)
 		check(m.total()==int(m.session.goal.adult)*3000+int(m.session.goal.child)*2000,"Cena podle skutečného počtu dospělých a dětí")
 		act("confirm")

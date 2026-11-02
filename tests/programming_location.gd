@@ -19,6 +19,7 @@ func check(ok: bool, message: String):
 
 func walk_to(target: Vector3) -> bool:
 	for frame in 400:
+		await resume_native_pause()
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		shell.world.player.rotation=Vector3.ZERO
 		var offset=target-shell.world.player.position
@@ -28,10 +29,11 @@ func walk_to(target: Vector3) -> bool:
 		if absf(offset.z)>0.06: Input.action_press("walk_back" if offset.z>0 else "walk_forward")
 		await physics_frame
 	for action in ["walk_left","walk_right","walk_forward","walk_back"]: Input.action_release(action)
-	print("Blocked at ",shell.world.player.position," toward ",target)
+	print("Blocked at ",shell.world.player.position," toward ",target," mode=",shell.mode," enabled=",shell.world.player.enabled)
 	return false
 
 func use(object):
+	await resume_native_pause()
 	var player=shell.world.player
 	player.camera.look_at(object.global_position)
 	for frame in 3: await physics_frame
@@ -41,12 +43,33 @@ func use(object):
 	for down in [true,false]:
 		var key=InputEventKey.new(); key.physical_keycode=KEY_E; key.pressed=down
 		root.push_input(key,true); await process_frame
+	if shell.mode=="pause":
+		await resume_native_pause()
+		await use(object)
 
 func click(control):
 	var at=control.get_global_rect().get_center()
 	for down in [true,false]:
 		var event=InputEventMouseButton.new(); event.position=at; event.button_index=MOUSE_BUTTON_LEFT; event.pressed=down
-		root.push_input(event,true); await process_frame
+		event.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0
+		root.push_input(event,true)
+	await process_frame
+
+func resume_native_pause():
+	if shell.mode!="pause": return
+	check(not shell.world.player.enabled,"Native focus loss really pauses movement")
+	for i in 3: await process_frame
+	var button
+	for candidate in shell.overlay.find_children("*","Button",true,false):
+		if candidate.text=="Pokračovat": button=candidate; break
+	check(is_instance_valid(button),"Native pause has a real Continue action")
+	if not is_instance_valid(button): return
+	var continued=[false]
+	button.pressed.connect(func(): continued[0]=true,CONNECT_ONE_SHOT)
+	print("AUTOMATION: resume native focus pause through Continue")
+	await click(button)
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	check(continued[0],"Continue receives a real click before the walk resumes")
 
 func capture(title: String):
 	if DisplayServer.get_name()=="headless" or "--screenshots" not in OS.get_cmdline_user_args(): return
@@ -56,9 +79,13 @@ func capture(title: String):
 	root.get_texture().get_image().save_png("res://test-output/location-"+title+".png")
 
 func run():
+	for i in 8: await process_frame
 	shell=preload("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell)
 	await process_frame
 	shell.enter_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	if DisplayServer.get_name()!="headless":
+		# Exercise the automation's explicit resume even when the OS stays focused.
+		shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
 	var room=shell.world.programming_room
 	var game=shell.ui.game
 	var separated=true
@@ -88,7 +115,7 @@ func run():
 			check(await walk_to(room.to_global(Vector3(station[1],0.02,-14))),"Cross aisle behind chairs")
 			check(await walk_to(room.to_global(Vector3(station[1],0.02,-16.7))),"Reach station without crossing furniture")
 			await use(shell.world.devices[station[0]])
-			check(shell.mode=="coding","E opens actual station editor")
+			check(shell.mode=="coding","E opens actual station editor; mode="+shell.mode)
 			if shell.mode=="coding":
 				shell.code_editor.launch(station[2],false)
 				for filename in game.programming.current.example: game.programming.edit(filename,game.programming.current.example[filename])
