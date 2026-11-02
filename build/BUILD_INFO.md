@@ -20,3 +20,11 @@
   UPX či vynechání obsahu. Shodný SHA256 je v SHA256SUMS a BUILD_INFO.json.
 - Nativní Windows, fyzický headset a následné stažení z GitHubu nebyly ověřeny.
   Bez Authenticode podpisu; archivní Windows ZIP a PICO APK nejsou aktualizované.
+
+## Zachované ověření předchozího vydání
+
+Commit `99c2012` byl 2. 11. 2026 publikován do GitHub main bez force push.
+Přímé EXE i EXE ve zdrojovém archivu předchozího vydání prošly kontrolou MZ,
+velikosti 104 713 528 B a SHA256
+`ea2b6a5fedf2d0ba390269c4d4c513e28f62aafc8a29b2cc2f3afaad83604c41`.
+Tento historický záznam z commitu 60e4a28 není ověřením stažení nového UI EXE.

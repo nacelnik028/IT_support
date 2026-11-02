@@ -76,8 +76,9 @@ ověřují původní world_ui a display_settings regrese. XR ověření je synte
 Opakovatelné cloud `install_script` a `start_skill` byly uložené do návrhu,
 instalační refresh byl vykonaný. Uložení návrhu není publikace ani ověření
 obnovy v novém tasku. Publikaci provádí uživatel v nastavení prostředí.
-EXE je nepodepsané; archivní ZIP/APK zůstávají staré. Push, publikace,
-nativní Windows, fyzické VR a stažení nové verze z GitHubu nebyly provedeny.
+EXE je nepodepsané; archivní ZIP/APK zůstávají staré. Nativní Windows, fyzické
+VR a stažení nové verze z GitHubu nebyly provedeny. Git push následuje jako
+samostatná operace; publikaci cloud prostředí provádí uživatel.
 
 
 
@@ -138,10 +139,16 @@ Skutečné grafické okno finálního EXE ve Wine bylo prohlédnuto; standardní
 zavření exit 0. Wine hlásí nepodporovaný dotaz na SDR white level a liší se
 některé symbolové fallbacky fontů; screenshot je v nových UI podkladech.
 
-Nativní grafické hraní ve Windows, fyzický PICO/OpenXR, antivirová kontrola
-ve Windows a stažení po publikaci této verze na GitHubu nejsou v této
-etapě ověřené. Nic se nepushovalo. Starší ZIP/APK v `builds/` nebyly
+Nativní grafické hraní ve Windows, fyzický PICO/OpenXR a antivirová kontrola
+ve Windows nejsou v této etapě ověřené. Starší ZIP/APK v `builds/` nebyly
 přestavěny. Dřívější nativní PASS nelze přenášet na nový EXE.
+
+Doplnění po výslovném pokynu k publikaci: commit `99c2012` byl odeslán do
+GitHub main bez force. Přímé stažení EXE z raw.githubusercontent.com a
+zdrojového archivu z codeload.github.com pro přesný commit **PASS**.
+EXE v obou případech začíná MZ, má 104 713 528 bajtů a shodný SHA256:
+`ea2b6a5fedf2d0ba390269c4d4c513e28f62aafc8a29b2cc2f3afaad83604c41`.
+Jde o celou binárku včetně herních dat, nikoli Git LFS pointer.
 
 
 ## Spuštění jediného EXE ze ZIPu — 26. 10. 2026
