@@ -1,5 +1,23 @@
 # Datacenter Academy — stav vývoje
 
+## Obsahové varianty a zadání navazující etapy — 2. 11. 2026
+
+- Rodinné procvičování nyní mění také skutečné počty: 1 adult + 1 child,
+  2 adults + 1 child a 1 adult + 2 children, se souhlasnými cenami a rozpočty.
+  Model všech 54 kombinací znovu 979 kontrol PASS. Základní výuková situace
+  zůstává jeden dospělý a jedno dítě podle původního zadání.
+- Opraven pouze způsob syntetického kliknutí ve starém testu ui_design:
+  úplný press/release s korektním button_mask, bez vstupu nativních událostí mezi
+  obě části kliku. Původní GPU automatizace někdy nedoručila klik a následně
+  čekala po přístupu do neotevřeného formuláře; selhaný běh je uchován samostatně.
+  Kontroly skutečné navigace a všech 162 požadavků se nemění.
+- Na pokyn uživatele se rozcestník nyní neimplementuje. Soubor
+  PROMPT_ACADEMY_HUB_PC_VR.md připravuje pro další AI skutečný nástupní hub,
+  kompletní prohlídku všech textur/materiálů a opravu vadných v celé hře
+  (výslovně rozbitého vstupu do Londýna) a přepracování všech šesti anglických
+  situací na B1–B2. Tyto tři změny jsou budoucím zadáním, ne hotovou funkcí.
+  Vizuální snímky aktuálního Londýna jsou v docs/ui-review/2026-11-02-london.
+
 ## English in London — implementace PC a VR, 2. 11. 2026
 
 - Přidán čtvrtý fyzický pavilon jižně od serverovny, průchod 04. Procedurální

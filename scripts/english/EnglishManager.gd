@@ -45,7 +45,7 @@ static func money(pence: int) -> String:
 
 func task() -> String:
 	if session.is_empty(): return ""
-	return definition().task.format({"time":session.goal.time,"sold":session.goal.get("sold",""),"budget":money(int(session.goal.budget))})+" Ceny jsou fiktivní výukové údaje."
+	return definition().task.format({"adult":int(session.goal.adult),"child":int(session.goal.child),"time":session.goal.time,"sold":session.goal.get("sold",""),"budget":money(int(session.goal.budget))})+" Ceny jsou fiktivní výukové údaje."
 
 func total() -> int:
 	return int(session.cart.adult)*int(catalog.prices.adult)+int(session.cart.child)*int(catalog.prices.child) if not session.is_empty() else 0

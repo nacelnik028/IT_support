@@ -46,10 +46,14 @@ func click(control):
 	if not visible(control): return
 	var at=control.get_global_rect().get_center()
 	var motion=InputEventMouseMotion.new(); motion.position=at; root.push_input(motion,true)
+	# One synthetic click is a complete press/release at the same location.
+	# Yielding while held lets native Windows cursor motion cancel the injected
+	# click on a scaled window; drag/held-pointer behavior has its own XR tests.
 	for down in [true,false]:
 		var event=InputEventMouseButton.new(); event.button_index=MOUSE_BUTTON_LEFT; event.pressed=down; event.position=at
+		event.global_position=at
+		event.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0
 		root.push_input(event,true)
-		await process_frame
 	await frames()
 
 func find_button(node, caption):

@@ -43,7 +43,7 @@ func buy(id: String, mode: String, variant: int):
 			check(m.session.asked_sold and m.session.node=="time" and m.session.cart.time=="","Vyprodaný čas vyvolá upřesnění")
 			act("next")
 		else: act("time_"+m.session.goal.time)
-		check(m.total()==3000+(2000 if id=="LON02" else 0),"Cena podle košíku")
+		check(m.total()==int(m.session.goal.adult)*3000+int(m.session.goal.child)*2000,"Cena podle skutečného počtu dospělých a dětí")
 		act("confirm")
 		station="tickets"; check(not m.pay(m.revision) and m.session.ticket.is_empty(),"Bez terminálu nelze zaplatit")
 		station="terminal"; token=m.revision

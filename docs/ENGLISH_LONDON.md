@@ -25,7 +25,8 @@ trigger předlož. Použitý lístek se podruhé nepřijme; platný lístek otev
 Šest samostatných situací má ID LON01–LON06:
 
 1. One adult ticket — dospělý, čas, karta a poděkování.
-2. A family visit — dospělý a dítě, jejich správný součet.
+2. A family visit — v základu dospělý a dítě; procvičování mění počty na
+   dva dospělé a dítě nebo dospělého a dvě děti, včetně správné ceny a rozpočtu.
 3. How much is it? — otázka na cenu a nákup v rozpočtu.
 4. That time is sold out — nejprve otázka na vyprodaný čas, potom alternativa.
 5. Let me change that — oprava dvou dospělých na jednoho před platbou.
