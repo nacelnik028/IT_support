@@ -14,6 +14,7 @@ var last_dashboard=""
 func build(owner_world):
 	world=owner_world
 	name="ProgrammingAcademy"
+	var existing=world.get_children()
 	Geo.solid(self,Vector3(0,-0.16,-14),Vector3(18,0.3,14),Color("344953"))
 	Geo.solid(self,Vector3(0,2,-21),Vector3(18,4,0.25),Color("263b4c"))
 	for x in [-9,9]: Geo.solid(self,Vector3(x,2,-14),Vector3(0.25,4,14),Color("304a58"))
@@ -45,9 +46,25 @@ func build(owner_world):
 		var label=Geo.text(button.visual,"[E]\nDVEŘE",Vector3(0,0,0.08),24,0.0015)
 		if z<-7: label.rotation.y=PI
 		door_panels.append({"object":button,"label":label})
-	Geo.text(world,"PROGRAMMING ACADEMY",Vector3(-6.5,3.25,-6.8),34,0.0028,Color("76e8cd"))
-	Geo.text(self,"ZPĚT / SERVEROVNA",Vector3(-6.5,3.25,-7.25),32,0.0028).rotation.y=PI
 	preload("res://scripts/programming/AcademyVisuals.gd").new().build(self)
+	Geo.text(self,"ZPĚT / SERVEROVNA",Vector3(-6.5,3.25,-7.25),32,0.0028).rotation.y=PI
+	# Keep every station, collider and entrance detail in room-local coordinates.
+	# World.item registers the identity first; parenting then preserves that identity.
+	for node in world.get_children():
+		if node!=self and node not in existing: node.reparent(self)
+	Geo.solid(self,Vector3(-8.5,2,-7),Vector3(1,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(2,2,-7),Vector3(14,4,0.25),Color("293844"))
+	Geo.solid(self,Vector3(-6.5,3.5,-7),Vector3(3,1,0.25),Color("293844"))
+	position=Vector3(-2,0,-6.5)
+	rotation.y=PI/2
+
+func entrance_position() -> Vector3:
+	return to_global(Vector3(-6.5,0.02,-9))
+
+func contains_point(point: Vector3) -> bool:
+	var local=to_local(point)
+	var seam=0.15 if world.game!=null and world.game.game_mode.is_programming() else -0.15
+	return AABB(Vector3(-8.9,-0.4,-20.9),Vector3(17.8,4.5,13.9+seam)).has_point(local)
 
 func add_item(id: String, title: String, at: Vector3, size_value: Vector3, category: String):
 	var object=world.item(id,title,"programming",at,size_value,category)
@@ -56,13 +73,12 @@ func add_item(id: String, title: String, at: Vector3, size_value: Vector3, categ
 
 func contains_player() -> bool:
 	if not is_instance_valid(world.player): return false
-	var point=world.player.global_position
-	var seam=0.15 if world.game!=null and world.game.game_mode.is_programming() else -0.15
-	return AABB(Vector3(-8.9,-0.4,-20.9),Vector3(17.8,4.5,13.9+seam)).has_point(point)
+	return contains_point(world.player.global_position)
 
 func toggle_door() -> bool:
 	if door_tween and door_tween.is_running(): return false
-	if door_open and absf(world.player.position.z+7)<0.62 and absf(world.player.position.x+6.5)<1.8 and world.player.position.y<2.9:
+	var local=to_local(world.player.global_position)
+	if door_open and absf(local.z+7)<0.62 and absf(local.x+6.5)<1.8 and local.y<2.9:
 		door_notice.text="PRŮCHOD OBSAZENÝ / USTUP OD DVEŘÍ"; return false
 	door_open=not door_open
 	door_tween=create_tween(); door_tween.tween_property(door,"position:x",-9.6 if door_open else -6.5,0.35)

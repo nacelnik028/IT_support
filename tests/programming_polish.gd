@@ -37,20 +37,21 @@ func run():
 	shell.world.player.rotation=Vector3.ZERO; shell.world.player.camera.rotation=Vector3.ZERO
 	check(await walk_to(Vector3(0,0.02,4.4)),"Leave administration desks through rear aisle")
 	check(await walk_to(Vector3(-6.5,0.02,4.4)),"Reach main aisle from ordinary spawn")
-	check(await walk_to(Vector3(-6.5,0.02,-5.1)),"Reach programming entrance from main aisle")
+	check(await walk_to(Vector3(-7,0.02,0)),"Reach programming entrance from main aisle")
+	shell.world.player.rotation.y=PI/2
 	shell.world.player.poll_target()
 	check(shell.world.player.target==shell.world.programming_room.door,"Door is visible and reachable from main aisle; hit="+str(shell.world.player.target))
 	if shell.world.player.target==shell.world.programming_room.door:
 		shell.interact(shell.world.player.target)
 		await create_timer(0.5).timeout
-		check(await walk_to(Vector3(-6.5,0.02,-9)),"Walk into Academy from main room")
+		check(await walk_to(Vector3(-10.8,0.02,0)),"Walk into Academy from main room")
 		check(shell.ui.game.game_mode.is_programming(),"Walking activates Programming Academy")
-		check(await walk_to(Vector3(-6.5,0.02,-5.1)),"Walk back through the same entrance")
+		check(await walk_to(Vector3(-7,0.02,0)),"Walk back through the same entrance")
 		check(not shell.ui.game.game_mode.is_education(),"Walking restores MAIN")
 	var academy=shell.world.programming_room
-	shell.world.player.position=Vector3(-6.5,0.02,-7); shell.ui.game.reconcile_room()
+	shell.world.player.position=Vector3(-9,0.02,0); shell.ui.game.reconcile_room()
 	check(not academy.toggle_door() and academy.door_open,"Door cannot close through the player")
-	shell.world.player.position=Vector3(-6.5,0.02,-9); shell.ui.game.reconcile_room()
+	shell.world.player.position=shell.world.programming_room.entrance_position(); shell.ui.game.reconcile_room()
 	check(academy.toggle_door(),"Door closes when the threshold is clear")
 	check(not academy.toggle_door(),"Repeated trigger cannot start competing door tweens")
 	await create_timer(0.4).timeout

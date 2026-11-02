@@ -8,20 +8,22 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 
 Nová **Programming Academy** přidává třetí 3D místnost, editor vlastního kódu,
 15 Python + 13 webových lekcí, 60 praktických úloh a 12 opravovacích variant.
-Vstup je dveřmi severně od serverovny nebo Pauza → Programming Academy.
+Vstup je dveřmi vlevo od racků (západní stěna serverovny) nebo Pauza → Programming Academy.
 Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS náhled
 pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 
 ## Spuštění
 
-**Windows:** stáhni `builds/ITSupportSimulator-Windows.zip` a spusť
-`ITSupportSimulator.exe`. **Aktuální ZIP obsahuje přenosné EXE se všemi herními
-daty uvnitř; žádný sousední PCK nepotřebuje.** Můžeš jej celý rozbalit do vlastní
-složky, ale funguje i samotné EXE vytažené Průzkumníkem do dočasné složky.
-Místní přenosné EXE je v `builds/windows-portable/ITSupportSimulator.exe`.
-Vývojářská varianta `builds/windows/ITSupportSimulator.exe` nadále vyžaduje
-sousední `ITSupportSimulator.pck`; tato dvojice není hlavní ZIP ke stažení.
+**Windows:** spusť jediný soubor [`build/ITSupportSimulator.exe`](build/ITSupportSimulator.exe).
+Herní data jsou vložená uvnitř; nepotřebuješ PCK, editor, instalátor ani ZIP.
+Jde o oficiální **Windows x86_64 Debug export Godotu 4.7.2**, nikoli Release.
+Soubor je přímo v Gitu bez LFS; použij stažení původního souboru (Raw),
+ne ukládání HTML stránky GitHubu. Kontrolní součet je v `build/SHA256SUMS`.
+[Reprodukovatelné sestavení a ověření](build/README.md).
+Starší `builds/ITSupportSimulator-Windows.zip` a PICO APK zůstávají archivními
+artefakty z 26. 10.; neobsahují nynější přesun programovací učebny.
+
 PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.
 Menu **HRÁT V KLASICKÉM 3D** otevře původní FPS hru a načte místní postup.
@@ -118,6 +120,12 @@ Potom proveď import ve hře. Tyto příkazy přenášejí data přímo přes `r
 nepotřebují přístup aplikace ke sdílenému úložišti.
 
 ## Sestavení obou platforem
+
+Pro aktuální samostatné Windows EXE použij `tools/Build-Windows.ps1`
+nebo multiplatformní `tools/build_windows.py` podle [build/README.md](build/README.md).
+Windows preset má `embed_pck=true`; skript exportuje do dočasné složky,
+ověří PE, vložený PCK, limit 100 MiB a běh samotného EXE, teprve potom
+atomicky nahradí `build/ITSupportSimulator.exe` a jeho SHA256.
 
 Nainstaluj oficiální export templates **4.7.2.stable** (shodné s editorem),
 JDK 17 a Android SDK. Skutečná přiložená 4.7.2 šablona používá compile SDK 36,

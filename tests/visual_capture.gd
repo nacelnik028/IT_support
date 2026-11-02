@@ -14,7 +14,8 @@ func capture(title: String, at: Vector3, target: Vector3):
 	p.camera.rotation = Vector3.ZERO
 	p.camera.look_at(target)
 	for i in 45: await process_frame
-	await RenderingServer.frame_post_draw
+	if "--manual-capture" in OS.get_cmdline_user_args(): RenderingServer.force_draw()
+	else: await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://test-output/visual-"+title+".png")
 	print("VISUAL CAPTURE: "+title)
 
@@ -25,6 +26,12 @@ func run():
 	shell.ui.game.start_mission(52,true)
 	shell.enter_world()
 	shell.world.visuals.sync(shell.ui.game)
+	if "--programming-only" in OS.get_cmdline_user_args():
+		shell.world.programming_room.toggle_door()
+		await create_timer(0.5).timeout
+		await capture("server-room",Vector3(6.6,0.02,4.2),Vector3(-0.7,1.45,-3))
+		await capture("programming-west",Vector3(0,0.02,0.8),Vector3(-3,1.5,-2.5))
+		shell.queue_free(); await process_frame; quit(); return
 	await capture("server-room",Vector3(6.6,0.02,4.2),Vector3(-0.7,1.45,-3))
 	await capture("rack-close",Vector3(1.2,0.02,-0.6),Vector3(0,1.35,-3))
 	await capture("nas-fault",Vector3(4.1,0.02,-0.5),Vector3(3.2,1.3,-2.46))

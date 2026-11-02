@@ -1,5 +1,40 @@
 # Datacenter Academy — stav vývoje
 
+## Přesun programovací učebny a spolehlivý Windows build — 2. 11. 2026
+
+- Navázáno na čistý checkout 4000cb0, bez obnovování projektu. Ověřena
+  skutečná 4.7.2 a oficiální SHA512 editoru/exportních šablon. Výchozích
+  30 testovacích sad prošlo; stará auditní tvrzení se nepovažovala za důkaz.
+- Celá programovací místnost je vlevo od racků za západními dveřmi.
+  Jediná transformace zahrnuje vybavení, fyzické kolize, pracovní stanice,
+  ovladače i osvětlení. Severní otvor uzavřený, levý vstup průchozí,
+  nové značení a viditelný návrat do serverovny. Čidlo používá místní
+  souřadnice; MultiMesh rozlišuje nový západní prostor.
+- Starou podporovanou pozici v uzavřeném prahu opravuje pouze obnova
+  polohy hráče. Mise, XP, výsledky, infrastruktura a schéma save se nemění.
+- Reprodukována chůze po ztrátě desktopového fokusu; oprava uvolní klávesy
+  a otevře pauzu bez automatického pokračování. Konzole zachová koncept.
+  Před opravou 3 selhání nové regrese, po opravě world_ui 31/31.
+- Opraven rozpor Build-Windows: skutečný samostatný Debug export místo
+  EXE+PCK. Oficiální matching template, izolovaný import/export, kontrola
+  PE/vložených dat, limit 100 MiB a EXE-only smoke před nahrazením cíle.
+  Případný starý externí PCK se archivuje, aby nezastínil vložená data.
+  Windows preset embed_pck=true; doplňkový Release/PICO pipeline zachovává
+  výslovně svou složkovou variantu. Není použitá komprese UPX ani úprava PE.
+- Přidán multiplatformní tools/test_all.py čtoucí aktuální seznam z PS1,
+  rozšířen test přesného zabaleného projektu a dokumentován build/ postup.
+  Nová sada programming_location je součástí Test-All; aktuálně 31 sad.
+- Finální úplná regrese 31 sad PASS, balíčková regrese 11 sad PASS;
+  grafický průchod novou učebnou 114/114, 3D grafická matice 31/31,
+  UI 162/162 a skutečná 4K kvalita 8/8. Výsledné EXE má 104 713 528 B,
+  pod 100 MiB; skutečný Wine headless smoke a grafické menu exit 0.
+- Čerstvé vizuální podklady v docs/ui-review/2026-11-02. Podrobné výsledky,
+  limity Wine/Xvfb a aktuální hash EXE jsou v TEST_REPORT.md a build/.
+- Žádné změny legacy24, katalogů či referenčních postupů. Archivní ZIP a
+  PICO APK nejsou novou distribucí. Nativní Windows/PICO ověření a
+  následné stažení z GitHubu se neprohlašují za provedené.
+
+
 ## Oprava spuštění přímo ze staženého ZIPu — dokončeno (2026-10-26)
 - Uživatel doložil chybu „Couldn’t load project data / Is the .pck file missing?“ s cestou do Temp/..._ITSupportSimulator-Windows.zip.*. Windows vytáhl při spuštění uvnitř ZIPu pouze EXE; předchozí hlavní ZIP vyžadoval sousední PCK. Samotný návod Extrahovat vše není dostatečně odolný distribuční výsledek.
 - Hlavní ZIP nově dostane přenosné EXE s vloženým PCK, exportované přímo Godotem. Vývojářská varianta v builds/windows si ponechá externí PCK a nemodifikovaný runtime, přenosná je v builds/windows-portable. Herní zdroje, katalogy, save ani PICO APK se nemění.

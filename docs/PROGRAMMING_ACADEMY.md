@@ -4,7 +4,7 @@ Třetí oblast existující hry obsahuje 30 Python úloh PY01–PY30, 30 webový
 
 ## Použití
 
-Učebna je severně od serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je Pauza → Programming Academy. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
+Učebna je vlevo od racků v západní stěně serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je Pauza → Programming Academy. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
 
 Vyber lekci, úlohu či opravu a režim. Učím se obsahuje výklad a samostatně otevřenou ukázku. Vyžaduje úpravu, spuštění, další úpravu a spuštění a potom úspěšný test zadání. Procvičování má volitelné nápovědy. Zkouška blokuje nápovědy i ukázku. CodeEdit má odsazení, syntax highlighting, výběr textu, číslování řádků, desktopový clipboard/undo/redo a zoom A−/A+.
 

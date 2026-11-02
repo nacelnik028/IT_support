@@ -41,6 +41,15 @@ func run():
 	await capture("introduction")
 	shell.finish_introduction()
 	check(shell.mode=="world" and ui.display_settings.introduction_seen,"Přeskočení dovolí hru a uloží se")
+	Input.action_press("walk_forward")
+	await physics_frame
+	shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	check(shell.mode=="pause" and not shell.world.player.enabled,"Ztráta fokusu pozastaví pohyb i fyzické interakce")
+	check(not Input.is_action_pressed("walk_forward"),"Ztráta fokusu uvolní drženou klávesu pohybu")
+	shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN)
+	check(shell.mode=="pause","Návrat fokusu neobnoví chůzi bez potvrzení hráče")
+	Input.action_release("walk_forward")
+	shell.return_to_world()
 	shell.pause_menu()
 	shell.settings_from_pause=true; shell.open_app("Nastavení")
 	check(not shell.world.player.enabled and shell.mode=="app","Nastavení z pauzy blokuje chůzi")
@@ -50,6 +59,9 @@ func run():
 	ui.open_action("management")
 	var input=ui.form_controls.management.hostname
 	input.grab_focus()
+	input.text="rozepsany-hostitel"
+	shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	check(shell.mode=="app" and input.text=="rozepsany-hostitel","Ztráta fokusu v konzoli zachová formulář i koncept")
 	var before=shell.world.player.position
 	var key=InputEventKey.new(); key.physical_keycode=KEY_W; key.keycode=KEY_W; key.unicode=119; key.pressed=true
 	root.push_input(key,true); await frames()

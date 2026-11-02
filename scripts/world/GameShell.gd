@@ -32,6 +32,14 @@ var xr_rig
 var vr_active = false
 var code_editor
 
+func _notification(what: int):
+	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT or vr_active: return
+	# Keep desktop movement from continuing behind another application. Returning
+	# focus never resumes automatically; the player chooses Continue in pause.
+	for action in ["walk_left","walk_right","walk_forward","walk_back","walk_fast","interact"]:
+		if InputMap.has_action(action): Input.action_release(action)
+	if mode=="world" and is_instance_valid(world) and is_instance_valid(ui): pause_menu()
+
 func _ready():
 	# Explicit opt-in used by MCP and graphical smoke tests, before Game.new().
 	if "--test-world" in OS.get_cmdline_user_args():
@@ -225,6 +233,13 @@ func set_mode(value: String):
 	world.player.set_enabled(value == "world")
 	if vr_active: xr_rig.mode_changed()
 
+func safe_saved_position(point: Vector3) -> Vector3:
+	# Old programming-room positions now lie beyond the sealed north wall.
+	# Move only the pose; mission state, equipment, XP and results stay untouched.
+	if point.z < -6.6 and not world.programming_room.contains_point(point):
+		return Vector3(-7,0.02,0)
+	return point
+
 func enter_world(destination: String = "Serverovna"):
 	if destination == "Hlavní serverovna":
 		world.player.position = Vector3(7,0.02,3.5)
@@ -233,7 +248,7 @@ func enter_world(destination: String = "Serverovna"):
 	if not ui.game.active and not ui.game.game_mode.is_education(): ui.game.start_mission(0)
 	if pose_revision != ui.game.session_revision:
 		var pose = ui.game.sim.state.world.player
-		world.player.position = Vector3(pose.x,0.02,pose.z)
+		world.player.position = safe_saved_position(Vector3(pose.x,0.02,pose.z))
 		world.player.rotation.y = pose.yaw
 		world.player.camera.rotation.x = pose.pitch
 		pose_revision = ui.game.session_revision
@@ -243,9 +258,9 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.rotation.y = 0
 		world.player.camera.rotation.x = 0
 	if destination=="Programming Academy":
-		world.player.position=Vector3(-6.5,0.02,-9)
+		world.player.position=world.programming_room.entrance_position()
 		world.player.velocity=Vector3.ZERO
-		world.player.rotation.y=0; world.player.camera.rotation.x=0
+		world.player.rotation.y=world.programming_room.rotation.y; world.player.camera.rotation.x=0
 	ui.game.reconcile_room()
 	pose_revision = ui.game.session_revision
 	if ui.game.session_kind!="lesson":
@@ -631,6 +646,7 @@ func export_smoke():
 	await get_tree().process_frame
 	print("EXPORT_SMOKE training=",ui.game.game_mode.is_training())
 	enter_world("Programming Academy")
+	print("EXPORT_SMOKE programming_west=",world.programming_room.door.global_position.x < -8.5)
 	print("EXPORT_SMOKE programming=",ui.game.game_mode.is_programming()," tasks=",ui.game.programming.catalog.missions.size()," lessons=",ui.game.programming.catalog.lessons.size())
 	ui.game.programming.start("PY01","practice")
 	ui.game.programming.edit("main.py","print('Ahoj, světe!')")

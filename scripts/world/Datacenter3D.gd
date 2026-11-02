@@ -69,10 +69,11 @@ func _ready():
 
 func build_room():
 	Geo.solid(self,Vector3(0,-0.16,0),Vector3(18,0.3,14),Color("343f4b"),0.25)
-	Geo.solid(self,Vector3(-8.5,2,-7),Vector3(1,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(2,2,-7),Vector3(14,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(-6.5,3.5,-7),Vector3(3,1,0.25),Color("293844"))
-	Geo.solid(self,Vector3(-9,2,0),Vector3(0.25,4,14),Color("374753"))
+	Geo.solid(self,Vector3(0,2,-7),Vector3(18,4,0.25),Color("293844"))
+	# West doorway: visible on the left when facing the server racks.
+	for z in [-4.25,4.25]: Geo.solid(self,Vector3(-9,2,z),Vector3(0.25,4,5.5),Color("374753"))
+	Geo.solid(self,Vector3(-9,3.5,0),Vector3(0.25,1,3),Color("374753"))
+	Geo.text(self,"03 / PYTHON + WEB  ←",Vector3(-6.5,0.018,0.8),32,0.003,Color("4de0cb")).rotation_degrees=Vector3(-90,0,0)
 	# A real opening joins the server room and the training room.
 	Geo.solid(self,Vector3(9,2,-2.5),Vector3(0.25,4,9),Color("374753"))
 	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))

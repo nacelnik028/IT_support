@@ -1,5 +1,11 @@
 .godot/
-build/
+/build/*
+!/build/ITSupportSimulator.exe
+!/build/.gitattributes
+!/build/README.md
+!/build/BUILD_INFO.md
+!/build/BUILD_INFO.json
+!/build/SHA256SUMS
 /builds/*
 !/builds/ITSupportSimulator-Windows.zip
 !/builds/VERIFICATION.json

@@ -119,6 +119,8 @@ def export_windows(engine, exe, environment, portable_exe=None):
         for name in ["assets","data","scenes","scripts"]: shutil.copytree(ROOT/name,project/name)
         shutil.copy2(ROOT/"project.godot",project/"project.godot")
         preset=(ROOT/"export_presets.cfg").read_text(encoding="utf-8").split("[preset.1]",1)[0]
+        # This optional Release pipeline intentionally also prepares an external-PCK variant.
+        preset=preset.replace("binary_format/embed_pck=true","binary_format/embed_pck=false")
         (project/"export_presets.cfg").write_text(preset,encoding="utf-8")
         import_project(engine,project,"windows-import",environment)
         run([engine,"--headless","--path",project,"--export-release","Windows Desktop",exe,"--quit"],"windows-export",env=environment)

@@ -27,9 +27,11 @@ def run(args, cwd, log):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot',required=True,type=Path,help='Full Godot editor executable')
-    parser.add_argument('--exe',type=Path,default=ROOT/'builds/windows-portable/ITSupportSimulator.exe')
+    parser.add_argument('--exe',type=Path,default=ROOT/'build/ITSupportSimulator.exe')
+    parser.add_argument('--runner',type=Path,help='Wine executable for Linux; native Windows is otherwise required')
     parser.add_argument('--headless',action='store_true',help='Skip graphical checks')
     args=parser.parse_args()
+    runner=[args.runner.resolve(strict=True)] if args.runner else []
     engine=args.godot.resolve(strict=True)
     source=args.exe.resolve(strict=True)
     logs=ROOT/'test-output/windows-package'
@@ -49,25 +51,26 @@ def main():
         for library in source.parent.glob('*.dll'): shutil.copy2(library,isolated/library.name)
         # Export templates disable --script/--path. Boot the real main scene
         # using its existing opt-in save/config isolation before Game.new().
-        results['native_headless']=run([exe,'--headless','--quit-after','90','--','--test-world'],
+        results['native_headless']=run(runner+[exe,'--headless','--audio-driver','Dummy','--','--test-world','--export-smoke'],
                                        isolated,logs/'native-headless.log')
         if not args.headless:
-            results['native_graphical']=run([exe,'--quit-after','120','--','--test-world'],
+            results['native_graphical']=run(runner+[exe,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--disable-vsync','--','--test-world','--export-smoke'],
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the distributed pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')
-            command=[engine,'--main-pack',main_pack,'--script',script]
+            command=[engine,'--audio-driver','Dummy','--main-pack',main_pack,'--script',script]
+            if not args.headless: command+=['--rendering-method','gl_compatibility','--disable-vsync']
             if args.headless: command+=['--headless']
             command+=['--']
             if not args.headless: command+=['--screenshots']
             if name=='terminal_sessions':
                 command+=['--verify-packaged',f'--lesson-solutions={ROOT/"tests/lesson_solutions.json"}']
             results[name]=run(command,isolated,logs/f'{name}.log')
-    report={'sha256':digest,'bytes':source.stat().st_size,'results':results}
+    report={'native_checks_runtime':'Wine' if runner else 'Windows','editor_pack_checks_runtime':'Linux' if __import__('os').name!='nt' else 'Windows','sha256':digest,'bytes':source.stat().st_size,'results':results}
     if pack.exists(): report['pck_sha256']=hashlib.sha256(pack.read_bytes()).hexdigest()
     (logs/'results.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     if not all(results.values()): raise SystemExit(1)

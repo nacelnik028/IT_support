@@ -68,7 +68,12 @@ func visible(control):
 func frames():
 	for i in 8: await get_tree().process_frame
 	shell.update_time=1; shell._process(0.01)
-	await RenderingServer.frame_post_draw
+	if "--manual-capture" in OS.get_cmdline_user_args():
+		# Paired with --disable-render-loop on software renderers. Layout and
+		# input still process for all eight frames; capture renders a real frame.
+		RenderingServer.force_draw()
+	else:
+		await RenderingServer.frame_post_draw
 
 func capture(title, comparable=false):
 	await frames()

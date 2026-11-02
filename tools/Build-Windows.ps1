@@ -1,4 +1,4 @@
-param([string]$GodotPath = '', [string]$PythonPath = '')
+param([string]$GodotPath = '', [string]$PythonPath = '', [string]$TemplatePath = '')
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 if (-not $GodotPath) {
@@ -8,8 +8,11 @@ if (-not $GodotPath) {
 }
 $enginePath = (Resolve-Path -LiteralPath $GodotPath).Path
 $builder = Join-Path $PSScriptRoot 'build_windows.py'
-if ($PythonPath) { & $PythonPath $builder --godot $enginePath }
-elseif (Get-Command uv -ErrorAction SilentlyContinue) { & uv run --no-project --python 3.14 python $builder --godot $enginePath }
-else { & python $builder --godot $enginePath }
+$buildArguments = @($builder, '--godot', $enginePath)
+if ($TemplatePath) { $buildArguments += @('--template', (Resolve-Path -LiteralPath $TemplatePath).Path) }
+if ($PythonPath) { & $PythonPath @buildArguments }
+elseif (Get-Command python -ErrorAction SilentlyContinue) { & python @buildArguments }
+elseif (Get-Command py -ErrorAction SilentlyContinue) { & py -3 @buildArguments }
+else { throw 'Nainstaluj Python 3.12+ nebo zadej -PythonPath.' }
 if ($LASTEXITCODE -ne 0) { throw 'Sestaveni samostatneho EXE selhalo; zkontroluj test-output/windows-build-*.log.' }
 Write-Output "Hotovo: $projectRoot/build/ITSupportSimulator.exe (herni data jsou uvnitr EXE)."

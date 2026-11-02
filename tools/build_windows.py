@@ -1,4 +1,4 @@
-"""Rebuild the standalone EXE with Godot's exporter and the bundled template."""
+"""Build and verify the standalone Windows Debug EXE with the matching official template."""
 import argparse
 import hashlib
 import json
@@ -36,33 +36,9 @@ def embedded_pack(binary):
     raise ValueError('Embedded pack PE section not found')
 
 
-def extract_template(binary, target):
-    entry, raw_start, _, _ = embedded_pack(binary)
-    # Keep a valid, initialized PE section for the Windows loader. Godot will
-    # point this placeholder at the new pack during the official export.
-    pe = struct.unpack_from('<I', binary, 0x3c)[0]
-    alignment = struct.unpack_from('<I', binary, pe + 24 + 36)[0]
-    sections=pe+24+struct.unpack_from('<H',binary,pe+20)[0]
-    count=struct.unpack_from('<H',binary,pe+6)[0]
-    engine_end=0
-    for index in range(count):
-        section=sections+40*index
-        if section==entry: continue
-        size, offset=struct.unpack_from('<II',binary,section+16)
-        if size: engine_end=max(engine_end,offset+size)
-    if not 0 < engine_end <= raw_start:
-        raise ValueError('Engine sections overlap the embedded pack')
-    placeholder=(engine_end+alignment-1)//alignment*alignment
-    template=bytearray(binary[:engine_end])
-    template.extend(bytes(placeholder+alignment-engine_end))
-    struct.pack_into('<II', template, entry + 16, alignment, placeholder)
-    target.write_bytes(template)
-
-
-def run(args, log):
-    flags = {'creationflags': subprocess.CREATE_NO_WINDOW} if hasattr(subprocess, 'CREATE_NO_WINDOW') else {}
-    result = subprocess.run([str(x) for x in args], capture_output=True, encoding='utf-8',
-                            errors='replace', timeout=300, **flags)
+def run(args, log, cwd=None):
+    result = subprocess.run([str(x) for x in args], cwd=cwd, capture_output=True,
+                            encoding='utf-8', errors='replace', timeout=300)
     output = result.stdout + result.stderr
     log.write_text(output, encoding='utf-8')
     if result.returncode or re.search(r'(?m)^(?:SCRIPT ERROR:|ERROR:|WARNING:)', output):
@@ -73,7 +49,8 @@ def run(args, log):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot', required=True, type=Path)
-    parser.add_argument('--template', type=Path, help='Optional official Windows x86_64 Debug template')
+    parser.add_argument('--template', type=Path, help='Official matching Windows x86_64 Debug template')
+    parser.add_argument('--runner', type=Path, help='Wine executable for Linux verification')
     args = parser.parse_args()
     engine = args.godot.resolve(strict=True)
     build = ROOT / 'build'
@@ -81,53 +58,63 @@ def main():
     logs = ROOT / 'test-output'
     logs.mkdir(exist_ok=True)
     target = build / 'ITSupportSimulator.exe'
+    runner = [args.runner.resolve(strict=True)] if args.runner else []
+    version = run([engine, '--headless', '--version'], logs / 'windows-editor-version.log').split()[0]
+    if args.template:
+        template = args.template.resolve(strict=True)
+    else:
+        base = Path(os.environ['APPDATA']) / 'Godot' if os.name == 'nt' else Path(os.environ.get('XDG_DATA_HOME', str(Path.home()/'.local/share'))) / 'godot'
+        template = base / 'export_templates' / '.'.join(version.split('.')[:4]) / 'windows_debug_x86_64.exe'
+        template = template.resolve(strict=True)
+    template_version = run(runner+[template, '--headless', '--version'], logs / 'windows-template-version.log').split()[0]
+    if version != template_version:
+        raise ValueError(f'Editor/template mismatch: {version} / {template_version}')
     with tempfile.TemporaryDirectory(prefix='academy-windows-build-') as tmp:
         temporary = Path(tmp).resolve()
-        template = temporary / 'windows_debug_x86_64.exe'
-        if args.template:
-            original_template=args.template.resolve(strict=True)
-            template_version=run([original_template, '--version'], logs / 'windows-template-version.log').split()[0]
-            shutil.copy2(original_template, template)
-        else:
-            version=run([engine,'--version'],logs/'windows-editor-version.log').split()[0]
-            installed=Path(os.environ['APPDATA'])/'Godot/export_templates'/'.'.join(version.split('.')[:4])/'windows_debug_x86_64.exe'
-            if not installed.is_file(): raise FileNotFoundError('Install matching official export templates or supply --template')
-            template_version=run([installed,'--version'],logs/'windows-template-version.log').split()[0]
-            shutil.copy2(installed,template)
-        editor_version = run([engine, '--version'], logs / 'windows-editor-version.log').split()[0]
-        if editor_version != template_version:
-            raise ValueError(f'Editor/template mismatch: {editor_version} / {template_version}')
         project = temporary / 'project'
         project.mkdir()
         for folder in ['assets', 'data', 'scenes', 'scripts']:
             shutil.copytree(ROOT / folder, project / folder)
         shutil.copy2(ROOT / 'project.godot', project / 'project.godot')
-        preset = (ROOT / 'export_presets.cfg').read_text(encoding='utf-8-sig')
-        preset = preset.replace('binary_format/embed_pck=true', 'binary_format/embed_pck=false')
+        preset = (ROOT / 'export_presets.cfg').read_text(encoding='utf-8-sig').split('[preset.1]',1)[0]
+        preset = preset.replace('binary_format/embed_pck=false', 'binary_format/embed_pck=true')
         preset = preset.replace('[preset.0.options]', '[preset.0.options]\ncustom_template/debug='
                                 + json.dumps(template.as_posix()) + '\ndebug/export_console_wrapper=0')
         (project / 'export_presets.cfg').write_text(preset, encoding='utf-8')
         authored=(project/'project.godot').read_bytes()
-        run([engine, '--headless', '--editor', '--import', '--path', project], logs / 'windows-build-import.log')
+        run([engine, '--headless', '--editor', '--import', '--quit', '--path', project], logs / 'windows-build-import.log')
         (project/'project.godot').write_bytes(authored)
         result = temporary / 'ITSupportSimulator.exe'
-        run([engine, '--headless', '--path', project, '--export-debug', 'Windows Desktop', result],
-            logs / 'windows-build-export.log')
+        run([engine, '--headless', '--path', project, '--export-debug', 'Windows Desktop', result], logs / 'windows-build-export.log')
         binary = result.read_bytes()
-        pack=result.with_suffix('.pck')
-        if binary[:2]!=b'MZ' or not pack.is_file() or pack.read_bytes()[:4]!=b'GDPC':
-            raise ValueError('Expected an unmodified Windows runtime and an external Godot PCK')
-        if binary!=template.read_bytes(): raise ValueError('The exported runtime was unexpectedly modified')
-        staged_pack=target.with_suffix('.pck.tmp')
-        shutil.copy2(pack,staged_pack); staged_pack.replace(target.with_suffix('.pck'))
-        staged = target.with_suffix('.exe.tmp')
-        shutil.copy2(result, staged)
-        staged.replace(target)
-        info = {'engine': editor_version, 'bytes': len(binary),
-                'sha256': hashlib.sha256(binary).hexdigest(), 'embedded_pck': False,
-                'pck_sha256':hashlib.sha256(pack.read_bytes()).hexdigest()}
-        (logs / 'windows-build.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
-        print(json.dumps(info, indent=2))
+        embedded_pack(binary)
+        if len(binary) >= 100*1024*1024:
+            raise ValueError('Standalone executable exceeds the GitHub 100 MiB limit')
+        isolated=temporary/'EXE only with spaces'
+        isolated.mkdir()
+        renamed=isolated/'Datacenter Academy.exe'
+        shutil.copy2(result,renamed)
+        workdir=temporary/'unrelated working directory'
+        workdir.mkdir()
+        output=run(runner+[renamed,'--headless','--audio-driver','Dummy','--','--test-world','--export-smoke'], logs/'windows-build-smoke.log',cwd=workdir)
+        for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
+                         'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true']:
+            if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
+        if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
+        staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)
+        # A leftover external PCK could shadow the newly embedded project.
+        legacy_pack=target.with_suffix('.pck')
+        if legacy_pack.exists():
+            with tempfile.NamedTemporaryFile(prefix='obsolete-pack-',suffix='.bak',dir=build,delete=False) as archive:
+                archive_name=Path(archive.name)
+            shutil.move(legacy_pack,archive_name)
+        info={'engine':version,'export':'Windows x86_64 Debug','bytes':len(binary),
+              'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
+              'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
+              'native_windows_graphical_verified':False}
+        (build/'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n',encoding='utf-8')
+        (build/'SHA256SUMS').write_text(info['sha256']+'  ITSupportSimulator.exe\n',encoding='utf-8')
+        print(json.dumps(info,indent=2))
 
 
 if __name__ == '__main__':

@@ -41,6 +41,20 @@ které nezobrazují směrové vedení ani zlaté zvýraznění. Zkouška nepovol
 nápovědu. Tab ukáže zadání, výsledný stav a předání lekce s rozborem chyb;
 v nabídce lze lekci zopakovat. Návrat do kampaně obnoví i její fyzický stav.
 
+## Programovací učebna a pozastavení hry
+
+Programovací učebna s Pythonem a tvorbou webu je nově po levé ruce při
+pohledu na serverové racky, za dveřmi v západní stěně serverovny.
+Z běžného spawnu obejdi administrátorské stoly zadní uličkou, zahni doleva
+a pokračuj levou uličkou ke vstupu. Počítače i Ada zůstávají v téže místnosti;
+obsah a výsledky se přesunem nemění. Ovladače dveří fungují z obou stran.
+Starý severní vstup je uzavřený. Podporovaná uložená pozice v jeho prahu
+se při obnovení bezpečně přesune do hlavní uličky bez změny postupu.
+
+Desktopová hra při ztrátě fokusu přejde z chůze do pauzy a uvolní držené
+pohybové klávesy. Po návratu zvol Pokračovat. Rozepsaná konzole se při
+přepnutí do jiné aplikace nezavírá. VR nadále používá vlastní správu fokusu.
+
 ## Výukové režimy
 
 | Režim | Vedení | Nápověda | Vyhodnocení |

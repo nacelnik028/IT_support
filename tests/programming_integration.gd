@@ -25,7 +25,7 @@ func run():
 	var shell=preload("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
 	shell.enter_world()
 	var game=shell.ui.game; var player=shell.world.player
-	player.position=Vector3(-6.5,0.02,-6.5); player.rotation.y=0; player.camera.rotation.x=0
+	player.position=shell.world.programming_room.to_global(Vector3(-6.5,0.02,-6.5)); player.rotation.y=PI/2; player.camera.rotation.x=0
 	for i in 4: await physics_frame
 	player.poll_target()
 	check(player.target==shell.world.programming_room.door,"Ray reaches programming door")
@@ -35,7 +35,7 @@ func run():
 	for i in 50: await physics_frame
 	Input.action_release("walk_forward")
 	check(game.game_mode.is_programming(),"Walk through real doorway activates academy")
-	player.position=Vector3(0,0.02,-9); player.rotation.y=0
+	player.position=shell.world.programming_room.to_global(Vector3(0,0.02,-9)); player.rotation.y=PI/2
 	await capture("room")
 	shell.open_programming(); await frames()
 	var ui=shell.code_editor

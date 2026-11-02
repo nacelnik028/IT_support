@@ -1,21 +1,22 @@
 IT SUPPORT SIMULATOR — SPUŠTĚNÍ VE WINDOWS
 
-1. Stáhni aktuální ITSupportSimulator-Windows.zip.
-2. Spusť ITSupportSimulator.exe. Pro trvalé umístění můžeš nejdřív zvolit
-   Extrahovat vše a rozbalit hru do vlastní složky.
-3. Toto přenosné EXE už obsahuje herní data. Nepotřebuje další .pck soubor;
-   funguje i tehdy, když Průzkumník ze ZIPu vytáhne do Temp pouze EXE.
+1. Stáhni původní soubor build/ITSupportSimulator.exe z repozitáře (Raw).
+2. Spusť ITSupportSimulator.exe. Obsahuje celou hru, nepotřebuje sousední PCK,
+   editor Godotu, instalátor ani ruční rozbalení ZIPu.
+3. Aktuální export je Windows x86_64 Debug Godot 4.7.2; velikost a SHA256
+   uvádějí build/BUILD_INFO.json a build/SHA256SUMS. EXE je přímo v Gitu bez LFS.
+   Starší ZIP a APK v builds/ nejsou aktuální sestavení této etapy.
 
 CHYBA ZE STARŠÍHO BALÍČKU „IS THE .PCK FILE MISSING?“
 Starší ZIP obsahoval samostatné EXE a PCK. Windows při kliknutí uvnitř ZIPu
-vytáhl pouze EXE, takže druhý soubor chyběl. Stáhni nový ZIP; starou kopii
+vytáhl pouze EXE, takže druhý soubor chyběl. Použij aktuální build/ITSupportSimulator.exe; starou kopii
 EXE v dočasné složce nepoužívej. U starého balíčku pomůže Extrahovat vše.
 Vývojářská složka builds/windows stále používá EXE + PCK; přenosná varianta
 v hlavním ZIPu a builds/windows-portable má všechna herní data přímo v EXE.
 
 PROGRAMMING ACADEMY
 Ze serverovny projdi zadní uličkou za administrátorskými stoly, zahni doleva
-a sleduj tyrkysové značení k dveřím 03 / Programming Academy. Síťová skříň
+a pokračuj levou uličkou ke dveřím 03 / Programming Academy v západní stěně. Síťová skříň
 už nestojí v cestě. Zaměř dveře nebo nástěnný ovladač a stiskni E.
 Lze použít také Esc → Programming Academy.
 
@@ -26,7 +27,7 @@ Přenosné balení vytváří oficiální Godot exportér s vloženými daty. Ne
 nastavení zabezpečení a nemůže zaručit zmizení reputačního upozornění SmartScreen.
 
 Nejdřív ověř původ balíčku (github.com/nacelnik028/IT_support) a soubory pomocí
-SHA256SUMS.txt / builds/VERIFICATION.json. Po vlastním ověření a rozhodnutí,
+build/SHA256SUMS / build/BUILD_INFO.json. Po vlastním ověření a rozhodnutí,
 že důvěřuješ této konkrétní aplikaci, lze ve standardním okně SmartScreen
 zvolit Další informace → Přesto spustit, pokud Windows tuto možnost nabízí.
 Nevypínej kvůli hře antivirus nebo SmartScreen a nepřidávej plošné výjimky.

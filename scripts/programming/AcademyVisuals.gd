@@ -91,18 +91,14 @@ func plant(at: Vector3):
 		var leaf=Geo.box(room,at+Vector3(sin(angle)*0.12,0.96,cos(angle)*0.12),Vector3(0.1,0.9,0.24),Color("477c6b")); leaf.rotation=Vector3(0,angle,0.15)
 
 func entrance():
-	for z in [4.2,2.8,1.4,0,-1.4,-2.8,-4.2,-5.6,-8.1,-9.4]:
-		Geo.text(world,"›",Vector3(-6.5,0.014,z),64,0.004,PYTHON).rotation_degrees=Vector3(-90,90,0)
-	Geo.box(world,Vector3(-7.3,0.012,-0.6),Vector3(0.025,0.005,10.8),PYTHON,0,0.2)
-	Geo.text(world,"03  /  PROGRAMMING ACADEMY  ↑",Vector3(-6.5,0.016,4.4),30,0.003,PYTHON).rotation_degrees=Vector3(-90,0,0)
 	for side in [-1,1]:
 		var face=Node3D.new(); face.position.z=side*0.085; face.rotation.y=0.0 if side>0 else PI; room.door.visual.add_child(face)
 		Geo.box(face,Vector3.ZERO,Vector3(2.55,2.5,0.015),Color("263e4b"),0.6)
 		Geo.box(face,Vector3(0,0.7,0.013),Vector3(2.5,0.025,0.01),PYTHON,0,0.9)
 		Geo.text(face,"03\nPROGRAMMING\nACADEMY\n\n[E] OTEVŘÍT",Vector3(0,0.08,0.027),38,0.0025,PYTHON)
 	for x in [-8.04,-4.96]:
-		Geo.bevel(world,Vector3(x,1.45,-7),Vector3(0.13,2.9,0.31),Color("6d818d"),0.7,0.018)
-		Geo.box(world,Vector3(x,1.45,-6.82),Vector3(0.025,2.75,0.015),PYTHON,0,0.8)
-	room.door_notice=Geo.text(world,"PROGRAMMING ACADEMY / [E] OTEVŘÍT",Vector3(-6.5,3.48,-6.8),28,0.0027,PYTHON)
+		Geo.bevel(room,Vector3(x,1.45,-7),Vector3(0.13,2.9,0.31),Color("6d818d"),0.7,0.018)
+		Geo.box(room,Vector3(x,1.45,-6.82),Vector3(0.025,2.75,0.015),PYTHON,0,0.8)
+	room.door_notice=Geo.text(room,"PROGRAMMING ACADEMY / [E] OTEVŘÍT",Vector3(-6.5,3.25,-6.8),34,0.0032,PYTHON)
 	# The inside control must face the inside, including its text plane.
 	room.door_panels[1].label.position.z=-0.08

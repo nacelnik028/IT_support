@@ -1,5 +1,69 @@
 # Ověření rozšířené hratelné verze
 
+
+## Aktuální ověření — 2. 11. 2026
+
+Tato sekce se vztahuje k nynější etapě. Následující záznamy z října jsou
+historické a nedokládají ověření nového EXE na Windows.
+
+- Výchozí stav `4000cb0`: všech 30 aktuálních sad z Test-All prošlo na
+  skutečném Godotu 4.7.2.stable.official.ed1daf0bf. Godot 4.6.3 přítomný
+  v obrazu neobsahuje používané CanvasItem API; není podporovanou náhradou.
+- Potvrzená chyba ztráty desktopového fokusu: nová regrese před opravou
+  3 selhání; po opravě `world_ui` 31 kontrol, 0 selhání. Pokrývá také
+  uvolnění kláves, explicitní pokračování a zachování rozepsaného formuláře.
+- `programming_location`: 114 kontrol headless, 0 selhání. Dvě návštěvy
+  nové západní místnosti skutečnou chůzí, raycast/E, Python a HTML/JS,
+  kliknutí na Otestovat, návrat do MAIN a zachování kampaně. Ověřuje také
+  uložení/načtení podporované staré pozice u dveří, opravu pouze polohy,
+  zachování XP/výsledků a oddělení statických dávek místností.
+- Finální `programming_location` graficky: 114 kontrol, 0 selhání,
+  skutečné události E/myši a čerstvé screenshoty nového umístění.
+  Žádný hráčův save/config se nepoužil.
+- Finální úplná regrese: všech **31 sad PASS**, exit 0, žádné chyby ani
+  varování v headless logu. Seznam čten přímo z Test-All.ps1, včetně
+  training_ui --all-modes. Zdrojové a balíčkové testy měly oddělené datové složky.
+- Přesný finální EXE (hash v build/SHA256SUMS): **11 balíčkových sad PASS**,
+  exit 0 a čisté logy, včetně location 114, world_ui 31, integration 765,
+  katalogu 1071 a UI matice 162. Samostatný Wine headless smoke také PASS.
+- Grafická `ui_design`: 162 kontrol, 0 selhání; 1280×720, 1920×1080,
+  3840×2160 při 100/130 % textu; skutečné události myši a klávesnice,
+  viditelnost akcí, posuv dlouhých formulářů, fokus a oprava hodnot.
+- Grafická `DesignMCP.tscn`: 31 kontrol, 0 selhání; skutečná hlavní 3D
+  scéna, menu, HUD, konzole, nastavení, lekce a vedení v téže matici
+  720p/1080p/4K × 100/130 %. Kvůli softwarovému renderu použito
+  --disable-render-loop + --manual-capture: všech osm čekacích snímků
+  layoutu/vstupu běží, pak skutečný RenderingServer.force_draw.
+  Běžný režim testu nadále čeká na frame_post_draw.
+- `render_quality`: 8 kontrol, 0 selhání. Skutečný 4K framebuffer,
+  38×38 SVG ikona a porovnání rasterizovaných hran textu, nikoli jen PNG.
+- Grafika: Linux x86_64, Xvfb 3840×2160, Compatibility / Mesa 25.0.7
+  llvmpipe LLVM 19.1.7. Zvuk Dummy. Jediné grafické varování ovladače:
+  změna V-Sync není podporovaná. Není to benchmark herního GPU; výkon
+  původní a upravené scény nebyl měřen za srovnatelných podmínek.
+- Všech 65 misí, 21 IT lekcí, 28 programovacích lekcí a 60 úloh zůstává
+  zachováno. Generované katalogy, legacy24 i referenční řešení beze změn.
+- Není dostupný Godot MCP; byly použity skutečný engine, existující testy,
+  příkazová řádka a prohlédnuté čerstvé screenshoty.
+
+Aktuální EXE a jeho přesné parametry uvádí `build/BUILD_INFO.json` a
+`build/SHA256SUMS`. Jde o oficiální x86_64 Debug export s vloženými daty,
+nikoli přejmenovaný Release. Tracked build ověřuje PE/PCK a limit 100 MiB,
+pak spouští samotné přejmenované EXE z oddělené složky bez externího PCK.
+Wine smoke ověřuje 65/21, obě učebny, západní polohu, 60/28, Python,
+HTML/JS náhled a návrat do hlavní relace. Editorové testy nad přesným
+vloženým packem jsou oddělené od spuštění skutečného Windows EXE.
+
+Skutečné grafické okno finálního EXE ve Wine bylo prohlédnuto; standardní
+zavření exit 0. Wine hlásí nepodporovaný dotaz na SDR white level a liší se
+některé symbolové fallbacky fontů; screenshot je v nových UI podkladech.
+
+Nativní grafické hraní ve Windows, fyzický PICO/OpenXR, antivirová kontrola
+ve Windows a stažení po publikaci této verze na GitHubu nejsou v této
+etapě ověřené. Nic se nepushovalo. Starší ZIP/APK v `builds/` nebyly
+přestavěny. Dřívější nativní PASS nelze přenášet na nový EXE.
+
+
 ## Spuštění jediného EXE ze ZIPu — 26. 10. 2026
 
 Hlavní `ITSupportSimulator-Windows.zip` nyní používá přenosné EXE s vloženými
