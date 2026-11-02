@@ -1,5 +1,17 @@
 # Datacenter Academy — stav vývoje
 
+## Připravené zadání English in London pro další AI — 2. 11. 2026
+
+- Na žádost uživatele vytvořen `PROMPT_LONDON_ENGLISH_VR.md`: podrobné zadání
+  čtvrté londýnské místnosti s London Eye, Elizabeth Tower a praktickou angličtinou.
+- Výslovně požaduje plnohodnotné PC ovládání myší/klávesnicí i VR/PICO ovladači,
+  šest situací včetně nákupu vstupenky, výběr anglických replik jako základ,
+  volitelné psaní, skutečné vyhodnocení a oddělené uložené výsledky.
+- Popsaná integrace, ochrana kampaně, testy a exporty do zachované build/.
+  Jde pouze o připravený implementační prompt; místnost zatím vytvořená není.
+  Ověřena čitelnost UTF-8, odkazy na místní soubory a úplnost PC/VR požadavků;
+  herní kód ani balíčky se v této etapě neměnily.
+
 ## Blikající zeď u programovací učebny — opraveno 2. 11. 2026
 
 - Reprodukováno překrytí tří stěnových segmentů učebny se západní stěnou
