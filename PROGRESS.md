@@ -1,5 +1,39 @@
 # Datacenter Academy — stav vývoje
 
+## Sjednocení výstupů do build a aktuální PICO — 2. 11. 2026
+
+- Z čistého místního 4000cb0 stažen origin/main, fast-forward na fed2f4e.
+  Zachován celý existující build/, původní Windows EXE má stále SHA256
+  daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b.
+- PICO přesunuto do build/pico4/, kořenová builds/ včetně starých Windows
+  balíčků odstraněna. Starší zmínky o builds/ níže jsou historické cesty.
+  Upraveny exporty, ignore pravidla, build/test nástroje a odkazy v návodech.
+  build/.gdignore a exportní filtry brání přibalení exportů do dalších exportů.
+- Na doplňující pokyn uživatele vytvořeno nové APK z aktuálních zdrojů fed2f4e:
+  Training academy 1.1.0 / versionCode 2, západní učebna a nové UI. Identifikátor
+  cz.academy.itsupport i certifikát zachovány. Podepsaný Debug, ARM64, SDK 29/34,
+  skutečný APK manifest/OpenXR/PICO a CRC PASS. Velikost 90 430 147 B,
+  SHA256 cbf9dc83fae810157fe806563b4fc59d8feed4371777628ceaa7c1ab788aed0c.
+- build_platforms.py / Build-Platforms.ps1 podporují samostatný PICO export
+  (--pico-only / -PicoOnly) se zachováním Windows souborů. BUILD_INFO.json u APK
+  obsahuje přesné otisky zdrojů; --verify-only je nepřepisuje novými zdroji.
+- Úplný Test-All.ps1: 32 sad PASS, exit 0, čistý log build-migration-test-all.log.
+  Opraven pouze přenositelnost testu ui_workflow: předtím vyžadoval linuxovou
+  cestu save i na Windows. Nyní 357/357 PASS podle skutečné platformy.
+- tools/test_pico.py: skutečné prostředky z APK v desktopovém Godotu, headless
+  i GPU smoke PASS; UI 357, fyzická cesta/učebna 114, programování 765,
+  XR 69 a terminál 64 PASS. Otisky zdrojů/katalogů souhlasí. Android nativní
+  knihovny se v tomto desktopovém testu nespouštějí. PICO/ADB není připojené:
+  spuštění přímo na headsetu, tracking a FPS zůstávají NEOVĚŘENÉ.
+- Zachované Windows EXE: nativní headless i grafický smoke PASS, všech 12
+  zabalených sad headless PASS. Doplňkový grafický běh selhal ve dvou sadách
+  programming_location a ui_design; opakování při 60 FPS také selhalo.
+  Tyto grafické automatizace nejsou označené PASS, příčina není potvrzená.
+  Podrobnosti a samostatné záznamy úspěchů/selhání jsou v TEST_REPORT.md
+  a build/VERIFICATION.json. Herní skripty, scény, katalogy a save schéma beze změn.
+- Následuje autorizovaný commit a běžný push origin/main; builds/ se odstraňuje
+  z aktuální větve, historie repozitáře se nepřepisuje.
+
 ## UI/UX a název Training academy — 2. 11. 2026
 
 - Navázáno na uživatelem určený čistý commit 99c201215f83408f333829ed05aa0489253acc14.

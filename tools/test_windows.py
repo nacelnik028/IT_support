@@ -74,7 +74,7 @@ def main():
     if pack.exists(): report['pck_sha256']=hashlib.sha256(pack.read_bytes()).hexdigest()
     (logs/'results.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     if not all(results.values()): raise SystemExit(1)
-    manifest=ROOT/'builds/VERIFICATION.json'
+    manifest=ROOT/'build/VERIFICATION.json'
     if manifest.exists():
         verification=json.loads(manifest.read_text(encoding='utf-8'))
         if any(item.get('sha256')==digest for item in verification.get('artifacts',[])):

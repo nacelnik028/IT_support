@@ -11,7 +11,7 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-BUILDS = ROOT / "builds"
+BUILDS = ROOT / "build"
 LOGS = ROOT / "test-output" / "platform-build"
 
 
@@ -54,8 +54,20 @@ def configure_android(sdk, jdk, templates):
 
 
 def checksum(path):
-    return {"file": path.relative_to(ROOT).as_posix(), "bytes": path.stat().st_size,
-            "sha256": hashlib.file_digest(path.open("rb"), "sha256").hexdigest()}
+    with path.open("rb") as source:
+        digest = hashlib.file_digest(source, "sha256").hexdigest()
+    return {"file": path.relative_to(ROOT).as_posix(), "bytes": path.stat().st_size, "sha256": digest}
+
+
+def record_pico_build(apk, version, verification):
+    source_files = [ROOT / "project.godot", ROOT / "export_presets.cfg"]
+    for folder in ["scripts", "scenes", "data", "assets"]:
+        source_files += sorted(path for path in (ROOT / folder).rglob("*") if path.is_file())
+    info = {"engine": version, "export": "Android ARM64 signed Debug", "artifact": checksum(apk),
+            "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+            "sources": [checksum(path) for path in source_files], "verification": verification,
+            "hardware_tracking": "NOT TESTED", "pico_72_fps": "NOT MEASURED"}
+    (apk.parent / "BUILD_INFO.json").write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
 
 
 def verify_windows(exe, embedded=False):
@@ -177,17 +189,18 @@ def verify_apk(apk, sdk, environment):
     # aapt on Windows cannot reliably decode a Unicode absolute argv path.
     badging = run([tools / "aapt.exe", "dump", "badging", apk.name], "apk-badging", cwd=apk.parent)
     if "native-code: 'arm64-v8a'" not in badging: raise RuntimeError("APK must be ARM64 only")
+    for expected in ["package: name='cz.academy.itsupport'", "versionCode='2'", "versionName='1.1.0'", "application-label:'Training academy'"]:
+        if expected not in badging: raise RuntimeError("Unexpected APK identity: " + expected)
     with zipfile.ZipFile(apk) as archive:
+        if archive.testzip() is not None: raise RuntimeError("APK ZIP CRC failed")
         names = archive.namelist()
         for suffix in ["libgodot_android.so", "libopenxr_loader.so", "libgodotopenxrvendors.so"]:
             if not any(name.endswith(suffix) for name in names): raise RuntimeError("Missing " + suffix)
-    manifest = ROOT / "android/build/build/intermediates/merged_manifests/standardDebug/processStandardDebugManifest/AndroidManifest.xml"
-    text = manifest.read_text(encoding="utf-8")
-    for expected in ["IMMERSIVE_HMD", "pvr.app.type", 'android:value="vr"', 'android:value="OpenXR"']:
+    text = run([tools / "aapt.exe", "dump", "xmltree", apk.name, "AndroidManifest.xml"], "apk-manifest", cwd=apk.parent)
+    for expected in ["IMMERSIVE_HMD", "pvr.app.type", '"vr"', '"OpenXR"']:
         if expected not in text: raise RuntimeError("Missing PICO manifest entry: " + expected)
     for forbidden in ["EYE_TRACKING", "FACE_TRACKING", "Enterprise"]:
         if forbidden in text: raise RuntimeError("Unexpected hardware requirement: " + forbidden)
-    shutil.copy2(manifest, LOGS / "PICO4-AndroidManifest.xml")
     devices = run([sdk / "platform-tools/adb.exe", "devices", "-l"], "adb-devices", clean=False)
     serials = [line.split()[0] for line in devices.splitlines() if re.match(r"^\S+\s+device\s", line)]
     device_result = "NOT RUN: no authorized ADB device"
@@ -198,7 +211,7 @@ def verify_apk(apk, sdk, environment):
         run([sdk / "platform-tools/adb.exe", "-s", serial, "install", "-r", apk], "adb-install", timeout=180)
         run([sdk / "platform-tools/adb.exe", "-s", serial, "shell", "am", "start", "-n", "cz.academy.itsupport/com.godot.game.GodotAppLauncher"], "adb-launch")
         device_result = "Installed/launched; manual tracking and 72 FPS validation still required"
-    return {"signature": "PASS", "arm64_and_openxr_manifest": "PASS", "device": device_result}
+    return {"signature": "PASS", "zip_crc": "PASS", "arm64_and_openxr_manifest": "PASS", "version_code": 2, "version_name": "1.1.0", "device": device_result}
 
 
 def main():
@@ -207,17 +220,38 @@ def main():
     parser.add_argument("--sdk", type=Path, default=Path(os.environ.get("LOCALAPPDATA", "")) / "Android/Sdk")
     parser.add_argument("--jdk", type=Path, default=Path("C:/Program Files/Eclipse Adoptium/jdk-17.0.19.10-hotspot"))
     parser.add_argument("--verify-only", action="store_true", help="Verify and package the already exported binaries")
-    parser.add_argument("--windows-only",action="store_true",help="Build Windows downloads and preserve the existing PICO artifact")
+    platforms = parser.add_mutually_exclusive_group()
+    platforms.add_argument("--windows-only",action="store_true",help="Build Windows downloads and preserve the existing PICO artifact")
+    platforms.add_argument("--pico-only",action="store_true",help="Build and verify PICO without changing any Windows artifacts")
     args = parser.parse_args()
     engine = args.godot.resolve(strict=True)
     LOGS.mkdir(parents=True, exist_ok=True)
-    for platform in ["windows", "pico4"]: (BUILDS / platform).mkdir(parents=True, exist_ok=True)
+    for platform in (["pico4"] if args.pico_only else ["windows", "pico4"]): (BUILDS / platform).mkdir(parents=True, exist_ok=True)
     (BUILDS / ".gdignore").touch()
     version = run([engine, "--version"], "engine-version").strip()
     templates = Path(os.environ["APPDATA"]) / "Godot/export_templates" / ".".join(version.split(".")[:4])
     environment = os.environ.copy() if args.windows_only else configure_android(args.sdk.resolve(), args.jdk.resolve(), templates)
     if not args.verify_only and not args.windows_only:
         import_project(engine,ROOT,"import",environment)
+    if args.pico_only:
+        apk = BUILDS / "pico4/ITSupportSimulator-PICO4.apk"
+        candidate = apk if args.verify_only else apk.with_suffix(".candidate.apk")
+        android_engine = engine.with_name(engine.name.replace("_console.exe", ".exe"))
+        if not android_engine.exists(): android_engine = engine
+        if not args.verify_only:
+            run([android_engine, "--headless", "--path", ROOT, "--export-debug", "PICO 4", candidate, "--quit"], "pico4-export", env=environment)
+        android = verify_apk(candidate, args.sdk.resolve(), environment)
+        if candidate != apk:
+            candidate.replace(apk)
+            record_pico_build(apk, version, android)
+        manifest = BUILDS / "VERIFICATION.json"
+        report = json.loads(manifest.read_text(encoding="utf-8")) if manifest.exists() else {"engine": version}
+        same_apk = any(item.get("sha256") == checksum(apk)["sha256"] for item in report.get("artifacts", []))
+        report["pico4"] = {**(report.get("pico4", {}) if same_apk else {}), **android}
+        report["artifacts"] = [item for item in report.get("artifacts", []) if item.get("file") != checksum(apk)["file"]] + [checksum(apk)]
+        manifest.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps({"artifact": checksum(apk), "pico4": android}, indent=2))
+        return
     exe = BUILDS / "windows/ITSupportSimulator.exe"
     apk = BUILDS / "pico4/ITSupportSimulator-PICO4.apk"
     portable_exe=BUILDS/"windows-portable/ITSupportSimulator.exe"
@@ -233,12 +267,13 @@ def main():
     previous_path=BUILDS/"VERIFICATION.json"
     previous=json.loads(previous_path.read_text(encoding="utf-8")) if previous_path.exists() else {}
     android = previous.get("pico4",{}) if args.windows_only else verify_apk(apk, args.sdk.resolve(), environment)
+    if not args.windows_only and not args.verify_only: record_pico_build(apk, version, android)
     archive,portable_results=package_windows(portable_exe)
     pack=exe.with_suffix(".pck")
     (exe.parent/"SHA256SUMS.txt").write_text("\n".join(checksum(path)["sha256"]+"  "+path.name for path in [exe,pack])+"\n",encoding="utf-8")
     report = {"engine": version, "windows": windows, "portable_windows":portable_results,"pico4": android,
               "hardware_tracking": "NOT TESTED", "pico_72_fps": "NOT MEASURED",
-              "windows_distribution":{"primary_download":"single EXE with embedded project data","embedded_pck":True,"folder_variant":"builds/windows with external PCK and unmodified official runtime","authenticode":"UNSIGNED; no signing certificate available","smartscreen":"Unknown-publisher warnings may remain; no reputation bypass or security settings changed"},
+              "windows_distribution":{"primary_download":"single EXE with embedded project data","embedded_pck":True,"folder_variant":"build/windows with external PCK and unmodified official runtime","authenticode":"UNSIGNED; no signing certificate available","smartscreen":"Unknown-publisher warnings may remain; no reputation bypass or security settings changed"},
               "artifacts": [checksum(exe), checksum(pack), checksum(portable_exe), checksum(archive)]+([checksum(apk)] if apk.exists() else [])}
     if previous_path.exists():
         # EXE stays identical between releases; PCK identifies this game's build.

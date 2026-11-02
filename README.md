@@ -31,8 +31,8 @@ Jde o oficiální **Windows x86_64 Debug export Godotu 4.7.2**, nikoli Release.
 Soubor je přímo v Gitu bez LFS; použij stažení původního souboru (Raw),
 ne ukládání HTML stránky GitHubu. Kontrolní součet je v `build/SHA256SUMS`.
 [Reprodukovatelné sestavení a ověření](build/README.md).
-Starší `builds/ITSupportSimulator-Windows.zip` a PICO APK zůstávají archivními
-artefakty z 26. 10.; neobsahují nynější přesun učebny ani nové UI a název.
+PICO APK je ve stejné složce `build/pico4/`; sestavuje se z aktuálních zdrojů.
+Starší Windows ZIP a pracovní exporty byly odstraněny.
 
 PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.
@@ -42,29 +42,30 @@ Pro PC VR připoj headset přes funkční PC VR streaming a nastav kompatibilní
 OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 3D.
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
-**PICO 4:** `builds/pico4/ITSupportSimulator-PICO4.apk` je podepsaný sideload
-Debug APK pro ARM64, běžný PICO 4, Android min 29 / target 34. Spouští VR přímo.
+**PICO 4:** [`build/pico4/ITSupportSimulator-PICO4.apk`](build/pico4/ITSupportSimulator-PICO4.apk)
+je podepsaný sideload Debug APK 1.1.0 (versionCode 2) pro ARM64, běžný PICO 4,
+Android min 29 / target 34. Obsahuje aktuální Training academy se západní učebnou
+a novým UI; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
+pro aktualizaci přes `adb install -r`.
 Podrobný postup krok za krokem je v **[NAVOD_PICO4.md](NAVOD_PICO4.md)**.
 Zapni vývojářský režim a USB debugging, připoj USB a v headsetu povol počítač:
 
 ```powershell
 adb devices -l
-adb install -r builds/pico4/ITSupportSimulator-PICO4.apk
+adb install -r build/pico4/ITSupportSimulator-PICO4.apk
 adb shell am start -n cz.academy.itsupport/com.godot.game.GodotAppLauncher
 ```
 
 Hru lze spustit také z knihovny aplikací PICO. **Fyzický PICO 4 nebyl při vývoji
 připojen; tracking, komfort a stabilních 72 FPS zatím nejsou ověřené na zařízení.**
-APK není vydání pro obchod. V repozitáři jsou zdroje, hotový Windows ZIP,
-PICO APK a `builds/VERIFICATION.json`. V hlavním Windows ZIPu je samostatně
-spustitelné EXE. Pracovní adresáře builds/windows a builds/windows-portable
-se přímo do Gitu neukládají.
+APK není vydání pro obchod. V repozitáři jsou zdroje, samostatné Windows EXE,
+PICO APK a `build/VERIFICATION.json`. `build/pico4/BUILD_INFO.json` zaznamenává
+verzi, hash APK a otisky zdrojů použitých při sestavení.
 
 **SmartScreen „Windows protected your PC / Unknown publisher“:** sestavení
 nemá certifikát vydavatele a upozornění na reputaci může zůstat. Jde o jiný
 případ než konkrétní antivirová detekce. Přenosné EXE vzniká oficiálním Godot
-exportérem s vloženými daty. Vývojářská varianta zachovává neupravenou exportní
-šablonu a samostatný PCK; hlavní stažený ZIP používá přenosnou variantu.
+exportérem s vloženými daty v `build/ITSupportSimulator.exe`.
 Žádné nastavení ochrany Windows se nemění. Podrobný postup a kontrola původu
 jsou v [SPUSTENI-WINDOWS.txt](SPUSTENI-WINDOWS.txt), vysvětlení reputace
 v [dokumentaci Microsoftu](https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation).
@@ -143,13 +144,23 @@ Build Tools 36.1.0, NDK 29.0.14206865 a Gradle 8.11.1. SDK min/target APK jsou 2
 `tools/build_platforms.py` nastaví cesty SDK/JDK, rozbalí Android build template,
 exportuje Windows Release + PICO signed Debug, ověří podpis/manifest/architekturu,
 spustí skutečné Windows EXE mimo projekt a vytvoří kompletní ZIP a
-`builds/VERIFICATION.json` s SHA256. Při připojeném autorizovaném PICO se pokusí
+`build/VERIFICATION.json` s SHA256. Doplňkové Windows Release varianty vznikají
+v `build/windows` a `build/windows-portable`, ZIP v `build/`;
+hlavní `build/ITSupportSimulator.exe` se tím nepřepisuje.
+Při připojeném autorizovaném PICO se pokusí
 o instalaci a spuštění; to stále nenahrazuje ruční test tracking/FPS.
 
 ```powershell
 python tools/build_platforms.py --godot 'C:/cesta/Godot_console.exe' --sdk "$env:LOCALAPPDATA/Android/Sdk" --jdk 'C:/cesta/jdk-17'
 python tools/test_windows.py --godot 'C:/cesta/Godot_console.exe'
+# Jen aktuální PICO APK, se zachováním Windows souborů:
+python tools/build_platforms.py --godot 'C:/cesta/Godot_console.exe' --pico-only
+python tools/test_pico.py --godot 'C:/cesta/Godot_console.exe'
 ```
+
+`test_pico.py` spouští skutečné herní prostředky vytažené z APK v desktopovém
+Godotu, včetně aktuálního UI, učebny a syntetických XR vstupů. Android knihovny,
+skutečné spuštění v headsetu, tracking a FPS tím hardwarově neověřuje.
 
 Oficiálně ověřené podklady: [Godot XR Android](https://docs.godotengine.org/en/stable/tutorials/xr/deploying_to_android.html),
 [inicializace OpenXR](https://docs.godotengine.org/en/stable/tutorials/xr/setting_up_xr.html),
@@ -423,10 +434,10 @@ V PowerShellu s cestou ke console variantě Godotu:
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
 
-Pro oba nové exporty používej `tools/build_platforms.py` nebo
-`tools/Build-Platforms.ps1`. Staré `build_windows.py` / `Build-Windows.ps1`
-popisují předchozí balení do `build/`; nové balíčky jsou v `builds/`.
-`tools/test_windows.py` ověřuje aktuální kompletní Windows distribuci i její PCK.
+Samostatné Windows EXE sestavuje `tools/build_windows.py` / `Build-Windows.ps1`.
+PICO a volitelné Windows Release balíčky sestavuje `tools/build_platforms.py`
+nebo `tools/Build-Platforms.ps1`; všechny výstupy patří do `build/`.
+`tools/test_windows.py` ověřuje aktuální Windows EXE a jeho vložená herní data.
 
 Ostrost skutečného obrazu ověřuje grafický test (vyžaduje grafickou kartu,
 spouštěj bez `--headless`):

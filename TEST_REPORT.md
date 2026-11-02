@@ -1,5 +1,29 @@
 # Ověření rozšířené hratelné verze
 
+## Sjednocení build/ a nové PICO APK — 2. 11. 2026, nativní Windows
+
+Navázáno na aktuální origin/main `fed2f4e`. Původní `build/ITSupportSimulator.exe`
+se neměnil (SHA256 `daf7d88bd7b340df3055f3309ed9f1d1e55f9c654073bee6eb0e184cf5c5b74b`).
+`builds/` odstraněna lokálně i ze změny pro Git; starší odkazy na ni níže jsou
+historické. PICO je v `build/pico4/ITSupportSimulator-PICO4.apk`.
+
+| Kontrola | Výsledek a rozsah |
+|---|---|
+| Úplný `tools/Test-All.ps1` | 32 sad PASS, exit 0, žádný SCRIPT ERROR/ERROR/WARNING; `test-output/build-migration-test-all.log`. Včetně 65 misí, všech 21×3 lekcí, 336 výukových UI akcí a izolace save/relací. |
+| Původní Windows soubory | EXE, SHA256SUMS, BUILD_INFO.json/.md a .gitattributes zachované podle vstupních hashů; doplněna PICO data a upraven README. |
+| Windows nativní start | Samotné EXE mimo projekt, headless i Compatibility GPU PASS, 65/21 a 60/28 obsahu, Python/web, vstup/odchod obou učeben. |
+| Windows vložený pack | Všech 12 sad headless PASS; `test-output/windows-package/results.json`. |
+| Doplňkové grafické Windows sady | 10/12 PASS; programming_location 7 selhání, ui_design selhal na navigaci Storage ve 4K. Opakování při 60 FPS také selhalo (26 / 5 selhání). Příčina není potvrzená; tyto testy nejsou prohlášené za PASS. Původní EXE a herní zdroje se neměnily. Samostatné záznamy `graphical-results.json`, `graphical-programming_location.log`, `graphical-ui_design.log` a `windows-*-60fps.log`. |
+| Aktuální APK | Nový export aktuálních zdrojů, Training academy 1.1.0 / versionCode 2, ARM64, min 29 / target 34; podpis v2, ZIP CRC, nativní knihovny a manifest z výsledného APK PASS. Stejný certifikát jako původní APK: `3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997`. |
+| Skutečné herní prostředky z APK | `tools/test_pico.py`: headless i GPU smoke PASS; UI workflow 357, programming_location 114, integration 765, XR 69 a terminál 64 PASS. Výsledky `test-output/pico-package/results.json`. Desktopový Godot načítá prostředky přímo z APK, pouze Android extension discovery je pro tento běh vypnuté. |
+| Aktuálnost a exportní filtry | Otisky všech zdrojů souhlasí s `build/pico4/BUILD_INFO.json`; zabalené katalogy souhlasí. APK neobsahuje build/, builds/, tests/ ani tools/. Původní herní skripty, scény, assets, katalogy a project.godot jsou shodné s fed2f4e. |
+| Fyzický PICO | NEOVĚŘENO: `adb devices -l` bez autorizovaného zařízení. Není potvrzené skutečné Android spuštění, tracking ani FPS; desktopové testy prostředků nenahrazují headset. |
+
+APK: 90 430 147 B, SHA256 `cbf9dc83fae810157fe806563b4fc59d8feed4371777628ceaa7c1ab788aed0c`.
+Kontrola podpisu je v `test-output/platform-build/`, souhrn v `build/VERIFICATION.json`.
+Testy používají SaveManager.path_override a oddělené nastavení; hráčův save
+se pro testy nepoužívá. Opravena platformní cesta v testu ui_workflow; herní kód se neměnil.
+
 ## Training academy — UI/UX, 2. 11. 2026
 
 Tato aktuální sekce nahrazuje starší tvrzení o rozhraní a distribuci. Základ

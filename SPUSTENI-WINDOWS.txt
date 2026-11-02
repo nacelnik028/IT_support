@@ -5,14 +5,13 @@ IT SUPPORT SIMULATOR — SPUŠTĚNÍ VE WINDOWS
    editor Godotu, instalátor ani ruční rozbalení ZIPu.
 3. Aktuální export je Windows x86_64 Debug Godot 4.7.2; velikost a SHA256
    uvádějí build/BUILD_INFO.json a build/SHA256SUMS. EXE je přímo v Gitu bez LFS.
-   Starší ZIP a APK v builds/ nejsou aktuální sestavení této etapy.
+   PICO APK najdeš v build/pico4/, postup instalace je v NAVOD_PICO4.md.
 
 CHYBA ZE STARŠÍHO BALÍČKU „IS THE .PCK FILE MISSING?“
 Starší ZIP obsahoval samostatné EXE a PCK. Windows při kliknutí uvnitř ZIPu
 vytáhl pouze EXE, takže druhý soubor chyběl. Použij aktuální build/ITSupportSimulator.exe; starou kopii
 EXE v dočasné složce nepoužívej. U starého balíčku pomůže Extrahovat vše.
-Vývojářská složka builds/windows stále používá EXE + PCK; přenosná varianta
-v hlavním ZIPu a builds/windows-portable má všechna herní data přímo v EXE.
+Aktuální build/ITSupportSimulator.exe má všechna herní data přímo v EXE.
 
 PROGRAMMING ACADEMY
 Ze serverovny projdi zadní uličkou za administrátorskými stoly, zahni doleva

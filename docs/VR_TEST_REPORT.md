@@ -36,7 +36,8 @@ tři výukové režimy a odchod při otevřeném monitoru. Změřit GPU/CPU fram
 FPS a paměť delší relace; cílový rozpočet při 72 Hz je přibližně 13,9 ms/snímek.
 Nastavení čitelnosti a pohodlí obrazovky je nutné potvrdit v optice headsetu.
 
-Distribuce: `builds/windows/ITSupportSimulator.exe`, kompletní
-`builds/ITSupportSimulator-Windows.zip`, `builds/pico4/ITSupportSimulator-PICO4.apk`.
-Přesné velikosti a SHA256 jsou v `builds/VERIFICATION.json`. ZIP/APK se ukládají
-na GitHub; samotný EXE je větší než GitHub limit pro jeden soubor a je uvnitř ZIPu.
+Aktuální distribuce po sjednocení 2. 11. 2026: `build/ITSupportSimulator.exe`
+a `build/pico4/ITSupportSimulator-PICO4.apk`. Starší Windows ZIP byl odstraněn.
+Přesné velikosti a SHA256 jsou v `build/VERIFICATION.json`, zdroje nového APK
+v `build/pico4/BUILD_INFO.json`. EXE i APK se ukládají přímo na GitHub.
+Výsledky v tabulce výše jsou historické z 26. 10.; aktuální kontroly uvádí TEST_REPORT.md.

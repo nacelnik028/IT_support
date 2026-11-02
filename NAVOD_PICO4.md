@@ -9,12 +9,18 @@ Potřebuješ zapnutý headset, oba ovladače a **USB kabel pro přenos dat**.
 
 V projektu je připravený soubor:
 
-**[builds/pico4/ITSupportSimulator-PICO4.apk](builds/pico4/ITSupportSimulator-PICO4.apk)**
+**[build/pico4/ITSupportSimulator-PICO4.apk](build/pico4/ITSupportSimulator-PICO4.apk)**
 
 Pokud hru stahuješ z GitHubu, otevři
-[soubor APK v repozitáři](https://github.com/nacelnik028/IT_support/blob/main/builds/pico4/ITSupportSimulator-PICO4.apk)
+[soubor APK v repozitáři](https://github.com/nacelnik028/IT_support/blob/main/build/pico4/ITSupportSimulator-PICO4.apk)
 a zvol **Download raw file / Stáhnout**. Při použití níže uvedených příkazů
-ponech APK ve složce `builds/pico4` uvnitř projektu.
+ponech APK ve složce `build/pico4` uvnitř projektu.
+
+Aktuální APK je **Training academy 1.1.0 (versionCode 2)** z 2. 11. 2026,
+včetně nové západní programovací učebny a aktuálního UI. Má stejný identifikátor
+a podpis jako předchozí verze; `adb install -r` provede aktualizaci.
+Podpis, obsah a herní testy jsou ověřené; spuštění přímo na fyzickém PICO
+zatím ověřené není, protože nebyl připojený autorizovaný headset.
 
 ## 2. Zapni vývojářský režim v headsetu
 
@@ -84,7 +90,7 @@ SERIOVE_CISLO    device    model:PICO_4
 Potom nainstaluj APK:
 
 ```powershell
-& $adb install -r '.\builds\pico4\ITSupportSimulator-PICO4.apk'
+& $adb install -r '.\build\pico4\ITSupportSimulator-PICO4.apk'
 ```
 
 Počkej na **`Success`**. Parametr `-r` umožní aktualizovat již nainstalovanou
@@ -128,7 +134,7 @@ Po výběru textového pole na monitoru se zobrazí virtuální klávesnice.
 | Pod seznamem není žádné zařízení | Zkontroluj zapnuté USB debugging, jiný USB port a datový kabel. Nabíjecí kabel bez dat nestačí. Ve Správci zařízení Windows ověř přítomnost PICO ADB rozhraní; podrobnosti uvádí [PICO](https://developer.picoxr.com/document/unreal/pdc-faq/). |
 | `offline` | Odpoj a znovu připoj USB, probuď headset a zopakuj kontrolu zařízení. |
 | Příkaz nenajde `adb.exe` | Oprav cestu v proměnné `$adb` podle kroku 4. |
-| Příkaz nenajde APK | Otevři terminál ve složce `IT_support` a ověř, že soubor existuje v `builds/pico4`. |
+| Příkaz nenajde APK | Otevři terminál ve složce `IT_support` a ověř, že soubor existuje v `build/pico4`. |
 | `more than one device/emulator` | Odpoj ostatní zařízení/emulátory, nebo přidej za `$adb` parametr `-s 'SERIOVE_CISLO'` před `install` či `shell`. |
 | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | Nainstalovaná verze má jiný podpis. Nejprve si podle README vyexportuj postup. Teprve po záloze můžeš starou aplikaci odinstalovat a APK nainstalovat znovu. Odinstalace smaže její místní data. |
 | Hru nevidíš v knihovně | Použij příkaz pro spuštění z kroku 6. |

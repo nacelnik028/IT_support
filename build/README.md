@@ -45,10 +45,14 @@ pokud je dostupný displej. Testy používají vlastní save a konfiguraci.
 
 ## Omezení ověření
 
-Aktuální prostředí je Linux. Wine headless ani grafický Xvfb/Mesa běh nejsou
+Původní ověření této UI/UX verze proběhlo na Linuxu. Wine headless ani grafický Xvfb/Mesa běh nejsou
 nativní hraní na Windows. Podpis vydavatele není přidán; SmartScreen může
 zobrazit neznámého vydavatele. Žádná ochrana Windows se nevypíná.
-Archivní Windows ZIP a PICO APK v `builds/` nebyly touto etapou přestavěny.
+Aktuální PICO APK 1.1.0 je v `pico4/ITSupportSimulator-PICO4.apk`.
+Pochází ze stejných aktuálních herních zdrojů; `pico4/BUILD_INFO.json` obsahuje
+jejich otisky. Ověření přesunu/exportů je v `VERIFICATION.json`.
+Sestavíš ho příkazem `python tools/build_platforms.py --godot C:/Godot/Godot_console.exe --pico-only`
+z kořene projektu. Windows EXE tento příkaz zachovává.
 
 ## Aktuální UI/UX verze
 

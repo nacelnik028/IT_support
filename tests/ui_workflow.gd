@@ -73,7 +73,9 @@ func run():
 		check(not syntax.ok and syntax.line==2,"Lexer error carries exact line metadata")
 	if not baseline:
 		check(ProjectSettings.get_setting("application/config/name")=="IT Support Simulator: Training academy","Renamed application")
-		check(OS.get_user_data_dir().ends_with("godot/app_userdata/IT Support Simulator- Datacenter Academy"),"Rename retains supported Linux save location")
+		var directory_key="application/config/custom_user_dir_name."+OS.get_name().to_lower()
+		if not ProjectSettings.has_setting(directory_key): directory_key="application/config/custom_user_dir_name"
+		check(OS.get_user_data_dir().replace("\\","/").ends_with(ProjectSettings.get_setting(directory_key)),"Rename retains supported platform save location")
 	for resolution in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(3840,2160)]:
 		for text_scale in [1.0,1.3]:
 			suffix=str(resolution.x)+"-"+str(roundi(text_scale*100))

@@ -1,0 +1,802 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "export": "Android ARM64 signed Debug",
+  "artifact": {
+    "file": "build/pico4/ITSupportSimulator-PICO4.apk",
+    "bytes": 90430147,
+    "sha256": "cbf9dc83fae810157fe806563b4fc59d8feed4371777628ceaa7c1ab788aed0c"
+  },
+  "source_commit": "fed2f4ec411bc5e3f02c61fb214aada2253b4f25",
+  "sources": [
+    {
+      "file": "project.godot",
+      "bytes": 1758,
+      "sha256": "09bac8feebdc506b4c70385f5f01865877d3739410222fe8a24e0ca2016f7407"
+    },
+    {
+      "file": "export_presets.cfg",
+      "bytes": 2157,
+      "sha256": "64e23ce4ad75aa47339b419a1ae851efff32d2e78d4354fba44cea33db509a3d"
+    },
+    {
+      "file": "scripts/core/DisplaySettings.gd",
+      "bytes": 5959,
+      "sha256": "a7fa31c7dd8d4698b95e0079c600a34fa7b182e0932c6b78aa04c838d8feb559"
+    },
+    {
+      "file": "scripts/core/DisplaySettings.gd.uid",
+      "bytes": 20,
+      "sha256": "393c12ddcffb1e62d52b455e6efde89129a550bb87e277c2d087f7d98f7e3ba8"
+    },
+    {
+      "file": "scripts/core/GameManager.gd",
+      "bytes": 20359,
+      "sha256": "f6e00e688a57c9ad419d1e3545037731c5e9e469e041ba19bc82665778939e7e"
+    },
+    {
+      "file": "scripts/core/GameManager.gd.uid",
+      "bytes": 20,
+      "sha256": "6feda5cca27641ee05b6ba44b010f5f0d7e896db404461d606024d2b081759cc"
+    },
+    {
+      "file": "scripts/core/GameModeManager.gd",
+      "bytes": 433,
+      "sha256": "49002367a67299c6dab0ddbb1afe9d5991803b9dc89c1773994f742d8109d6db"
+    },
+    {
+      "file": "scripts/core/GameModeManager.gd.uid",
+      "bytes": 20,
+      "sha256": "8ae8b25fd5844c61f6009b4e1345f6177929d006e0899d948dfd6033c7cf9e99"
+    },
+    {
+      "file": "scripts/evaluation/ObjectiveEvaluator.gd",
+      "bytes": 1262,
+      "sha256": "aa189ee2b5ea2710d592d7ea365ae3e08eeaa54bbf6dad38b662d10f2ef8e5c0"
+    },
+    {
+      "file": "scripts/evaluation/ObjectiveEvaluator.gd.uid",
+      "bytes": 20,
+      "sha256": "40f43b6653b1e008b9b000ad839d1f670135a02611c4769f4b1c51bdb73904c6"
+    },
+    {
+      "file": "scripts/programming/AcademyManager.gd",
+      "bytes": 6274,
+      "sha256": "8832b1b1a0f7bfcb579906fef568c96ae6e6fa57dd1700239a4fb58280e74c4a"
+    },
+    {
+      "file": "scripts/programming/AcademyManager.gd.uid",
+      "bytes": 20,
+      "sha256": "b9659356872d657802f3f05081107b468f143435bc6a174ffc35f415a86d08e4"
+    },
+    {
+      "file": "scripts/programming/AcademyRoom.gd",
+      "bytes": 6324,
+      "sha256": "ae2e15334fb0306828395eb449f68ea2e9a629044d4dc686e6947a40c1780d72"
+    },
+    {
+      "file": "scripts/programming/AcademyRoom.gd.uid",
+      "bytes": 20,
+      "sha256": "9eaa17a68d5c08239c263cecb6ebb2f449f3a8b84cfe8d12857df043a046ed93"
+    },
+    {
+      "file": "scripts/programming/AcademyVisuals.gd",
+      "bytes": 7182,
+      "sha256": "2ece39405432f1fc69a86620c95ba075e818d4d9eadbec52c332998bfbada304"
+    },
+    {
+      "file": "scripts/programming/AcademyVisuals.gd.uid",
+      "bytes": 20,
+      "sha256": "264ddd4c71d83728ae1a7e0beeeeb81eff18221d8221f04d90d1c2bab2f81e9f"
+    },
+    {
+      "file": "scripts/programming/CodeEditorController.gd",
+      "bytes": 21125,
+      "sha256": "eb4c2e7d460817c6fb7261985ab6bb378af067f26614e6944c9c68fbbbedb098"
+    },
+    {
+      "file": "scripts/programming/CodeEditorController.gd.uid",
+      "bytes": 20,
+      "sha256": "8d936fcf1c1834b7178556c5bfba1b06f0c5e2a81e6914e5ec0f2c53db7318c4"
+    },
+    {
+      "file": "scripts/programming/CodeEvaluator.gd",
+      "bytes": 2340,
+      "sha256": "a0af85a36507cf10ddbd4467b6b984e04403b0f5d57160adc0030c2288ae2441"
+    },
+    {
+      "file": "scripts/programming/CodeEvaluator.gd.uid",
+      "bytes": 19,
+      "sha256": "8fd9864b31e623428adec857c54fb1bfd9f6ccc9f54b85535e18dcb3739ce519"
+    },
+    {
+      "file": "scripts/programming/LearningJavaScript.gd",
+      "bytes": 3359,
+      "sha256": "9baf3cbf7bfbef2ca73b454823c4b7b4b14e8230baf017c01847ce4eef5e284b"
+    },
+    {
+      "file": "scripts/programming/LearningJavaScript.gd.uid",
+      "bytes": 20,
+      "sha256": "6aead5e8c19fab06fda128699f8c550aca8a2a2a49f39a08a3d9891cfbfbbeb3"
+    },
+    {
+      "file": "scripts/programming/PracticeGenerator.gd",
+      "bytes": 4221,
+      "sha256": "be55d1002ce34384ac6db9c9444e0e47e688f5f24255c808873140c41205497a"
+    },
+    {
+      "file": "scripts/programming/PracticeGenerator.gd.uid",
+      "bytes": 20,
+      "sha256": "d70d1ad8f9303b7e5cce671d1a3f170d7e5cd37517632612382db2c7cbfbe0ac"
+    },
+    {
+      "file": "scripts/programming/PythonParser.gd",
+      "bytes": 9367,
+      "sha256": "0ba2659e16aae1ee751a41c330f74ce76640af896e6129f3bb9a31e94a34899a"
+    },
+    {
+      "file": "scripts/programming/PythonParser.gd.uid",
+      "bytes": 20,
+      "sha256": "225056efa585735235b18babe300616a572ef792302f1ed14d8bdc4da7f0b250"
+    },
+    {
+      "file": "scripts/programming/PythonRuntime.gd",
+      "bytes": 29534,
+      "sha256": "0ed5f0eee15fc42e8f000f5c9dd31654ae6aedc8958a8f3368a7cecd3cec1318"
+    },
+    {
+      "file": "scripts/programming/PythonRuntime.gd.uid",
+      "bytes": 20,
+      "sha256": "17cba7bd160ace0286cb94cd7d8d05cdbeeb900a1b75a3f61cf15340e1626063"
+    },
+    {
+      "file": "scripts/programming/WebDocument.gd",
+      "bytes": 15419,
+      "sha256": "0d02837ca0ee1f6731499d3113855bd90da95329d971289810cec567cc1f85e3"
+    },
+    {
+      "file": "scripts/programming/WebDocument.gd.uid",
+      "bytes": 20,
+      "sha256": "a3479a4e84a9d20cafc407d9c588d056dd7849d0546b5930b7f7dbc3b5e60b21"
+    },
+    {
+      "file": "scripts/programming/WebPreviewController.gd",
+      "bytes": 11071,
+      "sha256": "35f506a12adc11a02b0cc70979fee0ecd39e3a083155d389c3afe69ba0445c29"
+    },
+    {
+      "file": "scripts/programming/WebPreviewController.gd.uid",
+      "bytes": 20,
+      "sha256": "11cb7ea1ea0fc9eb8144ecdddd7d62abca826edfda94c6b9e76bdcce29c4ea2f"
+    },
+    {
+      "file": "scripts/progression/SaveManager.gd",
+      "bytes": 5060,
+      "sha256": "433a7a945d8a863c4e97e3b66770898ae8f51f8d08badefad413303506e6f570"
+    },
+    {
+      "file": "scripts/progression/SaveManager.gd.uid",
+      "bytes": 20,
+      "sha256": "4a7155f347563323fa3c7cba8c6c74e7a5dd27dad1f51c81a3a52b66d25f203a"
+    },
+    {
+      "file": "scripts/progression/SaveValidator.gd",
+      "bytes": 14916,
+      "sha256": "3aa08bd3e7f96e1ad982c8c6862f1c0250db0f6e92ec26702fcc3fa18b54a065"
+    },
+    {
+      "file": "scripts/progression/SaveValidator.gd.uid",
+      "bytes": 20,
+      "sha256": "967ee3293e14077de5b26c4948e772d130c77236ebfd48d00ee29df8f3e869d8"
+    },
+    {
+      "file": "scripts/simulation/EducationOperations.gd",
+      "bytes": 17282,
+      "sha256": "963bd2f47ccbcf666d65def47474cbdb88e3362c101e50033eb4c640814b0dce"
+    },
+    {
+      "file": "scripts/simulation/EducationOperations.gd.uid",
+      "bytes": 20,
+      "sha256": "3d499da7ffad50e65bc0557a5cd3990fed57b4ee51b7461ac48800d2463be5b0"
+    },
+    {
+      "file": "scripts/simulation/HyperVOperations.gd",
+      "bytes": 10424,
+      "sha256": "9c6479bcea02e659a1556d24fa145c1bf6cde55026f6c3e0a32d74d5b043740a"
+    },
+    {
+      "file": "scripts/simulation/HyperVOperations.gd.uid",
+      "bytes": 20,
+      "sha256": "1e1e5d7ef2bbc154fd97801da28d75e8f80e9fbe74a0fd967cfdd6fa9c0eff2d"
+    },
+    {
+      "file": "scripts/simulation/InfrastructureSimulator.gd",
+      "bytes": 10794,
+      "sha256": "2b0f9804dc22df2d48304c8c162a06967c12318d98151d5276ddac77684200c2"
+    },
+    {
+      "file": "scripts/simulation/InfrastructureSimulator.gd.uid",
+      "bytes": 19,
+      "sha256": "2d355535b98a3f78a782fb4382f89d692fa746a3e92225028d529cf21380f83e"
+    },
+    {
+      "file": "scripts/simulation/NetworkSimulator.gd",
+      "bytes": 4322,
+      "sha256": "b0f7f176ed2075e8f8ef4b61fa712363bf3c5d2979149e622a02534b21c8529b"
+    },
+    {
+      "file": "scripts/simulation/NetworkSimulator.gd.uid",
+      "bytes": 20,
+      "sha256": "767cebd3b3214f772a240045db7d3a92e3139d35383ba89e79eea773d2038927"
+    },
+    {
+      "file": "scripts/simulation/OperationContext.gd",
+      "bytes": 2288,
+      "sha256": "2153fbccc886c411764b2d328c4ce1b92a486977261523afd1ad2ddc0b61cf52"
+    },
+    {
+      "file": "scripts/simulation/OperationContext.gd.uid",
+      "bytes": 20,
+      "sha256": "3138d56e63cb779facfacc1c120a204d01ba2c9d947d4f8f7eb5f3d93bb7cd07"
+    },
+    {
+      "file": "scripts/simulation/PhysicalOperations.gd",
+      "bytes": 8807,
+      "sha256": "6d1c1efa2de6e750f7d087754e100b2e43d85206bd28ff977213820d0946baef"
+    },
+    {
+      "file": "scripts/simulation/PhysicalOperations.gd.uid",
+      "bytes": 20,
+      "sha256": "5dceed0918a30eebc37d9ea63c0cb1285e64ae1f75602ab289d3a99273aa6475"
+    },
+    {
+      "file": "scripts/simulation/ProxmoxOperations.gd",
+      "bytes": 12767,
+      "sha256": "ce0c3c05cdd0c5b481b4aa0e0c1b3e5cd97647df6599c51cda3b9eaddd6ca121"
+    },
+    {
+      "file": "scripts/simulation/ProxmoxOperations.gd.uid",
+      "bytes": 20,
+      "sha256": "2617052403bfb3c2bdaa8aa3f3b029c73ca9a5218f40b8366fa5e3a8b656d8b1"
+    },
+    {
+      "file": "scripts/simulation/RAIDSimulator.gd",
+      "bytes": 1263,
+      "sha256": "d364e1ab4799090c89b6921e198fd5a2700a40fa669e1e768655bf8d9a8cae62"
+    },
+    {
+      "file": "scripts/simulation/RAIDSimulator.gd.uid",
+      "bytes": 20,
+      "sha256": "a991ab8da712c26a1d14487e07c0bd9d46202e3a307c6400f427afeb30dfdcc7"
+    },
+    {
+      "file": "scripts/simulation/StorageOperations.gd",
+      "bytes": 13905,
+      "sha256": "cad73fc0963bf36bf544c3df4a6286b42e5c653530d7344d24e132342a40627d"
+    },
+    {
+      "file": "scripts/simulation/StorageOperations.gd.uid",
+      "bytes": 20,
+      "sha256": "1818a7096a74948ea0712b9f84d57b024ec15966857c6315247757925483e0e8"
+    },
+    {
+      "file": "scripts/simulation/TerminalParser.gd",
+      "bytes": 8898,
+      "sha256": "7909892ea40e59435a2439de653101120234c867f3a46e2523d308cbfeb30fa8"
+    },
+    {
+      "file": "scripts/simulation/TerminalParser.gd.uid",
+      "bytes": 20,
+      "sha256": "57f9bcefcaee09269f4385ab8face1411eb74e7b47622fc5fc4df2fbd1a776d2"
+    },
+    {
+      "file": "scripts/training/KnowledgeProfile.gd",
+      "bytes": 2770,
+      "sha256": "7681415a20e3252c2d38b5c5381acc12da56608e8da19c67f9a95cbe7cb794f5"
+    },
+    {
+      "file": "scripts/training/KnowledgeProfile.gd.uid",
+      "bytes": 20,
+      "sha256": "0783e60832ee1d66cd85ffc80f6ed6d856db8998f2b988c3d7986e1b1c829685"
+    },
+    {
+      "file": "scripts/training/PracticeGenerator.gd",
+      "bytes": 9182,
+      "sha256": "ce84911b71b8e22bb5d25831ac718e016f756aa5489856a213c93153ea573b6e"
+    },
+    {
+      "file": "scripts/training/PracticeGenerator.gd.uid",
+      "bytes": 20,
+      "sha256": "4f72031ce1bc372148dc82028bcc83694f7e996fef6116b7f72aba303bba2dcc"
+    },
+    {
+      "file": "scripts/training/TutorialManager.gd",
+      "bytes": 2155,
+      "sha256": "ff288436b2e960e2d58ac97e023324662c484e48cdb8b1334cf2ec2052c12d23"
+    },
+    {
+      "file": "scripts/training/TutorialManager.gd.uid",
+      "bytes": 20,
+      "sha256": "d8fe5722266f401ca825e622f2ed79f3b1da57e9e1fa2fe79dffd0d44a205635"
+    },
+    {
+      "file": "scripts/training/TutorialOverlay.gd",
+      "bytes": 1089,
+      "sha256": "6c091458139e9f3a042c6288cc4c2af2434f75849da883171fcb292082117a12"
+    },
+    {
+      "file": "scripts/training/TutorialOverlay.gd.uid",
+      "bytes": 19,
+      "sha256": "ddca05c633393ca287d850a78b1942a3b86f12fc265136a2d358735d7b61c234"
+    },
+    {
+      "file": "scripts/training/TutorialValidator.gd",
+      "bytes": 511,
+      "sha256": "e63cc97b6b2759c52c734e0d46d7d47849500bab5e60ec18396be758dde41ff5"
+    },
+    {
+      "file": "scripts/training/TutorialValidator.gd.uid",
+      "bytes": 20,
+      "sha256": "f7db43447b7149d89f65d7f1bebdaee2866b0c1cb394380b522102ce36da6e5f"
+    },
+    {
+      "file": "scripts/ui/AcademyTheme.gd",
+      "bytes": 6146,
+      "sha256": "776d48c671fbb920719bc93eb51e098ee6c965f5c9d29c5e7db38c10798ef5cc"
+    },
+    {
+      "file": "scripts/ui/AcademyTheme.gd.uid",
+      "bytes": 20,
+      "sha256": "44face27e117b0be1e70373b8aac3e099462315e983f199c08ea968b1666b2df"
+    },
+    {
+      "file": "scripts/ui/CatalogSearch.gd",
+      "bytes": 1197,
+      "sha256": "d74b028cdfe9fd1a6fb9144338dcf7b99ecb25181ce07304487e03185895a3dc"
+    },
+    {
+      "file": "scripts/ui/CatalogSearch.gd.uid",
+      "bytes": 20,
+      "sha256": "2d29078129b5c6097f8d11bfbd9a89118e904c8dc46d6bc34e71dc4984c6e2c4"
+    },
+    {
+      "file": "scripts/ui/ConsoleNavigation.gd",
+      "bytes": 4958,
+      "sha256": "565f27e1239abf1cef14b76bd3d8ded140ffe19a3e7376badce00b82d6e1b954"
+    },
+    {
+      "file": "scripts/ui/ConsoleNavigation.gd.uid",
+      "bytes": 20,
+      "sha256": "4a83a94c71c3c6979116afe78b7de7f3729d79c01ace0d99dfdef6ca8e0b023d"
+    },
+    {
+      "file": "scripts/ui/FormValues.gd",
+      "bytes": 4329,
+      "sha256": "98c3147cd82199f85267b46a8af0f26ca01558334d7e9537e6950e61eac4fc82"
+    },
+    {
+      "file": "scripts/ui/FormValues.gd.uid",
+      "bytes": 20,
+      "sha256": "b65cc18879cbb4de6af7cecf359c84ab7740bfee3d055e0331b71e724cd8bef0"
+    },
+    {
+      "file": "scripts/ui/MenuPresentation.gd",
+      "bytes": 3965,
+      "sha256": "7f3b05cc209c03d9241e6e485ddacfaed39ee8ca6296802a222b31222ca71b60"
+    },
+    {
+      "file": "scripts/ui/MenuPresentation.gd.uid",
+      "bytes": 20,
+      "sha256": "dc6f29cd322e7ffa3c89450fd39759083ad3afbef8023dd986c61bb5fbd07ac1"
+    },
+    {
+      "file": "scripts/ui/RackView.gd",
+      "bytes": 3213,
+      "sha256": "01ce758c436a606efeb78ea22565a4d92b27dc55121b6e6c541aa3cb72a16636"
+    },
+    {
+      "file": "scripts/ui/RackView.gd.uid",
+      "bytes": 20,
+      "sha256": "727f41cf831a95e71b70c9a06abba56e1f692c16cd74ae39445df8bf752e3984"
+    },
+    {
+      "file": "scripts/ui/SettingsPanel.gd",
+      "bytes": 5261,
+      "sha256": "39590794e5a6805d8a046561ebca9f17d2ab9b84ebdf02862f8d59e42a5ab874"
+    },
+    {
+      "file": "scripts/ui/SettingsPanel.gd.uid",
+      "bytes": 20,
+      "sha256": "201a8b02acc73ae9475fe5c0aaa2f3b1a1d28669795320589def1a6d14a64bcd"
+    },
+    {
+      "file": "scripts/ui/TutorialPresentation.gd",
+      "bytes": 4614,
+      "sha256": "d210de5725f8b8b1786d7a71019eb68297bf39d6c60105c1351f98dd503f94ee"
+    },
+    {
+      "file": "scripts/ui/TutorialPresentation.gd.uid",
+      "bytes": 20,
+      "sha256": "6b9b7fa5316be4c099451c20ac1b30feafa6f9a9a9de6322a9c79906284695dd"
+    },
+    {
+      "file": "scripts/ui/UIComponents.gd",
+      "bytes": 3430,
+      "sha256": "96856bc12db5b810f8e0efe8725a72a56a15721a96073fa3ab691e9aa7a4da1b"
+    },
+    {
+      "file": "scripts/ui/UIComponents.gd.uid",
+      "bytes": 19,
+      "sha256": "6cdc256250a353a93bfd051ef9647ad944726d496737f38f28caecb50a2c1447"
+    },
+    {
+      "file": "scripts/ui/UIController.gd",
+      "bytes": 69910,
+      "sha256": "ef4b6e2f1b91c792cdd063cd9ce2cee0622933096acb25cf01f227ffbbaa8f43"
+    },
+    {
+      "file": "scripts/ui/UIController.gd.uid",
+      "bytes": 20,
+      "sha256": "2fc82d7e93295e9577de9ada519ccefe3c3d26fc58ead6770494274718b5b83a"
+    },
+    {
+      "file": "scripts/ui/VectorIcons.gd",
+      "bytes": 3300,
+      "sha256": "14d6e5176f4526c07e720eb102014ed3d5008156860eb8dbdabf7b48eb44f053"
+    },
+    {
+      "file": "scripts/ui/VectorIcons.gd.uid",
+      "bytes": 20,
+      "sha256": "aaeef74f97ccc55aff476e61c0fbeca2cd38a8b87e45b558004d7af673e22012"
+    },
+    {
+      "file": "scripts/ui/WorkingContext.gd",
+      "bytes": 2404,
+      "sha256": "277854bdf2cf3341d537a380a71f38849f575169eff93e8f6012bae9e4f13235"
+    },
+    {
+      "file": "scripts/ui/WorkingContext.gd.uid",
+      "bytes": 20,
+      "sha256": "4e045f7040ebb5f279fd6d1fa1176ea49fdd6862a58016ad7d960a2e0b5bb1ff"
+    },
+    {
+      "file": "scripts/world/Datacenter3D.gd",
+      "bytes": 21024,
+      "sha256": "50e6dd2d71cd365ab20120f05fe782b1eac23c340def018d65cb8d16e00df15a"
+    },
+    {
+      "file": "scripts/world/Datacenter3D.gd.uid",
+      "bytes": 20,
+      "sha256": "027249a3a54a65ed9790c52636a6c14621ac22a344e414bf720aff69a337ad46"
+    },
+    {
+      "file": "scripts/world/FirstPersonController.gd",
+      "bytes": 2465,
+      "sha256": "47fea059946aed9aba9539098379fb0e072302babc45462113b4976dfa2736a7"
+    },
+    {
+      "file": "scripts/world/FirstPersonController.gd.uid",
+      "bytes": 19,
+      "sha256": "bb6c15f769a23352db275171d45cbcbfe38f6ebb13263bee396bf263c766d578"
+    },
+    {
+      "file": "scripts/world/GameShell.gd",
+      "bytes": 37983,
+      "sha256": "75d34bd7c876919f5543d9aa447c01a17cda5c041bcf7222fb4eff86c09fbdd5"
+    },
+    {
+      "file": "scripts/world/GameShell.gd.uid",
+      "bytes": 20,
+      "sha256": "1690f2eefbf489c18ae4b1bb274b48d0a98065e9bc91e18ba1433061c49d3a98"
+    },
+    {
+      "file": "scripts/world/Geometry.gd",
+      "bytes": 8900,
+      "sha256": "a7d5ee2181a93b5e1b07b0b2bb9d462b2dbacce6d268324bb37215d7ef5688ee"
+    },
+    {
+      "file": "scripts/world/Geometry.gd.uid",
+      "bytes": 20,
+      "sha256": "8e78cbaa98b69fbe125649f43075d516f3c60f7d873f76c114224ea768bb5354"
+    },
+    {
+      "file": "scripts/world/Interactable3D.gd",
+      "bytes": 1490,
+      "sha256": "f2a526585e2311e3c62ada38ebb12efa1eedfdf614df999f2dc066dd83654467"
+    },
+    {
+      "file": "scripts/world/Interactable3D.gd.uid",
+      "bytes": 20,
+      "sha256": "27454e65df81aa157cbeb842b0b2848b6bc1d508c96a63b34fb53b84cf08ba25"
+    },
+    {
+      "file": "scripts/world/MonitorDisplay.gd",
+      "bytes": 3738,
+      "sha256": "bc956b725ceaf7a3cf146ad9847a655ccff07aee5239e53f6058e17e7c0dd08f"
+    },
+    {
+      "file": "scripts/world/MonitorDisplay.gd.uid",
+      "bytes": 19,
+      "sha256": "b2bc4dd66091959853d8efc5adad754239068d0597916dbfca52923e2f53ab4c"
+    },
+    {
+      "file": "scripts/world/Reticle.gd",
+      "bytes": 578,
+      "sha256": "40371dd084214024f69c8f9e81c4881bf064cf66d99212c1701502235a0fd9b3"
+    },
+    {
+      "file": "scripts/world/Reticle.gd.uid",
+      "bytes": 20,
+      "sha256": "295708d795b468266c0b4a85295a5f3c87e357ee68ba852c1601600eb79372aa"
+    },
+    {
+      "file": "scripts/world/TrainingZone.gd",
+      "bytes": 1391,
+      "sha256": "90853ce9ba2d0c3f7eefea8f67d89c505a70eada9b48bbbaaa33f07c38aba298"
+    },
+    {
+      "file": "scripts/world/TrainingZone.gd.uid",
+      "bytes": 20,
+      "sha256": "9ee27878df3c090e0d2f6dd5163d854ae7c5ea67869550c0b5f2acbd49d00b54"
+    },
+    {
+      "file": "scripts/world/WorldVisuals.gd",
+      "bytes": 17183,
+      "sha256": "54f25ff05a2e2ed0172664dcfe34aba31104281559b1ec6176f906bb8447820a"
+    },
+    {
+      "file": "scripts/world/WorldVisuals.gd.uid",
+      "bytes": 20,
+      "sha256": "405123f1eda67934f9a6c9b8fcb04ab5b0dadf469c8805aed6aac8bce715fd8a"
+    },
+    {
+      "file": "scripts/xr/VirtualKeyboard.gd",
+      "bytes": 2408,
+      "sha256": "6594134db3473adbb5588c343cf0d4ff45e2d2ec8ab96771b984e2c3cd1521d7"
+    },
+    {
+      "file": "scripts/xr/VirtualKeyboard.gd.uid",
+      "bytes": 20,
+      "sha256": "46edad360fbc1da1eabbe8a2f706023ca1c9205af0f1dd6675eadb453c582723"
+    },
+    {
+      "file": "scripts/xr/VRMonitor.gd",
+      "bytes": 4022,
+      "sha256": "9201f89c70b13c0e1bfd67061f84b9a9e9aef4db6f7b5863f5a0776cd9b9cbdc"
+    },
+    {
+      "file": "scripts/xr/VRMonitor.gd.uid",
+      "bytes": 20,
+      "sha256": "de16cd9e08ea61530a22717d69e5e64ddccbdceb87b58e582d04e7ffe8af4125"
+    },
+    {
+      "file": "scripts/xr/VRSettings.gd",
+      "bytes": 927,
+      "sha256": "c37d225d99c2ae062970188e5ff4269fd3bc98c5d09dd8ac37cea7d542bff495"
+    },
+    {
+      "file": "scripts/xr/VRSettings.gd.uid",
+      "bytes": 19,
+      "sha256": "15fe6e1f38bd1f63deb2867af37dd75aef58b75c7619fe67a26deca02674d02a"
+    },
+    {
+      "file": "scripts/xr/XRPlayer.gd",
+      "bytes": 14287,
+      "sha256": "8f4774a0e06e3103826fc84d983938c038579218e72b9db313511d9ddb73192f"
+    },
+    {
+      "file": "scripts/xr/XRPlayer.gd.uid",
+      "bytes": 19,
+      "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
+    },
+    {
+      "file": "scenes/consoles/hyperv/HyperV.tscn",
+      "bytes": 81,
+      "sha256": "92ad3c3cb34e4cb951290c38fb7f03646148121f802a1f7329075eff4a4f37a4"
+    },
+    {
+      "file": "scenes/consoles/proxmox/Proxmox.tscn",
+      "bytes": 82,
+      "sha256": "78aa14706c7673d498b714cb62893386a1c19a8b6b532f2011c11aaeaa8fc52c"
+    },
+    {
+      "file": "scenes/consoles/raid/Storage.tscn",
+      "bytes": 81,
+      "sha256": "6bfe346a92f26fbbda23c0d1c2da79c3ffa66cb51827ac5774e2d8835fe7023b"
+    },
+    {
+      "file": "scenes/datacenter/Datacenter.tscn",
+      "bytes": 263,
+      "sha256": "6c1ab3f903e77716feace53827b3a3f8910ad4b2bad06d2b0f17c2c85410941a"
+    },
+    {
+      "file": "scenes/main_menu/Main.tscn",
+      "bytes": 399,
+      "sha256": "b8f59375bfbc3585986bae703720a60a86b4056a7b379d64ded6e883060337ad"
+    },
+    {
+      "file": "scenes/programming_academy/academy_room.tscn",
+      "bytes": 179,
+      "sha256": "b70260389381a18ed9cb79c92b36c4badf1c5be19fc479b2ce203b0333ae37fd"
+    },
+    {
+      "file": "scenes/results/Review.tscn",
+      "bytes": 81,
+      "sha256": "51f5f571e3a1f5b4e4b7f462b482894bc25f417842f7595301b592a85ab2229c"
+    },
+    {
+      "file": "scenes/training/TrainingCenter.tscn",
+      "bytes": 81,
+      "sha256": "bc54f625ac77999831778a7e587f2f7588b29fee1da8a28fde9fa940db55202f"
+    },
+    {
+      "file": "scenes/world/Datacenter3D.tscn",
+      "bytes": 270,
+      "sha256": "701c941c86c12e790ed0ea7be48e50e8f0810e16cde1f337886ddcd3a1eca6e6"
+    },
+    {
+      "file": "scenes/world/Game.tscn",
+      "bytes": 181,
+      "sha256": "df97b65b6faafc1c53fa9be9c18fafbc82e06082b34cc9657651c8897e9e6847"
+    },
+    {
+      "file": "scenes/world/Player.tscn",
+      "bytes": 871,
+      "sha256": "c7baaeb5e6daf9394236749eb2a152a5f0f4e4247ee10fccf09984481c161207"
+    },
+    {
+      "file": "scenes/xr/academy_actions.tres",
+      "bytes": 31152,
+      "sha256": "167aab95138b9ee3fc4895e59d2690307071354f171ab1b7395bccd78bacf352"
+    },
+    {
+      "file": "scenes/xr/XRPlayer.tscn",
+      "bytes": 511,
+      "sha256": "62d90f7ced7fed68188e9f158414a6a98a405e278d4c6d9f8ce83586e329202c"
+    },
+    {
+      "file": "data/actions.json",
+      "bytes": 86735,
+      "sha256": "64d7c76f4e62d34765c6e3574d783d1842f03ef4068f21d51ee04b69764bccb3"
+    },
+    {
+      "file": "data/actions_base.json",
+      "bytes": 60391,
+      "sha256": "97b1d75321c90c4b8e07a67d97ed02fdf088562eff595755099cb479455c7f45"
+    },
+    {
+      "file": "data/infrastructure/academy_defaults.json",
+      "bytes": 2452,
+      "sha256": "a1af0eb46063ab143c6f285505fc4b9ba2caf3b6a579c486283dc87a5d41eb8f"
+    },
+    {
+      "file": "data/infrastructure/baseline.json",
+      "bytes": 9930,
+      "sha256": "1db1b7f2e7e256255f9ccddca1db2a110a759aff3275736339eeea5b29aea700"
+    },
+    {
+      "file": "data/knowledge/articles.json",
+      "bytes": 99595,
+      "sha256": "77f093c132ece3719265fde8a497c5b68b07c2e68aa2413ff66903afed838445"
+    },
+    {
+      "file": "data/knowledge/notion_1.md",
+      "bytes": 827,
+      "sha256": "51efd37b649e6f3a518c3ddbe2c92ad198f398fc0069fbc277357820d7fb65d5"
+    },
+    {
+      "file": "data/knowledge/notion_2.md",
+      "bytes": 49060,
+      "sha256": "8f85f404fdbb6e9a6f355fa994d238cba439e6975afb35cb2415ae955a5699cd"
+    },
+    {
+      "file": "data/knowledge/notion_3.md",
+      "bytes": 22521,
+      "sha256": "923d567401519c22c83218027012ac8f0872a3535fb65edaf187dda95601a9ee"
+    },
+    {
+      "file": "data/knowledge/notion_4.md",
+      "bytes": 26822,
+      "sha256": "3f306eb5e83b77dac99d259d2a30579fc77ae98245891ccbe1b6a6ae607f4d90"
+    },
+    {
+      "file": "data/knowledge/programming_notion_overview.md",
+      "bytes": 582,
+      "sha256": "3d18bfe85c15e65af68c4102d78784f3f8c24e7e38cecf1052a40c8c28525569"
+    },
+    {
+      "file": "data/knowledge/programming_notion_python.md",
+      "bytes": 10277,
+      "sha256": "f749d6435717b51db86e3d0f0fb636d9bb907095b1d2f9e7023f1fcc67999b34"
+    },
+    {
+      "file": "data/knowledge/programming_notion_web.md",
+      "bytes": 11822,
+      "sha256": "a1b1ad62a13846a9935c6c3330f2f891ee53510bc2ccb146fcd42eb19c8376c8"
+    },
+    {
+      "file": "data/missions/campaign.json",
+      "bytes": 170611,
+      "sha256": "229e00072f78ef3cbfd78bcc4a826bf96371c110367af6cf7242569047135616"
+    },
+    {
+      "file": "data/missions/legacy_campaign.json",
+      "bytes": 64894,
+      "sha256": "4f9099a338a194b8a0fbaa348e5ddefe95a731076895e0ebb54d2e53226f1bb5"
+    },
+    {
+      "file": "data/programming/catalog.json",
+      "bytes": 189306,
+      "sha256": "1bace002aa35c398fd45d48111bcd514aad756a45e1c95ff232a655a60e66387"
+    },
+    {
+      "file": "data/programming/LIMITS.txt",
+      "bytes": 3794,
+      "sha256": "293842bd3f4d2f4db1307cede52122d6c2e48895465b06887a8f2ea438064494"
+    },
+    {
+      "file": "data/training/glossary.json",
+      "bytes": 2201,
+      "sha256": "208bbe1c7b105ed2211933f7bbaed283a4dd57d55106bc22ad36f150f72b8571"
+    },
+    {
+      "file": "data/training/lessons.json",
+      "bytes": 232932,
+      "sha256": "bc46368a85af3ad5d1dc00c0dd7d62a4e9793b9612961e8945d032004cc8daf1"
+    },
+    {
+      "file": "data/training/scenario_solutions.json",
+      "bytes": 33317,
+      "sha256": "14df8aaab58788cf7739bc474e9dc4026051ebf9a1cfebc918fc2682fe054ac1"
+    },
+    {
+      "file": "assets/icons/academy.svg",
+      "bytes": 419,
+      "sha256": "c97b99f2a92802e07ac7d43ba4de31a0449306c8739bc4828c08a43b34ba8c0f"
+    },
+    {
+      "file": "assets/icons/academy.svg.import",
+      "bytes": 1034,
+      "sha256": "d5988cc5e27e656d1bb26842a3d4750c30b1b9f40b1b4482142f357064442b41"
+    },
+    {
+      "file": "assets/materials/interior_reflection.gdshader",
+      "bytes": 588,
+      "sha256": "76dacdff47adfe86572b4269e9ae53a12c37e040084b1513497fd1a1a3fde679"
+    },
+    {
+      "file": "assets/materials/interior_reflection.gdshader.uid",
+      "bytes": 20,
+      "sha256": "97700ead5aa8ea78c50bf29cca8ac33ead105dd5d04e963c629a8db2384f7b48"
+    },
+    {
+      "file": "assets/materials/perforated_metal.gdshader",
+      "bytes": 313,
+      "sha256": "5f2e1f7e58e4e3ede6479e67e1eb272b81bce0c4ef3c51d1f8659b6d0adedb15"
+    },
+    {
+      "file": "assets/materials/perforated_metal.gdshader.uid",
+      "bytes": 20,
+      "sha256": "1596637b77f589a28c8d645bb11cda48f4c9b875491ac3b462df9c001640be3e"
+    },
+    {
+      "file": "assets/materials/raised_floor.gdshader",
+      "bytes": 974,
+      "sha256": "9d1c4ae4f6c647a45602f62f50e3b23c5288154927b8a7020a7cc52e813ac2c4"
+    },
+    {
+      "file": "assets/materials/raised_floor.gdshader.uid",
+      "bytes": 19,
+      "sha256": "5fdaae03a1a2e43bd7b28e67ea35b829f064de4f01fc054787e411d47b8ade31"
+    }
+  ],
+  "verification": {
+    "signature": "PASS",
+    "zip_crc": "PASS",
+    "arm64_and_openxr_manifest": "PASS",
+    "version_code": 2,
+    "version_name": "1.1.0",
+    "device": "NOT RUN: no authorized ADB device"
+  },
+  "hardware_tracking": "NOT TESTED",
+  "pico_72_fps": "NOT MEASURED"
+}
