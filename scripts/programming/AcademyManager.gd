@@ -18,6 +18,59 @@ var position=0
 var is_lesson=false
 var edited_after_run=false
 var series_mode="practice"
+var series_recipe={}
+var views={}
+var active_file="main.py"
+var draft_dirty=false
+var draft_error=""
+var pending_drafts={}
+var changed=Callable()
+var drafts=preload("res://scripts/programming/CodeDrafts.gd").new()
+
+func mark_draft():
+	draft_dirty=true
+	if changed.is_valid(): changed.call()
+
+func draft_record() -> Dictionary:
+	if current.is_empty(): return {}
+	return {"version":1,"content":drafts.content_version(),"id":current.id,"mode":mode,"lesson":is_lesson,"series":series_recipe.duplicate(true),"position":position if not queue.is_empty() else 0,"files":files.duplicate(true),"views":views.duplicate(true),"active":active_file,"hints":hints,"step":step,"updated":int(Time.get_unix_time_from_system())}
+
+func checkpoint() -> Error:
+	if not draft_dirty or current.is_empty(): return OK if pending_drafts.is_empty() else ERR_INVALID_DATA
+	var record=draft_record()
+	var candidate=progress.drafts.duplicate(true)
+	candidate[drafts.key(record)]=record
+	if not drafts.valid(candidate):
+		pending_drafts[drafts.key(record)]=record
+		draft_error="Koncept nelze uložit: nejvýše 128 konceptů, 128 KiB na soubor a celkem 2 MiB. Smaž nepotřebný koncept nebo zkrať zdroj; kód nebyl zkrácen."
+		return ERR_INVALID_DATA
+	progress.drafts=candidate; draft_dirty=false; pending_drafts.erase(drafts.key(record))
+	if pending_drafts.is_empty(): draft_error=""; return OK
+	return ERR_INVALID_DATA
+
+func restore_draft(key: String) -> bool:
+	if not allowed(): return false
+	var pending=pending_drafts.has(key)
+	var source=pending_drafts if pending else progress.drafts
+	if not source.has(key) or (not pending and not drafts.valid_record(source[key])): return false
+	var record=source[key].duplicate(true)
+	if draft_dirty and checkpoint()!=OK and drafts.key(draft_record())!=key: return false
+	cancel()
+	current=drafts.task(record).duplicate(true); files=record.files.duplicate(true)
+	mode=record.mode; is_lesson=record.lesson; views=record.views.duplicate(true); active_file=record.active
+	hints=int(record.hints); step=int(record.step); series_recipe=record.series.duplicate(true)
+	if not series_recipe.is_empty():
+		queue=drafts.generated[JSON.stringify(series_recipe)].duplicate(true); position=int(record.position); series_mode=mode
+	last_run={}; last_result={}; edited_after_run=false; draft_dirty=pending
+	return true
+
+func delete_draft(key: String):
+	progress.drafts.erase(key)
+	pending_drafts.erase(key)
+	if pending_drafts.is_empty(): draft_error=""
+	if not current.is_empty() and drafts.key(draft_record())==key: draft_dirty=false
+	if persist.is_valid(): persist.call()
+
 
 func _init():
 	var path="res://data/programming/catalog.json"
@@ -30,19 +83,25 @@ func start(id: String, learning_mode: String, lesson: bool = false, preserve_ser
 	var task={}
 	for candidate in catalog.get("missions",[])+catalog.get("debugging",[]):
 		if candidate.id==id: task=candidate; break
-	if task.is_empty(): return false
+	if task.is_empty() or checkpoint()!=OK: return false
 	cancel(not preserve_series)
 	current=task.duplicate(true); files=current.starter.duplicate(true); mode=learning_mode; is_lesson=lesson
+	active_file=files.keys()[0]
 	return true
 
 func cancel(clear_queue: bool = true):
+	var pending=draft_dirty
+	checkpoint()
+	if pending and draft_error=="" and persist.is_valid(): persist.call()
 	current={}; files={}; last_run={}; last_result={}; step=0; hints=0; is_lesson=false; edited_after_run=false
-	if clear_queue: queue=[]; position=0
+	views={}; active_file="main.py"; draft_dirty=false
+	if clear_queue: queue=[]; position=0; series_recipe={}
 
 func edit(filename: String, source: String):
 	if not allowed() or current.is_empty() or not files.has(filename): return
 	if files[filename]==source: return
 	files[filename]=source
+	mark_draft()
 	if step==0: step=1
 	if not last_run.is_empty(): edited_after_run=true
 
@@ -54,6 +113,7 @@ func run_program(inputs: Array = []) -> Dictionary:
 	if last_run.ok:
 		if step==1: step=2; edited_after_run=false
 		elif step==2 and edited_after_run: step=3
+	mark_draft()
 	return last_run
 
 func test_program() -> Dictionary:
@@ -68,6 +128,7 @@ func hint() -> String:
 	if mode=="exam" or not allowed() or current.is_empty(): return "Ve zkoušce není nápověda dostupná."
 	var text=current.hints[mini(hints,current.hints.size()-1)]
 	hints+=1
+	mark_draft()
 	return text
 
 func record(result: Dictionary):
@@ -86,7 +147,7 @@ func record(result: Dictionary):
 	progress.xp+=gained
 	if reward.is_valid(): reward.call(gained)
 	result.xp=gained
-	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok})
+	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok,"time":int(Time.get_unix_time_from_system())})
 	if progress.attempts.size()>200: progress.attempts.pop_front()
 	if not result.ok: progress.mistakes[current.topic]=int(progress.mistakes.get(current.topic,0))+1
 	if persist.is_valid():
@@ -114,14 +175,15 @@ func generate_series(category: String, difficulty: String, count: int, seed_valu
 	if not allowed(): return false
 	var generated=preload("res://scripts/programming/PracticeGenerator.gd").new().generate(catalog,category,difficulty,count,seed_value)
 	if generated.is_empty(): return false
-	cancel(); queue=generated; position=-1; series_mode="exam" if difficulty=="exam" else "practice"
+	cancel(); series_recipe={"category":category,"difficulty":difficulty,"count":count,"seed":seed_value}; queue=generated; position=-1; series_mode="exam" if difficulty=="exam" else "practice"
 	return next_generated()
 
 func next_generated() -> bool:
 	if not allowed() or position+1>=queue.size(): return false
 	if position>=0 and (last_result.is_empty() or not last_result.ok): return false
+	if checkpoint()!=OK: return false
 	position+=1
 	var task=queue[position]
 	if not start(task.base_id,series_mode,false,true): return false
-	current=task.duplicate(true); files=current.starter.duplicate(true)
+	current=task.duplicate(true); files=current.starter.duplicate(true); active_file=files.keys()[0]
 	return true

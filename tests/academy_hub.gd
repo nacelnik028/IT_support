@@ -96,7 +96,7 @@ func run():
 	rig.update_teleport()
 	check(not rig.teleport_valid,"Zazděný průchod zastaví syntetický XR oblouk")
 	if DisplayServer.get_name()!="headless" and "--screenshots" in OS.get_cmdline_user_args():
-		p.camera.rotation.x=0; p.rotation.y=PI
+		p.position=Vector3(5,0.02,3.9); p.camera.rotation.x=0; p.rotation.y=PI
 		await frames(10)
 		DirAccess.make_dir_recursive_absolute("res://docs/ui-review/2026-11-03-continuation")
 		root.get_texture().get_image().save_png("res://docs/ui-review/2026-11-03-continuation/server-london-sealed-"+RenderingServer.get_current_rendering_method()+".png")

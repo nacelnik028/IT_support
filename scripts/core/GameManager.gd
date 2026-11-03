@@ -41,10 +41,40 @@ var save_message = ""
 var load_warning = ""
 var unsaved = false
 var introduction_active=false
+var work=preload("res://scripts/progression/WorkArchive.gd").new()
+var attempt_id=""
+var pending_work_at=-1
+var last_saved_at=0.0
+
+func new_attempt():
+	attempt_id=str(OS.get_process_id())+"-"+str(Time.get_ticks_usec())
+
+func mark_work_dirty():
+	pending_work_at=Time.get_ticks_msec()
+	persistence_changed.emit()
+
+func flush_work():
+	if pending_work_at>=0 and Time.get_ticks_msec()-pending_work_at>=1000: save()
+
+func persistence_caption() -> String:
+	if unsaved: return "Neuloženo / "+save_message
+	if pending_work_at>=0: return "Ukládám rozepsanou práci…"
+	return "Uloženo / "+Time.get_time_string_from_unix_time(int(last_saved_at)) if last_saved_at>0 else "Dosud neuloženo"
+
+func resume_lesson(id: int, mode: String) -> bool:
+	if not training_available(): return false
+	var record=work.data.lessons.get(str(id)+":"+mode,{})
+	if record.is_empty() or record.content!=JSON.stringify(Saves.rules().lesson_by_id(id)).sha256_text(): return false
+	if not restore_session(record.snapshot): return false
+	save()
+	return true
+
 
 func _init():
 	var owner_ref=weakref(self)
 	shifts.owner_ref=owner_ref
+	programming.changed=func():
+		if owner_ref.get_ref()!=null: owner_ref.get_ref().mark_work_dirty()
 	english.available=func():
 		var owner_game=owner_ref.get_ref()
 		return owner_game!=null and owner_game.game_mode.is_english() and (not owner_game.english_probe.is_valid() or owner_game.english_probe.call())
@@ -64,6 +94,8 @@ func _init():
 	load_warning = Saves.last_message
 	if not saved.is_empty():
 		shifts.data.merge(saved.get("shifts",{}),true)
+		work.data.merge(saved.get("work",{}),true)
+		last_saved_at=float(saved.get("saved_at",0))
 		english.load_progress(saved.get("english",{}))
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
@@ -187,6 +219,9 @@ func clear_training_sessions():
 
 func leave_training() -> bool:
 	if not game_mode.is_away(): return false
+	var previous_reconciling=reconciling_room
+	reconciling_room=true
+	cache_lesson()
 	programming.cancel()
 	english.cancel()
 	game_mode.switch_to(Modes.Mode.MAIN)
@@ -205,12 +240,14 @@ func leave_training() -> bool:
 	if shifts.data.selected=="shift" and not shifts.data.session.is_empty():
 		shifts.resume()
 		save(); room_changed.emit(false)
+		reconciling_room=previous_reconciling
 		return true
 	var campaign = suspended_campaign.duplicate(true)
 	suspended_campaign = {}
-	if not campaign.is_empty(): restore_session(campaign)
+	if not campaign.is_empty() and not restore_session(campaign): suspended_campaign=campaign
 	save()
 	room_changed.emit(false)
+	reconciling_room=previous_reconciling
 	return true
 
 func start_mission(index: int, practice: bool = false) -> bool:
@@ -230,6 +267,7 @@ func start_mission(index: int, practice: bool = false) -> bool:
 	undo_states.clear()
 	session_revision += 1
 	hints_used = 0
+	new_attempt()
 	progress.last_mission = index+1
 	sim.reset(current.initial_state)
 	save()
@@ -354,11 +392,15 @@ func undo() -> bool:
 
 func save(recover_invalid: bool = false) -> Error:
 	if introduction_active: return OK
+	if programming.checkpoint()!=OK:
+		last_save_error=ERR_INVALID_DATA; unsaved=true; pending_work_at=-1; save_message=programming.draft_error; persistence_changed.emit(); return last_save_error
 	cache_lesson()
 	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"suspended_campaign":suspended_campaign,"shifts":shifts.data},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
+	pending_work_at=-1
 	unsaved = last_save_error != OK
+	if not unsaved: last_saved_at=Time.get_unix_time_from_system()
 	save_message = Saves.last_message
 	if not unsaved: load_warning = ""
 	persistence_changed.emit()
@@ -366,7 +408,7 @@ func save(recover_invalid: bool = false) -> Error:
 
 func snapshot() -> Dictionary:
 	if not active or session_kind=="shift": return {}
-	return {"id":current.id,"definition":current if session_kind!="campaign" else {},"state":sim.state.duplicate(true),"hints":hints_used,"training":training,"finished":finished,"kind":session_kind,"tutorial":tutorial.dump() if session_kind=="lesson" else {}}
+	return {"id":current.id,"definition":current if session_kind!="campaign" else {},"state":sim.state.duplicate(true),"hints":hints_used,"training":training,"finished":finished,"kind":session_kind,"attempt_id":attempt_id,"tutorial":tutorial.dump() if session_kind=="lesson" else {}}
 
 func restore_session(data: Dictionary) -> bool:
 	# Startup has no active source; live restores always preserve it first.
@@ -385,6 +427,7 @@ func restore_session(data: Dictionary) -> bool:
 	else: definition=missions[index]
 	current=definition
 	session_kind=kind
+	attempt_id=data.get("attempt_id","legacy-"+kind+"-"+str(data.id))
 	undo_states.clear()
 	session_revision += 1
 	current.id=int(current.id)
@@ -429,6 +472,9 @@ func restart_current() -> bool:
 func cache_lesson():
 	if active and session_kind=="lesson" and tutorial.active():
 		education.sessions[str(current.id)+":"+str(tutorial.session.mode)]=snapshot()
+		var key=str(current.id)+":"+str(tutorial.session.mode)
+		if finished: work.data.lessons.erase(key)
+		else: work.data.lessons[key]={"content":JSON.stringify(Saves.rules().lesson_by_id(int(current.id))).sha256_text(),"snapshot":snapshot()}
 		if not education.lessons.has(str(current.id)): education.lessons[str(current.id)]={"status":"Rozpracováno","best":0}
 
 func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
@@ -454,6 +500,7 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 		session_revision += 1
 		sim.reset(current.initial_state)
 		sim.state.world.player = player_pose
+		new_attempt()
 		tutorial.start(definition,mode)
 		education.lessons[str(id)]=education.lessons.get(str(id),{"status":"Rozpracováno","best":0})
 	save()
@@ -507,6 +554,7 @@ func load_random_task() -> bool:
 	if not batch.get("queue") is Array or not Saves.Validator.integer(batch.get("position"),0): return false
 	if batch.position < 0 or batch.position >= batch.queue.size(): return false
 	session_kind="random"
+	new_attempt()
 	tutorial.lesson={}
 	tutorial.session={}
 	current=education.random.queue[int(education.random.position)].duplicate(true)

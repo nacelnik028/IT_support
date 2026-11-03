@@ -262,7 +262,7 @@ func set_mode(value: String):
 func safe_saved_position(point: Vector3) -> Vector3:
 	# Old programming-room positions now lie beyond the sealed north wall.
 	# Move only the pose; mission state, equipment, XP and results stay untouched.
-	if world.english_room.contains_point(point): return Vector3(5,0.02,5.5)
+	if world.english_room.contains_point(point) or (point.x>3.1 and point.x<6.9 and point.z>6.5 and point.z<7.5): return Vector3(5,0.02,5.5)
 	if point.z < -7.2 and not world.programming_room.contains_point(point):
 		return Vector3(-7,0.02,0)
 	return point

@@ -175,12 +175,14 @@ func run():
 				await capture("editor-save-failure")
 				Saves.path_override=save_path
 				await click(code.save_row.get_child(1))
-				check(not game.unsaved and not code.save_row.visible,"Programming retry uses existing save path")
+				check(not game.unsaved and not code.save_row.get_child(1).visible and code.save_state.text.begins_with("Uloženo"),"Programming retry uses existing save path")
 			if not baseline:
 				var best=code.manager.progress.results.PY01.best
 				await type_character(code.editor," ")
 				check("Předchozí" in code.verification_state.text and code.manager.progress.results.PY01.best==best,"Editing invalidates presentation, preserves best result")
-				code.launch("WEB21",false)
+				# Each matrix cell deliberately starts fresh. Persisted unfinished code is
+				# covered by work_persistence's real restore/fresh/delete dialog.
+				code.manager.start("WEB21","practice",false); code.load_current()
 				var html=code.editor; html.set_caret_line(0); html.set_caret_column(0)
 				html.insert_text_at_caret("<!-- koncept -->\n"); code.manager.edit("index.html",html.text)
 				html.select(0,1,0,5); var selected=html.get_selected_text(); var caret=html.get_caret_column()

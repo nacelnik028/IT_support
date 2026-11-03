@@ -1,5 +1,16 @@
 # Datacenter Academy — stav vývoje
 
+## Trvalé koncepty a výslovná obnova výuky — funkční etapa, 3. 11. 2026
+
+- Programovací soubory Python/HTML/CSS/JS, kurzor/výběr/posuv a aktivní soubor mají samostatné uložené koncepty podle obsahu, režimu, lekce a přesné varianty. Generovaná série uchová recept/seed/pořadí; opravovací úlohy fungují stejně. Krátký odklad zápisu, flush při změně/odchodu/ukončení, explicitní obnovit/začít znovu/smazat. Obnova neběží ani nehodnotí kód; nativní undo/redo jen živě.
+- IT koncepty uchovají i nepoužitý číselný text; klíč odděluje pokus/hostitele/VM/operaci. Model se obnovou nemění a destruktivní souhlas se neukládá. Samostatná work.lessons zachová sandbox/krok/chyby/nápovědy/režim; živý stav se při odchodu vyčistí a obnova je dobrovolná až ve správné učebně.
+- Menu a IT učebna mají kompaktní Pokračování, editor Rozepsaná práce. Viditelný stav zápisu a poslední úspěšný čas; retry neopakuje modelovou akci. Limity 128 kódových konceptů / 128 KiB na soubor / 2 MiB celkem, 64 IT formulářů a save 8 MiB. Nadlimitní kód zůstane v paměti jako NEULOŽENO i po odchodu a lze jej vrátit k úpravě; nepovolí falešně úspěšné ukončení.
+- Staré platné schema1/2 zachováno. Nové větve validované včetně cest/verzí/parametrů. Vadná volitelná rozepsaná práce neblokuje platnou kampaň/výsledky: původní bajty se archivují před vynecháním konceptů; import takových dat je odmítnutý bez změny cílového souboru.
+- Opraven nově odhalený úklid celé scény z programování: prostorové sondy během leave_training již znovu nevstoupí do učebny a neztratí odloženou kampaň. Klíče konceptů normalizují JSON int/float. Živé CodeEdit buffery se při přepnutí souboru nepřepisují uloženou polohou.
+- work_persistence **51 PASS headless i GPU Compatibility**: skutečné CodeEdit editace, úplný press/release obnovy, nový GameManager/scéna, syntax error, tři webové soubory, režimy, generátor/opravy, raw IT formulář, všechny IT režimy, chybný zápis/čas/retry, vadná volitelná větev, limity a import/export. Runner nyní obsahuje 40 sad.
+- Dosavadní regrese: save_safety 474, session_safety 124, programming_academy 63, programming_integration 765 (252 variant), training_rooms 68, lessons 1075 a ui_workflow **597 PASS**. Starý UI test úmyslně startuje čistou úlohu v každé grafické kombinaci a ověřuje nový trvalý stav Uloženo; nové resume dialogy testuje work_persistence. Zachované původní záruky. Konečné logy jsou trvale v docs/ui-review/2026-11-03-continuation/verification.
+- Dokumentace docs/WORK_PERSISTENCE.md, README, programování a hub aktualizovaná. Celá závěrečná regrese/grafická matice/exporty ještě následují po dalších funkčních částech zadání. Bez push; PICO hardware neprovedený.
+
 ## Doplnění uživatele — zazděný průchod serverovna/Londýn, 3. 11. 2026
 
 - Přímý jižní průchod nahrazen jedinou souvislou stěnou se skutečnou kolizí. Odstraněn původní rám, překlad a směrové cedule; výchozí fyzická chodba hub → Londýn zůstala otevřená.

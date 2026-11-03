@@ -56,6 +56,7 @@ var form_states: Dictionary={}
 var operation_scope=""
 var draft_revision=-1
 var save_caption: Label
+const DraftForms=preload("res://scripts/ui/FormDraftArchive.gd")
 const Forms = preload("res://scripts/ui/FormValues.gd")
 const Console = preload("res://scripts/ui/ConsoleNavigation.gd")
 const Context = preload("res://scripts/simulation/OperationContext.gd")
@@ -194,16 +195,18 @@ func clear_ui():
 	refresh_persistence_status()
 
 func refresh_persistence_status():
-	if not game.unsaved:
+	if not game.unsaved and game.pending_work_at<0:
 		for outcome in form_outcomes.values():
 			if outcome.get("kind","")=="applied": outcome.saved=true
 	for action in form_states: refresh_form_state(action)
-	if is_instance_valid(save_caption): save_caption.text="Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen."
+	if is_instance_valid(save_caption): save_caption.text="Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else game.persistence_caption()
 	if not is_instance_valid(persistence_box): return
 	for child in persistence_box.get_children():
 		persistence_box.remove_child(child)
 		child.queue_free()
-	if game.load_warning=="" and not game.unsaved: return
+	if game.load_warning=="" and not game.unsaved:
+		persistence_box.add_child(label(game.persistence_caption(),11,MUTED))
+		return
 	var panel=card(persistence_box,"Změny čekají na uložení" if game.unsaved else "Uložený postup nebyl načten",game.save_message if game.unsaved else game.load_warning)
 	panel.get_parent().add_theme_stylebox_override("panel",box(Color("29231e"),ORANGE,10))
 	var row=hbox(panel)
@@ -280,6 +283,7 @@ func draw_ui():
 	match page:
 		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
+		"Pokračování": preload("res://scripts/ui/ContinuationPresentation.gd").draw(self)
 		"Souvislé směny": preload("res://scripts/shifts/ShiftPresentation.gd").draw(self)
 		"Tickety": draw_tickets()
 		"Proxmox", "Hyper-V", "Storage": draw_console()
@@ -365,6 +369,7 @@ func resolve_display(keep: bool):
 	draw_ui()
 
 func _process(_delta):
+	game.flush_work()
 	working_context.process(self)
 	if tutorial_reveal_frames>0:
 		tutorial_reveal_frames-=1
@@ -518,7 +523,7 @@ func draw_ticket(parent: Node):
 	if game.finished and game.session_kind=="random": c.add_child(button("Další úloha / souhrn série",next_random_task,true))
 	elif game.session_kind=="shift": c.add_child(button("Fronta a výsledky směn",func(): navigate("Souvislé směny")))
 	elif game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
-	save_caption=label("Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen.",11,MUTED)
+	save_caption=label("Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else game.persistence_caption(),11,MUTED)
 	c.add_child(save_caption)
 
 func draw_tickets():
@@ -780,6 +785,7 @@ func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
 	var scope=page+"|"+host+"|"+target_vm+"|"+str(action.id)
 	form_scopes[action.id]=scope
 	form_defaults[action.id]=read_form(inputs)
+	if not form_drafts.has(scope): form_drafts[scope]=DraftForms.restore(self,scope,str(action.id))
 	if form_drafts.has(scope): restore_form(inputs,form_drafts[scope])
 	Components.form_context(self,action,inputs)
 	if inputs.has("vm") and inputs.vm is OptionButton:
@@ -836,7 +842,7 @@ func draw_form(parent: Node, action: Dictionary, action_parent: Node = null):
 	footer.add_child(state_label); form_states[action.id]=state_label
 	register_target("state:"+str(action.id),state_label)
 	for input in inputs.values():
-		var mark=func(_value=null): refresh_form_state(action.id)
+		var mark=func(_value=null): refresh_form_state(action.id); capture_form_drafts()
 		if input is SpinBox:
 			input.value_changed.connect(mark); input.get_line_edit().text_changed.connect(mark)
 		elif input is LineEdit: input.text_changed.connect(mark)
@@ -895,6 +901,7 @@ func capture_form_drafts():
 			if key=="vm": continue # The target belongs to the scope, never to edits.
 			if values[key]!=form_defaults[action].get(key): edits[key]=values[key]
 		form_drafts[form_scopes[action]]=edits
+		DraftForms.capture(self,form_scopes[action],action,edits)
 
 func restore_form(inputs: Dictionary, values: Dictionary):
 	for key in values:
@@ -967,8 +974,10 @@ func perform(action: String, params: Dictionary):
 			wizard_step+=1
 		wizard_unlocked=maxi(wizard_unlocked,wizard_step)
 	if result.ok and form_scopes.has(action):
+		DraftForms.erase(self,form_scopes[action],action)
 		form_drafts.erase(form_scopes[action])
 		form_controls.erase(action)
+		game.save()
 	full_notice=result.text
 	notice=result.text.left(600)
 	bad_notice=not result.ok
@@ -1069,6 +1078,7 @@ func draw_training_center():
 			tab=game.tutorial.session.get("tab","")
 			draw_ui(),true))
 	if training_view=="random": draw_random_setup(scroll(v)); return
+	hero.add_child(button("Pokračování / uložená výuka",func(): navigate("Pokračování")))
 	if training_view=="profile": draw_knowledge_profile(scroll(v)); return
 	if training_view=="glossary": draw_glossary(scroll(v)); return
 	Search.draw(self,v,"lessons",true)
@@ -1354,15 +1364,19 @@ func draw_terminal():
 	input.custom_minimum_size.y=42
 	c.add_child(input)
 	form_controls._terminal={"command":input}
-	form_scopes._terminal="terminal|"+terminal_host
+	form_scopes._terminal="Terminál|"+terminal_host+"||_terminal"
+	if not form_drafts.has(form_scopes._terminal): form_drafts[form_scopes._terminal]=DraftForms.restore(self,form_scopes._terminal,"_terminal")
 	form_defaults._terminal={"command":""}
 	if form_drafts.has(form_scopes._terminal): restore_form(form_controls._terminal,form_drafts[form_scopes._terminal])
+	input.text_changed.connect(func(_value): capture_form_drafts())
 	input.text_submitted.connect(func(command):
 		command_history.append(command)
 		history_position=command_history.size()
 		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+game.execute_terminal(command,terminal_host)+"\n"
 		terminal_history=terminal_history.right(14000)
+		DraftForms.erase(self,form_scopes._terminal,"_terminal")
 		form_drafts.erase(form_scopes._terminal)
+		game.save()
 		form_controls.erase("_terminal")
 		draw_ui())
 	input.gui_input.connect(func(event):

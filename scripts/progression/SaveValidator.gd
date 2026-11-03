@@ -7,6 +7,7 @@ var missions: Array = []
 var lessons: Array = []
 var baseline: Dictionary = {}
 var checked_sessions: Dictionary = {}
+var code_drafts=preload("res://scripts/programming/CodeDrafts.gd").new()
 
 func _init():
 	missions=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/campaign.json"))
@@ -41,6 +42,8 @@ func valid(data) -> bool:
 	if not programming(data.get("programming",{})): return false
 	if not english(data.get("english",{})): return false
 	if not shifts(data.get("shifts",{})): return false
+	if data.has("saved_at") and (not typeof(data.saved_at) in [TYPE_INT,TYPE_FLOAT] or not is_finite(data.saved_at) or data.saved_at<0): return false
+	if not preload("res://scripts/progression/WorkArchive.gd").valid(data.get("work",{}),self): return false
 	var active=data.get("session",{})
 	if active.get("kind","")=="random":
 		var batch=data.get("education",{}).get("random",{})
@@ -131,7 +134,7 @@ func london_quiz(data) -> bool:
 func programming(data) -> bool:
 	if not data is Dictionary: return false
 	if not shape(data,{"results":{},"lessons":{},"attempts":[],"mistakes":{},"xp":0,"settings":{},"drafts":{},"unlocked":[]}): return false
-	if not integer(data.get("xp",0),0): return false
+	if not integer(data.get("xp",0),0) or not code_drafts.valid(data.get("drafts",{})): return false
 	for id in data.get("results",{}):
 		var record=data.results[id]
 		if not record is Dictionary or not required(record,{"best":0,"passed":false,"exam":0}): return false
@@ -165,6 +168,7 @@ func session(data, expected_kind: String = "") -> bool:
 
 func session_contents(data: Dictionary, kind: String) -> bool:
 	if not integer(data.get("id"),1): return false
+	if data.has("attempt_id") and (not data.attempt_id is String or data.attempt_id.length()>160): return false
 	if not shape(data,{"state":{},"definition":{},"training":false,"finished":false,"hints":0,"tutorial":{}}): return false
 	if not integer(data.get("hints",0),0): return false
 	var definition={}

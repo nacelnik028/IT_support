@@ -34,7 +34,7 @@ i chodbu, cílovou kapsli kontroluje fyzika a paprsek oblouku zastaví překáž
 - Při návratu do serverovny se obnoví skutečný ticket, infrastruktura, inventář
   a postup; první nová směna vznikne až vstupem do serverovny.
 - Odchod z výuky či Londýna ruší dočasnou relaci a její UI. Permanentní výsledky
-  zůstávají. Programovací zdrojové koncepty se mezi návštěvami nadále neukládají.
+  zůstávají. Programovací zdrojové koncepty a samostatný snímek IT lekce se nyní ukládají pro výslovné pokračování ve správné učebně; živé cvičení se při odchodu dál vyčistí. [Pravidla](WORK_PERSISTENCE.md).
 
 `HUB=4` zachovává hodnoty 0/1/2/3. `is_education()` vyjmenovává výukové režimy,
 `is_away()` zahrnuje i hub. Čidlo haly doplňuje dosavadní prostorové sondy.

@@ -43,6 +43,8 @@ var diagnostic_files: Dictionary={}
 
 
 func _exit_tree():
+	capture_editor_state()
+	if not manager.current.is_empty() and manager.draft_dirty: shell.ui.game.save()
 	# Inactive file buffers retain native undo/caret state outside the split.
 	for control in buffers.values():
 		if is_instance_valid(control) and control.get_parent()==null: control.queue_free()
@@ -66,6 +68,7 @@ func _ready():
 	mode_picker.item_selected.connect(change_mode)
 	tools_row.add_child(button("Zadání",func(): lesson_text.text=brief_text))
 	tools_row.add_child(button("Moje znalosti",show_dashboard))
+	tools_row.add_child(button("Rozepsaná práce",show_drafts))
 	tools_row.add_child(button("Podporovaný rozsah",show_limits))
 	next_button=button("Další úloha →",next_generated); tools_row.add_child(next_button)
 	save_row=HBoxContainer.new(); root.add_child(save_row)
@@ -143,7 +146,33 @@ func create_editor(filename: String) -> CodeEdit:
 	control.add_theme_font_size_override("font_size",int(manager.progress.settings.get("font_size",22)))
 	control.text_changed.connect(func():
 		if not changing and control==editor and file_name==filename: manager.edit(filename,control.text); update_instruction(); refresh_verification(); clear_error_marks(control))
+	control.caret_changed.connect(capture_editor_state)
+	control.get_v_scroll_bar().value_changed.connect(func(_value): capture_editor_state())
 	return control
+
+func capture_editor_state():
+	if changing or manager.current.is_empty(): return
+	var changed_view=false
+	for filename in buffers:
+		var control=buffers[filename]
+		if not is_instance_valid(control) or not manager.files.has(filename): continue
+		var view={"line":control.get_caret_line(),"column":control.get_caret_column(),"scroll":int(control.get_v_scroll())}
+		if control.has_selection():
+			view.merge({"from_line":control.get_selection_from_line(),"from_column":control.get_selection_from_column(),"to_line":control.get_selection_to_line(),"to_column":control.get_selection_to_column()})
+		if manager.views.get(filename,{})!=view: manager.views[filename]=view; changed_view=true
+	if manager.active_file!=file_name and manager.files.has(file_name): manager.active_file=file_name; changed_view=true
+	if changed_view: manager.mark_draft()
+
+func restore_editor_state():
+	var view=manager.views.get(file_name,{})
+	if view.is_empty(): return
+	var line=clampi(int(view.get("line",0)),0,editor.get_line_count()-1)
+	editor.set_caret_line(line); editor.set_caret_column(clampi(int(view.get("column",0)),0,editor.get_line(line).length()))
+	if view.has("from_line"):
+		var first=clampi(int(view.from_line),0,editor.get_line_count()-1)
+		var last=clampi(int(view.to_line),first,editor.get_line_count()-1)
+		editor.select(first,clampi(int(view.from_column),0,editor.get_line(first).length()),last,clampi(int(view.to_column),0,editor.get_line(last).length()))
+	editor.set_v_scroll(float(view.get("scroll",0)))
 
 func clear_buffers():
 	for control in buffers.values():
@@ -171,15 +200,22 @@ func populate():
 		node.alignment=HORIZONTAL_ALIGNMENT_LEFT; node.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; node.custom_minimum_size=Vector2(270,54); task_list.add_child(node)
 
 func launch(id: String, lesson: bool):
+	capture_editor_state()
+	var key=manager.drafts.key({"id":id,"mode":["learn","practice","exam"][mode_picker.selected],"lesson":lesson,"series":{},"position":0})
+	if manager.progress.drafts.has(key) and not manager.progress.results.get(id,{}).get("passed",false):
+		show_drafts(key)
+		return
 	if not manager.start(id,["learn","practice","exam"][mode_picker.selected],lesson): return
 	load_current()
 
 func load_current():
+	changing=true
 	reset_feedback()
 	clear_buffers()
 	file_picker.clear()
 	for filename in manager.files: file_picker.add_item(filename)
-	switch_file(file_picker.get_item_text(0))
+	mode_picker.select(["learn","practice","exam"].find(manager.mode))
+	switch_file(manager.active_file if manager.files.has(manager.active_file) else file_picker.get_item_text(0))
 	var task=manager.current
 	details.text=task.id+" / "+task.title
 	lesson_text.text=task.description
@@ -196,14 +232,18 @@ func load_current():
 	populate()
 
 func switch_file(filename: String):
+	capture_editor_state()
 	changing=true
 	if is_instance_valid(editor) and editor.get_parent()==code_split: code_split.remove_child(editor)
 	file_name=filename
-	if not buffers.has(filename): buffers[filename]=create_editor(filename)
+	var restore_view=not buffers.has(filename)
+	if restore_view: buffers[filename]=create_editor(filename)
 	editor=buffers[filename]; code_split.add_child(editor); code_split.move_child(editor,0)
 	if editor.text!=manager.files.get(filename,""): editor.text=manager.files.get(filename,""); editor.clear_undo_history()
 	for i in file_picker.item_count:
 		if file_picker.get_item_text(i)==filename: file_picker.select(i)
+	manager.active_file=filename
+	if restore_view: restore_editor_state()
 	changing=false
 	var syntax=CodeHighlighter.new(); syntax.number_color=Color("e5ba72"); syntax.symbol_color=Color("89d4dc"); syntax.function_color=Color("81dcb5")
 	for keyword in (["print","input","if","elif","else","for","while","def","return","import","try","except","with","as","in","and","or","not","True","False","None","break","continue"] if filename.ends_with("py") else ["html","head","body","div","p","h1","function","document","const","let","return"]): syntax.add_keyword_color(keyword,Color("c9a4ef"))
@@ -240,10 +280,36 @@ func test_code():
 func reset_code():
 	if manager.current.is_empty(): return
 	reset_feedback(); manager.files=manager.current.starter.duplicate(true); clear_buffers(); switch_file(file_name); manager.step=0; manager.last_run={}; manager.edited_after_run=false; console.text="Obnoveno počáteční zadání."; preview.clear_preview(); update_instruction()
+	manager.mark_draft(); shell.ui.game.save()
 
 func refresh_save_state():
-	save_row.visible=shell.ui.game.unsaved
-	save_state.text="Výsledek nebo postup není uložený na disk. Zdrojový kód zůstává pouze v této návštěvě."
+	save_row.visible=true
+	save_state.text=shell.ui.game.persistence_caption()
+	for child in save_row.get_children():
+		if child is Button: child.visible=shell.ui.game.unsaved
+
+func show_drafts(only_key: String = ""):
+	capture_editor_state()
+	var dialog=AcceptDialog.new(); dialog.title="Rozepsaná práce / výslovná obnova"; dialog.ok_button_text="Zavřít"
+	var scroll=ScrollContainer.new(); scroll.custom_minimum_size=Vector2(680,300); dialog.add_child(scroll)
+	var list=VBoxContainer.new(); list.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(list)
+	list.add_child(label("Obnova nespouští kód ani testy. Undo/redo patří jen živému editoru. Začít znovu nahradí pouze tento koncept počátečním zadáním.",16))
+	var records=manager.progress.drafts.duplicate(true)
+	records.merge(manager.pending_drafts,true)
+	if records.is_empty(): list.add_child(label("Žádná uložená rozepsaná práce.",18))
+	for key in records.keys():
+		if only_key!="" and key!=only_key: continue
+		var record=records[key]
+		if manager.pending_drafts.has(key): list.add_child(label("NEULOŽENO / koncept překračuje limit. Obnov ho a zkrať, nebo jej výslovně smaž.",16))
+		list.add_child(label(record.id+" / "+record.mode+(" / lekce" if record.lesson else " / úloha")+" · "+Time.get_datetime_string_from_unix_time(int(record.updated)),18))
+		list.add_child(button("Obnovit rozepsanou práci",func():
+			if manager.restore_draft(key): dialog.hide(); load_current(); editor.grab_focus(); restore_editor_state(); dialog.queue_free()
+			else: console.text="Koncept nelze obnovit: změněný obsah, neplatná varianta nebo neuložená aktuální práce."))
+		list.add_child(button("Začít znovu / nahradit tento koncept",func():
+			if manager.restore_draft(key): manager.views={}; load_current(); reset_code(); dialog.queue_free()))
+		list.add_child(button("Smazat koncept / výsledky zůstanou",func(): manager.delete_draft(key); dialog.queue_free()))
+	dialog.confirmed.connect(dialog.queue_free); dialog.canceled.connect(dialog.queue_free)
+	add_child(dialog); dialog.popup_centered(Vector2i(740,460))
 
 func refresh_verification():
 	if verified_files.is_empty():

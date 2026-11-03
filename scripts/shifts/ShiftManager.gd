@@ -18,8 +18,9 @@ func start(id: String) -> bool:
 	var d=definition(id)
 	if d.is_empty() or not game.main_available(): return false
 	game.suspend_session()
+	game.new_attempt()
 	data.selected="shift"
-	data.session={"id":id,"version":d.version,"index":0,"finished":false,"results":[],"state":{}}
+	data.session={"id":id,"version":d.version,"index":0,"finished":false,"results":[],"state":{},"attempt_id":game.attempt_id}
 	game.sim=game.main_sim
 	game.sim.reset(d.initial_state)
 	game.sim.state.world.player={"x":7.0,"z":3.5,"yaw":0.0,"pitch":0.0}
@@ -35,6 +36,7 @@ func activate():
 	var d=definition(data.session.id)
 	var ticket=d.tickets[int(data.session.index)]
 	game.current={"id":30000+catalog.find(d)*3+int(data.session.index),"title":d.title+" / "+ticket.title,"category":d.category,"server":d.server,"topic":"směna","priority":"Souvislá směna","description":ticket.description,"symptoms":ticket.description,"objectives":ticket.objectives,"available_actions":ticket.available_actions,"initial_state":d.initial_state,"hints":[ticket.description,ticket.description,ticket.description],"explanations":"Směna zachovala infrastrukturu mezi všemi tickety. Zkontroluj níže skutečné podmínky a deník.","tags":[d.category]}
+	game.attempt_id=data.session.get("attempt_id","legacy-shift-"+data.session.id)
 	game.session_kind="shift"; game.active=true; game.training=true
 	game.finished=data.session.finished; game.hints_used=0
 	game.tutorial.cancel(); game.undo_states.clear(); game.session_revision+=1

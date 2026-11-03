@@ -17,8 +17,7 @@ Přesná diagnostika soubor/řádek je kliknutelná a zvýrazní příslušný �
 známé polohy nevzniká odkaz. Editace zachovává nejlepší uložený výsledek, ale
 označí předchozí ověření jako neaktuální. Při přepínání souborů zůstávají nativní
 CodeEdit buffery s undo/redo, kurzorem, výběrem a posuvem. Chyba zápisu zůstává
-viditelná nad editorem s existující cestou opakování zápisu. Zdrojové soubory
-stále nejsou trvale ukládané mezi návštěvami.
+viditelná nad editorem s existující cestou opakování zápisu. Zdrojové soubory jsou nyní trvale ukládané jako oddělené koncepty; obnova je výslovná přes **Rozepsaná práce**. [Pravidla a limity](WORK_PERSISTENCE.md).
 
 ## Rozsah a izolace
 
@@ -32,7 +31,7 @@ GameModeManager má MAIN / SERVER_TRAINING (zpětný alias TRAINING) / PROGRAMMI
 
 Původní SaveManager/schema 2 přijímá staré soubory bez nové větve programming. Ta obsahuje dokončené lekce, nejlepší výsledky, zkoušky, historii, chyby, XP, odemčené oblasti a velikost písma. Kariérní XP se aktualizují stejnou transakcí. Odměňuje se jen zlepšení již zaplaceného úspěšného skóre základní úlohy, včetně generovaných a opravovacích variant.
 
-Odchod, teleport, menu či změna scény zruší lekci/sérii/editor a zachová výsledky. Kód a aktivní cvičení se automaticky neobnovují. Koncepty zdrojových souborů se trvale neukládají. Původní import/export save přenáší také programming.
+Odchod, teleport, menu či změna scény zruší lekci/sérii/editor a zachová výsledky. Kód a aktivní cvičení se automaticky neobnovují. **Rozepsaná práce** nabízí výslovnou obnovu kódu/režimu/varianty, začít znovu a smazat koncept. Undo/redo zůstává lokální v živém editoru. Původní import/export save přenáší také programming.
 
 `python tools/build_programming.py` deterministicky sestaví data/programming/catalog.json. Stejný generátor volá build_content.py po původním build_extension.py a nemění legacy24. Každá mise má metadata, počáteční soubory, testovací vstupy/výsledky, cíle, nápovědy, výklad, časté chyby, ukázku a odměnu.
 

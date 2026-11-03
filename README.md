@@ -47,6 +47,15 @@ nabízejí Poslechnout / zopakovat, Pomaleji a Zastavit. Ostatní věty zůstáv
 výkonu; VR komfort dovoluje změnit velikost/vzdálenost panelu bez změny rozlišení.
 [Budoucí test fyzického PICO](docs/PICO4_HARDWARE_CHECKLIST.md) je výslovně neprovedený.
 
+## Rozepsaná práce a dobrovolné pokračování
+
+Menu → **Pokračování / výuka a rozepsaná práce** rozlišuje kampaň, směnu a
+uloženou IT výuku. V programovací učebně tlačítko **Rozepsaná práce** obnoví
+přesné soubory, režim i generovanou variantu; nic samo nespouští ani nehodnotí.
+IT formuláře zachovají nepoužitý text jen pro stejný pokus a zařízení.
+Stav zápisu a čas posledního úspěchu jsou viditelné; chybu lze zopakovat.
+[Pravidla, limity a ochrana starých save](docs/WORK_PERSISTENCE.md).
+
 ## Aktuální rozhraní
 
 Kompaktní menu nabízí hlavní vstup do rozcestníku a samostatnou pracovní směnu,
@@ -320,7 +329,7 @@ Administrátorské konzole jsou dostupné na monitorech. První směna nabízí 
 - Nastavení, rozlišení a F11 zachovají formuláře, posuv, fokus a kurzor včetně
   nepotvrzeného čísla, nabídek a výběru disků. Editace čte aktuální konfiguraci;
   rozepsaný koncept má přednost. Síťový přehled zahrnuje také nově vytvořené VM. Každá VM má vlastní koncept.
-  Koncepty jsou v paměti; změna mise, režimu, obnova či restart relace je vyčistí.
+  Koncepty se ukládají podle konkrétního pokusu, hostitele, VM a operace. Jiné relace je nepřevezmou; obnova nic nepoužije v modelu.
 
 První mise vyžaduje VT-x/AMD-V, HBA pro ZFS, UPS, vzdálenou konzoli,
 hostname `pve01.lab.example`, IP `192.168.10.10/24`, gateway `192.168.10.1`
@@ -397,7 +406,7 @@ Uložení a návrat do menu, odchod z lekce ani ukončení v takovém případě
 neslibují úspěch. Po opakování zápisu se uloží poslední stav celé relace.
 Výukové relace, odložená kampaň, série a historie výsledků mají oddělené datové větve.
 Undo je lokální historie aktuální relace. Pracovní mise uchová konfiguraci i po
-restartu programu; nedokončená výuka se při odchodu nebo restartu zruší. Přechod do jiné
+restartu programu; živá nedokončená výuka se při odchodu vyčistí. Její samostatný uložený snímek lze výslovně obnovit ve správné IT učebně. Přechod do jiné
 mise či režimu a obnova relace undo vyčistí; prázdné undo má neaktivní tlačítko.
 
 ## Struktura

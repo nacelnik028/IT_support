@@ -2,6 +2,7 @@ extends RefCounted
 
 const Validator = preload("res://scripts/progression/SaveValidator.gd")
 const PATH = "user://academy_save.json"
+const MAX_SAVE_BYTES=8388608
 static var path_override = ""
 static var last_message = ""
 static var validator
@@ -20,9 +21,24 @@ static func load_game() -> Dictionary:
 	if file==null:
 		last_message="Uložený postup nelze přečíst. Původní soubor zůstává chráněný."
 		return {}
+	if file.get_length()>MAX_SAVE_BYTES:
+		file.close(); last_message="Uložený soubor překračuje limit 8 MiB. Původní soubor zůstává chráněný."; return {}
 	var parser=JSON.new()
 	var error=parser.parse(file.get_as_text())
 	file.close()
+	if error==OK and not rules().valid(parser.data) and parser.data is Dictionary:
+		# A damaged optional work snapshot must not discard a sound campaign.
+		# Keep every original byte before using the independently validated core.
+		var candidate=parser.data.duplicate(true)
+		candidate.erase("work")
+		if candidate.get("programming") is Dictionary: candidate.programming.drafts={}
+		if rules().valid(candidate):
+			var original=FileAccess.get_file_as_bytes(save_path())
+			var archive=save_path()+".invalid-work-"+original.hex_encode().sha256_text()+".bak"
+			if not FileAccess.file_exists(archive) and DirAccess.copy_absolute(ProjectSettings.globalize_path(save_path()),ProjectSettings.globalize_path(archive))!=OK:
+				last_message="Vadné koncepty nelze zálohovat; původní soubor zůstává chráněný."; return {}
+			last_message="Neplatné nebo zastaralé koncepty nebyly obnoveny. Kampaň a výsledky jsou načtené; původní soubor je zachovaný v "+archive+". Zahaj nový výukový pokus."
+			return candidate
 	if error!=OK or not rules().valid(parser.data):
 		last_message="Uložený postup má poškozený JSON nebo neplatnou strukturu. Nebyl načten ani přepsán."
 		return {}
@@ -44,6 +60,10 @@ static func export_progress(destination: String) -> Error:
 	return error
 
 static func import_progress(source: String) -> Error:
+	var input=FileAccess.open(source,FileAccess.READ)
+	if input==null: return FileAccess.get_open_error()
+	var length=input.get_length(); input.close()
+	if length>MAX_SAVE_BYTES: return ERR_INVALID_DATA
 	var parser=JSON.new()
 	if parser.parse(FileAccess.get_file_as_string(source))!=OK or not rules().valid(parser.data): return ERR_INVALID_DATA
 	if FileAccess.file_exists(save_path()):
@@ -60,6 +80,8 @@ static func save_game(data: Dictionary, recover_invalid: bool = false) -> Error:
 	last_message=""
 	var payload = data.duplicate(true)
 	payload.schema = 2
+	var serialized=JSON.stringify(payload,"\t")
+	if serialized.to_utf8_buffer().size()>MAX_SAVE_BYTES: return failed(ERR_INVALID_DATA,"Postup překračuje limit 8 MiB; smaž nepotřebné koncepty")
 	if not rules().valid(payload): return failed(ERR_INVALID_DATA,"Postup nelze uložit: neplatná struktura dat")
 	var path = save_path()
 	var had_valid_save=false
@@ -76,7 +98,7 @@ static func save_game(data: Dictionary, recover_invalid: bool = false) -> Error:
 			if backup_error!=OK: return failed(backup_error,"Migrační zálohu se nepodařilo vytvořit")
 	var f = FileAccess.open(path + ".tmp", FileAccess.WRITE)
 	if f == null: return failed(FileAccess.get_open_error(),"Postup se nepodařilo zapsat")
-	f.store_string(JSON.stringify(payload, "\t"))
+	f.store_string(serialized)
 	f.flush()
 	var write_error=f.get_error()
 	f.close()

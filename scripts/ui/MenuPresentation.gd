@@ -39,6 +39,7 @@ static func draw(ui):
 		if ui.game.session_kind!="campaign": ui.game.resume_campaign()
 		elif not ui.game.active: ui.game.start_mission(0)
 		ui.game.set_campaign_mode(false); ui.navigate("Tickety"))
+	left.add_child(ui.button("Pokračování / výuka a rozepsaná práce",func(): ui.navigate("Pokračování")))
 	left.add_child(tickets); ui.register_target("menu:tickets",tickets)
 	left.add_child(ui.button("Volný trénink / všechny laboratoře",func():
 		if not ui.game.active: ui.game.start_mission(0,true)
