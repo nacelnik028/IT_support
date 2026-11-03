@@ -13,7 +13,24 @@ vytáhl pouze EXE, takže druhý soubor chyběl. Použij aktuální build/ITSupp
 EXE v dočasné složce nepoužívej. U starého balíčku pomůže Extrahovat vše.
 Aktuální build/ITSupportSimulator.exe má všechna herní data přímo v EXE.
 
-PROGRAMMING ACADEMY
+ROZCESTNÍK A OVLÁDÁNÍ
+Hlavní vstup do hry tě postaví do nové nástupní haly s lavičkami, rostlinami
+a směrovými cedulemi. 01 vlevo vpředu = serverovna, 02 vpravo vpředu = IT trénink,
+03 vlevo = programování, 04 vpravo východní chodbou = English in London.
+Zpět lze stejnými průchody nebo Esc → Rozcestník akademie.
+WASD = chůze, myš = rozhlížení, E = interakce, Esc = pauza/zavření panelu.
+Otevřené UI zastaví pohyb. Klávesy lze dál přemapovat v nastavení.
+
+Londýn nabízí šest situací B1–B2: porovnání Standard/Flex, skupinové ceny,
+časové podmínky, vyprodaný termín, opravu nedorozumění a složitější orientaci.
+U Sama se ptej na možnosti, podmínky, cenu a platbu. Ceny jsou cvičné.
+Repliky vybírej myší, Tab/šipkami a Enter nebo čísly 1–4.
+Tabule LONDON QUIZ vedle Alexe spouští 20 ověřených otázek o Londýně.
+Kampaň a dosažené výsledky se zachovají. Programovací koncept a rozehraný
+nákup se mezi návštěvami neukládají. Starší výsledky angličtiny najdeš
+v archivu; nový nedokončený pokus se při odchodu neodevzdá.
+
+PROGRAMMING ACADEMY — PŮVODNÍ CESTA ZE SERVEROVNY
 Ze serverovny projdi zadní uličkou za administrátorskými stoly, zahni doleva
 a pokračuj levou uličkou ke dveřím 03 / Programming Academy v západní stěně. Síťová skříň
 už nestojí v cestě. Zaměř dveře nebo nástěnný ovladač a stiskni E.

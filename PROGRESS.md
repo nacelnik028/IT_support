@@ -1,5 +1,41 @@
 # Datacenter Academy — stav vývoje
 
+## Rozcestník, B1–B2 a oba ověřené exporty — dokončeno 3. 11. 2026
+
+- Původní PROMPT_ACADEMY_HUB_PC_VR.md dokončen v existujícím projektu.
+  Nástup PC/VR je v neutrální severní hale; 01 serverovna, 02 IT trénink,
+  03 západní programování, 04 východní chodbou Londýn. Na doplnění uživatele
+  odekorován rozcestník i všechny čtyři místnosti, bez nových bitmap a fontů.
+- Opraveny skutečně nalezené vady londýnského průchodu, zrcadlené zadní texty,
+  chybějící krky postav a čitelnost orientace hubu. Kompletní GPU prohlídka
+  Compatibility i Forward+: po 49 snímcích, 280 materiálových instancí,
+  0 chybějících přiřazení, 27 strukturálních stěn a 0 koplanárních překryvů.
+- Všech šest LON situací: tři varianty a režimy B1–B2, skutečné Standard/Flex,
+  počty, ceny, časové podmínky, povinné zákaznické dotazy a ověření porozumění.
+  London Quiz u Alexe: 20 stabilních otázek s ověřenými oficiálními zdroji,
+  vysvětleními, opravami a vlastními uloženými výsledky. Staré A1–A2 v archivu.
+- Finální zdroje hry `0cb87a31baace36a34b7f686e1e36f95d0df5d51`.
+  **Celý aktuální Test-All.ps1: 36 sad PASS**, čistý hub-release-test-all.log.
+  Hub 52, model 1809, kvíz 527, PC/syntetické XR 1043 headless / 1063 graficky.
+  Obnova upravené kampaně, save/restart, všechny IT režimy a legacy24 PASS.
+- **Windows EXE 104 579 568 B**, rezerva **278 032 B** do 100 MiB.
+  Oba nativní EXE-only starty mimo projekt a 17 externích balíčkových sad nakonec
+  PASS. Bezeztrátové odstranění mezer JSON se děje pouze v exportní kopii.
+  Počáteční GL leak při okamžitém ukončení nového auditu opraven čekáním testu;
+  stejný EXE znovu ověřen, původní nečistý běh zůstává popsaný v manifestu.
+- **PICO APK 90 508 612 B**, 1.3.0 / versionCode 4. Podpis v2, původní certifikát,
+  CRC a ARM64/OpenXR/PICO manifest PASS. Oba desktopové smoke běhy nad skutečnými
+  prostředky APK a 10 externích sad PASS. Otisky zdrojů a katalogů odpovídají.
+- Skutečný obsah: 188/192 souborů, žádné pracovní adresáře; všechny JSON hodnoty
+  shodné. Dodatečný GPU audit obou packů 5033/5057 PASS, 278 počátečních materiálů,
+  platné shadery a dostupné vygenerované textury. SHA256 obou souborů je v
+  build/SHA256SUMS, BUILD_INFO a aktuálním build/VERIFICATION.json.
+- ADB stále bez autorizovaného PICO: **Android start, reálný tracking, optika,
+  komfort a FPS NEOVĚŘENY**. Syntetické XR a desktopové prostředky APK jsou
+  výslovně odlišené od hardwarové zkoušky. Žádný telefon se neměnil.
+- README, oba návody, test/VR report, audit, snímky před/po a build dokumentace
+  aktualizovány. `build/` zachováno, `builds/` nevzniklo. Bez push.
+
 ## Rozcestník, B1–B2 a londýnský kvíz — funkční etapa, 2. 11. 2026
 
 - Implementována samostatná severní nástupní hala, čtyři skutečné fyzické cesty

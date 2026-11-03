@@ -35,8 +35,10 @@ a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivov
 
 ## Aktuální rozhraní
 
-Kompaktní menu rozlišuje pracovní směnu, IT tréninkovou akademii, programovací
-učebnu a angličtinu. Hlavní akce, VR, Nastavení a Ukončit jsou dostupné i v 720p při 130 % textu.
+Kompaktní menu nabízí hlavní vstup do rozcestníku a samostatnou pracovní směnu,
+IT tréninkovou akademii, programovací učebnu a angličtinu. Rozcestník i všechny
+místnosti mají doplněné procedurální dekorace. Hlavní akce, VR, Nastavení a Ukončit
+jsou dostupné i v 720p při 130 % textu.
 Editor nabízí **Spustit kód** a **Ověřit řešení**, samostatné záložky Výstup / Chyby /
 Ověření a přechod z chyby na známý řádek. Po editaci označí předchozí ověření jako
 zastaralé. Formuláře rozlišují koncept, použití v simulaci a skutečné uložení.

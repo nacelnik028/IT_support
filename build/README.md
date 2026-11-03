@@ -1,7 +1,9 @@
 # Samostatné Windows EXE
 
-Spusť `ITSupportSimulator.exe` (Training academy). Obsahuje celou hru včetně Python/Web učebny
-vlevo od serverů a English in London jižním průchodem 04.
+Spusť `ITSupportSimulator.exe` (Training academy). Obsahuje celou hru a nový
+odekorovaný nástupní rozcestník: 01 serverovna, 02 IT trénink, 03 vlevo Python/Web,
+04 vpravo chodbou English in London. Londýn nabízí šest situací B1–B2,
+zákaznické dotazy a samostatný kvíz s 20 otázkami u Alexe.
 PCK, Godot editor ani instalátor nejsou potřeba.
 EXE je Windows x86_64 **Debug**, nikoli Release, uložené přímo v Gitu bez LFS.
 Musí mít méně než 104 857 600 bajtů. SHA256 ověř proti `SHA256SUMS`.
@@ -28,11 +30,14 @@ python3 tools/build_windows.py --godot /path/to/godot-4.7.2 --template /path/to/
 
 Skript ověří skutečnou verzi editoru i spuštěné šablony. V dočasné kopii
 zdrojů provede import a oficiální `--export-debug` s `embed_pck=true`.
+V této izolované kopii odstraní pouze nepodstatné mezery ze všech datových JSON;
+zpětným parsováním ověří shodu každé hodnoty. Autorské katalogy zůstávají stejné.
 Nepoužívá UPX, ruční připojování PCK ani úpravy PE šablony.
 Ověří x86_64 PE a vložený PCK, velikost pod 100 MiB, potom spustí přejmenované
 samotné EXE z jiné pracovní složky bez projektu či PCK. Smoke kontroluje
 obsah 65/21, trénink, západní učebnu 60/28, Python i webový náhled, všech šest
-londýnských situací s platbou a světovým cílem a návrat bez dočasné relace.
+londýnských situací s platbou a světovým cílem, neutrální hub a dokončení všech
+20 otázek a návrat bez dočasné relace.
 Teprve úspěšný výsledek nahradí EXE a vygeneruje `BUILD_INFO.json` a `SHA256SUMS`.
 Chyba ponechá předchozí EXE zachované. Logy jsou v `test-output/windows-*.log`.
 
@@ -50,20 +55,20 @@ pokud je dostupný displej. Testy používají vlastní save a konfiguraci.
 Původní ověření této UI/UX verze proběhlo na Linuxu. Wine headless ani grafický Xvfb/Mesa běh nejsou
 nativní hraní na Windows. Podpis vydavatele není přidán; SmartScreen může
 zobrazit neznámého vydavatele. Žádná ochrana Windows se nevypíná.
-Aktuální ověření English in London proběhlo nativně na Windows, včetně GPU
-Compatibility. Podrobnosti oddělující zdroje, EXE, prostředky APK a chybějící
+Aktuální ověření hubu a B1–B2 proběhlo nativně na Windows, včetně GPU
+Compatibility a auditu materiálů ve Forward+. Podrobnosti oddělující zdroje, EXE, prostředky APK a chybějící
 headset jsou v TEST_REPORT.md a VERIFICATION.json.
-Aktuální PICO APK 1.2.0 (versionCode 3) je v `pico4/ITSupportSimulator-PICO4.apk`.
+Aktuální PICO APK 1.3.0 (versionCode 4) je v `pico4/ITSupportSimulator-PICO4.apk`.
 Pochází ze stejných aktuálních herních zdrojů; `pico4/BUILD_INFO.json` obsahuje
 jejich otisky. Ověření přesunu/exportů je v `VERIFICATION.json`.
 Sestavíš ho příkazem `python tools/build_platforms.py --godot C:/Godot/Godot_console.exe --pico-only`
 z kořene projektu. Windows EXE tento příkaz zachovává.
 
-## Aktuální UI/UX verze
+## Aktuální hub a B1–B2
 
-Nové kompaktní menu, programovací editor a pravdivé stavy uložení jsou uvnitř
-samotného EXE. Aktuální velikost po opravě zdi u učebny je 104 748 344 B,
-export Windows x86_64 Debug.
+Nový hub, dekorace všech místností, opravený vstup do Londýna, B1–B2 i kvíz jsou
+uvnitř samotného EXE. Aktuální velikost je 104 579 568 B, rezerva 278 032 B
+do limitu 100 MiB; export Windows x86_64 Debug.
 Přejmenování nemění původní složku uložených pozic. Přesné výsledky, hash EXE, velikost
 obsaženého packu a omezení ověření uvádí BUILD_INFO.md a TEST_REPORT.md.
-Snímky jsou v docs/ui-review/2026-11-02-ux.
+Snímky před/po jsou v docs/ui-review/2026-11-02-hub.

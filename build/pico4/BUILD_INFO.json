@@ -3,10 +3,10 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90466889,
-    "sha256": "89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90"
+    "bytes": 90508612,
+    "sha256": "aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940"
   },
-  "source_commit": "42600a3add242004e903fa827a7680db55306e90",
+  "source_commit": "0cb87a31baace36a34b7f686e1e36f95d0df5d51",
   "sources": [
     {
       "file": "project.godot",
@@ -16,7 +16,7 @@
     {
       "file": "export_presets.cfg",
       "bytes": 2157,
-      "sha256": "0d61bce26ee994780e0b4ae279833f17cca10ea2f383b9337cc2fbe42e901080"
+      "sha256": "eaee3a104c123542953d6ed8339d7c72cb9ce39fab355607040f25fdd82a218a"
     },
     {
       "file": "scripts/core/DisplaySettings.gd",
@@ -30,8 +30,8 @@
     },
     {
       "file": "scripts/core/GameManager.gd",
-      "bytes": 21547,
-      "sha256": "e41ed32d48a4b2ccee5a83ad8125d2bb8608fb3d0f28fbbb9ce38e4748ffd291"
+      "bytes": 22144,
+      "sha256": "8c8817cdad1ffc8fb41c316ddf89dd118e1a67d5621db6f671f01a58a0212cd2"
     },
     {
       "file": "scripts/core/GameManager.gd.uid",
@@ -40,8 +40,8 @@
     },
     {
       "file": "scripts/core/GameModeManager.gd",
-      "bytes": 520,
-      "sha256": "a0d2cb9444f7e232888fd882b57fa05f58f759326a564f6837a9b397eb8dbacb"
+      "bytes": 686,
+      "sha256": "f67b8aa42acf7697753c3fd9191163531826ef5876e8126fcea0dfa97fc94582"
     },
     {
       "file": "scripts/core/GameModeManager.gd.uid",
@@ -49,9 +49,19 @@
       "sha256": "8ae8b25fd5844c61f6009b4e1345f6177929d006e0899d948dfd6033c7cf9e99"
     },
     {
+      "file": "scripts/english/CustomerQuestions.gd",
+      "bytes": 6203,
+      "sha256": "4f9b9b2c2b2833350af2d6b90127e0097990e20b4e51b76032dd538d3be38ad7"
+    },
+    {
+      "file": "scripts/english/CustomerQuestions.gd.uid",
+      "bytes": 20,
+      "sha256": "16f120be44d7c552f67f10bbeff6326426b684c0e8476f0d9e353497448f1db4"
+    },
+    {
       "file": "scripts/english/DialogueController.gd",
-      "bytes": 10109,
-      "sha256": "9e5bb7c80f798c264eaee47df95eeead794f846ef102628340e9d69687ca2267"
+      "bytes": 11870,
+      "sha256": "897b5c16249bb235462677fdb6a9a47b7b8ef1252e91a5760e29633713a159ad"
     },
     {
       "file": "scripts/english/DialogueController.gd.uid",
@@ -60,8 +70,8 @@
     },
     {
       "file": "scripts/english/EnglishManager.gd",
-      "bytes": 13100,
-      "sha256": "317183990e0a3d9765141675c26b80a518bbe838c42848a1e5f7fe05079281ec"
+      "bytes": 20520,
+      "sha256": "500e738441aaace0ef12c0d78051c94d7def36fc1ceff93b4174ab612ce797c4"
     },
     {
       "file": "scripts/english/EnglishManager.gd.uid",
@@ -70,13 +80,33 @@
     },
     {
       "file": "scripts/english/EnglishRoom.gd",
-      "bytes": 9057,
-      "sha256": "a2b4d3eb0df30ae7dd7c34936806b14c92cecd2e915a7fabb77fa3665070ee4b"
+      "bytes": 9873,
+      "sha256": "4e968101c130f6502832755b43f2469a15b7869ba25d3bfd77b9056d130fdfc8"
     },
     {
       "file": "scripts/english/EnglishRoom.gd.uid",
       "bytes": 20,
       "sha256": "5330094ce737ca2e1a17de84e345e5662d7bab5c4ce16fc642aa25c9f1c3bb28"
+    },
+    {
+      "file": "scripts/english/LondonQuiz.gd",
+      "bytes": 3385,
+      "sha256": "246a1153e850c74953d40163429bf6317f58b405a9c76670519c8af71e10ffb1"
+    },
+    {
+      "file": "scripts/english/LondonQuiz.gd.uid",
+      "bytes": 20,
+      "sha256": "a7b423ba0d9772787feccf4211022b2427f55ca7e6b0cf615b8af8ffc81eb4ad"
+    },
+    {
+      "file": "scripts/english/LondonQuizUI.gd",
+      "bytes": 3550,
+      "sha256": "3064bd1fd614717a59246d038cda5fee5759783ddab2e392ad986a524b41aaac"
+    },
+    {
+      "file": "scripts/english/LondonQuizUI.gd.uid",
+      "bytes": 20,
+      "sha256": "16b994881638a5a3ce09da3f20f909ce2a467c5190cc0789dcac904938b4038a"
     },
     {
       "file": "scripts/evaluation/ObjectiveEvaluator.gd",
@@ -100,8 +130,8 @@
     },
     {
       "file": "scripts/programming/AcademyRoom.gd",
-      "bytes": 6345,
-      "sha256": "51cc63f9b35f960f7669a9c723eb81be2e8d13855d5ffc4f8a98e7fdd0876b1b"
+      "bytes": 6520,
+      "sha256": "1473c5bd3c446271d3608dbea7308ea2c7a0eb975f47e68718fb620c2a44d818"
     },
     {
       "file": "scripts/programming/AcademyRoom.gd.uid",
@@ -110,8 +140,8 @@
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd",
-      "bytes": 7182,
-      "sha256": "2ece39405432f1fc69a86620c95ba075e818d4d9eadbec52c332998bfbada304"
+      "bytes": 7248,
+      "sha256": "307a185b5de7f62e92c2642c9ad716f879f83eb6551b60d93152a4d8ad92b823"
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd.uid",
@@ -210,8 +240,8 @@
     },
     {
       "file": "scripts/progression/SaveValidator.gd",
-      "bytes": 16154,
-      "sha256": "2961dd4fa72aa6386fa60700cc918b19741ce2b6063f65c414bd9b8f97546817"
+      "bytes": 18405,
+      "sha256": "07a367e096a4127aff3a5c32b4062cdf4e4d2ca32bac618f65cb20988952c5b0"
     },
     {
       "file": "scripts/progression/SaveValidator.gd.uid",
@@ -410,8 +440,8 @@
     },
     {
       "file": "scripts/ui/MenuPresentation.gd",
-      "bytes": 4313,
-      "sha256": "e4268ba25d8354541a991878b0d3b50a8146d099c07e96f4de6a300f2f4ab973"
+      "bytes": 4272,
+      "sha256": "bd36ea867ad5185854ce7086f20e458047f07177a47f98be3f67cc779dd8e3d5"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
@@ -489,9 +519,29 @@
       "sha256": "4e045f7040ebb5f279fd6d1fa1176ea49fdd6862a58016ad7d960a2e0b5bb1ff"
     },
     {
+      "file": "scripts/world/AcademyDecor.gd",
+      "bytes": 4307,
+      "sha256": "0c03f8eb7e30ab579f3c911ac965ed4abf6e6dc0359a741629ea7fcecd663a58"
+    },
+    {
+      "file": "scripts/world/AcademyDecor.gd.uid",
+      "bytes": 20,
+      "sha256": "88d4cbc6bfde5289932f6e1e6deca5de9c59b8847c8370aa97b8df098153c88b"
+    },
+    {
+      "file": "scripts/world/AcademyHub.gd",
+      "bytes": 6637,
+      "sha256": "d7f06ccf6b70c1ff16f1cbdd870ed4fa66184c6a91eb39cdc75ed68ea6a9b786"
+    },
+    {
+      "file": "scripts/world/AcademyHub.gd.uid",
+      "bytes": 19,
+      "sha256": "90b8f04b4daa3759b6af107dc5bd3b5427532c59223183cbe2da76be0a5fbe37"
+    },
+    {
       "file": "scripts/world/Datacenter3D.gd",
-      "bytes": 21399,
-      "sha256": "cb44aa988df3977478ddc1670d9c3915d05ea8ab640015b8fe498e59f84bf867"
+      "bytes": 21672,
+      "sha256": "89061a6c018c27d14f6bd9cb3d3b104944f303995cb3fa90f39918d6291c26e6"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -510,8 +560,8 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "bytes": 41753,
-      "sha256": "0bcc39d21975534c99c31cab96356c8e3c6981c2417d514e918705bc03550bf5"
+      "bytes": 44462,
+      "sha256": "b772753ec585d3500dc1f21a02ef5addc2c916ee02f8dbed22be416346730f9e"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -520,8 +570,8 @@
     },
     {
       "file": "scripts/world/Geometry.gd",
-      "bytes": 8946,
-      "sha256": "49f269dd87ef32ab60263102df43bfbe7f804f997dac4bef0cda8453f2f9cf8f"
+      "bytes": 9150,
+      "sha256": "9c23d0a6be78712aca090b7beeb601fee8c77f25282ad8825083b54454765fe1"
     },
     {
       "file": "scripts/world/Geometry.gd.uid",
@@ -570,8 +620,8 @@
     },
     {
       "file": "scripts/world/WorldVisuals.gd",
-      "bytes": 17183,
-      "sha256": "54f25ff05a2e2ed0172664dcfe34aba31104281559b1ec6176f906bb8447820a"
+      "bytes": 17249,
+      "sha256": "9311d0c31435f843caad38ec1e9093ec29998de5ca8c958ee024375dfe4ca4c4"
     },
     {
       "file": "scripts/world/WorldVisuals.gd.uid",
@@ -610,8 +660,8 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "bytes": 14643,
-      "sha256": "7fe735c06b60e3d770b7ce1d922ab099ac8442af858606df9b683ffba8686b2f"
+      "bytes": 14700,
+      "sha256": "aadc2de74a66c7c2e34953d9f3e05b6b5a86faddc1c3ad986c419fd5c9bfd652"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
@@ -699,9 +749,14 @@
       "sha256": "97b1d75321c90c4b8e07a67d97ed02fdf088562eff595755099cb479455c7f45"
     },
     {
+      "file": "data/english/london_quiz.json",
+      "bytes": 18380,
+      "sha256": "9da5357445374f995cf7c513b7eaf4b10e53add9924e170d7aef9f3b46154df6"
+    },
+    {
       "file": "data/english/scenarios.json",
-      "bytes": 3695,
-      "sha256": "634a667184beb09de9300342d5685332e3e512636445054b9f4a6da44621b597"
+      "bytes": 9787,
+      "sha256": "1cd78687845720f8ab2eb3b7556bead3903b52d2deb13ddfb97746999c71bed9"
     },
     {
       "file": "data/infrastructure/academy_defaults.json",
@@ -833,8 +888,8 @@
     "signature": "PASS",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 3,
-    "version_name": "1.2.0",
+    "version_code": 4,
+    "version_name": "1.3.0",
     "device": "NOT RUN: no authorized ADB device"
   },
   "hardware_tracking": "NOT TESTED",

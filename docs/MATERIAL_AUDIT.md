@@ -1,4 +1,4 @@
-# Audit povrchů celé akademie — 2. 11. 2026
+# Audit povrchů celé akademie — dokončeno 3. 11. 2026
 
 Audit navazuje na uživatelem hlášený vadný vzhled londýnského vstupu. Materiály
 jsou převážně procedurální; nebylo třeba přidávat bitmapové textury ani fonty.
@@ -28,6 +28,9 @@ kolo a kabinky, věž a ciferníky, řeka, most, zábradlí, postavy, přepážk
 terminál a kontrola. Stejné záběry vznikají v Compatibility i Forward+.
 Výběr je v [ui-review/2026-11-02-hub](ui-review/2026-11-02-hub/README.md).
 Plné místní podklady jsou v `test-output/material-before-*` a `material-after-*`.
+Finální čisté logy: `hub-material-compatibility.log` a `hub-material-forward.log`.
+V každém rendereru je 19 základních pohledů a 30 snímků matice rozlišení/textu,
+celkem 49. Výchozí snímky pocházejí z 2. 11.; konečné zahrnují dekorace všech místností.
 
 ## Nalezené závady a provedené opravy
 
@@ -71,3 +74,16 @@ Testy nastavují vlastní SaveManager.path_override, DisplaySettings a VRSetting
 s PID před konstrukcí hry. Matice zahrnuje 720p/1080p/4K a 100/130 % textu.
 Automatická kontrola UI sama nenahrazuje prohlídku materiálů. Desktopový
 Compatibility běh ověřuje dostupný renderer; není měřením optiky ani výkonu PICO.
+
+## Skutečně zabalené prostředky
+
+Dodatečný externí `package_content.gd` nad přesným EXE a skutečnými prostředky
+APK prošel graficky v Compatibility: 5033/5057 kontrol, 278 materiálových instancí
+po prvním vytvoření světa, žádný mesh bez materiálu, platné používané shadery
+se stejným kódem jako zdroje a dostupné vygenerované normálové textury.
+Rozdíl proti 280 instancím prohlídky tvoří dočasné materiály po interakcích.
+Stejný test porovná všechny JSON hodnoty a vyloučí pracovní adresáře.
+Logy: `test-output/windows-package/package_content-final-graphical.log`
+a `test-output/pico-package/package_content-final-graphical.log`.
+U desktopového čtení APK je vypnut pouze seznam Android GDExtension; nejde
+o spuštění Android knihoven nebo test fyzického PICO.

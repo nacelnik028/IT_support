@@ -16,10 +16,19 @@ Pokud hru stahuješ z GitHubu, otevři
 a zvol **Download raw file / Stáhnout**. Při použití níže uvedených příkazů
 ponech APK ve složce `build/pico4` uvnitř projektu.
 
-Aktuální APK je **Training academy 1.2.0 (versionCode 3)** z 2. 11. 2026,
-včetně západní programovací učebny a English in London se šesti situacemi.
+Aktuální APK je **Training academy 1.3.0 (versionCode 4)** z 3. 11. 2026.
+Po vstupu se objevíš v odekorovaném rozcestníku: průchody 01 a 02 vedou do
+serverovny a IT tréninku, 03 vlevo do programování a 04 vpravo chodbou do Londýna.
+Všechny místnosti mají doplněné dekorace; původní postup a rozpracovaná kampaň
+zůstávají zachované. Londýn obsahuje šest situací B1–B2, zákaznické dotazy na
+nabídku, podmínky a celkovou cenu a 20 otázek na tabuli **LONDON QUIZ** vedle Alexe.
 V angličtině vybírej repliky paprskem a triggerem; B/Y zavře panel, A/X jej
 přemístí. Nákup pokračuje u cvičného terminálu a kontroly vstupenek.
+Kvíz i nákup dokončíš bez fyzické klávesnice. Teleport a snap turn fungují také
+v hale a chodbě; nastavení sezení/stání a kalibrace výšky zůstávají dostupné.
+Pauza → Rozcestník akademie bezpečně odloží kampaň; neodevzdaný výukový pokus
+se při odchodu zruší, dosažené výsledky zůstanou. Starší výsledky angličtiny
+jsou v archivu a nevydávají se za nové zvládnutí B1–B2.
 Má stejný identifikátor
 a podpis jako předchozí verze; `adb install -r` provede aktualizaci.
 Podpis, obsah a herní testy jsou ověřené; spuštění přímo na fyzickém PICO

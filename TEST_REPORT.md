@@ -1,5 +1,94 @@
 # Ověření rozšířené hratelné verze
 
+## Rozcestník, dekorace všech místností a B1–B2 — 3. 11. 2026
+
+Aktuální etapa plní PROMPT_ACADEMY_HUB_PC_VR.md a doplňující požadavky na
+dekorace. Herní zdroje exportů jsou `0cb87a31baace36a34b7f686e1e36f95d0df5d51`.
+Následující starší sekce zachycují předchozí vydání, nikoli omezení této etapy.
+
+- **Celá aktuální tools/Test-All.ps1: 36 sad PASS**, čistý závěrečný log
+  `test-output/hub-release-test-all.log`. Všech 65 misí, původních 24 definic,
+  21 lekcí ve třech režimech, náhodné série i programování zůstávají funkční.
+- **academy_hub 52 PASS**: skutečné WASD do všech čtyř místností a zpět,
+  neutrální vstup z menu, odložená upravená infrastruktura/ticket/postup,
+  všechny IT režimy, programovací koncept a náhled, rušení nákupu, restart,
+  staré pozice, nové podlahy a skutečný teleportovací oblouk proti dveřím.
+- **english_model 1809 PASS**: všech 54 kombinací situace/režimu/varianty,
+  devět skutečných zákaznických dotazů, ověření porozumění, rozpočty a časy,
+  Standard/Flex, přepočet změněného košíku, chybný součet, jediná platba,
+  platný lístek, omezení místem a pravdivé selhání zápisu s opakováním.
+- **london_quiz 527 PASS**: 20 stabilních ID, ručně určené očekávané odpovědi,
+  všechny režimy, promíchání sémantických ID, opravy bez navýšení prvního skóre,
+  dokončení/rušení, historie, restart, neplatný save a archiv původních výsledků.
+- **english_world 1043 headless / 1063 GPU PASS**: všech šest situací a všech
+  20 otázek přes skutečné PC vstupy a oba syntetické XR paprsky do SubViewportu,
+  stisk/uvolnění, současné paprsky a ochrana před duplicitním vstupem. Matice
+  720p/1080p/4K × 100/130 % textu zahrnuje dialog, zákaznický dotaz a kvíz.
+  `hub-english-graphical.log`; hardwarový tracking tím není ověřený.
+- **Materiály GPU Compatibility i Forward+ PASS**: 49 snímků v každém rendereru,
+  všech pět prostorů, detaily, obě strany a stavy dveří, stejná matice rozlišení.
+  Každý profil: 280 materiálových instancí, 0 chybějících přiřazení,
+  27 strukturálních stěn, 0 koplanárních překryvů. Prohlídka snímků a příčiny
+  oprav v `docs/MATERIAL_AUDIT.md`; výběr před/po pod `docs/ui-review/2026-11-02-hub/`.
+
+Testy používají vlastní SaveManager.path_override i samostatné konfigurace před
+GameManagerem. Nové sady mají PID v názvu, staré sady běží sekvenčně.
+Hráčův academy_save.json se nepoužívá. Původní IT katalogy a jejich generátory
+se nemění; schéma save 2 přijímá staré soubory i nové samostatné větve.
+
+Původní selhání této etapy se nezamlčují. První průchod hubu odhalil starou
+migraci severní pozice aplikovanou také na nový práh; hranice byla opravena a
+hub znovu prošel. První plná regrese se zastavila na očekávání přesunu dříve
+uzavřeného prahu programovací učebny; nyní otevřená bezpečná pozice se zachovává,
+test stále kontroluje skutečně neplatnou starou polohu i shodu XP/výsledků.
+První porovnání archivu v testu bylo citlivé na JSON int/float; srovnávají se
+normalizované hodnoty na obou stranách. Grafická prohlídka odhalila chybný
+nadpis režimu po znovuotevření dialogu; pořadí inicializace opraveno a přidáno
+šest kontrol. Ztrátu nativního fokusu snímkovací helper řeší obnovením pouze
+izolované testovací relace; bezpečné pauzování hry zůstává funkční.
+
+Finální distribuční ověření této etapy:
+
+- **Samostatné EXE 104 579 568 B**, rezerva **278 032 B** do 100 MiB,
+  SHA256 `96510e62937792be20d8977936a8ab907f6b0444ad7f875921bfb2c38e208562`.
+  Nativní headless i GPU start v izolované složce bez editoru a sousedního PCK
+  PASS. Smoke dokončí 6 situací, kvíz 20/20, trénink, Python/Web i návrat.
+  **17 externích sad nad přesným packem nakonec PASS**; Londýn GPU 1063,
+  umístění učebny GPU 117, terminál 64 a fyzický průchod 39. Závěrečné výsledky
+  a cílené opakování jsou v `windows-package/results.json`.
+- **Podepsané APK 90 508 612 B**, verze **1.3.0 / versionCode 4**,
+  SHA256 `aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940`.
+  Podpis v2, CRC, ARM64/OpenXR/PICO manifest PASS; identifikátor i certifikát
+  souhlasí s předchozím APK. Skutečné prostředky z APK: **oba desktopové smoke
+  běhy a všech 10 externích sad PASS**, Londýn 1043, model 1809, kvíz 527,
+  hub 52, UI 363, učebna 114, programování 765, XR 69 a terminál 64.
+  Otisky aktuálních zdrojů i katalogů odpovídají. `pico-package/results.json`.
+- **Obsah a materiály skutečných balíčků**: 188 souborů Windows / 192 APK,
+  žádné build/builds/tests/tools/test-output/docs uvnitř. Každý zabalený JSON
+  souhlasí hodnotami s referencí; Windows kompaktuje jen mezery v izolované
+  exportní kopii. Dodatečný GPU audit přesného packu: **5033 / 5057 kontrol
+  PASS**, v obou 278 materiálů po prvním vytvoření světa, platné shadery se
+  shodným kódem a dostupné vygenerované normálové textury. Prohlídka zdrojového
+  světa má po interakcích 280 instancí včetně dočasných materiálů zvýraznění.
+  `windows-package/package_content-final-graphical.log` a protějšek v pico-package.
+- **Fyzické PICO NEPROVEDENO**: nové `adb devices -l` bez autorizovaného
+  headsetu. Android knihovny nebyly spuštěny na zařízení, tracking, komfort,
+  optická čitelnost a FPS se neprohlašují za ověřené. Žádný telefon se neměnil.
+
+První balíčkový audit Windows ukončil vytvořený svět během asynchronního GL
+nahrávání textur: 1147 věcných kontrol prošlo, ale dva texture-leak ERROR při
+ukončení správně označily běh za nečistý. Test nyní čeká na nahrání a odložené
+uvolnění prostředků; stejný EXE prošel cíleným opakováním i rozšířeným auditem.
+Herní zdroje ani obsah exportu se kvůli tomu neměnily. První report je zachovaný
+v `windows-package/results-initial.json` a selhání v manifestu. Diagnostický
+opakovaný běh z adresáře projektu narazil na editorovou vendor konfiguraci;
+konečné opakování běželo opět izolovaně mimo projekt a bez varování.
+
+Aktuální `build/VERIFICATION.json`, oba BUILD_INFO a SHA256SUMS odkazují jen na
+tyto dva současné artefakty. `build/` zůstává zachováno; `builds/` nevzniklo.
+Předchozí výsledky níže jsou historické. Následující tehdejší plán hubu,
+vizuálního auditu a B1–B2 je touto etapou splněný.
+
 ## English in London — dokončeno 2. 11. 2026, nativní Windows
 
 Čtvrtý fyzický pavilon navazuje jižním průchodem 04 na serverovnu. Obsahuje

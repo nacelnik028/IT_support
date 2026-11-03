@@ -1,5 +1,42 @@
 # PC / PICO 4 – ověření
 
+## Rozcestník a B1–B2 — 2026-11-03
+
+Nový společný start PC/VR je neutrální hala se čtyřmi fyzickými průchody.
+Teleport zahrnuje halu i východní chodbu; oblouk a cílová kapsle respektují
+zavřené dveře, stěny, vybavení a zákaz řeky mimo most. Původní posuvné dveře,
+snap turn, kalibrace, sezení/stání, oba ovladače a ochrana při focus/tracking
+zůstávají součástí existujícího XR systému. Dekorace místností nepřidávají
+bitmapy, monitory ani světla; statická geometrie používá sdílené materiály.
+
+Celý zdrojový Test-All: **36 sad PASS**. academy_hub 52, english_model 1809,
+london_quiz 527, english_world **1043 headless / 1063 graficky**, xr_modes 69.
+Syntetické XR testy používají skutečné ray kliky do SubViewportu oběma rukama,
+úplný press/release, opakované/souběžné triggery, jednu platbu/odměnu, všech
+šest situací B1–B2 a všech 20 otázek, room-scale odchod i teleport z UI.
+Nejde o fyzický tracking. Kampaň se obnovuje i po přímých přechodech mezi kurzy.
+
+Audit na RTX 5060 v Compatibility i Forward+: 49 snímků/profil, všechna prostředí,
+720p/1080p/4K a 100/130 % textu; 280 materiálových instancí bez chybějících
+přiřazení a 27 strukturálních stěn bez koplanárního překryvu. Opravený londýnský
+průchod, směrové cedule, krky postav a dekorace jsou vizuálně zkontrolované.
+Výsledky exportů uvádějí aktuální TEST_REPORT.md a build/VERIFICATION.json.
+Samostatné Windows: oba nativní starty a 17 externích sad nakonec PASS.
+Skutečné prostředky nového APK: headless/GPU smoke a 10 externích sad PASS.
+Dodatečný GPU audit obsahu obou packů: 5033/5057 kontrol, všechny JSON hodnoty,
+278 počátečních materiálových instancí, platné shadery a vygenerované textury.
+Dočasně se vypíná jen seznam Android GDExtension při desktopovém čtení APK;
+Android nativní knihovny tím nejsou testované.
+
+APK **1.3.0 / versionCode 4**, původní `cz.academy.itsupport`, ARM64 a OpenXR/PICO
+manifest: podpis a CRC PASS. SHA256 certifikátu nového i předchozího APK je
+`3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997`;
+možnost aktualizace zachována. `adb devices -l` stále nevrací autorizovaný
+headset. **Android start, reálný tracking, optická čitelnost, komfort a FPS
+na PICO nejsou ověřené.** Cílových 72 Hz není naměřených 72 FPS.
+
+Níže jsou historické výsledky před touto etapou.
+
 ## English in London — 2026-11-02
 
 Nové EXE i APK obsahují šest situací, tři režimy a varianty včetně skutečných

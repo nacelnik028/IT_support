@@ -1,44 +1,89 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
-  "date": "2026-11-02",
-  "change": "English in London: six scenarios, data variants, shared PC and VR input, persistent results",
-  "source_commit": "42600a3add242004e903fa827a7680db55306e90",
+  "date": "2026-11-03",
+  "change": "Academy hub; all-room decoration and material repairs; six B1-B2 scenarios with real customer questions; offline London quiz",
+  "source_commit": "0cb87a31baace36a34b7f686e1e36f95d0df5d51",
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104786904,
-      "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff"
+      "bytes": 104579568,
+      "sha256": "96510e62937792be20d8977936a8ab907f6b0444ad7f875921bfb2c38e208562"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-      "bytes": 90466889,
-      "sha256": "89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90"
+      "bytes": 90508612,
+      "sha256": "aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940"
     }
   ],
   "source_regressions": {
-    "suites": 34,
+    "suites": 36,
     "failures": 0,
-    "log": "test-output/london-test-all.log",
-    "english_model": 988,
-    "english_world_headless": 409,
-    "save_isolation": "SaveManager.path_override and independent settings before GameManager"
+    "suite_names": [
+      "academy_hub",
+      "london_quiz",
+      "english_model",
+      "english_world",
+      "ui_workflow",
+      "programming_runtime",
+      "programming_catalog",
+      "programming_academy",
+      "programming_integration",
+      "programming_polish",
+      "programming_location",
+      "xr_modes",
+      "terminal_sessions",
+      "platform_context",
+      "console_ux",
+      "ui_design",
+      "world_ui",
+      "stage1",
+      "campaign",
+      "regression",
+      "extended",
+      "session_safety",
+      "save_safety",
+      "physical3d",
+      "world3d",
+      "door3d",
+      "world_playthrough",
+      "training_rooms",
+      "tutorial_first",
+      "tutorial_navigation",
+      "lessons",
+      "training_features",
+      "ui_safety",
+      "ui_smoke",
+      "training_ui",
+      "display_settings"
+    ],
+    "log": "test-output/hub-release-test-all.log",
+    "academy_hub": 52,
+    "english_model": 1809,
+    "london_quiz": 527,
+    "english_world_headless": 1043,
+    "english_world_graphical": 1063,
+    "save_isolation": "SaveManager.path_override and independent settings before GameManager; PID paths in new suites; old suites sequential"
   },
   "windows": {
     "engine": "4.7.2.stable.official.ed1daf0bf",
     "export": "Windows x86_64 Debug",
-    "bytes": 104786904,
-    "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
+    "bytes": 104579568,
+    "sha256": "96510e62937792be20d8977936a8ab907f6b0444ad7f875921bfb2c38e208562",
     "embedded_pck": true,
-    "verification": "Native Windows headless EXE-only smoke",
+    "verification": "Native Windows EXE-only headless and GPU smoke; 17 packaged suites and GPU material audit",
     "native_windows_graphical_verified": true,
-    "source_commit": "42600a3add242004e903fa827a7680db55306e90",
-    "github_limit_remaining_bytes": 70696
+    "json_export": "lossless whitespace compaction in isolated build copy",
+    "source_commit": "0cb87a31baace36a34b7f686e1e36f95d0df5d51",
+    "github_limit_remaining_bytes": 278032
   },
   "portable_windows": {
     "embedded_pck": true,
     "packaged_tests": {
       "native_headless": true,
       "native_graphical": true,
+      "package_content": true,
+      "academy_hub": true,
+      "london_quiz": true,
       "english_model": true,
       "english_world": true,
       "ui_workflow": true,
@@ -55,37 +100,16 @@
       "world_playthrough": true
     },
     "details": {
-      "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
-      "initial_run": {
-        "native_checks_runtime": "Windows",
-        "editor_pack_checks_runtime": "Windows",
-        "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
-        "bytes": 104786904,
-        "results": {
-          "native_headless": true,
-          "native_graphical": true,
-          "english_model": true,
-          "english_world": true,
-          "ui_workflow": true,
-          "programming_runtime": true,
-          "programming_catalog": true,
-          "programming_academy": true,
-          "programming_integration": true,
-          "programming_polish": true,
-          "programming_location": true,
-          "xr_modes": true,
-          "terminal_sessions": true,
-          "ui_design": true,
-          "world_ui": true,
-          "world_playthrough": false
-        }
-      },
-      "corrected_harness_reruns": {
-        "world_playthrough": true
-      },
-      "final_results": {
+      "native_checks_runtime": "Windows",
+      "editor_pack_checks_runtime": "Windows",
+      "sha256": "96510e62937792be20d8977936a8ab907f6b0444ad7f875921bfb2c38e208562",
+      "bytes": 104579568,
+      "results": {
         "native_headless": true,
         "native_graphical": true,
+        "package_content": true,
+        "academy_hub": true,
+        "london_quiz": true,
         "english_model": true,
         "english_world": true,
         "ui_workflow": true,
@@ -101,68 +125,56 @@
         "world_ui": true,
         "world_playthrough": true
       },
-      "reason": "First NAS key input arrived during a legitimate native focus pause. The test now resumes through the real UI and sends a complete E press/release.",
-      "prior_artifact_failed_run_and_verified_fix": {
-        "sha256": "d4ba7004df5c5017b6937c711b079c780c886583e1607dd603d0a5d2c6e273f4",
-        "initial_run": {
-          "native_checks_runtime": "Windows",
-          "editor_pack_checks_runtime": "Windows",
-          "sha256": "d4ba7004df5c5017b6937c711b079c780c886583e1607dd603d0a5d2c6e273f4",
-          "bytes": 104786904,
-          "results": {
-            "native_headless": true,
-            "native_graphical": true,
-            "english_model": true,
-            "english_world": true,
-            "ui_workflow": true,
-            "programming_runtime": true,
-            "programming_catalog": true,
-            "programming_academy": true,
-            "programming_integration": true,
-            "programming_polish": true,
-            "programming_location": false,
-            "xr_modes": true,
-            "terminal_sessions": true,
-            "ui_design": true,
-            "world_ui": true,
-            "world_playthrough": true
-          }
-        },
-        "corrected_harness_reruns": {
-          "english_world": true,
-          "programming_location": true
-        },
-        "final_results": {
-          "native_headless": true,
-          "native_graphical": true,
-          "english_model": true,
-          "english_world": true,
-          "ui_workflow": true,
-          "programming_runtime": true,
-          "programming_catalog": true,
-          "programming_academy": true,
-          "programming_integration": true,
-          "programming_polish": true,
-          "programming_location": true,
-          "xr_modes": true,
-          "terminal_sessions": true,
-          "ui_design": true,
-          "world_ui": true,
-          "world_playthrough": true
-        },
-        "reason": "Native focus loss correctly paused the game; automation explicitly resumes via the real Continue button. No game focus safety was disabled."
+      "reruns": [
+        {
+          "suite": "package_content",
+          "initial_clean": false,
+          "final_clean": true,
+          "cause": "Test quit during initial asynchronous GL texture uploads; wait for uploads and deferred cleanup. Full inventory assertions retained.",
+          "log": "test-output/windows-package/package_content-rerun.log",
+          "initial_report": "test-output/windows-package/results-initial.json"
+        }
+      ]
+    },
+    "graphical_material_audit": {
+      "clean": true,
+      "log": "test-output/windows-package/package_content-final-graphical.log",
+      "materials": {
+        "material_instances": 278,
+        "renderer": "gl_compatibility",
+        "shaders": [
+          "res://assets/materials/perforated_metal.gdshader",
+          "res://assets/materials/raised_floor.gdshader"
+        ]
       }
-    }
+    },
+    "packaged_file_count": 188,
+    "all_json_values_match_reference": true,
+    "forbidden_working_directories_absent": true,
+    "native_exe_only": true
   },
   "pico4": {
     "signature": "PASS",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 3,
-    "version_name": "1.2.0",
+    "version_code": 4,
+    "version_name": "1.3.0",
     "device": "NOT RUN: no authorized ADB device",
+    "signing_identity": {
+      "certificate_unchanged": true,
+      "records": [
+        {
+          "artifact": "previous",
+          "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997"
+        },
+        {
+          "artifact": "current",
+          "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997"
+        }
+      ]
+    },
     "desktop_resource_tests": {
-      "apk_sha256": "89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90",
+      "apk_sha256": "aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940",
       "runtime": "Windows Godot with actual APK resources",
       "android_native_runtime": "NOT RUN: requires an authorized PICO headset",
       "results": {
@@ -170,6 +182,9 @@
         "packaged_catalogs_match": true,
         "desktop_resources_headless": true,
         "desktop_resources_graphical": true,
+        "package_content": true,
+        "academy_hub": true,
+        "london_quiz": true,
         "english_model": true,
         "english_world": true,
         "ui_workflow": true,
@@ -179,9 +194,45 @@
         "terminal_sessions": true
       }
     },
-    "forbidden_packaged_directories": []
+    "graphical_material_audit": {
+      "clean": true,
+      "log": "test-output/pico-package/package_content-final-graphical.log",
+      "materials": {
+        "material_instances": 278,
+        "renderer": "gl_compatibility",
+        "shaders": [
+          "res://assets/materials/perforated_metal.gdshader",
+          "res://assets/materials/raised_floor.gdshader"
+        ]
+      }
+    },
+    "packaged_file_count": 192,
+    "all_json_values_match_reference": true,
+    "forbidden_working_directories_absent": true,
+    "source_snapshot_matches": true
+  },
+  "visual_audit": {
+    "gl_compatibility": {
+      "material_instances_after_interactions": 280,
+      "missing_materials": 0,
+      "structural_walls": 27,
+      "coplanar_wall_overlaps": 0,
+      "screenshots": 49,
+      "log": "test-output/hub-material-compatibility.log",
+      "matrix_image_dimensions_verified": true
+    },
+    "forward_plus": {
+      "material_instances_after_interactions": 280,
+      "missing_materials": 0,
+      "structural_walls": 27,
+      "coplanar_wall_overlaps": 0,
+      "screenshots": 49,
+      "log": "test-output/hub-material-forward.log",
+      "matrix_image_dimensions_verified": true
+    }
   },
   "english": {
+    "content_version": 2,
     "scenarios": 6,
     "modes": [
       "learn",
@@ -190,7 +241,11 @@
     ],
     "variants_per_scenario": 3,
     "model_combinations_tested": 54,
-    "graphical_source_checks": 417,
+    "customer_question_topics": 9,
+    "quiz_questions": 20,
+    "quiz_ids": "LONQ01-LONQ20",
+    "official_sources_verified": "2026-11-02",
+    "legacy_results_archived_losslessly": true,
     "pc_resolutions": [
       "1280x720",
       "1920x1080",
@@ -200,15 +255,66 @@
       1.0,
       1.3
     ],
-    "synthetic_xr": "Both tracked controller rays, real SubViewport clicks; no physical headset claim",
-    "windows_pack_content": "Six scenarios and updated family quantities; no build/tests/tools/test-output directories"
+    "synthetic_xr": "Both controller rays, actual SubViewport press/release; not hardware tracking"
   },
+  "initial_failures_and_corrections": [
+    {
+      "case": "Initial sandbox baseline could not write Godot AppData saves",
+      "resolution": "Native isolated-save baseline rerun passed all previous 34 suites",
+      "evidence": "test-output/hub-baseline-native.log"
+    },
+    {
+      "case": "Old north-position migration moved players at a new hub threshold",
+      "resolution": "Migration restricted to obsolete invalid northern poses; hub walking and save tests pass",
+      "evidence": "test-output/hub-release-test-all.log"
+    },
+    {
+      "case": "Initial full run expected relocation at a formerly sealed threshold now opened by the hub",
+      "resolution": "Preserve the now safe position; still test invalid legacy pose and unchanged XP/results",
+      "initial_log": "test-output/hub-test-all.log",
+      "final_log": "test-output/hub-release-test-all.log"
+    },
+    {
+      "case": "Archive test compared JSON integers and floats without normalizing both sides",
+      "resolution": "Normalize both references through JSON; preserved archive data passes all 527 quiz checks"
+    },
+    {
+      "case": "Reopened exam dialogue showed a learn-mode header",
+      "resolution": "Set session mode before drawing header; six new UI assertions; 1043/1063 checks pass"
+    },
+    {
+      "case": "New packaged-content audit quit during asynchronous GL uploads, reporting two texture leak errors",
+      "initial_log": "test-output/windows-package/package_content-initial.log",
+      "resolution": "Wait for first uploads and deferred cleanup; same EXE passes targeted rerun and enhanced graphical content audit",
+      "final_log": "test-output/windows-package/package_content-final-graphical.log"
+    },
+    {
+      "case": "Diagnostic rerun from project cwd loaded editor vendor settings and emitted a hand_tracking warning",
+      "initial_log": "test-output/windows-package/package_content-project-cwd.log",
+      "resolution": "Final external tests run from isolated temporary cwd; clean logs for both packs"
+    }
+  ],
   "hardware_tracking": "NOT TESTED",
   "pico_72_fps": "NOT MEASURED",
   "known_limits": [
-    "No authorized PICO headset connected; Android startup and real tracking/comfort/FPS unverified.",
-    "User-reported London entrance texture/material defects and full visual audit are explicitly assigned to the follow-up prompt.",
-    "Hub, B1-B2 rewrite, London knowledge quiz and expanded customer questions are future work in PROMPT_ACADEMY_HUB_PC_VR.md."
+    "No authorized PICO headset connected; Android startup, real tracking, optical readability, comfort and FPS remain unverified.",
+    "Synthetic XR inputs and desktop APK-resource execution do not verify native Android libraries.",
+    "Windows executable uses the official Debug export template and is not Authenticode signed."
   ],
-  "automation_diagnostics": "Earlier graphical UI navigation and programming walk runs failed. Corrected synthetic clicks and explicit real-UI resume after native focus pause were verified; prior failures and reruns remain in portable_windows.details.prior_artifact_failed_run_and_verified_fix."
+  "previous_release": {
+    "source_commit": "42600a3add242004e903fa827a7680db55306e90",
+    "artifacts": [
+      {
+        "file": "build/ITSupportSimulator.exe",
+        "bytes": 104786904,
+        "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff"
+      },
+      {
+        "file": "build/pico4/ITSupportSimulator-PICO4.apk",
+        "bytes": 90466889,
+        "sha256": "89b4d55741deaad6251e4588af13b6baf52d86bcbe724b1a6c8870bf17745f90"
+      }
+    ],
+    "historical_report": "TEST_REPORT.md: English in London, 2026-11-02"
+  }
 }
