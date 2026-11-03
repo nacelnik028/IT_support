@@ -103,6 +103,7 @@ func configure_refresh():
 func lose_focus():
 	if not active: return
 	focused = false
+	if is_instance_valid(shell.speech): shell.speech.stop()
 	teleporting = false
 	teleport_line.hide()
 	monitor.click(false)
@@ -129,6 +130,7 @@ func ray_hit(hand: Node3D, distance: float = 3.2) -> Dictionary:
 
 func allowed(object) -> bool:
 	if not is_instance_valid(object): return false
+	if shell.practical_intro.active: return true
 	if "kind" in object:
 		if object.kind=="english": return shell.ui.game.game_mode.is_english()
 		if shell.ui.game.game_mode.is_english(): return false
@@ -145,6 +147,9 @@ func pressed(hand: XRController3D, action: String):
 	if tracker==null or not tracker.has_pose("default") or not tracker.get_pose("default").has_tracking_data: return
 	if action in ["menu_button","by_button"]:
 		if shell.mode == "world": shell.pause_menu()
+		elif shell.practical_intro.active and shell.mode=="pause":
+			if shell.practical_intro.step==9: shell.practical_intro.finish(true)
+			else: shell.return_to_world()
 		else: shell.return_to_world()
 		return
 	if action == "ax_button":
@@ -183,7 +188,10 @@ func released(_hand: XRController3D, action: String):
 	if action == "grip_click" and hold_hand==grip_nodes[_hand]:
 		var hit=ray_hit(hold_hand,0.65)
 		if not hit.is_empty() and allowed(hit.collider) and "kind" in hit.collider:
-			if hit.collider.kind=="spares": shell.ui.game.apply("physical_return_spare",{})
+			if hit.collider.kind=="spares":
+				if shell.practical_intro.active:
+					if hit.collider.device_id=="TRAIN-SPARES": shell.practical_intro.return_spare()
+				else: shell.ui.game.apply("physical_return_spare",{})
 			elif hit.collider.kind=="disk": shell.interact(hit.collider)
 		shell.world.carried_disk.reparent(self)
 		shell.world.carried_disk.position=Vector3(0.32,1.0,-0.4)
@@ -192,6 +200,11 @@ func released(_hand: XRController3D, action: String):
 func interact_target(object, grip: bool, hand: XRController3D):
 	shell.ui.game.reconcile_room()
 	if not allowed(object): return
+	if shell.practical_intro.active:
+		if object.has_meta("spare"):
+			if grip and object.get_meta("spare")=="SPARE-2T" and object.get_meta("laboratory") and shell.practical_intro.take(): attach_disk(hand)
+		else: shell.interact(object)
+		return
 	if object.has_meta("spare"):
 		if grip:
 			var result = shell.ui.game.apply("physical_spare",{"spare":object.get_meta("spare")})
@@ -324,6 +337,7 @@ func _physics_process(delta):
 	var head_tracker=XRServer.get_tracker("head")
 	if not focused or head_tracker==null or not head_tracker.has_pose("default"): return
 	if not head_tracker.get_pose("default").has_tracking_data:
+		if is_instance_valid(shell.speech): shell.speech.stop()
 		# Tracking can recover without a new session_focussed signal. Preserve
 		# session focus so the recovered player can resume from the pause menu.
 		teleporting=false
@@ -354,7 +368,7 @@ func _physics_process(delta):
 		if teleporting: update_teleport()
 		var hit=ray_hit(right)
 		p.update_focus(hit.collider if not hit.is_empty() and hit.collider.has_method("set_focus") else null)
-		wrist.text=shell.status_label.text+"\n"+shell.instruction.text+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
+		wrist.text=(shell.diagnostics.text+"\n" if shell.diagnostics.visible else "")+shell.status_label.text+"\n"+shell.instruction.text+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
 	else:
 		var hand=pointer_hand if is_instance_valid(pointer_hand) and monitor.pointer_down else right
 		var pixel=monitor.pixel_at(hand.global_position,-hand.global_basis.z) if hand.get_has_tracking_data() else Vector2(-1,-1)

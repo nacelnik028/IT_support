@@ -17,6 +17,7 @@ var quality = "Vysoká"
 var vsync = true
 var fps_limit = 0
 var introduction_seen = false
+var london_autoplay = false
 
 func load_settings():
 	var config=ConfigFile.new()
@@ -42,6 +43,7 @@ func load_settings():
 	if sync is bool: vsync=sync
 	var seen=config.get_value("interface","introduction_seen",false)
 	if seen is bool: introduction_seen=seen
+	london_autoplay=config.get_value("audio","london_autoplay",false)==true
 	var limit=config.get_value("display","fps_limit",0)
 	if limit in [0,30,60,120,144]: fps_limit=limit
 	var keys=config.get_value("input","bindings",{})
@@ -63,6 +65,7 @@ func save_settings() -> Error:
 	config.set_value("input","bindings",bindings)
 	config.set_value("audio","volume",volume)
 	config.set_value("audio","muted",muted)
+	config.set_value("audio","london_autoplay",london_autoplay)
 	config.set_value("interface","text_scale",text_scale)
 	config.set_value("interface","introduction_seen",introduction_seen)
 	config.set_value("display","quality",quality)

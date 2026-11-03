@@ -1,0 +1,127 @@
+{
+  "voice": "Jenny (Dioco)",
+  "source": "https://github.com/dioco-group/jenny-tts-dataset",
+  "model_sha256": "469c630d209e139dd392a66bf4abde4ab86390a0269c1e47b4e5d7ce81526b01",
+  "lines": [
+    {
+      "id": "LONA01",
+      "scenario": "LON01",
+      "speaker": "customer",
+      "text": "What ticket options are available for this afternoon?",
+      "normal": "res://assets/audio/london/LONA01-normal.mp3",
+      "normal_sha256": "b7f95355b75f451a61286508500694f3a637a2bdac794c93a7ed6290de32e98a",
+      "slow": "res://assets/audio/london/LONA01-slow.mp3",
+      "slow_sha256": "4def774ac8219405412b245422be1a4e8dfcb66e779f3494c5659a890fe3699c"
+    },
+    {
+      "id": "LONA02",
+      "scenario": "LON01",
+      "speaker": "Sam",
+      "text": "Of course. What tickets would you like?",
+      "normal": "res://assets/audio/london/LONA02-normal.mp3",
+      "normal_sha256": "d9fe6f6677ac08e3464364271f08c24c5d046914c07b36bb63f216fbfa6645a3",
+      "slow": "res://assets/audio/london/LONA02-slow.mp3",
+      "slow_sha256": "a40c6c526bbdf41d4d4e43fc67aa7a539105302de42d2ca0846aa9c70d856e28"
+    },
+    {
+      "id": "LONA03",
+      "scenario": "LON02",
+      "speaker": "customer",
+      "text": "Is there a family option for our group, and which ages qualify for child tickets?",
+      "normal": "res://assets/audio/london/LONA03-normal.mp3",
+      "normal_sha256": "da7b1c662a8d7e33507e0d27b4002629929e4452c9ef5085fd85a759bd4b22be",
+      "slow": "res://assets/audio/london/LONA03-slow.mp3",
+      "slow_sha256": "278a878de145a2d82f0806ff0043cd326817b5a21a6439d7c17556cbc74dd3b2"
+    },
+    {
+      "id": "LONA04",
+      "scenario": "LON02",
+      "speaker": "customer",
+      "text": "Could you clarify that once more, please?",
+      "normal": "res://assets/audio/london/LONA04-normal.mp3",
+      "normal_sha256": "cebdb8154686eafc13b825de5e96a2ff5044ef6e9e499e1747bac018587c7964",
+      "slow": "res://assets/audio/london/LONA04-slow.mp3",
+      "slow_sha256": "50661f4c2c57c6f59af7d1b27bc2e83ba5ffd3ec080f31387ce2e3b6fbd040bf"
+    },
+    {
+      "id": "LONA05",
+      "scenario": "LON03",
+      "speaker": "customer",
+      "text": "Before I decide, could you compare the total cost of Standard and Flex for me?",
+      "normal": "res://assets/audio/london/LONA05-normal.mp3",
+      "normal_sha256": "b7c2faa8c26b3c65e71cce751282a7011260b4b384ade793c4f44a140a18138b",
+      "slow": "res://assets/audio/london/LONA05-slow.mp3",
+      "slow_sha256": "def55d8e0b6099b6f85ea6b41a5217f09914bd965a0aa31fbae8c86a77e274d0"
+    },
+    {
+      "id": "LONA06",
+      "scenario": "LON03",
+      "speaker": "Sam",
+      "text": "Would Standard or Flex suit your plans better? Please consider the conditions as well as the price.",
+      "normal": "res://assets/audio/london/LONA06-normal.mp3",
+      "normal_sha256": "ebcda04e961b08edb79358a585eacc885f7f709ae2c5247e647ac3f67913c933",
+      "slow": "res://assets/audio/london/LONA06-slow.mp3",
+      "slow_sha256": "010b894917ff255c1486c6702bed639118c11712fb1dc532bbd0fc31fccf8825"
+    },
+    {
+      "id": "LONA07",
+      "scenario": "LON04",
+      "speaker": "Sam",
+      "text": "I'm sorry, that time is sold out. Would you like a later time?",
+      "normal": "res://assets/audio/london/LONA07-normal.mp3",
+      "normal_sha256": "6237a2866e181cd98cb062a2a3999e0beae0ec83d1af008deb914c5648b3601c",
+      "slow": "res://assets/audio/london/LONA07-slow.mp3",
+      "slow_sha256": "260f2d0dee27e3964522665308d3843ee47f9277ecda546db458c87a56f3fcac"
+    },
+    {
+      "id": "LONA08",
+      "scenario": "LON04",
+      "speaker": "customer",
+      "text": "What is the next available time?",
+      "normal": "res://assets/audio/london/LONA08-normal.mp3",
+      "normal_sha256": "58f508edcb417cf4ba5351d54d46cdf685f8e766115df990025024fc1f6133d5",
+      "slow": "res://assets/audio/london/LONA08-slow.mp3",
+      "slow_sha256": "e5aec8320154c805edce9fbcb6db528d70a330df15352b069fc92d4e1f98c65b"
+    },
+    {
+      "id": "LONA09",
+      "scenario": "LON05",
+      "speaker": "customer",
+      "text": "Let me change that before I pay.",
+      "normal": "res://assets/audio/london/LONA09-normal.mp3",
+      "normal_sha256": "25d2d801f2b9b336d10999f321a200dfa3565b2a172312e8b818a5665a91265a",
+      "slow": "res://assets/audio/london/LONA09-slow.mp3",
+      "slow_sha256": "ab8653b8a0545706450545c65cea08e2119d03916de0922045e529af8822f9c2"
+    },
+    {
+      "id": "LONA10",
+      "scenario": "LON05",
+      "speaker": "Sam",
+      "text": "Of course. What time would you prefer?",
+      "normal": "res://assets/audio/london/LONA10-normal.mp3",
+      "normal_sha256": "5445273af4b9bab41453da16ba42cbcb22e60c99cb8bb5274fcc693037231654",
+      "slow": "res://assets/audio/london/LONA10-slow.mp3",
+      "slow_sha256": "cb935becf1613f12ded217a1a3a05d840f3379826c0587da188a8825584c2d21"
+    },
+    {
+      "id": "LONA11",
+      "scenario": "LON06",
+      "speaker": "Alex",
+      "text": "Hello! Do you need directions?",
+      "normal": "res://assets/audio/london/LONA11-normal.mp3",
+      "normal_sha256": "d3f3236a158b4421e9d9eb6c6432ef23658050514d781cd667127001fe28d99c",
+      "slow": "res://assets/audio/london/LONA11-slow.mp3",
+      "slow_sha256": "500025f8cc2df7e5f45b5fe408b54ac2f2a9938a55577c8b7e0b37472764cefe"
+    },
+    {
+      "id": "LONA12",
+      "scenario": "LON06",
+      "speaker": "customer",
+      "text": "Excuse me, I'm trying to reach Elizabeth Tower on foot. Could you explain the route using landmarks?",
+      "normal": "res://assets/audio/london/LONA12-normal.mp3",
+      "normal_sha256": "2742ea71a6661dbac4431bc96b57f3ce6f72a30eeb9dfe0e4cb5bb2410f2f21f",
+      "slow": "res://assets/audio/london/LONA12-slow.mp3",
+      "slow_sha256": "5117955351801d04d54131f57fb91f2d0dbc0ead65816b69e38baa59a03f70ef"
+    }
+  ]
+}

@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Gameplay — praktický úvod, síť a poslech, 3. 11. 2026
+
+- Devět ověřovaných kroků úvodu: skutečný pohled/chůze nebo XR teleport, konkrétní ovladač a průchod, TRAIN-PC-PVE, UI kontrola, SPARE-2T a vrácení, pauza/pokračování. Samostatný dočasný model, žádné XP či scénář v save; obnovení kampaně/směny i konceptů. Zrušení/opakování a znovuotevření monitoru bez deadlocku.
+- Síťové vysvětlení používá NetworkSimulator/PhysicalOperations, skutečná VM/hostitel/port, neověřené úseky, příčinu/dopad a před-po včetně kabelu. Důkaz kontroly má revizi; zkouška skrývá příčinu.
+- 12 přesných mluvených replik LON01–LON06 a 12 samostatných pomalých variant Jenny (Dioco); MP3 celkem 188 544 B, licenční zdroj a mapování/hash offline. Přehrání nemění dialog; stop při pauze/focus/tracking/odchodu, vlastní Speech bus do Master, volitelná automatika.
+- gameplay 185 PASS headless i skutečně graficky Compatibility; gameplay_review 77 headless a 129 GPU v Compatibility i Forward+, reálný SubViewport/obě ruce/grip/teleport/UI. ui_workflow 579 PASS. MCP DesignMCP 31 PASS, osm již dříve popsaných statických varování, bez runtime chyby.
+- Opraven posuv posledního tlačítka pauzy (pixelové zaokrouhlení) a přesunuta automatika řeči do kompaktního footeru; původní english_world po opravě 1061 PASS. První úplný běh selhal právě na šesti kontrolách tohoto rozložení, nový celek běží.
+- Nové datované PC/VR snímky, návody a výslovný NEPROVEDENO hardwarový checklist. První Windows export v limitu; konečné balíčky a jejich testy jsou další etapa.
+
 ## Gameplay — souvislé směny, 3. 11. 2026
 
 - Vlastní deterministický katalog tří směn × tři navazující tickety: fyzická síť/VLAN/IP/záloha, VM/paměť/start/záloha, konkrétní disk/hot-swap/rebuild/monitoring. Nový ticket zachová stav, zneplatní jen ověření.

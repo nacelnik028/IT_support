@@ -58,10 +58,10 @@ def main():
                                             isolated,logs/'native-graphical.log')
         # The editor runs external tests against precisely the distributed pack.
         # Only screenshot destinations in the temporary test copies change.
-        for name in ['package_content','academy_hub','london_quiz','english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
+        for name in ['shifts','gameplay','gameplay_review','package_content','academy_hub','london_quiz','english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
             text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
-            script.write_text(text.replace('res://test-output',screenshots.as_posix()),encoding='utf-8')
+            script.write_text(text.replace('res://test-output',screenshots.as_posix()).replace('res://docs/ui-review/2026-11-03-gameplay',(screenshots/'gameplay').as_posix()),encoding='utf-8')
             command=[engine,'--audio-driver','Dummy','--main-pack',main_pack,'--script',script]
             if not args.headless: command+=['--rendering-method','gl_compatibility','--disable-vsync']
             if args.headless: command+=['--headless']

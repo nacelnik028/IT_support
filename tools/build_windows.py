@@ -99,7 +99,7 @@ def main():
         binary = result.read_bytes()
         embedded_pack(binary)
         if len(binary) >= 100*1024*1024:
-            raise ValueError('Standalone executable exceeds the GitHub 100 MiB limit')
+            raise ValueError(f'Standalone executable {len(binary)} B exceeds the 104857600 B limit by {len(binary)-104857600} B; previous distribution preserved')
         isolated=temporary/'EXE only with spaces'
         isolated.mkdir()
         renamed=isolated/'Datacenter Academy.exe'
@@ -110,7 +110,7 @@ def main():
         for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
                          'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true',
                          'english=true scenarios=6 completed=6','english_cancelled=true',
-                         'hub=true neutral=true','quiz=true questions=20 score=100']:
+                         'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24']:
             if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
         if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
         staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)

@@ -33,6 +33,21 @@ vedle Alexe (nebo v přehledu situací) nabízí 20 ověřených otázek s vysv�
 a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivované.
 [Audit materiálů a snímky před/po](docs/MATERIAL_AUDIT.md).
 
+## Praktický úvod, směny a poslech
+
+Pauza → **Seznámení s ovládáním** nyní nabízí praktický průchod s dveřmi, monitorem
+a cvičným dílem. **Souvislé směny** v přehledu serverovny nebo pauze obsahují tři
+směny po třech navazujících ticketech nad jednou ukládanou infrastrukturou.
+Kampaň a směna mají samostatné obnovení; přechody mezi učebnami je bezpečně odkládají.
+[Ovládání a pravidla](docs/CONTINUOUS_SHIFTS.md).
+
+Síťový přehled ukazuje ověřenou cestu, příčinu/dopad a porovnání před/po.
+Londýn má **12 mluvených replik** a samostatné pomalé varianty; dostupné repliky
+nabízejí Poslechnout / zopakovat, Pomaleji a Zastavit. Ostatní věty zůstávají textové.
+[Offline řeč, licence a ovládání](docs/LONDON_AUDIO.md). Pauza také nabízí diagnostiku
+výkonu; VR komfort dovoluje změnit velikost/vzdálenost panelu bez změny rozlišení.
+[Budoucí test fyzického PICO](docs/PICO4_HARDWARE_CHECKLIST.md) je výslovně neprovedený.
+
 ## Aktuální rozhraní
 
 Kompaktní menu nabízí hlavní vstup do rozcestníku a samostatnou pracovní směnu,

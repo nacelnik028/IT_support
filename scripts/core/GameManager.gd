@@ -40,6 +40,7 @@ var last_save_error: Error = OK
 var save_message = ""
 var load_warning = ""
 var unsaved = false
+var introduction_active=false
 
 func _init():
 	var owner_ref=weakref(self)
@@ -98,6 +99,7 @@ func _init():
 			suspended_campaign = {}
 
 func reconcile_room():
+	if introduction_active: return
 	if reconciling_room: return
 	reconciling_room=true
 	if english_probe.is_valid() and english_probe.call(): enter_english()
@@ -109,10 +111,12 @@ func reconcile_room():
 	reconciling_room=false
 
 func training_available() -> bool:
+	if introduction_active: return false
 	reconcile_room()
 	return game_mode.is_training()
 
 func main_available() -> bool:
+	if introduction_active: return false
 	reconcile_room()
 	return game_mode.current==Modes.Mode.MAIN
 
@@ -294,6 +298,11 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 		if issue!="": return sim.reject(issue)
 	var previous_risks=int(sim.state.risks)
 	var result = sim.act(action,params)
+	if result.ok and action in ["probe","verify"]:
+		if not sim.state.diagnostic.has("network_checks"): sim.state.diagnostic.network_checks={}
+		if action=="verify":
+			for id in sim.state.vms: sim.state.diagnostic.network_checks[id]=sim.state.revision
+		else: sim.state.diagnostic.network_checks[str(params.get("vm",""))]=sim.state.revision
 	if not result.ok:
 		var topic = current.get("topic","diagnostika")
 		progress.mistakes[topic] = int(progress.mistakes.get(topic,0)) + 1
@@ -344,6 +353,7 @@ func undo() -> bool:
 	return false
 
 func save(recover_invalid: bool = false) -> Error:
+	if introduction_active: return OK
 	cache_lesson()
 	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()

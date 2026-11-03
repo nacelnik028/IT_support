@@ -32,11 +32,15 @@ var ui_layer: CanvasLayer
 var xr_rig
 var vr_active = false
 var code_editor
+var speech
 var english_dialog
 var diagnostics
+var practical_intro
 
 func _notification(what: int):
-	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT or vr_active: return
+	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT: return
+	if is_instance_valid(speech): speech.stop()
+	if vr_active: return
 	# Keep desktop movement from continuing behind another application. Returning
 	# focus never resumes automatically; the player chooses Continue in pause.
 	for action in ["walk_left","walk_right","walk_forward","walk_back","walk_fast","interact"]:
@@ -62,7 +66,10 @@ func _ready():
 	ui = preload("res://scenes/main_menu/Main.tscn").instantiate()
 	ui.world_enabled = true
 	layer.add_child(ui)
+	speech=preload("res://scripts/english/LondonSpeech.gd").new(); speech.shell=self; add_child(speech)
 	world.game = ui.game
+	practical_intro=preload("res://scripts/world/PracticalIntroduction.gd").new()
+	practical_intro.shell=self; add_child(practical_intro)
 	ui.display_settings.apply_world(world)
 	ui.preferences_changed.connect(apply_ui_preferences)
 	ui.settings_closed.connect(func():
@@ -216,6 +223,7 @@ func _process(delta):
 				status_label.text += "\nDalší cíl: "+str(next[0].label) if not next.is_empty() else "\n✓ Vše ověřeno · předej ticket"
 			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
 			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
+		if practical_intro.active: status_label.text="PRAKTICKÝ ÚVOD / DOČASNÝ STAV\nKampaň i směna jsou bezpečně odložené. Bez XP."
 		if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
 		update_guidance()
 		instruction_plate.visible = instruction.text!=""
@@ -231,6 +239,7 @@ func _process(delta):
 		store_pose()
 
 func set_mode(value: String):
+	if value!="english" and is_instance_valid(speech): speech.stop()
 	if value == "menu" and ui.game.game_mode.is_away():
 		world.player.position = Vector3(7,0.02,3.5)
 		ui.game.reconcile_room()
@@ -303,23 +312,16 @@ func enter_world(destination: String = "Serverovna"):
 	set_mode("world")
 	if ui.first_shift_requested:
 		ui.first_shift_requested=false
-		if not vr_active and not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
+		if not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
 
 func show_introduction():
 	set_mode("introduction")
-	var steps=[
-		["Pohyb a rozhlížení","Pohybuj se klávesami uvedenými dole na HUD. Myší se rozhlížíš, rychlou chůzi zapíná klávesa Shift ve výchozím nastavení."],
-		["Zařízení a interakce","Zaměř čelo zařízení nebo ovladač. Když se ukáže název a barevný rám, stiskni klávesu interakce (výchozí E). Dosah je 3,2 metru."],
-		["Administrátorský počítač","Na monitorech ADMIN-01 a ADMIN-02 otevřeš konzoli. Ve stromu vyber zařízení, vlevo sekci a nahoře operaci. Escape tě vrátí do místnosti."],
-		["Pracovní zadání","Klávesa zadání (výchozí Tab) ukáže ticket a cíle. V konzoli slouží tlačítko Zadání ticketu. Po změně ověř skutečný stav a potom předej ticket."]]
-	var step=steps[introduction_step]
-	var v=panel("Seznámení %d / 4 — %s" % [introduction_step+1,step[0]],step[1])
-	v.add_child(ui.button("Další →" if introduction_step<3 else "Zahájit směnu",func():
-		if introduction_step<3: introduction_step+=1; show_introduction()
-		else: finish_introduction(),true))
+	var v=panel("Seznámení s ovládáním","Praktický úvod na 3–5 minut: rozhlédnutí v hale, pohyb, dveře, monitor, cvičný díl a pauza. Tvůj postup i rozpracovaná relace se po skončení obnoví.")
+	v.add_child(ui.button("Zahájit praktický úvod",practical_intro.start,true))
 	v.add_child(ui.button("Přeskočit seznámení",finish_introduction))
 
 func finish_introduction():
+	if practical_intro.active: practical_intro.finish(false); return
 	ui.save_preference("introduction_seen",true)
 	return_to_world()
 
@@ -327,7 +329,7 @@ func return_to_world():
 	ui.capture_form_drafts()
 	set_mode("world")
 	world.sync_state()
-	if pose_revision != ui.game.session_revision: enter_world()
+	if not practical_intro.active and pose_revision != ui.game.session_revision: enter_world()
 
 func store_pose():
 	ui.game.reconcile_room()
@@ -363,12 +365,16 @@ func panel(title: String, subtitle: String = "") -> VBoxContainer:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right"]: margin.add_theme_constant_override("margin_"+side,100)
 	for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,65)
-	var v = ui.scroll(margin)
+	var scroll_content = ui.scroll(margin)
+	scroll_content.get_parent().follow_focus=true
+	var padding=MarginContainer.new(); padding.add_theme_constant_override("margin_bottom",16); scroll_content.add_child(padding)
+	var v=ui.vbox(padding,16)
 	v.add_child(ui.label(title,32,ui.CYAN))
 	if subtitle != "": v.add_child(ui.label(subtitle,17))
 	return v
 
 func interact(object):
+	if practical_intro.interact(object): return
 	ui.game.reconcile_room()
 	if ui.game.game_mode.is_hub(): return
 	if object.kind=="english":
@@ -427,8 +433,8 @@ func open_english(station: String = "tickets", intro: bool = false):
 	english_dialog=preload("res://scripts/english/DialogueController.gd").new()
 	english_dialog.shell=self; english_dialog.manager=ui.game.english; english_dialog.station=station
 	english_dialog.page="quiz_home" if station=="quiz" else "intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
-	overlay.add_child(english_dialog)
 	set_mode("english")
+	overlay.add_child(english_dialog)
 	if vr_active:
 		# Initial placement is anchored near the counter, at the current seated/standing height.
 		xr_rig.monitor.place_in_front(xr_rig.head)
@@ -574,6 +580,7 @@ func show_monitor():
 	v.add_child(ui.button("Zpět",return_to_world))
 
 func pause_menu():
+	if practical_intro.active: practical_intro.pause(); return
 	set_mode("pause")
 	var v = panel("Pauza","Pohyb a fyzické interakce jsou pozastavené.")
 	v.add_child(ui.button("Pokračovat",return_to_world,true))
@@ -765,6 +772,7 @@ func export_smoke():
 	enter_world("Hlavní serverovna")
 	print("EXPORT_SMOKE english_cancelled=",english.session.is_empty())
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
+	preload("res://scripts/shifts/GameplaySmoke.gd").run(self)
 	get_tree().quit()
 
 func smoke_question(english, topic: String):
@@ -794,7 +802,7 @@ func show_tasks():
 		v.add_child(ui.label(("Hodnocení: %d / 100\n" % result.score if result.ok else "")+result.text+("\n\n"+ui.game.assessment() if result.ok else ""),18))
 		if result.ok: v.add_child(ui.button("Další ticket / přehled směny" if ui.game.session_kind=="shift" else "Další úkol / přehled misí",func():
 			if ui.game.session_kind=="shift" and not ui.game.finished: show_tasks()
-			else: open_app("Souvislé směny" if ui.game.session_kind=="shift" else "Tickety"))))))
+			else: open_app("Souvislé směny" if ui.game.session_kind=="shift" else "Tickety")))))
 	if ui.game.session_kind=="lesson" and ui.game.tutorial.session.mode!="exam": v.add_child(ui.button("Nápověda",func(): v.add_child(ui.label(ui.game.lesson_hint(),17))))
 	if ui.game.session_kind=="lesson": v.add_child(ui.button("Opakovat lekci",func(): ui.begin_lesson(int(ui.game.current.id),ui.game.tutorial.session.mode,false)))
 	v.add_child(ui.button("Zpět  [Tab / Esc]",return_to_world))
@@ -810,6 +818,7 @@ func _unhandled_key_input(event):
 	if event.keycode == KEY_ESCAPE:
 		if mode == "world": pause_menu()
 		elif mode == "introduction": finish_introduction()
+		elif mode == "pause" and practical_intro.active and practical_intro.step==9: practical_intro.finish(true)
 		elif mode == "app" and ui.page=="Nastavení": ui.close_settings()
 		elif mode == "app" and ui.context_open: ui.context_open=false; ui.draw_ui()
 		elif mode != "menu": return_to_world()
@@ -823,6 +832,7 @@ func update_guidance():
 	for object in world.devices.values(): object.set_guided(false)
 	instruction.text = ""
 	direction.text = ""
+	if practical_intro.active: practical_intro.guidance(); return
 	var game = ui.game
 	if not game.game_mode.is_training() or not game.active or game.session_kind!="lesson": return
 	var t = game.tutorial
@@ -886,6 +896,7 @@ func english_welcome():
 
 func _exit_tree():
 	leaving_scene = true
+	if is_instance_valid(practical_intro) and practical_intro.active: practical_intro.finish(false)
 	if is_instance_valid(ui):
 		ui.game.room_probe = Callable()
 		ui.game.programming_probe=Callable()

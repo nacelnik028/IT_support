@@ -1325,13 +1325,8 @@ func draw_network():
 	for id in game.sim.state.vms:
 		var vm=game.sim.get_vm(id)
 		if vm.is_empty(): continue
-		var c=card(v,id+" / "+vm.host+" → "+vm.name+"  →  "+vm.bridge+"  →  VLAN "+str(vm.vlan),"Hostitel / uplink → bridge → VLAN → VM → gateway %s → DNS %s → HTTPS:443" % [vm.gateway,vm.dns])
-		var net=preload("res://scripts/simulation/NetworkSimulator.gd").probe(game.sim.state,id)
-		var row=hbox(c)
-		for k in ["link","ip","dns","app"]:
-			var step=card(row)
-			step.add_child(label(("●  " if net[k] else "○  ")+k.to_upper(),15,CYAN if net[k] else ORANGE))
-		c.add_child(label(net.reason,14,MUTED))
+		preload("res://scripts/ui/NetworkExplanation.gd").draw(self,v,id)
+		var c=card(v,vm.name+" / "+vm.host)
 		c.add_child(button("Upravit síť "+vm.name,func(): capture_form_drafts(); selected_vm=id; host=vm.host; page=Context.platform(game.sim.state,vm); tab="Síť" if page=="Proxmox" else "Virtuální síť"; active_action="network"; notice=""; draw_ui()))
 	var switches_card=card(v,"Virtuální switche")
 	for sw in game.sim.state.network.switches:

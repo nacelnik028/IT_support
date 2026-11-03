@@ -1,0 +1,5 @@
+Voice: Jenny (Dioco). Pre-generated Piper speech.
+Source and terms: https://github.com/dioco-group/jenny-tts-dataset
+Model: https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_GB/jenny_dioco/medium
+The source permits distribution of generated clips, including commercial use. Attribution retained. No runtime TTS or model is distributed.
+Mapping and hashes: audio.json. Creation notes: docs/LONDON_AUDIO.md in the source repository.

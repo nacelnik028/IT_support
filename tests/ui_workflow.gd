@@ -63,8 +63,8 @@ func capture(screen: String):
 
 func reveal(control: Control):
 	for ancestor in shell.ui.get_scroll_ancestors(control):
-		var rect=ancestor.get_child(0).get_global_transform().affine_inverse()*control.get_global_rect()
-		ancestor.scroll_vertical=maxi(0,roundi(rect.end.y-ancestor.size.y+12))
+		ancestor.ensure_control_visible(control)
+		ancestor.scroll_vertical+=4
 	await settle()
 
 func check_credit():

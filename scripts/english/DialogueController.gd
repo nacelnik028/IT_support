@@ -33,6 +33,7 @@ func action(text: String, callback: Callable, primary: bool = false) -> Button:
 	return button
 
 func draw():
+	shell.speech.stop()
 	if page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
 	elif page=="dialog" and not manager.session.is_empty():
 		selected_mode=manager.session.mode
@@ -60,6 +61,11 @@ func draw():
 	var footer=HBoxContainer.new(); footer.add_theme_constant_override("separation",14); layout.add_child(footer)
 	for item in [["Zpět do pavilonu [Esc]",shell.return_to_world],["Situace / restart",func(): page="home"; draw()],["Moje výsledky",func(): page="progress"; draw()]]:
 		var b=shell.ui.button(item[0],item[1]); b.custom_minimum_size.y=48; footer.add_child(b); buttons.append(b)
+	if page in ["home","dialog"]:
+		var autoplay=CheckButton.new(); autoplay.text="Auto řeč · Jenny"; autoplay.tooltip_text="Automaticky přehrát dostupné repliky. Hlas Jenny (Dioco)."
+		autoplay.button_pressed=shell.ui.display_settings.london_autoplay
+		autoplay.toggled.connect(func(value): shell.ui.save_preference("london_autoplay",value))
+		footer.add_child(autoplay); buttons.append(autoplay)
 	if shell.ui.game.unsaved:
 		var retry=shell.ui.button("NEULOŽENO — zkusit znovu",func(): shell.ui.game.save(); draw()); footer.add_child(retry); buttons.append(retry)
 	# All buttons share visible native focus. Link arrows as well as Tab.
@@ -122,6 +128,8 @@ func draw_session():
 		return
 	label_text("Sam" if s.id!="LON06" else "Alex",16,Color("77deca"))
 	label_text(s.npc,25)
+	audio_controls(s.npc,"Alex" if s.id=="LON06" else "Sam")
+	if shell.ui.display_settings.london_autoplay and not shell.speech.find_line(s.npc,"Alex" if s.id=="LON06" else "Sam").is_empty(): shell.speech.speak(s.npc,"Alex" if s.id=="LON06" else "Sam")
 	if s.id!="LON06": label_text("Košík: %d adult + %d child • %s • %s • %s | Rozpočet %s | %s" % [int(s.cart.adult),int(s.cart.child),s.cart.product,s.cart.time if s.cart.time!="" else "čas nevybrán",manager.money(manager.total()),manager.money(int(s.goal.budget)-int(s.spent)),"ZAPLACENO" if s.paid else "POTVRZENO" if s.confirmed else "NEPOTVRZENO"],17)
 	if show_translation and s.mode!="exam": label_text(s.translation,18,Color("f3d598"))
 	if help_text!="" and s.mode!="exam": label_text(help_text,17,Color("f3d598"))
@@ -144,6 +152,7 @@ func draw_session():
 	for option in options:
 		actions.append(option.id)
 		action("%d  %s" % [actions.size(),option.text],func(): choose(option.id,token))
+		audio_controls(option.text,"customer")
 	if not s.paid and not s.node in ["walk","gate"] and shell.world.english_room.near("info" if s.id=="LON06" else "tickets"):
 		action("Zpět k objednávce" if s.node in ["questions","answer"] else "Zeptat se na nabídku…" if s.id!="LON06" else "Požádat o zopakování…",func():
 			if s.node in ["questions","answer"]: s.node=s.return_node; manager.revision+=1
@@ -187,3 +196,11 @@ func quiz_choose(id: String, token: int):
 	if Time.get_ticks_msec()-last_dispatch<220: return
 	last_dispatch=Time.get_ticks_msec()
 	manager.quiz.answer(id,token); draw()
+
+func audio_controls(text: String, speaker: String):
+	if shell.speech.find_line(text,speaker).is_empty(): return
+	var row=HBoxContainer.new(); row.add_theme_constant_override("separation",12); content.add_child(row)
+	for item in [["Poslechnout / zopakovat",false],["Pomaleji",true]]:
+		var b=shell.ui.button(item[0],func(): shell.speech.speak(text,speaker,item[1]))
+		b.custom_minimum_size.y=48; row.add_child(b); buttons.append(b)
+	var stop_button=shell.ui.button("Zastavit",shell.speech.stop); row.add_child(stop_button); buttons.append(stop_button)
