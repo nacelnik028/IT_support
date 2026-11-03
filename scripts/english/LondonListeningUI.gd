@@ -56,7 +56,7 @@ static func draw(ui):
 			if option.id==session.answer: selected=option.text
 		ui.label_text(("Správně. " if session.answer==task.answer else "Tuto repliku ještě procvič. ")+"Tvoje odpověď: "+selected,23)
 		ui.label_text(task.explanation+"\nPřesná replika: "+line.text,20)
-		ui.label_text("Výsledek: %d / 100 · %s · přehrání %d. Pomoc: přepis %s, pomalá %s, ztlumení %s, bez dokončeného audia %s. XP 0." % [int(record.score),"s pomocí" if record.assisted else "bez zaznamenané pomoci",int(record.plays),str(record.aids.transcript),str(record.aids.slow),str(record.aids.muted),str(record.aids.no_audio)],18)
+		ui.label_text("Výsledek: %d / 100 · %s · přehrání %d. Pomoc: přepis %s, pomalá %s, ztlumení %s, bez dokončeného audia %s. XP 0." % [int(record.score),"s pomocí" if record.assisted else "bez zaznamenané pomoci",int(record.plays),("ano" if record.aids.transcript else "ne"),("ano" if record.aids.slow else "ne"),("ano" if record.aids.muted else "ne"),("ano" if record.aids.no_audio else "ne")],18)
 		ui.action("Vybrat další poslech",func(): ui.page="listening_home"; ui.draw(),true)
 		return
 	if session.transcript: ui.label_text("Přepis / použitá pomoc: "+line.text,21)

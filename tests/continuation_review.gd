@@ -130,11 +130,15 @@ func run():
 				var center=rig.monitor.global_position
 				check(rig.monitor.pixel_at(center+rig.monitor.global_basis.z,-rig.monitor.global_basis.z).distance_to(Vector2(800,600))<0.1,"Fyzický panel/ray/pixel souhlasí")
 				await capture(screen,rig.monitor.viewport)
-				for w in ui.find_children("*","Window",true,false): w.hide()
+				var windows=ui.find_children("*","Window",true,false).filter(func(w): return w.visible)
+				for w in windows: w.hide()
 				var field=LineEdit.new(); field.position=Vector2(170,820); field.size=Vector2(600,45); rig.monitor.keyboard.get_parent().add_child(field)
 				field.grab_focus(); rig.monitor.keyboard.track_focus(); await frames()
+				for w in windows: w.show()
+				await frames()
 				check(rig.monitor.keyboard.visible,"Klávesnice otevřená "+screen)
 				await capture(screen+"-keyboard",rig.monitor.viewport)
+				for w in windows: w.hide()
 				rig.monitor.keyboard.dismiss(); field.queue_free(); await frames()
 				if screen=="listening":
 					await click_button(button("Poslechnout / zopakovat"),trackers[1]); check(shell.speech.playing,"Levý ray úplný trigger přehrává")
