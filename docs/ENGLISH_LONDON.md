@@ -1,7 +1,7 @@
 # English in London — B1–B2
 
 Do existujícího londýnského pavilonu vede portál 04 z rozcestníku a východní
-chodba. Zůstal také jižní průchod ze serverovny, zkratka v menu a pauze.
+chodba. Přímý jižní průchod ze serverovny je zazděný; zkratka v menu a pauze zůstala.
 London Eye, věž, Temže, široký most, Sam, Alex, terminál i kontrola jsou na svých
 dosavadních místech. Zjednodušené vzdálenosti a 24 kabinek herního modelu
 nepředstavují turistickou mapu; skutečné kolo má 32 kabinek.

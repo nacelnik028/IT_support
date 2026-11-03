@@ -38,7 +38,7 @@ func item(id: String, title: String, station: String, at: Vector3, dimensions: V
 
 func build(owner_world):
 	world=owner_world
-	# The server/training rooms own the entire shared north wall. Only one opening.
+	# The server/training rooms own the sealed shared north wall.
 	Geo.solid(self,Vector3(10,-0.16,18),Vector3(22,0.3,22),Color("88948d"))
 	Geo.solid(self,Vector3(-1,5.5,18),Vector3(0.25,11,22),Color("365366"))
 	# East corridor enters north of the queue; wall owned only here.
@@ -51,10 +51,6 @@ func build(owner_world):
 	Geo.solid(self,Vector3(10,7.5,7),Vector3(22,7,0.25),Color("365366"))
 	for at in [Vector3(4,6,13),Vector3(16,6,14),Vector3(5,7,25),Vector3(17,6,25)]:
 		var light=OmniLight3D.new(); light.position=at; light.omni_range=14; light.light_energy=3; light.light_color=Color("e2eddf"); add_child(light)
-	for x in [3.4,6.6]: Geo.box(self,Vector3(x,1.5,7),Vector3(0.13,3,0.38),Color("4cbaa9"))
-	sign_text("04 / ENGLISH IN LONDON",Vector3(5,3.25,6.78),28,0.003)
-	sign_text("ZPĚT DO AKADEMIE  ↑",Vector3(5,2.8,7.3),25,0.0025).rotation.y=0
-	Geo.box(self,Vector3(5,3.25,7),Vector3(3,0.4,0.38),Color("1d3c49"))
 	Geo.text(self,"ZPĚT / ROZCESTNÍK  →",Vector3(20.78,2.7,9.5),28,0.0024).rotation.y=-PI/2
 	for z in [7.95,11.05]: Geo.box(self,Vector3(21,1.5,z),Vector3(0.35,3,0.12),Color("4cbaa9"))
 	sign_text("ENGLISH IN LONDON\nVýukový pavilon • upravené vzdálenosti, nejde o turistickou mapu",Vector3(10,9.5,28.8),44,0.005)

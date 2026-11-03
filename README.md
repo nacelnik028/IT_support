@@ -19,8 +19,7 @@ jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 souřadnicích. Pauza → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
 [Dispozice, chování při pokračování a ochrana save](docs/ACADEMY_HUB.md).
 
-**English in London** je čtvrtý 3D pavilon: vstup také jižním průchodem serverovny
-**04 / Angličtina v Londýně**, případně z menu nebo pauzy. Obsahuje prostorové
+**English in London** je čtvrtý 3D pavilon: vstup východní chodbou rozcestníku **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Přímý průchod ze serverovny je na žádost uživatele zazděný. Obsahuje prostorové
 London Eye a Elizabeth Tower, šest situací B1–B2, tři režimy, skutečný cvičný
 košík, platbu kartou u terminálu a vstupenku použitelnou u kontroly. Vlastní
 výsledky zachovávají kampaň. PC používá E, myš, šipky/Tab, Enter a repliky 1–4;

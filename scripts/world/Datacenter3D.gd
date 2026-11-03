@@ -90,10 +90,9 @@ func build_room():
 	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))
 	Geo.solid(self,Vector3(9,3.5,3.5),Vector3(0.25,1,3),Color("374753"))
 	Geo.solid(self,Vector3(-8.5,2,7),Vector3(1,4,0.25),Color("293844"))
-	# Fourth pavilion: a 3 m walkable south entrance, owned by this shared wall.
-	Geo.solid(self,Vector3(1.25,2,7),Vector3(4.5,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(7.75,2,7),Vector3(2.5,4,0.25),Color("293844"))
-	Geo.solid(self,Vector3(5,3.5,7),Vector3(3,1,0.25),Color("293844"))
+	# London is reached through the hub corridor. Seal the former direct entry
+	# with one continuous wall, including its collider, without coplanar patches.
+	Geo.solid(self,Vector3(4,2,7),Vector3(10,4,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-4.5,3.65,7),Vector3(7,0.7,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-4.5,0.45,7),Vector3(7,0.9,0.25),Color("293844"))
 	Geo.box(self,Vector3(0,4,0),Vector3(18,0.15,14),Color("192530"))
@@ -226,12 +225,11 @@ func build_details():
 	Geo.box(self,Vector3(0.7,0.012,0),Vector3(13,0.008,0.045),Color("d4ad54"))
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
-	for x in [0,1,2,3,7,8]:
+	for x in [0,1,2,3,4,5,6,7,8]:
 		Geo.box(self,Vector3(x,1.55,6.84),Vector3(0.045,3.1,0.06),Color("5e788a"),0.7)
 	for y in [0.38,2.9]:
 		for span in [[-2.75,12.2],[7.75,2.2]]: Geo.box(self,Vector3(span[0],y,6.8),Vector3(span[1],0.045,0.04),Color("267c94"),0,0.4)
 	Geo.text(self,"01  /  IT OPERATIONS",Vector3(-5.4,2.4,6.75),52,0.004).rotation.y = PI
-	# London is a marked open passage; no decorative door leaf crosses it.
 
 func build_academy():
 	Geo.solid(self,Vector3(15,-0.16,0),Vector3(12,0.3,14),Color("586271"),0.15)

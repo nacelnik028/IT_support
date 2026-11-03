@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Doplnění uživatele — zazděný průchod serverovna/Londýn, 3. 11. 2026
+
+- Přímý jižní průchod nahrazen jedinou souvislou stěnou se skutečnou kolizí. Odstraněn původní rám, překlad a směrové cedule; výchozí fyzická chodba hub → Londýn zůstala otevřená.
+- academy_hub 55 PASS headless i GPU Compatibility: skutečná chůze z obou stran nemůže projít, XR oblouk zastaví stěna; průchod rozcestníkem a všechny ostatní oblasti zachovány. Trvalý prohlédnutý snímek docs/ui-review/2026-11-03-continuation/server-london-sealed-gl_compatibility.png.
+- Dokončena také výchozí regrese všech 39 sad bez chyb/varování a všech 20 externích Windows balíčkových sad + oba nativní smoke běhy komprimovaného rozpočtového exportu. Trvalé logy v nové ui-review složce. Další části původního zadání pokračují. Bez push.
+
 ## Navazující etapa — exportní rozpočet, 3. 11. 2026
 
 - Přečteno celé nové zadání, výchozí čistý Git e523eb4, Godot MCP 4.7.2 a metadata existujícího projektu. Runner skutečně obsahuje 39 sad; výchozí regrese běží do odděleného next-stage-baseline.log.

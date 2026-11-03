@@ -84,6 +84,28 @@ func run():
 	check(rig.can_teleport(Vector3(23,0,0)),"Chodba je teleportovatelná")
 	check(not rig.can_teleport(Vector3(26,0,-12)) and not rig.can_teleport(Vector3(4,5,-11)),"Žádné cíle mimo podlahu / nad stropem")
 	check(not rig.can_teleport(Vector3(14,0,21.5)),"Řeka zůstává zakázaným cílem")
+	# Explicit user change: the old server → London entry is now masonry.
+	# Exercise real CharacterBody movement against both faces, then the XR arc.
+	shell.enter_world("Hlavní serverovna"); shell.return_to_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	p.position=Vector3(5,0.02,5.4); p.rotation.y=PI
+	Input.action_press("walk_forward")
+	for i in 90: await physics_frame
+	Input.action_release("walk_forward")
+	check(p.position.z<6.7 and g.game_mode.current==0,"Zazděný průchod zastaví skutečnou PC chůzi ze serverovny")
+	rig.left.global_transform=Transform3D(Basis().looking_at(Vector3(0,-0.15,1)),Vector3(5,1.4,5.4))
+	rig.update_teleport()
+	check(not rig.teleport_valid,"Zazděný průchod zastaví syntetický XR oblouk")
+	if DisplayServer.get_name()!="headless" and "--screenshots" in OS.get_cmdline_user_args():
+		p.camera.rotation.x=0; p.rotation.y=PI
+		await frames(10)
+		DirAccess.make_dir_recursive_absolute("res://docs/ui-review/2026-11-03-continuation")
+		root.get_texture().get_image().save_png("res://docs/ui-review/2026-11-03-continuation/server-london-sealed-"+RenderingServer.get_current_rendering_method()+".png")
+	shell.enter_world("English in London"); shell.return_to_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	p.position=Vector3(5,0.02,8.5); p.rotation.y=0
+	Input.action_press("walk_forward")
+	for i in 90: await physics_frame
+	Input.action_release("walk_forward")
+	check(p.position.z>7.3 and g.game_mode.is_english(),"Zazděný průchod zastaví PC chůzi také z Londýna")
 	shell.enter_world("Hlavní serverovna"); p.position=Vector3(-7,0.02,0)
 	rig.left.global_transform=Transform3D(Basis().looking_at(Vector3(-1,-0.2,0)),Vector3(-7,1.4,0))
 	rig.update_teleport()

@@ -16,7 +16,7 @@ Hala zabírá x=-9…21, z=-16…-7. Londýnská chodba x=21…25, z=-16…11.5.
 Všechny cesty mají souvislou podlahu, kolize, skutečné průchozí otvory a zpětné
 značení. Nové portály jsou otevřené průchody. Původní posuvné dveře serverovna ↔
 IT a serverovna ↔ programování nadále fungují oběma směry s bezpečnostními čidly.
-Původní jižní vstup do Londýna je nadále otevřený a jeho vzhled je opravený.
+Přímý jižní vstup ze serverovny do Londýna je na žádost uživatele zazděný, včetně kolize. Londýn zůstává přístupný východní chodbou rozcestníku.
 
 PC: WASD, myš, E, Shift, Tab a Esc; přemapování zůstává v Nastavení.
 PICO: teleport klikem levého sticku, snap pravým, oba paprsky a trigger;
