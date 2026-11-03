@@ -398,5 +398,752 @@
         ]
       }
     ]
+  },
+  {
+    "id": "SHIFT-RECOVERY",
+    "version": 1,
+    "advanced": true,
+    "title": "Pokročilá / dvě služby a zajištění",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "initial_state": {
+      "vms": {
+        "100": {
+          "vlan": 30
+        },
+        "200": {
+          "status": "Off",
+          "ram": 24
+        }
+      },
+      "shift_runtime": {
+        "clock": 0,
+        "outage_minutes": 0,
+        "fired": [],
+        "events": [],
+        "fresh_backups": {},
+        "monitor_revision": 0
+      }
+    },
+    "tickets": [
+      {
+        "id": "REC-APP",
+        "title": "APP01 / obnova sítě",
+        "priority": "P1",
+        "impact": "APP01 neobsluhuje uživatele. VM100 potřebuje vmbr0, VLAN20, 192.168.20.100/24, bránu 192.168.20.1 a DNS 192.168.20.10. Ověř HTTPS.",
+        "depends": [],
+        "description": "APP01 neobsluhuje uživatele. VM100 potřebuje vmbr0, VLAN20, 192.168.20.100/24, bránu 192.168.20.1 a DNS 192.168.20.10. Ověř HTTPS.",
+        "objectives": [
+          {
+            "path": "vms.100.vlan",
+            "value": 20,
+            "label": "VM100 VLAN20",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "Aktuální ověření APP01",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "network",
+          "probe",
+          "verify"
+        ]
+      },
+      {
+        "id": "REC-FS",
+        "title": "FS01 / prostředky a start",
+        "priority": "P1",
+        "impact": "FS01 stojí a požaduje 24 GiB. VM200: 2 vCPU, startup4/min2/max8 GiB, Dynamic Memory. Spusť a ověř službu.",
+        "depends": [],
+        "description": "FS01 stojí a požaduje 24 GiB. VM200: 2 vCPU, startup4/min2/max8 GiB, Dynamic Memory. Spusť a ověř službu.",
+        "objectives": [
+          {
+            "path": "vms.200.cpu",
+            "value": 2,
+            "label": "FS01 2 vCPU",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.ram",
+            "value": 4,
+            "label": "FS01 4 GiB",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.minimum",
+            "value": 2,
+            "label": "Minimum 2 GiB",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.maximum",
+            "value": 8,
+            "label": "Maximum 8 GiB",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.dynamic",
+            "value": true,
+            "label": "Dynamic Memory",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "Aktuální ověření FS01",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "memory",
+          "power",
+          "verify"
+        ]
+      },
+      {
+        "id": "REC-PBS",
+        "title": "Plánovaný incident / uplink PBS",
+        "priority": "P2",
+        "impact": "Po prvním ověření obou služeb se jednou odpojí kabel BACKUP-01. Jde o plánovanou poruchu REC-PBS-LINK, nikoli reset světa. Prohlédni zařízení a připoj port6.",
+        "depends": [
+          "REC-APP",
+          "REC-FS"
+        ],
+        "description": "Po prvním ověření obou služeb se jednou odpojí kabel BACKUP-01. Jde o plánovanou poruchu REC-PBS-LINK, nikoli reset světa. Prohlédni zařízení a připoj port6.",
+        "objectives": [
+          {
+            "path": "shift_runtime.fired",
+            "value": "REC-PBS-LINK",
+            "label": "Plánovaná porucha již nastala",
+            "op": "contains"
+          },
+          {
+            "path": "world.inspected.BACKUP-01",
+            "value": true,
+            "label": "Prohlédnut BACKUP-01",
+            "op": "eq"
+          },
+          {
+            "path": "world.devices.BACKUP-01.cable_connected",
+            "value": true,
+            "label": "PBS kabel připojen",
+            "op": "eq"
+          },
+          {
+            "path": "world.devices.BACKUP-01.port",
+            "value": 6,
+            "label": "PBS port6",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "physical_inspect",
+          "physical_cable"
+        ]
+      },
+      {
+        "id": "REC-COPY-APP",
+        "title": "Nezávislý bod APP01",
+        "priority": "P2",
+        "impact": "Po opravě služby a PBS vytvoř nový nezávislý bod VM100, PBS Verify a aktuální kontrolu aplikace.",
+        "depends": [
+          "REC-APP",
+          "REC-PBS"
+        ],
+        "description": "Po opravě služby a PBS vytvoř nový nezávislý bod VM100, PBS Verify a aktuální kontrolu aplikace.",
+        "objectives": [
+          {
+            "path": "shift_runtime.fresh_backups.100",
+            "value": true,
+            "label": "Nová záloha VM100 v tomto pokusu",
+            "op": "eq"
+          },
+          {
+            "path": "backup.records.100.vlan",
+            "value": 20,
+            "label": "Bod obnovy má VLAN20",
+            "op": "eq"
+          },
+          {
+            "path": "backup.verified",
+            "value": true,
+            "label": "PBS Verify",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "APP01 stále ověřený",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "backup",
+          "backup_verify",
+          "verify"
+        ]
+      },
+      {
+        "id": "REC-COPY-FS",
+        "title": "Nezávislý bod FS01 a přejímka",
+        "priority": "P2",
+        "impact": "Zálohuj VM200 s opravenou RAM, proveď PBS Verify a ověř obě služby. Závěrečné předání zkontroluje všechny současné podmínky znovu.",
+        "depends": [
+          "REC-FS",
+          "REC-PBS"
+        ],
+        "description": "Zálohuj VM200 s opravenou RAM, proveď PBS Verify a ověř obě služby. Závěrečné předání zkontroluje všechny současné podmínky znovu.",
+        "objectives": [
+          {
+            "path": "shift_runtime.fresh_backups.200",
+            "value": true,
+            "label": "Nová záloha VM200 v tomto pokusu",
+            "op": "eq"
+          },
+          {
+            "path": "backup.records.200.ram",
+            "value": 4,
+            "label": "Bod obnovy má 4 GiB",
+            "op": "eq"
+          },
+          {
+            "path": "backup.verified",
+            "value": true,
+            "label": "PBS Verify",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "FS01 stále ověřený",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "backup",
+          "backup_verify",
+          "verify"
+        ]
+      }
+    ],
+    "triggers": [
+      {
+        "id": "REC-PBS-LINK",
+        "title": "Plánovaná porucha uplinku BACKUP-01",
+        "checks": [
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "",
+            "op": "eq"
+          }
+        ],
+        "patch": {
+          "world": {
+            "devices": {
+              "BACKUP-01": {
+                "cable_connected": false
+              }
+            }
+          }
+        }
+      }
+    ],
+    "final_objectives": [
+      {
+        "path": "vms.100.vlan",
+        "value": 20,
+        "label": "VM100 VLAN20",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "Aktuální ověření APP01",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.cpu",
+        "value": 2,
+        "label": "FS01 2 vCPU",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.ram",
+        "value": 4,
+        "label": "FS01 4 GiB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.minimum",
+        "value": 2,
+        "label": "Minimum 2 GiB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.maximum",
+        "value": 8,
+        "label": "Maximum 8 GiB",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.dynamic",
+        "value": true,
+        "label": "Dynamic Memory",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "Aktuální ověření FS01",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fired",
+        "value": "REC-PBS-LINK",
+        "label": "Plánovaná porucha již nastala",
+        "op": "contains"
+      },
+      {
+        "path": "world.inspected.BACKUP-01",
+        "value": true,
+        "label": "Prohlédnut BACKUP-01",
+        "op": "eq"
+      },
+      {
+        "path": "world.devices.BACKUP-01.cable_connected",
+        "value": true,
+        "label": "PBS kabel připojen",
+        "op": "eq"
+      },
+      {
+        "path": "world.devices.BACKUP-01.port",
+        "value": 6,
+        "label": "PBS port6",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fresh_backups.100",
+        "value": true,
+        "label": "Nová záloha VM100 v tomto pokusu",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.100.vlan",
+        "value": 20,
+        "label": "Bod obnovy má VLAN20",
+        "op": "eq"
+      },
+      {
+        "path": "backup.verified",
+        "value": true,
+        "label": "PBS Verify",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "APP01 stále ověřený",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fresh_backups.200",
+        "value": true,
+        "label": "Nová záloha VM200 v tomto pokusu",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.200.ram",
+        "value": 4,
+        "label": "Bod obnovy má 4 GiB",
+        "op": "eq"
+      },
+      {
+        "path": "backup.verified",
+        "value": true,
+        "label": "PBS Verify",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "FS01 stále ověřený",
+        "op": "eq"
+      }
+    ]
+  },
+  {
+    "id": "SHIFT-RESILIENCE",
+    "version": 1,
+    "advanced": true,
+    "title": "Pokročilá / storage a konzistence",
+    "category": "Storage",
+    "server": "NAS-01",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      },
+      "vms": {
+        "200": {
+          "vss": false
+        }
+      },
+      "world": {
+        "devices": {
+          "BACKUP-01": {
+            "cable_connected": false
+          }
+        }
+      },
+      "shift_runtime": {
+        "clock": 0,
+        "outage_minutes": 0,
+        "fired": [],
+        "events": [],
+        "fresh_backups": {},
+        "monitor_revision": 0
+      }
+    },
+    "tickets": [
+      {
+        "id": "STO-PBS",
+        "title": "Dostupnost nezávislé zálohy",
+        "priority": "P1",
+        "impact": "BACKUP-01 má odpojený kabel. Připoj port6 a prohlédni zařízení. Starší servisní body zůstávají pro bezpečnou výměnu; nové body vzniknou až skutečnou zálohou.",
+        "depends": [],
+        "description": "BACKUP-01 má odpojený kabel. Připoj port6 a prohlédni zařízení. Starší servisní body zůstávají pro bezpečnou výměnu; nové body vzniknou až skutečnou zálohou.",
+        "objectives": [
+          {
+            "path": "world.devices.BACKUP-01.cable_connected",
+            "value": true,
+            "label": "PBS uplink připojen",
+            "op": "eq"
+          },
+          {
+            "path": "world.devices.BACKUP-01.port",
+            "value": 6,
+            "label": "PBS port6",
+            "op": "eq"
+          },
+          {
+            "path": "world.inspected.BACKUP-01",
+            "value": true,
+            "label": "Identita PBS ověřena",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "physical_cable",
+          "physical_inspect"
+        ]
+      },
+      {
+        "id": "STO-DISK",
+        "title": "NAS-01 / bezpečná obnova redundance",
+        "priority": "P1",
+        "impact": "RAID10 má vadný DC-002 ve slotu2. Identifikuj jej, ověř servisní zálohu, potvrď vytažení, přines SAS SPARE-2T a dokonči rebuild. Vytažení zdravého slotu3 vyřadí stejný pár a způsobí skutečnou ztrátu dostupnosti dat; potom použij restart směny.",
+        "depends": [],
+        "description": "RAID10 má vadný DC-002 ve slotu2. Identifikuj jej, ověř servisní zálohu, potvrď vytažení, přines SAS SPARE-2T a dokonči rebuild. Vytažení zdravého slotu3 vyřadí stejný pár a způsobí skutečnou ztrátu dostupnosti dat; potom použij restart směny.",
+        "objectives": [
+          {
+            "path": "world.identified.RAID:2",
+            "value": true,
+            "label": "Identifikován DC-002",
+            "op": "eq"
+          },
+          {
+            "path": "world.replaced.RAID:2",
+            "value": true,
+            "label": "Skutečná kompatibilní výměna",
+            "op": "eq"
+          },
+          {
+            "path": "verified.raid",
+            "value": true,
+            "label": "Pole aktuálně Healthy",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "physical_identify",
+          "physical_remove",
+          "physical_spare",
+          "physical_insert",
+          "rebuild",
+          "verify"
+        ]
+      },
+      {
+        "id": "STO-VSS",
+        "title": "FS01 / aplikační konzistence",
+        "priority": "P2",
+        "impact": "FS01 stále běží, ale VSS je vypnuté. VM200 potřebuje Guest Agent, VSS, StartIfRunning a bezpečné ShutDown. Oprav aplikační konzistenci před novou zálohou.",
+        "depends": [],
+        "description": "FS01 stále běží, ale VSS je vypnuté. VM200 potřebuje Guest Agent, VSS, StartIfRunning a bezpečné ShutDown. Oprav aplikační konzistenci před novou zálohou.",
+        "objectives": [
+          {
+            "path": "vms.200.vss",
+            "value": true,
+            "label": "VSS připravené",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.agent",
+            "value": true,
+            "label": "Guest Agent připravený",
+            "op": "eq"
+          },
+          {
+            "path": "vms.200.auto_stop",
+            "value": "ShutDown",
+            "label": "Bezpečné ukončení",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "integration"
+        ]
+      },
+      {
+        "id": "STO-CACHE",
+        "title": "Podmíněný incident / ochrana cache",
+        "priority": "P1",
+        "impact": "Při prvním dosažení 50 % rebuildu jednou selže ochrana cache (STO-CACHE-POWER). Nastav Write-through; Protected/Force write-back s vadnou ochranou jsou rizikové a odmítnuté.",
+        "depends": [
+          "STO-DISK"
+        ],
+        "description": "Při prvním dosažení 50 % rebuildu jednou selže ochrana cache (STO-CACHE-POWER). Nastav Write-through; Protected/Force write-back s vadnou ochranou jsou rizikové a odmítnuté.",
+        "objectives": [
+          {
+            "path": "shift_runtime.fired",
+            "value": "STO-CACHE-POWER",
+            "label": "Incident ochrany nastal",
+            "op": "contains"
+          },
+          {
+            "path": "raid.cache_policy",
+            "value": "Write-through",
+            "label": "Bezpečná Write-through politika",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "cache"
+        ]
+      },
+      {
+        "id": "STO-COPIES",
+        "title": "Nové zálohy a provozní přejímka",
+        "priority": "P2",
+        "impact": "Vytvoř nové nezávislé body VM100 i VM200, proveď PBS Verify, aktuálně ověř obě služby a zkontroluj monitoring. Změna pořadí oprav nesmí vrátit spotřebovanou náhradu do skříně.",
+        "depends": [
+          "STO-PBS",
+          "STO-DISK",
+          "STO-VSS",
+          "STO-CACHE"
+        ],
+        "description": "Vytvoř nové nezávislé body VM100 i VM200, proveď PBS Verify, aktuálně ověř obě služby a zkontroluj monitoring. Změna pořadí oprav nesmí vrátit spotřebovanou náhradu do skříně.",
+        "objectives": [
+          {
+            "path": "shift_runtime.fresh_backups.100",
+            "value": true,
+            "label": "Nový bod APP01",
+            "op": "eq"
+          },
+          {
+            "path": "shift_runtime.fresh_backups.200",
+            "value": true,
+            "label": "Nový bod FS01",
+            "op": "eq"
+          },
+          {
+            "path": "backup.records.200.vss",
+            "value": true,
+            "label": "Zálohované VSS",
+            "op": "eq"
+          },
+          {
+            "path": "backup.verified",
+            "value": true,
+            "label": "PBS Verify",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "APP01 dostupný",
+            "op": "eq"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "FS01 dostupný",
+            "op": "eq"
+          },
+          {
+            "path": "world.monitor_checked",
+            "value": true,
+            "label": "Skutečný monitoring",
+            "op": "eq"
+          }
+        ],
+        "available_actions": [
+          "backup",
+          "backup_verify",
+          "verify",
+          "physical_monitor"
+        ]
+      }
+    ],
+    "triggers": [
+      {
+        "id": "STO-CACHE-POWER",
+        "title": "Plánovaná porucha ochrany cache při 50 % rebuildu",
+        "checks": [
+          {
+            "path": "raid.progress",
+            "value": 50,
+            "label": "",
+            "op": "gte"
+          },
+          {
+            "path": "world.replaced.RAID:2",
+            "value": true,
+            "label": "",
+            "op": "eq"
+          }
+        ],
+        "patch": {
+          "raid": {
+            "cache": false
+          }
+        }
+      }
+    ],
+    "final_objectives": [
+      {
+        "path": "world.devices.BACKUP-01.cable_connected",
+        "value": true,
+        "label": "PBS uplink připojen",
+        "op": "eq"
+      },
+      {
+        "path": "world.devices.BACKUP-01.port",
+        "value": 6,
+        "label": "PBS port6",
+        "op": "eq"
+      },
+      {
+        "path": "world.inspected.BACKUP-01",
+        "value": true,
+        "label": "Identita PBS ověřena",
+        "op": "eq"
+      },
+      {
+        "path": "world.identified.RAID:2",
+        "value": true,
+        "label": "Identifikován DC-002",
+        "op": "eq"
+      },
+      {
+        "path": "world.replaced.RAID:2",
+        "value": true,
+        "label": "Skutečná kompatibilní výměna",
+        "op": "eq"
+      },
+      {
+        "path": "verified.raid",
+        "value": true,
+        "label": "Pole aktuálně Healthy",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.vss",
+        "value": true,
+        "label": "VSS připravené",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.agent",
+        "value": true,
+        "label": "Guest Agent připravený",
+        "op": "eq"
+      },
+      {
+        "path": "vms.200.auto_stop",
+        "value": "ShutDown",
+        "label": "Bezpečné ukončení",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fired",
+        "value": "STO-CACHE-POWER",
+        "label": "Incident ochrany nastal",
+        "op": "contains"
+      },
+      {
+        "path": "raid.cache_policy",
+        "value": "Write-through",
+        "label": "Bezpečná Write-through politika",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fresh_backups.100",
+        "value": true,
+        "label": "Nový bod APP01",
+        "op": "eq"
+      },
+      {
+        "path": "shift_runtime.fresh_backups.200",
+        "value": true,
+        "label": "Nový bod FS01",
+        "op": "eq"
+      },
+      {
+        "path": "backup.records.200.vss",
+        "value": true,
+        "label": "Zálohované VSS",
+        "op": "eq"
+      },
+      {
+        "path": "backup.verified",
+        "value": true,
+        "label": "PBS Verify",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_pve",
+        "value": true,
+        "label": "APP01 dostupný",
+        "op": "eq"
+      },
+      {
+        "path": "verified.service_hv",
+        "value": true,
+        "label": "FS01 dostupný",
+        "op": "eq"
+      },
+      {
+        "path": "world.monitor_checked",
+        "value": true,
+        "label": "Skutečný monitoring",
+        "op": "eq"
+      }
+    ]
   }
 ]

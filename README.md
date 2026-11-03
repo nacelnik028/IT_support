@@ -36,7 +36,7 @@ a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivov
 
 Pauza → **Seznámení s ovládáním** nyní nabízí praktický průchod s dveřmi, monitorem
 a cvičným dílem. **Souvislé směny** v přehledu serverovny nebo pauze obsahují tři
-směny po třech navazujících ticketech nad jednou ukládanou infrastrukturou.
+směny po třech navazujících ticketech a dvě pokročilé směny po pěti současných incidentech nad jednou ukládanou infrastrukturou.
 Kampaň a směna mají samostatné obnovení; přechody mezi učebnami je bezpečně odkládají.
 [Ovládání a pravidla](docs/CONTINUOUS_SHIFTS.md).
 

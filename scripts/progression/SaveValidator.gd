@@ -62,10 +62,11 @@ func shifts(data) -> bool:
 	for record in data.get("history",[]):
 		if not required(record,{"id":"","version":0,"score":0,"results":[]}): return false
 		if not definitions.has(record.id) or record.version!=definitions[record.id].version or not integer(record.score,0,100): return false
-		if not shift_results(record.results,3): return false
+		var count_value=definitions[record.id].tickets.size()
+		if not shift_results(record.results,count_value,count_value-1 if definitions[record.id].get("advanced",false) else -1): return false
 		var total=0
 		for result in record.results: total+=int(result.score)
-		if int(record.score)!=roundi(total/3.0) or int(data.get("best",{}).get(record.id,-1))<int(record.score): return false
+		if int(record.score)!=roundi(float(total)/count_value) or int(data.get("best",{}).get(record.id,-1))<int(record.score): return false
 	var current_shift=data.get("session",{})
 	if current_shift.is_empty(): return data.get("selected","campaign")=="campaign"
 	if not required(current_shift,{"id":"","version":0,"index":0,"finished":false,"results":[],"state":{}}): return false
@@ -76,14 +77,29 @@ func shifts(data) -> bool:
 	for counter in ["error_base","risk_base"]:
 		if current_shift.has(counter) and not integer(current_shift[counter],0): return false
 	if current_shift.version!=d.version or not integer(current_shift.index,0,d.tickets.size()-1): return false
-	if not shift_results(current_shift.results,d.tickets.size() if current_shift.finished else int(current_shift.index)): return false
-	if current_shift.finished and int(current_shift.index)!=d.tickets.size()-1: return false
+	if d.get("advanced",false):
+		if current_shift.get("score_version")!=2: return false
+		if current_shift.results.size()!=(d.tickets.size() if current_shift.finished else mini(current_shift.results.size(),d.tickets.size()-1)): return false
+		if not shift_results(current_shift.results,current_shift.results.size(),d.tickets.size()-1): return false
+		if not current_shift.get("metrics") is Dictionary or current_shift.metrics.size()!=d.tickets.size(): return false
+		for index in d.tickets.size():
+			var metric=current_shift.metrics.get(str(index),{})
+			if not required(metric,{"hints":0,"errors":0,"risks":0}) or not integer(metric.hints,0,3) or not integer(metric.errors,0) or not integer(metric.risks,0): return false
+		if not current_shift.finished and current_shift.results.any(func(result): return int(result.ticket)==int(current_shift.index)): return false
+		if not preload("res://scripts/shifts/ShiftIncidents.gd").valid(current_shift.state.get("shift_runtime",{}),d): return false
+	else:
+		if not shift_results(current_shift.results,d.tickets.size() if current_shift.finished else int(current_shift.index)): return false
+		if current_shift.finished and int(current_shift.index)!=d.tickets.size()-1: return false
 	return not current_shift.state.is_empty() and state(current_shift.state,d.initial_state)
 
-func shift_results(results: Array, count_value: int) -> bool:
+func shift_results(results: Array, count_value: int, max_index: int = -1) -> bool:
 	if results.size()!=count_value: return false
+	var seen=[]
 	for index in results.size():
-		if not required(results[index],{"ticket":0,"score":0}) or not integer(results[index].ticket,index,index) or not integer(results[index].score,0,100): return false
+		if not required(results[index],{"ticket":0,"score":0}) or not integer(results[index].score,0,100): return false
+		var ticket=results[index].ticket
+		if not integer(ticket,0 if max_index>=0 else index,max_index if max_index>=0 else index) or int(ticket) in seen: return false
+		seen.append(int(ticket))
 		if results[index].has("breakdown"):
 			if not preload("res://scripts/evaluation/ScoreRules.gd").valid(results[index].breakdown) or results[index].breakdown.score!=results[index].score: return false
 	return true

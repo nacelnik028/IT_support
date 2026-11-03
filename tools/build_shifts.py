@@ -24,7 +24,8 @@ def build():
       ("LED a identita","Prohlédni NAS-01 a identifikuj vadný slot 2 / DC-002. Před servisem ověř nezávislou zálohu.",[goal("world.inspected.NAS-01",True,"Prohlédnut NAS-01"),goal("world.identified.RAID:2",True,"Identifikován DC-002")],["physical_inspect","physical_identify"]),
       ("Bezpečná fyzická náhrada","Vyjmi jen DC-002 se zálohou a potvrzením. Ze skříně přines SAS SPARE-2T a vlož jej do slotu 2. Nevytahuj zdravé členy.",[goal("world.replaced.RAID:2",True,"Fyzická náhrada vložena")],["physical_remove","physical_spare","physical_insert"]),
       ("Rebuild a provoz","Dokonči rebuild posunem času. Ověř pole i APP01 a FS01; prohlédni skutečný monitorovací přehled.",[goal("verified.raid",True,"Pole ověřeno Healthy"),goal("verified.service_pve",True,"APP01 dostupný"),goal("verified.service_hv",True,"FS01 dostupný"),goal("world.monitor_checked",True,"Monitoring zkontrolován")],["rebuild","verify","physical_monitor"])])
-    return definitions
+    from advanced_shifts import build as advanced
+    return definitions + advanced()
 if __name__=="__main__":
     target=ROOT/"data/shifts/catalog.json"; target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(build(),ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

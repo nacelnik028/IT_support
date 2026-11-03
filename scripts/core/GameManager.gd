@@ -331,11 +331,14 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	if training:
 		undo_states.append(sim.state.duplicate(true))
 		if undo_states.size()>20: undo_states.pop_front()
-	if session_kind=="shift":
-		var issue=shifts.action_error(action,params)
-		if issue!="": return sim.reject(issue)
+	var previous_errors=int(sim.state.errors)
 	var previous_risks=int(sim.state.risks)
-	var result = sim.act(action,params)
+	var issue=shifts.action_error(action,params) if session_kind=="shift" else ""
+	var result
+	if issue!="": result=sim.reject(issue)
+	elif action=="shift_wait" and session_kind=="shift" and shifts.definition(shifts.data.session.id).get("advanced",false): result=shifts.Incidents.advance(self,params)
+	else: result=sim.act(action,params)
+	if session_kind=="shift": shifts.after_action(action,params,result,previous_errors,previous_risks)
 	if result.ok and action in ["probe","verify"]:
 		if not sim.state.diagnostic.has("network_checks"): sim.state.diagnostic.network_checks={}
 		if action=="verify":

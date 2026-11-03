@@ -2,22 +2,40 @@ extends RefCounted
 
 static func draw(ui):
 	var v=ui.scroll(ui.center)
-	v.add_child(ui.label("SOUVISLÉ SMĚNY / jedna infrastruktura, tři tickety",24,ui.CYAN))
+	v.add_child(ui.label("SOUVISLÉ SMĚNY / společná infrastruktura a priority",24,ui.CYAN))
 	v.add_child(ui.label("Nová směna odloží kampaň. Nové spuštění nahradí rozpracovanou směnu; historie zůstane. XP jen za zlepšení nejlepšího výsledku, kampaň se neodemyká.",16))
 	var shifts=ui.game.shifts
 	if not shifts.data.session.is_empty():
 		var session=shifts.data.session
 		var d=shifts.definition(session.id)
-		var c=ui.card(v,d.title,"Dokončeno" if session.finished else "Rozpracováno: ticket %d / 3" % (int(session.index)+1))
+		var c=ui.card(v,d.title,"Dokončeno" if session.finished else "Rozpracováno: ticket %d / %d" % [int(session.index)+1,d.tickets.size()])
 		c.add_child(ui.button("Pokračovat ve směně",func():
 			if shifts.resume(): ui.navigate("Serverovna")))
 		c.add_child(ui.button("Restart směny…",func():
 			var dialog=ConfirmationDialog.new(); dialog.dialog_text="Ztratit rozpracovanou práci této směny? Historie a kampaň zůstanou."
 			ui.add_child(dialog); dialog.confirmed.connect(func(): shifts.start(session.id); ui.navigate("Serverovna"); dialog.queue_free()); dialog.canceled.connect(dialog.queue_free); dialog.popup_centered()))
 		for index in d.tickets.size():
-			c.add_child(ui.label(("✓ " if index<session.results.size() else "→ " if index==int(session.index) else "○ ")+d.tickets[index].title,18))
+			var ticket=d.tickets[index]
+			var closed=shifts.completed_ticket(index)
+			c.add_child(ui.label(("✓ Předáno / " if closed else "→ Vybráno / " if index==int(session.index) else "○ Otevřeno / ")+ticket.get("priority","")+" "+ticket.title,18))
+			if d.get("advanced",false):
+				c.add_child(ui.label(ticket.impact,15))
+				var blockers=[]
+				for id in ticket.depends:
+					for other in d.tickets:
+						if other.id==id and not ui.game.Evaluator.evaluate(session.state,other.objectives).all(func(goal): return goal.passed): blockers.append(other.title)
+				c.add_child(ui.label("Závislost: "+(", ".join(blockers) if not blockers.is_empty() else "podmínky připravené / ověř vlastní cíle"),13,ui.MUTED))
+				if not closed and not session.finished:
+					var revision=ui.game.session_revision
+					c.add_child(ui.button("Vybrat incident / "+ticket.id,func():
+						if shifts.resume() and shifts.select_ticket(index,revision): ui.context_open=true; ui.draw_ui()))
+		if d.get("advanced",false):
+			var runtime=session.state.shift_runtime
+			c.add_child(ui.label("Simulovaný čas %d min · výpadek alespoň jedné služby %d min. Čas běží pouze výslovným tlačítkem; pořadí oprav je volné." % [int(runtime.clock),int(runtime.outage_minutes)],15))
+			if not session.finished: c.add_child(ui.button("Posunout simulovaný čas o 1 minutu",func(): ui.game.apply("shift_wait",{"minutes":1}); ui.draw_ui()))
+			for event in runtime.events: c.add_child(ui.label("Plánovaný incident: "+event.id+" / revize "+str(int(event.revision)),14,ui.ORANGE))
 	for d in shifts.catalog:
-		var c=ui.card(v,d.title,"3 navazující tickety · nejlepší %d / 100" % int(shifts.data.best.get(d.id,0)))
+		var c=ui.card(v,d.title,"%d ticketů%s · nejlepší %d / 100" % [d.tickets.size()," / současné incidenty" if d.get("advanced",false) else " / navazující",int(shifts.data.best.get(d.id,0))])
 		c.add_child(ui.button("Zahájit "+d.title,func():
 			if shifts.data.session.is_empty() or shifts.data.session.finished:
 				shifts.start(d.id); ui.navigate("Serverovna")

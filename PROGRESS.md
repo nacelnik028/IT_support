@@ -1,5 +1,15 @@
 # Datacenter Academy — stav vývoje
 
+## Dvě pokročilé směny s prioritami — funkční etapa, 3. 11. 2026
+
+- SHIFT-RECOVERY a SHIFT-RESILIENCE mají po pěti samostatných ticketech nad jedním skutečným světem. Fronta ukazuje prioritu, dopad, závislosti a stav; výběr pouze mění kontext. Opravy před přijetím i dvě rozdílná platná pořadí jsou podporované.
+- Stabilní plánované incidenty REC-PBS-LINK (po prvním ověření obou služeb odpojí jen kabel PBS) a STO-CACHE-POWER (při 50 % rebuildu selže ochrana cache). Stav plánovače je součást světa, takže undo/model/restart fungují společně. Retry zápisu nespouští událost znovu. Žádné skryté resetování inventáře nebo jiných konfigurací.
+- Volitelný explicitní simulovaný čas sleduje skutečný výpadek služeb, nikoli FPS/čas za pauzou. Testované pořadí oprav mění dostupnost a naměřené simulační minuty (1 oproti 0). Čas není stresující limit ani další skrytá penalizace skóre.
+- Každý pokročilý ticket má vlastní trvalá počítadla; poslední předání znovu ověří celý model i aktuální monitoring. Fyzická chybná výměna zdravého člena RAID10 při vadném sousedovi skutečně vytvoří Failed/data_loss a vyřadí aplikaci; jasný servisní postup je výslovný restart, nikoli fingovaný rebuild.
+- advanced_shifts **268 PASS headless i GPU Compatibility**: všechny nové tickety dvakrát přes skutečné operace, různé priority/předání, fyzický inventář po novém GameManageru, jediná aktivace/obnova/undo/restart/failure-retry, skutečný chybný postup a klik priority plným press/release. Původní shifts **136 PASS**. Runner nyní obsahuje 42 sad.
+- tools/advanced_shifts.py verze1 a build_shifts.py generují katalog reprodukovatelně po bajtech. První tři definice směn porovnány s předchozím commitem beze změn; kampaň/legacy24 nejsou upravené. Validátor podporuje starý sekvenční formát i nové nesekvenční výsledky/plánovač/metriky bez ztráty historie.
+- README a docs/CONTINUOUS_SHIFTS.md aktualizované, trvalé testovací logy v nové ui-review/verification. Celková regrese, grafická matice a exporty budou následovat po zbytku zadání. Bez push a bez PICO/ADB.
+
 ## Konzistentní hodnocení směn — funkční etapa, 3. 11. 2026
 
 - Původní chyba reprodukována skutečným tlačítkem a novým GameManagerem: nápověda po obnově 0, ticket 100. Trvalý baseline log 18 kontrol popisuje chybný původní kontrakt; není součást finálního runneru.

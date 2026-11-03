@@ -2,7 +2,7 @@
 
 Serverovna → přehled infrastruktury → **Souvislé směny**, nebo pauza v serverovně.
 Kampaň má výslovné samostatné obnovení; Pokračovat ve směně obnoví vlastní relaci.
-Každá směna má tři tickety a jeden výchozí svět. Další ticket vymaže jen ověření;
+Původní tři směny mají po třech ticketech; nové dvě pokročilé po pěti. Každá má jeden výchozí svět. Další ticket vymaže jen ověření;
 zachová konfiguraci, hardware, inventář i dřívější opravy. Předání čte kumulativní
 cíle. Opravu lze provést před přijetím dalšího ticketu.
 
@@ -55,3 +55,35 @@ zlepšení průměrného nejlepšího skóre. Chyba zápisu zachová jedinou př
 odměnu v paměti a retry opakuje jen zápis. Dokončené historické výsledky se
 nepřepočítávají. Rozpracované staré pokusy bez score_version zůstávají v
 původní metodice 1 s kumulativními chybami/riziky, bez odhadu ztracených nápověd.
+
+## Pokročilé směny a volba priority
+
+- **SHIFT-RECOVERY / dvě služby a zajištění**: současně APP01 se špatnou VLAN
+  a zastavená FS01 s nadměrnou RAM. Po prvním aktuálním ověření obou služeb
+  se jednou aktivuje REC-PBS-LINK a odpojí uplink BACKUP-01. Oprav port6,
+  vytvoř oba skutečné nové body a proveď PBS Verify. Pět samostatných ticketů.
+- **SHIFT-RESILIENCE / storage a konzistence**: odpojený PBS, vadný DC-002
+  v RAID10 a vypnuté VSS. Při prvním dosažení 50 % skutečného rebuildu jednou
+  selže ochrana cache (STO-CACHE-POWER); použij bezpečný Write-through.
+  Nové body obou VM, aktuální aplikace a monitoring po poslední změně uzavřou
+  pětiticketovou přejímku. Vytažení zdravého DC-003 při vadném DC-002 způsobí
+  Failed/data_loss; samotný rebuild není opravou, použij výslovný restart.
+
+Fronta uvádí prioritu, dopad, závislost na skutečných podmínkách a stav.
+**Vybrat incident** mění kontext, nikoli svět, konfiguraci nebo ověření.
+Opravy lze provést před přijetím jiného ticketu, v několika platných pořadích.
+Závěrečné předání ověří znovu všechny současné podmínky, včetně aktuálnosti
+monitoringu. Počítadla jsou přidělená právě vybranému ticketu; nápovědy se
+při přepínání kontextu zachovají. Undo vrací i plánovač do stejného bodu světa,
+nezpřístupňuje opět již udělenou odměnu.
+
+**Posunout simulovaný čas o 1 minutu** je dobrovolný explicitní krok. Pouze
+tehdy přibývá čas a při nedostupnosti alespoň jedné aplikace doba výpadku.
+Pauza, focus, tracking ani výkon počítače jej neposouvají. Čas zde nevytváří
+skrytý časový limit ani další bodovou penalizaci. Dřívější oprava služeb může
+skutečně změnit dostupnost i sledovanou dobu výpadku.
+
+Generátor `tools/advanced_shifts.py` (verze1), volaný z build_shifts.py,
+uchovává nové definice odděleně od kampaně. Původní tři definice jsou shodné.
+Save zachová vybraný ticket, jednotlivá počítadla, reálný svět/inventář,
+aktivované události, nové body a explicitní čas. Historie starých směn zůstává.
