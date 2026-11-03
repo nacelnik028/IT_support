@@ -7,8 +7,8 @@ var missions: Array=[]
 var solutions: Array=[]
 
 func _init():
-	missions=JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
-	solutions=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/scenario_solutions.json"))
+	missions=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/campaign.json"))
+	solutions=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/training/scenario_solutions.json"))
 
 func generate(area: String,difficulty: String,count: int,seed_value: int=0) -> Array:
 	if seed_value==0: rng.randomize()

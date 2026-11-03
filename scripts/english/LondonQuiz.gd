@@ -1,6 +1,6 @@
 extends RefCounted
 
-var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/english/london_quiz.json"))
+var catalog: Dictionary=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/london_quiz.json"))
 var progress: Dictionary={"results":{},"attempts":[],"best":0}
 var session: Dictionary={}
 var revision=0

@@ -1167,7 +1167,7 @@ func draw_knowledge_profile(parent: Node):
 
 func draw_glossary(parent: Node):
 	Search.draw(self,parent,"glossary")
-	var terms=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/glossary.json"))
+	var terms=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/training/glossary.json"))
 	for term in terms:
 		if not Search.matches(self,"glossary",term.term+" "+term.text): continue
 		var c=card(parent,term.term,term.text)
@@ -1377,7 +1377,7 @@ func draw_terminal():
 func draw_academy():
 	var v=scroll(center)
 	Search.draw(self,v,"articles")
-	var articles=JSON.parse_string(FileAccess.get_file_as_string("res://data/knowledge/articles.json"))
+	var articles=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/knowledge/articles.json"))
 	var categories=OptionButton.new()
 	for category in ["Proxmox","Hyper-V","Storage"]: categories.add_item(category)
 	categories.select(["Proxmox","Hyper-V","Storage"].find(academy_category))

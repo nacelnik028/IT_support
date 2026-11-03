@@ -21,7 +21,7 @@ var series_mode="practice"
 
 func _init():
 	var path="res://data/programming/catalog.json"
-	if FileAccess.file_exists(path): catalog=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if FileAccess.file_exists(path): catalog=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text(path))
 
 func allowed() -> bool: return available.is_valid() and available.call()
 

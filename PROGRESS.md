@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Navazující etapa — exportní rozpočet, 3. 11. 2026
+
+- Přečteno celé nové zadání, výchozí čistý Git e523eb4, Godot MCP 4.7.2 a metadata existujícího projektu. Runner skutečně obsahuje 39 sad; výchozí regrese běží do odděleného next-stage-baseline.log.
+- Změřeny oficiální šablony Debug 103 176 704 B / Release 109 268 480 B. Nativní bezeztrátové ZSTD katalogů v izolované Windows exportní kopii získalo prostor bez změn PE nebo obsahu. Před kompresí i po ní porovnány přesné bajty.
+- Skutečné EXE nyní 104 371 136 B, rezerva 486 464 B. Nativní headless/GPU smoke a audit zabaleného obsahu 5437 PASS, 255 souborů, 278 materiálů, všechny JSON hodnoty shodné. Další balíčkové sady a výchozí regrese pokračují; toto není konečný release celé etapy.
+- Podrobnosti v docs/EXPORT_SIZE_BUDGET.md. Kampaň/legacy24, audio i fonty zachovány. Bez PICO/ADB a bez push. Další práce: trvalé koncepty a výslovná obnova výuky.
+
 ## Zadání další etapy — ukládání, hlubší směny a poslech, 3. 11. 2026
 
 - Na žádost uživatele připraven `PROMPT_DALSI_ETAPA_UKLADANI_SMENY_POSLECH.md` pro navazující AI. Jde o zadání budoucí implementace, nikoli tvrzení o hotových nových funkcích.

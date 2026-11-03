@@ -11,9 +11,9 @@ const Context = preload("res://scripts/simulation/OperationContext.gd")
 var state: Dictionary = {}
 
 func reset(patch: Dictionary):
-	state = JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/baseline.json"))
+	state = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/infrastructure/baseline.json"))
 	if FileAccess.file_exists("res://data/infrastructure/academy_defaults.json"):
-		merge(state,JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/academy_defaults.json")))
+		merge(state,JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/infrastructure/academy_defaults.json")))
 	merge(state,patch)
 	state.verified = {}
 	state.diagnostic = {"viewed":false}

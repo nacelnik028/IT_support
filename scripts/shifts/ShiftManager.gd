@@ -1,7 +1,7 @@
 extends RefCounted
 
 var owner_ref
-var catalog=JSON.parse_string(FileAccess.get_file_as_string("res://data/shifts/catalog.json"))
+var catalog=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/shifts/catalog.json"))
 var data={"selected":"campaign","session":{},"history":[],"best":{}}
 
 func definition(id: String) -> Dictionary:

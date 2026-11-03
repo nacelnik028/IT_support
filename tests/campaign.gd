@@ -12,10 +12,10 @@ func _init():
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_campaign.json"
 	var Sim = preload("res://scripts/simulation/InfrastructureSimulator.gd")
 	var Eval = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
-	var missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
+	var missions = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/campaign.json"))
 	var solutions = JSON.parse_string(FileAccess.get_file_as_string("res://tests/solutions.json"))
 	check(missions.size()>=48,"Musí existovat alespoň48 misí")
-	var legacy=JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/legacy_campaign.json"))
+	var legacy=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/legacy_campaign.json"))
 	for index in legacy.size(): check(missions[index]==legacy[index],"Původní mise musí zůstat beze změny: "+str(index+1))
 	for i in missions.size():
 		var sim = Sim.new()

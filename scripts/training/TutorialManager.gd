@@ -13,7 +13,7 @@ func cancel():
 
 func _init():
 	if FileAccess.file_exists("res://data/training/lessons.json"):
-		lessons=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/lessons.json"))
+		lessons=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/training/lessons.json"))
 		for definition in lessons: definition.id=int(definition.id)
 
 func start(definition: Dictionary,mode: String):

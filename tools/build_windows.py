@@ -94,6 +94,7 @@ def main():
         authored=(project/'project.godot').read_bytes()
         run([engine, '--headless', '--editor', '--import', '--quit', '--path', project], logs / 'windows-build-import.log')
         (project/'project.godot').write_bytes(authored)
+        run([engine, '--headless', '--path', project, '--script', ROOT / 'tools/compress_export_content.gd'], logs / 'windows-content-compression.log')
         result = temporary / 'ITSupportSimulator.exe'
         run([engine, '--headless', '--path', project, '--export-debug', 'Windows Desktop', result], logs / 'windows-build-export.log')
         binary = result.read_bytes()
@@ -123,7 +124,7 @@ def main():
         info={'engine':version,'export':'Windows x86_64 Debug','bytes':len(binary),
               'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
               'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
-              'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction in isolated build copy'}
+              'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction + native Godot ZSTD container in isolated build copy'}
         source_files=[ROOT/'project.godot',ROOT/'export_presets.cfg']
         for folder in ['assets','data','scenes','scripts']:
             source_files+=sorted(path for path in (ROOT/folder).rglob('*') if path.is_file())
@@ -132,7 +133,9 @@ def main():
         normalized=sorted(info['sources'],key=lambda item:item['file'])
         info['source_manifest_sha256']=hashlib.sha256(json.dumps(normalized,sort_keys=True,separators=(',',':')).encode()).hexdigest()
         (build/'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n',encoding='utf-8')
-        (build/'SHA256SUMS').write_text(info['sha256']+'  ITSupportSimulator.exe\n',encoding='utf-8')
+        sums=build/'SHA256SUMS'
+        retained=[line for line in sums.read_text(encoding='utf-8').splitlines() if not line.endswith('  ITSupportSimulator.exe')] if sums.exists() else []
+        sums.write_text(info['sha256']+'  ITSupportSimulator.exe\n'+'\n'.join(retained)+ ('\n' if retained else ''),encoding='utf-8')
         print(json.dumps(info,indent=2))
 
 

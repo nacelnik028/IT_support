@@ -4,7 +4,7 @@ extends RefCounted
 const IDS = ["LON01","LON02","LON03","LON04","LON05","LON06"]
 const Questions=preload("res://scripts/english/CustomerQuestions.gd")
 var quiz=preload("res://scripts/english/LondonQuiz.gd").new()
-var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/english/scenarios.json"))
+var catalog: Dictionary = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/scenarios.json"))
 var progress: Dictionary = {"content_version":2,"results":{},"attempts":[],"phrases":[],"intro_seen":false,"archive":{},"quiz":{}}
 var session: Dictionary = {}
 var revision = 0

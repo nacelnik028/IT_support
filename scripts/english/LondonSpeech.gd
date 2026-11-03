@@ -1,7 +1,7 @@
 extends AudioStreamPlayer
 
 var shell
-var mapping=JSON.parse_string(FileAccess.get_file_as_string("res://data/english/audio.json"))
+var mapping=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/audio.json"))
 var spoken_revision=-1
 var line_id=""
 

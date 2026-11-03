@@ -9,10 +9,10 @@ var baseline: Dictionary = {}
 var checked_sessions: Dictionary = {}
 
 func _init():
-	missions=JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
-	lessons=JSON.parse_string(FileAccess.get_file_as_string("res://data/training/lessons.json"))
-	baseline=JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/baseline.json"))
-	Sim.merge(baseline,JSON.parse_string(FileAccess.get_file_as_string("res://data/infrastructure/academy_defaults.json")))
+	missions=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/campaign.json"))
+	lessons=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/training/lessons.json"))
+	baseline=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/infrastructure/baseline.json"))
+	Sim.merge(baseline,JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/infrastructure/academy_defaults.json")))
 	baseline.merge({"verified":{},"diagnostic":{"viewed":false},"journal":[],"errors":0,"risks":0,"revision":0})
 
 static func integer(value, minimum: int, maximum: int = 2147483647) -> bool:
@@ -51,7 +51,7 @@ func valid(data) -> bool:
 func shifts(data) -> bool:
 	if not data is Dictionary or not shape(data,{"selected":"campaign","session":{},"history":[],"best":{}}): return false
 	if not data.get("selected","campaign") in ["campaign","shift"] or data.get("history",[]).size()>50: return false
-	var catalog=JSON.parse_string(FileAccess.get_file_as_string("res://data/shifts/catalog.json"))
+	var catalog=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/shifts/catalog.json"))
 	var definitions={}
 	for d in catalog: definitions[d.id]=d
 	for id in data.get("best",{}):
@@ -106,7 +106,7 @@ func english(data) -> bool:
 func london_quiz(data) -> bool:
 	if not data is Dictionary or not shape(data,{"results":{},"attempts":[],"best":0}): return false
 	if not integer(data.get("best",0),0,100) or data.get("attempts",[]).size()>100: return false
-	var questions=JSON.parse_string(FileAccess.get_file_as_string("res://data/english/london_quiz.json")).questions
+	var questions=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/london_quiz.json")).questions
 	var ids=[]
 	for q in questions: ids.append(q.id)
 	for id in data.get("results",{}):

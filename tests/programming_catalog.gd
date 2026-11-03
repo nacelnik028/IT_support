@@ -8,7 +8,7 @@ func check(ok: bool, text: String):
 	checks+=1
 	if not ok: failures+=1; print("FAIL ",text)
 func run():
-	var data=JSON.parse_string(FileAccess.get_file_as_string("res://data/programming/catalog.json"))
+	var data=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/programming/catalog.json"))
 	check(data.missions.size()==60,"All 60 tasks")
 	check(data.lessons.size()==28,"All 28 lessons")
 	check(data.debugging.size()>=10,"Debugging variants")

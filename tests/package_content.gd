@@ -37,7 +37,7 @@ func run():
 		for banned in ["res://build/","res://builds/","res://tests/","res://tools/","res://test-output/","res://docs/"]:
 			check(not path.begins_with(banned),"Export neobsahuje "+banned)
 		if path.begins_with("res://data/") and path.ends_with(".json"):
-			var actual=JSON.parse_string(FileAccess.get_file_as_string(path))
+			var actual=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text(path))
 			var expected=JSON.parse_string(FileAccess.get_file_as_string(reference+"/"+path.trim_prefix("res://")))
 			check(actual==expected,"Skutečný zabalený JSON zachoval každé ID a hodnotu: "+path)
 	var game=preload("res://scripts/core/GameManager.gd").new()

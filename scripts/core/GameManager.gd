@@ -57,9 +57,9 @@ func _init():
 		if owner_ref.get_ref()!=null: owner_ref.get_ref().progress.xp+=amount
 	main_sim.reset({})
 	training_sim.reset({})
-	missions = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/campaign.json"))
+	missions = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/missions/campaign.json"))
 	for definition in missions: definition.id=int(definition.id)
-	actions = JSON.parse_string(FileAccess.get_file_as_string("res://data/actions.json"))
+	actions = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/actions.json"))
 	var saved = Saves.load_game()
 	load_warning = Saves.last_message
 	if not saved.is_empty():

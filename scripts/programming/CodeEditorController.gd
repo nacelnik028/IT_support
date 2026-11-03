@@ -293,7 +293,7 @@ func zoom(change: int):
 	if manager.persist.is_valid(): manager.persist.call()
 
 func show_dashboard(): lesson_text.text=manager.dashboard()
-func show_limits(): lesson_text.text=FileAccess.get_file_as_string("res://data/programming/LIMITS.txt")
+func show_limits(): lesson_text.text=preload("res://scripts/core/ContentReader.gd").text("res://data/programming/LIMITS.txt")
 func change_mode(index: int):
 	if manager.current.is_empty(): return
 	if manager.current.id.begins_with("GEN-"):
