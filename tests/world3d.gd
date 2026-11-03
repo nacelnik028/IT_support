@@ -6,6 +6,7 @@ var checks = 0
 var shell
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_world3d_"+str(OS.get_process_id())+"_vr.cfg"
 	Saves.path_override = "user://academy_test_world3d.json"
 	preload("res://scripts/core/DisplaySettings.gd").path_override = "user://academy_test_world3d.cfg"
 	call_deferred("run")

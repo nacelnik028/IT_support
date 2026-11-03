@@ -56,3 +56,6 @@ static func recommendations(game,tags: Array=[]) -> Array:
 	var result=[]
 	for item in ranked.slice(0,3): result.append(item.lesson)
 	return result
+
+static func skills(game) -> Array:
+	return preload("res://scripts/training/SkillEvidence.gd").summarize(game)

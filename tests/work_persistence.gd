@@ -125,14 +125,51 @@ func run():
 		var rebuilt=Game.new(); check(same(rebuilt.work.data.forms,game.work.data.forms),"Nový GameManager načte raw IT koncept")
 		var saved_game=shell.ui.game; shell.ui.game=rebuilt; shell.ui.form_drafts.clear(); shell.ui.draft_revision=rebuilt.session_revision; shell.ui.draw_ui(); await frames()
 		check(shell.ui.form_controls.pve_resources.ram.get_line_edit().text=="6144x","Skutečný nový formulář obnoví nepotvrzený číselný text")
-		shell.ui.host="HV-01"; shell.ui.page="Hyper-V"; shell.ui.selected_vm="200"; shell.ui.tab="VM / paměť"; shell.ui.active_action="memory"; shell.ui.draw_ui(); await frames()
-		check(not shell.ui.form_drafts.has("Hyper-V|HV-01|200|pve_resources"),"Koncept VM100 není koncept jiné VM/hostitele")
+		shell.ui.host="HV-01"; shell.ui.page="Hyper-V"; shell.ui.selected_vm="200"; shell.ui.draw_ui(); shell.ui.open_action("memory"); await frames()
+		check(shell.ui.form_controls.has("memory") and shell.ui.form_controls.memory.ram.get_line_edit().text!="6144x","Skutečný formulář jiné VM/hostitele nepřevezme raw text VM100")
 		shell.ui.game=saved_game; rebuilt=null
+		shell.ui.draw_ui(); await frames()
+	# Real second VM on the same host, not a fictitious selector ID.
+	var creation={}
+	for descriptor in game.actions:
+		if descriptor.id=="create_vm":
+			for field in descriptor.fields: creation[field.key]=field.get("default","")
+	creation.id="101"; creation.name="DRAFT-SECOND"
+	check(game.apply("create_vm",creation).ok,"Skutečné vytvoření druhé VM pro izolaci konceptu")
+	shell.ui.page="Proxmox"; shell.ui.host="PVE-01"; shell.ui.selected_vm="101"; shell.ui.draw_ui(); shell.ui.open_action("pve_resources"); await frames()
+	check(shell.ui.form_controls.pve_resources.ram.get_line_edit().text!="6144x","Stejná operace na druhé existující VM má vlastní koncept")
+	var stale={"version":1,"session":game.attempt_id,"page":"Proxmox","host":"PVE-01","vm":"9999","action":"pve_resources","values":{"ram":{"value":4,"text":"6144x"}}}
+	game.work.data.forms[game.work.form_key(stale)]=stale
+	var model=game.sim.state.duplicate(true)
+	check(preload("res://scripts/ui/FormDraftArchive.gd").restore(shell.ui,"Proxmox|PVE-01|9999|pve_resources","pve_resources").is_empty() and game.sim.state==model and shell.ui.notice.contains("Koncept odmítnut"),"Zaniklý cíl je bezpečně odmítnutý s vysvětlením")
+	shell.ui.selected_vm="100"; shell.ui.draw_ui(); shell.ui.open_action("promote"); await frames()
+	await click(shell.ui.form_buttons.promote)
+	var confirm: ConfirmationDialog
+	for child in shell.ui.get_children():
+		if child is ConfirmationDialog and not child.is_queued_for_deletion(): confirm=child; break
+	check(confirm!=null,"Rizikový zásah vyžaduje aktuální potvrzení")
+	if confirm!=null:
+		await click(confirm.get_cancel_button())
+		check(game.sim.state==model,"Zamítnuté potvrzení neprovede operaci")
+	await click(shell.ui.form_buttons.promote)
+	for child in shell.ui.get_children():
+		if child is ConfirmationDialog and not child.is_queued_for_deletion(): confirm=child; break
+	game.start_mission(6,true); model=game.sim.state.duplicate(true)
+	if is_instance_valid(confirm): confirm.confirmed.emit()
+	check(game.sim.state==model,"Starý potvrzovací callback nesouhlasí za jinou relaci")
 	shell.enter_world("Trénink")
+	var solution_path="res://tests/lesson_solutions.json"
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--lesson-solutions="): solution_path=argument.trim_prefix("--lesson-solutions=")
+	var solutions=JSON.parse_string(FileAccess.get_file_as_string(solution_path))
 	for mode in ["learn","practice","exam"]:
 		game.start_lesson(1002,mode,false)
 		if mode!="exam": game.lesson_hint()
-		game.apply("memory",{"vm":"200","cpu":2,"startup":4,"min":2,"max":8,"dynamic":true})
+		for entry in solutions["1002"].slice(0,5):
+			if entry is Dictionary: game.notify_event(entry.event)
+			else: check(game.apply(entry[0],entry[1]).ok,"Skutečný sandbox před obnovou / "+entry[0]+mode)
+		check(game.sim.get_vm("101").get("iso","")=="debian.iso" and (mode!="learn" or int(game.tutorial.session.step)>=5),"Obnovuje se skutečný postup a VM, ne jen prázdný začátek / "+mode)
+		check(not game.apply("vm_resources",{"vm":"9999","cpu":2,"ram_mib":4096}).ok,"Skutečná chyba se uloží pro férové dokončení / "+mode)
 		var expected=game.snapshot().duplicate(true)
 		shell.enter_world("Rozcestník akademie")
 		check(not game.active and game.tutorial.session.is_empty() and game.education.sessions.is_empty(),"Odchod vyčistí živou výuku "+mode)

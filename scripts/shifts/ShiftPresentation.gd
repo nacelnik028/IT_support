@@ -2,6 +2,7 @@ extends RefCounted
 
 static func draw(ui):
 	var v=ui.scroll(ui.center)
+	v.get_parent().follow_focus=true
 	v.add_child(ui.label("SOUVISLÉ SMĚNY / společná infrastruktura a priority",24,ui.CYAN))
 	v.add_child(ui.label("Nová směna odloží kampaň. Nové spuštění nahradí rozpracovanou směnu; historie zůstane. XP jen za zlepšení nejlepšího výsledku, kampaň se neodemyká.",16))
 	var shifts=ui.game.shifts

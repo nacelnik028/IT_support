@@ -7,6 +7,7 @@ var checks=0
 var failures=0
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_ui_safety_"+str(OS.get_process_id())+"_vr.cfg"
 	Saves.path_override="user://academy_test_ui_safety.json"
 	Settings.path_override="user://academy_test_ui_safety.cfg"
 	Saves.save_game({},true)

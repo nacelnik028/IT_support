@@ -8,6 +8,7 @@ var failures=0
 var suffix=""
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_ui_design_"+str(OS.get_process_id())+"_vr.cfg"
 	var renderer="_gpu" if DisplayServer.get_name()!="headless" else ""
 	Saves.path_override="user://academy_test_ui_design"+renderer+".json"
 	Settings.path_override="user://academy_test_ui_design"+renderer+".cfg"

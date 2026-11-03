@@ -14,6 +14,7 @@ var mode_picker: OptionButton
 var category_picker: OptionButton
 var file_name="main.py"
 var changing=false
+var buffer_key=""
 var preview: Control
 var hint_button: Button
 var example_button: Button
@@ -67,7 +68,8 @@ func _ready():
 	tools_row.add_child(mode_picker)
 	mode_picker.item_selected.connect(change_mode)
 	tools_row.add_child(button("Zadání",func(): lesson_text.text=brief_text))
-	tools_row.add_child(button("Moje znalosti",show_dashboard))
+	tools_row.add_child(button("Moje znalosti",func(): shell.open_app("Moje znalosti")))
+	tools_row.add_child(button("Výsledky programování",show_dashboard))
 	tools_row.add_child(button("Rozepsaná práce",show_drafts))
 	tools_row.add_child(button("Podporovaný rozsah",show_limits))
 	next_button=button("Další úloha →",next_generated); tools_row.add_child(next_button)
@@ -151,7 +153,7 @@ func create_editor(filename: String) -> CodeEdit:
 	return control
 
 func capture_editor_state():
-	if changing or manager.current.is_empty(): return
+	if changing or manager.current.is_empty() or buffer_key!=manager.drafts.key(manager.draft_record()): return
 	var changed_view=false
 	for filename in buffers:
 		var control=buffers[filename]
@@ -210,6 +212,7 @@ func launch(id: String, lesson: bool):
 
 func load_current():
 	changing=true
+	buffer_key=manager.drafts.key(manager.draft_record())
 	reset_feedback()
 	clear_buffers()
 	file_picker.clear()
@@ -291,7 +294,7 @@ func refresh_save_state():
 func show_drafts(only_key: String = ""):
 	capture_editor_state()
 	var dialog=AcceptDialog.new(); dialog.title="Rozepsaná práce / výslovná obnova"; dialog.ok_button_text="Zavřít"
-	var scroll=ScrollContainer.new(); scroll.custom_minimum_size=Vector2(680,300); dialog.add_child(scroll)
+	var scroll=ScrollContainer.new(); scroll.follow_focus=true; scroll.custom_minimum_size=Vector2(680,300); dialog.add_child(scroll)
 	var list=VBoxContainer.new(); list.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(list)
 	list.add_child(label("Obnova nespouští kód ani testy. Undo/redo patří jen živému editoru. Začít znovu nahradí pouze tento koncept počátečním zadáním.",16))
 	var records=manager.progress.drafts.duplicate(true)

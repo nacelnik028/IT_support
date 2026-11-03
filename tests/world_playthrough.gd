@@ -6,6 +6,7 @@ var checks = 0
 var shots = false
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_world_playthrough_"+str(OS.get_process_id())+"_vr.cfg"
 	preload("res://scripts/progression/SaveManager.gd").path_override = "user://academy_test_world_playthrough.json"
 	preload("res://scripts/core/DisplaySettings.gd").path_override = "user://academy_test_world_playthrough.cfg"
 	call_deferred("run")

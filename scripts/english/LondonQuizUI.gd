@@ -9,6 +9,9 @@ static func draw(ui):
 		for mode in ["learn","practice","exam"]:
 			var button=ui.shell.ui.button(("✓ " if ui.selected_mode==mode else "")+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}[mode],func(): ui.selected_mode=mode; ui.draw())
 			row.add_child(button); ui.buttons.append(button)
+		if ui.recommendation.get("area")=="quiz":
+			ui.action("Nová doporučená otázka / "+ui.recommendation.id,func():
+				if quiz.start_question(ui.recommendation.id,ui.selected_mode): ui.page="quiz"; ui.draw())
 		for count in [20,5]:
 			ui.action("Spustit %d otázek" % count,func():
 				ui.manager.session.clear(); quiz.start(ui.selected_mode,count)

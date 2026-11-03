@@ -5,7 +5,7 @@ const Review=preload("res://scripts/evaluation/AttemptReview.gd")
 static func show(ui, record: Dictionary):
 	if not Review.valid_review(record): ui.show_message("Rozbor není dostupný","Záznam má neplatnou strukturu nebo pochází ze staršího pokusu bez podrobného rozboru."); return
 	var dialog=AcceptDialog.new(); dialog.title="Rozbor příčin a ověřeného výsledku"; dialog.ok_button_text="Zavřít / výsledek zůstává uložený"
-	var scroll=ScrollContainer.new(); scroll.custom_minimum_size=Vector2(760,380); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; dialog.add_child(scroll)
+	var scroll=ScrollContainer.new(); scroll.follow_focus=true; scroll.custom_minimum_size=Vector2(760,380); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; dialog.add_child(scroll)
 	var body=VBoxContainer.new(); body.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(body)
 	var text=ui.label(Review.explanation(record),15); text.custom_minimum_size.x=710; body.add_child(text)
 	var question=Review.question(record)

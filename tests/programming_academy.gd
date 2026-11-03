@@ -3,7 +3,8 @@ extends SceneTree
 const Saves=preload("res://scripts/progression/SaveManager.gd")
 var checks=0
 var failures=0
-func _init(): call_deferred("run")
+func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_programming_academy_"+str(OS.get_process_id())+"_vr.cfg" call_deferred("run")
 func check(ok: bool, text: String):
 	checks+=1
 	if not ok: failures+=1; print("FAIL ",text)

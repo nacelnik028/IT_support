@@ -5,6 +5,7 @@ var ui
 var failed=0
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_tutorial_first_"+str(OS.get_process_id())+"_vr.cfg"
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_first_tutorial.json"
 	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_tutorial_first.cfg"
 	call_deferred("run")

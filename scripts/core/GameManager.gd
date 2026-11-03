@@ -444,6 +444,9 @@ func restore_session(data: Dictionary) -> bool:
 	sim.reset(current.initial_state)
 	if data.get("state") is Dictionary: Simulator.merge(sim.state,data.state)
 	sim.refresh_incidents()
+	# A legacy snapshot has no attempt identity. Never attach a trace copied
+	# from another attempt to its new identity or make the migrated save invalid.
+	if sim.state.has("_trace") and sim.state._trace.session!=attempt_id: Review.begin(self,true)
 	training=data.get("training",false)
 	hints_used=int(data.get("hints",0))
 	finished=data.get("finished",false)

@@ -31,3 +31,6 @@ Testy provádějí import, MP3 dekódování do nenulových PCM vzorků, délku,
 variantu, přesné mapování a skutečné přehrání AudioStreamPlayer. To se odlišuje
 od subjektivního poslechu člověka. Reproduktory/komfort a výkon PICO čekají na
 [hardwarový checklist](PICO4_HARDWARE_CHECKLIST.md).
+
+
+Navazující samostatné [poslechové procvičování](LONDON_LISTENING.md) používá původních 24 klipů bez nového audia; vlastní výsledky/režimy a bezpečná obnova. [Moje znalosti](KNOWLEDGE_PROFILE.md) odděluje dialog, kvíz a poslech.

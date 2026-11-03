@@ -13,6 +13,7 @@ var buttons: Array=[]
 var content: VBoxContainer
 var last_dispatch=-1000
 var shown_session_id=""
+var recommendation={}
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -34,7 +35,8 @@ func action(text: String, callback: Callable, primary: bool = false) -> Button:
 
 func draw():
 	shell.speech.stop()
-	if page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
+	if page=="listening" and not manager.listening.session.is_empty(): selected_mode=manager.listening.session.mode
+	elif page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
 	elif page=="dialog" and not manager.session.is_empty():
 		selected_mode=manager.session.mode
 		if shown_session_id!=manager.session.id:
@@ -54,6 +56,7 @@ func draw():
 		label_text("U přepážky vyber situaci a anglické repliky. Zkontroluj košík, přilož cvičnou kartu u terminálu a ukaž lístek u kontroly. Alex u mostu poradí cestu k věži.\n\nPC: E, myš nebo šipky / Tab a Enter; repliky také 1–4. Esc zavře panel.\nPICO: oba paprsky a trigger, B/Y zavře panel, A/X přemístí panel. Levý stick klik teleportuje při zavřeném panelu.\n\nCvičné ceny, offline hra. Hodnotíme volbu replik a splnění úkolu. Big Ben je zvon v Elizabeth Tower.",22)
 		action("Začít / přeskočit seznámení",func():
 			manager.progress.intro_seen=true; shell.ui.game.save(); page="home"; draw(),true)
+	elif page.begins_with("listening"): preload("res://scripts/english/LondonListeningUI.gd").draw(self)
 	elif page.begins_with("quiz"): preload("res://scripts/english/LondonQuizUI.gd").draw(self)
 	elif page=="home": draw_home()
 	elif page=="progress": draw_progress()
@@ -61,7 +64,7 @@ func draw():
 	var footer=HBoxContainer.new(); footer.add_theme_constant_override("separation",14); layout.add_child(footer)
 	for item in [["Zpět do pavilonu [Esc]",shell.return_to_world],["Situace / restart",func(): page="home"; draw()],["Moje výsledky",func(): page="progress"; draw()]]:
 		var b=shell.ui.button(item[0],item[1]); b.custom_minimum_size.y=48; footer.add_child(b); buttons.append(b)
-	if page in ["home","dialog"]:
+	if page in ["home","dialog","listening_home","listening"]:
 		var autoplay=CheckButton.new(); autoplay.text="Auto řeč · Jenny"; autoplay.tooltip_text="Automaticky přehrát dostupné repliky. Hlas Jenny (Dioco)."
 		autoplay.button_pressed=shell.ui.display_settings.london_autoplay
 		autoplay.toggled.connect(func(value): shell.ui.save_preference("london_autoplay",value))
@@ -78,6 +81,7 @@ func focus_first():
 	if is_inside_tree() and not buttons.is_empty() and buttons[0].is_inside_tree(): buttons[0].grab_focus()
 
 func draw_home():
+	if recommendation.get("area")=="english": label_text("Doporučená situace: "+recommendation.id+". Můžeš zachovat současný rozhovor/kvíz nebo výslovně vybrat nový pokus.",18)
 	label_text("Vyber situaci. Nové spuštění zruší současný nákup; uložené výsledky zůstanou.",18)
 	var row=HBoxContainer.new(); row.add_theme_constant_override("separation",12); content.add_child(row)
 	for key in ["learn","practice","exam"]:
@@ -98,9 +102,11 @@ func draw_home():
 				else: draw())
 	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
 	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
+	action("Poslechové procvičování / 12 úloh",func(): page="listening_home"; draw())
 	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",func(): page="dialog"; draw())
 
 func draw_progress():
+	action("Společný přehled znalostí",func(): shell.open_app("Moje znalosti"))
 	label_text("Uložený postup  /  %d z 6 situací" % manager.progress.results.size(),24)
 	if not manager.progress.archive.is_empty(): label_text("Starší A1–A2 výsledky: %d / 6 situací v archivu. Nezapočítávají se do nových B1–B2 výsledků." % manager.progress.archive.get("results",{}).size(),18)
 	var scroll=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; content.add_child(scroll)
@@ -164,6 +170,7 @@ func draw_session():
 			var b=shell.ui.button(item[0],item[1]); row.add_child(b); buttons.append(b)
 
 func toggle_translation():
+	if not show_translation and not manager.session.is_empty(): manager.session.translation_used=true
 	show_translation=not show_translation
 	if show_translation: manager.hint()
 	draw()
@@ -188,7 +195,8 @@ func _unhandled_key_input(event):
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	var index=int(event.keycode)-KEY_1
 	if index>=0 and index<actions.size():
-		if page=="quiz": quiz_choose(actions[index],manager.quiz.revision)
+		if page=="listening": listening_choose(actions[index],manager.listening.revision)
+		elif page=="quiz": quiz_choose(actions[index],manager.quiz.revision)
 		else: choose(actions[index],manager.revision)
 		get_viewport().set_input_as_handled()
 
@@ -204,3 +212,9 @@ func audio_controls(text: String, speaker: String):
 		var b=shell.ui.button(item[0],func(): shell.speech.speak(text,speaker,item[1]))
 		b.custom_minimum_size.y=48; row.add_child(b); buttons.append(b)
 	var stop_button=shell.ui.button("Zastavit",shell.speech.stop); row.add_child(stop_button); buttons.append(stop_button)
+
+func listening_choose(id: String, token: int):
+	if manager.listening.answer(id,token): draw()
+
+func listening_autoplay(id: String, token: int):
+	if is_inside_tree() and page=="listening" and shell.mode=="english" and manager.listening.revision==token and manager.listening.session.get("id")==id and not manager.listening.session.get("completed",true): shell.speech.listen(id)

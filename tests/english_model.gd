@@ -10,6 +10,7 @@ var m
 var station=""
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_english_model_"+str(OS.get_process_id())+"_vr.cfg"
 	Saves.path_override="user://academy_test_english_model_%d.json" % OS.get_process_id()
 	Display.path_override="user://academy_test_english_model_%d.cfg" % OS.get_process_id()
 	Saves.save_game({},true)

@@ -63,7 +63,7 @@ static func draw(ui):
 	english.add_child(london); ui.register_target("menu:english",london)
 	var footer=ui.hbox(all,12)
 	footer.add_child(ui.label("VLASTNÍ TEMPO  /  ČESKÁ VÝUKOVÁ SIMULACE",12,ui.MUTED))
-	for item in [["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:
+	for item in [["Moje znalosti",func(): ui.navigate("Moje znalosti"),"knowledge"],["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:
 		var b=ui.button(item[0],item[1]); footer.add_child(b); ui.register_target("menu:"+item[2],b)
 	var credit=ui.label("Vytvořil: Vít Kellner a Codex",14,ui.MUTED)
 	credit.name="AuthorCredit"

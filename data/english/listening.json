@@ -1,0 +1,305 @@
+{
+  "content_version": 1,
+  "tasks": [
+    {
+      "id": "LONL01",
+      "clip": "LONA01",
+      "prompt": "Na co se zákazník ptá?",
+      "options": [
+        {
+          "id": "ticket_options",
+          "text": "Jaké možnosti vstupenek jsou k dispozici na dnešní odpoledne."
+        },
+        {
+          "id": "river_trip",
+          "text": "Jak dlouho trvá víkendová plavba po řece."
+        },
+        {
+          "id": "refund",
+          "text": "Jak získat peníze zpět za již použitou vstupenku."
+        },
+        {
+          "id": "closing",
+          "text": "V kolik hodin se dnes zavírá věž."
+        }
+      ],
+      "answer": "ticket_options",
+      "explanation": "Zákazník zjišťuje dostupné možnosti vstupenek na odpoledne. Nezazněla cena ani potvrzení konkrétního času."
+    },
+    {
+      "id": "LONL02",
+      "clip": "LONA02",
+      "prompt": "Co chce prodavač zjistit?",
+      "options": [
+        {
+          "id": "ticket_choice",
+          "text": "Jaké vstupenky si zákazník přeje."
+        },
+        {
+          "id": "pay_now",
+          "text": "Zda zákazník právě zaplatil celou objednávku."
+        },
+        {
+          "id": "route",
+          "text": "Kudy se zákazník dostane pěšky k věži."
+        },
+        {
+          "id": "age_proof",
+          "text": "Jestli má každý dospělý průkaz totožnosti."
+        }
+      ],
+      "answer": "ticket_choice",
+      "explanation": "Prodavač se ptá na požadované vstupenky. Žádnou konkrétní cenu ani věkové podmínky v této replice neuvádí."
+    },
+    {
+      "id": "LONL03",
+      "clip": "LONA03",
+      "prompt": "Jaké informace zákazník žádá?",
+      "options": [
+        {
+          "id": "family_ages",
+          "text": "Rodinnou nabídku a věkové podmínky dětských vstupenek."
+        },
+        {
+          "id": "family_queue",
+          "text": "Místo srazu rodiny a délku fronty na mostě."
+        },
+        {
+          "id": "discount_code",
+          "text": "Slevový kód a přesnou konečnou cenu objednávky."
+        },
+        {
+          "id": "cancel_family",
+          "text": "Zrušení již zaplacené rodinné návštěvy."
+        }
+      ],
+      "answer": "family_ages",
+      "explanation": "Ptá se na rodinnou možnost a na věk opravňující k dětskému vstupnému. Samotná replika žádné konkrétní věkové rozmezí nepotvrzuje."
+    },
+    {
+      "id": "LONL04",
+      "clip": "LONA04",
+      "prompt": "Jaký je záměr této zdvořilé žádosti?",
+      "options": [
+        {
+          "id": "clarify",
+          "text": "Požádat o opětovné objasnění předchozí informace."
+        },
+        {
+          "id": "confirm",
+          "text": "Potvrdit bez výhrad obsah celé objednávky."
+        },
+        {
+          "id": "speed_up",
+          "text": "Požádat o rychlejší platbu u terminálu."
+        },
+        {
+          "id": "leave",
+          "text": "Oznámit, že zákazník odchází z prohlídky."
+        }
+      ],
+      "answer": "clarify",
+      "explanation": "Mluvčí žádá, aby byla informace znovu objasněna. Nejde o potvrzení platby ani o přijetí všech podmínek."
+    },
+    {
+      "id": "LONL05",
+      "clip": "LONA05",
+      "prompt": "Co chce zákazník znát před rozhodnutím?",
+      "options": [
+        {
+          "id": "compare_total",
+          "text": "Porovnání celkové ceny Standard a Flex."
+        },
+        {
+          "id": "unit_child",
+          "text": "Pouze jednotkovou cenu jedné dětské vstupenky."
+        },
+        {
+          "id": "refund_days",
+          "text": "Počet dnů do vyřízení vrácení peněz."
+        },
+        {
+          "id": "train_cost",
+          "text": "Cenu vlakového spojení z Londýna."
+        }
+      ],
+      "answer": "compare_total",
+      "explanation": "Zákazník žádá srovnání celkových nákladů obou nabídek před výběrem. Konkrétní částky v klipu nezazněly."
+    },
+    {
+      "id": "LONL06",
+      "clip": "LONA06",
+      "prompt": "Podle čeho má zákazník nabídky zvážit?",
+      "options": [
+        {
+          "id": "price_conditions",
+          "text": "Podle ceny i podmínek a vhodnosti pro vlastní plán."
+        },
+        {
+          "id": "cheapest_only",
+          "text": "Pouze podle nejnižší uvedené ceny."
+        },
+        {
+          "id": "flex_always",
+          "text": "Flex je vždy správný bez ohledu na plán."
+        },
+        {
+          "id": "already_paid",
+          "text": "Obě nabídky už byly zaplacené současně."
+        }
+      ],
+      "answer": "price_conditions",
+      "explanation": "Prodavač doporučuje zohlednit cenu i podmínky a vlastní plán. Neříká, že jedna varianta je vždy lepší."
+    },
+    {
+      "id": "LONL07",
+      "clip": "LONA07",
+      "prompt": "Jaká situace nastala a co mluvčí nabízí?",
+      "options": [
+        {
+          "id": "sold_later",
+          "text": "Zvolený čas je vyprodaný a nabízí se pozdější termín."
+        },
+        {
+          "id": "all_day_full",
+          "text": "Celý den je vyprodaný a neexistuje žádná alternativa."
+        },
+        {
+          "id": "early_only",
+          "text": "Pozdější termín neexistuje, lze přijít jen dříve."
+        },
+        {
+          "id": "free_entry",
+          "text": "Návštěva je bez vstupenky zdarma."
+        }
+      ],
+      "answer": "sold_later",
+      "explanation": "Vyprodaný je dotčený čas. Mluvčí nabízí pozdější termín, ale žádnou konkrétní hodinu v této replice neuvádí."
+    },
+    {
+      "id": "LONL08",
+      "clip": "LONA08",
+      "prompt": "Na jakou informaci se zákazník ptá?",
+      "options": [
+        {
+          "id": "next_slot",
+          "text": "Na nejbližší další dostupný čas."
+        },
+        {
+          "id": "next_bus",
+          "text": "Na příští odjezd autobusu k nádraží."
+        },
+        {
+          "id": "last_payment",
+          "text": "Na okamžik poslední provedené platby."
+        },
+        {
+          "id": "opening_year",
+          "text": "Na rok otevření londýnské památky."
+        }
+      ],
+      "answer": "next_slot",
+      "explanation": "Jde o žádost o další dostupný termín. Klip sám žádný čas nepotvrzuje."
+    },
+    {
+      "id": "LONL09",
+      "clip": "LONA09",
+      "prompt": "Kdy a co chce zákazník udělat?",
+      "options": [
+        {
+          "id": "change_before_pay",
+          "text": "Změnit objednávku ještě před zaplacením."
+        },
+        {
+          "id": "refund_after",
+          "text": "Vrátit peníze až po uskutečněné návštěvě."
+        },
+        {
+          "id": "pay_twice",
+          "text": "Zaplatit stejnou objednávku dvakrát."
+        },
+        {
+          "id": "keep_order",
+          "text": "Ponechat celou objednávku beze změny."
+        }
+      ],
+      "answer": "change_before_pay",
+      "explanation": "Zákazník chce nejprve změnu a teprve potom platit. Nezaznělo, jaká konkrétní položka se mění."
+    },
+    {
+      "id": "LONL10",
+      "clip": "LONA10",
+      "prompt": "Co prodavač od zákazníka potřebuje?",
+      "options": [
+        {
+          "id": "preferred_time",
+          "text": "Jeho preferovaný čas návštěvy."
+        },
+        {
+          "id": "card_number",
+          "text": "Číslo skutečné platební karty."
+        },
+        {
+          "id": "tower_height",
+          "text": "Odhad výšky Elizabeth Tower."
+        },
+        {
+          "id": "children_names",
+          "text": "Jména všech dětí ve skupině."
+        }
+      ],
+      "answer": "preferred_time",
+      "explanation": "Prodavač se ptá na preferovaný čas. Nevyžaduje údaje karty ani nepotvrzuje konkrétní termín."
+    },
+    {
+      "id": "LONL11",
+      "clip": "LONA11",
+      "prompt": "Co mluvčí nabízí?",
+      "options": [
+        {
+          "id": "offer_directions",
+          "text": "Pomoc s orientací a nalezením cesty."
+        },
+        {
+          "id": "sell_flex",
+          "text": "Prodej dražší varianty vstupenek."
+        },
+        {
+          "id": "check_ticket",
+          "text": "Kontrolu platnosti zaplacené vstupenky."
+        },
+        {
+          "id": "announce_close",
+          "text": "Oznámení okamžitého uzavření mostu."
+        }
+      ],
+      "answer": "offer_directions",
+      "explanation": "Mluvčí nabízí pomoc s cestou. Konkrétní trasu v této krátké replice ještě nevysvětluje."
+    },
+    {
+      "id": "LONL12",
+      "clip": "LONA12",
+      "prompt": "Jakou cestu a jaké vysvětlení zákazník žádá?",
+      "options": [
+        {
+          "id": "walk_landmarks",
+          "text": "Pěší cestu k Elizabeth Tower vysvětlenou pomocí orientačních bodů."
+        },
+        {
+          "id": "taxi_eye",
+          "text": "Cestu taxíkem od věže k London Eye."
+        },
+        {
+          "id": "train_station",
+          "text": "Vlakové spojení k nejbližšímu letišti."
+        },
+        {
+          "id": "bridge_history",
+          "text": "Historický výklad o všech londýnských mostech."
+        }
+      ],
+      "answer": "walk_landmarks",
+      "explanation": "Cílem je Elizabeth Tower, způsobem chůze a oporou při vysvětlení mají být orientační body. Klip sám ještě neobsahuje konkrétní trasu."
+    }
+  ]
+}

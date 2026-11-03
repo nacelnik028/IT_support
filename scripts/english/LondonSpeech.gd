@@ -4,6 +4,8 @@ var shell
 var mapping=JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/audio.json"))
 var spoken_revision=-1
 var line_id=""
+var context="dialog"
+var play_generation=0
 
 func _ready():
 	if AudioServer.get_bus_index("Speech")<0:
@@ -12,6 +14,12 @@ func _ready():
 		AudioServer.set_bus_send(AudioServer.bus_count-1,"Master")
 	bus="Speech"
 	volume_db=-3.0
+	finished.connect(func():
+		if context=="listening": call_deferred("complete_listening_clip",spoken_revision,play_generation))
+
+func complete_listening_clip(token: int, generation: int):
+	if context=="listening" and generation==play_generation and token==spoken_revision and not playing:
+		shell.ui.game.english.listening.completed_clip(token)
 
 func find_line(text: String, speaker: String) -> Dictionary:
 	var session=shell.ui.game.english.session
@@ -21,6 +29,8 @@ func find_line(text: String, speaker: String) -> Dictionary:
 	return {}
 
 func speak(text: String, speaker: String, slow: bool = false) -> bool:
+	context="dialog"
+	play_generation+=1
 	stop()
 	var line=find_line(text,speaker)
 	if line.is_empty() or shell.mode!="english": stream=null; line_id=""; return false
@@ -32,5 +42,33 @@ func speak(text: String, speaker: String, slow: bool = false) -> bool:
 	play()
 	return true
 
+func audible() -> bool:
+	for name_value in ["Speech","Master"]:
+		var index=AudioServer.get_bus_index(name_value)
+		if index>=0 and (AudioServer.is_bus_mute(index) or AudioServer.get_bus_volume_db(index)<=-75): return false
+	return volume_db> -75
+
+func listen(task_id: String, slow: bool = false) -> bool:
+	stop()
+	play_generation+=1
+	var listening=shell.ui.game.english.listening
+	if shell.mode!="english" or not listening.allowed() or listening.session.get("id","")!=task_id: return false
+	var task=listening.definition(task_id)
+	var line={}
+	for item in mapping.lines:
+		if item.id==task.get("clip",""): line=item; break
+	if line.is_empty(): return false
+	context="listening"; spoken_revision=listening.revision; line_id=line.id
+	stream=load(line.slow if slow else line.normal); pitch_scale=1.0
+	if stream==null: return false
+	play()
+	if playing and not listening.session.completed: listening.played(spoken_revision,slow,not audible())
+	return playing
+
 func _process(_delta):
+	if playing and context=="listening":
+		var listening=shell.ui.game.english.listening
+		if shell.mode!="english" or listening.revision!=spoken_revision or listening.session.is_empty(): stop()
+		elif not audible() and not listening.session.muted: listening.session.muted=true; listening.store()
+		return
 	if playing and (shell.mode!="english" or shell.ui.game.english.revision!=spoken_revision or shell.ui.game.english.session.is_empty()): stop()

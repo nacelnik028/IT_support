@@ -69,7 +69,7 @@ func next(token: int) -> bool:
 	session.completed=true
 	var correct=session.answers.filter(func(a): return a.correct).size()
 	session.score=roundi(100.0*correct/session.queue.size())
-	var record={"mode":session.mode,"score":session.score,"answers":session.answers.duplicate(true)}
+	var record={"mode":session.mode,"score":session.score,"answers":session.answers.duplicate(true),"time":int(Time.get_unix_time_from_system())}
 	progress.best=maxi(int(progress.best),int(session.score))
 	progress.attempts.append(record)
 	if progress.attempts.size()>100: progress.attempts.pop_front()
@@ -77,4 +77,10 @@ func next(token: int) -> bool:
 		var old=progress.results.get(a.id,{"best":0,"attempts":0,"practiced":false,"corrected":false})
 		progress.results[a.id]={"best":maxi(int(old.best),100 if a.correct else 0),"attempts":int(old.attempts)+1,"practiced":true,"corrected":old.corrected or a.corrected}
 	if persist.is_valid(): persist.call()
+	return true
+
+func start_question(id: String, mode: String) -> bool:
+	if not allowed() or definition(id).is_empty() or not mode in ["learn","practice","exam"]: return false
+	session={"mode":mode,"queue":[id],"position":0,"answers":[],"current":{},"completed":false,"help":false}
+	revision+=1
 	return true

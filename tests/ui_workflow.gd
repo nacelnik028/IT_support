@@ -10,6 +10,7 @@ var baseline=false
 var save_path=""
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_ui_workflow_"+str(OS.get_process_id())+"_vr.cfg"
 	baseline="--baseline" in OS.get_cmdline_user_args()
 	var tag=str(OS.get_process_id())
 	save_path="user://ui_workflow_"+tag+".json"

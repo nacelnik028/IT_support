@@ -152,7 +152,7 @@ func record(result: Dictionary):
 		var diagnostic=item.duplicate(true)
 		diagnostic.text=str(diagnostic.get("text","")).left(2000)
 		diagnostics.append(diagnostic)
-	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok,"time":int(Time.get_unix_time_from_system()),"detail":str(result.text).left(4000),"diagnostics":diagnostics})
+	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok,"variant":current.id,"time":int(Time.get_unix_time_from_system()),"detail":str(result.text).left(4000),"diagnostics":diagnostics})
 	if progress.attempts.size()>200: progress.attempts.pop_front()
 	if not result.ok: progress.mistakes[current.topic]=int(progress.mistakes.get(current.topic,0))+1
 	if persist.is_valid():

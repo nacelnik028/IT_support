@@ -94,3 +94,6 @@ testy ověřují vstupy a UI; skutečný tracking a výkon PICO vyžadují hardw
 repliky jsou tlačítka Poslechnout / zopakovat, Pomaleji a Zastavit; myš/Tab/Enter
 nebo oba XR paprsky. Auto řeč ve footeru je volitelná. Nepokryté dynamické věty
 zůstávají textové. [Mapování, licence a meze ověření](LONDON_AUDIO.md).
+
+
+Navazující samostatné [poslechové procvičování](LONDON_LISTENING.md) používá původních 24 klipů bez nového audia; vlastní výsledky/režimy a bezpečná obnova. [Moje znalosti](KNOWLEDGE_PROFILE.md) odděluje dialog, kvíz a poslech.

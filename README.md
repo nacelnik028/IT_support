@@ -1,5 +1,7 @@
 # IT Support Simulator: Training academy
 
+Nově: **Poslechové procvičování** v Londýně (12 úloh, tři režimy, přepis na vyžádání a samostatné výsledky) a **Moje znalosti** v menu/pauze i učebnách. Profil ukazuje 13 dovedností podle skutečných důkazů a nabízí konkrétní úlohy s bezpečným pokračováním. Viz [společný profil](docs/KNOWLEDGE_PROFILE.md) a [poslech](docs/LONDON_LISTENING.md).
+
 Český offline 3D simulátor IT administrátora z první osoby pro Godot4.x.
 Vytvořeno a ověřeno v Godotu4.7.2.stable.official.ed1daf0bf.
 Obsahuje65 praktických misí,21 interaktivních

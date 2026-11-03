@@ -8,7 +8,8 @@ func check(ok: bool, message: String):
 	checks+=1
 	if not ok: failures+=1; print("FAIL ",message)
 
-func _init(): call_deferred("run")
+func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_programming_runtime_"+str(OS.get_process_id())+"_vr.cfg" call_deferred("run")
 func run():
 	var cases=[
 		["print(True + 2, False * 9)\nprint(3 < 2 < 1, 1 < 2 < 3)\nprint(list(zip([1, 2])))\nprint(list(enumerate(['a'], 3)))",[],"3 0\nFalse True\n[(1,), (2,)]\n[(3, 'a')]\n"],

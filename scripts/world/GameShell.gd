@@ -65,6 +65,7 @@ func _ready():
 	backing.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui = preload("res://scenes/main_menu/Main.tscn").instantiate()
 	ui.world_enabled = true
+	ui.shell_ref=weakref(self)
 	layer.add_child(ui)
 	speech=preload("res://scripts/english/LondonSpeech.gd").new(); speech.shell=self; add_child(speech)
 	world.game = ui.game
@@ -432,7 +433,7 @@ func open_english(station: String = "tickets", intro: bool = false):
 	for child in overlay.get_children(): overlay.remove_child(child); child.queue_free()
 	english_dialog=preload("res://scripts/english/DialogueController.gd").new()
 	english_dialog.shell=self; english_dialog.manager=ui.game.english; english_dialog.station=station
-	english_dialog.page="quiz_home" if station=="quiz" else "intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
+	english_dialog.page=("listening_home" if ui.game.english.listening.session.is_empty() else "listening") if station=="listening" else "quiz_home" if station=="quiz" else "intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
 	set_mode("english")
 	overlay.add_child(english_dialog)
 	if vr_active:
@@ -441,7 +442,7 @@ func open_english(station: String = "tickets", intro: bool = false):
 
 func open_programming(category: String = "dashboard"):
 	if not ui.game.game_mode.is_programming(): return
-	if is_instance_valid(code_editor):
+	if is_instance_valid(code_editor) and code_editor.is_inside_tree() and not code_editor.is_queued_for_deletion():
 		code_editor.focus_station(category)
 		set_mode("coding")
 		return
@@ -591,6 +592,7 @@ func pause_menu():
 	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
 	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
+	v.add_child(ui.button("Moje znalosti akademie",func(): open_app("Moje znalosti")))
 	if ui.game.game_mode.is_away(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
 	v.add_child(ui.button("Diagnostika výkonu: "+("zapnuta" if diagnostics.visible else "vypnuta"),func(): diagnostics.toggle(); pause_menu()))

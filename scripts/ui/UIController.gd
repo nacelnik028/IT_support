@@ -7,6 +7,7 @@ signal lesson_launched
 signal preferences_changed
 signal settings_closed
 var world_enabled = false
+var shell_ref
 
 const Game = preload("res://scripts/core/GameManager.gd")
 const Racks = preload("res://scripts/ui/RackView.gd")
@@ -283,6 +284,7 @@ func draw_ui():
 	match page:
 		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
+		"Moje znalosti": preload("res://scripts/ui/KnowledgePresentation.gd").draw(self,scroll(center))
 		"Pokračování": preload("res://scripts/ui/ContinuationPresentation.gd").draw(self)
 		"Souvislé směny": preload("res://scripts/shifts/ShiftPresentation.gd").draw(self)
 		"Tickety": draw_tickets()
@@ -939,6 +941,7 @@ func update_raid_preview(inputs: Dictionary):
 	inputs._preview.text="%s: %.0f GB = %.2f TiB před režií. Hot spare není součást kapacity." % [level,capacity,raid.tb_to_tib(capacity/1000.0)]
 
 func confirm_action(action: Dictionary, params: Dictionary):
+	var expected_revision=game.session_revision
 	var d=ConfirmationDialog.new()
 	d.title="Potvrzení zásahu do simulace"
 	var target=game.sim.get_vm(str(params.get("vm",params.get("id",""))))
@@ -953,7 +956,11 @@ func confirm_action(action: Dictionary, params: Dictionary):
 	d.ok_button_text="Provést simulovanou operaci"
 	d.cancel_button_text="Vrátit se ke kontrole"
 	add_child(d)
-	d.confirmed.connect(func(): perform(action.id,params); d.queue_free())
+	d.confirmed.connect(func():
+		d.hide()
+		if game.session_revision==expected_revision: perform(action.id,params)
+		else: show_message("Potvrzení již neplatí","Relace se změnila. Otevři operaci znovu a zkontroluj aktuální zařízení.")
+		d.queue_free())
 	d.canceled.connect(d.queue_free)
 	bind_dialog_escape(d)
 	d.popup_centered(Vector2i(600,450))
@@ -1162,26 +1169,7 @@ func next_random_task():
 		navigate("Trénink")
 
 func draw_knowledge_profile(parent: Node):
-	var profile=game.Profile.summarize(game)
-	var c=card(parent,"Moje IT znalosti")
-	c.add_child(label("%d / %d dokončených lekcí  •  %d úloh bez nápovědy\n%d uložených pokusů  •  %d / %d misí v kampani" % [profile.completed,game.tutorial.lessons.size(),profile.without_help,profile.attempts,game.progress.scores.size(),game.missions.size()],19,CYAN))
-	var total_score=0
-	var solved=0
-	for attempt in game.education.attempts:
-		if attempt.kind in ["campaign","random"]: total_score+=int(attempt.score); solved+=1
-	if solved>0: c.add_child(label("Úspěšnost praktických úloh: průměr%d / 100 z%d vyhodnocení" % [int(float(total_score)/solved),solved],14,MUTED))
-	for domain in game.Profile.DOMAINS:
-		var item=profile.domains[domain]
-		var status="Neprocvičeno" if item.count==0 else ("Silná oblast" if item.average>=85 else ("Doporučeno opakování" if item.average<70 else "Rozvíjí se"))
-		c.add_child(label("%s  •  %s  •  %s" % [domain,status,"—" if item.count==0 else "%d / 100 (%d pokusů)" % [item.average,item.count]],14))
-		var bar=ProgressBar.new(); bar.value=item.average; bar.show_percentage=false; bar.custom_minimum_size.y=6
-		c.add_child(bar)
-	var rec=card(parent,"Doporučené lekce","Podle skutečných výsledků, chyb a dosud neprocvičených oblastí.")
-	for lesson in game.Profile.recommendations(game): rec.add_child(button(lesson.title,func(): begin_lesson(int(lesson.id),"learn")))
-	var exams=card(parent,"Poslední zkoušky")
-	if profile.exams.is_empty(): exams.add_child(label("Zatím nemáš dokončenou zkoušku.",14,MUTED))
-	for exam in profile.exams:
-		exams.add_child(label("%s: %d / 100  •  chyb%d  •  rizik%d" % [exam.title,int(exam.score),int(exam.errors),int(exam.risks)],14,CYAN))
+	preload("res://scripts/ui/KnowledgePresentation.gd").draw(self,parent)
 
 func draw_glossary(parent: Node):
 	Search.draw(self,parent,"glossary")

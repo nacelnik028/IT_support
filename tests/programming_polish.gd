@@ -6,6 +6,7 @@ var failures=0
 var shell
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_programming_polish_"+str(OS.get_process_id())+"_vr.cfg"
 	var tag=str(OS.get_process_id())
 	Saves.path_override="user://programming_polish_test_"+tag+".json"
 	preload("res://scripts/core/DisplaySettings.gd").path_override="user://programming_polish_test_"+tag+".cfg"

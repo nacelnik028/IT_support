@@ -2,6 +2,7 @@ extends RefCounted
 
 static func draw(ui):
 	var view=ui.scroll(ui.center)
+	view.get_parent().follow_focus=true
 	view.add_child(ui.label("POKRAČOVÁNÍ / uložená práce",24,ui.CYAN))
 	view.add_child(ui.label(ui.game.persistence_caption(),14,ui.MUTED))
 	view.add_child(ui.label("Kampaň a směna mají vlastní svět. Výuku a kód obnovíš výslovně až v odpovídající učebně. Obnova konceptu nic neprovede ani neudělí XP.",16))
@@ -23,6 +24,7 @@ static func draw(ui):
 					ui.host=definition.server; ui.page=saved.tutorial.get("page",definition.category); ui.draw_ui(); ui.lesson_launched.emit()
 				else: ui.show_message("Obnovení odmítnuto","Snímek je zastaralý nebo nejsi v IT učebně. Můžeš zahájit nový pokus.")))
 		else: card.add_child(ui.button("Přejít do IT učebny / poté otevři Pokračování",func(): ui.navigate("Trénink")))
+		card.add_child(ui.button("Začít lekci znovu / původní režim "+saved.tutorial.mode,func(): ui.begin_lesson(int(saved.id),saved.tutorial.mode,false)))
 		card.add_child(ui.button("Smazat tento výukový snímek",func(): ui.game.work.data.lessons.erase(key); ui.game.save(); ui.draw_ui()))
 	view.add_child(ui.label("Programovací koncepty: %d / 128. V programovací učebně otevři Rozepsaná práce. IT formuláře se obnovují pouze pro stejný pokus, operaci a zařízení; rizikové potvrzení se neukládá." % ui.game.programming.progress.drafts.size(),16))
 	view.add_child(ui.button("Smazat koncepty IT formulářů / model zůstane beze změny",func(): ui.game.work.data.forms.clear(); ui.form_drafts.clear(); ui.game.save(); ui.draw_ui()))

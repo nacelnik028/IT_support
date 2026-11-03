@@ -204,8 +204,11 @@ func run():
 	shell.ui.game.start_mission(3)
 	var campaign=shell.ui.game.sim.state.duplicate(true)
 	shell.enter_world("Hlavní serverovna")
-	shell.world.player.position=Vector3(5,0.02,5)
-	await walk_to(Vector3(5,0.02,7.45))
+	# The user sealed the direct server/London doorway. Preserve a real
+	# physical entry and introduction test through the remaining hub corridor.
+	shell.enter_world("Rozcestník akademie")
+	await walk_to(Vector3(19,0.02,-11.5)); await walk_to(Vector3(23,0.02,-11.5))
+	await walk_to(Vector3(23,0.02,9.5)); await walk_to(Vector3(20.65,0.02,9.5))
 	check(shell.ui.game.game_mode.is_english(),"Fyzický vstup do čtvrté oblasti")
 	await frames(); check(shell.mode=="english" and shell.english_dialog.page=="intro","První přeskočitelné seznámení")
 	await click_button(shell.english_dialog.buttons[0])

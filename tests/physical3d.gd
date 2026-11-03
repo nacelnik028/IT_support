@@ -8,6 +8,7 @@ var failures = 0
 var game
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_physical3d_"+str(OS.get_process_id())+"_vr.cfg"
 	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_physical3d.cfg"
 	Saves.path_override = "user://academy_test_physical3d.json"
 	game = Game.new()

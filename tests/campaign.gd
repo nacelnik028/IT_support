@@ -8,6 +8,7 @@ func check(ok, text):
 		push_error(text)
 
 func _init():
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_campaign_"+str(OS.get_process_id())+"_vr.cfg"
 	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_campaign.cfg"
 	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_campaign.json"
 	var Sim = preload("res://scripts/simulation/InfrastructureSimulator.gd")

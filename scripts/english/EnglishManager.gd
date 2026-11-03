@@ -3,9 +3,10 @@ extends RefCounted
 # All UI actions use semantic IDs and a revision, never text or button indices.
 const IDS = ["LON01","LON02","LON03","LON04","LON05","LON06"]
 const Questions=preload("res://scripts/english/CustomerQuestions.gd")
+var listening=preload("res://scripts/english/LondonListening.gd").new()
 var quiz=preload("res://scripts/english/LondonQuiz.gd").new()
 var catalog: Dictionary = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/english/scenarios.json"))
-var progress: Dictionary = {"content_version":2,"results":{},"attempts":[],"phrases":[],"intro_seen":false,"archive":{},"quiz":{}}
+var progress: Dictionary = {"content_version":2,"results":{},"attempts":[],"phrases":[],"intro_seen":false,"archive":{},"quiz":{},"listening":{}}
 var session: Dictionary = {}
 var revision = 0
 var available = Callable()
@@ -15,9 +16,12 @@ var rng = RandomNumberGenerator.new()
 
 func _init():
 	var ref=weakref(self)
+	listening.available=func(): return ref.get_ref()!=null and ref.get_ref().allowed()
+	listening.persist=func(): return ref.get_ref().persist.call() if ref.get_ref()!=null and ref.get_ref().persist.is_valid() else OK
 	quiz.available=func(): return ref.get_ref()!=null and ref.get_ref().allowed()
 	quiz.persist=func(): return ref.get_ref().persist.call() if ref.get_ref()!=null and ref.get_ref().persist.is_valid() else OK
 	progress.quiz=quiz.progress
+	progress.listening=listening.progress
 
 func load_progress(data: Dictionary):
 	if data.is_empty(): return
@@ -27,12 +31,15 @@ func load_progress(data: Dictionary):
 	else:
 		progress.merge(data,true)
 		quiz.progress.merge(data.get("quiz",{}),true)
+		listening.progress.merge(data.get("listening",{}),true)
 	progress.quiz=quiz.progress
+	progress.listening=listening.progress
 
 func allowed() -> bool:
 	return not available.is_valid() or available.call()
 
 func cancel():
+	listening.cancel()
 	session.clear()
 	quiz.cancel()
 	revision += 1
@@ -45,7 +52,7 @@ func start(id: String, mode: String, variant: int = -1) -> bool:
 	if index >= definition.variants.size(): return false
 	var goal = definition.variants[index].duplicate(true)
 	quiz.cancel()
-	session = {"id":id,"mode":mode,"variant":index,"goal":goal,"node":"greeting","cart":{"adult":0,"child":0,"time":"","product":"standard"},"confirmed":false,"paid":false,"ticket":{},"spent":0,"payments":0,"errors":[],"hints":0,"history":[],"phrases":[],"asked_price":false,"asked_sold":false,"changed":false,"directions":false,"thanked":false,"completed":false,"feedback":"","asked":[],"understood":[],"question_page":0,"question_topic":"","return_node":"","declined":false,"npc":"Good afternoon. Tell me about your plans, and feel free to ask about our ticket options before you decide.","translation":"Dobrý den. Řekněte mi svůj plán a před rozhodnutím se ptejte na nabídku."}
+	session = {"id":id,"mode":mode,"variant":index,"goal":goal,"node":"greeting","cart":{"adult":0,"child":0,"time":"","product":"standard"},"confirmed":false,"paid":false,"ticket":{},"spent":0,"payments":0,"errors":[],"hints":0,"translation_used":false,"history":[],"phrases":[],"asked_price":false,"asked_sold":false,"changed":false,"directions":false,"thanked":false,"completed":false,"feedback":"","asked":[],"understood":[],"question_page":0,"question_topic":"","return_node":"","declined":false,"npc":"Good afternoon. Tell me about your plans, and feel free to ask about our ticket options before you decide.","translation":"Dobrý den. Řekněte mi svůj plán a před rozhodnutím se ptejte na nabídku."}
 	if id=="LON05":
 		session.cart={"adult":2,"child":0,"time":goal.time,"product":"standard"}
 		session.node="confirm"
@@ -282,7 +289,7 @@ func finish() -> bool:
 	if session.completed: return false
 	session.completed=true; session.node="result"; revision+=1
 	var score=maxi(0,100-session.errors.size()*10-int(session.hints)*5)
-	var record={"id":session.id,"mode":session.mode,"variant":session.variant,"score":score,"hints":session.hints,"errors":session.errors.duplicate(true)}
+	var record={"id":session.id,"mode":session.mode,"variant":session.variant,"score":score,"hints":session.hints,"errors":session.errors.duplicate(true),"translation":session.get("translation_used",false),"time":int(Time.get_unix_time_from_system())}
 	session.result=record
 	var old=progress.results.get(session.id,{"best":0,"completed":0,"hints":0})
 	progress.results[session.id]={"best":maxi(int(old.best),score),"completed":int(old.completed)+1,"hints":int(old.hints)+int(session.hints)}

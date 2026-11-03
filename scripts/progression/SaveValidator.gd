@@ -7,6 +7,7 @@ var missions: Array = []
 var lessons: Array = []
 var baseline: Dictionary = {}
 var checked_sessions: Dictionary = {}
+var listening_rules=preload("res://scripts/english/LondonListening.gd").new()
 var code_drafts=preload("res://scripts/programming/CodeDrafts.gd").new()
 
 func _init():
@@ -111,9 +112,9 @@ func english(data) -> bool:
 	if data.has("content_version"):
 		if not integer(data.content_version,2,2): return false
 		var archive=data.get("archive",{})
-		if not archive is Dictionary or archive.has("content_version") or archive.has("archive") or archive.has("quiz") or not english(archive): return false
-		if not london_quiz(data.get("quiz",{})): return false
-	elif data.has("archive") or data.has("quiz"): return false
+		if not archive is Dictionary or archive.has("content_version") or archive.has("archive") or archive.has("quiz") or archive.has("listening") or not english(archive): return false
+		if not london_quiz(data.get("quiz",{})) or not listening_rules.valid_progress(data.get("listening",{})): return false
+	elif data.has("archive") or data.has("quiz") or data.has("listening"): return false
 	var ids=["LON01","LON02","LON03","LON04","LON05","LON06"]
 	for id in data.get("results",{}):
 		var r=data.results[id]
@@ -125,6 +126,8 @@ func english(data) -> bool:
 	for r in data.get("attempts",[]):
 		if not r is Dictionary or not required(r,{"id":"","mode":"","variant":0,"score":0,"hints":0,"errors":[]}): return false
 		if not r.id in ids or not r.mode in ["learn","practice","exam"] or not integer(r.variant,0,2) or not integer(r.score,0,100) or not integer(r.hints,0): return false
+		if r.has("translation") and not r.translation is bool: return false
+		if r.has("time") and not integer(r.time,0,9007199254740991): return false
 		if r.errors.size()>1000: return false
 		for e in r.errors:
 			if not e is Dictionary or not required(e,{"text":"","language_ok":false}) or e.text.length()>1000: return false
@@ -142,7 +145,7 @@ func london_quiz(data) -> bool:
 		if not integer(r.best,0,100) or not integer(r.attempts,1): return false
 	for record in data.get("attempts",[]):
 		if not record is Dictionary or not required(record,{"mode":"","score":0,"answers":[]}): return false
-		if not record.mode in ["learn","practice","exam"] or not integer(record.score,0,100) or not record.answers.size() in [5,20]: return false
+		if not record.mode in ["learn","practice","exam"] or not integer(record.score,0,100) or not record.answers.size() in [1,5,20]: return false
 		var seen=[]; var correct=0
 		for a in record.answers:
 			if not a is Dictionary or not required(a,{"id":"","selected":"","correct":false,"corrected":false,"hints":0}): return false
@@ -172,6 +175,7 @@ func programming(data) -> bool:
 	for record in data.get("attempts",[]):
 		if not record is Dictionary or not required(record,{"id":"","score":0,"mode":"","hints":0,"passed":false}): return false
 		if not integer(record.score,0,100) or not integer(record.hints,0) or not record.mode in ["learn","practice","exam"]: return false
+		if record.has("variant") and (not record.variant is String or record.variant.length()>160): return false
 		if record.has("detail") and (not record.detail is String or record.detail.length()>4000): return false
 		if record.has("diagnostics"):
 			if not record.diagnostics is Array or record.diagnostics.size()>16: return false

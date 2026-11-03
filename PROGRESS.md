@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Poslech a společný přehled znalostí — funkční etapy, 3. 11. 2026
+
+- 12 samostatných poslechových úloh LONL01–12 používá přesné původní nahrávky a skutečné pomalé varianty. Skrytý přepis, sémantické promíchané odpovědi, tři režimy, výslovná obnova zkoušky, oddělená pomoc/výsledky a žádné XP. Nová fyzická tabule Poslechové procvičování v Londýně. Přerušení/ztlumení není doložený poslech. Opraveno odložené zpracování finished signálu s generačním tokenem proti závodu při opakování.
+- london_listening 464 PASS headless/GPU Compatibility; všech 24 hashů, dekódování a nenulové PCM, úplné přehrání 12 klipů, ruční očekávané významy, přepis/pomoc/mute/restart/rychlé přepnutí, izolace dialogu/kvízu. Nejde o lidský subjektivní poslech. Původní english_model 1809, quiz 527, gameplay 212 a english_world 1070 PASS. Fyzický průchod english_world nově používá zachovanou cestu přes rozcestník.
+- Moje znalosti v menu, pauze, IT, programování a Londýně odvozuje 13 dovedností ze stávajících důkazů. Nezkoušeno/Procvičeno/S pomocí/Bez pomoci, nejlepší a poslední výsledek, režim/pomoc/zdroj/datum, konzervativní staré výsledky a oddělený archiv. Konkrétní deterministická doporučení skutečně vedou do existujících místností a úloh, s nabídkou relevantního konceptu a původního režimu.
+- unified_profile 38 PASS headless/GPU, skutečné menu/formuláře/CodeEdit/quiz/listening/scenario doporučení a zachovaná kampaň/směna; ui_workflow 615 PASS, rozšířená work_persistence 69 PASS headless/GPU (druhá VM/hostitel, zmizelý cíl, staré rizikové potvrzení, všechny režimy skutečné částečné lekce). Stará potvrzení váží revizi relace. Opraveno opětovné použití editoru čekajícího na zánik a přenos jeho starého bufferu.
+- Migrační training_features 199 PASS: trace bez identity starého snapshotu se začne jako neúplný, nepřipojí se cizí historie. Doplněny vlastní VR config cesty i do původních sad. Runner 45 sad; úplná závěrečná regrese a exporty následují. Bez push, PICO hardware NEPROVEDENO.
+
 ## Konkrétní rozbor výsledků — funkční etapa, 3. 11. 2026
 
 - AttemptReview zaznamenává omezené strukturované události s identitou pokusu, zařízení/hostitele, revizí a skutečnými hodnotami před/po. Odlišuje použití, diagnostiku, ověření, odmítnutí, předání a plánovanou poruchu. Neparsuje text deníku. Undo vrací i větev historie; nový pokus nezobrazuje cizí živé zásahy.
