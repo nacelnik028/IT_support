@@ -1,6 +1,6 @@
 extends RefCounted
 
-var data={"version":1,"forms":{},"lessons":{}}
+var data={"version":1,"forms":{},"lessons":{},"reviews":[]}
 
 static func form_key(record: Dictionary) -> String:
 	return JSON.stringify([record.session,record.page,record.host,record.vm,record.action,1]).sha256_text()
@@ -35,6 +35,12 @@ static func form_valid(record) -> bool:
 static func valid(value, validator) -> bool:
 	if not value is Dictionary or value.get("version",1)!=1 or not value.get("forms",{}) is Dictionary or not value.get("lessons",{}) is Dictionary: return false
 	if value.get("forms",{}).size()>64 or value.get("lessons",{}).size()>63 or JSON.stringify(value).to_utf8_buffer().size()>4194304: return false
+	var reviews=value.get("reviews",[])
+	if not reviews is Array or reviews.size()>20: return false
+	var review_ids=[]
+	for review in reviews:
+		if not preload("res://scripts/evaluation/AttemptReview.gd").valid_review(review) or review.id in review_ids: return false
+		review_ids.append(review.id)
 	for key in value.get("forms",{}):
 		if not form_valid(value.forms[key]) or key!=form_key(value.forms[key]): return false
 	for key in value.get("lessons",{}):

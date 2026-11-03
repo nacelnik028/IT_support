@@ -56,6 +56,10 @@ IT formuláře zachovají nepoužitý text jen pro stejný pokus a zařízení.
 Stav zápisu a čas posledního úspěchu jsou viditelné; chybu lze zopakovat.
 [Pravidla, limity a ochrana starých save](docs/WORK_PERSISTENCE.md).
 
+Po předání ticketu se otevře **Rozbor příčin a ověřeného výsledku** s konkrétními
+hodnotami před/po a aktuálností ověření. Posledních 20 rozborů je také v Pokračování.
+Dobrovolná otázka nezmění skóre ani nepřidá XP. [Pravidla rozboru](docs/RESULT_REVIEW.md).
+
 ## Aktuální rozhraní
 
 Kompaktní menu nabízí hlavní vstup do rozcestníku a samostatnou pracovní směnu,

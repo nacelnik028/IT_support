@@ -6,6 +6,7 @@ signal room_changed(training_room: bool)
 const Simulator = preload("res://scripts/simulation/InfrastructureSimulator.gd")
 const Evaluator = preload("res://scripts/evaluation/ObjectiveEvaluator.gd")
 const Saves = preload("res://scripts/progression/SaveManager.gd")
+const Review=preload("res://scripts/evaluation/AttemptReview.gd")
 const Terminal = preload("res://scripts/simulation/TerminalParser.gd")
 const Tutorials=preload("res://scripts/training/TutorialManager.gd")
 var tutorial=Tutorials.new()
@@ -270,6 +271,7 @@ func start_mission(index: int, practice: bool = false) -> bool:
 	new_attempt()
 	progress.last_mission = index+1
 	sim.reset(current.initial_state)
+	Review.begin(self)
 	save()
 	return true
 
@@ -300,6 +302,7 @@ func complete(expected_revision: int = -1) -> Dictionary:
 		if not goal.passed: return {"ok":false,"text":"Požadovaný stav není splněn: " + goal.label}
 	if finished: return {"ok":false,"text":"Ticket je již uzavřený. Misi lze zopakovat."}
 	if session_kind=="lesson" and tutorial.guided() and int(tutorial.session.step)<tutorial.lesson.steps.size(): return {"ok":false,"text":"Nejprve dokonči ověřované kroky vedené lekce."}
+	var gained_xp=0
 	var score = clampi(100 - hints_used * 4 - int(sim.state.errors) * 8 - int(sim.state.risks) * 15,0,100)
 	if session_kind=="lesson": score=mini(score,clampi(100-hints_used*4-tutorial.session.mistakes.size()*8,0,100))
 	if not sim.state.get("diagnostic",{}).get("viewed",false): score = mini(score,75)
@@ -313,7 +316,8 @@ func complete(expected_revision: int = -1) -> Dictionary:
 	if not training and session_kind=="campaign":
 		var key = str(current.id)
 		var old = int(progress.scores.get(key,0))
-		progress.xp += maxi(score-old,0) * 3
+		gained_xp=maxi(score-old,0)*3
+		progress.xp += gained_xp
 		progress.scores[key] = maxi(old,score)
 		if score >= 90 and not "Bezpečné ruce" in progress.achievements: progress.achievements.append("Bezpečné ruce")
 		if progress.scores.size() >= 8 and not "První směna" in progress.achievements: progress.achievements.append("První směna")
@@ -322,8 +326,9 @@ func complete(expected_revision: int = -1) -> Dictionary:
 	education.attempts.append(attempt)
 	if session_kind=="random": education.random.results.append(attempt)
 	if education.attempts.size()>200: education.attempts.pop_front()
+	var review=Review.finish(self,score,gained_xp)
 	var error = save()
-	return {"ok":true,"score":score,"text":current.explanations,"saved":error==OK,"save_error":error}
+	return {"ok":true,"score":score,"review":review,"text":current.explanations,"saved":error==OK,"save_error":error}
 
 func apply(action: String, params: Dictionary) -> Dictionary:
 	if not active or (session_kind in ["campaign","shift"] and not main_available()) or (not session_kind in ["campaign","shift"] and not training_available()):
@@ -331,6 +336,7 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	if training:
 		undo_states.append(sim.state.duplicate(true))
 		if undo_states.size()>20: undo_states.pop_front()
+	var review_before=Review.values(sim.state)
 	var previous_errors=int(sim.state.errors)
 	var previous_risks=int(sim.state.risks)
 	var issue=shifts.action_error(action,params) if session_kind=="shift" else ""
@@ -338,7 +344,6 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	if issue!="": result=sim.reject(issue)
 	elif action=="shift_wait" and session_kind=="shift" and shifts.definition(shifts.data.session.id).get("advanced",false): result=shifts.Incidents.advance(self,params)
 	else: result=sim.act(action,params)
-	if session_kind=="shift": shifts.after_action(action,params,result,previous_errors,previous_risks)
 	if result.ok and action in ["probe","verify"]:
 		if not sim.state.diagnostic.has("network_checks"): sim.state.diagnostic.network_checks={}
 		if action=="verify":
@@ -366,6 +371,8 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 					if goal.path=="network.switches."+params.name+".type" and goal.value=="External":
 						tutorial.last_feedback="Nesprávný, ale bezpečný krok: %s switch %s. Tento úkol potřebuje External switch nad správnou fyzickou NIC." % [params.type,"propojí jen VM na tomto hostiteli" if params.type=="Private" else "propojí VM s hostitelem, ale nemá automaticky LAN ani NAT"]
 						if tutorial.session.mistakes.is_empty() or tutorial.session.mistakes.back().text!=tutorial.last_feedback: tutorial.session.mistakes.append({"action":action,"kind":"Nesprávný, ale bezpečný krok","text":tutorial.last_feedback})
+	Review.record(self,action,params,result,review_before)
+	if session_kind=="shift": shifts.after_action(action,params,result,previous_errors,previous_risks)
 	var error = save()
 	result.saved = error==OK
 	result.save_error = error
@@ -505,6 +512,7 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 		sim.state.world.player = player_pose
 		new_attempt()
 		tutorial.start(definition,mode)
+		Review.begin(self)
 		education.lessons[str(id)]=education.lessons.get(str(id),{"status":"Rozpracováno","best":0})
 	save()
 	return true
@@ -571,6 +579,7 @@ func load_random_task() -> bool:
 	var player_pose = sim.state.world.player.duplicate(true)
 	sim.reset(current.initial_state)
 	sim.state.world.player = player_pose
+	Review.begin(self)
 	save()
 	return true
 

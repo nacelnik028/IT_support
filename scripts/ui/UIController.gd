@@ -1006,6 +1006,10 @@ func show_operation_help():
 func close_ticket(expected_revision: int = -1):
 	var result=game.complete(expected_revision)
 	if not result.ok: show_message("Ticket zatím nelze předat",result.text); return
+	if result.has("review"):
+		preload("res://scripts/ui/DebriefPresentation.gd").show(self,result.review)
+		draw_ui()
+		return
 	show_message(("Lekce vyhodnocena" if game.session_kind=="lesson" else "Ticket vyřešen")+" • %d / 100 bodů" % result.score,result.text+"\n\n"+game.assessment()+"\n\nProvedené kroky:\n"+"\n".join(game.sim.state.journal))
 	draw_ui()
 

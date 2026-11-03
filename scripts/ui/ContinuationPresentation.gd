@@ -26,4 +26,7 @@ static func draw(ui):
 		card.add_child(ui.button("Smazat tento výukový snímek",func(): ui.game.work.data.lessons.erase(key); ui.game.save(); ui.draw_ui()))
 	view.add_child(ui.label("Programovací koncepty: %d / 128. V programovací učebně otevři Rozepsaná práce. IT formuláře se obnovují pouze pro stejný pokus, operaci a zařízení; rizikové potvrzení se neukládá." % ui.game.programming.progress.drafts.size(),16))
 	view.add_child(ui.button("Smazat koncepty IT formulářů / model zůstane beze změny",func(): ui.game.work.data.forms.clear(); ui.form_drafts.clear(); ui.game.save(); ui.draw_ui()))
+	view.add_child(ui.label("Uložené rozbory / nejvýše 20 posledních předání",18,ui.CYAN))
+	for review in ui.game.work.data.reviews:
+		view.add_child(ui.button(review.title+" / "+str(int(review.score))+" bodů",func(): preload("res://scripts/ui/DebriefPresentation.gd").show(ui,review)))
 	if ui.world_enabled: view.add_child(ui.button("Přejít do programovací učebny",func(): ui.world_requested.emit("Programming Academy")))

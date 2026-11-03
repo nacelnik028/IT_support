@@ -9,9 +9,11 @@ static func observe(game, definition: Dictionary, action: String, params: Dictio
 	for incident in definition.get("triggers",[]):
 		if incident.id in runtime.fired: continue
 		if not game.Evaluator.evaluate(state,incident.checks).all(func(goal): return goal.passed): continue
+		var before=game.Review.values(state)
 		game.Simulator.merge(state,incident.patch)
 		runtime.fired.append(incident.id)
 		game.sim.success("PLÁNOVANÝ INCIDENT / "+incident.id+": "+incident.title+". Dosavadní konfigurace a servisní inventář zůstaly zachované.")
+		game.Review.record(game,"incident:"+incident.id,{}, {"ok":true,"text":incident.title},before,"planned")
 		runtime.events.append({"id":incident.id,"revision":int(state.revision),"clock":int(runtime.clock)})
 
 static func advance(game, params: Dictionary) -> Dictionary:

@@ -72,6 +72,8 @@ func shifts(data) -> bool:
 	if not required(current_shift,{"id":"","version":0,"index":0,"finished":false,"results":[],"state":{}}): return false
 	if not definitions.has(current_shift.id): return false
 	var d=definitions[current_shift.id]
+	if current_shift.has("attempt_id") and (not current_shift.attempt_id is String or current_shift.attempt_id.length()>160): return false
+	if current_shift.state.has("_trace") and current_shift.has("attempt_id") and current_shift.state._trace.session!=current_shift.attempt_id: return false
 	if current_shift.has("score_version") and not integer(current_shift.score_version,1,2): return false
 	if current_shift.has("hints") and not integer(current_shift.hints,0,3): return false
 	for counter in ["error_base","risk_base"]:
@@ -170,6 +172,13 @@ func programming(data) -> bool:
 	for record in data.get("attempts",[]):
 		if not record is Dictionary or not required(record,{"id":"","score":0,"mode":"","hints":0,"passed":false}): return false
 		if not integer(record.score,0,100) or not integer(record.hints,0) or not record.mode in ["learn","practice","exam"]: return false
+		if record.has("detail") and (not record.detail is String or record.detail.length()>4000): return false
+		if record.has("diagnostics"):
+			if not record.diagnostics is Array or record.diagnostics.size()>16: return false
+			for item in record.diagnostics:
+				if not item is Dictionary or not item.get("text") is String or item.text.length()>2000: return false
+				if item.has("file") and not item.file in ["","main.py","index.html","style.css","script.js"]: return false
+				if item.has("line") and not integer(item.line,0,1000000): return false
 	var settings=data.get("settings",{})
 	if settings.has("font_size") and not integer(settings.font_size,16,36): return false
 	return true
@@ -204,6 +213,7 @@ func session_contents(data: Dictionary, kind: String) -> bool:
 		"random":
 			definition=data.get("definition",{})
 			if not scenario(definition) or int(definition.id)!=int(data.id): return false
+	if data.get("state",{}).has("_trace") and data.has("attempt_id") and data.state._trace.session!=data.attempt_id: return false
 	return state(data.get("state",{}),definition.initial_state)
 
 func tutorial(data, definition: Dictionary) -> bool:
@@ -274,6 +284,7 @@ func attempt(data) -> bool:
 	return false
 
 func state(patch: Dictionary, initial: Dictionary) -> bool:
+	if patch.has("_trace") and not preload("res://scripts/evaluation/AttemptReview.gd").valid_live(patch._trace,int(patch.get("revision",0))): return false
 	var template=baseline.duplicate(true)
 	# Legacy installer stores a disk choice string after installation, an empty
 	# array before it. Both representations are part of schema1/schema2.

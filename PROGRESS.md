@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Konkrétní rozbor výsledků — funkční etapa, 3. 11. 2026
+
+- AttemptReview zaznamenává omezené strukturované události s identitou pokusu, zařízení/hostitele, revizí a skutečnými hodnotami před/po. Odlišuje použití, diagnostiku, ověření, odmítnutí, předání a plánovanou poruchu. Neparsuje text deníku. Undo vrací i větev historie; nový pokus nezobrazuje cizí živé zásahy.
+- Po skutečném předání samostatný DebriefPresentation ukáže původní příčinu z modelu, provedené zásahy a aktuální důkazy. Starý proof po změně není aktuální kontrola; PBS Verify a živá aplikace jsou oddělené. Posledních 20 rozborů se uchová ve work.reviews a otevře z Pokračování. Starší neznámá historie je výslovně neúplná.
+- Rozbor doporučuje konkrétní existující ID IT lekcí a obsahuje jednu dobrovolnou otázku. Odpověď je jednorázová, dosažené skóre/XP nemění. Programovací pokusy uchovají konkrétní chybný test/diagnostiku soubor/řádek a omezený výpis po restartu; nepředstírají analýzu algoritmu.
+- attempt_review **49 PASS headless i GPU Compatibility**: reálné síťové změny/odmítnutí/stará revize/undo, ověřená oprava, správný hostitel a před-po, restart, plný klik dobrovolné otázky bez XP, fyzický serial disku, RAM/start a záloha, odmítnutí cizí relace a skutečný chybný Python na main.py:2 po restartu.
+- Regrese s novou historií: advanced_shifts 268, work_persistence 51, regression 88, programming_integration 765 a ui_smoke všech **65 misí přes formuláře PASS**, bez runtime chyb/varování. Runner nyní obsahuje 43 sad. Trvalé finální logy v nové ui-review/verification; dřívější string/float porovnání při vzniku nového backup pole opravené bezpečným typovým porovnáním.
+- README a docs/RESULT_REVIEW.md aktualizované. Další práce: samostatné poslechové úlohy, společný profil, kompletní grafická/XR regrese a oba aktuální exporty. Bez push; fyzické PICO neprovedené.
+
 ## Dvě pokročilé směny s prioritami — funkční etapa, 3. 11. 2026
 
 - SHIFT-RECOVERY a SHIFT-RESILIENCE mají po pěti samostatných ticketech nad jedním skutečným světem. Fronta ukazuje prioritu, dopad, závislosti a stav; výběr pouze mění kontext. Opravy před přijetím i dvě rozdílná platná pořadí jsou podporované.

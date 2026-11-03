@@ -36,6 +36,7 @@ func start(id: String) -> bool:
 	# require a fresh point, never that pre-existing maintenance copy.
 	if id not in ["SHIFT-DISK","SHIFT-RESILIENCE"]: game.sim.state.backup.records={}; game.sim.state.backup.completed=false; game.sim.state.backup.verified=false
 	activate()
+	game.Review.begin(game)
 	game.save()
 	return true
 
@@ -85,7 +86,8 @@ func complete() -> Dictionary:
 	var breakdown=Scoring.calculate(game.hints_used,errors,risks,version)
 	var score=int(breakdown.score)
 	var gained=0
-	data.session.results.append({"ticket":int(data.session.index),"score":score,"breakdown":breakdown,"time":int(Time.get_unix_time_from_system())})
+	var review=game.Review.finish(game,score,0)
+	data.session.results.append({"ticket":int(data.session.index),"score":score,"breakdown":breakdown,"time":int(Time.get_unix_time_from_system()),"review_id":review.id})
 	if data.session.results.size()<d.tickets.size():
 		if advanced:
 			for index in d.tickets.size():
@@ -106,11 +108,12 @@ func complete() -> Dictionary:
 		var old=int(data.best.get(d.id,0))
 		gained=maxi(average-old,0)*3
 		game.progress.xp+=gained
+		review.xp=gained
 		data.best[d.id]=maxi(old,average)
 		data.history.append({"id":d.id,"version":d.version,"score":average,"score_version":version,"xp":gained,"results":data.session.results.duplicate(true)})
 		if data.history.size()>50: data.history.pop_front()
 	var error=game.save()
-	return {"ok":true,"score":score,"xp":gained,"breakdown":breakdown,"text":("Směna dokončena. Výsledky jsou v přehledu směn." if data.session.finished else "Ticket předán. Pokračuj navazujícím ticketem nad stejným stavem.")+"\n\n"+Scoring.describe(breakdown,gained),"saved":error==OK,"save_error":error}
+	return {"ok":true,"score":score,"xp":gained,"review":review,"breakdown":breakdown,"text":("Směna dokončena. Výsledky jsou v přehledu směn." if data.session.finished else "Ticket předán. Pokračuj navazujícím ticketem nad stejným stavem.")+"\n\n"+Scoring.describe(breakdown,gained),"saved":error==OK,"save_error":error}
 
 func completed_ticket(index: int) -> bool:
 	return data.session.results.any(func(result): return int(result.ticket)==index)

@@ -147,7 +147,12 @@ func record(result: Dictionary):
 	progress.xp+=gained
 	if reward.is_valid(): reward.call(gained)
 	result.xp=gained
-	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok,"time":int(Time.get_unix_time_from_system())})
+	var diagnostics=[]
+	for item in result.get("diagnostics",[]).slice(0,16):
+		var diagnostic=item.duplicate(true)
+		diagnostic.text=str(diagnostic.get("text","")).left(2000)
+		diagnostics.append(diagnostic)
+	progress.attempts.append({"id":id,"score":result.score,"mode":mode,"hints":hints,"passed":result.ok,"time":int(Time.get_unix_time_from_system()),"detail":str(result.text).left(4000),"diagnostics":diagnostics})
 	if progress.attempts.size()>200: progress.attempts.pop_front()
 	if not result.ok: progress.mistakes[current.topic]=int(progress.mistakes.get(current.topic,0))+1
 	if persist.is_valid():
@@ -169,7 +174,12 @@ func dashboard() -> String:
 	result_ids.sort_custom(func(a,b): return progress.results[a].exam>progress.results[b].exam)
 	for id in result_ids.slice(0,5):
 		if int(progress.results[id].exam)>0: exams.append(str(id)+" "+str(progress.results[id].exam)+"/100")
-	return "Moje programátorské znalosti\nPython lekce: %d / 15 · Web lekce: %d / 13\nÚspěšné úlohy: %d / 60 · Průměr nejlepších výsledků: %d %%\nNejlepší zkouška: %d / 100 · XP: %d\nZkoušky: %s\nNejčastější chyby: %s\nDoporučené opakování: %s" % [py,web,passed,int(float(total)/maxi(1,progress.results.size())),best,progress.xp,", ".join(exams),"; ".join(errors),", ".join(weak.slice(0,3)) if not weak.is_empty() else "Vyber první lekci a napiš vlastní řešení."]
+	var latest=""
+	if not progress.attempts.is_empty():
+		var last=progress.attempts.back()
+		latest="\n\nPoslední uložený pokus: "+last.id+" / "+last.mode+"\n"+str(last.get("detail","Podrobný výsledek nebyl ve starším save zaznamenán."))
+		for diagnostic in last.get("diagnostics",[]): latest+="\n"+str(diagnostic.get("file",""))+":"+str(int(diagnostic.get("line",0)))+" / "+diagnostic.text
+	return "Moje programátorské znalosti\nPython lekce: %d / 15 · Web lekce: %d / 13\nÚspěšné úlohy: %d / 60 · Průměr nejlepších výsledků: %d %%\nNejlepší zkouška: %d / 100 · XP: %d\nZkoušky: %s\nNejčastější chyby: %s\nDoporučené opakování: %s" % [py,web,passed,int(float(total)/maxi(1,progress.results.size())),best,progress.xp,", ".join(exams),"; ".join(errors),", ".join(weak.slice(0,3)) if not weak.is_empty() else "Vyber první lekci a napiš vlastní řešení."]+latest
 
 func generate_series(category: String, difficulty: String, count: int, seed_value: int) -> bool:
 	if not allowed(): return false
