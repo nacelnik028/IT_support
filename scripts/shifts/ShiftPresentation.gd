@@ -25,4 +25,10 @@ static func draw(ui):
 				var dialog=ConfirmationDialog.new(); dialog.dialog_text="Nahradit rozpracovanou směnu novou? Kampaň a historie zůstanou."
 				ui.add_child(dialog); dialog.confirmed.connect(func(): shifts.start(d.id); ui.navigate("Serverovna"); dialog.queue_free()); dialog.canceled.connect(dialog.queue_free); dialog.popup_centered()))
 	v.add_child(ui.button("Kampaň — obnovit původní ticket",func(): ui.game.resume_campaign(); ui.navigate("Serverovna")))
-	for record in shifts.data.history.slice(-6): v.add_child(ui.label("Výsledek / %s: %d / 100" % [record.id,int(record.score)],17))
+	for record in shifts.data.history.slice(-6):
+		v.add_child(ui.button("Rozpis hodnocení / %s: %d / 100" % [record.id,int(record.score)],func():
+			var lines=["Směna / %s: %d / 100" % [record.id,int(record.score)]]
+			for result in record.results:
+				lines.append("Ticket %d" % (int(result.ticket)+1))
+				lines.append(shifts.Scoring.describe(result.breakdown,int(record.get("xp",0)) if result==record.results.back() else 0) if result.has("breakdown") else "Historické skóre: %d / 100. Rozpis penalizací nebyl zaznamenán." % int(result.score))
+			ui.show_message("Uložené hodnocení směny","\n\n".join(lines))))

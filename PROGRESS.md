@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Konzistentní hodnocení směn — funkční etapa, 3. 11. 2026
+
+- Původní chyba reprodukována skutečným tlačítkem a novým GameManagerem: nápověda po obnově 0, ticket 100. Trvalý baseline log 18 kontrol popisuje chybný původní kontrakt; není součást finálního runneru.
+- Nové pokusy mají metodiku 2: základ 100, nápověda −4, chyba −8 a riziko dodatečně −15. Ukládají se nápovědy a hranice chyb/rizik jednotlivých ticketů; předchozí chyba se znovu neodečte. Jediný ScoreRules počítá i formátuje rozpis. Uložené výsledky jsou dostupné z historie po restartu.
+- Tlačítko nápovědy váže revizi a úroveň; opakovaný/starý callback nepřičte stejný stupeň. Přechod ticketu zachová předchozí rozpis. Staré historie a rozpracovaná metodika 1 bez spolehlivé historie nápověd zachovávají známé výsledky/XP; migrace nic neodměňuje.
+- shift_scoring **31 PASS headless/GPU Compatibility**: jedna nápověda → po restartu 1 a skutečné skóre 96, další ticket 100, skutečná chyba 92 jen jednou, staré tokeny, selhání zápisu/původní bajty/retry/restart bez druhých XP a reálné načtení původního rozpracovaného formátu. Původní shifts **136 PASS**. Runner nyní obsahuje 41 sad. Logy trvale v nové ui-review/verification.
+- Dokumentace směn aktualizovaná; další etapou jsou pokročilé souběžné incidenty, rozbor, samostatný poslech a společný profil. Finální exporty následují až po dokončení zdrojů. Bez push.
+
 ## Trvalé koncepty a výslovná obnova výuky — funkční etapa, 3. 11. 2026
 
 - Programovací soubory Python/HTML/CSS/JS, kurzor/výběr/posuv a aktivní soubor mají samostatné uložené koncepty podle obsahu, režimu, lekce a přesné varianty. Generovaná série uchová recept/seed/pořadí; opravovací úlohy fungují stejně. Krátký odklad zápisu, flush při změně/odchodu/ukončení, explicitní obnovit/začít znovu/smazat. Obnova neběží ani nehodnotí kód; nativní undo/redo jen živě.

@@ -40,3 +40,18 @@ Pauza → Diagnostika výkonu: FPS, interval 1/FPS, renderer, viewport a engine
 statistiky, obnova 2×/s. CPU/GPU časy se neměří. Ve VR také na zápěstí.
 Komfort VR: panel 80–140 %, vzdálenost 0,9–2 m, reset. Výchozích 1,76×1,32 m /
 1,25 m a viewport 1600×1200 zůstaly zachované.
+
+## Hodnocení nových pokusů (metodika 2)
+
+Za každý ticket: základ 100, každý stupeň nápovědy −4, odmítnutý modelový
+zásah −8 a riziko navíc −15; minimum 0. Čtení zadání ani otevření UI není
+nápověda. Chyby/risika vzniklé v jednom ticketu se znovu neodečítají v dalším.
+Nápovědy i hranice počítadel se ukládají přes odchod/restart. Starý callback
+nebo oba triggery nemohou započítat stejný stupeň dvakrát.
+
+Historie → **Rozpis hodnocení** ukazuje uložený základ, nápovědy, chyby, rizika,
+skóre a skutečně přidané XP. XP stále vznikají až na konci směny, pouze 3×
+zlepšení průměrného nejlepšího skóre. Chyba zápisu zachová jedinou přidělenou
+odměnu v paměti a retry opakuje jen zápis. Dokončené historické výsledky se
+nepřepočítávají. Rozpracované staré pokusy bez score_version zůstávají v
+původní metodice 1 s kumulativními chybami/riziky, bez odhadu ztracených nápověd.

@@ -511,7 +511,8 @@ func draw_ticket(parent: Node):
 	c.add_child(bar)
 	var ticket_revision=game.session_revision
 	c.add_child(button("Ověřit a uzavřít ticket",func(): close_ticket(ticket_revision),true))
-	if game.session_kind!="random" or game.education.random.get("hints_allowed",true): c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
+	var hint_level=game.hints_used
+	if game.session_kind!="random" or game.education.random.get("hints_allowed",true): c.add_child(button("Nápověda  %d / 3" % hint_level,func(): hint(ticket_revision,hint_level)))
 	c.add_child(button("Restartovat laboratoř",restart_confirm))
 	if game.finished: c.add_child(button("Krátké opakování znalostí",show_review))
 	if game.training:
@@ -1008,7 +1009,9 @@ func close_ticket(expected_revision: int = -1):
 	show_message(("Lekce vyhodnocena" if game.session_kind=="lesson" else "Ticket vyřešen")+" • %d / 100 bodů" % result.score,result.text+"\n\n"+game.assessment()+"\n\nProvedené kroky:\n"+"\n".join(game.sim.state.journal))
 	draw_ui()
 
-func hint():
+func hint(expected_revision: int = -1, expected_level: int = -1):
+	if expected_revision>=0 and (expected_revision!=game.session_revision or expected_level!=game.hints_used): return
+	if not game.active or game.finished: return
 	if game.session_kind=="lesson":
 		show_message("Nápověda",game.lesson_hint())
 		return
@@ -1016,6 +1019,7 @@ func hint():
 	var level=mini(game.hints_used,2)
 	game.hints_used=mini(game.hints_used+1,3)
 	game.save()
+	draw_ui()
 	show_message("Nápověda %d / 3" % (level+1),game.current.hints[level]+"\n\nKaždý stupeň sníží hodnocení o 4 body.")
 
 func register_target(key: String,control: Control):

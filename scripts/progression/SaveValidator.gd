@@ -71,6 +71,10 @@ func shifts(data) -> bool:
 	if not required(current_shift,{"id":"","version":0,"index":0,"finished":false,"results":[],"state":{}}): return false
 	if not definitions.has(current_shift.id): return false
 	var d=definitions[current_shift.id]
+	if current_shift.has("score_version") and not integer(current_shift.score_version,1,2): return false
+	if current_shift.has("hints") and not integer(current_shift.hints,0,3): return false
+	for counter in ["error_base","risk_base"]:
+		if current_shift.has(counter) and not integer(current_shift[counter],0): return false
 	if current_shift.version!=d.version or not integer(current_shift.index,0,d.tickets.size()-1): return false
 	if not shift_results(current_shift.results,d.tickets.size() if current_shift.finished else int(current_shift.index)): return false
 	if current_shift.finished and int(current_shift.index)!=d.tickets.size()-1: return false
@@ -80,6 +84,8 @@ func shift_results(results: Array, count_value: int) -> bool:
 	if results.size()!=count_value: return false
 	for index in results.size():
 		if not required(results[index],{"ticket":0,"score":0}) or not integer(results[index].ticket,index,index) or not integer(results[index].score,0,100): return false
+		if results[index].has("breakdown"):
+			if not preload("res://scripts/evaluation/ScoreRules.gd").valid(results[index].breakdown) or results[index].breakdown.score!=results[index].score: return false
 	return true
 
 func english(data) -> bool:
