@@ -71,8 +71,8 @@ static func finish(game, score: int, xp: int) -> Dictionary:
 	if not game.sim.state.has("_trace"): begin(game,true)
 	record(game,"submit",{}, {"ok":true,"text":"Ticket předán podle skutečných cílů."},values(game.sim.state),"submitted")
 	var trace=game.sim.state._trace
-	var question="storage" if trace.initial.get("raid.health","")!="Healthy" else "verification"
-	var record_data={"version":1,"id":game.attempt_id+":"+str(game.current.id),"session":game.attempt_id,"title":game.current.title,"kind":game.session_kind,"mode":mode(game),"score":score,"xp":xp,"time":int(Time.get_unix_time_from_system()),"partial":trace.partial,"initial":trace.initial.duplicate(true),"initial_probes":trace.probes.duplicate(true),"events":trace.events.duplicate(true),"final":values(game.sim.state),"probes":probes(game.sim.state),"revision":int(game.sim.state.revision),"verified":proof(game.sim.state),"question":question,"answer":""}
+	var question_id="storage" if trace.initial.get("raid.health","")!="Healthy" else "verification"
+	var record_data={"version":1,"id":game.attempt_id+":"+str(game.current.id),"session":game.attempt_id,"title":game.current.title,"kind":game.session_kind,"mode":mode(game),"score":score,"xp":xp,"time":int(Time.get_unix_time_from_system()),"partial":trace.partial,"initial":trace.initial.duplicate(true),"initial_probes":trace.probes.duplicate(true),"events":trace.events.duplicate(true),"final":values(game.sim.state),"probes":probes(game.sim.state),"revision":int(game.sim.state.revision),"verified":proof(game.sim.state),"question":question_id,"answer":""}
 	var tags=game.current.get("tags",[game.current.category]).duplicate()
 	for event in trace.events:
 		var domain="Sítě" if event.action in ["network","probe","physical_cable"] else "RAID" if event.action in ["rebuild","physical_remove","physical_insert"] else "Zálohy" if event.action in ["backup","backup_verify"] else ""

@@ -37,14 +37,14 @@ func draft_record() -> Dictionary:
 
 func checkpoint() -> Error:
 	if not draft_dirty or current.is_empty(): return OK if pending_drafts.is_empty() else ERR_INVALID_DATA
-	var record=draft_record()
+	var draft_data=draft_record()
 	var candidate=progress.drafts.duplicate(true)
-	candidate[drafts.key(record)]=record
+	candidate[drafts.key(draft_data)]=draft_data
 	if not drafts.valid(candidate):
-		pending_drafts[drafts.key(record)]=record
+		pending_drafts[drafts.key(draft_data)]=draft_data
 		draft_error="Koncept nelze uložit: nejvýše 128 konceptů, 128 KiB na soubor a celkem 2 MiB. Smaž nepotřebný koncept nebo zkrať zdroj; kód nebyl zkrácen."
 		return ERR_INVALID_DATA
-	progress.drafts=candidate; draft_dirty=false; pending_drafts.erase(drafts.key(record))
+	progress.drafts=candidate; draft_dirty=false; pending_drafts.erase(drafts.key(draft_data))
 	if pending_drafts.is_empty(): draft_error=""; return OK
 	return ERR_INVALID_DATA
 
@@ -53,14 +53,14 @@ func restore_draft(key: String) -> bool:
 	var pending=pending_drafts.has(key)
 	var source=pending_drafts if pending else progress.drafts
 	if not source.has(key) or (not pending and not drafts.valid_record(source[key])): return false
-	var record=source[key].duplicate(true)
+	var draft_data=source[key].duplicate(true)
 	if draft_dirty and checkpoint()!=OK and drafts.key(draft_record())!=key: return false
 	cancel()
-	current=drafts.task(record).duplicate(true); files=record.files.duplicate(true)
-	mode=record.mode; is_lesson=record.lesson; views=record.views.duplicate(true); active_file=record.active
-	hints=int(record.hints); step=int(record.step); series_recipe=record.series.duplicate(true)
+	current=drafts.task(draft_data).duplicate(true); files=draft_data.files.duplicate(true)
+	mode=draft_data.mode; is_lesson=draft_data.lesson; views=draft_data.views.duplicate(true); active_file=draft_data.active
+	hints=int(draft_data.hints); step=int(draft_data.step); series_recipe=draft_data.series.duplicate(true)
 	if not series_recipe.is_empty():
-		queue=drafts.generated[JSON.stringify(series_recipe)].duplicate(true); position=int(record.position); series_mode=mode
+		queue=drafts.generated[JSON.stringify(series_recipe)].duplicate(true); position=int(draft_data.position); series_mode=mode
 	last_run={}; last_result={}; edited_after_run=false; draft_dirty=pending
 	return true
 

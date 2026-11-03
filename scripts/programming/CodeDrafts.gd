@@ -12,7 +12,7 @@ func content_version() -> String:
 	if digest=="": digest=JSON.stringify(catalog).sha256_text()
 	return digest
 
-static func key(record: Dictionary) -> String:
+func key(record: Dictionary) -> String:
 	# JSON reload represents numbers as floats. Keys must remain identical to
 	# those created by the live generator's integer seed/count/position.
 	var recipe=record.series

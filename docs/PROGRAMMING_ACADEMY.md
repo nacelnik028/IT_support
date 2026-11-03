@@ -44,3 +44,5 @@ Stejný editor používá VR SubViewport monitor. Ray/trigger ovládají CodeEdi
 Test-All.ps1 obsahuje programming_runtime (výpočty/chyby/izolace), programming_catalog (všechny správné/chybné úlohy a ekvivalentní řešení), programming_academy (stanice/editor/hranice/save/XP/kampaň) a programming_integration (28 lekcí × 3 režimy, skutečné DOM kliknutí a CSS render, generátor, syntetická XR klávesnice/zoom/soubory). Všechny herní testy používají SaveManager.path_override a vlastní CFG. Grafický integration s `-- --screenshots` uloží snímky do test-output.
 
 Fyzický PICO 4 zatím nebyl připojen. Syntetické XR testy neověřují tracking, dlouhodobý komfort, konkrétní Bluetooth klávesnici ani 72 FPS na zařízení.
+
+Nové dialogy obnovení práce a rozboru používají měřítko skutečného viewportu včetně 4K a VR. Moje znalosti nabízí společné dovednosti a zachová původní režim rozepsané zkoušky. [Grafická kontrola](ui-review/2026-11-03-continuation/README.md).

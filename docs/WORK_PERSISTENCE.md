@@ -41,3 +41,5 @@ Import poškozené větve se odmítne bez změny cílového save.
 PC: myš nebo Tab/Enter. XR používá stejná skutečná tlačítka a virtuální
 klávesnici na stávajícím monitoru; hardwarová čitelnost a tracking PICO nejsou
 ověřené. Testy vždy nastavují vlastní save a obě konfigurace před GameManagerem.
+
+Nové dialogy obnovení práce a rozboru používají měřítko skutečného viewportu včetně 4K a VR. Moje znalosti nabízí společné dovednosti a zachová původní režim rozepsané zkoušky. [Grafická kontrola](ui-review/2026-11-03-continuation/README.md).

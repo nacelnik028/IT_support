@@ -312,7 +312,7 @@ func show_drafts(only_key: String = ""):
 			if manager.restore_draft(key): manager.views={}; load_current(); reset_code(); dialog.queue_free()))
 		list.add_child(button("Smazat koncept / výsledky zůstanou",func(): manager.delete_draft(key); dialog.queue_free()))
 	dialog.confirmed.connect(dialog.queue_free); dialog.canceled.connect(dialog.queue_free)
-	add_child(dialog); dialog.popup_centered(Vector2i(740,460))
+	add_child(dialog); dialog.content_scale_factor=shell.ui.scale.x; dialog.popup_centered(Vector2i(Vector2(740,460)*shell.ui.scale))
 
 func refresh_verification():
 	if verified_files.is_empty():

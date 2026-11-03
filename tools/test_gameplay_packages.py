@@ -17,9 +17,9 @@ def main():
      for entry in apk.infolist():
       if entry.filename.startswith('assets/') and not entry.is_dir():
        name=entry.filename.removeprefix('assets/');out.writestr(name,b'' if name=='.godot/extension_list.cfg' else apk.read(entry))
-   for name in ['shifts','gameplay','xr_modes']:
+   for name in ['continuation_review','unified_profile','london_listening','attempt_review','advanced_shifts','shift_scoring','work_persistence','shifts','gameplay','xr_modes']:
     script=temp/(name+'.gd');script.write_text((ROOT/'tests'/script.name).read_text(encoding='utf-8'),encoding='utf-8')
-    record['results'][name]=run([engine,'--headless','--audio-driver','Dummy','--main-pack',pack,'--script',script],temp,logs/(kind+'-'+name+'.log'))
+    record['results'][name]=run([engine,'--headless','--audio-driver','Dummy','--main-pack',pack,'--script',script,'--',f'--lesson-solutions={ROOT / "tests/lesson_solutions.json"}'],temp,logs/(kind+'-'+name+'.log'))
   results[kind]=record
  (logs/'results.json').write_text(json.dumps(results,indent=2)+'\n',encoding='utf-8')
  if not all(all(record['results'].values()) for record in results.values()):raise SystemExit(1)

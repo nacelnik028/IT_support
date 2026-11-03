@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Grafická matice a příprava distribucí — 3. 11. 2026
+
+- Nová continuation_review: 200 PASS headless, 298 PASS Compatibility a Forward+. Sedm nových obrazovek × 1280×720/1920×1080/3840×2160 × text 100/130 %, skutečný 1600×1200 SubViewport, oba texty/klávesnice otevřená-zavřená/panel 80–140 % a vzdálenost 0,9–2 m. Oba paprsky a úplné triggery, současný trigger, release mimo tlačítko, drag/scroll, A/X, B/Y, focus/tracking stop audia a stojící simulační čas.
+- Vizuální kontrola odhalila malé absolutní dialogy ve 4K; obnova a rozbor nyní škálují s viewportem. Nové snímky z obou rendererů. GPU: work_persistence 69, attempt_review 49, xr_modes 116, ui_design 162 a academy_hub 55 PASS. Původní nové testovací fixture chyby a čekání na fyzikální frame opravené, nejsou vydávané za produktové chyby.
+- Godot MCP DesignMCP 31 PASS, po opravě osmi nově zavedených statických varování zůstává osm dříve evidovaných (AcademyDecor/EnglishRoom/EnglishManager/LondonQuizUI/GameShell). Nic není plošně potlačené; přesný výstup archivován.
+- Generátory content/extension/shifts/listening reprodukovatelné bez rozdílu; legacy_campaign a prvních 24 definic obsahově shodné s e523eb4. Rozšířené skutečné balíčkové sady a přímý smoke pro obnovu/scoring/pokročilé směny/rozbor/poslech/profil. Zdrojový smoke všechny nové značky true.
+- Runner nyní 46 sad; konečný celý běh a skutečné exporty se právě dokončují. Android preset zvýšen 1.5.0 / code 6, stejné ID a podpis. PICO/ADB neprovedené; bez push.
+
 ## Poslech a společný přehled znalostí — funkční etapy, 3. 11. 2026
 
 - 12 samostatných poslechových úloh LONL01–12 používá přesné původní nahrávky a skutečné pomalé varianty. Skrytý přepis, sémantické promíchané odpovědi, tři režimy, výslovná obnova zkoušky, oddělená pomoc/výsledky a žádné XP. Nová fyzická tabule Poslechové procvičování v Londýně. Přerušení/ztlumení není doložený poslech. Opraveno odložené zpracování finished signálu s generačním tokenem proti závodu při opakování.

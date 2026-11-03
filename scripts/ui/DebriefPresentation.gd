@@ -21,4 +21,4 @@ static func show(ui, record: Dictionary):
 	else:
 		body.add_child(ui.label(("Pochopení potvrzeno. " if record.answer==question.answer else "Tuto souvislost ještě procvič. ")+question.explanation+" Dosažené skóre se nemění.",16))
 	dialog.confirmed.connect(dialog.queue_free); dialog.canceled.connect(dialog.queue_free)
-	ui.add_child(dialog); ui.bind_dialog_escape(dialog); dialog.popup_centered(Vector2i(800,540))
+	ui.add_child(dialog); ui.bind_dialog_escape(dialog); dialog.content_scale_factor=ui.scale.x; dialog.popup_centered(Vector2i(Vector2(800,540)*ui.scale))

@@ -16,3 +16,10 @@ model běžného PICO 4 ___, vsedě/vestoje ___, délka relace ___ .
 - **NEPROVEDENO – headset není dostupný.** Poslech LON01–LON06: správný text/mluvčí, opakování, pomalá varianta, hlasitost/ztlumení, stop při pauze/odchodu. Výsledek: ___ .
 - **NEPROVEDENO – headset není dostupný.** Výkon: PICO nástrojem pro profilování zaznamenat skutečné FPS, dostupné CPU/GPU frame times a paměť. Uvést nástroj/verzi, renderer, frekvenci, pohled, místo a délku záznamu. Hala, rack, síťový přehled/klávesnice, Londýn a delší střídání místností. Požadovaných 72 Hz není naměřených 72 FPS. Nástroj: ___, výsledky: ___ .
 - **NEPROVEDENO – headset není dostupný.** Po 20–30 minutách: pohodlí, únava očí a případná nevolnost jako subjektivní zjištění. Bez předvyplněných úspěšných hodnot. Výsledek: ___ .
+
+- **NEPROVEDENO – headset není dostupný.** Koncept Python syntax error a tři webové soubory: odchod, úplný restart APK, výslovná obnova, kurzor/výběr/posuv, přepnutí režimu a varianty, save failure/retry. Výsledek: ___ .
+- **NEPROVEDENO – headset není dostupný.** IT nepoužitý číselný text a obnova lekce learn/practice/exam, zrušení rizikové operace, jiný host/VM; kampaň a směna nedotčené. Výsledek: ___ .
+- **NEPROVEDENO – headset není dostupný.** SHIFT-RECOVERY a SHIFT-RESILIENCE, dvě různá pořadí priorit, jediný podmíněný incident, monitoring, uložená penalizace nápovědy a jeden příděl XP po restartu. Výsledek: ___ .
+- **NEPROVEDENO – headset není dostupný.** Rozbor před/po a dobrovolná otázka, Moje znalosti a konkrétní doporučení s konceptem, oba paprsky, scroll/drag/klávesnice/krajní panel. Výsledek: ___ .
+- **NEPROVEDENO – headset není dostupný.** LONL01–12 všechny režimy, normální/pomalý klip, skutečný subjektivní zvuk v headsetu, přepis/ztlumení, restart zkoušky a stop při focus/tracking. Výsledek: ___ .
+- **NEPROVEDENO – headset není dostupný.** Zazděný přímý průchod serverovna–Londýn: kolize chůze i teleportu a zachovaná cesta přes rozcestník. Výsledek: ___ .
