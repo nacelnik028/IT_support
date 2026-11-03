@@ -1,5 +1,21 @@
 # Datacenter Academy — stav vývoje
 
+## Připravený prompt pro další herní rozšíření bez PICO — 3. 11. 2026
+
+- Na žádost uživatele vznikl `PROMPT_GAMEPLAY_PC_PICO_BEZ_HEADSETU.md`:
+  435 řádků / 13 hlavních kapitol. Zadává VR připravenost a diagnostiku,
+  praktický úvod, tři souvislé směny, vysvětlení síťových závad a anglický poslech.
+- Uživatel nyní nemůže testovat na PICO. Zadání proto požaduje implementaci,
+  skutečné PC/GPU a syntetické XR testy, oba exporty a oddělený pozdější
+  hardwarový checklist; zakazuje vydávat tyto kontroly za tracking či FPS PICO.
+- Popsána ochrana kampaně i směn, starých save, legacy24 a autorského podpisu,
+  offline audio, skutečné integrační kontroly a limit EXE 100 MiB. Případné
+  chybějící nahrávky či neprovedené exporty se musí pravdivě přiznat.
+- Jde o budoucí implementační zadání. V této dokumentační etapě se hra,
+  katalogy, uložená data ani distribuční soubory neměnily. Ověřena struktura,
+  UTF-8, uzavření bloků kódu a 17 existujících projektových cest; diff čistý.
+  Herní testy se pro samotný nový prompt neopakovaly. Následuje commit, bez push.
+
 ## Autorský podpis úvodního menu — dokončeno 3. 11. 2026
 
 - MenuPresentation zobrazuje přesně `Vytvořil: Vít Kellner a Codex` vpravo dole,
