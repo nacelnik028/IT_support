@@ -1,0 +1,18 @@
+{
+  "windows": {
+    "sha256": "e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c",
+    "results": {
+      "shifts": true,
+      "gameplay": true,
+      "xr_modes": true
+    }
+  },
+  "pico": {
+    "sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf",
+    "results": {
+      "shifts": true,
+      "gameplay": true,
+      "xr_modes": true
+    }
+  }
+}

@@ -47,3 +47,9 @@ zůstává viditelné a lze je zopakovat z pauzy i anglického panelu.
 Geometrii tvoří `AcademyHub.gd`; test `academy_hub.gd` používá skutečné WASD
 vstupy a kolize, ne nastavování pozice pro každou cestu. XR hardwarový komfort
 a skutečný výkon PICO vyžadují headset; syntetické kontroly je nenahrazují.
+
+## Souvislé směny — 3. 11. 2026
+
+Při aktivní souvislé směně návrat do serverovny obnoví právě směnu, včetně
+inventáře a rozpracovaného ticketu. Kampaň se obnovuje výslovnou volbou Kampaň.
+Hub ani přechody přes více učeben obě větve nepřepíší. [Pravidla směn](CONTINUOUS_SHIFTS.md).

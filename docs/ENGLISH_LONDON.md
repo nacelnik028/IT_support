@@ -84,6 +84,13 @@ Obě větve validuje stávající SaveValidator, atomický save zachovává sch�
 Dočasný rozhovor, košík a lístek se mezi návštěvami neukládají. Kampaň se bezpečně
 odkládá i při přechodu přes hub nebo jinou vzdělávací oblast.
 
-Jde o procvičení textových situací zaměřených na B1–B2, nikoli hodnocení celé
-CEFR úrovně, poslechu či výslovnosti nebo jazykový certifikát. Syntetické XR
+Jde o procvičení situací zaměřených na B1–B2 s vybranými poslechy, nikoli hodnocení celé
+CEFR úrovně, výslovnosti nebo jazykový certifikát. Syntetické XR
 testy ověřují vstupy a UI; skutečný tracking a výkon PICO vyžadují hardware.
+
+## Vybrané mluvené repliky — 3. 11. 2026
+
+12 přesných replik a jejich samostatné pomalé varianty fungují offline. U dostupné
+repliky jsou tlačítka Poslechnout / zopakovat, Pomaleji a Zastavit; myš/Tab/Enter
+nebo oba XR paprsky. Auto řeč ve footeru je volitelná. Nepokryté dynamické věty
+zůstávají textové. [Mapování, licence a meze ověření](LONDON_AUDIO.md).

@@ -1,0 +1,13 @@
+windows-shifts: exit=0, clean=True
+SHIFTS: 136 checks, 0 failures
+windows-gameplay: exit=0, clean=True
+GAMEPLAY: 212 checks, 0 failures
+windows-xr_modes: exit=0, clean=True
+XR_MODES: 116 checks, 0 failures; synthetic tests, no hardware tracking claim
+pico-shifts: exit=0, clean=True
+SHIFTS: 136 checks, 0 failures
+pico-gameplay: exit=0, clean=True
+GAMEPLAY: 212 checks, 0 failures
+pico-xr_modes: exit=0, clean=True
+XR_MODES: 116 checks, 0 failures; synthetic tests, no hardware tracking claim
+FINAL GAMEPLAY PACKAGES PASS

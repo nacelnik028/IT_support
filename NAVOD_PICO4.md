@@ -16,7 +16,7 @@ Pokud hru stahuješ z GitHubu, otevři
 a zvol **Download raw file / Stáhnout**. Při použití níže uvedených příkazů
 ponech APK ve složce `build/pico4` uvnitř projektu.
 
-Aktuální APK je **Training academy 1.3.0 (versionCode 4)** z 3. 11. 2026.
+Aktuální APK je **Training academy 1.4.0 (versionCode 5)** z 3. 11. 2026.
 Po vstupu se objevíš v odekorovaném rozcestníku: průchody 01 a 02 vedou do
 serverovny a IT tréninku, 03 vlevo do programování a 04 vpravo chodbou do Londýna.
 Všechny místnosti mají doplněné dekorace; původní postup a rozpracovaná kampaň

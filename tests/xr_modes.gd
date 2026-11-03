@@ -187,6 +187,8 @@ func run():
 	right_tracker.set_input("by_button",true)
 	await frames()
 	check(shell.mode=="pause","Skutečný XR input B otevře menu")
+	rig.settings.panel_scale=1.4; rig.settings.panel_distance=2.0
+	rig.monitor.configure(rig.settings); rig.monitor.place_in_front(rig.head)
 	var left_button=Button.new()
 	left_button.position=Vector2(1250,800); left_button.size=Vector2(200,70)
 	var left_clicked=[false]
@@ -201,6 +203,26 @@ func run():
 	await physics()
 	check(left_clicked[0],"Levý trigger dokončí klik i při jiném směru pravého ovladače")
 	left_button.queue_free()
+	var slider=HSlider.new(); slider.position=Vector2(1250,650); slider.size=Vector2(220,60); slider.max_value=100
+	rig.monitor.keyboard.get_parent().add_child(slider)
+	point_controller(left_tracker,Vector2(1270,680)); await physics()
+	left_tracker.set_input("trigger_click",true); await physics()
+	point_controller(left_tracker,Vector2(1440,680)); await physics()
+	left_tracker.set_input("trigger_click",false); await physics()
+	check(slider.value>70,"Drag skutečného slideru po změně velikosti/vzdálenosti panelu")
+	slider.queue_free()
+	var scroll=ScrollContainer.new(); scroll.position=Vector2(1250,400); scroll.size=Vector2(250,180)
+	var content=VBoxContainer.new(); scroll.add_child(content)
+	for i in 24:
+		var line=Label.new(); line.text="Posun "+str(i); line.custom_minimum_size.y=30; content.add_child(line)
+	rig.monitor.keyboard.get_parent().add_child(scroll)
+	point_controller(right_tracker,Vector2(1350,450)); await physics()
+	right_tracker.set_input("primary",Vector2(0,-1))
+	for i in 15: await physics_frame
+	right_tracker.set_input("primary",Vector2.ZERO)
+	check(scroll.scroll_vertical>0,"Skutečný scroll joystickem po změně panelu")
+	scroll.queue_free()
+	rig.settings.panel_scale=1.0; rig.settings.panel_distance=1.25; rig.monitor.configure(rig.settings)
 	right_tracker.set_input("by_button",false)
 	right_tracker.set_input("by_button",true)
 	await frames()

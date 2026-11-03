@@ -1,5 +1,37 @@
 # PC / PICO 4 – ověření
 
+## Gameplay bez headsetu — 2026-11-03
+
+Praktický úvod, tři souvislé směny, síťové vysvětlení, 12 mluvených replik
+s pomalými variantami, nastavitelný panel a volitelná diagnostika jsou implementované.
+Výchozí panel 1,76×1,32 m / 1,25 m i viewport 1600×1200 zůstaly zachované;
+komfort dovoluje 80–140 % a 0,9–2 m, s resetem a persistentním CFG.
+
+- XR 116 headless/GPU Compatibility PASS: skutečné syntetické trackery a obě ruce,
+  ray/pixel i po změně velikosti/vzdálenosti, skutečný drag, scroll, release mimo
+  monitor, virtuální klávesnice, focus/tracking a původní výukové hranice.
+- Gameplay review 77 headless / 129 GPU v Compatibility i Forward+ PASS.
+  Celý úvod synteticky přes head pose, teleport, ovladač dveří/průchod, levý ray
+  na monitor a UI, pravý grip konkrétní náhrady, vrácení a pauzu. Oba paprsky
+  přehrávají přesný poslech bez volby odpovědi nebo dvojí operace.
+- 104 [trvalých PC/VR snímků](ui-review/2026-11-03-gameplay/README.md), text 100/130 %,
+  skutečný SubViewport s klávesnicí i bez ní. Na PC se opravdu vykreslilo 720p/1080p/4K.
+  Screenshot neověřuje optiku headsetu.
+- APK 1.4.0 / code 5: podpis/CRC/ARM64/PICO/OpenXR PASS, původní certifikát zachován.
+  13 externích sad a oba smoke běhy nad skutečnými APK prostředky v desktopovém
+  Godotu PASS; dodatečně směny 136, gameplay 212 a XR 116 PASS. Windows má oba
+  nativní EXE-only smoke běhy a 20 balíčkových sad PASS. SHA256 viz build/VERIFICATION.json.
+
+Diagnostika uvádí skutečné FPS, interval 1/FPS, renderer, viewport a engine
+statistiky. **CPU/GPU časy se neměří** a 72 Hz není naměřených 72 FPS.
+Audio bylo dekódováno a přehrávač spuštěn na PC; subjektivní lidský poslech
+se tím neprohlašuje za provedený.
+
+**NEPROVEDENO – headset není dostupný:** Android native start, stereo, tracking,
+optická čitelnost, komfort a výkon/paměť na PICO. Bez ADB dotazů či instalace.
+[Konkrétní pozdější hardwarový checklist](PICO4_HARDWARE_CHECKLIST.md).
+Podrobné výsledky a vývojová selhání/opravné běhy jsou v TEST_REPORT.md.
+
 ## Rozcestník a B1–B2 — 2026-11-03
 
 Nový společný start PC/VR je neutrální hala se čtyřmi fyzickými průchody.

@@ -1,5 +1,16 @@
 # Datacenter Academy — stav vývoje
 
+## Gameplay PC/PICO — dokončené ověření a oba exporty, 3. 11. 2026
+
+- Funkční commity f6b05d8 (panel/diagnostika), cda0a5f (směny/save) a 8e931aa (úvod/síť/řeč). Dokončena požadovaná implementace v původním projektu, bez push.
+- Celý aktuální Test-All: **39 sad PASS**, exit 0, bez runtime chyb a varování. Závěrečný log test-output/gameplay-release-test-all.log, trvalá kopie v docs/ui-review/2026-11-03-gameplay/verification. Směny 136, gameplay 212, review 77 headless/129 GPU, XR 116 headless/GPU; 65 misí/21×3 lekcí/336 UI akcí, save 474 a session 124 zachovány. Katalogy reprodukovatelné po bajtech, legacy24 shodné.
+- Skutečný PC průchod úvodem 212 GPU PASS, grafická matice Compatibility/Forward+ po 129 PASS; MCP DesignMCP 31 PASS a osm již dřívějších statických varování. 104 trvalých PNG v datované složce, celá matice a VR obsah vizuálně prohlédnuté. Nejde o optiku headsetu.
+- Windows EXE-only **104 826 336 B**, rezerva **31 264 B**. SHA256 e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c. Nativní headless/GPU smoke mimo projekt a všech 20 externích balíčkových sad PASS. Samotný EXE bez PCK/editoru. Skutečný obsah 253 souborů, 5425 kontrol, 278 materiálů.
+- PICO APK **90 743 347 B**, **1.4.0 / code 5**. SHA256 8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf. Podpis/původní certifikát/CRC/manifest PASS. Dva desktopové smoke běhy a všech 13 externích sad nad skutečnými APK prostředky PASS; 257 souborů/5372 kontrol. Bez ADB dotazů či změn zařízení.
+- Dodatečné aktuální kontroly obou přesných balíčků: shifts 136 / gameplay 212 / XR 116 PASS, včetně skutečných MP3 bajtů podle hashů, inventáře po restartu a jediné odměny při selhání zápisu/opakování. Log test-output/gameplay-packages-final.log a trvalé JSON výsledky.
+- Oba exporty používají stejný manifest 240 zdrojů: 77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe. BUILD_INFO, SHA256SUMS a VERIFICATION nyní obsahují jen skutečné aktuální výsledky. Žádný pracovní TTS model/WAV/test save v distribuci. Všechny testy mají vlastní save/config před GameManagerem.
+- README, TEST_REPORT, VR report, návody směn/poslechu a hardwarový checklist aktualizovány. **Android start, stereo, tracking, optická čitelnost, komfort a FPS/paměť na PICO: NEPROVEDENO – headset není dostupný.** Automatické audio testy nejsou subjektivním lidským poslechem. Obě meze jsou výslovně zapsané.
+
 ## Gameplay — praktický úvod, síť a poslech, 3. 11. 2026
 
 - Devět ověřovaných kroků úvodu: skutečný pohled/chůze nebo XR teleport, konkrétní ovladač a průchod, TRAIN-PC-PVE, UI kontrola, SPARE-2T a vrácení, pauza/pokračování. Samostatný dočasný model, žádné XP či scénář v save; obnovení kampaně/směny i konceptů. Zrušení/opakování a znovuotevření monitoru bez deadlocku.

@@ -67,6 +67,8 @@ def record_pico_build(apk, version, verification):
             "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
             "sources": [checksum(path) for path in source_files], "verification": verification,
             "hardware_tracking": "NOT TESTED", "pico_72_fps": "NOT MEASURED"}
+    normalized=sorted([{'file':item['file'],'sha256':item['sha256']} for item in info['sources']],key=lambda item:item['file'])
+    info['source_manifest_sha256']=hashlib.sha256(json.dumps(normalized,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     (apk.parent / "BUILD_INFO.json").write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
 
 
@@ -185,11 +187,16 @@ def package_windows(portable_exe):
 
 def verify_apk(apk, sdk, environment):
     tools = sdk / "build-tools/36.1.0"
-    run([tools / "apksigner.bat", "verify", "--verbose", apk], "apk-signature", env=environment)
+    signature=run([tools / "apksigner.bat", "verify", "--verbose", "--print-certs", apk], "apk-signature", env=environment)
+    certificate="3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997"
+    if certificate not in signature.lower(): raise RuntimeError("APK signing certificate changed")
+    preset=(ROOT/"export_presets.cfg").read_text(encoding="utf-8")
+    version_code=int(re.search(r"version/code=(\d+)",preset).group(1))
+    version_name=re.search(r'version/name="([^"]+)"',preset).group(1)
     # aapt on Windows cannot reliably decode a Unicode absolute argv path.
     badging = run([tools / "aapt.exe", "dump", "badging", apk.name], "apk-badging", cwd=apk.parent)
     if "native-code: 'arm64-v8a'" not in badging: raise RuntimeError("APK must be ARM64 only")
-    for expected in ["package: name='cz.academy.itsupport'", "versionCode='4'", "versionName='1.3.0'", "application-label:'Training academy'"]:
+    for expected in ["package: name='cz.academy.itsupport'", f"versionCode='{version_code}'", f"versionName='{version_name}'", "application-label:'Training academy'"]:
         if expected not in badging: raise RuntimeError("Unexpected APK identity: " + expected)
     with zipfile.ZipFile(apk) as archive:
         if archive.testzip() is not None: raise RuntimeError("APK ZIP CRC failed")
@@ -201,17 +208,11 @@ def verify_apk(apk, sdk, environment):
         if expected not in text: raise RuntimeError("Missing PICO manifest entry: " + expected)
     for forbidden in ["EYE_TRACKING", "FACE_TRACKING", "Enterprise"]:
         if forbidden in text: raise RuntimeError("Unexpected hardware requirement: " + forbidden)
-    devices = run([sdk / "platform-tools/adb.exe", "devices", "-l"], "adb-devices", clean=False)
-    serials = [line.split()[0] for line in devices.splitlines() if re.match(r"^\S+\s+device\s", line)]
-    device_result = "NOT RUN: no authorized ADB device"
-    # Only deploy to a headset identified as PICO; never to an unrelated phone.
-    for serial in serials:
-        model = run([sdk / "platform-tools/adb.exe", "-s", serial, "shell", "getprop", "ro.product.model"], "adb-model", clean=False)
-        if "pico" not in model.lower() and "a8110" not in model.lower(): continue
-        run([sdk / "platform-tools/adb.exe", "-s", serial, "install", "-r", apk], "adb-install", timeout=180)
-        run([sdk / "platform-tools/adb.exe", "-s", serial, "shell", "am", "start", "-n", "cz.academy.itsupport/com.godot.game.GodotAppLauncher"], "adb-launch")
-        device_result = "Installed/launched; manual tracking and 72 FPS validation still required"
-    return {"signature": "PASS", "zip_crc": "PASS", "arm64_and_openxr_manifest": "PASS", "version_code": 4, "version_name": "1.3.0", "device": device_result}
+    # Hardware is explicitly unavailable in this stage. Verification never
+    # installs or queries unrelated Android devices; use the hardware checklist.
+    device_result = "NOT RUN: PICO headset unavailable; no ADB device query or deployment"
+    return {"signature": "PASS", "certificate_sha256":certificate,"zip_crc": "PASS", "arm64_and_openxr_manifest": "PASS", "version_code": version_code, "version_name": version_name, "device": device_result}
+
 
 
 def main():

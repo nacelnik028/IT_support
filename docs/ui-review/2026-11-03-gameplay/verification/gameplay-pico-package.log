@@ -1,0 +1,29 @@
+desktop_resources_headless: exit=0, clean=True
+desktop_resources_graphical: exit=0, clean=True
+shifts: exit=0, clean=True
+SHIFTS: 135 checks, 0 failures
+gameplay: exit=0, clean=True
+GAMEPLAY: 185 checks, 0 failures
+gameplay_review: exit=0, clean=True
+GAMEPLAY REVIEW: 77 checks, 0 failures; synthetic XR, no headset
+package_content: exit=0, clean=True
+PACK CONTENT: 5372 checks, 0 failures; 257 packaged files; 278 materials
+academy_hub: exit=0, clean=True
+ACADEMY HUB: 52 checks, 0 failures
+london_quiz: exit=0, clean=True
+LONDON QUIZ: 527 checks, 0 failures
+english_model: exit=0, clean=True
+ENGLISH MODEL: 1809 checks, 0 failures
+english_world: exit=0, clean=True
+ENGLISH WORLD: 1061 checks, 0 failures (synthetic XR, no headset)
+ui_workflow: exit=0, clean=True
+UI WORKFLOW: 579 checks, 0 failures
+programming_location: exit=0, clean=True
+PROGRAMMING LOCATION: 114 checks, 0 failures
+programming_integration: exit=0, clean=True
+PROGRAMMING INTEGRATION 765 checks, 0 failures; 252 generated variants
+xr_modes: exit=0, clean=True
+XR_MODES: 116 checks, 0 failures; synthetic tests, no hardware tracking claim
+terminal_sessions: exit=0, clean=True
+TERMINAL SESSIONS: 64 checks, 0 failures
+PICO PACKAGE RESOURCES PASS: 8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf

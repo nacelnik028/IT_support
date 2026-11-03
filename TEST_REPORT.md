@@ -1,5 +1,85 @@
 # Ověření rozšířené hratelné verze
 
+## Gameplay PC/PICO bez headsetu — 3. 11. 2026
+
+Implementováno a ověřeno na PC a synteticky v XR; přímý test na PICO 4 čeká
+na dostupný headset. Tato sekce nahrazuje aktuální distribuční údaje níže;
+starší sekce zachovávají historické výsledky.
+
+- Herní implementace: `f6b05d8`, `cda0a5f`, `8e931aa`. Oba exporty používají
+  stejných 240 zdrojových souborů; přesné hashe jsou v obou BUILD_INFO.json.
+  Společný deterministický manifest SHA256:
+  `77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe`.
+- Celý tools/Test-All.ps1: **39 sad PASS**, bez runtime chyb/varování.
+  `test-output/gameplay-test-all-final.log`; úplný závěrečný opakovaný běh
+  s doplněnými negativními kontrolami: `test-output/gameplay-release-test-all.log`.
+- Nové sady: shifts **136**, gameplay **212**, gameplay_review **77 headless /
+  129 GPU**. XR **116 headless i GPU Compatibility** včetně dragu a posuvu
+  po změně rozměrů/vzdálenosti panelu. PC praktický průchod gameplay **212 GPU PASS**.
+  Všechny cíle vznikají skutečnými operacemi, pohybem/fyzikou a úplnými kliky.
+- Zachováno 65 misí v modelu i formulářích, legacy24, 21 lekcí ve všech třech
+  režimech a 336 výukových UI akcí. Save safety 474, session safety 124,
+  ui_workflow 579, ui_design 162 a world_ui 31 PASS. Přegenerování build_content
+  i build_shifts nemění bajty žádného katalogu; legacy_campaign zůstal shodný.
+- Směny: všech devět ticketů od začátku do konce, alternativní pořadí oprav,
+  aktuální ověření, odmítnutí starého triggeru/dvojí odměny, nové vytvoření
+  GameManageru včetně neseného disku a odstraněného serialu, restart, import/export,
+  vadná ID/verze/index/výsledky/inventář a selhání zápisu s opakováním bez dvojí XP.
+  Opakované přechody směna/hub/IT ve všech režimech/programování/Londýn/kampaň PASS.
+- Úvod: skutečné PC vstupy a kolize, syntetický head pose/teleport/obě ruce,
+  správný ovladač dveří, průchod, správný monitor a UI kontrola, grip SPARE-2T,
+  vrácení a pauza. Nesprávný cíl, zavření/znovuotevření monitoru, zrušení,
+  přeskočení, opakování a obnovení upravené kampaně/směny PASS. Bez XP.
+- Síť: kabel/port, VLAN a IP/brána čtou stejný NetworkSimulator; neověřené úseky,
+  skutečný hostitel, před/po, oprava/undo a skrytí příčiny ve zkoušce PASS.
+- Řeč: **12 různých přesných replik + 12 samostatných pomalých variant**,
+  188 544 B MP3. Import, délka, nenulové PCM vzorky, SHA256 skutečných MP3 dat,
+  přesný text/mluvčí/situace, opakování, nezměněný pitch 1.0, delší pomalá syntéza,
+  Master mute/hlasitost a stop při pauze/focus/změně relace PASS. Přehrávání
+  AudioStreamPlayer bylo skutečně spuštěno. **Subjektivní poslech člověka se
+  tím neprohlašuje za provedený**; nepokryté věty zůstávají textové.
+- Grafická matice: Windows / RTX 5060, Compatibility i Forward+, 720p/1080p/4K
+  × 100/130 %. 104 trvalých PNG v [datované složce](docs/ui-review/2026-11-03-gameplay/README.md),
+  včetně skutečného VR SubViewportu 1600×1200 s klávesnicí i bez ní. Vizuálně
+  prohlédnuté rozložení a reprezentativní původní snímky; podpis zachován.
+  Godot MCP / tests/DesignMCP.tscn: 31 PASS; osm dříve popsaných statických
+  varování o typech/stínění, žádná runtime chyba. Varování nebyla potlačena.
+
+**Skutečné balíčky:**
+
+- Windows EXE: **104 826 336 B**, rezerva **31 264 B** do 100 MiB.
+  SHA256 `e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c`.
+  Samotný přejmenovaný EXE mimo projekt, bez PCK/editoru: nativní headless/GPU
+  smoke PASS. Dalších 20 externích sad nad přesně zabalenými daty PASS;
+  obsah 5425 kontrol / 253 souborů / 278 materiálů. Následně rozšířené
+  shifts 136, gameplay 212 a XR 116 znovu PASS proti tomuto přesnému EXE.
+- PICO APK: **90 743 347 B**, **1.4.0 / versionCode 5**.
+  SHA256 `8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf`.
+  Podpis, CRC, ARM64 a skutečný PICO/OpenXR manifest PASS. Původní certifikát
+  SHA256 `3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997` zachován.
+  Dva desktopové smoke běhy a 13 externích sad nad skutečnými prostředky APK PASS;
+  obsah 5372 kontrol / 257 souborů. Dodatečně shifts 136 / gameplay 212 / XR 116 PASS.
+  **To není Android native start ani test nativních Android knihoven na zařízení.**
+- Všechny JSON hodnoty odpovídají zdrojům. Testovací save, pracovní složky,
+  model TTS ani WAV nejsou v distribuci. Testy nastavují SaveManager.path_override
+  a oddělené DisplaySettings/VRSettings před GameManagerem. Hráčův save se nepoužil.
+  Výsledky balíčků: `test-output/windows-package/results.json`,
+  `test-output/pico-package/results.json`, `test-output/gameplay-packages-final/results.json`.
+  Aktuální přehled: [VERIFICATION.json](build/VERIFICATION.json).
+
+Vývojové běhy zachytily a opravily posuv posledního tlačítka pauzy kvůli zaokrouhlení,
+přetékání Překladu/Nápovědy po přidání automatiky audia a znovuotevření cvičného
+monitoru. První APK ověřovač ještě očekával verzi 1.3.0; nyní čte preset a hlídá
+původní certifikát. Závěrečné běhy jsou čisté. Po doplnění manifestu zdrojů byl
+EXE znovu sestaven a všechny jeho sady zopakovány proti novému SHA256.
+
+**NEPROVEDENO – headset není dostupný:** instalace/Android start, stereo,
+fyzický tracking, optická čitelnost, komfort, FPS a paměť na PICO.
+Žádné ADB zařízení nebylo pro tuto etapu dotazováno ani změněno.
+Konkrétní pozdější kroky jsou v [hardwarovém checklistu](docs/PICO4_HARDWARE_CHECKLIST.md).
+Herní funkce a oba exporty jsou dokončené; hardwarové ověření zůstává otevřené.
+Git push nebyl proveden.
+
 ## Rozcestník, dekorace všech místností a B1–B2 — 3. 11. 2026
 
 Aktuální etapa plní PROMPT_ACADEMY_HUB_PC_VR.md a doplňující požadavky na

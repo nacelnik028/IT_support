@@ -7,9 +7,10 @@ var checks=0
 var failures=0
 
 func _init():
-	Saves.path_override="user://academy_test_shifts.json"
-	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_shifts.cfg"
-	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_shifts_vr.cfg"
+	var tag=str(OS.get_process_id())
+	Saves.path_override="user://academy_test_shifts_"+tag+".json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_shifts_"+tag+".cfg"
+	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_shifts_"+tag+"_vr.cfg"
 	Saves.save_game({},true)
 	call_deferred("run")
 
@@ -49,7 +50,17 @@ func run():
 			check(game.sim.state.vms["100"].gateway=="192.168.20.1","Dřívější oprava přetrvala do ticketu 2")
 			check(not game.complete().ok,"Další ticket vyžaduje aktuální ověření")
 			act("verify"); submit()
-			act("backup",{"vm":"100"}); act("backup_verify",{"operation":"Verify"}); act("verify"); submit()
+			act("backup",{"vm":"100"}); act("backup_verify",{"operation":"Verify"}); act("verify")
+			var old_xp=game.progress.xp
+			var before=FileAccess.get_file_as_string(Saves.path_override)
+			DirAccess.make_dir_absolute(ProjectSettings.globalize_path(Saves.path_override+".tmp"))
+			var result=game.complete()
+			check(result.ok and not result.saved and game.unsaved,"Odevzdání v paměti rozliší selhání zápisu")
+			var paid_xp=game.progress.xp
+			check(paid_xp>old_xp and FileAccess.get_file_as_string(Saves.path_override)==before,"Při chybě zápisu zůstane původní soubor")
+			check(not game.complete().ok and game.progress.xp==paid_xp,"Opakování odevzdání při chybě zápisu neduplikuje odměnu")
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(Saves.path_override+".tmp"))
+			check(game.save()==OK and game.progress.xp==paid_xp,"Opakovaný zápis zachová jedinou odměnu")
 		elif id=="SHIFT-VM":
 			act("physical_inspect",{"device":"HV-01"}); act("inspect",{"scope":"Events"}); submit()
 			act("memory",{"vm":"200","cpu":2,"ram":4,"minimum":2,"maximum":8,"dynamic":true})

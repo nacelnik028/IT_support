@@ -80,7 +80,7 @@ OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
 **PICO 4:** [`build/pico4/ITSupportSimulator-PICO4.apk`](build/pico4/ITSupportSimulator-PICO4.apk)
-je podepsaný sideload Debug APK 1.3.0 (versionCode 4) pro ARM64, běžný PICO 4,
+je podepsaný sideload Debug APK 1.4.0 (versionCode 5) pro ARM64, běžný PICO 4,
 Android min 29 / target 34. Obsahuje aktuální Training academy se západní učebnou
 a londýnským pavilonem; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
 pro aktualizaci přes `adb install -r`.
@@ -492,7 +492,7 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 
 - `terminal_sessions.gd`: skutečné UI terminálu, správný hostitel, undo,
   ukládání a jeho selhání, kroky/hodnocení všech tří výukových režimů a ochrana kampaně.
-- `xr_modes.gd`: 69 syntetických kontrol společného desktop/VR stavu, PICO profilu,
+- `xr_modes.gd`: 116 syntetických kontrol společného desktop/VR stavu, PICO profilu,
   controller inputs, pohybu/grip, SubViewport kliků/klávesnice, komfortu,
   zrušení výuky při fyzickém odchodu s otevřenou konzolí a při teleportu ve všech
   třech režimech, validovaného exportu/importu. Nenahrazuje skutečný headset.
@@ -570,7 +570,7 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
 - Síť má připravené podsítě a službu HTTPS s datovým manifestem. Nesimuluje
   pakety, plné směrovací tabulky ani skutečný operační systém.
 - Kampaně začínají nezávislou výchozí situací; infrastruktura se nepřenáší
-  mezi misemi. Postup, nejlepší skóre a rozehraný ticket se přenášejí.
+  mezi misemi. Souvislé směny naopak zachovávají infrastrukturu mezi svými tickety. Postup, nejlepší skóre a rozehraný ticket se přenášejí.
 - Hostitelská příprava cílí PVE-01/HV-01, RAID řadič NAS-01. Druhé uzly slouží
   migraci, HA a Replica. Nejde o libovolně rozšiřitelnou topologii serverovny.
 - Ceph, kompletní návrh Failover Clusteru/CSV, výměna bootovacího ZFS rpoolu
@@ -582,9 +582,8 @@ viz [dokumentace škálování Godotu](https://docs.godotengine.org/en/stable/tu
   synchronizovaný stavový snímek; nejsou simulovány reálné intervaly přenosu.
 - RAID výpočty jsou orientační před metadata/filesystemem. VHDX a kapacitní
   vrstvy pracují s výukovými jednotkami GB; TB/TiB je zvlášť v RAID kalkulátoru.
-- Není vytvořen instalátor. Samostatné Windows EXE používá oficiální Release
-  šablonu. Hlavní ZIP má přenosné EXE s vloženými daty; vývojářská varianta
-  používá samostatný PCK vedle EXE. PICO APK je podepsané
+- Není vytvořen instalátor. Aktuální samostatné Windows EXE používá oficiální Debug
+  šablonu a vložená data, bez sousedního PCK či povinného ZIP. PICO APK je podepsané
   Debug sestavení pro sideload, s lokálními uloženými daty.
 
 ## Primární studijní zdroje

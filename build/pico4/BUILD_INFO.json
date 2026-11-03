@@ -3,10 +3,10 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90508612,
-    "sha256": "aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940"
+    "bytes": 90743347,
+    "sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf"
   },
-  "source_commit": "0cb87a31baace36a34b7f686e1e36f95d0df5d51",
+  "source_commit": "8e931aa797e290912b11eb9f6fd9374c57d7240f",
   "sources": [
     {
       "file": "project.godot",
@@ -15,13 +15,13 @@
     },
     {
       "file": "export_presets.cfg",
-      "bytes": 2157,
-      "sha256": "eaee3a104c123542953d6ed8339d7c72cb9ce39fab355607040f25fdd82a218a"
+      "bytes": 2195,
+      "sha256": "8bf317c2707acfcda2422aa614c5ea42ef03e945f546af8feaf89bbee80ce238"
     },
     {
       "file": "scripts/core/DisplaySettings.gd",
-      "bytes": 5959,
-      "sha256": "a7fa31c7dd8d4698b95e0079c600a34fa7b182e0932c6b78aa04c838d8feb559"
+      "bytes": 6245,
+      "sha256": "78bbff41ec3fa7ad3bd52027aed1762fc428e484a47050153fa4d5790d713985"
     },
     {
       "file": "scripts/core/DisplaySettings.gd.uid",
@@ -30,8 +30,8 @@
     },
     {
       "file": "scripts/core/GameManager.gd",
-      "bytes": 22144,
-      "sha256": "8c8817cdad1ffc8fb41c316ddf89dd118e1a67d5621db6f671f01a58a0212cd2"
+      "bytes": 24361,
+      "sha256": "f6d906895e04e957ca07247d5f6e33f47cf9e82d196d6565f6389a1ea22828a9"
     },
     {
       "file": "scripts/core/GameManager.gd.uid",
@@ -60,8 +60,8 @@
     },
     {
       "file": "scripts/english/DialogueController.gd",
-      "bytes": 11870,
-      "sha256": "897b5c16249bb235462677fdb6a9a47b7b8ef1252e91a5760e29633713a159ad"
+      "bytes": 13341,
+      "sha256": "5ce521926fd0e6ad4b8ebfffe923094a9e42499772adda02b795c17743a5862c"
     },
     {
       "file": "scripts/english/DialogueController.gd.uid",
@@ -107,6 +107,16 @@
       "file": "scripts/english/LondonQuizUI.gd.uid",
       "bytes": 20,
       "sha256": "16b994881638a5a3ce09da3f20f909ce2a467c5190cc0789dcac904938b4038a"
+    },
+    {
+      "file": "scripts/english/LondonSpeech.gd",
+      "bytes": 1220,
+      "sha256": "de7703c9c488061fb9e5c1937fb111cb8ddcee7ebcec0b291ebd2899f0e961d8"
+    },
+    {
+      "file": "scripts/english/LondonSpeech.gd.uid",
+      "bytes": 20,
+      "sha256": "6061eb8c0176f168dccd51530d05e6783269e4beb67f31c7a551f75682d18c71"
     },
     {
       "file": "scripts/evaluation/ObjectiveEvaluator.gd",
@@ -240,13 +250,43 @@
     },
     {
       "file": "scripts/progression/SaveValidator.gd",
-      "bytes": 18405,
-      "sha256": "07a367e096a4127aff3a5c32b4062cdf4e4d2ca32bac618f65cb20988952c5b0"
+      "bytes": 20561,
+      "sha256": "212dba0a2661b01b93c5d1cb906b40db6f388ab44806d957bfdc932cfac67b54"
     },
     {
       "file": "scripts/progression/SaveValidator.gd.uid",
       "bytes": 20,
       "sha256": "967ee3293e14077de5b26c4948e772d130c77236ebfd48d00ee29df8f3e869d8"
+    },
+    {
+      "file": "scripts/shifts/GameplaySmoke.gd",
+      "bytes": 1435,
+      "sha256": "81c4c57285d16bd483239dae2e789301038d313c8ca656f010a1df692807049f"
+    },
+    {
+      "file": "scripts/shifts/GameplaySmoke.gd.uid",
+      "bytes": 20,
+      "sha256": "3651b76cd019fd3c2f9282da24e50fe3e47124f4860cb81109ba04371ded1645"
+    },
+    {
+      "file": "scripts/shifts/ShiftManager.gd",
+      "bytes": 4412,
+      "sha256": "93e8119786c8eb2b27c9c90d0f2ca9d5f35956425a08e74a639df2a5fa0bee4c"
+    },
+    {
+      "file": "scripts/shifts/ShiftManager.gd.uid",
+      "bytes": 20,
+      "sha256": "65f28f0a6984db31fa1b2df23e3bad30e34f9bf41eb2619c7fd9ba86b70a89fd"
+    },
+    {
+      "file": "scripts/shifts/ShiftPresentation.gd",
+      "bytes": 2194,
+      "sha256": "e267eca52e07ca04e1a03f0b3f1a769906e1f4ed398440d5a70b64d134e70016"
+    },
+    {
+      "file": "scripts/shifts/ShiftPresentation.gd.uid",
+      "bytes": 20,
+      "sha256": "6f66191793b1ac5e9d481f97d33c181c0fe909cc3420da0e5ee06f3a617faa72"
     },
     {
       "file": "scripts/simulation/EducationOperations.gd",
@@ -440,13 +480,23 @@
     },
     {
       "file": "scripts/ui/MenuPresentation.gd",
-      "bytes": 4272,
-      "sha256": "bd36ea867ad5185854ce7086f20e458047f07177a47f98be3f67cc779dd8e3d5"
+      "bytes": 4779,
+      "sha256": "586bfcae5535cc5ef15180753c9d61afd77e55d1b17b2b0a9f5f029b1c6b25f3"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
       "bytes": 20,
       "sha256": "dc6f29cd322e7ffa3c89450fd39759083ad3afbef8023dd986c61bb5fbd07ac1"
+    },
+    {
+      "file": "scripts/ui/NetworkExplanation.gd",
+      "bytes": 3437,
+      "sha256": "afea29d23c64325f77f544ebc2070f100dd528f06e6c34aad52d6396ea98485e"
+    },
+    {
+      "file": "scripts/ui/NetworkExplanation.gd.uid",
+      "bytes": 20,
+      "sha256": "0a04bbad9afaa8c1e83b0be292de3b525808bf169b7c64e0cf172081db8fea33"
     },
     {
       "file": "scripts/ui/RackView.gd",
@@ -490,8 +540,8 @@
     },
     {
       "file": "scripts/ui/UIController.gd",
-      "bytes": 69910,
-      "sha256": "ef4b6e2f1b91c792cdd063cd9ce2cee0622933096acb25cf01f227ffbbaa8f43"
+      "bytes": 71356,
+      "sha256": "3e84879d1df4fe3f5ba2390789599660680cb070f456a6a8a024192d320e12c4"
     },
     {
       "file": "scripts/ui/UIController.gd.uid",
@@ -560,8 +610,8 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "bytes": 44462,
-      "sha256": "b772753ec585d3500dc1f21a02ef5addc2c916ee02f8dbed22be416346730f9e"
+      "bytes": 47326,
+      "sha256": "9f550424ff790a69eefa6845bf8d23f96c7a478ce38cd909bead42fc9d0cdfa3"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -599,6 +649,16 @@
       "sha256": "b2bc4dd66091959853d8efc5adad754239068d0597916dbfca52923e2f53ab4c"
     },
     {
+      "file": "scripts/world/PracticalIntroduction.gd",
+      "bytes": 6378,
+      "sha256": "bd88f833d8a7a84bf27f93f04fa9fedf13eef04a86180cc80a35fa1f5ad586bd"
+    },
+    {
+      "file": "scripts/world/PracticalIntroduction.gd.uid",
+      "bytes": 20,
+      "sha256": "3dcbc534ebb861f069a2932e4fcac57366815d9a00284116700e075e0d6d5a10"
+    },
+    {
       "file": "scripts/world/Reticle.gd",
       "bytes": 578,
       "sha256": "40371dd084214024f69c8f9e81c4881bf064cf66d99212c1701502235a0fd9b3"
@@ -607,6 +667,16 @@
       "file": "scripts/world/Reticle.gd.uid",
       "bytes": 20,
       "sha256": "295708d795b468266c0b4a85295a5f3c87e357ee68ba852c1601600eb79372aa"
+    },
+    {
+      "file": "scripts/world/RuntimeDiagnostics.gd",
+      "bytes": 935,
+      "sha256": "510e9fc625ec3e0c534f73030e1946bed9f4ab556de1991b5c214da2528cc3ce"
+    },
+    {
+      "file": "scripts/world/RuntimeDiagnostics.gd.uid",
+      "bytes": 19,
+      "sha256": "52c3968721c6be838f8bd9ab0638b38bb66c2e94b6d3164ff1497c552242c066"
     },
     {
       "file": "scripts/world/TrainingZone.gd",
@@ -640,8 +710,8 @@
     },
     {
       "file": "scripts/xr/VRMonitor.gd",
-      "bytes": 4022,
-      "sha256": "9201f89c70b13c0e1bfd67061f84b9a9e9aef4db6f7b5863f5a0776cd9b9cbdc"
+      "bytes": 4282,
+      "sha256": "e02f5934ebd8a018fe30cf7edac52e973220b257a028066a6bd2c6527b1bbd45"
     },
     {
       "file": "scripts/xr/VRMonitor.gd.uid",
@@ -650,8 +720,8 @@
     },
     {
       "file": "scripts/xr/VRSettings.gd",
-      "bytes": 927,
-      "sha256": "c37d225d99c2ae062970188e5ff4269fd3bc98c5d09dd8ac37cea7d542bff495"
+      "bytes": 1240,
+      "sha256": "7417bc79493a31167de3bb0105a118145f4cb171b7695a7260750d1ccef39e45"
     },
     {
       "file": "scripts/xr/VRSettings.gd.uid",
@@ -660,8 +730,8 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "bytes": 14700,
-      "sha256": "aadc2de74a66c7c2e34953d9f3e05b6b5a86faddc1c3ad986c419fd5c9bfd652"
+      "bytes": 15883,
+      "sha256": "8eff2c3d0c679e59270d7d476468c4f06cac65baae1c9cec628ca790f1eec730"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
@@ -749,6 +819,16 @@
       "sha256": "97b1d75321c90c4b8e07a67d97ed02fdf088562eff595755099cb479455c7f45"
     },
     {
+      "file": "data/english/audio.json",
+      "bytes": 5906,
+      "sha256": "e172bcca7966e104aba56006b6a51a223ea5fee33ef80845c9338f3b38f0c4d9"
+    },
+    {
+      "file": "data/english/AUDIO_LICENSE.txt",
+      "bytes": 441,
+      "sha256": "84079cdf3d50e3dcac05c4decf49728ce2333ef91abd3c5a02a0e86174e37d93"
+    },
+    {
       "file": "data/english/london_quiz.json",
       "bytes": 18380,
       "sha256": "9da5357445374f995cf7c513b7eaf4b10e53add9924e170d7aef9f3b46154df6"
@@ -829,6 +909,11 @@
       "sha256": "293842bd3f4d2f4db1307cede52122d6c2e48895465b06887a8f2ea438064494"
     },
     {
+      "file": "data/shifts/catalog.json",
+      "bytes": 11158,
+      "sha256": "7c460f976289c06bcf7190465c4ff68e58af69ab56d3a666a5eed31c0a7c0a1f"
+    },
+    {
       "file": "data/training/glossary.json",
       "bytes": 2201,
       "sha256": "208bbe1c7b105ed2211933f7bbaed283a4dd57d55106bc22ad36f150f72b8571"
@@ -842,6 +927,246 @@
       "file": "data/training/scenario_solutions.json",
       "bytes": 33317,
       "sha256": "14df8aaab58788cf7739bc474e9dc4026051ebf9a1cfebc918fc2682fe054ac1"
+    },
+    {
+      "file": "assets/audio/london/LONA01-normal.mp3",
+      "bytes": 5768,
+      "sha256": "b7f95355b75f451a61286508500694f3a637a2bdac794c93a7ed6290de32e98a"
+    },
+    {
+      "file": "assets/audio/london/LONA01-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "3d98352f1a7ea3567735bb1909f48bc909801a2cbf9b575437bcd4ac0f6759ea"
+    },
+    {
+      "file": "assets/audio/london/LONA01-slow.mp3",
+      "bytes": 8000,
+      "sha256": "4def774ac8219405412b245422be1a4e8dfcb66e779f3494c5659a890fe3699c"
+    },
+    {
+      "file": "assets/audio/london/LONA01-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "64cbbe7340435480d4c93fbe68e4c1709edae747ad9c884e3ed70aa430efbcbc"
+    },
+    {
+      "file": "assets/audio/london/LONA02-normal.mp3",
+      "bytes": 4040,
+      "sha256": "d9fe6f6677ac08e3464364271f08c24c5d046914c07b36bb63f216fbfa6645a3"
+    },
+    {
+      "file": "assets/audio/london/LONA02-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "d4c939086e2d07a5bb942b99b425c37bcb147e7f9c4b96e938e74fa0f29b8cd9"
+    },
+    {
+      "file": "assets/audio/london/LONA02-slow.mp3",
+      "bytes": 5552,
+      "sha256": "a40c6c526bbdf41d4d4e43fc67aa7a539105302de42d2ca0846aa9c70d856e28"
+    },
+    {
+      "file": "assets/audio/london/LONA02-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "f936e86b3ddc6beff5446338bbeebac13e55ffdaa0319afd4b7abdff52a9107d"
+    },
+    {
+      "file": "assets/audio/london/LONA03-normal.mp3",
+      "bytes": 9800,
+      "sha256": "da7b1c662a8d7e33507e0d27b4002629929e4452c9ef5085fd85a759bd4b22be"
+    },
+    {
+      "file": "assets/audio/london/LONA03-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "6744fe2821ee25544dea2ebc8d657a0efc59aa4d2344e15677d896cbeaa73113"
+    },
+    {
+      "file": "assets/audio/london/LONA03-slow.mp3",
+      "bytes": 14192,
+      "sha256": "278a878de145a2d82f0806ff0043cd326817b5a21a6439d7c17556cbc74dd3b2"
+    },
+    {
+      "file": "assets/audio/london/LONA03-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "833e1cb706d313fab91a8c20931971b99e019697b9ee9c7831ef1ac90519a075"
+    },
+    {
+      "file": "assets/audio/london/LONA04-normal.mp3",
+      "bytes": 4976,
+      "sha256": "cebdb8154686eafc13b825de5e96a2ff5044ef6e9e499e1747bac018587c7964"
+    },
+    {
+      "file": "assets/audio/london/LONA04-normal.mp3.import",
+      "bytes": 387,
+      "sha256": "eca33a983cfe978c4be6b773313072860b4c30cedc0ebe7443b6fa95b6b1d09a"
+    },
+    {
+      "file": "assets/audio/london/LONA04-slow.mp3",
+      "bytes": 6848,
+      "sha256": "50661f4c2c57c6f59af7d1b27bc2e83ba5ffd3ec080f31387ce2e3b6fbd040bf"
+    },
+    {
+      "file": "assets/audio/london/LONA04-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "e05f3f8dba7e1968dd42ab1180679797c973d4074df20cfdb56cc1688641a88a"
+    },
+    {
+      "file": "assets/audio/london/LONA05-normal.mp3",
+      "bytes": 9728,
+      "sha256": "b7c2faa8c26b3c65e71cce751282a7011260b4b384ade793c4f44a140a18138b"
+    },
+    {
+      "file": "assets/audio/london/LONA05-normal.mp3.import",
+      "bytes": 387,
+      "sha256": "07cfcd2390cc2e7d1fef083418c23ce808e4e71122e72fbd53494ab5eb0ca63e"
+    },
+    {
+      "file": "assets/audio/london/LONA05-slow.mp3",
+      "bytes": 13040,
+      "sha256": "def55d8e0b6099b6f85ea6b41a5217f09914bd965a0aa31fbae8c86a77e274d0"
+    },
+    {
+      "file": "assets/audio/london/LONA05-slow.mp3.import",
+      "bytes": 381,
+      "sha256": "091132e65106cc8ca7d80ca5f392009607eb20e632dbf9d8b8b0fef53fb7d4be"
+    },
+    {
+      "file": "assets/audio/london/LONA06-normal.mp3",
+      "bytes": 10304,
+      "sha256": "ebcda04e961b08edb79358a585eacc885f7f709ae2c5247e647ac3f67913c933"
+    },
+    {
+      "file": "assets/audio/london/LONA06-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "b86b4676736d2842cd7dcddf9979dcb9633e58e815e5ac7ca7a36fe4bc03fc0e"
+    },
+    {
+      "file": "assets/audio/london/LONA06-slow.mp3",
+      "bytes": 13976,
+      "sha256": "010b894917ff255c1486c6702bed639118c11712fb1dc532bbd0fc31fccf8825"
+    },
+    {
+      "file": "assets/audio/london/LONA06-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "2284960997cc852877116a8e401010073828af90b8644d3aae6a28170b79d8f4"
+    },
+    {
+      "file": "assets/audio/london/LONA07-normal.mp3",
+      "bytes": 7424,
+      "sha256": "6237a2866e181cd98cb062a2a3999e0beae0ec83d1af008deb914c5648b3601c"
+    },
+    {
+      "file": "assets/audio/london/LONA07-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "eddecf41d4a3ebabf7445e8ca3574729a3665629ab02b0a003fc2605a5835fb4"
+    },
+    {
+      "file": "assets/audio/london/LONA07-slow.mp3",
+      "bytes": 10376,
+      "sha256": "260f2d0dee27e3964522665308d3843ee47f9277ecda546db458c87a56f3fcac"
+    },
+    {
+      "file": "assets/audio/london/LONA07-slow.mp3.import",
+      "bytes": 381,
+      "sha256": "9988593d13deb14b09a60f88e1f9af6d69769fcb1301aae0ffe2fc1c8346e41a"
+    },
+    {
+      "file": "assets/audio/london/LONA08-normal.mp3",
+      "bytes": 4112,
+      "sha256": "58f508edcb417cf4ba5351d54d46cdf685f8e766115df990025024fc1f6133d5"
+    },
+    {
+      "file": "assets/audio/london/LONA08-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "e9ebd6e68aa791e696459eb6b9dd98ad4dab85666695b766799c5c23d338c762"
+    },
+    {
+      "file": "assets/audio/london/LONA08-slow.mp3",
+      "bytes": 5048,
+      "sha256": "e5aec8320154c805edce9fbcb6db528d70a330df15352b069fc92d4e1f98c65b"
+    },
+    {
+      "file": "assets/audio/london/LONA08-slow.mp3.import",
+      "bytes": 381,
+      "sha256": "378b8b1c44fdf419c2e3363529ab0a3fe2366b194eaed3b5655bd53ca9cb2f7c"
+    },
+    {
+      "file": "assets/audio/london/LONA09-normal.mp3",
+      "bytes": 4040,
+      "sha256": "25d2d801f2b9b336d10999f321a200dfa3565b2a172312e8b818a5665a91265a"
+    },
+    {
+      "file": "assets/audio/london/LONA09-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "1d50ad75e6e7e754ec77490456aaf88c582105451b8b95e34e1bfa0845149dba"
+    },
+    {
+      "file": "assets/audio/london/LONA09-slow.mp3",
+      "bytes": 5552,
+      "sha256": "ab8653b8a0545706450545c65cea08e2119d03916de0922045e529af8822f9c2"
+    },
+    {
+      "file": "assets/audio/london/LONA09-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "099113a3ea5527c1a83d26040225c2254b30aad0bbb769a4932acbd26cbb1e74"
+    },
+    {
+      "file": "assets/audio/london/LONA10-normal.mp3",
+      "bytes": 4184,
+      "sha256": "5445273af4b9bab41453da16ba42cbcb22e60c99cb8bb5274fcc693037231654"
+    },
+    {
+      "file": "assets/audio/london/LONA10-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "c2b36c01374cbc1391d875ded8c1859d264d1b4472b92e85abd3287e369e2969"
+    },
+    {
+      "file": "assets/audio/london/LONA10-slow.mp3",
+      "bytes": 5696,
+      "sha256": "cb935becf1613f12ded217a1a3a05d840f3379826c0587da188a8825584c2d21"
+    },
+    {
+      "file": "assets/audio/london/LONA10-slow.mp3.import",
+      "bytes": 382,
+      "sha256": "fd2691c06bc08d8d0ed7c52c71b94f119607fc2fca2c29e5dd2e3a614374434c"
+    },
+    {
+      "file": "assets/audio/london/LONA11-normal.mp3",
+      "bytes": 3680,
+      "sha256": "d3f3236a158b4421e9d9eb6c6432ef23658050514d781cd667127001fe28d99c"
+    },
+    {
+      "file": "assets/audio/london/LONA11-normal.mp3.import",
+      "bytes": 387,
+      "sha256": "6bf21b664008c0838cd5c044b7256c682507b0057867e0bfb292655d7662b61e"
+    },
+    {
+      "file": "assets/audio/london/LONA11-slow.mp3",
+      "bytes": 4760,
+      "sha256": "500025f8cc2df7e5f45b5fe408b54ac2f2a9938a55577c8b7e0b37472764cefe"
+    },
+    {
+      "file": "assets/audio/london/LONA11-slow.mp3.import",
+      "bytes": 381,
+      "sha256": "f74e46818f87a33c8f0608796ba5ab57b111661389d06396411e073826e06a0f"
+    },
+    {
+      "file": "assets/audio/london/LONA12-normal.mp3",
+      "bytes": 11600,
+      "sha256": "2742ea71a6661dbac4431bc96b57f3ce6f72a30eeb9dfe0e4cb5bb2410f2f21f"
+    },
+    {
+      "file": "assets/audio/london/LONA12-normal.mp3.import",
+      "bytes": 388,
+      "sha256": "7c766d58ae6cf906903f20cf0887df1db508c7b66338e7e9c68caba551c67779"
+    },
+    {
+      "file": "assets/audio/london/LONA12-slow.mp3",
+      "bytes": 15848,
+      "sha256": "5117955351801d04d54131f57fb91f2d0dbc0ead65816b69e38baa59a03f70ef"
+    },
+    {
+      "file": "assets/audio/london/LONA12-slow.mp3.import",
+      "bytes": 381,
+      "sha256": "91266a5f23b95fff8f6e1889517602f60e70bd2b87573a98c3d3b9f06260f8c1"
     },
     {
       "file": "assets/icons/academy.svg",
@@ -886,12 +1211,15 @@
   ],
   "verification": {
     "signature": "PASS",
+    "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 4,
-    "version_name": "1.3.0",
-    "device": "NOT RUN: no authorized ADB device"
+    "version_code": 5,
+    "version_name": "1.4.0",
+    "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment"
   },
   "hardware_tracking": "NOT TESTED",
-  "pico_72_fps": "NOT MEASURED"
+  "pico_72_fps": "NOT MEASURED",
+  "source_manifest_sha256": "77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe",
+  "source_identity": "source_commit plus exact sources manifest (includes generated UIDs)"
 }

@@ -1,0 +1,43 @@
+native-headless: exit=0, clean=True
+native-graphical: exit=0, clean=True
+shifts: exit=0, clean=True
+SHIFTS: 135 checks, 0 failures
+gameplay: exit=0, clean=True
+GAMEPLAY: 185 checks, 0 failures
+gameplay_review: exit=0, clean=True
+GAMEPLAY REVIEW: 129 checks, 0 failures; synthetic XR, no headset
+package_content: exit=0, clean=True
+PACK CONTENT: 5425 checks, 0 failures; 253 packaged files; 278 materials
+academy_hub: exit=0, clean=True
+ACADEMY HUB: 52 checks, 0 failures
+london_quiz: exit=0, clean=True
+LONDON QUIZ: 527 checks, 0 failures
+english_model: exit=0, clean=True
+ENGLISH MODEL: 1809 checks, 0 failures
+english_world: exit=0, clean=True
+ENGLISH WORLD: 1081 checks, 0 failures (synthetic XR, no headset)
+ui_workflow: exit=0, clean=True
+UI WORKFLOW: 579 checks, 0 failures
+programming_runtime: exit=0, clean=True
+PROGRAMMING RUNTIME 31 checks, 0 failures
+programming_catalog: exit=0, clean=True
+PROGRAMMING CATALOG 1071 checks, 0 failures
+programming_academy: exit=0, clean=True
+PROGRAMMING ACADEMY 63 checks, 0 failures
+programming_integration: exit=0, clean=True
+PROGRAMMING INTEGRATION 765 checks, 0 failures; 252 generated variants
+programming_polish: exit=0, clean=True
+PROGRAMMING POLISH 27 checks, 0 failures
+programming_location: exit=0, clean=True
+PROGRAMMING LOCATION: 117 checks, 0 failures
+xr_modes: exit=0, clean=True
+XR_MODES: 116 checks, 0 failures; synthetic tests, no hardware tracking claim
+terminal_sessions: exit=0, clean=True
+TERMINAL SESSIONS: 64 checks, 0 failures
+ui_design: exit=0, clean=True
+UI DESIGN MATRIX: 162 checks, 0 failures
+world_ui: exit=0, clean=True
+WORLD UI: 31 checks, 0 failures
+world_playthrough: exit=0, clean=True
+WORLD PLAYTHROUGH: 39 checks, 0 failures
+WINDOWS PACKAGE PASS: e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c

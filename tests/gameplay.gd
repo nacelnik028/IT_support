@@ -154,6 +154,8 @@ func audio_tests(g):
 		for variant in ["normal","slow"]:
 			var stream=load(line[variant])
 			check(stream is AudioStreamMP3 and stream.get_length()>0.5,"Dekódovatelná skutečná řeč "+line.id+variant)
+			var digest=HashingContext.new(); digest.start(HashingContext.HASH_SHA256); digest.update(stream.data)
+			check(digest.finish().hex_encode()==line[variant+"_sha256"],"Skutečné MP3 bajty souhlasí s manifestem "+line.id+variant)
 			durations[variant]=stream.get_length()
 			var playback=stream.instantiate_playback(); playback.start()
 			var nonzero=false
@@ -170,3 +172,11 @@ func audio_tests(g):
 		shell.set_mode("english"); speech.speak(line.text,line.speaker); g.english.cancel(); await frames()
 		check(not speech.playing,"Zrušení relace zastaví řeč")
 	check(speech.mapping.lines.size()>=12,"Alespoň 12 různých mluvených replik")
+	var line=speech.mapping.lines[0]
+	g.english.start(line.scenario,"practice",0); shell.set_mode("english")
+	shell.ui.save_preference("muted",true); speech.speak(line.text,line.speaker)
+	check(AudioServer.is_bus_mute(0) and speech.bus=="Speech" and AudioServer.get_bus_send(AudioServer.get_bus_index("Speech"))=="Master","Řeč respektuje Master mute")
+	shell.ui.save_preference("muted",false); shell.ui.save_preference("volume",0.25)
+	check(is_equal_approx(db_to_linear(AudioServer.get_bus_volume_db(0)),0.25),"Řeč respektuje společnou hlasitost")
+	shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	check(not speech.playing,"Ztráta PC focus zastaví i otevřený dialog")

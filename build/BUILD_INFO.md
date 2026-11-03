@@ -1,30 +1,31 @@
-# Aktuální sestavení — rozcestník a B1–B2, 3. 11. 2026
+# Training academy — gameplay PC/PICO, 3. 11. 2026
 
-- **IT Support Simulator: Training academy**. Odekorovaný hub i všechny místnosti,
-  opravené londýnské průchody/cedule/postavy, 6 situací B1–B2, zákaznické dotazy
-  a samostatný kvíz s 20 ověřenými otázkami.
-- Herní zdroje: `0cb87a31baace36a34b7f686e1e36f95d0df5d51`; následující změny
-  testů a dokumentace nemění zabalený herní obsah.
-- Editor/šablona: `4.7.2.stable.official.ed1daf0bf`, Windows x86_64 **Debug**,
-  oficiální šablona a vložený PCK. Pouze mezery JSON jsou bezeztrátově odebrané
-  v izolované exportní kopii, žádný obsah nebyl vypuštěn.
-- **EXE 104 579 568 B**, rezerva **278 032 B** do 100 MiB.
-  SHA256 `96510e62937792be20d8977936a8ab907f6b0444ad7f875921bfb2c38e208562`.
-- Nativní headless/GPU start samotného EXE mimo projekt a všech 17 balíčkových
-  sad nakonec PASS. Počáteční nečisté ukončení nového auditu i cílené opravy
-  testovacího čekání zůstávají uvedené v TEST_REPORT a VERIFICATION.
-- **PICO APK 90 508 612 B**, signed Debug ARM64, **1.3.0 / versionCode 4**.
-  SHA256 `aefaddcb03b5c4f246344136bac18cb838c5f6ff9866468c1166eadb93bc5940`.
-- Podpis v2, shodný certifikát s předchozím APK, CRC a OpenXR/PICO manifest PASS.
-  Oba desktopové smoke běhy nad skutečnými prostředky APK a 10 externích sad PASS.
-  PICO BUILD_INFO obsahuje otisky aktuálních herních zdrojů a katalogů.
-- Skutečné packy: 188/192 souborů, všechny JSON hodnoty zachované, žádné pracovní
-  adresáře. GPU audit 5033/5057 kontrol PASS, 278 počátečních materiálů bez
-  chybějících přiřazení, platné shadery a vygenerované normálové textury.
-- Celý aktuální zdrojový Test-All: **36 sad PASS**. Hub 52, B1–B2 model 1809,
-  kvíz 527, svět 1043 headless / 1063 GPU. IT katalogy, generátory a legacy24 stejné.
-- Compatibility i Forward+ audit: každý 49 snímků, 280 materiálových instancí
-  po interakcích, 27 strukturálních stěn a 0 koplanárních překryvů.
-- Žádný autorizovaný PICO headset: Android start, reálný tracking, komfort,
-  optická čitelnost a FPS zůstávají neověřené. Syntetické XR se za hardware nevydává.
-- EXE není Authenticode podepsané. SHA256SUMS obsahuje oba současné artefakty.
+Godot 4.7.2.stable.official.ed1daf0bf. Herní implementace `8e931aa` navazuje na
+`cda0a5f` a `f6b05d8`. Přesný seznam 240 zdrojů a SHA256 je v obou BUILD_INFO.json,
+včetně vygenerovaných UID. Shodný deterministický manifest:
+`77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe`.
+
+- ITSupportSimulator.exe: Windows x86_64 Debug, vložená data, **104 826 336 B**.
+  Rezerva **31 264 B** do 104 857 600 B. SHA256:
+  `e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c`.
+- pico4/ITSupportSimulator-PICO4.apk: podepsaný ARM64 Debug, **1.4.0 / code 5**,
+  **90 743 347 B**. SHA256:
+  `8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf`.
+
+EXE byl spuštěn z cizí pracovní složky, přejmenovaný a bez PCK/editoru.
+Nativní headless/GPU smoke a 20 externích balíčkových sad PASS. APK podpis,
+původní certifikát, CRC, manifest a prostředky PASS; dva desktopové smoke běhy
+ a 13 externích sad PASS. Dodatečně nad oběma přesnými balíčky: shifts 136,
+gameplay 212 a XR 116 PASS, včetně skutečných MP3 dat proti SHA256.
+Celý aktuální zdrojový Test-All: 39 sad PASS, bez runtime chyb a varování.
+
+Nový obsah: praktický úvod, tři směny po třech navazujících ticketech, vysvětlení
+sítě, 12 mluvených replik a pomalé varianty, panel/diagnostika. Zachováno 65/21 IT,
+programování, Londýn, podpis a postup. Offline řeč; žádný TTS model, pracovní WAV,
+testovací save ani soukromé klíče v distribuci.
+
+**PICO hardware NEPROVEDENO – headset není dostupný.** Android native start,
+tracking, stereo, optika, komfort, FPS a paměť čekají na zařízení. Desktopové
+APK testy to nenahrazují. Subjektivní lidský poslech není doložen; automatické
+PC dekódování/přehrávání ano. Detaily: VERIFICATION.json, TEST_REPORT.md
+a docs/PICO4_HARDWARE_CHECKLIST.md.

@@ -58,17 +58,22 @@ zobrazit neznámého vydavatele. Žádná ochrana Windows se nevypíná.
 Aktuální ověření hubu a B1–B2 proběhlo nativně na Windows, včetně GPU
 Compatibility a auditu materiálů ve Forward+. Podrobnosti oddělující zdroje, EXE, prostředky APK a chybějící
 headset jsou v TEST_REPORT.md a VERIFICATION.json.
-Aktuální PICO APK 1.3.0 (versionCode 4) je v `pico4/ITSupportSimulator-PICO4.apk`.
+Aktuální PICO APK 1.4.0 (versionCode 5) je v `pico4/ITSupportSimulator-PICO4.apk`.
 Pochází ze stejných aktuálních herních zdrojů; `pico4/BUILD_INFO.json` obsahuje
 jejich otisky. Ověření přesunu/exportů je v `VERIFICATION.json`.
 Sestavíš ho příkazem `python tools/build_platforms.py --godot C:/Godot/Godot_console.exe --pico-only`
 z kořene projektu. Windows EXE tento příkaz zachovává.
 
-## Aktuální hub a B1–B2
+## Aktuální gameplay, hub a B1–B2
 
 Nový hub, dekorace všech místností, opravený vstup do Londýna, B1–B2 i kvíz jsou
-uvnitř samotného EXE. Aktuální velikost je 104 579 568 B, rezerva 278 032 B
+uvnitř samotného EXE. Aktuální velikost je 104 826 336 B, rezerva 31 264 B
 do limitu 100 MiB; export Windows x86_64 Debug.
 Přejmenování nemění původní složku uložených pozic. Přesné výsledky, hash EXE, velikost
 obsaženého packu a omezení ověření uvádí BUILD_INFO.md a TEST_REPORT.md.
 Snímky před/po jsou v docs/ui-review/2026-11-02-hub.
+
+Aktuální verze navíc obsahuje praktický úvod, tři souvislé směny, síťové vysvětlení
+a 12 mluvených replik s pomalými variantami. Obě distribuce mají shodný deterministický
+manifest zdrojů v BUILD_INFO.json; konkrétní výsledky jsou ve VERIFICATION.json.
+Hardwarový PICO test čeká na headset.

@@ -124,6 +124,13 @@ def main():
               'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
               'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
               'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction in isolated build copy'}
+        source_files=[ROOT/'project.godot',ROOT/'export_presets.cfg']
+        for folder in ['assets','data','scenes','scripts']:
+            source_files+=sorted(path for path in (ROOT/folder).rglob('*') if path.is_file())
+        info['source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+        info['sources']=[{'file':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()} for path in source_files]
+        normalized=sorted(info['sources'],key=lambda item:item['file'])
+        info['source_manifest_sha256']=hashlib.sha256(json.dumps(normalized,sort_keys=True,separators=(',',':')).encode()).hexdigest()
         (build/'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n',encoding='utf-8')
         (build/'SHA256SUMS').write_text(info['sha256']+'  ITSupportSimulator.exe\n',encoding='utf-8')
         print(json.dumps(info,indent=2))
