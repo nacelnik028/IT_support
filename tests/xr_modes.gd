@@ -15,6 +15,7 @@ func _init():
 	Comfort.path_override="user://academy_test_xr_comfort.cfg"
 	Comfort.new().save_settings()
 	Saves.save_game({},true)
+	Display.new().save_settings()
 	call_deferred("run")
 
 func check(ok: bool, caption: String):
@@ -69,6 +70,28 @@ func run():
 	shell.vr_active=true
 	# Synthetic rig: tests UI/physics/state without claiming hardware tracking.
 	rig.activate(false)
+	for text_scale in [1.0,1.3]:
+		shell.ui.save_preference("text_scale",text_scale)
+		shell.ui.page="menu"; shell.ui.draw_ui(); shell.set_mode("menu")
+		await frames()
+		var credit=shell.ui.find_child("AuthorCredit",true,false)
+		check(credit.is_visible_in_tree() and credit.text=="Vytvořil: Vít Kellner a Codex","VR menu contains exact credit")
+		check(rig.monitor.viewport.get_visible_rect().encloses(credit.get_global_rect()) and credit.get_line_count()==1,"VR credit fits inside existing panel at "+str(text_scale))
+		for action in shell.ui.root_box.find_children("*","Button",true,false):
+			check(not credit.get_global_rect().intersects(action.get_global_rect()),"VR credit leaves menu controls clear")
+		rig.monitor.viewport.gui_release_focus()
+		rig.monitor.point(credit.get_global_rect().get_center()); rig.monitor.click(true); rig.monitor.click(false)
+		await frames()
+		check(rig.monitor.viewport.gui_get_hovered_control()!=credit and rig.monitor.viewport.gui_get_focus_owner()==null and shell.mode=="menu","Credit does not capture VR pointer, focus or trigger")
+		if "--screenshots" in OS.get_cmdline_user_args() and DisplayServer.get_name()!="headless":
+			await RenderingServer.frame_post_draw
+			rig.monitor.viewport.get_texture().get_image().save_png("res://test-output/credit-vr-"+str(roundi(text_scale*100))+".png")
+		rig.monitor.point(shell.ui.ui_targets["menu:settings"].get_global_rect().get_center())
+		rig.monitor.click(true); rig.monitor.click(false); await frames()
+		check(shell.ui.page=="Nastavení","VR ray still opens menu settings")
+		shell.ui.close_settings(); await frames()
+		check(shell.ui.find_child("AuthorCredit",true,false).is_visible_in_tree(),"VR menu return restores credit")
+	shell.ui.save_preference("text_scale",1.0)
 	shell.set_mode("world")
 	await frames()
 	check(not shell.world.player.enabled,"VR vypne desktop vstup")

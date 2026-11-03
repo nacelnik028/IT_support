@@ -62,8 +62,25 @@ func capture(screen: String):
 	root.get_texture().get_image().save_png(directory+"/"+screen+"-"+suffix+".png")
 
 func reveal(control: Control):
-	for ancestor in shell.ui.get_scroll_ancestors(control): ancestor.ensure_control_visible(control)
+	for ancestor in shell.ui.get_scroll_ancestors(control):
+		var rect=ancestor.get_child(0).get_global_transform().affine_inverse()*control.get_global_rect()
+		ancestor.scroll_vertical=maxi(0,roundi(rect.end.y-ancestor.size.y+12))
 	await settle()
+
+func check_credit():
+	var credit=shell.ui.find_child("AuthorCredit",true,false)
+	check(visible(credit) and credit.text=="Vytvořil: Vít Kellner a Codex","Exact author credit visible in main menu")
+	if not is_instance_valid(credit): return
+	check(credit.get_line_count()==1 and credit.size.x>=credit.get_minimum_size().x,"Credit fits on one line")
+	check(credit.mouse_filter==Control.MOUSE_FILTER_IGNORE and credit.focus_mode==Control.FOCUS_NONE,"Credit cannot capture pointer or keyboard focus")
+	for button in shell.ui.root_box.find_children("*","Button",true,false):
+		check(not credit.get_global_rect().intersects(button.get_global_rect()),"Credit does not cover menu action: "+button.text)
+	var inset=(root.get_visible_rect().end-credit.get_global_rect().end)/shell.ui.scale
+	check(inset.distance_to(Vector2(24,24))<1.0,"Credit follows bottom/right menu margins")
+
+func credit_visible() -> bool:
+	var credit=shell.ui.find_child("AuthorCredit",true,false)
+	return is_instance_valid(credit) and credit.is_visible_in_tree()
 
 func run():
 	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await settle()
@@ -86,7 +103,28 @@ func run():
 				for button in ui.root_box.find_children("*","Button",true,false): check(visible(button),"Every desktop menu choice is reachable")
 				for target in ["primary","vr","programming","training","tickets","settings","quit"]:
 					check(visible(ui.ui_targets["menu:"+target]),"Main scene menu action visible without scrolling: "+target)
+				check_credit()
 			await capture("menu")
+			if not baseline:
+				# Exercise the real menu input paths, then its normal save/return action.
+				ui.ui_targets["menu:primary"].grab_focus()
+				check(ui.ui_targets["menu:primary"].find_next_valid_focus() is Button,"Tab navigation skips the author credit")
+				for down in [true,false]:
+					var event=InputEventKey.new(); event.keycode=KEY_ENTER
+					event.pressed=down; Input.parse_input_event(event)
+					await settle()
+				await settle()
+				check(shell.mode=="world" and game.game_mode.is_hub(),"Keyboard menu entry opens hub")
+				check(not credit_visible(),"Credit hidden during gameplay")
+				shell.pause_menu(); await settle()
+				check(not credit_visible(),"Credit hidden in pause")
+				var back: Button
+				for button in shell.overlay.find_children("*","Button",true,false):
+					if button.text=="Uložit a hlavní menu": back=button
+				await reveal(back)
+				await click(back)
+				check(shell.mode=="menu","Pause return opens main menu")
+				check_credit()
 			var campaign=game.sim.state.duplicate(true); var mission_id=game.current.id
 			if baseline: shell.enter_world("Programming Academy")
 			else: await click(ui.ui_targets["menu:programming"])
@@ -105,6 +143,7 @@ func run():
 				Saves.path_override=save_path; game.save()
 			shell.open_programming("python"); await settle()
 			var code=shell.code_editor
+			if not baseline: check(ui.find_child("AuthorCredit",true,false)==null,"Credit absent from programming panels")
 			code.mode_picker.select(1); code.launch("PY01",false)
 			code.editor.text="print('výstup před chybou')\nprint(unknown_name)"; code.manager.edit("main.py",code.editor.text)
 			code.input_console.text="vlastní vstup"
@@ -192,6 +231,7 @@ func run():
 			await capture("form-long")
 			ui.open_settings(); await settle(); await capture("settings")
 			ui.close_settings(); shell.enter_world("Trénink"); shell.open_app("Trénink"); await settle(); await capture("lessons")
+			if not baseline: check(ui.find_child("AuthorCredit",true,false)==null,"Credit absent from training panels")
 	print("UI WORKFLOW: %d checks, %d failures" % [checks,failures])
 	shell.queue_free(); await process_frame
 	quit(1 if failures else 0)

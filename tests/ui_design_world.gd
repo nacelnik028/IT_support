@@ -18,6 +18,7 @@ func _ready():
 	await click(shell.ui.ui_targets["menu:primary"])
 	check(shell.mode in ["introduction","world"],"Main menu click starts the 3D game")
 	shell.finish_introduction()
+	shell.enter_world("Hlavní serverovna") # HUD matrix must not restore the new hub spawn.
 	var player=shell.world.player
 	var initial_position=player.position
 	var initial_rotation=player.rotation

@@ -1,5 +1,33 @@
 # Datacenter Academy — stav vývoje
 
+## Autorský podpis úvodního menu — dokončeno 3. 11. 2026
+
+- MenuPresentation zobrazuje přesně `Vytvořil: Vít Kellner a Codex` vpravo dole,
+  ve vlastním řádku pod tlačítky. Stávající ukotvený MarginContainer a VBox
+  drží pravý/spodní odstup 24 jednotek UI (cca 19 px v 720p a 29 px v 1080p).
+  AcademyTheme, jeho MUTED barva a původní font; velikost 14 se škáluje s textem.
+- Podpis se vytváří pouze v menu, obnoví se po návratu z pauzy. Bez zalamování,
+  kliknutí a fokusu; nezasahuje do tlačítek ani do VR ovládání. Herní obsah,
+  katalogy, save schéma a distribuční EXE/APK se v této etapě neměnily.
+- Graficky prohlédnuta celá matice 1280×720 / 1920×1080 / 3840×2160 × 100/130 %.
+  ui_workflow **579 PASS headless i GPU Compatibility**: podpis, okraje,
+  překryvy, Enter/Tab, kliknutí, hraní, pauza a skutečný návrat do menu;
+  také absence v programovacích a výukových panelech a ochrana kampaně.
+- Stávající ui_design **162 PASS**, world_ui **31 PASS** (headless).
+  xr_modes **99 PASS headless i GPU Compatibility**: stejný panel 1600×1200,
+  obě velikosti textu, ray/trigger, fokus a návrat z nastavení. Jde o syntetické
+  XR; skutečný headset PICO, tracking a optika se v této etapě netestovaly.
+- Godot MCP / DesignMCP: **31 PASS**, Forward+/RTX 5060. První běh měl 6 chyb
+  zastaralého testu: pro HUD obnovoval kameru v novém hubu. Test nyní nejprve
+  vstoupí do serverovny; nový běh nemá runtime chyby. MCP stále hlásí 8 dřívějších
+  statických varování v nezměněných herních skriptech (typy/stínění proměnných).
+- Testy nastavují SaveManager.path_override i vlastní CFG před GameManagerem;
+  XR nyní také výslovně obnoví výchozí testovací DisplaySettings. Testovací
+  posuv pauzy počítá skutečné měřítko okna stejně jako ui_design.
+- Trvalé snímky spuštění, 1080p, 720p/130 % a VR/130 % jsou v
+  `docs/ui-review/2026-11-03-credit/`. Logy `test-output/credit-*.log`;
+  kompletní Test-All ani exporty se pro tuto prezentační změnu neopakovaly.
+
 ## Rozcestník, B1–B2 a oba ověřené exporty — dokončeno 3. 11. 2026
 
 - Původní PROMPT_ACADEMY_HUB_PC_VR.md dokončen v existujícím projektu.

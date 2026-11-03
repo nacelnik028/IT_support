@@ -1,6 +1,9 @@
 extends RefCounted
 
 static func draw(ui):
+	# Menu has no 3D return bar; reserve a separate, non-interactive credit row.
+	ui.root_box.add_theme_constant_override("margin_bottom",24)
+	ui.root_box.add_theme_constant_override("margin_right",24)
 	var all = ui.vbox(ui.content_box,18)
 	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=ui.hbox(all,14)
@@ -61,3 +64,10 @@ static func draw(ui):
 	footer.add_child(ui.label("VLASTNÍ TEMPO  /  ČESKÁ VÝUKOVÁ SIMULACE",12,ui.MUTED))
 	for item in [["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:
 		var b=ui.button(item[0],item[1]); footer.add_child(b); ui.register_target("menu:"+item[2],b)
+	var credit=ui.label("Vytvořil: Vít Kellner a Codex",14,ui.MUTED)
+	credit.name="AuthorCredit"
+	credit.autowrap_mode=TextServer.AUTOWRAP_OFF
+	credit.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+	credit.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	credit.focus_mode=Control.FOCUS_NONE
+	all.add_child(credit)
