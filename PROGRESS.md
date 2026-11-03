@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Zadání další etapy — ukládání, hlubší směny a poslech, 3. 11. 2026
+
+- Na žádost uživatele připraven `PROMPT_DALSI_ETAPA_UKLADANI_SMENY_POSLECH.md` pro navazující AI. Jde o zadání budoucí implementace, nikoli tvrzení o hotových nových funkcích.
+- Pokrývá trvalé programovací/IT koncepty a výslovnou obnovu výuky, skutečnou nesrovnalost penalizace nápovědy směn, dvě pokročilé směny s prioritami/následky, konkrétní rozbor, 12 poslechových úloh a společný přehled znalostí.
+- Zadává ochranu kampaně/směn, migraci a validaci save, jediné odměny, všechny výukové režimy, offline PC/PICO, skutečné integrační/GPU/XR a balíčkové testy. Výslovně řeší rezervu EXE 31 264 B a oba exporty; hardware PICO zůstává neověřený, push až na další pokyn.
+- Ověřeno 15 navazujících kapitol, UTF-8, uzavření bloku kódu, povinné ochrany a 51 existujících projektových cest. Tato dokumentační etapa nemění herní kód, katalogy, save ani EXE/APK; herní testy se pro nový prompt neopakovaly.
+
 ## Gameplay PC/PICO — dokončené ověření a oba exporty, 3. 11. 2026
 
 - Funkční commity f6b05d8 (panel/diagnostika), cda0a5f (směny/save) a 8e931aa (úvod/síť/řeč). Dokončena požadovaná implementace v původním projektu, bez push.
