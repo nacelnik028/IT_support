@@ -44,7 +44,7 @@ func controller(name: String):
 
 func point_controller(tracker, pixel: Vector2):
 	var monitor=rig.monitor
-	var at=Vector3((pixel.x/1600.0-0.5)*monitor.DIMENSIONS.x,(0.5-pixel.y/1200.0)*monitor.DIMENSIONS.y,0)
+	var at=Vector3((pixel.x/1600.0-0.5)*monitor.dimensions.x,(0.5-pixel.y/1200.0)*monitor.dimensions.y,0)
 	var transform=Transform3D(monitor.global_basis,monitor.to_global(at)+monitor.global_basis.z*0.8)
 	var local=rig.global_transform.affine_inverse()*transform
 	tracker.set_pose("aim",local,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
@@ -149,6 +149,19 @@ func run():
 	var pixel=rig.monitor.pixel_at(rig.monitor.global_position+rig.monitor.global_basis.z,-rig.monitor.global_basis.z)
 	check(pixel.distance_to(Vector2(800,600))<0.01,"3D paprsek se mapuje do středu monitoru")
 	check(rig.monitor.pixel_at(rig.monitor.global_position+rig.monitor.global_basis.z,rig.monitor.global_basis.z).x<0,"Paprsek opačným směrem odmítnut")
+	for scale_value in [0.8,1.4]:
+		for distance_value in [0.9,2.0]:
+			rig.settings.panel_scale=scale_value; rig.settings.panel_distance=distance_value
+			rig.monitor.configure(rig.settings); rig.monitor.place_in_front(rig.head)
+			check(is_equal_approx(rig.monitor.screen.mesh.size.x,1.76*scale_value),"Velikost mesh odpovídá nastavení")
+			check(is_equal_approx(rig.monitor.global_position.distance_to(rig.head.global_position),distance_value),"Panel respektuje vzdálenost")
+			var target=rig.monitor.to_global(Vector3(rig.monitor.dimensions.x*0.25,rig.monitor.dimensions.y*0.25,0))
+			check(rig.monitor.pixel_at(target+rig.monitor.global_basis.z,-rig.monitor.global_basis.z).distance_to(Vector2(1200,300))<0.02,"Převod ray/pixel respektuje změnu velikosti")
+	rig.settings.panel_scale=1.0; rig.settings.panel_distance=1.25; rig.monitor.configure(rig.settings)
+	check(not shell.diagnostics.visible and not shell.diagnostics.is_processing(),"Diagnostika je výchozím stavem vypnutá")
+	shell.diagnostics.toggle(); shell.diagnostics.refresh()
+	check(shell.diagnostics.text.contains("CPU/GPU časy: neměřeny") and shell.diagnostics.mouse_filter==Control.MOUSE_FILTER_IGNORE,"Diagnostika uvádí skutečný rozsah a neblokuje paprsky")
+	shell.diagnostics.toggle()
 	shell.return_to_world()
 	check(not rig.monitor.visible,"Monitor po návratu nepřekrývá svět")
 	var yaw=shell.world.player.rotation.y
@@ -258,10 +271,11 @@ func run():
 	check(shell.ui.get_viewport()==root,"UI se vrátí do desktopového viewportu")
 	check(shell.ui.game.sim.state.hosts==initial.hosts,"Přepnutí zachová infrastrukturu")
 	var settings=Comfort.new()
-	settings.locomotion="smooth"; settings.seated=true; settings.snap_degrees=45
+	settings.locomotion="smooth"; settings.seated=true; settings.snap_degrees=45; settings.panel_scale=1.2; settings.panel_distance=1.7
 	check(settings.save_settings()==OK,"Uložení VR komfortu")
 	var restored=Comfort.new(); restored.load_settings()
 	check(restored.locomotion=="smooth" and restored.seated and restored.snap_degrees==45,"Obnova VR komfortu")
+	check(is_equal_approx(restored.panel_scale,1.2) and is_equal_approx(restored.panel_distance,1.7),"Trvalá velikost a vzdálenost panelu")
 	check(shell.ui.game.save()==OK,"Uložení společné pozice")
 	check(Saves.export_progress("user://academy_test_xr_transfer.json")==OK,"Export přenositelného postupu")
 	shell.ui.game.progress.xp+=25

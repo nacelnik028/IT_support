@@ -30,6 +30,7 @@ func _ready():
 	settings.load_settings()
 	monitor = preload("res://scripts/xr/VRMonitor.gd").new()
 	shell.world.add_child(monitor)
+	monitor.configure(settings)
 	for hand in [left,right]:
 		var grip = XRController3D.new()
 		grip.tracker = hand.tracker

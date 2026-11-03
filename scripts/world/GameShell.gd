@@ -33,6 +33,7 @@ var xr_rig
 var vr_active = false
 var code_editor
 var english_dialog
+var diagnostics
 
 func _notification(what: int):
 	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT or vr_active: return
@@ -79,6 +80,8 @@ func _ready():
 	chrome.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chrome.oversampling_with_scale = CanvasItem.OVERSAMPLING_WITH_SCALE_ENABLED
 	chrome.size = Vector2(1600,900)
+	diagnostics=preload("res://scripts/world/RuntimeDiagnostics.gd").new()
+	chrome.add_child(diagnostics)
 	hud = Control.new()
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chrome.add_child(hud)
@@ -582,6 +585,7 @@ func pause_menu():
 	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
 	if ui.game.game_mode.is_away(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
 	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
+	v.add_child(ui.button("Diagnostika výkonu: "+("zapnuta" if diagnostics.visible else "vypnuta"),func(): diagnostics.toggle(); pause_menu()))
 	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
 	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
 	v.add_child(ui.button("Seznámení s ovládáním",func(): introduction_step=0; show_introduction()))
@@ -668,6 +672,17 @@ func show_vr_settings():
 	seated.toggled.connect(func(value): settings.seated=value; xr_rig.calibrate_height())
 	v.add_child(seated)
 	v.add_child(ui.button("Znovu nastavit výšku",xr_rig.calibrate_height))
+	for item in [["panel_scale","Velikost panelu (násobek)",0.8,1.4,0.05],["panel_distance","Vzdálenost panelu (m)",0.9,2.0,0.05]]:
+		var slider=HSlider.new()
+		slider.min_value=item[2]; slider.max_value=item[3]; slider.step=item[4]; slider.value=settings.get(item[0])
+		slider.custom_minimum_size.y=44
+		var value_label=ui.label(item[1]+": %.2f" % slider.value,18)
+		v.add_child(value_label); v.add_child(slider)
+		slider.value_changed.connect(func(value):
+			settings.set(item[0],value); value_label.text=item[1]+": %.2f" % value
+			xr_rig.monitor.configure(settings); xr_rig.monitor.place_in_front(xr_rig.head))
+	v.add_child(ui.button("Výchozí velikost a vzdálenost panelu",func():
+		settings.panel_scale=1.0; settings.panel_distance=1.25; xr_rig.monitor.configure(settings); show_vr_settings()))
 	v.add_child(ui.button("Uložit komfort a pokračovat",func():
 		if settings.save_settings()==OK: return_to_world()
 		else: v.add_child(ui.label("Nastavení se nepodařilo uložit.",18))))

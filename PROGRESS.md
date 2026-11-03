@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Gameplay PC/PICO bez headsetu — etapa 1, 3. 11. 2026
+
+- VR komfort: panel 80–140 %, vzdálenost 0,9–2 m, reset a persistentní CFG. Mesh a ray/pixel používají stejné rozměry, viewport zůstává 1600×1200.
+- Pauza nabízí výchozím stavem vypnutou diagnostiku (FPS, interval 1/FPS, renderer, viewport, draw calls, objekty, engine video paměť). CPU/GPU časy neměří a netvrdí.
+- xr_modes: 114 kontrol PASS headless, včetně krajních rozměrů/vzdáleností, projekce a persistence. Log test-output/gameplay-xr.log. Grafická a celková regrese následuje; žádné tvrzení o headsetu.
+
 ## Připravený prompt pro další herní rozšíření bez PICO — 3. 11. 2026
 
 - Na žádost uživatele vznikl `PROMPT_GAMEPLAY_PC_PICO_BEZ_HEADSETU.md`:

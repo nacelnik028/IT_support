@@ -8,6 +8,14 @@ var keyboard
 var cursor: ColorRect
 var last_pixel = Vector2(-1,-1)
 var pointer_down = false
+var dimensions = DIMENSIONS
+var distance_from_head = 1.25
+
+func configure(settings):
+	click(false)
+	dimensions=DIMENSIONS*settings.panel_scale
+	distance_from_head=settings.panel_distance
+	if is_instance_valid(screen): screen.mesh.size=dimensions
 
 func _ready():
 	viewport = SubViewport.new()
@@ -20,7 +28,7 @@ func _ready():
 	add_child(viewport)
 	screen = MeshInstance3D.new()
 	var quad = QuadMesh.new()
-	quad.size = DIMENSIONS
+	quad.size = dimensions
 	screen.mesh = quad
 	var material = StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -45,7 +53,7 @@ func _ready():
 	layer.add_child(cursor)
 
 func place_in_front(head: Camera3D):
-	global_position = head.global_position-head.global_basis.z*1.25
+	global_position = head.global_position-head.global_basis.z*distance_from_head
 	global_position.y = maxf(global_position.y,0.85)
 	# A world anchored screen stays still when the player turns their head.
 	look_at(head.global_position,Vector3.UP,true)
@@ -57,7 +65,7 @@ func pixel_at(ray_origin: Vector3, ray_direction: Vector3) -> Vector2:
 	var distance = -from.z/direction.z
 	if distance < 0.0 or distance > 4.0: return Vector2(-1,-1)
 	var hit_position = from+direction*distance
-	var uv = Vector2(hit_position.x/DIMENSIONS.x+0.5,0.5-hit_position.y/DIMENSIONS.y)
+	var uv = Vector2(hit_position.x/dimensions.x+0.5,0.5-hit_position.y/dimensions.y)
 	if uv.x < 0 or uv.y < 0 or uv.x > 1 or uv.y > 1: return Vector2(-1,-1)
 	return uv*Vector2(PIXELS)
 
