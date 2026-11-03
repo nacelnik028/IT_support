@@ -9,6 +9,7 @@ const Saves = preload("res://scripts/progression/SaveManager.gd")
 const Terminal = preload("res://scripts/simulation/TerminalParser.gd")
 const Tutorials=preload("res://scripts/training/TutorialManager.gd")
 var tutorial=Tutorials.new()
+var shifts=preload("res://scripts/shifts/ShiftManager.gd").new()
 var session_kind="campaign"
 var suspended_campaign: Dictionary={}
 var education: Dictionary={"lessons":{},"attempts":[],"sessions":{},"random":{}}
@@ -42,6 +43,7 @@ var unsaved = false
 
 func _init():
 	var owner_ref=weakref(self)
+	shifts.owner_ref=owner_ref
 	english.available=func():
 		var owner_game=owner_ref.get_ref()
 		return owner_game!=null and owner_game.game_mode.is_english() and (not owner_game.english_probe.is_valid() or owner_game.english_probe.call())
@@ -60,6 +62,7 @@ func _init():
 	var saved = Saves.load_game()
 	load_warning = Saves.last_message
 	if not saved.is_empty():
+		shifts.data.merge(saved.get("shifts",{}),true)
 		english.load_progress(saved.get("english",{}))
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
@@ -87,8 +90,12 @@ func _init():
 		if session.get("kind","campaign") != "campaign": session = suspended_campaign
 		elif session.is_empty(): session = suspended_campaign
 		clear_training_sessions()
-		if not session.is_empty(): restore_session(session)
-		suspended_campaign = {}
+		if shifts.data.selected=="shift" and not shifts.data.session.is_empty():
+			suspended_campaign=session.duplicate(true)
+			shifts.resume()
+		else:
+			if not session.is_empty(): restore_session(session)
+			suspended_campaign = {}
 
 func reconcile_room():
 	if reconciling_room: return
@@ -191,6 +198,10 @@ func leave_training() -> bool:
 	training_sim.reset({})
 	sim = main_sim
 	session_revision += 1
+	if shifts.data.selected=="shift" and not shifts.data.session.is_empty():
+		shifts.resume()
+		save(); room_changed.emit(false)
+		return true
 	var campaign = suspended_campaign.duplicate(true)
 	suspended_campaign = {}
 	if not campaign.is_empty(): restore_session(campaign)
@@ -204,6 +215,7 @@ func start_mission(index: int, practice: bool = false) -> bool:
 	if not main_available(): return false
 	suspend_session()
 	session_kind="campaign"
+	shifts.data.selected="campaign"
 	suspended_campaign={}
 	tutorial.lesson={}
 	tutorial.session={}
@@ -235,8 +247,12 @@ func goals() -> Array:
 	if not active: return []
 	return Evaluator.evaluate(sim.state,current.get("objectives",[]))
 
-func complete() -> Dictionary:
-	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+func complete(expected_revision: int = -1) -> Dictionary:
+	if expected_revision>=0 and expected_revision!=session_revision: return {"ok":false,"text":"Tento ticket již není aktuální."}
+	if session_kind=="shift":
+		if not active or not main_available(): return {"ok":false,"text":"Směna není aktivní v serverovně."}
+		return shifts.complete()
+	if not active or (session_kind in ["campaign","shift"] and not main_available()) or (not session_kind in ["campaign","shift"] and not training_available()):
 		return {"ok":false,"text":"Úkol není aktivní v této místnosti."}
 	for goal in goals():
 		if not goal.passed: return {"ok":false,"text":"Požadovaný stav není splněn: " + goal.label}
@@ -268,11 +284,14 @@ func complete() -> Dictionary:
 	return {"ok":true,"score":score,"text":current.explanations,"saved":error==OK,"save_error":error}
 
 func apply(action: String, params: Dictionary) -> Dictionary:
-	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+	if not active or (session_kind in ["campaign","shift"] and not main_available()) or (not session_kind in ["campaign","shift"] and not training_available()):
 		return {"ok":false,"text":"V této místnosti není aktivní odpovídající úkol.","saved":not unsaved,"save_error":last_save_error}
 	if training:
 		undo_states.append(sim.state.duplicate(true))
 		if undo_states.size()>20: undo_states.pop_front()
+	if session_kind=="shift":
+		var issue=shifts.action_error(action,params)
+		if issue!="": return sim.reject(issue)
 	var previous_risks=int(sim.state.risks)
 	var result = sim.act(action,params)
 	if not result.ok:
@@ -303,7 +322,7 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	return result
 
 func execute_terminal(command: String, host: String) -> String:
-	if not active or (session_kind == "campaign" and not main_available()) or (session_kind != "campaign" and not training_available()):
+	if not active or (session_kind in ["campaign","shift"] and not main_available()) or (not session_kind in ["campaign","shift"] and not training_available()):
 		return "V této místnosti není aktivní odpovídající úkol."
 	var execution={"applied":false}
 	var dispatch=func(action: String, params: Dictionary):
@@ -326,8 +345,9 @@ func undo() -> bool:
 
 func save(recover_invalid: bool = false) -> Error:
 	cache_lesson()
+	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"suspended_campaign":suspended_campaign},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"suspended_campaign":suspended_campaign,"shifts":shifts.data},recover_invalid)
 	unsaved = last_save_error != OK
 	save_message = Saves.last_message
 	if not unsaved: load_warning = ""
@@ -335,7 +355,7 @@ func save(recover_invalid: bool = false) -> Error:
 	return last_save_error
 
 func snapshot() -> Dictionary:
-	if not active: return {}
+	if not active or session_kind=="shift": return {}
 	return {"id":current.id,"definition":current if session_kind!="campaign" else {},"state":sim.state.duplicate(true),"hints":hints_used,"training":training,"finished":finished,"kind":session_kind,"tutorial":tutorial.dump() if session_kind=="lesson" else {}}
 
 func restore_session(data: Dictionary) -> bool:
@@ -373,6 +393,7 @@ func restore_session(data: Dictionary) -> bool:
 func suspend_session():
 	if not active: return
 	match session_kind:
+		"shift": shifts.checkpoint()
 		"campaign": suspended_campaign=snapshot()
 		"lesson": cache_lesson()
 		"random": education.random.session=snapshot()
@@ -389,6 +410,7 @@ func resume_random() -> bool:
 func restart_current() -> bool:
 	if not active: return false
 	match session_kind:
+		"shift": return shifts.start(shifts.data.session.id)
 		"campaign": return start_mission(int(current.id)-1,training)
 		"lesson": return start_lesson(int(current.id),tutorial.session.mode,false)
 		"random": return load_random_task()
@@ -428,6 +450,7 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 	return true
 
 func resume_campaign():
+	shifts.data.selected="campaign"
 	if game_mode.is_away():
 		if hub_probe.is_valid() and hub_probe.call(): return
 		if english_probe.is_valid() and english_probe.call(): return

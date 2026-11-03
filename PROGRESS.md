@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Gameplay — souvislé směny, 3. 11. 2026
+
+- Vlastní deterministický katalog tří směn × tři navazující tickety: fyzická síť/VLAN/IP/záloha, VM/paměť/start/záloha, konkrétní disk/hot-swap/rebuild/monitoring. Nový ticket zachová stav, zneplatní jen ověření.
+- Souvislé směny jsou v přehledu serverovny a pauze. Vlastní validovaná větev save, restart aplikace včetně neseného disku, původní kampaň, historie 50 směn, XP pouze za zlepšení. UI předává revizi ticketu proti opakovanému triggeru.
+- shifts: 135 kontrol PASS headless; skutečné operace všech devíti ticketů, alternativní pořadí, neplatná data, přenos save, selhání zápisu/opakování a více přechodů všemi IT režimy/hubem/programováním/Londýnem. Log test-output/gameplay-shifts.log. Grafický průchod následuje.
+
 ## Gameplay PC/PICO bez headsetu — etapa 1, 3. 11. 2026
 
 - VR komfort: panel 80–140 %, vzdálenost 0,9–2 m, reset a persistentní CFG. Mesh a ray/pixel používají stejné rozměry, viewport zůstává 1600×1200.

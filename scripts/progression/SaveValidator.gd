@@ -40,11 +40,43 @@ func valid(data) -> bool:
 	if not education(data.get("education",{})): return false
 	if not programming(data.get("programming",{})): return false
 	if not english(data.get("english",{})): return false
+	if not shifts(data.get("shifts",{})): return false
 	var active=data.get("session",{})
 	if active.get("kind","")=="random":
 		var batch=data.get("education",{}).get("random",{})
 		if batch.is_empty() or not batch.has("session"): return false
 		if int(active.id)!=int(batch.queue[int(batch.position)].id) or active.definition!=batch.queue[int(batch.position)]: return false
+	return true
+
+func shifts(data) -> bool:
+	if not data is Dictionary or not shape(data,{"selected":"campaign","session":{},"history":[],"best":{}}): return false
+	if not data.get("selected","campaign") in ["campaign","shift"] or data.get("history",[]).size()>50: return false
+	var catalog=JSON.parse_string(FileAccess.get_file_as_string("res://data/shifts/catalog.json"))
+	var definitions={}
+	for d in catalog: definitions[d.id]=d
+	for id in data.get("best",{}):
+		if not definitions.has(id) or not integer(data.best[id],0,100): return false
+	for record in data.get("history",[]):
+		if not required(record,{"id":"","version":0,"score":0,"results":[]}): return false
+		if not definitions.has(record.id) or record.version!=definitions[record.id].version or not integer(record.score,0,100): return false
+		if not shift_results(record.results,3): return false
+		var total=0
+		for result in record.results: total+=int(result.score)
+		if int(record.score)!=roundi(total/3.0) or int(data.get("best",{}).get(record.id,-1))<int(record.score): return false
+	var current_shift=data.get("session",{})
+	if current_shift.is_empty(): return data.get("selected","campaign")=="campaign"
+	if not required(current_shift,{"id":"","version":0,"index":0,"finished":false,"results":[],"state":{}}): return false
+	if not definitions.has(current_shift.id): return false
+	var d=definitions[current_shift.id]
+	if current_shift.version!=d.version or not integer(current_shift.index,0,d.tickets.size()-1): return false
+	if not shift_results(current_shift.results,d.tickets.size() if current_shift.finished else int(current_shift.index)): return false
+	if current_shift.finished and int(current_shift.index)!=d.tickets.size()-1: return false
+	return not current_shift.state.is_empty() and state(current_shift.state,d.initial_state)
+
+func shift_results(results: Array, count_value: int) -> bool:
+	if results.size()!=count_value: return false
+	for index in results.size():
+		if not required(results[index],{"ticket":0,"score":0}) or not integer(results[index].ticket,index,index) or not integer(results[index].score,0,100): return false
 	return true
 
 func english(data) -> bool:

@@ -208,7 +208,7 @@ func _process(delta):
 			elif ui.game.active and ui.game.session_kind=="random": status_label.text="NÁHODNÉ PROCVIČOVÁNÍ"
 		if ui.game.active:
 			status_label.text += "\n"+ui.game.current.title
-			if ui.game.session_kind=="campaign":
+			if ui.game.session_kind in ["campaign","shift"]:
 				var goals=ui.Eval.evaluate(ui.game.sim.state,ui.game.current.objectives)
 				var complete=goals.filter(func(goal): return goal.passed).size()
 				status_label.text += "\n%d / %d cílů  ·  %s zadání" % [complete,goals.size(),OS.get_keycode_string(keys.task_list)]
@@ -580,6 +580,7 @@ func pause_menu():
 	v.add_child(ui.button("Rozcestník akademie",func(): enter_world("Rozcestník akademie")))
 	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
 	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
+	if not ui.game.game_mode.is_away(): v.add_child(ui.button("Souvislé směny",func(): open_app("Souvislé směny")))
 	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
 	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
 	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
@@ -787,10 +788,13 @@ func show_tasks():
 	v.add_child(ui.button("Ověřit infrastrukturu",func():
 		ui.game.apply("verify",{})
 		show_tasks()))
+	var ticket_revision=ui.game.session_revision
 	v.add_child(ui.button("Předat vyřešený ticket",func():
-		var result = ui.game.complete()
+		var result = ui.game.complete(ticket_revision)
 		v.add_child(ui.label(("Hodnocení: %d / 100\n" % result.score if result.ok else "")+result.text+("\n\n"+ui.game.assessment() if result.ok else ""),18))
-		if result.ok: v.add_child(ui.button("Další úkol / přehled misí",func(): open_app("Tickety")))))
+		if result.ok: v.add_child(ui.button("Další ticket / přehled směny" if ui.game.session_kind=="shift" else "Další úkol / přehled misí",func():
+			if ui.game.session_kind=="shift" and not ui.game.finished: show_tasks()
+			else: open_app("Souvislé směny" if ui.game.session_kind=="shift" else "Tickety"))))))
 	if ui.game.session_kind=="lesson" and ui.game.tutorial.session.mode!="exam": v.add_child(ui.button("Nápověda",func(): v.add_child(ui.label(ui.game.lesson_hint(),17))))
 	if ui.game.session_kind=="lesson": v.add_child(ui.button("Opakovat lekci",func(): ui.begin_lesson(int(ui.game.current.id),ui.game.tutorial.session.mode,false)))
 	v.add_child(ui.button("Zpět  [Tab / Esc]",return_to_world))

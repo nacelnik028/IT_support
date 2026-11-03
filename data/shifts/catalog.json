@@ -1,0 +1,402 @@
+[
+  {
+    "id": "SHIFT-NET",
+    "version": 1,
+    "title": "Síť a dostupnost",
+    "category": "Proxmox",
+    "server": "PVE-01",
+    "initial_state": {
+      "world": {
+        "devices": {
+          "PVE-01": {
+            "cable_connected": false
+          }
+        }
+      },
+      "vms": {
+        "100": {
+          "vlan": 30,
+          "gateway": "192.168.20.254"
+        }
+      }
+    },
+    "tickets": [
+      {
+        "id": "SHIFT-NET-1",
+        "title": "Fyzický uplink",
+        "description": "Prohlédni PVE-01. Připoj jeho konektor do portu 1 na SW-CORE. Konfigurace VM se zatím nemění.",
+        "objectives": [
+          {
+            "path": "world.inspected.PVE-01",
+            "value": true,
+            "label": "Prohlédnut PVE-01"
+          },
+          {
+            "path": "world.devices.PVE-01.cable_connected",
+            "value": true,
+            "label": "Kabel připojen"
+          },
+          {
+            "path": "world.devices.PVE-01.port",
+            "value": 1,
+            "label": "Port 1 podle štítku"
+          }
+        ],
+        "available_actions": [
+          "physical_inspect",
+          "physical_cable"
+        ]
+      },
+      {
+        "id": "SHIFT-NET-2",
+        "title": "VLAN a IP",
+        "description": "APP01 / VM100: vmbr0, VLAN 20, IP 192.168.20.100/24, brána 192.168.20.1, DNS 192.168.20.10, ochrana zapnutá. Ověř HTTPS.",
+        "objectives": [
+          {
+            "path": "world.inspected.PVE-01",
+            "value": true,
+            "label": "Prohlédnut PVE-01"
+          },
+          {
+            "path": "world.devices.PVE-01.cable_connected",
+            "value": true,
+            "label": "Kabel připojen"
+          },
+          {
+            "path": "world.devices.PVE-01.port",
+            "value": 1,
+            "label": "Port 1 podle štítku"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "Aktuálně dostupná služba APP01"
+          }
+        ],
+        "available_actions": [
+          "network",
+          "probe",
+          "verify"
+        ]
+      },
+      {
+        "id": "SHIFT-NET-3",
+        "title": "Záloha dostupné služby",
+        "description": "Zachovej funkční síť. Zálohuj VM100 do PBS a proveď Verify. Záloha ve směně vyžaduje dostupnou aplikaci.",
+        "objectives": [
+          {
+            "path": "world.inspected.PVE-01",
+            "value": true,
+            "label": "Prohlédnut PVE-01"
+          },
+          {
+            "path": "world.devices.PVE-01.cable_connected",
+            "value": true,
+            "label": "Kabel připojen"
+          },
+          {
+            "path": "world.devices.PVE-01.port",
+            "value": 1,
+            "label": "Port 1 podle štítku"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "Aktuálně dostupná služba APP01"
+          },
+          {
+            "path": "backup.completed",
+            "value": true,
+            "label": "Dokončená záloha"
+          },
+          {
+            "path": "backup.verified",
+            "value": true,
+            "label": "PBS Verify"
+          },
+          {
+            "path": "backup.records.100.gateway",
+            "value": "192.168.20.1",
+            "label": "Záloha obsahuje opravenou bránu"
+          }
+        ],
+        "available_actions": [
+          "backup",
+          "backup_verify",
+          "verify"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SHIFT-VM",
+    "version": 1,
+    "title": "VM a provoz",
+    "category": "Hyper-V",
+    "server": "HV-01",
+    "initial_state": {
+      "vms": {
+        "200": {
+          "status": "Off",
+          "ram": 24
+        }
+      }
+    },
+    "tickets": [
+      {
+        "id": "SHIFT-VM-1",
+        "title": "Provozní diagnostika",
+        "description": "Prohlédni HV-01 a události. FS01 je vypnutý a požaduje příliš mnoho paměti.",
+        "objectives": [
+          {
+            "path": "world.inspected.HV-01",
+            "value": true,
+            "label": "Identita HV-01 ověřena"
+          },
+          {
+            "path": "diagnostic.Events",
+            "value": true,
+            "label": "Prohlédnuté události"
+          }
+        ],
+        "available_actions": [
+          "inspect",
+          "physical_inspect"
+        ]
+      },
+      {
+        "id": "SHIFT-VM-2",
+        "title": "Prostředky a start",
+        "description": "FS01 / VM200: nastav 2 vCPU, startup 4 GiB, minimum 2, maximum 8, Dynamic Memory. Spusť a ověř službu.",
+        "objectives": [
+          {
+            "path": "world.inspected.HV-01",
+            "value": true,
+            "label": "Identita HV-01 ověřena"
+          },
+          {
+            "path": "diagnostic.Events",
+            "value": true,
+            "label": "Prohlédnuté události"
+          },
+          {
+            "path": "vms.200.cpu",
+            "value": 2,
+            "label": "2 vCPU"
+          },
+          {
+            "path": "vms.200.ram",
+            "value": 4,
+            "label": "Startup 4 GiB"
+          },
+          {
+            "path": "vms.200.minimum",
+            "value": 2,
+            "label": "Minimum 2 GiB"
+          },
+          {
+            "path": "vms.200.maximum",
+            "value": 8,
+            "label": "Maximum 8 GiB"
+          },
+          {
+            "path": "vms.200.dynamic",
+            "value": true,
+            "label": "Dynamic Memory"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "FS01 v provozu"
+          }
+        ],
+        "available_actions": [
+          "memory",
+          "power",
+          "verify"
+        ]
+      },
+      {
+        "id": "SHIFT-VM-3",
+        "title": "Nezávislá záloha",
+        "description": "Zálohuj opravenou VM200 do PBS, proveď Verify a ověř infrastrukturu. Konfigurace ze druhého ticketu musí zůstat zachovaná.",
+        "objectives": [
+          {
+            "path": "world.inspected.HV-01",
+            "value": true,
+            "label": "Identita HV-01 ověřena"
+          },
+          {
+            "path": "diagnostic.Events",
+            "value": true,
+            "label": "Prohlédnuté události"
+          },
+          {
+            "path": "vms.200.cpu",
+            "value": 2,
+            "label": "2 vCPU"
+          },
+          {
+            "path": "vms.200.ram",
+            "value": 4,
+            "label": "Startup 4 GiB"
+          },
+          {
+            "path": "vms.200.minimum",
+            "value": 2,
+            "label": "Minimum 2 GiB"
+          },
+          {
+            "path": "vms.200.maximum",
+            "value": 8,
+            "label": "Maximum 8 GiB"
+          },
+          {
+            "path": "vms.200.dynamic",
+            "value": true,
+            "label": "Dynamic Memory"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "FS01 v provozu"
+          },
+          {
+            "path": "backup.completed",
+            "value": true,
+            "label": "Záloha dokončena"
+          },
+          {
+            "path": "backup.verified",
+            "value": true,
+            "label": "PBS Verify"
+          },
+          {
+            "path": "backup.records.200.ram",
+            "value": 4,
+            "label": "Bod obnovy zachovává 4 GiB"
+          }
+        ],
+        "available_actions": [
+          "backup",
+          "backup_verify",
+          "verify"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SHIFT-DISK",
+    "version": 1,
+    "title": "Storage a servis",
+    "category": "Storage",
+    "server": "NAS-01",
+    "initial_state": {
+      "disks": {
+        "2": {
+          "health": "Failed"
+        }
+      },
+      "raid": {
+        "health": "Degraded"
+      }
+    },
+    "tickets": [
+      {
+        "id": "SHIFT-DISK-1",
+        "title": "LED a identita",
+        "description": "Prohlédni NAS-01 a identifikuj vadný slot 2 / DC-002. Před servisem ověř nezávislou zálohu.",
+        "objectives": [
+          {
+            "path": "world.inspected.NAS-01",
+            "value": true,
+            "label": "Prohlédnut NAS-01"
+          },
+          {
+            "path": "world.identified.RAID:2",
+            "value": true,
+            "label": "Identifikován DC-002"
+          }
+        ],
+        "available_actions": [
+          "physical_inspect",
+          "physical_identify"
+        ]
+      },
+      {
+        "id": "SHIFT-DISK-2",
+        "title": "Bezpečná fyzická náhrada",
+        "description": "Vyjmi jen DC-002 se zálohou a potvrzením. Ze skříně přines SAS SPARE-2T a vlož jej do slotu 2. Nevytahuj zdravé členy.",
+        "objectives": [
+          {
+            "path": "world.inspected.NAS-01",
+            "value": true,
+            "label": "Prohlédnut NAS-01"
+          },
+          {
+            "path": "world.identified.RAID:2",
+            "value": true,
+            "label": "Identifikován DC-002"
+          },
+          {
+            "path": "world.replaced.RAID:2",
+            "value": true,
+            "label": "Fyzická náhrada vložena"
+          }
+        ],
+        "available_actions": [
+          "physical_remove",
+          "physical_spare",
+          "physical_insert"
+        ]
+      },
+      {
+        "id": "SHIFT-DISK-3",
+        "title": "Rebuild a provoz",
+        "description": "Dokonči rebuild posunem času. Ověř pole i APP01 a FS01; prohlédni skutečný monitorovací přehled.",
+        "objectives": [
+          {
+            "path": "world.inspected.NAS-01",
+            "value": true,
+            "label": "Prohlédnut NAS-01"
+          },
+          {
+            "path": "world.identified.RAID:2",
+            "value": true,
+            "label": "Identifikován DC-002"
+          },
+          {
+            "path": "world.replaced.RAID:2",
+            "value": true,
+            "label": "Fyzická náhrada vložena"
+          },
+          {
+            "path": "verified.raid",
+            "value": true,
+            "label": "Pole ověřeno Healthy"
+          },
+          {
+            "path": "verified.service_pve",
+            "value": true,
+            "label": "APP01 dostupný"
+          },
+          {
+            "path": "verified.service_hv",
+            "value": true,
+            "label": "FS01 dostupný"
+          },
+          {
+            "path": "world.monitor_checked",
+            "value": true,
+            "label": "Monitoring zkontrolován"
+          }
+        ],
+        "available_actions": [
+          "rebuild",
+          "verify",
+          "physical_monitor"
+        ]
+      }
+    ]
+  }
+]

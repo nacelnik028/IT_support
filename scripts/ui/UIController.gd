@@ -280,6 +280,7 @@ func draw_ui():
 	match page:
 		"Trénink": draw_training_center()
 		"Serverovna": draw_datacenter()
+		"Souvislé směny": preload("res://scripts/shifts/ShiftPresentation.gd").draw(self)
 		"Tickety": draw_tickets()
 		"Proxmox", "Hyper-V", "Storage": draw_console()
 		"Síť": draw_network()
@@ -463,6 +464,7 @@ func navigate(target: String):
 func draw_datacenter():
 	var contents = scroll(center)
 	contents.add_child(label("PŘEHLED INFRASTRUKTURY   /   kliknutím otevři správu zařízení",12,MUTED))
+	contents.add_child(button("Souvislé směny",func(): navigate("Souvislé směny")))
 	var metrics = hbox(contents)
 	for pair in [["06","SPRAVOVANÝCH ZAŘÍZENÍ"],[str(game.progress.scores.size()).pad_zeros(2),"UZAVŘENÝCH TICKETŮ"],["LAB","BEZPEČNÉ PROSTŘEDÍ"]]:
 		var metric = card(metrics)
@@ -502,7 +504,8 @@ func draw_ticket(parent: Node):
 	bar.show_percentage=false
 	bar.custom_minimum_size.y=5
 	c.add_child(bar)
-	c.add_child(button("Ověřit a uzavřít ticket",close_ticket,true))
+	var ticket_revision=game.session_revision
+	c.add_child(button("Ověřit a uzavřít ticket",func(): close_ticket(ticket_revision),true))
 	if game.session_kind!="random" or game.education.random.get("hints_allowed",true): c.add_child(button("Nápověda  %d / 3" % game.hints_used,hint))
 	c.add_child(button("Restartovat laboratoř",restart_confirm))
 	if game.finished: c.add_child(button("Krátké opakování znalostí",show_review))
@@ -513,6 +516,7 @@ func draw_ticket(parent: Node):
 		undo_button.disabled=game.undo_states.is_empty()
 		c.add_child(undo_button)
 	if game.finished and game.session_kind=="random": c.add_child(button("Další úloha / souhrn série",next_random_task,true))
+	elif game.session_kind=="shift": c.add_child(button("Fronta a výsledky směn",func(): navigate("Souvislé směny")))
 	elif game.finished and int(game.current.id)<game.missions.size(): c.add_child(button("Další ticket   →",func(): start_ticket(int(game.current.id)),true))
 	save_caption=label("Neuložené změny — použij opakování zápisu nahoře." if game.unsaved else "Postup uložen.",11,MUTED)
 	c.add_child(save_caption)
@@ -989,8 +993,8 @@ func show_operation_help():
 	bind_dialog_escape(d)
 	d.popup_centered(Vector2i(620,340))
 
-func close_ticket():
-	var result=game.complete()
+func close_ticket(expected_revision: int = -1):
+	var result=game.complete(expected_revision)
 	if not result.ok: show_message("Ticket zatím nelze předat",result.text); return
 	show_message(("Lekce vyhodnocena" if game.session_kind=="lesson" else "Ticket vyřešen")+" • %d / 100 bodů" % result.score,result.text+"\n\n"+game.assessment()+"\n\nProvedené kroky:\n"+"\n".join(game.sim.state.journal))
 	draw_ui()
