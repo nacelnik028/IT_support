@@ -1368,12 +1368,13 @@ func draw_terminal():
 	input.text_submitted.connect(func(command):
 		command_history.append(command)
 		history_position=command_history.size()
-		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+game.execute_terminal(command,terminal_host)+"\n"
-		terminal_history=terminal_history.right(14000)
+		# Include draft removal in the command's single model/evidence write.
+		# Remove the live form before redraw can capture the submitted text again.
 		DraftForms.erase(self,form_scopes._terminal,"_terminal")
 		form_drafts.erase(form_scopes._terminal)
-		game.save()
 		form_controls.erase("_terminal")
+		terminal_history+=("\n%s > %s\n" % [terminal_host,command])+game.execute_terminal(command,terminal_host)+"\n"
+		terminal_history=terminal_history.right(14000)
 		draw_ui())
 	input.gui_input.connect(func(event):
 		if event is InputEventKey and event.pressed and event.keycode in [KEY_UP,KEY_DOWN] and not command_history.is_empty():

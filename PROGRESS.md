@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Dokončování regrese — 4. 11. 2026
+
+- Při návratu zjištěno skutečné selhání terminal_sessions: odeslaný příkaz zapisoval model a následné odstranění konceptu podruhé. Mazání formulářového konceptu nyní proběhne před command dispatch a součástí stejného zápisu. Původní striktní kontrola jediného persistence signálu zůstala zachovaná; přidaná obnova novým GameManagerem prokazuje i nepřítomnost odeslaného konceptu. **64 PASS**.
+- Dřívější první celý běh odhalil také tři inline testové inicializátory při přidání izolace VR configu; opravené oddělení řádků. Testy programování už prošly ve druhém celku, který správně zastavil skutečný problém terminálu. Ani jeden neúplný běh není vykázaný jako finální PASS.
+- Nové dialogy jsou snímané s klávesnicí skutečně současně otevřenou (vložený dialog se po focus políčka opět zobrazí). Compatibility i Forward+ po 298 PASS. Poslechové příznaky v UI jsou česky ano/ne. Celý běh a oba přesné balíčky po poslední opravě následují.
+- Další požadavek uživatele: zobrazit aktuální verzi v nastavení **až po dokončení původního promptu**. Pořadí bude zachované; dosud nepřidáno. Bez push.
+
 ## Grafická matice a příprava distribucí — 3. 11. 2026
 
 - Nová continuation_review: 200 PASS headless, 298 PASS Compatibility a Forward+. Sedm nových obrazovek × 1280×720/1920×1080/3840×2160 × text 100/130 %, skutečný 1600×1200 SubViewport, oba texty/klávesnice otevřená-zavřená/panel 80–140 % a vzdálenost 0,9–2 m. Oba paprsky a úplné triggery, současný trigger, release mimo tlačítko, drag/scroll, A/X, B/Y, focus/tracking stop audia a stojící simulační čas.
