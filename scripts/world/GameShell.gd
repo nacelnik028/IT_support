@@ -26,6 +26,8 @@ var notice_time = 0.0
 var previous_room = "main"
 var leaving_scene = false
 var settings_from_pause = false
+var pause_page="main"
+var utility_to_settings=false
 var controls_label: Label
 var introduction_step = 0
 var ui_layer: CanvasLayer
@@ -582,29 +584,30 @@ func show_monitor():
 
 func pause_menu():
 	if practical_intro.active: practical_intro.pause(); return
-	set_mode("pause")
-	var v = panel("Pauza","Pohyb a fyzické interakce jsou pozastavené.")
-	v.add_child(ui.button("Pokračovat",return_to_world,true))
-	v.add_child(ui.button("Rozcestník akademie",func(): enter_world("Rozcestník akademie")))
-	if ui.game.unsaved: v.add_child(ui.button("Zkusit uložit znovu",func(): ui.game.save(); pause_menu(),true))
-	v.add_child(ui.button("Tickety a mise",func(): open_app("Tickety")))
-	if not ui.game.game_mode.is_away(): v.add_child(ui.button("Souvislé směny",func(): open_app("Souvislé směny")))
-	v.add_child(ui.button("IT tréninková akademie",func(): enter_world("Trénink")))
-	v.add_child(ui.button("Programovací učebna",func(): enter_world("Programming Academy")))
-	v.add_child(ui.button("English in London",func(): enter_world("English in London")))
-	v.add_child(ui.button("Moje znalosti akademie",func(): open_app("Moje znalosti")))
-	if ui.game.game_mode.is_away(): v.add_child(ui.button("Zpět do serverovny",func(): enter_world("Hlavní serverovna")))
-	v.add_child(ui.button("Nastavení",func(): settings_from_pause=true; open_app("Nastavení")))
-	v.add_child(ui.button("Diagnostika výkonu: "+("zapnuta" if diagnostics.visible else "vypnuta"),func(): diagnostics.toggle(); pause_menu()))
-	if vr_active: v.add_child(ui.button("Komfort VR / výška / pohyb",show_vr_settings))
-	v.add_child(ui.button("Přenos uloženého postupu",show_progress_transfer))
-	v.add_child(ui.button("Seznámení s ovládáním",func(): introduction_step=0; show_introduction()))
-	v.add_child(ui.button("Uložit a hlavní menu",func():
-		if ui.game.save() == OK:
-			ui.page = "menu"
-			ui.draw_ui()
-			set_mode("menu")
-		else: v.add_child(ui.label(ui.game.save_message,16,ui.ORANGE))))
+	pause_page="main"; utility_to_settings=false
+	preload("res://scripts/ui/PausePresentation.gd").draw(self)
+
+func pause_destinations():
+	pause_page="destinations"
+	preload("res://scripts/ui/PausePresentation.gd").draw(self,pause_page)
+
+func pause_work():
+	pause_page="work"
+	preload("res://scripts/ui/PausePresentation.gd").draw(self,pause_page)
+
+func show_controls_help():
+	pause_page="help"; utility_to_settings=true
+	preload("res://scripts/ui/PausePresentation.gd").draw(self,pause_page)
+
+func return_from_utility():
+	if utility_to_settings:
+		utility_to_settings=false; pause_page="main"; open_app("Nastavení")
+	else: pause_menu()
+
+func open_current_task():
+	if ui.game.game_mode.is_english() and not ui.game.english.session.is_empty(): open_english()
+	elif ui.game.game_mode.is_programming() and not ui.game.programming.current.is_empty(): open_programming(ui.game.programming.current.category)
+	else: show_tasks()
 
 func request_play_mode(value: String):
 	if value == "desktop" and vr_active and not OS.has_feature("android"):
@@ -658,6 +661,7 @@ func apply_vr_quality():
 	if OS.has_feature("android"): world.fans.clear()
 
 func show_vr_settings():
+	pause_page="vr"
 	set_mode("pause")
 	var v=panel("Komfort VR","Teleport: drž klik levého joysticku, zamiř na volnou podlahu a uvolni. Pravý joystick: snap turn; v monitoru posun obsahu. B/Y nebo menu: pauza. A/X: mise / přemístit monitor.")
 	var settings=xr_rig.settings
@@ -697,7 +701,8 @@ func show_vr_settings():
 		if settings.save_settings()==OK: return_to_world()
 		else: v.add_child(ui.label("Nastavení se nepodařilo uložit.",18))))
 
-func show_progress_transfer():
+func show_progress_transfer(from_settings: bool = false):
+	pause_page="transfer"; utility_to_settings=from_settings
 	set_mode("pause")
 	var v=panel("Přenos uloženého postupu","Postup i infrastrukturu přenese soubor user://academy-transfer.json. Na PICO jej zkopíruj pomocí ADB; návod je v README. Import vytvoří zálohu a vrátí tě do menu.")
 	v.add_child(ui.button("Exportovat postup",func():
@@ -710,7 +715,7 @@ func show_progress_transfer():
 		var error=ui.game.Saves.import_progress("user://academy-transfer.json")
 		if error==OK: get_tree().reload_current_scene()
 		else: v.add_child(ui.label("Import: "+error_string(error),18))))
-	v.add_child(ui.button("Zpět",pause_menu))
+	v.add_child(ui.button("Zpět do nastavení" if utility_to_settings else "Zpět do pauzy",return_from_utility))
 
 func export_smoke():
 	if "--test-world" not in OS.get_cmdline_user_args(): get_tree().quit(2); return
@@ -822,6 +827,8 @@ func _unhandled_key_input(event):
 		if mode == "world": pause_menu()
 		elif mode == "introduction": finish_introduction()
 		elif mode == "pause" and practical_intro.active and practical_intro.step==9: practical_intro.finish(true)
+		elif mode=="pause" and pause_page=="work": pause_destinations()
+		elif mode=="pause" and pause_page!="main": return_from_utility()
 		elif mode == "app" and ui.page=="Nastavení": ui.close_settings()
 		elif mode == "app" and ui.context_open: ui.context_open=false; ui.draw_ui()
 		elif mode != "menu": return_to_world()

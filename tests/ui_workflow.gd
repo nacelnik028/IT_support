@@ -70,7 +70,7 @@ func reveal(control: Control):
 
 func check_credit():
 	var credit=shell.ui.find_child("AuthorCredit",true,false)
-	check(visible(credit) and credit.text=="Vytvořil: Vít Kellner a Codex","Exact author credit visible in main menu")
+	check(visible(credit) and credit.text=="Vytvořil Vít Kellner","Exact author credit visible in main menu")
 	if not is_instance_valid(credit): return
 	check(credit.get_line_count()==1 and credit.size.x>=credit.get_minimum_size().x,"Credit fits on one line")
 	check(credit.mouse_filter==Control.MOUSE_FILTER_IGNORE and credit.focus_mode==Control.FOCUS_NONE,"Credit cannot capture pointer or keyboard focus")

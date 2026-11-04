@@ -72,7 +72,7 @@ func run():
 			suffix=str(resolution.x)+"-"+str(roundi(scale_value*100))
 			ui.apply_display_settings(resolution,false); ui.save_preference("text_scale",scale_value)
 			ui.page="menu"; ui.draw_ui(); shell.set_mode("menu"); await frames()
-			check(ui.find_child("AuthorCredit",true,false).text=="Vytvořil: Vít Kellner a Codex","Podpis zachován")
+			check(ui.find_child("AuthorCredit",true,false).text=="Vytvořil Vít Kellner","Podpis zachován")
 			await capture("menu")
 			shell.enter_world("Hlavní serverovna"); shell.show_introduction(); await capture("intro-offer")
 			await click_button(button("Zahájit praktický úvod")); check(shell.practical_intro.active,"PC klik zahájil úvod")

@@ -1,6 +1,7 @@
 extends RefCounted
 
 static func draw(ui):
+	var shell=ui.shell_ref.get_ref() if ui.shell_ref!=null else null
 	var all=ui.vbox(ui.content_box,14)
 	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=ui.hbox(all)
@@ -14,7 +15,7 @@ static func draw(ui):
 	ui.Components.badge(ui,header,"✓  PREFERENCE SE UKLÁDAJÍ PRŮBĚŽNĚ")
 	header.add_child(ui.button("← Zpět",ui.close_settings))
 	var tabs=ui.hbox(all)
-	for title in ["Obraz","Zvuk","Ovládání","Rozhraní"]:
+	for title in ["Obraz","Zvuk","Ovládání","Rozhraní","Postup"]:
 		var b=ui.Components.selection(ui,title,func(): ui.settings_tab=title; ui.draw_ui(),ui.settings_tab==title)
 		tabs.add_child(b)
 		ui.register_target("settings:"+title,b)
@@ -48,6 +49,9 @@ static func draw(ui):
 			rendering.add_child(ui.label("Limit snímkové frekvence",14,ui.MUTED))
 			fps.select([0,30,60,120,144].find(settings.fps_limit)); rendering.add_child(fps)
 			fps.item_selected.connect(func(i): ui.save_preference("fps_limit",[0,30,60,120,144][i]))
+			if is_instance_valid(shell):
+				var diagnostic=CheckButton.new(); diagnostic.text="Diagnostika výkonu"; diagnostic.button_pressed=shell.diagnostics.visible
+				diagnostic.toggled.connect(func(_on): shell.diagnostics.toggle()); rendering.add_child(diagnostic)
 		"Zvuk":
 			var panel=ui.card(content,"Zvuk","Hlasitost i ztlumení se ukládají pro příští spuštění.")
 			var volume=HSlider.new(); volume.min_value=0; volume.max_value=100; volume.step=1; volume.value=settings.volume*100; panel.add_child(volume)
@@ -69,6 +73,8 @@ static func draw(ui):
 				b.alignment=HORIZONTAL_ALIGNMENT_LEFT; b.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 				grid.add_child(b); ui.register_target("binding:"+action,b)
 			panel.add_child(ui.button("Obnovit výchozí klávesy",func(): ui.save_preference("bindings",ui.Display.DEFAULT_KEYS.duplicate()); ui.draw_ui()))
+			if is_instance_valid(shell): panel.add_child(ui.button("Nápověda a praktický úvod",shell.show_controls_help))
+			if is_instance_valid(shell) and shell.vr_active: panel.add_child(ui.button("Komfort VR",func(): shell.utility_to_settings=true; shell.show_vr_settings()))
 		"Rozhraní":
 			var panel=ui.card(content,"Velikost textu","Písmo se rasterizuje v cílovém rozlišení. Zvětšení textu nemění rozlišení renderování.")
 			var picker=OptionButton.new()
@@ -76,4 +82,8 @@ static func draw(ui):
 			picker.select([1.0,1.15,1.3].find(settings.text_scale)); panel.add_child(picker)
 			picker.item_selected.connect(func(i): ui.save_preference("text_scale",[1.0,1.15,1.3][i]); ui.draw_ui())
 			ui.settings_controls.text_scale=picker
+		"Postup":
+			var panel=ui.card(content,"Přenos uloženého postupu","Export a import lokálního postupu mezi PC a PICO.")
+			if is_instance_valid(shell): panel.add_child(ui.button("Exportovat / importovat postup",func(): shell.show_progress_transfer(true)))
+			else: panel.add_child(ui.label("Přenos je dostupný ve 3D akademii.",16))
 	if ui.notice!="": content.add_child(ui.label(ui.notice,14,ui.ORANGE if ui.bad_notice else ui.CYAN))

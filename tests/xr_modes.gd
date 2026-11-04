@@ -75,7 +75,7 @@ func run():
 		shell.ui.page="menu"; shell.ui.draw_ui(); shell.set_mode("menu")
 		await frames()
 		var credit=shell.ui.find_child("AuthorCredit",true,false)
-		check(credit.is_visible_in_tree() and credit.text=="Vytvořil: Vít Kellner a Codex","VR menu contains exact credit")
+		check(credit.is_visible_in_tree() and credit.text=="Vytvořil Vít Kellner","VR menu contains exact credit")
 		check(rig.monitor.viewport.get_visible_rect().encloses(credit.get_global_rect()) and credit.get_line_count()==1,"VR credit fits inside existing panel at "+str(text_scale))
 		for action in shell.ui.root_box.find_children("*","Button",true,false):
 			check(not credit.get_global_rect().intersects(action.get_global_rect()),"VR credit leaves menu controls clear")

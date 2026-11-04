@@ -4,9 +4,9 @@ Práce pokračuje na všech bodech přiloženého zadání. Toto je průběžný
 nikoli prohlášení o dokončení všech bodů. EXE/APK zatím nejsou znovu sestavené.
 
 - [x] 1: přečtené zadání/stav/README, reprodukce existujícího UI a geometrie.
-- [ ] 2: kompaktní pauza a přesun funkcí — implementace, čeká cílené ověření.
+- [x] 2: kompaktní pauza, podnabídky a přesunuté funkce.
 - [ ] 3: nové londýnské dialogy.
-- [ ] 4: přesný autorský podpis — změněný zdroj, čeká grafické ověření.
+- [x] 4: přesný podpis „Vytvořil Vít Kellner“ ve všech velikostech a VR.
 - [ ] 5: cíle, průběh a zpětná vazba podle režimu.
 - [x] 6: stojany a ukotvení fyzických tabulí.
 - [ ] 7: trvající navigace k pracovištím Londýna.
@@ -57,3 +57,22 @@ Příklady: [IT kapsa](it-door-ops-open-gl_compatibility.png),
 Všechny snímky `before-menu/pause/dialog/editor` zachycují původní UI před úpravou.
 
 Automatické XR budou uvedené odděleně od fyzického PICO; headset není dostupný.
+
+## Pauza a podpis (2, 4)
+
+Základní pauza má pět hlavních akcí a nanejvýš aktuální úkol; ve VR také
+přímý Komfort VR. Bez posouvání v 720p/130 %. Kam jít obsahuje skutečné vstupy
+a podnabídku ticketů/směn. Diagnostika je v Nastavení → Obraz, přenos na kartě
+Postup, nápověda a praktický úvod v Ovládání. Esc respektuje rodiče podnabídky.
+Chyba uložení zachová pauzu a nabídne opakování, bez odchodu do menu.
+
+`pause_repair`: **217 headless / 239 Compatibility / 239 Forward+ PASS**,
+celá PC matice a skutečný VR viewport 1600×1200, oba syntetické triggery,
+kliky všemi přesunutými cestami, návraty Esc, pět vstupů, zachování kampaně
+a skutečné selhání zápisu. Regrese: ui_workflow 615, xr_modes 120,
+world_ui 31 a gameplay_review 77 PASS. Původní runtime chyba odloženého fokusu
+na již odstraněné tlačítko byla opravena; finální logy jsou čisté.
+[Nová pauza 720p/130 %](pause-1280-130-gl_compatibility.png),
+[Kam jít](destinations-1280-130-gl_compatibility.png),
+[VR pauza](pause-vr-130-gl_compatibility.png),
+[podpis](menu-1280-130-gl_compatibility.png).
