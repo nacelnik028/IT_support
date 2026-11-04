@@ -12,6 +12,8 @@ static func icon(kind: String,disabled=false) -> DPITexture:
 	var body=""
 	var size=Vector2i(16,16)
 	match kind:
+		"split":
+			size=Vector2i(40,12); body='<path d="M8 4h24M8 8h24"/>'
 		"down": body='<path d="m4 6 4 4 4-4"/>'
 		"up": body='<path d="m4 10 4-4 4 4"/>'
 		"right": body='<path d="m6 4 4 4-4 4"/>'

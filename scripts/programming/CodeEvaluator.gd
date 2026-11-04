@@ -26,11 +26,18 @@ func evaluate(task: Dictionary, files: Dictionary, hints: int = 0, mode: String 
 			for key in test.get("vars",{}): ok=ok and r.globals.has(key) and runtime.equal(r.globals.get(key),test.vars[key])
 			for key in test.get("written",{}): ok=ok and r.files.get(key)==test.written[key]
 			for construct in task.get("constructs",[]): ok=ok and r.trace.get(construct,0)>0
-			checks.append({"ok":ok,"text":test.get("label","Test "+str(checks.size()+1))+(" ✓" if ok else " · "+(r.error if r.error!="" else "Výsledek neodpovídá zadání. Ověř vstupy, výstup a požadované konstrukce."))})
+			var detail={"ok":ok,"text":test.get("label","Test "+str(checks.size()+1))+(" ✓" if ok else " · "+(r.error if r.error!="" else "Výsledek neodpovídá zadání. Ověř vstupy, výstup a požadované konstrukce."))}
+			if mode!="exam" and test.has("output"):
+				detail.expected=str(test.output).left(2000); detail.actual=str(r.output).left(2000)
+			checks.append(detail)
 	else: checks=preload("res://scripts/programming/WebDocument.gd").new().validate(task,files)
 	var count=checks.filter(func(c): return c.ok).size()
 	var correctness=roundi(100.0*count/maxi(1,checks.size()))
 	var score=maxi(0,correctness-mini(20,hints*5))
 	var messages=[]
-	for check_data in checks: messages.append(check_data.text)
-	return {"ok":correctness==100,"score":score,"checks":checks,"diagnostics":diagnostics,"text":"Výsledek: %d/100 · %d/%d testů\n%s\n%s" % [score,count,checks.size(),"\n".join(messages),"Všechny požadavky splněny." if correctness==100 else "Doporučení: "+task.explanation],"mode":mode}
+	for check_data in checks:
+		messages.append(check_data.text)
+		if check_data.has("expected"): messages.append("Očekáváno:\n"+check_data.expected+"\nSkutečný výstup:\n"+check_data.actual)
+	var failed=checks.filter(func(item): return not item.ok)
+	var summary="Všechny požadavky splněny." if failed.is_empty() else str(failed[0].text).left(220)
+	return {"ok":correctness==100,"score":score,"checks":checks,"diagnostics":diagnostics,"summary":summary,"text":"Výsledek: %d/100 · %d/%d testů\n%s\n%s" % [score,count,checks.size(),"\n".join(messages),"Všechny požadavky splněny." if correctness==100 else "Doporučení: "+task.explanation],"mode":mode}

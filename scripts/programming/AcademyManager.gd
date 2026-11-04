@@ -121,6 +121,7 @@ func test_program() -> Dictionary:
 	last_result=Evaluator.new().evaluate(current,files,hints,mode)
 	if is_lesson and mode=="learn" and step<3:
 		last_result.ok=false; last_result.text+="\nDokonči praktické kroky: uprav, spusť, změň a znovu spusť kód."
+		last_result.summary="Dokonči praktické kroky: uprav, spusť, změň a znovu spusť kód."
 	record(last_result)
 	return last_result
 

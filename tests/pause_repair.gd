@@ -37,6 +37,9 @@ func click(b, hand: int = -1):
 	await frames()
 	var viewport=b.get_viewport(); var at=b.get_global_rect().get_center()
 	check(viewport.get_visible_rect().encloses(b.get_global_rect()),"Cíl kliku je celý viditelný: "+b.text)
+	if viewport is Window and viewport!=root and viewport.is_embedded():
+		at=Vector2(viewport.position)+at*Vector2(viewport.size)/viewport.get_visible_rect().size
+		viewport=rig.monitor.viewport if hand>=0 else root
 	if hand>=0:
 		var monitor=rig.monitor
 		var pixel=Vector3((at.x/1600-0.5)*monitor.dimensions.x,(0.5-at.y/1200)*monitor.dimensions.y,0)
