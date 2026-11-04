@@ -1,20 +1,24 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
+  "game_version": "1.5.0",
   "date": "2026-11-04",
-  "phase": "Original persistence/shifts/listening prompt completed before optional settings-version follow-up",
-  "source_commit": "a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a",
-  "source_manifest_sha256": "db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c",
+  "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
+  "test_fixture_commit": "74edf37",
+  "original_prompt_complete_commit": "ec51021",
+  "settings_version_commit": "88a0bdb",
+  "xr_cancel_commit": "a6d58e3",
+  "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
   "source_manifests_match": true,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104453712,
-      "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26"
+      "bytes": 104454336,
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-      "bytes": 90829077,
-      "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4"
+      "bytes": 90829657,
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef"
     }
   ],
   "source_regressions": {
@@ -69,13 +73,13 @@
       "training_ui",
       "display_settings"
     ],
-    "log": "docs/ui-review/2026-11-04-release-base/verification/continuation-test-all-bound-audio.log"
+    "log": "docs/ui-review/2026-11-04-release/verification/shipping-test-all-complete.log"
   },
   "portable_windows": {
     "native_checks_runtime": "Windows",
     "editor_pack_checks_runtime": "Windows",
-    "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26",
-    "bytes": 104453712,
+    "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+    "bytes": 104454336,
     "results": {
       "native_headless": true,
       "native_graphical": true,
@@ -108,6 +112,12 @@
       "world_playthrough": true
     }
   },
+  "native_windows_forward_plus": {
+    "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+    "bytes": 104454336,
+    "native_windows_forward_plus": "PASS",
+    "exe_only_renamed_unrelated_directory": true
+  },
   "pico4": {
     "signature": "PASS",
     "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
@@ -117,7 +127,7 @@
     "version_name": "1.5.0",
     "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment",
     "desktop_resource_tests": {
-      "apk_sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4",
+      "apk_sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
       "runtime": "Windows Godot with actual APK resources",
       "android_native_runtime": "NOT RUN: requires an authorized PICO headset",
       "results": {
@@ -150,7 +160,7 @@
   },
   "focused_packages": {
     "windows": {
-      "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26",
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
       "results": {
         "continuation_review": true,
         "unified_profile": true,
@@ -165,7 +175,7 @@
       }
     },
     "pico": {
-      "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4",
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
       "results": {
         "continuation_review": true,
         "unified_profile": true,
@@ -180,19 +190,31 @@
       }
     }
   },
+  "current_tracked_editor_fixture": {
+    "windows": {
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+      "programming_integration_current_tracker_fixture": true
+    },
+    "pico": {
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+      "programming_integration_current_tracker_fixture": true
+    }
+  },
   "graphics": {
-    "Compatibility": 298,
-    "Forward+": 298,
-    "png_count": 196,
-    "folder": "docs/ui-review/2026-11-04-release-base"
+    "headless_checks": 239,
+    "Compatibility_checks": 351,
+    "Forward+_checks": 351,
+    "failures": 0,
+    "screenshots": 224,
+    "folder": "docs/ui-review/2026-11-04-release"
   },
   "mcp": {
     "checks": 31,
     "failures": 0,
     "preexisting_static_warnings": 8,
-    "log": "docs/ui-review/2026-11-04-release-base/mcp.json"
+    "log": "docs/ui-review/2026-11-04-release/mcp.json"
   },
   "hardware": "NEPROVEDENO – headset není dostupný",
-  "human_listening": "NOT PERFORMED: decoded samples and actual player only",
+  "human_listening": "NOT PERFORMED: hashes, decoding, nonzero samples and player state only",
   "git_push": "NOT PERFORMED"
 }

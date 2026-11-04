@@ -3,15 +3,15 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90829077,
-    "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4"
+    "bytes": 90829657,
+    "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef"
   },
-  "source_commit": "a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a",
+  "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
   "sources": [
     {
       "file": "project.godot",
-      "bytes": 1758,
-      "sha256": "09bac8feebdc506b4c70385f5f01865877d3739410222fe8a24e0ca2016f7407"
+      "bytes": 1782,
+      "sha256": "b9f5e183e90a7032a7b3148016a4302a8820922e271962230ad10ec2b011bc9a"
     },
     {
       "file": "export_presets.cfg",
@@ -650,8 +650,8 @@
     },
     {
       "file": "scripts/ui/SettingsPanel.gd",
-      "bytes": 5261,
-      "sha256": "39590794e5a6805d8a046561ebca9f17d2ab9b84ebdf02862f8d59e42a5ab874"
+      "bytes": 5612,
+      "sha256": "387d3309409f9c54ef9ca030bfd1a6214ed80f869083518d127674c4e17c41d5"
     },
     {
       "file": "scripts/ui/SettingsPanel.gd.uid",
@@ -750,8 +750,8 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "bytes": 47710,
-      "sha256": "3ca6fa5a58f8bc32db49dd93d2e76d2cbbe6bb0e59d581450e9c292ef2262c64"
+      "bytes": 47818,
+      "sha256": "bb089c447c394fbaf38f7c6bbc6823b2a1f7f9a81232c4fa0247adecffcbfbb3"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -850,8 +850,8 @@
     },
     {
       "file": "scripts/xr/VRMonitor.gd",
-      "bytes": 4282,
-      "sha256": "e02f5934ebd8a018fe30cf7edac52e973220b257a028066a6bd2c6527b1bbd45"
+      "bytes": 4467,
+      "sha256": "f1a71cda81637833c7772c8b9b01a987a62f74b220168df21bae4df9055685b3"
     },
     {
       "file": "scripts/xr/VRMonitor.gd.uid",
@@ -870,8 +870,8 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "bytes": 15897,
-      "sha256": "436e0b3b9e89c2bc7cb8c8654f1e630ecc29c44c6c641bc00080f281c26b3322"
+      "bytes": 15957,
+      "sha256": "a3d0eee16a0d127a22b4b084d595c433261d6b4d850b0a3faf793771e214f348"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
@@ -1365,5 +1365,5 @@
   },
   "hardware_tracking": "NOT TESTED",
   "pico_72_fps": "NOT MEASURED",
-  "source_manifest_sha256": "db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c"
+  "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022"
 }

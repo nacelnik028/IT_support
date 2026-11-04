@@ -1,0 +1,220 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "game_version": "1.5.0",
+  "date": "2026-11-04",
+  "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
+  "test_fixture_commit": "74edf37",
+  "original_prompt_complete_commit": "ec51021",
+  "settings_version_commit": "88a0bdb",
+  "xr_cancel_commit": "a6d58e3",
+  "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
+  "source_manifests_match": true,
+  "artifacts": [
+    {
+      "file": "build/ITSupportSimulator.exe",
+      "bytes": 104454336,
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366"
+    },
+    {
+      "file": "build/pico4/ITSupportSimulator-PICO4.apk",
+      "bytes": 90829657,
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef"
+    }
+  ],
+  "source_regressions": {
+    "suites": 46,
+    "failures": 0,
+    "runtime_errors_or_warnings": 0,
+    "suite_names": [
+      "continuation_review",
+      "unified_profile",
+      "london_listening",
+      "attempt_review",
+      "advanced_shifts",
+      "shift_scoring",
+      "work_persistence",
+      "gameplay_review",
+      "gameplay",
+      "shifts",
+      "academy_hub",
+      "london_quiz",
+      "english_model",
+      "english_world",
+      "ui_workflow",
+      "programming_runtime",
+      "programming_catalog",
+      "programming_academy",
+      "programming_integration",
+      "programming_polish",
+      "programming_location",
+      "xr_modes",
+      "terminal_sessions",
+      "platform_context",
+      "console_ux",
+      "ui_design",
+      "world_ui",
+      "stage1",
+      "campaign",
+      "regression",
+      "extended",
+      "session_safety",
+      "save_safety",
+      "physical3d",
+      "world3d",
+      "door3d",
+      "world_playthrough",
+      "training_rooms",
+      "tutorial_first",
+      "tutorial_navigation",
+      "lessons",
+      "training_features",
+      "ui_safety",
+      "ui_smoke",
+      "training_ui",
+      "display_settings"
+    ],
+    "log": "docs/ui-review/2026-11-04-release/verification/shipping-test-all-complete.log"
+  },
+  "portable_windows": {
+    "native_checks_runtime": "Windows",
+    "editor_pack_checks_runtime": "Windows",
+    "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+    "bytes": 104454336,
+    "results": {
+      "native_headless": true,
+      "native_graphical": true,
+      "continuation_review": true,
+      "unified_profile": true,
+      "london_listening": true,
+      "attempt_review": true,
+      "advanced_shifts": true,
+      "shift_scoring": true,
+      "work_persistence": true,
+      "shifts": true,
+      "gameplay": true,
+      "gameplay_review": true,
+      "package_content": true,
+      "academy_hub": true,
+      "london_quiz": true,
+      "english_model": true,
+      "english_world": true,
+      "ui_workflow": true,
+      "programming_runtime": true,
+      "programming_catalog": true,
+      "programming_academy": true,
+      "programming_integration": true,
+      "programming_polish": true,
+      "programming_location": true,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": true
+    }
+  },
+  "native_windows_forward_plus": {
+    "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+    "bytes": 104454336,
+    "native_windows_forward_plus": "PASS",
+    "exe_only_renamed_unrelated_directory": true
+  },
+  "pico4": {
+    "signature": "PASS",
+    "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
+    "zip_crc": "PASS",
+    "arm64_and_openxr_manifest": "PASS",
+    "version_code": 6,
+    "version_name": "1.5.0",
+    "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment",
+    "desktop_resource_tests": {
+      "apk_sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+      "runtime": "Windows Godot with actual APK resources",
+      "android_native_runtime": "NOT RUN: requires an authorized PICO headset",
+      "results": {
+        "current_source_snapshot": true,
+        "packaged_catalogs_match": true,
+        "desktop_resources_headless": true,
+        "desktop_resources_graphical": true,
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
+        "shifts": true,
+        "gameplay": true,
+        "gameplay_review": true,
+        "package_content": true,
+        "academy_hub": true,
+        "london_quiz": true,
+        "english_model": true,
+        "english_world": true,
+        "ui_workflow": true,
+        "programming_location": true,
+        "programming_integration": true,
+        "xr_modes": true,
+        "terminal_sessions": true
+      }
+    }
+  },
+  "focused_packages": {
+    "windows": {
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+      "results": {
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
+        "shifts": true,
+        "gameplay": true,
+        "xr_modes": true
+      }
+    },
+    "pico": {
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+      "results": {
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
+        "shifts": true,
+        "gameplay": true,
+        "xr_modes": true
+      }
+    }
+  },
+  "current_tracked_editor_fixture": {
+    "windows": {
+      "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+      "programming_integration_current_tracker_fixture": true
+    },
+    "pico": {
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+      "programming_integration_current_tracker_fixture": true
+    }
+  },
+  "graphics": {
+    "headless_checks": 239,
+    "Compatibility_checks": 351,
+    "Forward+_checks": 351,
+    "failures": 0,
+    "screenshots": 224,
+    "folder": "docs/ui-review/2026-11-04-release"
+  },
+  "mcp": {
+    "checks": 31,
+    "failures": 0,
+    "preexisting_static_warnings": 8,
+    "log": "docs/ui-review/2026-11-04-release/mcp.json"
+  },
+  "hardware": "NEPROVEDENO – headset není dostupný",
+  "human_listening": "NOT PERFORMED: hashes, decoding, nonzero samples and player state only",
+  "git_push": "NOT PERFORMED"
+}

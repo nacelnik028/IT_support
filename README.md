@@ -1,6 +1,6 @@
 # IT Support Simulator: Training academy
 
-Aktuální verze **1.5.0** je vidět v **Nastavení** na PC i ve VR. Android vydání má versionCode **6**.
+Aktuální verze **1.5.0** je vidět v **Nastavení** na PC i ve VR. Android vydání má versionCode **6**. Hotové lokální EXE/APK: celý runner **46 sad PASS**, grafická matice **351/351 PASS**, obě distribuce ověřené. [Výsledky, snímky a hashe](TEST_REPORT.md). Git push nebyl proveden.
 
 Celá navazující etapa a ovládání: [ukládání, směny, rozbor, poslech a profil](docs/CONTINUATION_RELEASE.md). Přímý průchod serverovna–Londýn je zazděný; používej východní chodbu rozcestníku.
 
@@ -98,7 +98,7 @@ OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.
 
 **PICO 4:** [`build/pico4/ITSupportSimulator-PICO4.apk`](build/pico4/ITSupportSimulator-PICO4.apk)
-je podepsaný sideload Debug APK 1.4.0 (versionCode 5) pro ARM64, běžný PICO 4,
+je podepsaný sideload Debug APK 1.5.0 (versionCode 6) pro ARM64, běžný PICO 4,
 Android min 29 / target 34. Obsahuje aktuální Training academy se západní učebnou
 a londýnským pavilonem; spouští VR přímo. Identifikátor balíčku i podpis zůstávají zachované
 pro aktualizaci přes `adb install -r`.

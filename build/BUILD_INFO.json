@@ -1,17 +1,18 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
+  "game_version": "1.5.0",
   "export": "Windows x86_64 Debug",
-  "bytes": 104453712,
-  "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26",
+  "bytes": 104454336,
+  "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
   "embedded_pck": true,
-  "verification": "Native Windows EXE-only headless/GPU smoke; 27 external pack suites PASS",
+  "verification": "Native Windows EXE-only headless, Compatibility and Forward+; 27 external pack suites PASS",
   "native_windows_graphical_verified": true,
   "json_export": "lossless whitespace compaction + native Godot ZSTD container in isolated build copy",
-  "source_commit": "a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a",
+  "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
   "sources": [
     {
       "file": "project.godot",
-      "sha256": "09bac8feebdc506b4c70385f5f01865877d3739410222fe8a24e0ca2016f7407"
+      "sha256": "b9f5e183e90a7032a7b3148016a4302a8820922e271962230ad10ec2b011bc9a"
     },
     {
       "file": "export_presets.cfg",
@@ -903,7 +904,7 @@
     },
     {
       "file": "scripts/ui/SettingsPanel.gd",
-      "sha256": "39590794e5a6805d8a046561ebca9f17d2ab9b84ebdf02862f8d59e42a5ab874"
+      "sha256": "387d3309409f9c54ef9ca030bfd1a6214ed80f869083518d127674c4e17c41d5"
     },
     {
       "file": "scripts/ui/SettingsPanel.gd.uid",
@@ -983,7 +984,7 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "sha256": "3ca6fa5a58f8bc32db49dd93d2e76d2cbbe6bb0e59d581450e9c292ef2262c64"
+      "sha256": "bb089c447c394fbaf38f7c6bbc6823b2a1f7f9a81232c4fa0247adecffcbfbb3"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -1063,7 +1064,7 @@
     },
     {
       "file": "scripts/xr/VRMonitor.gd",
-      "sha256": "e02f5934ebd8a018fe30cf7edac52e973220b257a028066a6bd2c6527b1bbd45"
+      "sha256": "f1a71cda81637833c7772c8b9b01a987a62f74b220168df21bae4df9055685b3"
     },
     {
       "file": "scripts/xr/VRMonitor.gd.uid",
@@ -1079,12 +1080,12 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "sha256": "436e0b3b9e89c2bc7cb8c8654f1e630ecc29c44c6c641bc00080f281c26b3322"
+      "sha256": "a3d0eee16a0d127a22b4b084d595c433261d6b4d850b0a3faf793771e214f348"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
       "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
     }
   ],
-  "source_manifest_sha256": "db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c"
+  "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022"
 }

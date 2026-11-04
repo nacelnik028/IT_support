@@ -1,0 +1,31 @@
+{
+  "apk_sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+  "runtime": "Windows Godot with actual APK resources",
+  "android_native_runtime": "NOT RUN: requires an authorized PICO headset",
+  "results": {
+    "current_source_snapshot": true,
+    "packaged_catalogs_match": true,
+    "desktop_resources_headless": true,
+    "desktop_resources_graphical": true,
+    "continuation_review": true,
+    "unified_profile": true,
+    "london_listening": true,
+    "attempt_review": true,
+    "advanced_shifts": true,
+    "shift_scoring": true,
+    "work_persistence": true,
+    "shifts": true,
+    "gameplay": true,
+    "gameplay_review": true,
+    "package_content": true,
+    "academy_hub": true,
+    "london_quiz": true,
+    "english_model": true,
+    "english_world": true,
+    "ui_workflow": true,
+    "programming_location": true,
+    "programming_integration": true,
+    "xr_modes": true,
+    "terminal_sessions": true
+  }
+}

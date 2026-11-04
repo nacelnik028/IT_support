@@ -1,0 +1,22 @@
+engine-version: PASS
+import: PASS
+pico4-export: PASS
+apk-signature: PASS
+apk-badging: PASS
+apk-manifest: PASS
+{
+  "artifact": {
+    "file": "build/pico4/ITSupportSimulator-PICO4.apk",
+    "bytes": 90829657,
+    "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef"
+  },
+  "pico4": {
+    "signature": "PASS",
+    "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
+    "zip_crc": "PASS",
+    "arm64_and_openxr_manifest": "PASS",
+    "version_code": 6,
+    "version_name": "1.5.0",
+    "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment"
+  }
+}

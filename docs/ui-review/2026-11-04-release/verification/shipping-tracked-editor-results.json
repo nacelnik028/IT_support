@@ -1,0 +1,10 @@
+{
+  "windows": {
+    "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+    "programming_integration_current_tracker_fixture": true
+  },
+  "pico": {
+    "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef",
+    "programming_integration_current_tracker_fixture": true
+  }
+}

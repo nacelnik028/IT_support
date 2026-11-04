@@ -2,6 +2,8 @@
 
 Implementace navazuje na e523eb4, zachovává 65 misí, legacy24, 21 IT lekcí, 60 programovacích úloh/28 lekcí, šest B1–B2 situací a London Quiz. Přímý průchod ze serverovny do Londýna je souvislá kolizní stěna; do Londýna vede původní východní chodba rozcestníku.
 
+Aktuální verze **1.5.0** je v **Nastavení** na PC i VR; byla přidaná až po uzavření původního promptu v ec51021. Finální oprava XR ruší držený trigger bez potvrzení při focus/tracking/změně či přemístění panelu.
+
 ## Kde co najít
 
 - Menu / IT učebna: **Pokračování**, zvlášť kampaň, směna a uložená výuka. Výukový snímek obnovíš pouze v IT učebně, vždy v původním režimu. Zkouška se nepřemění na learn.
@@ -26,3 +28,5 @@ Nové směny používají score_version 2: 100 − 4×nápovědy − 8×chyby �
 Aktuální konečné počty a přesné distribuční hashe uvádí [TEST_REPORT](../TEST_REPORT.md), [BUILD_INFO](../build/BUILD_INFO.md) a [VERIFICATION](../build/VERIFICATION.json). [Snímky a trvalé logy](ui-review/2026-11-03-continuation/README.md). Funkční commity: 88babab (rozpočet), ed0ab3c (stěna), 52a915f (koncepty), 75895bc (hodnocení), 72cf159 (směny), 451cac6 (rozbor), 424eeaf (poslech/profil), 6305282 (grafická matice/exportní testy).
 
 **PICO hardware: NEPROVEDENO – headset není dostupný.** Android native start, stereo, skutečný tracking a ovladače, optická čitelnost, komfort, výkon a paměť nejsou potvrzené desktopovou simulací. Subjektivní lidský poslech rovněž není doložen. [Checklist](PICO4_HARDWARE_CHECKLIST.md) zůstává nevyplněný. Žádný ADB dotaz, instalace na zařízení ani Git push.
+
+Finální source a6d58e3 a testová fixture 74edf37; úplný runner 46 PASS, přímá grafická matice 351/351 a oba přesné balíčky PASS. Aktuální [snímky a logy](ui-review/2026-11-04-release/README.md), [hashe a manifest](../build/BUILD_INFO.md). Bez push.
