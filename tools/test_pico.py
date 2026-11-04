@@ -11,7 +11,7 @@ import platform
 import tempfile
 import zipfile
 
-from test_windows import ROOT, run
+from test_windows import ROOT, run, isolate_test
 
 
 def main():
@@ -71,7 +71,7 @@ def main():
         for name in ['continuation_review','unified_profile','london_listening','attempt_review','advanced_shifts','shift_scoring','work_persistence','shifts','gameplay','gameplay_review','package_content','academy_hub','london_quiz','english_model', 'english_world', 'ui_workflow', 'programming_location', 'programming_integration',
                      'xr_modes', 'terminal_sessions']:
             script = temporary / (name + '.gd')
-            script.write_text((ROOT / 'tests' / script.name).read_text(encoding='utf-8'), encoding='utf-8')
+            script.write_text(isolate_test((ROOT / 'tests' / script.name).read_text(encoding='utf-8'), 'pico'), encoding='utf-8')
             command = [engine, '--headless', '--audio-driver', 'Dummy', '--main-pack', pack, '--script', script, '--']
             if name in ['terminal_sessions','work_persistence']:
                 command += ['--verify-packaged', f'--lesson-solutions={ROOT / "tests/lesson_solutions.json"}']

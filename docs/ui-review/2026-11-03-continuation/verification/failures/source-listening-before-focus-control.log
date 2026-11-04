@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+AUDIO END DIAGNOSTIC LONL02 mode=english playing=false revision=8 spoken=8 session={ "version": 1, "id": "LONL02", "mode": "learn", "order": ["age_proof", "route", "ticket_choice", "pay_now"], "transcript_allowed": true, "transcript": false, "heard": false, "plays": 1, "slow": false, "muted": false, "completed": false, "answer": "", "auto_played": false }
+ERROR: Konec skutečného audia sám nevybere odpověď / LONL02
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_listening.gd:22)
+       [1] run (res://tests/london_listening.gd:93)
+       [2] frames (res://tests/london_listening.gd:25)
+ERROR: Nedokončené audio není vydáváno za samostatný poslech / LONL02learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_listening.gd:22)
+       [1] run (res://tests/london_listening.gd:104)
+       [2] click (res://tests/london_listening.gd:47)
+       [3] frames (res://tests/london_listening.gd:25)
+LONDON LISTENING: 515 checks, 2 failures; audio decoded/player tested, no human listening claim

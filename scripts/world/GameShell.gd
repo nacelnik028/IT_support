@@ -39,7 +39,7 @@ var practical_intro
 
 func _notification(what: int):
 	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT: return
-	if is_instance_valid(speech): speech.stop()
+	if is_instance_valid(speech): speech.stop_speech()
 	if vr_active: return
 	# Keep desktop movement from continuing behind another application. Returning
 	# focus never resumes automatically; the player chooses Continue in pause.
@@ -240,7 +240,7 @@ func _process(delta):
 		store_pose()
 
 func set_mode(value: String):
-	if value!="english" and is_instance_valid(speech): speech.stop()
+	if value!="english" and is_instance_valid(speech): speech.stop_speech()
 	if value == "menu" and ui.game.game_mode.is_away():
 		world.player.position = Vector3(7,0.02,3.5)
 		ui.game.reconcile_room()

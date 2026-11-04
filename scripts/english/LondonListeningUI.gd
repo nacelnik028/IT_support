@@ -7,7 +7,7 @@ static func audio(ui):
 	for entry in [["Poslechnout / zopakovat",false],["Pomaleji / zaznamená pomoc",true]]:
 		var button=ui.shell.ui.button(entry[0],func(): ui.shell.speech.listen(id,entry[1]))
 		button.custom_minimum_size.y=48; row.add_child(button); ui.buttons.append(button)
-	var stop=ui.shell.ui.button("Zastavit",ui.shell.speech.stop); row.add_child(stop); ui.buttons.append(stop)
+	var stop=ui.shell.ui.button("Zastavit",ui.shell.speech.stop_speech); row.add_child(stop); ui.buttons.append(stop)
 
 static func draw(ui):
 	var listening=ui.manager.listening

@@ -34,7 +34,7 @@ func action(text: String, callback: Callable, primary: bool = false) -> Button:
 	return button
 
 func draw():
-	shell.speech.stop()
+	shell.speech.stop_speech()
 	if page=="listening" and not manager.listening.session.is_empty(): selected_mode=manager.listening.session.mode
 	elif page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
 	elif page=="dialog" and not manager.session.is_empty():
@@ -211,7 +211,7 @@ func audio_controls(text: String, speaker: String):
 	for item in [["Poslechnout / zopakovat",false],["Pomaleji",true]]:
 		var b=shell.ui.button(item[0],func(): shell.speech.speak(text,speaker,item[1]))
 		b.custom_minimum_size.y=48; row.add_child(b); buttons.append(b)
-	var stop_button=shell.ui.button("Zastavit",shell.speech.stop); row.add_child(stop_button); buttons.append(stop_button)
+	var stop_button=shell.ui.button("Zastavit",shell.speech.stop_speech); row.add_child(stop_button); buttons.append(stop_button)
 
 func listening_choose(id: String, token: int):
 	if manager.listening.answer(id,token): draw()

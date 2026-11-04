@@ -7,8 +7,10 @@ const EXPECTED=["ticket_options","ticket_choice","family_ages","clarify","compar
 var shell
 var checks=0
 var failures=0
+var focus_outs=0
 
 func _init():
+	root.focus_exited.connect(func(): focus_outs+=1; print("TEST WINDOW FOCUS OUT / ",focus_outs))
 	var tag=str(OS.get_process_id())
 	Saves.path_override="user://london_listening_"+tag+".json"
 	Settings.path_override="user://london_listening_"+tag+".cfg"
@@ -34,13 +36,16 @@ func button(caption: String):
 func click(control: Control):
 	check(control!=null,"Skutečné požadované tlačítko existuje")
 	if control==null: return
-	for scroll in shell.ui.get_scroll_ancestors(control): scroll.ensure_control_visible(control)
+	for scroll in shell.ui.get_scroll_ancestors(control): scroll.ensure_control_visible(control); scroll.scroll_vertical+=4
 	await frames()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var viewport=control.get_viewport(); var at=control.get_global_rect().get_center()
-	var motion=InputEventMouseMotion.new(); motion.position=at; viewport.push_input(motion,true)
+	var visible=viewport.get_visible_rect().encloses(control.get_global_rect().grow(-0.5))
+	for scroll in shell.ui.get_scroll_ancestors(control): visible=visible and scroll.get_global_rect().encloses(control.get_global_rect().grow(-0.5))
+	check(visible,"Cíl kliknutí je plně odkrytý po posuvu: "+control.text)
+	var motion=InputEventMouseMotion.new(); motion.position=at; motion.global_position=at; viewport.push_input(motion,true)
 	for down in [true,false]:
-		var event=InputEventMouseButton.new(); event.position=at; event.button_index=MOUSE_BUTTON_LEFT; event.pressed=down; viewport.push_input(event,true); await process_frame
+		var event=InputEventMouseButton.new(); event.position=at; event.global_position=at; event.button_index=MOUSE_BUTTON_LEFT; event.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0; event.pressed=down; viewport.push_input(event,true)
 	await frames()
 
 func run():
@@ -77,20 +82,29 @@ func run():
 			check(not ui.content.find_children("*","Label",true,false).any(func(label): return label.text.contains(line.text)),"Přesný přepis je před odpovědí skrytý")
 			check(ui.buttons.all(func(item): return not item.tooltip_text.contains(".mp3") and not item.tooltip_text.contains(EXPECTED[index])),"Tooltip/file metadata neprozrazuje odpověď")
 			if mode=="learn":
-				await click(button("Poslechnout / zopakovat"))
-				check(shell.speech.playing and shell.speech.line_id==task.clip and shell.speech.pitch_scale==1.0,"Skutečný player přehrává správný klip")
-				await create_timer(lengths.normal).timeout
-				# Native audio buffers finish independently of the render timer.
-				# Wait for the actual player/finished signal, with a bounded grace.
-				for poll in 100:
-					if not shell.speech.playing: break
-					await create_timer(0.03).timeout
-				await frames()
+				# Foreground changes caused by the desktop/test host must exercise
+				# the real focus guard, not be mistaken for an audio end failure.
+				# Explicitly click Replay after refocusing; production never resumes.
+				for replay in 3:
+					if DisplayServer.get_name()!="headless": root.grab_focus()
+					await frames()
+					var focus_before=focus_outs
+					await click(button("Poslechnout / zopakovat"))
+					check(shell.speech.playing and shell.speech.line_id==task.clip and shell.speech.pitch_scale==1.0,"Skutečný player přehrává správný klip")
+					await create_timer(lengths.normal).timeout
+					for poll in 100:
+						if not shell.speech.playing: break
+						await create_timer(0.03).timeout
+					await frames()
+					if listening.session.heard: break
+					if focus_outs==focus_before: break
+					check(not shell.speech.playing and not listening.session.heard,"Skutečný desktop focus-out přerušil klip bez falešného potvrzení")
+					print("TEST explicit replay after focus interruption / ",task.id)
 				if not listening.session.heard: print("AUDIO END DIAGNOSTIC ",task.id," mode=",shell.mode," playing=",shell.speech.playing," revision=",listening.revision," spoken=",shell.speech.spoken_revision," session=",listening.session)
 				check(listening.session.heard and not listening.session.completed and listening.session.answer=="","Konec skutečného audia sám nevybere odpověď / "+task.id)
 			else:
 				check(shell.speech.listen(task.id),"Režim používá stejný skutečný klip")
-				shell.speech.stop()
+				shell.speech.stop_speech()
 			var selected=""
 			for option in task.options:
 				if option.id==EXPECTED[index]: selected=str(listening.session.order.find(option.id)+1)+"  "+option.text
@@ -112,6 +126,14 @@ func run():
 	check(not shell.speech.playing,"Focus-out zastaví poslech")
 	shell.set_mode("english"); shell.speech.listen("LONL01"); listening.start("LONL02","practice",2); await frames()
 	check(not shell.speech.playing and listening.session.answer=="","Rychlá změna úlohy zastaví starý klip")
+	# A queued completion for an explicitly stopped/replaced play is not proof.
+	listening.start("LONL01","practice",3); shell.speech.listen("LONL01")
+	var old_token=shell.speech.spoken_revision; var old_generation=shell.speech.play_generation
+	shell.speech.stop_speech(); shell.speech.complete_listening_clip(old_token,old_generation)
+	check(not listening.session.heard,"Zastavené přehrání odmítne opožděný callback")
+	shell.speech.listen("LONL01"); shell.speech.complete_listening_clip(old_token,old_generation)
+	check(not listening.session.heard,"Starý callback neoznačí nové přehrání za dokončené")
+	shell.speech.stop_speech()
 	listening.start("LONL01","exam",900)
 	check(not listening.transcript(listening.revision),"Zkouška blokuje přepis")
 	var exam_order=listening.session.order.duplicate()

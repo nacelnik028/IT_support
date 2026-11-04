@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -22,6 +23,12 @@ def run(args, cwd, log):
     for line in text.splitlines():
         if re.search(r'(checks|actions|missions).*failures',line): print(line,flush=True)
     return ok
+
+
+def isolate_test(text, kind):
+    # Prefix every explicit test fixture path in the external copy. Resources
+    # still come from the actual pack; concurrent platforms cannot share saves.
+    return text.replace("user://", f"user://package_{kind}_{os.getpid()}_")
 
 
 def main():
@@ -60,7 +67,7 @@ def main():
         # Only screenshot destinations in the temporary test copies change.
         for name in ['continuation_review','unified_profile','london_listening','attempt_review','advanced_shifts','shift_scoring','work_persistence','shifts','gameplay','gameplay_review','package_content','academy_hub','london_quiz','english_model','english_world','ui_workflow','programming_runtime','programming_catalog','programming_academy','programming_integration','programming_polish','programming_location','xr_modes','terminal_sessions','ui_design','world_ui','world_playthrough']:
             script=isolated/f'{name}.gd'
-            text=(ROOT/f'tests/{name}.gd').read_text(encoding='utf-8')
+            text=isolate_test((ROOT/f'tests/{name}.gd').read_text(encoding='utf-8'), 'windows')
             script.write_text(text.replace('res://test-output',screenshots.as_posix()).replace('res://docs/ui-review/2026-11-03-gameplay',(screenshots/'gameplay').as_posix()).replace('res://docs/ui-review/2026-11-03-continuation',(screenshots/'continuation').as_posix()),encoding='utf-8')
             command=[engine,'--audio-driver','Dummy','--main-pack',main_pack,'--script',script]
             if not args.headless: command+=['--rendering-method','gl_compatibility','--disable-vsync']

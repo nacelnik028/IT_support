@@ -103,7 +103,7 @@ func configure_refresh():
 func lose_focus():
 	if not active: return
 	focused = false
-	if is_instance_valid(shell.speech): shell.speech.stop()
+	if is_instance_valid(shell.speech): shell.speech.stop_speech()
 	teleporting = false
 	teleport_line.hide()
 	monitor.click(false)
@@ -337,7 +337,7 @@ func _physics_process(delta):
 	var head_tracker=XRServer.get_tracker("head")
 	if not focused or head_tracker==null or not head_tracker.has_pose("default"): return
 	if not head_tracker.get_pose("default").has_tracking_data:
-		if is_instance_valid(shell.speech): shell.speech.stop()
+		if is_instance_valid(shell.speech): shell.speech.stop_speech()
 		# Tracking can recover without a new session_focussed signal. Preserve
 		# session focus so the recovered player can resume from the pause menu.
 		teleporting=false

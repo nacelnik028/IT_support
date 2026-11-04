@@ -8,11 +8,25 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILDS = ROOT / "build"
 LOGS = ROOT / "test-output" / "platform-build"
+
+
+def replace_verified(candidate, target):
+    # Windows scanners can briefly retain an APK after signature verification.
+    # Retry only the atomic replacement; never delete the previous artifact.
+    for attempt in range(20):
+        try:
+            candidate.replace(target)
+            return
+        except PermissionError:
+            if attempt == 19:
+                raise
+            time.sleep(0.25)
 
 
 def run(command, name, *, cwd=ROOT, env=None, timeout=900, clean=True):
@@ -243,7 +257,7 @@ def main():
             run([android_engine, "--headless", "--path", ROOT, "--export-debug", "PICO 4", candidate, "--quit"], "pico4-export", env=environment)
         android = verify_apk(candidate, args.sdk.resolve(), environment)
         if candidate != apk:
-            candidate.replace(apk)
+            replace_verified(candidate, apk)
             record_pico_build(apk, version, android)
         manifest = BUILDS / "VERIFICATION.json"
         report = json.loads(manifest.read_text(encoding="utf-8")) if manifest.exists() else {"engine": version}

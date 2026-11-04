@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Úplný runner a dokončení přehrávání — 4. 11. 2026
+
+- Celý aktuální Test-All **46 sad PASS**, 46 startů skutečného Godotu, exit 0 a žádný SCRIPT ERROR/ERROR/WARNING. Včetně 1075 lekcí, save_safety 474, terminal_sessions 64, 65 UI misí a všech tří režimů training_ui / 336 akcí. Trvalý celý log continuation-test-all-complete.log. Tato regrese předchází níže uvedenému zpřesnění audio větve a pozdějšímu uživatelskému doplnění verze; konečné další běhy budou uvedeny samostatně.
+- Windows původní grafický poslechový test odhalil nedoručené kliky a přerušený poslech při skutečném desktop focus-out. Zpřesněné testy mají celý odkrytý cíl, globální souřadnice/masku a úplný press/release; přerušení neobcházejí, ale výslovně po refocus znovu kliknou Přehrát. Produkční ochrana fokus/tracking zůstává aktivní. Žádný časovač nepřiděluje heard.
+- LondonSpeech váže jednorázový finished callback na token/generaci konkrétního přehrání; stop_speech zneplatní i čekající callback a odpojí vazbu. Zastavení, jiný klip a starý callback nemohou doložit nový poslech. Všechny produkční stop cesty používají tuto funkci.
+- Poslech po opravě: **515 headless PASS / 519 GPU Compatibility PASS** (čtyři další kontroly po zaznamenaném reálném focus-out a výslovném přehrání). Ruční očekávané významy všech 12 úloh i všechny tři režimy, všech 24 hashů/dekódování a plné skutečné normální přehrání. Starší selhání archivovaná odděleně ve verification/failures, nikoli vykázaná jako finální PASS.
+- Přesné APK prostředky před poslední změnou: 20 sad PASS; cílené balíčkové sady deset pro každou platformu PASS. Windows 26/27, selhal právě výše vyřešený grafický poslech. Exporty se nyní obnoví a znovu ověří; žádné staré PASS se nepřenesou na nový hash. Zobrazení verze v nastavení dosud čeká na dokončení původního zadání. Bez push a bez PICO/ADB.
+
 ## Dokončování regrese — 4. 11. 2026
 
 - Při návratu zjištěno skutečné selhání terminal_sessions: odeslaný příkaz zapisoval model a následné odstranění konceptu podruhé. Mazání formulářového konceptu nyní proběhne před command dispatch a součástí stejného zápisu. Původní striktní kontrola jediného persistence signálu zůstala zachovaná; přidaná obnova novým GameManagerem prokazuje i nepřítomnost odeslaného konceptu. **64 PASS**.
