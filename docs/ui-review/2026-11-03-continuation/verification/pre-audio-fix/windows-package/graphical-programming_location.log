@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+Blocked at (-15.9593, -0.009162, -4.38729) toward (-16.0, 0.02, 0.0)
+ERROR: Return to entrance aisle
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:101)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+Blocked at (-15.9593, -0.009162, -4.38729) toward (-11.0, 0.02, 0.0)
+ERROR: Return to doorway
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:102)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+Blocked at (-15.9593, -0.009162, -4.38729) toward (-6.5, 0.02, 0.0)
+ERROR: Walk back to server room
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:103)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+ERROR: Exit cancels temporary lesson
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:104)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+ERROR: Campaign preserved: hosts
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:107)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+ERROR: Campaign preserved: vms
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:107)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+ERROR: Campaign preserved: incidents
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:18)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:107)
+       [2] walk_to (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tsr0qcl8/programming_location.gd:32)
+PROGRAMMING LOCATION: 114 checks, 7 failures

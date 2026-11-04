@@ -30,8 +30,10 @@ python3 tools/build_windows.py --godot /path/to/godot-4.7.2 --template /path/to/
 
 Skript ověří skutečnou verzi editoru i spuštěné šablony. V dočasné kopii
 zdrojů provede import a oficiální `--export-debug` s `embed_pck=true`.
-V této izolované kopii odstraní pouze nepodstatné mezery ze všech datových JSON;
-zpětným parsováním ověří shodu každé hodnoty. Autorské katalogy zůstávají stejné.
+V této izolované kopii odstraní nepodstatné mezery z datových JSON a menší katalogy
+uloží nativním bezeztrátovým Godot ZSTD kontejnerem GCPF. ContentReader čte obyčejný
+JSON i tento kontejner. Před nahrazením ověří přesnou dekompresi, balíčkový audit
+navíc shodu všech hodnot s autorskými zdroji. Zdrojové katalogy zůstávají stejné.
 Nepoužívá UPX, ruční připojování PCK ani úpravy PE šablony.
 Ověří x86_64 PE a vložený PCK, velikost pod 100 MiB, potom spustí přejmenované
 samotné EXE z jiné pracovní složky bez projektu či PCK. Smoke kontroluje
@@ -77,3 +79,15 @@ Aktuální verze navíc obsahuje praktický úvod, tři souvislé směny, síťo
 a 12 mluvených replik s pomalými variantami. Obě distribuce mají shodný deterministický
 manifest zdrojů v BUILD_INFO.json; konkrétní výsledky jsou ve VERIFICATION.json.
 Hardwarový PICO test čeká na headset.
+
+
+Navazující obsah: trvalé koncepty a výslovná obnova, pět směn (dvě pokročilé),
+uložený rozbor, 12 vlastních poslechových úloh a společný profil. Přímý průchod
+serverovna–Londýn je zazděný, cesta vede přes hub. Přímý smoke ověřuje také
+work_roundtrip, score_v2, advanced, debrief, listening a knowledge.
+
+Aktuální externí testy: 27 Windows sad + dva native smoke běhy; 20 APK sad +
+dva desktopové smoke běhy. test_gameplay_packages.py přidává deset cílených
+sad pro každý přesný balíček. Všechny externí testovací cesty mají vlastní
+platformní/process prefix; herní prostředky pocházejí ze skutečné distribuce.
+Finální počty a skutečně dokončené výsledky vždy viz VERIFICATION.json.

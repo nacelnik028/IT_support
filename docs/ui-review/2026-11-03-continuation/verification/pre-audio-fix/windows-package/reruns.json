@@ -1,0 +1,50 @@
+{
+  "sha256": "d4ba7004df5c5017b6937c711b079c780c886583e1607dd603d0a5d2c6e273f4",
+  "initial_run": {
+    "native_checks_runtime": "Windows",
+    "editor_pack_checks_runtime": "Windows",
+    "sha256": "d4ba7004df5c5017b6937c711b079c780c886583e1607dd603d0a5d2c6e273f4",
+    "bytes": 104786904,
+    "results": {
+      "native_headless": true,
+      "native_graphical": true,
+      "english_model": true,
+      "english_world": true,
+      "ui_workflow": true,
+      "programming_runtime": true,
+      "programming_catalog": true,
+      "programming_academy": true,
+      "programming_integration": true,
+      "programming_polish": true,
+      "programming_location": false,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": true
+    }
+  },
+  "corrected_harness_reruns": {
+    "english_world": true,
+    "programming_location": true
+  },
+  "final_results": {
+    "native_headless": true,
+    "native_graphical": true,
+    "english_model": true,
+    "english_world": true,
+    "ui_workflow": true,
+    "programming_runtime": true,
+    "programming_catalog": true,
+    "programming_academy": true,
+    "programming_integration": true,
+    "programming_polish": true,
+    "programming_location": true,
+    "xr_modes": true,
+    "terminal_sessions": true,
+    "ui_design": true,
+    "world_ui": true,
+    "world_playthrough": true
+  },
+  "reason": "Native focus loss correctly paused the game; automation explicitly resumes via the real Continue button. No game focus safety was disabled."
+}

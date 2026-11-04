@@ -10,8 +10,8 @@ func check(ok,message):
 
 func _init():
 	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_lessons_"+str(OS.get_process_id())+"_vr.cfg"
-	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_lessons.cfg"
-	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_lessons.json"
+	preload("res://scripts/core/DisplaySettings.gd").path_override="user://academy_test_lessons.cfg"+"_"+str(OS.get_process_id())
+	preload("res://scripts/progression/SaveManager.gd").path_override="user://academy_test_lessons.json"+"_"+str(OS.get_process_id())
 	var game=Game.new()
 	game.enter_training()
 	var solutions=JSON.parse_string(FileAccess.get_file_as_string("res://tests/lesson_solutions.json"))

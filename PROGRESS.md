@@ -1,5 +1,16 @@
 # Datacenter Academy — stav vývoje
 
+## Původní prompt hotový — ukládání, směny a poslech — původní zadání dokončeno 4. 11. 2026
+
+- Celý aktuální Test-All **46 sad PASS**, 46 startů enginu, exit 0, bez runtime chyb/varování. Nové sady: work_persistence 69, shift_scoring 31, advanced_shifts 268, attempt_review 49, london_listening 515, unified_profile 38 a continuation_review 200 headless. Kampaň/legacy24, staré save a jediné odměny zachované; save_safety 474, lekce 1075, UI všech 65 misí a 336 výukových akcí ve všech třech režimech PASS.
+- PC/VR grafická matice: **298 PASS Compatibility / 298 PASS Forward+**, 196 aktuálních PNG. Šest PC kombinací, skutečný VR 1600×1200, text 100/130 %, panel 80/140 % a 0,9/2 m, obě ruce, trigger/scroll/drag/klávesnice, focus/tracking. MCP 31 PASS; osm původních statických varování odděleně, bez nových.
+- Windows **27 externích sad + dva nativní smoke běhy PASS**. Přejmenovaný samotný EXE z cizí složky, bez projektu/PCK/editoru. APK: podpis/původní certifikát/CRC/ARM64 OpenXR/1.5.0 code 6 PASS, **20 externích sad + dva desktopové smoke běhy PASS** nad skutečnými APK prostředky. Dalších deset cílených sad pro každý přesný balíček PASS. Obsah: Windows 5616 kontrol / 282 souborů, APK 5563 / 286; 277 materiálů, skutečné audio a JSON hodnoty shodné.
+- EXE **104,453,712 B**, rezerva **403,888 B** pod 100 MiB; SHA256 `3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26`. APK **90,829,077 B**; SHA256 `b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4`.
+- Zdrojový commit `a43cd6d`, shodný manifest 269 zdrojů `db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c`. [Přesná metadata](build/VERIFICATION.json), [aktuální snímky a trvalé logy](docs/ui-review/2026-11-04-release-base/README.md), [ovládání](docs/CONTINUATION_RELEASE.md).
+- **PICO hardware NEPROVEDENO – headset není dostupný.** Android native start, stereo, tracking/ovladače, optika, komfort, FPS a paměť nejsou těmito testy potvrzené. Subjektivní lidský poslech neprovedený; hash/dekódování/PCM/skutečný přehrávač ano. Bez ADB a bez push.
+
+Tato fáze uzavírá původní prompt. Uživatelské doplnění verze v nastavení následuje až potom; jeho nové exporty budou mít vlastní ověření. Starší sekce níže jsou historické.
+
 ## Úplný runner a dokončení přehrávání — 4. 11. 2026
 
 - Celý aktuální Test-All **46 sad PASS**, 46 startů skutečného Godotu, exit 0 a žádný SCRIPT ERROR/ERROR/WARNING. Včetně 1075 lekcí, save_safety 474, terminal_sessions 64, 65 UI misí a všech tří režimů training_ui / 336 akcí. Trvalý celý log continuation-test-all-complete.log. Tato regrese předchází níže uvedenému zpřesnění audio větve a pozdějšímu uživatelskému doplnění verze; konečné další běhy budou uvedeny samostatně.

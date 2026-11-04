@@ -1,0 +1,109 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL01learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL01practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL01exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL02learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL02practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečná odpověď a konkrétní vysvětlení LONL03practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:99)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Starý nebo druhý trigger nezapíše další výsledek
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:100)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Skutečný player přehrává správný klip
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:81)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+AUDIO END DIAGNOSTIC LONL04 mode=english playing=false revision=20 spoken=18 session={ "version": 1, "id": "LONL04", "mode": "learn", "order": ["speed_up", "confirm", "leave", "clarify"], "transcript_allowed": true, "transcript": false, "heard": false, "plays": 0, "slow": false, "muted": false, "completed": false, "answer": "", "auto_played": false }
+ERROR: Konec skutečného audia sám nevybere odpověď / LONL04
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:90)
+       [2] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+ERROR: Nedokončené audio není vydáváno za samostatný poslech / LONL04learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:22)
+       [1] run (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:101)
+       [2] click (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:44)
+       [3] frames (C:/Users/vit/AppData/Local/Temp/academy-windows-verify-tu3jm5sr/london_listening.gd:25)
+LONDON LISTENING: 464 checks, 15 failures; audio decoded/player tested, no human listening claim

@@ -1,31 +1,10 @@
-# Training academy — gameplay PC/PICO, 3. 11. 2026
+# Training academy — původní zadání dokončeno 4. 11. 2026
 
-Godot 4.7.2.stable.official.ed1daf0bf. Herní implementace `8e931aa` navazuje na
-`cda0a5f` a `f6b05d8`. Přesný seznam 240 zdrojů a SHA256 je v obou BUILD_INFO.json,
-včetně vygenerovaných UID. Shodný deterministický manifest:
-`77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe`.
+Godot 4.7.2.stable.official.ed1daf0bf. Zdroj `a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a`. Shodný deterministický manifest 269 zdrojů: `db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c`.
 
-- ITSupportSimulator.exe: Windows x86_64 Debug, vložená data, **104 826 336 B**.
-  Rezerva **31 264 B** do 104 857 600 B. SHA256:
-  `e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c`.
-- pico4/ITSupportSimulator-PICO4.apk: podepsaný ARM64 Debug, **1.4.0 / code 5**,
-  **90 743 347 B**. SHA256:
-  `8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf`.
+- Windows x86_64 Debug, vložený PCK: 104453712 B; rezerva 403888 B. SHA256 `3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26`. Nativní headless/GPU EXE-only + 27 externích sad PASS.
+- PICO ARM64 podepsaný Debug 1.5.0 / code 6: 90829077 B. SHA256 `b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4`. Podpis/původní certifikát/CRC/manifest PASS; dva desktopové smoke a 20 externích sad PASS.
 
-EXE byl spuštěn z cizí pracovní složky, přejmenovaný a bez PCK/editoru.
-Nativní headless/GPU smoke a 20 externích balíčkových sad PASS. APK podpis,
-původní certifikát, CRC, manifest a prostředky PASS; dva desktopové smoke běhy
- a 13 externích sad PASS. Dodatečně nad oběma přesnými balíčky: shifts 136,
-gameplay 212 a XR 116 PASS, včetně skutečných MP3 dat proti SHA256.
-Celý aktuální zdrojový Test-All: 39 sad PASS, bez runtime chyb a varování.
+46 zdrojových sad PASS, dalších deset cílených sad na každý přesný balíček PASS. PC matice a syntetické XR 298/298 Compatibility/Forward+, 196 PNG. Soukromé klíče, testovací save ani TTS model/WAV nejsou v distribuci. Nativní ZSTD katalogů je bezeztrátové, hodnoty všech JSON porovnané.
 
-Nový obsah: praktický úvod, tři směny po třech navazujících ticketech, vysvětlení
-sítě, 12 mluvených replik a pomalé varianty, panel/diagnostika. Zachováno 65/21 IT,
-programování, Londýn, podpis a postup. Offline řeč; žádný TTS model, pracovní WAV,
-testovací save ani soukromé klíče v distribuci.
-
-**PICO hardware NEPROVEDENO – headset není dostupný.** Android native start,
-tracking, stereo, optika, komfort, FPS a paměť čekají na zařízení. Desktopové
-APK testy to nenahrazují. Subjektivní lidský poslech není doložen; automatické
-PC dekódování/přehrávání ano. Detaily: VERIFICATION.json, TEST_REPORT.md
-a docs/PICO4_HARDWARE_CHECKLIST.md.
+PICO hardware **NEPROVEDENO – headset není dostupný**; Android native start, stereo, tracking, optika, komfort, FPS/paměť neověřené. Subjektivní lidský poslech neprovedený. Bez ADB a bez push. Podrobnosti VERIFICATION.json a ../TEST_REPORT.md. Uživatelské zobrazení verze v nastavení bude další samostatný krok.

@@ -3,10 +3,10 @@
   "export": "Android ARM64 signed Debug",
   "artifact": {
     "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-    "bytes": 90743347,
-    "sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf"
+    "bytes": 90829077,
+    "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4"
   },
-  "source_commit": "8e931aa797e290912b11eb9f6fd9374c57d7240f",
+  "source_commit": "a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a",
   "sources": [
     {
       "file": "project.godot",
@@ -16,7 +16,17 @@
     {
       "file": "export_presets.cfg",
       "bytes": 2195,
-      "sha256": "8bf317c2707acfcda2422aa614c5ea42ef03e945f546af8feaf89bbee80ce238"
+      "sha256": "ff29ae290fd82669ae62dc5edf9e44202370a230dccbe9b487ae8661607f806e"
+    },
+    {
+      "file": "scripts/core/ContentReader.gd",
+      "bytes": 570,
+      "sha256": "9c2c5399eeecaaccdde00a248e362f509850bd6e365196c161f7d5aa9a21c16e"
+    },
+    {
+      "file": "scripts/core/ContentReader.gd.uid",
+      "bytes": 20,
+      "sha256": "ed42c09df6fb2b236417ea7438b013e3ba7685ccac7bd58af3443f10069625c5"
     },
     {
       "file": "scripts/core/DisplaySettings.gd",
@@ -30,8 +40,8 @@
     },
     {
       "file": "scripts/core/GameManager.gd",
-      "bytes": 24361,
-      "sha256": "f6d906895e04e957ca07247d5f6e33f47cf9e82d196d6565f6389a1ea22828a9"
+      "bytes": 26888,
+      "sha256": "040de5dce3f9e19366058723a398fd8b8981555a09f15f56ccd878ea4a82c31d"
     },
     {
       "file": "scripts/core/GameManager.gd.uid",
@@ -60,8 +70,8 @@
     },
     {
       "file": "scripts/english/DialogueController.gd",
-      "bytes": 13341,
-      "sha256": "5ce521926fd0e6ad4b8ebfffe923094a9e42499772adda02b795c17743a5862c"
+      "bytes": 14553,
+      "sha256": "4bc5debe50018ffc76bd29ce93a5b2531e7e63d6add7469e12e6b0c968758f42"
     },
     {
       "file": "scripts/english/DialogueController.gd.uid",
@@ -70,8 +80,8 @@
     },
     {
       "file": "scripts/english/EnglishManager.gd",
-      "bytes": 20520,
-      "sha256": "500e738441aaace0ef12c0d78051c94d7def36fc1ceff93b4174ab612ce797c4"
+      "bytes": 21122,
+      "sha256": "6caeae1856c7fd7a40e506ad22dcb5d33ca2be39ea535165d72941afec9465fd"
     },
     {
       "file": "scripts/english/EnglishManager.gd.uid",
@@ -80,8 +90,8 @@
     },
     {
       "file": "scripts/english/EnglishRoom.gd",
-      "bytes": 9873,
-      "sha256": "4e968101c130f6502832755b43f2469a15b7869ba25d3bfd77b9056d130fdfc8"
+      "bytes": 9861,
+      "sha256": "d91992b1a5fee3c1fc4db715d5ff63f890366315c2b3ab1c0e3a4ab14fb5ddc0"
     },
     {
       "file": "scripts/english/EnglishRoom.gd.uid",
@@ -89,9 +99,29 @@
       "sha256": "5330094ce737ca2e1a17de84e345e5662d7bab5c4ce16fc642aa25c9f1c3bb28"
     },
     {
+      "file": "scripts/english/LondonListening.gd",
+      "bytes": 6640,
+      "sha256": "1adddcead9bd1fc30482515cbc93ff5b04d67473ae03757a2e161bc1a8bc858b"
+    },
+    {
+      "file": "scripts/english/LondonListening.gd.uid",
+      "bytes": 19,
+      "sha256": "caeb3f3dc0782cabcab5262234240830f6a3fbea0388d8e13f7f21ee1265702f"
+    },
+    {
+      "file": "scripts/english/LondonListeningUI.gd",
+      "bytes": 5650,
+      "sha256": "368603d697db3e06ef2340f28283cdb5935badff565f04d8a36133034c61eaf9"
+    },
+    {
+      "file": "scripts/english/LondonListeningUI.gd.uid",
+      "bytes": 20,
+      "sha256": "85a2eeabc41f26778c0b652c2363740a6d5641c7a3d7dacad41b56b5597cc374"
+    },
+    {
       "file": "scripts/english/LondonQuiz.gd",
-      "bytes": 3385,
-      "sha256": "246a1153e850c74953d40163429bf6317f58b405a9c76670519c8af71e10ffb1"
+      "bytes": 3744,
+      "sha256": "aebbe87016f1102de9f42eff08eaa1d11bcccecc495c084b0722b709b38c41e2"
     },
     {
       "file": "scripts/english/LondonQuiz.gd.uid",
@@ -100,8 +130,8 @@
     },
     {
       "file": "scripts/english/LondonQuizUI.gd",
-      "bytes": 3550,
-      "sha256": "3064bd1fd614717a59246d038cda5fee5759783ddab2e392ad986a524b41aaac"
+      "bytes": 3762,
+      "sha256": "7bed36aa85f4fa05e9f54b877cc22d496f85eac1e44b2c75d894b67f6808912e"
     },
     {
       "file": "scripts/english/LondonQuizUI.gd.uid",
@@ -110,13 +140,23 @@
     },
     {
       "file": "scripts/english/LondonSpeech.gd",
-      "bytes": 1220,
-      "sha256": "de7703c9c488061fb9e5c1937fb111cb8ddcee7ebcec0b291ebd2899f0e961d8"
+      "bytes": 3528,
+      "sha256": "f9c977fa202a418efbe3dc5b51e1ffb61e420c72a4ab3fc98f474d7b578f99f3"
     },
     {
       "file": "scripts/english/LondonSpeech.gd.uid",
       "bytes": 20,
       "sha256": "6061eb8c0176f168dccd51530d05e6783269e4beb67f31c7a551f75682d18c71"
+    },
+    {
+      "file": "scripts/evaluation/AttemptReview.gd",
+      "bytes": 13241,
+      "sha256": "52f465644146becf8905ee3bd53425f275581a7415ac7c5d111f5341e5f501b9"
+    },
+    {
+      "file": "scripts/evaluation/AttemptReview.gd.uid",
+      "bytes": 20,
+      "sha256": "2dfe14b3a685c8f8b8bda0a2ccaf24351a818f38561f6492a7a500f8271cc6dc"
     },
     {
       "file": "scripts/evaluation/ObjectiveEvaluator.gd",
@@ -129,9 +169,19 @@
       "sha256": "40f43b6653b1e008b9b000ad839d1f670135a02611c4769f4b1c51bdb73904c6"
     },
     {
+      "file": "scripts/evaluation/ScoreRules.gd",
+      "bytes": 1837,
+      "sha256": "a8ae15f3b6e600582d3e5bc4fddfa0e1a2cf7bb66e06a5147e2e38956ec1cf80"
+    },
+    {
+      "file": "scripts/evaluation/ScoreRules.gd.uid",
+      "bytes": 20,
+      "sha256": "e02b7b47a168b9dff34a9cf21556093582e2372228d5596c2a85a9593bc83767"
+    },
+    {
       "file": "scripts/programming/AcademyManager.gd",
-      "bytes": 6274,
-      "sha256": "8832b1b1a0f7bfcb579906fef568c96ae6e6fa57dd1700239a4fb58280e74c4a"
+      "bytes": 10304,
+      "sha256": "71ee8a757c4d7aef36d0c13f3061c2df1b7c76933a514d40a8f97aba61dfbfec"
     },
     {
       "file": "scripts/programming/AcademyManager.gd.uid",
@@ -159,9 +209,19 @@
       "sha256": "264ddd4c71d83728ae1a7e0beeeeb81eff18221d8221f04d90d1c2bab2f81e9f"
     },
     {
+      "file": "scripts/programming/CodeDrafts.gd",
+      "bytes": 4038,
+      "sha256": "e3f02c6f0c4e6c7ce32b7f75cbecf920263a3d5d6d26f50ee169c4dca06cf680"
+    },
+    {
+      "file": "scripts/programming/CodeDrafts.gd.uid",
+      "bytes": 20,
+      "sha256": "e63245d41be20b23510554fcb5e02b528d67a254e2584c940733794c6d36fd17"
+    },
+    {
       "file": "scripts/programming/CodeEditorController.gd",
-      "bytes": 21125,
-      "sha256": "eb4c2e7d460817c6fb7261985ab6bb378af067f26614e6944c9c68fbbbedb098"
+      "bytes": 26251,
+      "sha256": "16a9da72258400830a7a67327b2a1a893481f0ba082647f3e9a2576a7a6b7a9b"
     },
     {
       "file": "scripts/programming/CodeEditorController.gd.uid",
@@ -240,8 +300,8 @@
     },
     {
       "file": "scripts/progression/SaveManager.gd",
-      "bytes": 5060,
-      "sha256": "433a7a945d8a863c4e97e3b66770898ae8f51f8d08badefad413303506e6f570"
+      "bytes": 6650,
+      "sha256": "9bb5cf49bd940d2a09d5b29628d84b282b9bbf30d016d632d864c9c2230ea312"
     },
     {
       "file": "scripts/progression/SaveManager.gd.uid",
@@ -250,8 +310,8 @@
     },
     {
       "file": "scripts/progression/SaveValidator.gd",
-      "bytes": 20561,
-      "sha256": "212dba0a2661b01b93c5d1cb906b40db6f388ab44806d957bfdc932cfac67b54"
+      "bytes": 24586,
+      "sha256": "361676e8a9602f3dd60cb4aa938c5382272986fe6734e231e594ecbc6505eb8b"
     },
     {
       "file": "scripts/progression/SaveValidator.gd.uid",
@@ -259,9 +319,19 @@
       "sha256": "967ee3293e14077de5b26c4948e772d130c77236ebfd48d00ee29df8f3e869d8"
     },
     {
+      "file": "scripts/progression/WorkArchive.gd",
+      "bytes": 2917,
+      "sha256": "fee9c68b418a911ccbf9d88a6cb25b1590c0ba4285b354a067a66291e41a5a27"
+    },
+    {
+      "file": "scripts/progression/WorkArchive.gd.uid",
+      "bytes": 20,
+      "sha256": "224e5d8d1f034869f8be22bd88075decb02c610089b0620f5ee47128508ddcca"
+    },
+    {
       "file": "scripts/shifts/GameplaySmoke.gd",
-      "bytes": 1435,
-      "sha256": "81c4c57285d16bd483239dae2e789301038d313c8ca656f010a1df692807049f"
+      "bytes": 3397,
+      "sha256": "9b794c3c25ae3329803761445038c0220f5bbd1cb130c1fc94c1f6d07ed9ecf5"
     },
     {
       "file": "scripts/shifts/GameplaySmoke.gd.uid",
@@ -269,9 +339,19 @@
       "sha256": "3651b76cd019fd3c2f9282da24e50fe3e47124f4860cb81109ba04371ded1645"
     },
     {
+      "file": "scripts/shifts/ShiftIncidents.gd",
+      "bytes": 2953,
+      "sha256": "598c7ddd7a5ca7eaf255a49e3e93e09546880f7115245051abe86a3e3356a4f6"
+    },
+    {
+      "file": "scripts/shifts/ShiftIncidents.gd.uid",
+      "bytes": 20,
+      "sha256": "c62bf5a5986969d0e89246d6524481f8eb7ebcb4eaa0faf2d22062cf1862a431"
+    },
+    {
       "file": "scripts/shifts/ShiftManager.gd",
-      "bytes": 4412,
-      "sha256": "93e8119786c8eb2b27c9c90d0f2ca9d5f35956425a08e74a639df2a5fa0bee4c"
+      "bytes": 8178,
+      "sha256": "5a43bb56aaf072610e7fabfcd444fd4d390d912608625abeb32842a2bda95e31"
     },
     {
       "file": "scripts/shifts/ShiftManager.gd.uid",
@@ -280,8 +360,8 @@
     },
     {
       "file": "scripts/shifts/ShiftPresentation.gd",
-      "bytes": 2194,
-      "sha256": "e267eca52e07ca04e1a03f0b3f1a769906e1f4ed398440d5a70b64d134e70016"
+      "bytes": 4244,
+      "sha256": "c94aeeb465e2f1b59e679b2a89aa699e071a3b31298c293b1d197e12a7e35496"
     },
     {
       "file": "scripts/shifts/ShiftPresentation.gd.uid",
@@ -310,8 +390,8 @@
     },
     {
       "file": "scripts/simulation/InfrastructureSimulator.gd",
-      "bytes": 10794,
-      "sha256": "2b0f9804dc22df2d48304c8c162a06967c12318d98151d5276ddac77684200c2"
+      "bytes": 10838,
+      "sha256": "beee8f274adfb066b0c650f92060cedaeb2cfe504bd362b1dead203afa3dec36"
     },
     {
       "file": "scripts/simulation/InfrastructureSimulator.gd.uid",
@@ -390,8 +470,8 @@
     },
     {
       "file": "scripts/training/KnowledgeProfile.gd",
-      "bytes": 2770,
-      "sha256": "7681415a20e3252c2d38b5c5381acc12da56608e8da19c67f9a95cbe7cb794f5"
+      "bytes": 2881,
+      "sha256": "67ae40d192123c6016503e2e83560603919357a37f2bbb6a056206dbdf1f6a2e"
     },
     {
       "file": "scripts/training/KnowledgeProfile.gd.uid",
@@ -400,8 +480,8 @@
     },
     {
       "file": "scripts/training/PracticeGenerator.gd",
-      "bytes": 9182,
-      "sha256": "ce84911b71b8e22bb5d25831ac718e016f756aa5489856a213c93153ea573b6e"
+      "bytes": 9226,
+      "sha256": "2f39863fa3be7c5b091dcdb427a65df79a55e2fe36cbc4edb734bb0d515a8884"
     },
     {
       "file": "scripts/training/PracticeGenerator.gd.uid",
@@ -409,9 +489,29 @@
       "sha256": "4f72031ce1bc372148dc82028bcc83694f7e996fef6116b7f72aba303bba2dcc"
     },
     {
+      "file": "scripts/training/RecommendationRouter.gd",
+      "bytes": 4980,
+      "sha256": "889fcd25d6f4234e811c690104f6c479978b909a002218a8384da408221bfdb8"
+    },
+    {
+      "file": "scripts/training/RecommendationRouter.gd.uid",
+      "bytes": 19,
+      "sha256": "31f5e7a3c441ca410a941aad350e6e2c7142a449b8ea96565000f8b572ae25c6"
+    },
+    {
+      "file": "scripts/training/SkillEvidence.gd",
+      "bytes": 10641,
+      "sha256": "337372c919ed2320283d1f30703dd278ed2ed1ba041540cc5f7664be4c364eb0"
+    },
+    {
+      "file": "scripts/training/SkillEvidence.gd.uid",
+      "bytes": 20,
+      "sha256": "1cbc137b9a306ce07593360bd52fd7b7115f4842eef4ebf7a05962084f0336ea"
+    },
+    {
       "file": "scripts/training/TutorialManager.gd",
-      "bytes": 2155,
-      "sha256": "ff288436b2e960e2d58ac97e023324662c484e48cdb8b1334cf2ec2052c12d23"
+      "bytes": 2177,
+      "sha256": "7eccbaf39888024ccc22756918566a5b17656e057074706ab39ac14da15ae5bf"
     },
     {
       "file": "scripts/training/TutorialManager.gd.uid",
@@ -469,6 +569,36 @@
       "sha256": "4a83a94c71c3c6979116afe78b7de7f3729d79c01ace0d99dfdef6ca8e0b023d"
     },
     {
+      "file": "scripts/ui/ContinuationPresentation.gd",
+      "bytes": 3028,
+      "sha256": "59589b3b1c24921fa6c42dc2a86bb7b6a884109f2d89758a0938b8ba202c90e4"
+    },
+    {
+      "file": "scripts/ui/ContinuationPresentation.gd.uid",
+      "bytes": 20,
+      "sha256": "1f8de5f3638ebb7252f86b754164672c627a583f7dfcf7948d282dda473627dd"
+    },
+    {
+      "file": "scripts/ui/DebriefPresentation.gd",
+      "bytes": 1788,
+      "sha256": "3216bc446f434487768994cf3bf73d6c31d7cbed134862b18965cff06108d2b1"
+    },
+    {
+      "file": "scripts/ui/DebriefPresentation.gd.uid",
+      "bytes": 19,
+      "sha256": "29134dafeee935627f7565a3522c2997019e37b8e53d449cbd81e6a019640529"
+    },
+    {
+      "file": "scripts/ui/FormDraftArchive.gd",
+      "bytes": 1635,
+      "sha256": "2431a7d7e3cb6c5b1845ef6751c544ab90cb04ada83312b87a1a8318ef40fa77"
+    },
+    {
+      "file": "scripts/ui/FormDraftArchive.gd.uid",
+      "bytes": 19,
+      "sha256": "56ce29de892328f5dd8617854561b18c9b79ba9ec34c97bbe9a26614219c59f2"
+    },
+    {
       "file": "scripts/ui/FormValues.gd",
       "bytes": 4329,
       "sha256": "98c3147cd82199f85267b46a8af0f26ca01558334d7e9537e6950e61eac4fc82"
@@ -479,9 +609,19 @@
       "sha256": "b65cc18879cbb4de6af7cecf359c84ab7740bfee3d055e0331b71e724cd8bef0"
     },
     {
+      "file": "scripts/ui/KnowledgePresentation.gd",
+      "bytes": 2359,
+      "sha256": "42b2bfcd126516df5bdef594a72c443690a091a02f323ecf2284c829286fc93c"
+    },
+    {
+      "file": "scripts/ui/KnowledgePresentation.gd.uid",
+      "bytes": 20,
+      "sha256": "4a7ae0cccfd18c14bafb400a175504acceebf2f01934bb0fd5119c43af5e7ffc"
+    },
+    {
       "file": "scripts/ui/MenuPresentation.gd",
-      "bytes": 4779,
-      "sha256": "586bfcae5535cc5ef15180753c9d61afd77e55d1b17b2b0a9f5f029b1c6b25f3"
+      "bytes": 4958,
+      "sha256": "4347fccc29a5247a757879efcf6700ab84862478c6e57ce78e42633e30929b4d"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
@@ -540,8 +680,8 @@
     },
     {
       "file": "scripts/ui/UIController.gd",
-      "bytes": 71356,
-      "sha256": "3e84879d1df4fe3f5ba2390789599660680cb070f456a6a8a024192d320e12c4"
+      "bytes": 70088,
+      "sha256": "1f64873cb95545382ba52cc22c69160dbfabd94af58d7f23d48b855f2754db1f"
     },
     {
       "file": "scripts/ui/UIController.gd.uid",
@@ -590,8 +730,8 @@
     },
     {
       "file": "scripts/world/Datacenter3D.gd",
-      "bytes": 21672,
-      "sha256": "89061a6c018c27d14f6bd9cb3d3b104944f303995cb3fa90f39918d6291c26e6"
+      "bytes": 21540,
+      "sha256": "b75abeb3a13a0a969eb98638033e4456232e1400b4113e950b066e80da80f2cd"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -610,8 +750,8 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "bytes": 47326,
-      "sha256": "9f550424ff790a69eefa6845bf8d23f96c7a478ce38cd909bead42fc9d0cdfa3"
+      "bytes": 47710,
+      "sha256": "3ca6fa5a58f8bc32db49dd93d2e76d2cbbe6bb0e59d581450e9c292ef2262c64"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -730,8 +870,8 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "bytes": 15883,
-      "sha256": "8eff2c3d0c679e59270d7d476468c4f06cac65baae1c9cec628ca790f1eec730"
+      "bytes": 15897,
+      "sha256": "436e0b3b9e89c2bc7cb8c8654f1e630ecc29c44c6c641bc00080f281c26b3322"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
@@ -829,6 +969,11 @@
       "sha256": "84079cdf3d50e3dcac05c4decf49728ce2333ef91abd3c5a02a0e86174e37d93"
     },
     {
+      "file": "data/english/listening.json",
+      "bytes": 9818,
+      "sha256": "fb40b8ebe099ca520ea156eebeca9eeac625e350836dad75c70a7654564e3b83"
+    },
+    {
       "file": "data/english/london_quiz.json",
       "bytes": 18380,
       "sha256": "9da5357445374f995cf7c513b7eaf4b10e53add9924e170d7aef9f3b46154df6"
@@ -910,8 +1055,8 @@
     },
     {
       "file": "data/shifts/catalog.json",
-      "bytes": 11158,
-      "sha256": "7c460f976289c06bcf7190465c4ff68e58af69ab56d3a666a5eed31c0a7c0a1f"
+      "bytes": 32999,
+      "sha256": "6ec8d18874a207ac5d10b7077e56a68006bc949640ec1aa87638c4556cdaafe8"
     },
     {
       "file": "data/training/glossary.json",
@@ -1214,12 +1359,11 @@
     "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 5,
-    "version_name": "1.4.0",
+    "version_code": 6,
+    "version_name": "1.5.0",
     "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment"
   },
   "hardware_tracking": "NOT TESTED",
   "pico_72_fps": "NOT MEASURED",
-  "source_manifest_sha256": "77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe",
-  "source_identity": "source_commit plus exact sources manifest (includes generated UIDs)"
+  "source_manifest_sha256": "db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c"
 }

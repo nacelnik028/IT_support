@@ -1,5 +1,7 @@
 # Jak nainstalovat IT Support Simulator do PICO 4
 
+Aktuální navazující vydání: **1.5.0 / versionCode 6**. Přidané pokračování práce, pokročilé směny, rozbor, poslech a Moje znalosti popisuje [společný návod](docs/CONTINUATION_RELEASE.md). Veškeré nové hardwarové průchody jsou **NEPROVEDENO – headset není dostupný**, viz [checklist](docs/PICO4_HARDWARE_CHECKLIST.md).
+
 Tento postup je pro běžný **PICO 4** a Windows počítač. Hra se nainstaluje přímo
 do headsetu. Po instalaci můžeš USB odpojit a hrát samostatně.
 

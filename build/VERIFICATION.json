@@ -1,26 +1,34 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
-  "date": "2026-11-03",
-  "change": "Practical introduction; three persistent linked shifts; network explanations; offline London speech; adjustable XR panel and optional diagnostics",
-  "source_commit": "8e931aa797e290912b11eb9f6fd9374c57d7240f",
-  "source_manifest_sha256": "77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe",
+  "date": "2026-11-04",
+  "phase": "Original persistence/shifts/listening prompt completed before optional settings-version follow-up",
+  "source_commit": "a43cd6d948f2f52a0b6ecef30a8413fa4ef0284a",
+  "source_manifest_sha256": "db723a77ce1a7a7c7da99e5857850850a101a773f34ee083bdd6d0fccb2e573c",
   "source_manifests_match": true,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104826336,
-      "sha256": "e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c"
+      "bytes": 104453712,
+      "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
-      "bytes": 90743347,
-      "sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf"
+      "bytes": 90829077,
+      "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4"
     }
   ],
   "source_regressions": {
-    "suites": 39,
+    "suites": 46,
     "failures": 0,
+    "runtime_errors_or_warnings": 0,
     "suite_names": [
+      "continuation_review",
+      "unified_profile",
+      "london_listening",
+      "attempt_review",
+      "advanced_shifts",
+      "shift_scoring",
+      "work_persistence",
       "gameplay_review",
       "gameplay",
       "shifts",
@@ -61,73 +69,55 @@
       "training_ui",
       "display_settings"
     ],
-    "log": "test-output/gameplay-release-test-all.log",
-    "persistent_log": "docs/ui-review/2026-11-03-gameplay/verification/gameplay-release-test-all.log",
-    "gameplay": 212,
-    "shifts": 136,
-    "xr_modes": 116,
-    "gameplay_review_headless": 77,
-    "save_isolation": "SaveManager.path_override plus separate DisplaySettings/VRSettings before GameManager; no player save used"
+    "log": "docs/ui-review/2026-11-04-release-base/verification/continuation-test-all-bound-audio.log"
   },
-  "windows": {
-    "export": "Windows x86_64 Debug",
-    "embedded_pck": true,
-    "bytes": 104826336,
-    "sha256": "e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c",
-    "native_windows_graphical_verified": true,
-    "source_commit": "8e931aa797e290912b11eb9f6fd9374c57d7240f",
-    "source_manifest_sha256": "77a19d821a39954afe9f657aaf7c5776af5cdaaf5e954b30552b70a4a5c6a8fe",
-    "github_limit_remaining_bytes": 31264,
-    "details": {
-      "native_checks_runtime": "Windows",
-      "editor_pack_checks_runtime": "Windows",
-      "sha256": "e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c",
-      "bytes": 104826336,
-      "results": {
-        "native_headless": true,
-        "native_graphical": true,
-        "shifts": true,
-        "gameplay": true,
-        "gameplay_review": true,
-        "package_content": true,
-        "academy_hub": true,
-        "london_quiz": true,
-        "english_model": true,
-        "english_world": true,
-        "ui_workflow": true,
-        "programming_runtime": true,
-        "programming_catalog": true,
-        "programming_academy": true,
-        "programming_integration": true,
-        "programming_polish": true,
-        "programming_location": true,
-        "xr_modes": true,
-        "terminal_sessions": true,
-        "ui_design": true,
-        "world_ui": true,
-        "world_playthrough": true
-      }
-    },
-    "focused_gameplay": {
-      "sha256": "e194ae3ef1f8b95e5665bc746efd3fb5c6ceb9e348971925634c70f85df1ac1c",
-      "results": {
-        "shifts": true,
-        "gameplay": true,
-        "xr_modes": true
-      }
-    },
-    "packaged_file_count": 253
+  "portable_windows": {
+    "native_checks_runtime": "Windows",
+    "editor_pack_checks_runtime": "Windows",
+    "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26",
+    "bytes": 104453712,
+    "results": {
+      "native_headless": true,
+      "native_graphical": true,
+      "continuation_review": true,
+      "unified_profile": true,
+      "london_listening": true,
+      "attempt_review": true,
+      "advanced_shifts": true,
+      "shift_scoring": true,
+      "work_persistence": true,
+      "shifts": true,
+      "gameplay": true,
+      "gameplay_review": true,
+      "package_content": true,
+      "academy_hub": true,
+      "london_quiz": true,
+      "english_model": true,
+      "english_world": true,
+      "ui_workflow": true,
+      "programming_runtime": true,
+      "programming_catalog": true,
+      "programming_academy": true,
+      "programming_integration": true,
+      "programming_polish": true,
+      "programming_location": true,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": true
+    }
   },
   "pico4": {
     "signature": "PASS",
     "certificate_sha256": "3449ce02012b69d3d0b9d19eea1706521e290fac48ab7ff1d5d20bea8c003997",
     "zip_crc": "PASS",
     "arm64_and_openxr_manifest": "PASS",
-    "version_code": 5,
-    "version_name": "1.4.0",
+    "version_code": 6,
+    "version_name": "1.5.0",
     "device": "NOT RUN: PICO headset unavailable; no ADB device query or deployment",
     "desktop_resource_tests": {
-      "apk_sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf",
+      "apk_sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4",
       "runtime": "Windows Godot with actual APK resources",
       "android_native_runtime": "NOT RUN: requires an authorized PICO headset",
       "results": {
@@ -135,6 +125,13 @@
         "packaged_catalogs_match": true,
         "desktop_resources_headless": true,
         "desktop_resources_graphical": true,
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
         "shifts": true,
         "gameplay": true,
         "gameplay_review": true,
@@ -149,67 +146,53 @@
         "xr_modes": true,
         "terminal_sessions": true
       }
-    },
-    "focused_gameplay": {
-      "sha256": "8d9a39fd8f13ff9d8b3888778f6f707eb0c827cd12e3a8883263b467195aacaf",
+    }
+  },
+  "focused_packages": {
+    "windows": {
+      "sha256": "3186142a681c55386ba0669751c6466fbdffd73f5d422aac725e460e6ccccf26",
       "results": {
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
         "shifts": true,
         "gameplay": true,
         "xr_modes": true
       }
     },
-    "packaged_file_count": 257
+    "pico": {
+      "sha256": "b97c5a8d15fcf1d074d2eeac235afbe5980e71dd7e8e6ef3060ee77cd0c6bdf4",
+      "results": {
+        "continuation_review": true,
+        "unified_profile": true,
+        "london_listening": true,
+        "attempt_review": true,
+        "advanced_shifts": true,
+        "shift_scoring": true,
+        "work_persistence": true,
+        "shifts": true,
+        "gameplay": true,
+        "xr_modes": true
+      }
+    }
   },
-  "visual_audit": {
-    "pc_hardware": "Windows / NVIDIA RTX 5060",
-    "renderers": [
-      "gl_compatibility",
-      "forward_plus"
-    ],
-    "pc_resolutions": [
-      "1280x720",
-      "1920x1080",
-      "3840x2160"
-    ],
-    "text_scales": [
-      1.0,
-      1.3
-    ],
-    "xr_viewport": "1600x1200; synthetic controllers; keyboard open/closed",
-    "screenshots": 104,
-    "gameplay_review_gpu_checks_per_renderer": 129,
-    "pc_gameplay_gpu_checks": 212,
-    "synthetic_xr_gpu_checks": 116,
-    "mcp_design_checks": 31,
-    "preexisting_mcp_static_warnings": 8,
-    "persistent_screenshots": "docs/ui-review/2026-11-03-gameplay"
+  "graphics": {
+    "Compatibility": 298,
+    "Forward+": 298,
+    "png_count": 196,
+    "folder": "docs/ui-review/2026-11-04-release-base"
   },
-  "audio": {
-    "distinct_lines": 12,
-    "files": 24,
-    "bytes": 188544,
-    "voice": "Jenny (Dioco)",
-    "source": "https://github.com/dioco-group/jenny-tts-dataset",
-    "runtime": "offline MP3; no TTS model/API",
-    "checks": "Exact stream.data SHA256, decoded nonzero PCM, length, slow duration and pitch=1, actual AudioStreamPlayer playback, volume/mute/focus/pause/session stop",
-    "human_subjective_listening": "NOT PERFORMED"
+  "mcp": {
+    "checks": 31,
+    "failures": 0,
+    "preexisting_static_warnings": 8,
+    "log": "docs/ui-review/2026-11-04-release-base/mcp.json"
   },
-  "hardware_tracking": "NOT TESTED: headset unavailable",
-  "android_native_start": "NOT RUN: headset unavailable",
-  "pico_optical_readability": "NOT TESTED",
-  "pico_comfort": "NOT TESTED",
-  "pico_72_fps": "NOT MEASURED",
-  "hardware_checklist": "docs/PICO4_HARDWARE_CHECKLIST.md",
-  "known_limits": [
-    "Selected speech lines only; unmatched dynamic lines stay textual.",
-    "Desktop APK-resource tests do not test native Android libraries or physical tracking.",
-    "CPU/GPU timings are not measured by the diagnostics; 1/FPS is only an interval.",
-    "Unsigned official Windows Debug export; no Authenticode certificate."
-  ],
-  "initial_failures_and_corrections": [
-    "Pause scroll rounding: bottom padding plus actual ScrollContainer reveal; existing 579 UI workflow checks retained.",
-    "Audio autoplay initially pushed help below the first view at 130%; compact footer fixed all six failures; English world 1061 PASS.",
-    "Initial APK verifier expected version 1.3.0; now derives version from preset and checks original certificate.",
-    "Windows rebuilt after exact source manifest capture; all final packaged tests match current SHA256."
-  ]
+  "hardware": "NEPROVEDENO – headset není dostupný",
+  "human_listening": "NOT PERFORMED: decoded samples and actual player only",
+  "git_push": "NOT PERFORMED"
 }

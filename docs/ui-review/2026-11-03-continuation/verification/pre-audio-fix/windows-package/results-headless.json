@@ -1,0 +1,23 @@
+{
+  "native_checks_runtime": "Windows",
+  "editor_pack_checks_runtime": "Windows",
+  "sha256": "f59b66bea06c2bb2490fe2eafb97c34f26ac0285dc27752bedf35ec1f6f7db3c",
+  "bytes": 104786776,
+  "results": {
+    "native_headless": true,
+    "english_model": true,
+    "english_world": true,
+    "ui_workflow": true,
+    "programming_runtime": true,
+    "programming_catalog": true,
+    "programming_academy": true,
+    "programming_integration": true,
+    "programming_polish": true,
+    "programming_location": true,
+    "xr_modes": true,
+    "terminal_sessions": true,
+    "ui_design": true,
+    "world_ui": true,
+    "world_playthrough": true
+  }
+}

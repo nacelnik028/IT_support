@@ -1,0 +1,49 @@
+{
+  "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
+  "initial_run": {
+    "native_checks_runtime": "Windows",
+    "editor_pack_checks_runtime": "Windows",
+    "sha256": "57e2d5d3566d0e11bb24b31123f0aebbca67524b41432b98cd112fb6002273ff",
+    "bytes": 104786904,
+    "results": {
+      "native_headless": true,
+      "native_graphical": true,
+      "english_model": true,
+      "english_world": true,
+      "ui_workflow": true,
+      "programming_runtime": true,
+      "programming_catalog": true,
+      "programming_academy": true,
+      "programming_integration": true,
+      "programming_polish": true,
+      "programming_location": true,
+      "xr_modes": true,
+      "terminal_sessions": true,
+      "ui_design": true,
+      "world_ui": true,
+      "world_playthrough": false
+    }
+  },
+  "corrected_harness_reruns": {
+    "world_playthrough": true
+  },
+  "final_results": {
+    "native_headless": true,
+    "native_graphical": true,
+    "english_model": true,
+    "english_world": true,
+    "ui_workflow": true,
+    "programming_runtime": true,
+    "programming_catalog": true,
+    "programming_academy": true,
+    "programming_integration": true,
+    "programming_polish": true,
+    "programming_location": true,
+    "xr_modes": true,
+    "terminal_sessions": true,
+    "ui_design": true,
+    "world_ui": true,
+    "world_playthrough": true
+  },
+  "reason": "First NAS key input arrived during a legitimate native focus pause. The test now resumes through the real UI and sends a complete E press/release."
+}
