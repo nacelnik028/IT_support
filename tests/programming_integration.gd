@@ -91,6 +91,9 @@ func run():
 		check(game.programming.test_program().ok,"Complete series item")
 		if i<2: check(game.programming.next_generated(),"Advance series")
 	# Synthetic XR rendering/input exercises the same editor on the VR viewport.
+	var vr_head=XRPositionalTracker.new(); vr_head.name="head"; vr_head.type=XRServer.TRACKER_HEAD
+	vr_head.set_pose("default",Transform3D(Basis(),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	XRServer.add_tracker(vr_head)
 	var rig=preload("res://scenes/xr/XRPlayer.tscn").instantiate(); rig.shell=shell; player.add_child(rig)
 	shell.xr_rig=rig; shell.vr_active=true; rig.activate(false)
 	shell.open_programming(); ui=shell.code_editor; ui.launch("PY01",false); await frames()
@@ -113,7 +116,7 @@ func run():
 	check(key_rect.end.y<=rig.monitor.viewport.size.y,"Full programming keyboard fits VR monitor")
 	shell.world.player.position=Vector3(0,0.02,3); game.reconcile_room(); await frames()
 	check(game.programming.current.is_empty() and not rig.monitor.visible,"VR boundary closes editor")
-	rig.deactivate(); shell.vr_active=false
+	rig.deactivate(); XRServer.remove_tracker(vr_head); shell.vr_active=false
 	game.save(); var saved=Saves.load_game()
 	check(saved.programming.lessons.size()==28 and saved.programming.xp>0,"All results persist compatibly")
 	var reloaded=preload("res://scripts/core/GameManager.gd").new()

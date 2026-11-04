@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Platný tracker v původním programovacím testu — 4. 11. 2026
+
+- Zpřísněná ochrana chybějícího trackeru správně přepla nezaregistrovaný syntetický rig do pauzy; původní programming_integration neměl žádný head tracker a očekával skrytý panel po překročení hranice. Test nyní registruje platnou high-confidence head pose a po deaktivaci ji uklidí. Původní kontrola zavření editoru i všechny ostatní kontroly zachované.
+- programming_integration **765 PASS / 252 generovaných variant** se skutečnou VR klávesnicí, přepínáním souborů a hranicí. Herní kód ani hash exportů se tímto doplněním fixture nemění. Předešlý neúplný celý běh je archivovaný samostatně; nový celý runner následuje. Bez push.
+
 ## Zrušení drženého XR triggeru při ztrátě kontextu — 4. 11. 2026
 
 - Dodatečný skutečný audit tlačítka reprodukoval **235 kontrol / 1 selhání**: staré lose_focus uvolnilo ukazatel nad původním tlačítkem a potvrdilo jej. Baseline uložený jako release-focus-cancel-audit.log, bez destruktivní operace (skutečný Button počítal aktivace).
