@@ -716,6 +716,7 @@ func export_smoke():
 	if "--test-world" not in OS.get_cmdline_user_args(): get_tree().quit(2); return
 	await get_tree().process_frame
 	print("EXPORT_SMOKE menu=",mode," missions=",ui.game.missions.size()," lessons=",ui.game.tutorial.lessons.size())
+	print("EXPORT_SMOKE game_version=",ProjectSettings.get_setting("application/config/version","neurčena"))
 	enter_world("Rozcestník akademie")
 	await get_tree().process_frame
 	print("EXPORT_SMOKE hub=",ui.game.game_mode.is_hub()," neutral=",not ui.game.active)

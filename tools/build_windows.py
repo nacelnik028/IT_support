@@ -59,6 +59,7 @@ def main():
     logs.mkdir(exist_ok=True)
     target = build / 'ITSupportSimulator.exe'
     runner = [args.runner.resolve(strict=True)] if args.runner else []
+    game_version=re.search(r'^config/version="([^"]+)"', (ROOT/'project.godot').read_text(encoding='utf-8'), re.M).group(1)
     version = run([engine, '--headless', '--version'], logs / 'windows-editor-version.log').split()[0]
     if args.template:
         template = args.template.resolve(strict=True)
@@ -111,7 +112,7 @@ def main():
         for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
                          'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true',
                          'english=true scenarios=6 completed=6','english_cancelled=true',
-                         'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true']:
+                         'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24',f'game_version={game_version}','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true']:
             if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
         if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
         staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)
@@ -121,7 +122,7 @@ def main():
             with tempfile.NamedTemporaryFile(prefix='obsolete-pack-',suffix='.bak',dir=build,delete=False) as archive:
                 archive_name=Path(archive.name)
             shutil.move(legacy_pack,archive_name)
-        info={'engine':version,'export':'Windows x86_64 Debug','bytes':len(binary),
+        info={'engine':version,'game_version':game_version,'export':'Windows x86_64 Debug','bytes':len(binary),
               'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
               'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
               'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction + native Godot ZSTD container in isolated build copy'}

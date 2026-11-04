@@ -207,6 +207,8 @@ def verify_apk(apk, sdk, environment):
     preset=(ROOT/"export_presets.cfg").read_text(encoding="utf-8")
     version_code=int(re.search(r"version/code=(\d+)",preset).group(1))
     version_name=re.search(r'version/name="([^"]+)"',preset).group(1)
+    game_version=re.search(r'^config/version="([^"]+)"',(ROOT/'project.godot').read_text(encoding='utf-8'),re.M).group(1)
+    if game_version!=version_name: raise RuntimeError('Displayed game version differs from APK version/name')
     # aapt on Windows cannot reliably decode a Unicode absolute argv path.
     badging = run([tools / "aapt.exe", "dump", "badging", apk.name], "apk-badging", cwd=apk.parent)
     if "native-code: 'arm64-v8a'" not in badging: raise RuntimeError("APK must be ARM64 only")

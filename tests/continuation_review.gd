@@ -82,10 +82,14 @@ func show_screen(screen):
 		shell.enter_world("Hlavní serverovna")
 		if screen=="shift": shell.open_app("Souvislé směny")
 		elif screen=="profile": shell.open_app("Moje znalosti")
+		elif screen=="settings": shell.open_app("Nastavení")
 		else:
 			shell.open_app("Pokračování")
 			if screen=="review": preload("res://scripts/ui/DebriefPresentation.gd").show(shell.ui,g.work.data.reviews[0])
 	await frames()
+	if screen=="settings":
+		var version=shell.ui.find_child("GameVersionLabel",true,false)
+		check(version!=null and version.text=="Verze hry: 1.5.0" and version.is_visible_in_tree() and version.get_viewport().get_visible_rect().encloses(version.get_global_rect().grow(-0.5)),"Aktuální verze je čitelná v nastavení PC i VR")
 
 func run():
 	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
@@ -95,7 +99,7 @@ func run():
 	g.apply("physical_inspect",{"device":"PVE-01"}); g.apply("network",{"vm":"100","bridge":"vmbr0","vlan":20,"ip":"192.168.20.100","prefix":24,"gateway":"192.168.20.1","dns":"192.168.20.10","firewall":true}); g.apply("verify",{})
 	check(g.complete().ok,"Skutečná oprava pro uložený rozbor")
 	g.shifts.start("SHIFT-RECOVERY")
-	var screens=["continuation","shift","review","code","listening","listening-result","profile"]
+	var screens=["continuation","shift","review","code","listening","listening-result","profile","settings"]
 	for resolution in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(3840,2160)]:
 		for scale_value in [1.0,1.3]:
 			suffix=str(resolution.x)+"-"+str(roundi(scale_value*100))

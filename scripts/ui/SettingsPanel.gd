@@ -4,7 +4,13 @@ static func draw(ui):
 	var all=ui.vbox(ui.content_box,14)
 	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=ui.hbox(all)
-	header.add_child(ui.label("Nastavení",30,ui.CYAN))
+	var identity=ui.vbox(header,0)
+	identity.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	identity.add_child(ui.label("Nastavení",30,ui.CYAN))
+	var version_label=ui.label("Verze hry: "+str(ProjectSettings.get_setting("application/config/version","neurčena")),14,ui.MUTED)
+	version_label.name="GameVersionLabel"
+	version_label.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	identity.add_child(version_label)
 	ui.Components.badge(ui,header,"✓  PREFERENCE SE UKLÁDAJÍ PRŮBĚŽNĚ")
 	header.add_child(ui.button("← Zpět",ui.close_settings))
 	var tabs=ui.hbox(all)

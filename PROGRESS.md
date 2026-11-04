@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Uživatelské doplnění verze po dokončení původního zadání — 4. 11. 2026
+
+- Základní prompt nejdříve uzavřen commitem **ec51021**, včetně celého aktuálního runneru 46 PASS a obou skutečných ověřených exportů. Teprve poté přidaná verze podle následného výslovného požadavku uživatele.
+- Nastavení nyní pod titulkem zobrazuje **Verze hry: 1.5.0**, načtenou z application/config/version. Společná komponenta pro PC i VR, bez nového ovládacího prvku nebo ukládané preference. Android version/name musí při sestavení odpovídat tomuto údaji; versionCode zůstává nově zvýšené 6 oproti původnímu vydání 5.
+- Rozšířená stávající skutečná matice o Nastavení: **234 headless PASS**, **346 Compatibility PASS / 346 Forward+ PASS**, 224 nových PNG ve složce 2026-11-04-release. Skutečná viditelnost údaje ve všech PC velikostech/textu i VR panelu/klávesnici; malý PC a VR snímek vizuálně prohlédnuté. Původní UI design 162 PASS.
+- Přímý native export smoke navíc vypisuje game_version; builder a APK ověřovač hlídají shodu verze. Finální oba exporty a jejich zcela nové hashové výsledky následují. Bez push a bez PICO/ADB.
+
 ## Původní prompt hotový — ukládání, směny a poslech — původní zadání dokončeno 4. 11. 2026
 
 - Celý aktuální Test-All **46 sad PASS**, 46 startů enginu, exit 0, bez runtime chyb/varování. Nové sady: work_persistence 69, shift_scoring 31, advanced_shifts 268, attempt_review 49, london_listening 515, unified_profile 38 a continuation_review 200 headless. Kampaň/legacy24, staré save a jediné odměny zachované; save_safety 474, lekce 1075, UI všech 65 misí a 336 výukových akcí ve všech třech režimech PASS.

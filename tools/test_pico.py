@@ -65,7 +65,7 @@ def main():
                              'programming=true tasks=60 lessons=28', 'python=true',
                              'web=true preview=true', 'return_main=true', 'programming_west=true',
                              'english=true scenarios=6 completed=6','english_cancelled=true',
-                             'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true']:
+                             'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24','game_version=1.5.0','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true']:
                 if expected not in output:
                     raise RuntimeError('Missing packaged smoke evidence: ' + expected)
         for name in ['continuation_review','unified_profile','london_listening','attempt_review','advanced_shifts','shift_scoring','work_persistence','shifts','gameplay','gameplay_review','package_content','academy_hub','london_quiz','english_model', 'english_world', 'ui_workflow', 'programming_location', 'programming_integration',
