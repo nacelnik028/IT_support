@@ -72,15 +72,18 @@ func study_wall():
 	Geo.text(room,"NORTHSTAR  /  ACADEMY 03",Vector3(0,3.48,-20.73),32,0.003,Design.MUTED)
 	Geo.text(room,"PROGRAMOVACÍ UČEBNA",Vector3(0,3.13,-20.73),56,0.0035,PYTHON)
 	var board=world.devices["PROGRAM-DASHBOARD"]; board.position=Vector3(4,1.9,-20.6)
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(board.visual,4.8,1.7)
 	room.dashboard.font_size=27; room.dashboard.pixel_size=0.002; room.dashboard.width=2300; room.dashboard.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	var teacher=world.devices["PROGRAM-INSTRUCTOR"]
+	preload("res://scripts/world/WorldArchitecture.gd").board_stand(teacher,1.5)
 	for child in teacher.visual.get_children():
 		if child is Label3D: child.hide()
 	Geo.ring(teacher.visual,Vector3(0,0.47,0.15),0.26,PYTHON).rotation.x=0
 	Geo.text(teacher.visual,"{  }",Vector3(0,0.47,0.19),64,0.0024,PYTHON)
 	Geo.text(teacher.visual,"ADA / PRŮVODCE\nVysvětlím, ukážu, pomohu.\n[E] VYBRAT LEKCI",Vector3(0,-0.3,0.16),24,0.0017)
 	var terminal=world.devices["PROGRAM-TERMINAL"]
-	Geo.solid(room,terminal.position+Vector3(0,-0.85,-0.04),Vector3(0.4,0.9,0.35),Color("354b58"),0.4)
+	Geo.solid(room,terminal.position+Vector3(0,-0.9,-0.04),Vector3(0.4,1.0,0.35),Color("354b58"),0.4)
+	Geo.solid(room,terminal.position+Vector3(0,-1.35,-0.04),Vector3(0.6,0.1,0.55),Color("526b76"),0.4)
 	Geo.text(terminal.visual,"ZAČNI TADY\nLekce · úlohy · výsledky\n[E] STUDIUM",Vector3(0,0,0.09),25,0.0017,PYTHON)
 	for zone in [[-5,"A / PYTHON",PYTHON],[0,"B / TVORBA WEBU",WEB],[5,"C / ZKOUŠKA",EXAM]]:
 		Geo.bevel(room,Vector3(zone[0],2.5,-19.65),Vector3(2.6,0.4,0.07),Color("21333f"),0.3,0.015)
@@ -97,9 +100,7 @@ func entrance():
 		Geo.box(face,Vector3.ZERO,Vector3(2.55,2.5,0.015),Color("263e4b"),0.6)
 		Geo.box(face,Vector3(0,0.7,0.013),Vector3(2.5,0.025,0.01),PYTHON,0,0.9)
 		Geo.text(face,"03\nPROGRAMMING\nACADEMY\n\n[E] OTEVŘÍT",Vector3(0,0.08,0.027),38,0.0025,PYTHON)
-	for x in [-8.04,-4.96]:
-		Geo.bevel(room,Vector3(x,1.45,-7),Vector3(0.13,2.9,0.31),Color("6d818d"),0.7,0.018)
-		Geo.box(room,Vector3(x,1.45,-6.82),Vector3(0.025,2.75,0.015),PYTHON,0,0.8)
+	preload("res://scripts/world/WorldArchitecture.gd").pocket(room,Vector3(-6.5,0,-7),0,-1,3.1,PYTHON)
 	room.door_notice=Geo.text(room,"PROGRAMOVACÍ UČEBNA / [E] OTEVŘÍT",Vector3(-6.5,3.25,-6.8),34,0.0032,PYTHON)
 	# The inside control must face the inside, including its text plane.
 	room.door_panels[1].label.position.z=-0.08

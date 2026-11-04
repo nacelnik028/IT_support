@@ -5,6 +5,7 @@ const Geo=preload("res://scripts/world/Geometry.gd")
 static func panel(parent: Node3D, at: Vector3, yaw: float, title: String, body: String, accent: Color, width: float = 2.6):
 	var face=Node3D.new(); parent.add_child(face); face.position=at; face.rotation.y=yaw
 	Geo.bevel(face,Vector3.ZERO,Vector3(width,1.25,0.065),Color("203a46"),0,0.025)
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(face,width,1.25)
 	Geo.box(face,Vector3(-width*0.45,0,0.045),Vector3(0.025,1.05,0.015),accent,0,0.25)
 	Geo.text(face,title,Vector3(0,0.3,0.05),32,0.004,accent)
 	Geo.text(face,body,Vector3(0,-0.17,0.05),25,0.0033,Color("d2e0dc"))

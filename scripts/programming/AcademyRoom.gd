@@ -17,7 +17,9 @@ func build(owner_world):
 	var existing=world.get_children()
 	Geo.solid(self,Vector3(0,-0.16,-14),Vector3(18,0.3,14),Color("344953"))
 	Geo.solid(self,Vector3(0,2,-21),Vector3(18,4,0.25),Color("263b4c"))
-	for x in [-9,9]: Geo.solid(self,Vector3(x,2,-14),Vector3(0.25,4,14),Color("304a58"))
+	# The south return meets the pocket skin rather than cutting through its cavity.
+	Geo.solid(self,Vector3(-9,2,-14.125),Vector3(0.25,4,13.75),Color("304a58"))
+	Geo.solid(self,Vector3(9,2,-14),Vector3(0.25,4,14),Color("304a58"))
 	Geo.box(self,Vector3(0,4,-14),Vector3(18,0.15,14),Color("1b2835"))
 	Geo.text(self,"PROGRAMOVACÍ UČEBNA",Vector3(0,3.35,-20.8),64,0.0045,Color("76e8cd"))
 	Geo.text(self,"A / PYTHON LAB                 B / WEB DEVELOPMENT                 C / EXAMINATION",Vector3(0,2.95,-20.8),30,0.003)
@@ -77,18 +79,28 @@ func contains_player() -> bool:
 	if not is_instance_valid(world.player): return false
 	return contains_point(world.player.global_position)
 
+func doorway_occupied() -> bool:
+	var local=to_local(world.player.global_position)
+	return absf(local.z+7)<0.62 and absf(local.x+6.5)<1.8 and local.y<2.9
+
 func toggle_door() -> bool:
 	if door_tween and door_tween.is_running(): return false
-	var local=to_local(world.player.global_position)
-	if door_open and absf(local.z+7)<0.62 and absf(local.x+6.5)<1.8 and local.y<2.9:
+	if door_open and doorway_occupied():
 		door_notice.text="PRŮCHOD OBSAZENÝ / USTUP OD DVEŘÍ"; return false
-	door_open=not door_open
+	move_door(not door_open)
+	return true
+
+func move_door(opened: bool):
+	if door_tween and door_tween.is_running(): door_tween.kill()
+	door_open=opened
 	door_tween=create_tween(); door_tween.tween_property(door,"position:x",-9.6 if door_open else -6.5,0.35)
 	door_notice.text="PROGRAMOVACÍ UČEBNA / "+("OTEVŘENO" if door_open else "[E] OTEVŘÍT")
 	for panel in door_panels:
 		panel.label.text="[E]\n"+("ZAVŘÍT" if door_open else "OTEVŘÍT")
 		panel.object.caption=("Zavřít" if door_open else "Otevřít")+" dveře — programovací učebna [E]"
-	return true
+
+func _physics_process(_delta):
+	if not door_open and door_tween and door_tween.is_running() and doorway_occupied(): move_door(true)
 
 func sync():
 	if world.game==null: return

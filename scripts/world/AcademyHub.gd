@@ -22,9 +22,7 @@ func sign_at(words: String, at: Vector3, yaw: float, accent: Color, width: float
 	Geo.text(face,words,Vector3(0,0,0.055),32,0.005,accent)
 
 func portal(at: Vector3, yaw: float, title: String, subtitle: String, accent: Color):
-	var frame=Node3D.new(); add_child(frame); frame.position=at; frame.rotation.y=yaw
-	for side in [-1,1]: Geo.box(frame,Vector3(side*1.52,1.5,0),Vector3(0.12,3,0.3),accent)
-	Geo.box(frame,Vector3(0,3.05,0),Vector3(3.16,0.16,0.3),accent)
+	preload("res://scripts/world/WorldArchitecture.gd").portal(self,at,yaw,3,accent)
 	sign_at(title+"\n"+subtitle,at+Vector3(0,3.5,0.2).rotated(Vector3.UP,yaw),yaw,accent,5.2)
 	sign_at("ROZCESTNÍK AKADEMIE  ↑",at+Vector3(0,2.6,-0.25).rotated(Vector3.UP,yaw),yaw+PI,Color("d7e7e4"),2.8)
 
@@ -48,7 +46,8 @@ func build(owner_world):
 	portal(Vector3(16,0,-7),PI,"02 / IT TRÉNINK","21 lekcí · cvičná infrastruktura",Color("efca8b"))
 	portal(Vector3(-9,0,-12),PI/2,"03 / PROGRAMOVÁNÍ","Python · HTML / CSS / JavaScript",Color("76dfc7"))
 	portal(Vector3(21,0,-11.5),-PI/2,"04 / ENGLISH IN LONDON","B1–B2 · situace a otázky na Londýn",Color("e9a18b"))
-	Geo.box(self,Vector3(4,2.1,-15.8),Vector3(13,2.4,0.1),Color("153440"))
+	var directory=Geo.box(self,Vector3(4,2.1,-15.8),Vector3(13,2.4,0.1),Color("153440"))
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(directory,13,2.4)
 	Geo.text(self,"TRAINING ACADEMY / ROZCESTNÍK",Vector3(4,2.8,-15.73),52,0.007,Color("b5eee0"))
 	Geo.text(self,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(4,1.9,-15.72),34,0.006)
 	for x in [-5,5,16]:
@@ -85,6 +84,7 @@ func decorate():
 	# The long inner wall has a calm identity panel, not another course screen.
 	var wall=Node3D.new(); add_child(wall); wall.position=Vector3(3,2,-7.2); wall.rotation.y=PI
 	Geo.bevel(wall,Vector3.ZERO,Vector3(7,1.6,0.1),Color("263f49"),0,0.04)
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(wall,7,1.6)
 	Geo.box(wall,Vector3(-3.2,0,0.065),Vector3(0.04,1.25,0.02),Color("96d3be"),0,0.3)
 	Geo.text(wall,"PROSTOR PRO TVŮJ DALŠÍ KROK",Vector3(0,0.28,0.07),38,0.005,Color("c5e6d9"))
 	Geo.text(wall,"Vyber si směr. Uč se vlastním tempem.",Vector3(0,-0.22,0.07),30,0.0045,Color("d3ddd5"))

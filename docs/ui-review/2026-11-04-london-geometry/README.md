@@ -45,7 +45,8 @@ po skutečných přístupných podlahách, včetně obou stran sdílené severn�
   a východní části, chodbou rozcestníku a do IT učebny. Návrat do zazděného
   přímého průchodu fyzika správně blokuje z obou stran.
 - Celý aktuální `Test-All.ps1` (47 sad, včetně všech tří výukových režimů):
-  výsledek je v `verification/test-all.log` po dokončení runneru.
+  **47 PASS**, 47 startů enginu, exit 0, bez runtime chyb/varování;
+  [celý nový log](verification/test-all.log), všech 336 výukových UI akcí.
 - Godot MCP / `DesignMCP.tscn`: **31 PASS**, samostatně uložených osm již
   evidovaných statických varování v nezměněných skriptech; žádné nové ve
   `WorldVisuals.gd`. Přesný výstup: [mcp-design.json](verification/mcp-design.json).
@@ -72,8 +73,9 @@ Godot_console.exe --path . --rendering-method forward_plus --script tests/london
 Tmavý díl se světlým pruhem je **ACADEMY-DOOR**, na severní stěně u X = 9.
 Při odsunutí na Z = 6,5 přesahuje k Z = 7,95. Je zachycený například na
 [severní stěně](after-north-london-gl_compatibility.png) a nemá souvislost
-s béžovými lamelami na západní stěně u Z = 10,34. Tento samostatný problém
-z bodu 9 zůstává k opravě; změna 9a neupravuje mechanismus dveří.
+s béžovými lamelami na západní stěně u Z = 10,34. Samostatný bod 9 byl následně opraven skutečnou severní kapsou;
+[podklady další etapy](../2026-11-04-interface/README.md). Změna 9a samotná
+mechanismus dveří neupravovala.
 Při prohlídce nebyl nalezen další obdobný přesah béžových dekorací.
 
 Zazděný přímý průchod serverovna–Londýn je zachovaný. Vstup do Londýna

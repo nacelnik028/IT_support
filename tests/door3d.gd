@@ -43,7 +43,7 @@ func run():
 	var original = world.devices["DOOR-CONTROL-OPS"].position
 	await use_control("DOOR-CONTROL-OPS",Vector3(7.4,0.02,1.65))
 	check(world.door_open,"Panel v serverovně otevře dveře")
-	check(world.devices["ACADEMY-DOOR"].position.z>6,"Křídlo je skutečně zasunuté za stěnou")
+	check(world.devices["ACADEMY-DOOR"].position.z<1,"Křídlo je zasunuté do severní kapsy mimo Londýn")
 	check(world.devices["DOOR-CONTROL-OPS"].position==original,"Ovladač zůstane na místě")
 	await use_control("DOOR-CONTROL-OPS",Vector3(7.4,0.02,1.65))
 	check(not world.door_open and is_equal_approx(world.devices["ACADEMY-DOOR"].position.z,3.5),"Stejný dostupný panel dveře znovu zavře")
@@ -62,7 +62,7 @@ func run():
 	for i in 3: await physics_frame
 	check(world.door_open,"Vstup během zavírání automaticky vrátí křídlo")
 	await wait_motion()
-	check(world.devices["ACADEMY-DOOR"].position.z>6,"Čidlo dveře skutečně znovu otevřelo")
+	check(world.devices["ACADEMY-DOOR"].position.z<1,"Čidlo dveře skutečně znovu otevřelo")
 	shell.queue_free()
 	await process_frame
 	print("DOOR3D: %d checks, %d failures" % [checks,failures])

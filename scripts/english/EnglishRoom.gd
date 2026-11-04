@@ -87,10 +87,14 @@ func build(owner_world):
 	item("LONDON-INFO","Alex — informace a směry [E]","info",STATIONS.info,Vector3(0.8,1.6,0.6))
 	npc(Vector3(6,0,13),Color("547cba"))
 	sign_text("INFORMATION / ALEX\n[E] ÚKOLY A ROZHOVOR",Vector3(6,2.5,13),27,0.0024)
-	var quiz_board=item("LONDON-QUIZ","Otázky na Londýn — B1–B2 [E]","quiz",Vector3(3,1.5,12.5),Vector3(2,1.4,0.16))
-	Geo.text(quiz_board.visual,"LONDON QUIZ\n20 otázek · B1–B2\n[E] ZAČÍT / VÝSLEDKY",Vector3(0,0,-0.1),26,0.0023,Color("b5eee0")).rotation.y=PI
-	var listening_board=item("LONDON-LISTENING","Poslechové procvičování — 12 úloh [E]","listening",Vector3(1,1.5,9.3),Vector3(1.8,1.4,0.16))
-	Geo.text(listening_board.visual,"POSLECH / LISTENING\n12 úloh · offline audio\n[E] ZAČÍT / OBNOVIT",Vector3(0,0,-0.1),24,0.0023,Color("b5eee0")).rotation.y=PI
+	var quiz_board=item("LONDON-QUIZ","Otázky na Londýn — B1–B2 [E]","quiz",Vector3(3,1.5,12.5),Vector3(2,1.05,0.16))
+	Geo.text(quiz_board.visual,"LONDON QUIZ\n20 otázek · B1–B2\n[E] OTEVŘÍT",Vector3(0,0,-0.1),26,0.004,Color("b5eee0")).rotation.y=PI
+	Geo.box(quiz_board.visual,Vector3(0,0.45,-0.09),Vector3(1.8,0.025,0.014),Color("76dfc7"))
+	preload("res://scripts/world/WorldArchitecture.gd").board_stand(quiz_board,2)
+	var listening_board=item("LONDON-LISTENING","Poslechové procvičování — 12 úloh [E]","listening",Vector3(1,1.5,9.3),Vector3(1.8,1.05,0.16))
+	Geo.text(listening_board.visual,"POSLECH\n12 úloh · angličtina\n[E] OTEVŘÍT",Vector3(0,0,-0.1),26,0.004,Color("b5eee0")).rotation.y=PI
+	Geo.box(listening_board.visual,Vector3(0,0.45,-0.09),Vector3(1.6,0.025,0.014),Color("76dfc7"))
+	preload("res://scripts/world/WorldArchitecture.gd").board_stand(listening_board,1.8)
 	item("LONDON-GATE","Vstupní kontrola — předložit konkrétní lístek [E]","gate",STATIONS.gate,Vector3(0.65,1.2,0.55))
 	gate=Geo.solid(self,Vector3(18.7,0.8,18),Vector3(2.6,0.15,0.15),Color("d88465")); gate.set_meta("dynamic",true)
 	for x in [17.4,20]: Geo.solid(self,Vector3(x,0.55,15.4),Vector3(0.1,1.1,5),Color("345565"))

@@ -71,6 +71,7 @@ func _ready():
 	var screen = item("MONITOR","Monitorovací konzole — živý stav","monitor",Vector3(4.5,2.5,-6.65),Vector3(5.1,1.5,0.12),"Storage")
 	Geo.box(screen.visual,Vector3(0,0,0.07),Vector3(4.95,1.35,0.03),Color("07313b"),0,0.25)
 	monitoring = Geo.text(screen.visual,"NORTHSTAR / PROVOZNÍ DOHLED",Vector3(0,0,0.095),38,0.003)
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(screen.visual,5.1,1.5)
 	visuals.build(self)
 	preload("res://scripts/world/AcademyDecor.gd").technical(self)
 	batched_instances = Geo.batch_static(self)
@@ -82,11 +83,15 @@ func build_room():
 	Geo.solid(self,Vector3(2.25,2,-7),Vector3(13.5,4,0.25),Color("293844"))
 	Geo.solid(self,Vector3(-6,3.5,-7),Vector3(3,1,0.25),Color("293844"))
 	# West doorway: visible on the left when facing the server racks.
-	for z in [-4.25,4.25]: Geo.solid(self,Vector3(-9,2,z),Vector3(0.25,4,5.5),Color("374753"))
+	Geo.solid(self,Vector3(-9,2,-4.25),Vector3(0.25,4,5.5),Color("374753"))
+	# The south segment starts after the programming door's actual pocket.
+	Geo.solid(self,Vector3(-9,2,5.85),Vector3(0.25,4,2.3),Color("374753"))
+	Geo.solid(self,Vector3(-9,3.55,3.1),Vector3(0.25,0.9,3.2),Color("374753"))
 	Geo.solid(self,Vector3(-9,3.5,0),Vector3(0.25,1,3),Color("374753"))
 	Geo.text(self,"03 / PYTHON + WEB  ←",Vector3(-6.5,0.018,0.8),32,0.003,Color("4de0cb")).rotation_degrees=Vector3(-90,0,0)
 	# A real opening joins the server room and the training room.
-	Geo.solid(self,Vector3(9,2,-2.5),Vector3(0.25,4,9),Color("374753"))
+	Geo.solid(self,Vector3(9,2,-4.05),Vector3(0.25,4,5.9),Color("374753"))
+	Geo.solid(self,Vector3(9,3.55,0.45),Vector3(0.25,0.9,3.1),Color("374753"))
 	Geo.solid(self,Vector3(9,2,6),Vector3(0.25,4,2),Color("374753"))
 	Geo.solid(self,Vector3(9,3.5,3.5),Vector3(0.25,1,3),Color("374753"))
 	Geo.solid(self,Vector3(-8.5,2,7),Vector3(1,4,0.25),Color("293844"))
@@ -225,10 +230,9 @@ func build_details():
 	Geo.box(self,Vector3(0.7,0.012,0),Vector3(13,0.008,0.045),Color("d4ad54"))
 	Geo.text(self,"PROVOZNÍ ZÓNA  /  A01–B02",Vector3(0.2,0.028,0.8),50,0.004,Color("c6e9ec")).rotation_degrees.x = -90
 	Geo.text(self,"ADMINISTRACE",Vector3(-4.5,2.7,2),44,0.004)
-	for x in [0,1,2,3,4,5,6,7,8]:
-		Geo.box(self,Vector3(x,1.55,6.84),Vector3(0.045,3.1,0.06),Color("5e788a"),0.7)
-	for y in [0.38,2.9]:
-		for span in [[-2.75,12.2],[7.75,2.2]]: Geo.box(self,Vector3(span[0],y,6.8),Vector3(span[1],0.045,0.04),Color("267c94"),0,0.4)
+	# Finished technical wall panels replace rails left over from the old opening.
+	for x in [0,2,4,6,8]:
+		Geo.bevel(self,Vector3(x,1.9,6.855),Vector3(1.94,3.4,0.05),Color("52616b"),0.25,0.015)
 	Geo.text(self,"01  /  IT OPERATIONS",Vector3(-5.4,2.4,6.75),52,0.004).rotation.y = PI
 
 func build_academy():
@@ -240,13 +244,11 @@ func build_academy():
 	Geo.box(self,Vector3(15,4,0),Vector3(12,0.15,14),Color("24333c"))
 	for x in range(10,21): Geo.box(self,Vector3(x,0.002,0),Vector3(0.01,0.005,14),Color("354551"))
 	for z in range(-7,8): Geo.box(self,Vector3(15,0.002,z),Vector3(12,0.005,0.01),Color("354551"))
-	var door = item("ACADEMY-DOOR","Dveře — IT tréninková akademie","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
-	var door_label = Geo.text(door.visual,"IT TRAINING\nACADEMY\n[E] OTEVŘÍT",Vector3(-0.09,0.35,0),44,0.003)
-	door_label.rotation.y = -PI/2
+	item("ACADEMY-DOOR","Dveře — IT tréninková akademie","door",Vector3(9,1.4,3.5),Vector3(0.15,2.8,2.9))
 	Geo.box(self,Vector3(8.82,2.95,3.5),Vector3(0.035,0.06,3.15),Color("f4c472"),0,1)
 	for side in [-1,1]:
 		var panel_id = "DOOR-CONTROL-"+("OPS" if side<0 else "ACADEMY")
-		var panel = item(panel_id,"Otevřít dveře — IT tréninková akademie","door",Vector3(9+side*0.28,1.35,1.65),Vector3(0.14,0.48,0.32))
+		var panel = item(panel_id,"Otevřít dveře — IT tréninková akademie","door",Vector3(9+side*0.35,1.35,1.65),Vector3(0.14,0.48,0.32))
 		var face = Node3D.new()
 		panel.visual.add_child(face)
 		face.rotation.y = side*PI/2
@@ -322,7 +324,7 @@ func move_door(opened: bool):
 	door_open = opened
 	door_feedback = ""
 	door_tween = create_tween()
-	door_tween.tween_property(devices["ACADEMY-DOOR"],"position:z",6.5 if opened else 3.5,0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	door_tween.tween_property(devices["ACADEMY-DOOR"],"position:z",0.5 if opened else 3.5,0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	update_door_controls()
 
 func update_door_controls():

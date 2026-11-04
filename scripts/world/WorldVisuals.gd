@@ -110,13 +110,14 @@ func architecture():
 		if x==16: continue
 		Geo.bevel(world,Vector3(x,1.9,-6.84),Vector3(1.94,3.4,0.04),Color("697078"),0.2,0.012)
 	for side in [-1,1]:
-		for z in [-5.5,-3.5,-1.5,0.5]:
-			if side<0 and z>-2: continue # West programming doorway.
+		for z in [-5.5,-3.5]:
 			Geo.bevel(world,Vector3(side*8.84,1.8,z),Vector3(0.04,3.2,1.92),Color("4b5a64"),0.2,0.012)
-		var segments = [[-4.25,5.3],[4.25,5.3]] if side<0 else [[-2.5,8.8],[6.0,1.8]]
+		if side>0: Geo.bevel(world,Vector3(8.84,1.8,-1.85),Vector3(0.04,3.2,1.1),Color("4b5a64"),0.2,0.012)
+		var segments = [[-4.25,5.3],[5.85,2.1]] if side<0 else [[-4.05,5.7],[6.0,1.8]]
 		for segment in segments:
-			Geo.box(world,Vector3(side*8.78,0.12,segment[0]),Vector3(0.06,0.2,segment[1]),Color("182630"),0.6)
-			Geo.box(world,Vector3(side*8.75,0.27,segment[0]),Vector3(0.025,0.025,segment[1]),Color("3a98ac"),0,1.4)
+			Geo.box(world,Vector3(side*8.845,0.12,segment[0]),Vector3(0.06,0.2,segment[1]),Color("182630"),0.6)
+		# Pocket trims attach to their skins; no old cladding remains in the cavity.
+		Geo.box(world,Vector3(side*8.72,0.12,3.1 if side<0 else 0.45),Vector3(0.06,0.2,3.0 if side<0 else 2.9),Color("182630"),0.6)
 	for x in [-6.6,-1.6,3.4,8.4,13.4,18.4]:
 		Geo.bevel(world,Vector3(x,3.9,0),Vector3(0.14,0.18,13.8),Color("27343d"),0.5,0.018)
 	for z in range(-6,7,2):
@@ -125,10 +126,7 @@ func architecture():
 	for z in [1.2,2.8,4.4]:
 		var arrow = Geo.text(world,"›",Vector3(7.5,0.018,z),96,0.006,Color("d8c28d"))
 		arrow.rotation_degrees = Vector3(-90,0,0)
-	Geo.bevel(world,Vector3(8.88,3.05,3.5),Vector3(0.2,0.22,3.25),Color("1b2b34"),0.7,0.025)
-	for z in [1.97,5.03]:
-		Geo.bevel(world,Vector3(9,1.45,z),Vector3(0.3,2.9,0.13),Color("788a94"),0.75,0.025)
-		Geo.box(world,Vector3(8.82,1.45,z),Vector3(0.02,2.75,0.025),Color("68cccb"),0,1.5)
+	preload("res://scripts/world/WorldArchitecture.gd").pocket(world,Vector3(9,0,3.5),PI/2,1,3,Color("68cccb"))
 	for node in world.get_children():
 		if not node is Label3D: continue
 		if node.text=="ADMINISTRACE":
@@ -287,6 +285,7 @@ func door_details(object):
 	body.material_override = Geo.material(Color("71808b"),0.6)
 	for side in [-1,1]:
 		Geo.bevel(body,Vector3(side*0.085,-0.05,0),Vector3(0.025,2.4,2.55),Color("354b59"),0.5,0.009)
+		Geo.text(body,"02 / IT TRÉNINK\nPosuvné dveře\nOvladač vedle průchodu",Vector3(side*0.13,0.15,0),26,0.0022).rotation.y=side*PI/2
 		Geo.box(body,Vector3(side*0.103,0,1.23),Vector3(0.012,2.3,0.025),Color("76d3cf"),0,1.3)
 		for z in [-0.5,0.5]: Geo.box(body,Vector3(side*0.108,0.35,z),Vector3(0.012,1.05,0.04),Color("708e9b"),0.6)
 
@@ -322,6 +321,7 @@ func screen(object):
 
 func instructor():
 	var object = world.devices["INSTRUCTOR"]
+	preload("res://scripts/world/WorldArchitecture.gd").board_stand(object,0.8)
 	Geo.bevel(object.visual,Vector3(0,-0.68,0),Vector3(0.86,0.16,0.6),Color("253d49"),0.6,0.025)
 	Geo.box(object.visual,Vector3(0,-0.59,0),Vector3(0.65,0.025,0.4),Color("5cd7d0"),0,2)
 	Geo.text(object.visual,"NORTHSTAR\nVIRTUÁLNÍ INSTRUKTOR",Vector3(0,-0.38,0.2),24,0.0016)
