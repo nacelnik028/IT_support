@@ -1,0 +1,32 @@
+{
+  "windows": {
+    "sha256": "0a1570e461e4f28bda45978904c404adf1ccc914d83129e3f94d36708bad2674",
+    "results": {
+      "continuation_review": true,
+      "unified_profile": true,
+      "london_listening": true,
+      "attempt_review": true,
+      "advanced_shifts": true,
+      "shift_scoring": true,
+      "work_persistence": true,
+      "shifts": true,
+      "gameplay": true,
+      "xr_modes": true
+    }
+  },
+  "pico": {
+    "sha256": "5d6582146815170e6aaabca41a25e5f56718cd0c42ab3e2b84faafbe4897793c",
+    "results": {
+      "continuation_review": true,
+      "unified_profile": true,
+      "london_listening": true,
+      "attempt_review": true,
+      "advanced_shifts": true,
+      "shift_scoring": true,
+      "work_persistence": true,
+      "shifts": true,
+      "gameplay": true,
+      "xr_modes": true
+    }
+  }
+}

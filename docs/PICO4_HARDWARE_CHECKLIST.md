@@ -23,3 +23,5 @@ model běžného PICO 4 ___, vsedě/vestoje ___, délka relace ___ .
 - **NEPROVEDENO – headset není dostupný.** Rozbor před/po a dobrovolná otázka, Moje znalosti a konkrétní doporučení s konceptem, oba paprsky, scroll/drag/klávesnice/krajní panel. Výsledek: ___ .
 - **NEPROVEDENO – headset není dostupný.** LONL01–12 všechny režimy, normální/pomalý klip, skutečný subjektivní zvuk v headsetu, přepis/ztlumení, restart zkoušky a stop při focus/tracking. Výsledek: ___ .
 - **NEPROVEDENO – headset není dostupný.** Zazděný přímý průchod serverovna–Londýn: kolize chůze i teleportu a zachovaná cesta přes rozcestník. Výsledek: ___ .
+
+- **NEPROVEDENO – headset není dostupný.** Držet trigger na tlačítku a ztratit focus/head tracking, přemístit panel A/X nebo změnit jeho velikost: žádné potvrzení ani posun simulačního času. Po návratu až nový úplný stisk/uvolnění. Verze 1.5.0 v Nastavení musí odpovídat APK 1.5.0 / code 6. Výsledek: ___ .

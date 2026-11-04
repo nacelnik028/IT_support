@@ -83,7 +83,7 @@ func deactivate():
 	active=false
 	hide()
 	monitor.hide()
-	monitor.click(false)
+	cancel_ui_press()
 	shell.ui_layer.reparent(shell)
 	shell.ui.sync_display_layout()
 	get_viewport().use_xr=false
@@ -100,13 +100,17 @@ func configure_refresh():
 		if absf(float(rate)-72.0)<0.1: interface.display_refresh_rate=72.0; break
 	if interface.is_foveation_supported(): interface.foveation_level=1; interface.foveation_dynamic=true
 
+func cancel_ui_press():
+	monitor.cancel_press()
+	pointer_hand=null
+
 func lose_focus():
 	if not active: return
 	focused = false
 	if is_instance_valid(shell.speech): shell.speech.stop_speech()
 	teleporting = false
 	teleport_line.hide()
-	monitor.click(false)
+	cancel_ui_press()
 	if shell.mode == "world": shell.pause_menu()
 
 func calibrate_height():
@@ -121,7 +125,7 @@ func mode_changed():
 		monitor.place_in_front(head)
 		monitor.viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	else:
-		monitor.click(false)
+		cancel_ui_press()
 		monitor.viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 
 func ray_hit(hand: Node3D, distance: float = 3.2) -> Dictionary:
@@ -335,15 +339,15 @@ func _physics_process(delta):
 		beams[hand].visible=hand.get_has_tracking_data()
 		grip_nodes[hand].visible=hand.get_has_tracking_data()
 	var head_tracker=XRServer.get_tracker("head")
-	if not focused or head_tracker==null or not head_tracker.has_pose("default"): return
-	if not head_tracker.get_pose("default").has_tracking_data:
+	if not focused: return
+	if head_tracker==null or not head_tracker.has_pose("default") or not head_tracker.get_pose("default").has_tracking_data:
 		if is_instance_valid(shell.speech): shell.speech.stop_speech()
 		# Tracking can recover without a new session_focussed signal. Preserve
 		# session focus so the recovered player can resume from the pause menu.
 		teleporting=false
 		marker.hide()
 		teleport_line.hide()
-		monitor.click(false)
+		cancel_ui_press()
 		if shell.mode=="world": shell.pause_menu()
 		return
 	var stick=right.get_vector2("primary")

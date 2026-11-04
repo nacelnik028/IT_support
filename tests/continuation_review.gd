@@ -9,8 +9,10 @@ var trackers=[]
 var checks=0
 var failures=0
 var suffix=""
+var desktop_focus_outs=0
 
 func _init():
+	root.focus_exited.connect(func(): desktop_focus_outs+=1; print("TEST WINDOW FOCUS OUT / ",desktop_focus_outs))
 	root.gui_embed_subwindows=true
 	var tag=str(OS.get_process_id())
 	Saves.path_override="user://academy_test_continuation_review_"+tag+".json"
@@ -145,7 +147,15 @@ func run():
 				for w in windows: w.hide()
 				rig.monitor.keyboard.dismiss(); field.queue_free(); await frames()
 				if screen=="listening":
-					await click_button(button("Poslechnout / zopakovat"),trackers[1]); check(shell.speech.playing,"Levý ray úplný trigger přehrává")
+					if DisplayServer.get_name()!="headless": root.grab_focus()
+					await frames()
+					var focus_before=desktop_focus_outs
+					await click_button(button("Poslechnout / zopakovat"),trackers[1])
+					if not shell.speech.playing and desktop_focus_outs>focus_before:
+						check(not g.english.listening.session.completed,"Desktop focus-out nezvolí poslechovou odpověď")
+						root.grab_focus(); await frames(); await click_button(button("Poslechnout / zopakovat"),trackers[1])
+					if not shell.speech.playing: print("XR AUDIO DIAGNOSTIC ",suffix," plays=",g.english.listening.session.plays," mode=",shell.mode," focused=",rig.focused," generation=",shell.speech.play_generation," window_focus=",root.has_focus()," pixel=",rig.monitor.last_pixel)
+					check(shell.speech.playing,"Levý ray úplný trigger přehrává")
 					await click_button(button("Pomaleji"),trackers[2]); check(shell.speech.playing and shell.speech.pitch_scale==1.0,"Pravý ray pomalá varianta")
 					rig.lose_focus(); check(not shell.speech.playing,"Focus zastaví nový poslech"); rig.focused=true
 	await pointer_safety()
@@ -167,6 +177,24 @@ func pointer_safety():
 	rig.pressed(rig.right,"trigger_click"); rig.monitor.point(Vector2(-1,-1)); rig.released(rig.right,"trigger_click"); await frames()
 	check(counter[0]==1 and not rig.monitor.pointer_down,"Uvolnění mimo tlačítko nic nepotvrdí")
 	await click_button(test,trackers[2]); await click_button(test,trackers[1]); check(counter[0]==3,"Opakované úplné triggery fungují oběma rukama")
+	var stable_count=counter[0]
+	rig.pressed(rig.left,"trigger_click"); rig.lose_focus(); await frames()
+	check(counter[0]==stable_count and not rig.monitor.pointer_down,"Focus-out zruší držený trigger bez potvrzení tlačítka")
+	rig.focused=true
+	rig.pressed(rig.left,"trigger_click"); trackers[0].invalidate_pose("default")
+	for i in 4: await physics_frame
+	await frames()
+	check(counter[0]==stable_count and not rig.monitor.pointer_down,"Ztráta trackingu zruší trigger bez potvrzení")
+	trackers[0].set_pose("default",Transform3D(Basis(),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH); await frames()
+	rig.pressed(rig.right,"trigger_click"); rig.monitor.configure(rig.settings); await frames()
+	check(counter[0]==stable_count and not rig.monitor.pointer_down,"Změna panelu zruší původní stisk bez potvrzení")
+	rig.pressed(rig.left,"trigger_click"); XRServer.remove_tracker(trackers[0])
+	for i in 4: await physics_frame
+	await frames()
+	check(counter[0]==stable_count and not rig.monitor.pointer_down,"Odebraný head tracker zruší trigger bez potvrzení")
+	XRServer.add_tracker(trackers[0]); await frames()
+	rig.pressed(rig.left,"trigger_click"); rig.pressed(rig.right,"ax_button"); rig.released(rig.right,"ax_button"); await frames()
+	check(counter[0]==stable_count and not rig.monitor.pointer_down,"A/X přemístí panel a zruší držený trigger")
 	var slider=HSlider.new(); slider.position=Vector2(500,400); slider.size=Vector2(400,50); rig.monitor.keyboard.get_parent().add_child(slider); await frames()
 	rig.monitor.point(Vector2(510,425)); rig.monitor.click(true); rig.monitor.point(Vector2(850,425)); rig.monitor.click(false); await frames(); check(slider.value>70,"Skutečný drag ve VR viewportu")
 	test.queue_free(); slider.queue_free(); await show_screen("profile")

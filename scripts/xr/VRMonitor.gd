@@ -12,7 +12,7 @@ var dimensions = DIMENSIONS
 var distance_from_head = 1.25
 
 func configure(settings):
-	click(false)
+	cancel_press()
 	dimensions=DIMENSIONS*settings.panel_scale
 	distance_from_head=settings.panel_distance
 	if is_instance_valid(screen): screen.mesh.size=dimensions
@@ -53,6 +53,7 @@ func _ready():
 	layer.add_child(cursor)
 
 func place_in_front(head: Camera3D):
+	cancel_press()
 	global_position = head.global_position-head.global_basis.z*distance_from_head
 	global_position.y = maxf(global_position.y,0.85)
 	# A world anchored screen stays still when the player turns their head.
@@ -87,6 +88,11 @@ func point(pixel: Vector2):
 	event.button_mask = MOUSE_BUTTON_MASK_LEFT if pointer_down else 0
 	last_pixel = pixel
 	viewport.push_input(event,true)
+
+func cancel_press():
+	# Release outside the UI: releasing over the old target would activate it.
+	if is_instance_valid(viewport): point(Vector2(-1,-1))
+	click(false)
 
 func click(pressed: bool):
 	if pressed and last_pixel.x < 0: return

@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Zrušení drženého XR triggeru při ztrátě kontextu — 4. 11. 2026
+
+- Dodatečný skutečný audit tlačítka reprodukoval **235 kontrol / 1 selhání**: staré lose_focus uvolnilo ukazatel nad původním tlačítkem a potvrdilo jej. Baseline uložený jako release-focus-cancel-audit.log, bez destruktivní operace (skutečný Button počítal aktivace).
+- VRMonitor.cancel_press nejdříve přemístí kurzor mimo viewport a teprve pak uvolní stisk. XRPlayer vyčistí také vlastníka paprsku. Použito při focus-out, neplatném/odebraném head trackeru, skrývání/deaktivaci, změně rozměrů i A/X přemístění panelu. Běžné úmyslné uvolnění triggeru zůstává normální kliknutí.
+- Rozšířená skutečná matice **239 headless PASS / 351 Compatibility PASS / 351 Forward+ PASS**, všech 224 PNG aktuálně obnovených. Nové negativní kontroly: držený trigger při focus-out, neplatném i odebraném trackeru, resize a A/X. Žádné nechtěné potvrzení; všechny původní kliky, obě ruce, drag/scroll a audio zachované. Původní XR **120 PASS**.
+- Programovací fyzický průchod měl při desktopovém focus-out legitimně pozastavený pohyb; test nyní nejprve prokáže skutečnou pauzu a výslovně aktivuje existující Pokračovat pomocí Enter. Žádné přesunutí hráče do cíle ani vypnutí ochrany. **29 GPU PASS**, původní chůze oběma směry, kolize a modelové záruky zachované. Diagnostika blokace vypisuje režim/dveře/focus.
+- Verze v nastavení zůstává 1.5.0, přidaná až po ec51021. Předchozí verze 88a0bdb měla 46 zdrojových sad / APK 20 / cílené balíčky PASS, Windows 26/27 kvůli zmíněné pauze; tyto výsledky archivované odděleně a nepřenášené na nový hash. Oba exporty a celý aktuální runner se nyní ověří po poslední opravě. Bez push, PICO hardware neprovedený.
+
 ## Uživatelské doplnění verze po dokončení původního zadání — 4. 11. 2026
 
 - Základní prompt nejdříve uzavřen commitem **ec51021**, včetně celého aktuálního runneru 46 PASS a obou skutečných ověřených exportů. Teprve poté přidaná verze podle následného výslovného požadavku uživatele.

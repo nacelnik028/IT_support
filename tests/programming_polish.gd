@@ -4,8 +4,10 @@ const Saves=preload("res://scripts/progression/SaveManager.gd")
 var checks=0
 var failures=0
 var shell
+var focus_outs=0
 
 func _init():
+	root.focus_exited.connect(func(): focus_outs+=1)
 	preload("res://scripts/xr/VRSettings.gd").path_override="user://academy_test_programming_polish_"+str(OS.get_process_id())+"_vr.cfg"
 	var tag=str(OS.get_process_id())
 	Saves.path_override="user://programming_polish_test_"+tag+".json"
@@ -18,7 +20,21 @@ func check(ok: bool, message: String):
 	if not ok: failures+=1; print("FAIL ",message)
 
 func walk_to(target: Vector3, frames: int = 220) -> bool:
+	if DisplayServer.get_name()!="headless": root.grab_focus()
 	for i in frames:
+		# A desktop focus loss intentionally pauses movement. Explicitly activate
+		# Continue through the real focused button before resuming test walking.
+		if shell.mode=="pause":
+			if DisplayServer.get_name()!="headless": root.grab_focus()
+			await process_frame
+			var controls=shell.overlay.find_children("*","Button",true,false).filter(func(button): return button.text=="Pokračovat")
+			check(not controls.is_empty(),"Focus pause offers the actual Continue action")
+			if controls.is_empty(): return false
+			controls[0].grab_focus()
+			for down in [true,false]:
+				var key=InputEventKey.new(); key.keycode=KEY_ENTER; key.pressed=down; root.push_input(key,true)
+			await process_frame
+			print("TEST explicit Continue after desktop focus loss")
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		shell.world.player.rotation=Vector3.ZERO
 		var delta=target-shell.world.player.position
@@ -28,13 +44,15 @@ func walk_to(target: Vector3, frames: int = 220) -> bool:
 		if absf(delta.z)>0.06: Input.action_press("walk_back" if delta.z>0 else "walk_forward")
 		await physics_frame
 	for action in ["walk_left","walk_right","walk_forward","walk_back"]: Input.action_release(action)
-	print("Walk blocked at ",shell.world.player.position," trying to reach ",target)
+	print("Walk blocked at ",shell.world.player.position," trying to reach ",target," mode=",shell.mode," door_open=",shell.world.programming_room.door_open," enabled=",shell.world.player.enabled," focus_outs=",focus_outs)
 	return false
 
 func run():
 	shell=preload("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell)
 	await process_frame
 	shell.enter_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	shell.notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	check(shell.mode=="pause" and not shell.world.player.enabled,"Desktop focus loss pauses actual walking")
 	shell.world.player.rotation=Vector3.ZERO; shell.world.player.camera.rotation=Vector3.ZERO
 	check(await walk_to(Vector3(0,0.02,4.4)),"Leave administration desks through rear aisle")
 	check(await walk_to(Vector3(-6.5,0.02,4.4)),"Reach main aisle from ordinary spawn")
