@@ -1,5 +1,9 @@
 # IT Support Simulator: Training academy
 
+Dodatečná **zdrojová oprava 9a** odstraňuje přesah béžových lamel chodby do
+západní stěny Londýna přímo v jejich generování. [Srovnání před/po a ověření](docs/ui-review/2026-11-04-london-geometry/README.md).
+EXE/APK níže jsou původní vydání 1.5.0; tuto dodatečnou opravu ještě neobsahují.
+
 Aktuální verze **1.5.0** je vidět v **Nastavení** na PC i ve VR. Android vydání má versionCode **6**. Hotové lokální EXE/APK: celý runner **46 sad PASS**, grafická matice **351/351 PASS**, obě distribuce ověřené. [Výsledky, snímky a hashe](TEST_REPORT.md). Git push nebyl proveden.
 
 Celá navazující etapa a ovládání: [ukládání, směny, rozbor, poslech a profil](docs/CONTINUATION_RELEASE.md). Přímý průchod serverovna–Londýn je zazděný; používej východní chodbu rozcestníku.
@@ -489,6 +493,11 @@ V PowerShellu s cestou ke console variantě Godotu:
 ```powershell
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
+
+`london_geometry.gd` ověřuje meze dekoru serverové chodby, skutečnou chůzi kolem
+Londýna, kolize/interakce u původního přesahu a zazděný přímý průchod z obou stran.
+Grafický běh s `-- --screenshots --matrix` uloží obvodové snímky a matici
+720p/1080p/4K × text 100/130 % do datované složky výše.
 
 Samostatné Windows EXE sestavuje `tools/build_windows.py` / `Build-Windows.ps1`.
 PICO a volitelné Windows Release balíčky sestavuje `tools/build_platforms.py`

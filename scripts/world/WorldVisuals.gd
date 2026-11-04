@@ -148,9 +148,16 @@ func corridor():
 	Geo.solid(world,Vector3(-4.5,-0.12,8.7),Vector3(7,0.24,3.5),Color("343c43"),0.1)
 	Geo.box(world,Vector3(-4.5,3.5,8.7),Vector3(7,0.15,3.5),Color("27313a"))
 	Geo.box(world,Vector3(-4.5,1.7,10.45),Vector3(7,3.5,0.15),Color("47464a"))
-	for x in [-7.8,-1.2]: Geo.box(world,Vector3(x,1.7,8.7),Vector3(0.14,3.5,3.5),Color("293640"))
-	for x in range(-8,0):
-		for offset in [0.05,0.17,0.29]: Geo.box(world,Vector3(x+offset,1.6,10.34),Vector3(0.045,2.9,0.07),Color("947c65"),0.1)
+	var side_centers=[-7.8,-1.2]
+	var side_thickness=0.14
+	for x in side_centers: Geo.box(world,Vector3(x,1.7,8.7),Vector3(side_thickness,3.5,3.5),Color("293640"))
+	# Keep each complete slat cluster between the side walls' inner faces.
+	# The former integer range extended past the right return into London.
+	var first_cluster=side_centers[0]+side_thickness*0.5+0.2
+	var last_cluster=side_centers[1]-side_thickness*0.5-0.2
+	for bay in 7:
+		var center=lerpf(first_cluster,last_cluster,float(bay)/6.0)
+		for offset in [-0.12,0.0,0.12]: Geo.box(world,Vector3(center+offset,1.6,10.34),Vector3(0.045,2.9,0.07),Color("947c65"),0.1)
 	Geo.text(world,"NORTHSTAR",Vector3(-4.5,2.05,10.25),86,0.005,Color("d3ecec")).rotation.y = PI
 	Geo.text(world,"IT OPERATIONS  /  ACADEMY",Vector3(-4.5,1.6,10.24),32,0.003,Color("9db8c7")).rotation.y = PI
 	for x in [-6.5,-2.5]:

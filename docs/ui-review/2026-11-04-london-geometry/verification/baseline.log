@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Lamela patří dovnitř chodby: [P: (-7.9725, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Lamela patří dovnitř chodby: [P: (-7.8525, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Lamela patří dovnitř chodby: [P: (-7.7325, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Lamela patří dovnitř chodby: [P: (-0.9725, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Lamela patří dovnitř chodby: [P: (-0.8525, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Lamela patří dovnitř chodby: [P: (-0.7325, 0.15, 10.305), S: (0.045, 2.9, 0.07)]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] audit_corridor (res://tests/london_geometry.gd:39)
+       [2] run (res://tests/london_geometry.gd:87)
+ERROR: Skutečná chůze k (20.45, 0.02, 28.3), dosaženo (19.0177, -0.009924, 28.38353)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] walk (res://tests/london_geometry.gd:60)
+       [2] frames (res://tests/london_geometry.gd:26)
+ERROR: Skutečná chůze k (20.45, 0.02, 24.0), dosaženo (19.0177, -0.010661, 28.38353)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/london_geometry.gd:23)
+       [1] walk (res://tests/london_geometry.gd:60)
+       [2] frames (res://tests/london_geometry.gd:26)
+LONDON GEOMETRY: 230 checks, 8 failures

@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Bod 9a — béžové lamely v Londýně, 4. 11. 2026
+
+- Původ potvrzen graficky i geometrií: `WorldVisuals.corridor()`, poslední trojice dekoru zadní stěny prosklené chodby serverovny (X −0,95/−0,83/−0,71, Z 10,34). Dvě lamely vystupovaly před západní stěnu Londýna. Původní smyčka přesahovala také levý konec vlastní chodby; nešlo o zbytek londýnského průchodu.
+- Celé trojice se nově rozmísťují podle skutečných vnitřních hran bočních stěn chodby, se započtenou tloušťkou a odstupem. Dekor zůstává napojený na zadní stěnu. Žádná maskovací deska ani změna kolizí; v původním místě nejsou skryté kolize/interakce. Souvislá stěna a zazděný přímý průchod zachované, cesta rozcestníkem průchozí.
+- Nový `london_geometry`: **226 PASS headless / 226 PASS Compatibility / 226 PASS Forward+**, skutečný CharacterBody/input, oba stavy sousedních dveří, most/obvod/východní chodba/IT strana a blokace přímého průchodu z obou stran. Nově součást Test-All (47 sad); kompletní runner se dokončuje. MCP DesignMCP **31 PASS**, osm již evidovaných statických varování v nezměněných skriptech odděleně. Grafické XR **120 PASS** včetně skutečného viewportu/obou syntetických rukou/scrollu/klávesnice; bez fyzického PICO.
+- [Snímky a přesná reprodukce](docs/ui-review/2026-11-04-london-geometry/README.md): shodná vlastní kamera před/po, otevřené/zavřené dveře, oba renderery, 720p/1080p/4K × 100/130 %, obvod z obou stran. Nový uživatelský screenshot nebyl doručen (příloha obsahovala jen text), proto nelze potvrdit shodu s jeho původním úhlem. Reprodukční log se šesti skutečnými přesahy a dvěma chybami původní testovací trasy archivovaný odděleně; trasa opravena kolem květináče bez obcházení fyziky.
+- Odděleně potvrzen tmavý **ACADEMY-DOOR** u X 9 / otevřené Z 6,5, s přesahem do Z 7,95. Je to samostatný bod 9, který tato úzce zaměřená oprava 9a nemění; zůstává k opravě. Další obdobné béžové přesahy při prohlídce nenalezeny.
+- Pouze zdroje/testy/dokumentace; EXE/APK z vydání níže tuto dodatečnou opravu neobsahují. Vlastní testovací save/CFG, katalogy a legacy24 beze změn. Bez push.
+
 ## Finální vydání 1.5.0 — dokončeno 4. 11. 2026
 
 Tato sekce uvádí výsledky pro skutečné aktuální soubory. Starší oddíly níže jsou historické. Původní zadání bylo nejprve dokončené v ec51021; následně doplněná verze v Nastavení (88a0bdb), zrušení drženého XR stisku (a6d58e3) a platný tracker v testu (74edf37).
