@@ -29,7 +29,7 @@ i chodbu, cílovou kapsli kontroluje fyzika a paprsek oblouku zastaví překáž
 - **Menu → Rozcestník akademie** a start VR: vždy nástupní bod v hale.
 - **Pauza → Pokračovat** nebo Esc od počítače: aktuální poloha a rozpracovaná
   práce zůstávají v živé relaci podle stávajících pravidel.
-- **Pauza → Rozcestník akademie**: návrat na nástupní bod, odložení kampaně.
+- **Pauza → Kam jít → Rozcestník akademie**: návrat na nástupní bod, odložení kampaně.
 - Fyzický návrat z místnosti: zůstáváš u jejího portálu, kamera se sama neotáčí.
 - Při návratu do serverovny se obnoví skutečný ticket, infrastruktura, inventář
   a postup; první nová směna vznikne až vstupem do serverovny.

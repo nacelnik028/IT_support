@@ -1,0 +1,310 @@
+[
+  {
+    "suite": "london_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-london_repair-gl_compatibility.log",
+    "summary": [
+      "LONDON REPAIR: 1950 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "editor_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-editor_repair-gl_compatibility.log",
+    "summary": [
+      "EDITOR REPAIR: 410 checks, 0 failures; PC and synthetic XR"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "continuation_review",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-continuation_review-gl_compatibility.log",
+    "summary": [
+      "CONTINUATION REVIEW: 351 checks, 0 failures; PC matrix and synthetic XR, no headset"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "xr_modes",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-xr_modes-gl_compatibility.log",
+    "summary": [
+      "XR_MODES: 120 checks, 0 failures; synthetic tests, no hardware tracking claim"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "ui_workflow",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-ui_workflow-gl_compatibility.log",
+    "summary": [
+      "UI WORKFLOW: 615 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "render_quality",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-render_quality-gl_compatibility.log",
+    "summary": [
+      "RENDER QUALITY: 8 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-london_repair-forward_plus.log",
+    "summary": [
+      "LONDON REPAIR: 1955 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "editor_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-editor_repair-forward_plus.log",
+    "summary": [
+      "EDITOR REPAIR: 410 checks, 0 failures; PC and synthetic XR"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "continuation_review",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-continuation_review-forward_plus.log",
+    "summary": [
+      "CONTINUATION REVIEW: 351 checks, 0 failures; PC matrix and synthetic XR, no headset"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "xr_modes",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-xr_modes-forward_plus.log",
+    "summary": [
+      "XR_MODES: 120 checks, 0 failures; synthetic tests, no hardware tracking claim"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "ui_workflow",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-ui_workflow-forward_plus.log",
+    "summary": [
+      "UI WORKFLOW: 615 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "render_quality",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-final-render_quality-forward_plus.log",
+    "summary": [
+      "RENDER QUALITY: 8 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-london_repair-gl_compatibility.log",
+    "summary": [
+      "LONDON REPAIR: 1950 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "pause_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-pause_repair-gl_compatibility.log",
+    "summary": [
+      "PAUSE REPAIR: 239 checks, 0 failures; PC and synthetic XR"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "gameplay_review",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-gameplay_review-gl_compatibility.log",
+    "summary": [
+      "GAMEPLAY REVIEW: 153 checks, 0 failures; synthetic XR, no headset"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-london_repair-forward_plus.log",
+    "summary": [
+      "LONDON REPAIR: 1955 checks, 0 failures"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "pause_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-pause_repair-forward_plus.log",
+    "summary": [
+      "PAUSE REPAIR: 239 checks, 0 failures; PC and synthetic XR"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "gameplay_review",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-refresh-gameplay_review-forward_plus.log",
+    "summary": [
+      "GAMEPLAY REVIEW: 153 checks, 0 failures; synthetic XR, no headset"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "programming_integration",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-programming-programming_integration-gl_compatibility.log",
+    "summary": [
+      "PROGRAMMING INTEGRATION 765 checks, 0 failures; 252 generated variants"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "programming_integration",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-programming-programming_integration-forward_plus.log",
+    "summary": [
+      "PROGRAMMING INTEGRATION 765 checks, 0 failures; 252 generated variants"
+    ],
+    "source_commit": "34b9189"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-exam-final-london_repair-gl_compatibility.log",
+    "summary": [
+      "LONDON REPAIR: 1991 checks, 0 failures"
+    ],
+    "source_commit": "84478db"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-exam-final-london_repair-forward_plus.log",
+    "summary": [
+      "LONDON REPAIR: 1995 checks, 0 failures"
+    ],
+    "source_commit": "84478db"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-generation-verified-london_repair-gl_compatibility.log",
+    "summary": [
+      "LONDON REPAIR: 2071 checks, 0 failures"
+    ],
+    "source_commit": "0e007fe"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-generation-verified-london_repair-forward_plus.log",
+    "summary": [
+      "LONDON REPAIR: 2075 checks, 0 failures"
+    ],
+    "source_commit": "0e007fe"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-view-final-london_repair-gl_compatibility.log",
+    "summary": [
+      "LONDON REPAIR: 2078 checks, 0 failures"
+    ],
+    "source_commit": "d8efc89"
+  },
+  {
+    "suite": "london_repair",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-view-final-london_repair-forward_plus.log",
+    "summary": [
+      "LONDON REPAIR: 2082 checks, 0 failures"
+    ],
+    "source_commit": "d8efc89"
+  },
+  {
+    "suite": "vr_wrist_photo",
+    "renderer": "gl_compatibility",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-wrist-photo-vr_wrist_photo-gl_compatibility.log",
+    "summary": [
+      "VR WRIST PHOTO: 3 checks, 0 failures"
+    ],
+    "source_commit": "d8efc89"
+  },
+  {
+    "suite": "vr_wrist_photo",
+    "renderer": "forward_plus",
+    "exit_code": 0,
+    "passed": true,
+    "log": "graphics-wrist-photo-vr_wrist_photo-forward_plus.log",
+    "summary": [
+      "VR WRIST PHOTO: 3 checks, 0 failures"
+    ],
+    "source_commit": "d8efc89"
+  }
+]

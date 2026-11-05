@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to open 'C:/Users/vit/AppData/Roaming/Godot/app_userdata/IT Support Simulator- Datacenter Academy/academy_test_xr_modes.json'.
+   at: copy (core/io/dir_access.cpp:426)
+   GDScript backtrace (most recent call first):
+       [0] save_game (res://scripts/progression/SaveManager.gd:113)
+       [1] save (res://scripts/core/GameManager.gd:410)
+       [2] store_pose (res://scripts/world/GameShell.gd:344)
+       [3] request_play_mode (res://scripts/world/GameShell.gd:617)
+       [4] run (res://tests/xr_modes.gd:290)
+       [5] frames (res://tests/xr_modes.gd:26)
+ERROR: Uložení společné pozice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/xr_modes.gd:23)
+       [1] run (res://tests/xr_modes.gd:301)
+       [2] frames (res://tests/xr_modes.gd:26)
+ERROR: Import přenositelného postupu
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/xr_modes.gd:23)
+       [1] run (res://tests/xr_modes.gd:305)
+       [2] frames (res://tests/xr_modes.gd:26)
+XR_MODES: 120 checks, 2 failures; synthetic tests, no hardware tracking claim

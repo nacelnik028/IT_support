@@ -4,7 +4,7 @@ Třetí oblast existující hry obsahuje 30 Python úloh PY01–PY30, 30 webový
 
 ## Použití
 
-Učebna je vlevo od racků v západní stěně serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je hlavní menu → Programovací učebna nebo Pauza → Programovací učebna. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
+Učebna je vlevo od racků v západní stěně serverovny za dveřmi u SW-CORE. Ovladač funguje z obou stran přes E; alternativou je hlavní menu → Programovací učebna nebo Pauza → Kam jít → Programování. Python Lab, Web Development Lab, Examination Zone, Ada i tabule otevírají skutečný editor. Web Lab zahrnuje HTML/CSS/JS.
 
 Vyber lekci, úlohu či opravu a režim. Učím se obsahuje výklad a samostatně otevřenou ukázku. Vyžaduje úpravu, spuštění, další úpravu a spuštění a potom úspěšný test zadání. Procvičování má volitelné nápovědy. Zkouška blokuje nápovědy i ukázku. CodeEdit má odsazení, syntax highlighting, výběr textu, číslování řádků, desktopový clipboard/undo/redo a zoom A−/A+.
 
@@ -46,3 +46,13 @@ Test-All.ps1 obsahuje programming_runtime (výpočty/chyby/izolace), programming
 Fyzický PICO 4 zatím nebyl připojen. Syntetické XR testy neověřují tracking, dlouhodobý komfort, konkrétní Bluetooth klávesnici ani 72 FPS na zařízení.
 
 Nové dialogy obnovení práce a rozboru používají měřítko skutečného viewportu včetně 4K a VR. Moje znalosti nabízí společné dovednosti a zachová původní režim rozepsané zkoušky. [Grafická kontrola](ui-review/2026-11-03-continuation/README.md).
+
+## Aktuální zdrojové rozhraní (5. 11. 2026)
+
+Oddělovač nad vstupy táhni myší nebo drženým XR triggerem; mění výšku editoru
+a výsledků. Vstupy lze sbalit bez ztráty textu. Reset, ukázka, zoom a odsazení
+jsou v Nástroje kódu; koncepty a studium ve Studium a postup. Celé zadání je
+v samostatném dialogu. Ověření uvádí testy/skóre/důvod a rozbalitelné detaily;
+zkouška neodhalí očekávané výstupy. Po editaci předchozí ověření neplatí.
+[Snímky a aktuální ověření](ui-review/2026-11-04-interface/README.md).
+EXE/APK 1.5.0 tuto dodatečnou zdrojovou úpravu zatím neobsahují.

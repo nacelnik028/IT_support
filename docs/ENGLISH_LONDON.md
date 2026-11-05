@@ -1,7 +1,7 @@
 # English in London — B1–B2
 
 Do existujícího londýnského pavilonu vede portál 04 z rozcestníku a východní
-chodba. Přímý jižní průchod ze serverovny je zazděný; zkratka v menu a pauze zůstala.
+chodba. Přímý jižní průchod ze serverovny je zazděný; zkratka v menu a Pauza → Kam jít → English in London zůstala.
 London Eye, věž, Temže, široký most, Sam, Alex, terminál i kontrola jsou na svých
 dosavadních místech. Zjednodušené vzdálenosti a 24 kabinek herního modelu
 nepředstavují turistickou mapu; skutečné kolo má 32 kabinek.
@@ -97,3 +97,23 @@ zůstávají textové. [Mapování, licence a meze ověření](LONDON_AUDIO.md).
 
 
 Navazující samostatné [poslechové procvičování](LONDON_LISTENING.md) používá původních 24 klipů bez nového audia; vlastní výsledky/režimy a bezpečná obnova. [Moje znalosti](KNOWLEDGE_PROFILE.md) odděluje dialog, kvíz a poslech.
+
+## Aktuální zdrojová úprava rozhraní (5. 11. 2026)
+
+Pevné záhlaví ukazuje situaci, režim a aktuální krok. Vlevo je zadání,
+objednávka a skutečné cíle; vpravo NPC a souvislé odpovědi. Úplné zadání
+rozbalíš i ve zkoušce. Poslech zákaznické repliky má samostatný výběr jejího
+čísla mimo odpovědi. Modrý obrys znamená fokus, nikoli správnost.
+
+Výuka vysvětlí chybu počtu či produktu, praxe krátce upozorní, zkouška jen
+zaznamená volbu. Výsledek odhalí konkrétní cíle a chyby. „Ukončit a vyhodnotit
+zkoušku“ pokus uzavře; odkryté řešení nelze použít k dalším volbám v témže
+pokusu. Neúspěšný pokus nepřidá dokončení. Mimo zkoušku lze průběžný rozbor
+zavřít a pokračovat.
+
+„Ukázat cestu…“ ponechá relaci a zavře panel. Sleduj malou modrou značku,
+jméno cíle a vzdálenost po skutečné trase. Navigace k věži vede přes most.
+U Sama, Alexe, terminálu, kontroly a věže pokračuj přes E nebo trigger.
+Navigace neplatí a nic nedokončuje za hráče. Změna/zrušení pokusu ji uklidí.
+[Snímky a aktuální ověření](ui-review/2026-11-04-interface/README.md).
+EXE/APK 1.5.0 tuto dodatečnou zdrojovou úpravu zatím neobsahují.

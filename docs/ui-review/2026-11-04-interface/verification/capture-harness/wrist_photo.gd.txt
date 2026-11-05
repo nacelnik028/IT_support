@@ -1,0 +1,27 @@
+extends "res://tests/pause_repair.gd"
+
+func run():
+	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
+	shell.ui.apply_display_settings(Vector2i(1920,1080),false)
+	shell.ui.game.english.progress.intro_seen=true; shell.enter_world("English in London")
+	shell.world.player.position=Vector3(12,0.02,8.8); shell.world.player.rotation=Vector3.ZERO
+	shell.ui.game.english.start("LON06","practice",0)
+	rig=load("res://scenes/xr/XRPlayer.tscn").instantiate(); rig.shell=shell; shell.xr_rig=rig; shell.world.player.add_child(rig)
+	var head=XRPositionalTracker.new(); head.name="head"; head.type=XRServer.TRACKER_HEAD
+	head.set_pose("default",Transform3D(Basis.from_euler(Vector3(-0.35,0.2,0)),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH); XRServer.add_tracker(head); trackers.append(head)
+	for name_value in ["left_hand","right_hand"]:
+		var tracker=XRControllerTracker.new(); tracker.name=name_value; tracker.type=XRServer.TRACKER_CONTROLLER
+		tracker.set_input("primary",Vector2.ZERO); tracker.set_input("trigger_click",false)
+		for pose_name in ["aim","grip"]: tracker.set_pose(pose_name,Transform3D(Basis(),Vector3(-0.15 if name_value=="left_hand" else 0.3,1.2,-0.65)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+		XRServer.add_tracker(tracker); trackers.append(tracker)
+	shell.vr_active=true; rig.activate(false)
+	await frames(); shell.london_navigation.start("info")
+	for tick in 12: await physics_frame
+	shell.update_guidance()
+	for tick in 4: await physics_frame
+	check(rig.wrist.is_visible_in_tree(),"Náramek je skutečně viditelný ve světě")
+	check("Alex / INFORMATION" in rig.wrist.text and "m po cestě" in rig.wrist.text,"Náramek obsahuje skutečný cíl i vzdálenost")
+	suffix="tracked-world"; await capture("london-vr-wrist",root)
+	rig.deactivate(); shell.vr_active=false
+	for tracker in trackers: XRServer.remove_tracker(tracker)
+	shell.queue_free(); await frames(); print("VR WRIST PHOTO: %d checks, %d failures" % [checks,failures]); quit(1 if failures else 0)

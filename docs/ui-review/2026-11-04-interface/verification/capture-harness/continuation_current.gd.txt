@@ -1,0 +1,6 @@
+extends "res://tests/continuation_review.gd"
+func capture(name, viewport=null):
+	if DisplayServer.get_name()=="headless" or not "--screenshots" in OS.get_cmdline_user_args(): return
+	await frames(); await RenderingServer.frame_post_draw
+	var target=viewport if viewport!=null else root
+	check(target.get_texture().get_image().save_png("res://docs/ui-review/2026-11-04-interface/continuation-"+RenderingServer.get_current_rendering_method()+"-"+name+"-"+suffix+".png")==OK,"Snímek "+name)

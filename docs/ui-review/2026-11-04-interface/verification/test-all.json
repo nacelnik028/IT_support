@@ -1,0 +1,396 @@
+{
+  "completed": "2026-11-05T09:04:55.414763+01:00",
+  "source_commit": "d8efc891300d0d679da1a20d8b3dea15cd795300",
+  "source_manifest_sha256": "dff005edc11e4ed2aa028dbf005314a05daa8312a7348333853db17d769638a4",
+  "runner": "tools/Test-All.ps1",
+  "exit_code": 0,
+  "engine_starts": 51,
+  "runtime_error_warning_lines": 0,
+  "training_ui_actions": 336,
+  "training_ui_modes": [
+    "learn",
+    "practice",
+    "exam"
+  ],
+  "suites": [
+    {
+      "suite": "london_repair",
+      "passed": true,
+      "tail": [
+        "LONDON REPAIR: 2002 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "editor_repair",
+      "passed": true,
+      "tail": [
+        "EDITOR REPAIR: 380 checks, 0 failures; PC and synthetic XR"
+      ]
+    },
+    {
+      "suite": "pause_repair",
+      "passed": true,
+      "tail": [
+        "PAUSE REPAIR: 217 checks, 0 failures; PC and synthetic XR"
+      ]
+    },
+    {
+      "suite": "architecture_repair",
+      "passed": true,
+      "tail": [
+        "ARCHITECTURE REPAIR: 4497 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "london_geometry",
+      "passed": true,
+      "tail": [
+        "WALK: (16.0, 0.02, 6.3) -> (16.00047, -0.00995, 6.345403)",
+        "WALK: (10.0, 0.02, 6.3) -> (9.95299, -0.009933, 6.300983)",
+        "LONDON GEOMETRY: 226 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "continuation_review",
+      "passed": true,
+      "tail": [
+        "TEST WINDOW FOCUS OUT / 11",
+        "TEST WINDOW FOCUS OUT / 12",
+        "CONTINUATION REVIEW: 239 checks, 0 failures; PC matrix and synthetic XR, no headset"
+      ]
+    },
+    {
+      "suite": "unified_profile",
+      "passed": true,
+      "tail": [
+        "UNIFIED PROFILE: 38 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "london_listening",
+      "passed": true,
+      "tail": [
+        "LONDON LISTENING: 515 checks, 0 failures; audio decoded/player tested, no human listening claim"
+      ]
+    },
+    {
+      "suite": "attempt_review",
+      "passed": true,
+      "tail": [
+        "ATTEMPT REVIEW: 49 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "advanced_shifts",
+      "passed": true,
+      "tail": [
+        "ADVANCED SHIFTS: 268 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "shift_scoring",
+      "passed": true,
+      "tail": [
+        "SHIFT SCORING: 31 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "work_persistence",
+      "passed": true,
+      "tail": [
+        "WORK PERSISTENCE: 69 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "gameplay_review",
+      "passed": true,
+      "tail": [
+        "GAMEPLAY REVIEW: 101 checks, 0 failures; synthetic XR, no headset"
+      ]
+    },
+    {
+      "suite": "gameplay",
+      "passed": true,
+      "tail": [
+        "GAMEPLAY: 212 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "shifts",
+      "passed": true,
+      "tail": [
+        "SHIFTS: 136 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "academy_hub",
+      "passed": true,
+      "tail": [
+        "ACADEMY HUB: 55 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "london_quiz",
+      "passed": true,
+      "tail": [
+        "LONDON QUIZ: 527 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "english_model",
+      "passed": true,
+      "tail": [
+        "ENGLISH MODEL: 1809 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "english_world",
+      "passed": true,
+      "tail": [
+        "ENGLISH WORLD: 1094 checks, 0 failures (synthetic XR, no headset)"
+      ]
+    },
+    {
+      "suite": "ui_workflow",
+      "passed": true,
+      "tail": [
+        "UI WORKFLOW: 615 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "programming_runtime",
+      "passed": true,
+      "tail": [
+        "PROGRAMMING RUNTIME 31 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "programming_catalog",
+      "passed": true,
+      "tail": [
+        "PROGRAMMING CATALOG 1071 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "programming_academy",
+      "passed": true,
+      "tail": [
+        "PROGRAMMING ACADEMY 64 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "programming_integration",
+      "passed": true,
+      "tail": [
+        "PROGRAMMING INTEGRATION 765 checks, 0 failures; 252 generated variants"
+      ]
+    },
+    {
+      "suite": "programming_polish",
+      "passed": true,
+      "tail": [
+        "TEST explicit Continue after desktop focus loss",
+        "PROGRAMMING POLISH 29 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "programming_location",
+      "passed": true,
+      "tail": [
+        "PROGRAMMING LOCATION: 116 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "xr_modes",
+      "passed": true,
+      "tail": [
+        "XR_MODES: 120 checks, 0 failures; synthetic tests, no hardware tracking claim"
+      ]
+    },
+    {
+      "suite": "terminal_sessions",
+      "passed": true,
+      "tail": [
+        "TERMINAL SESSIONS: 64 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "platform_context",
+      "passed": true,
+      "tail": [
+        "PLATFORM CONTEXT: 396 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "console_ux",
+      "passed": true,
+      "tail": [
+        "CONSOLE UX: 60 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "ui_design",
+      "passed": true,
+      "tail": [
+        "UI DESIGN MATRIX: 162 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "world_ui",
+      "passed": true,
+      "tail": [
+        "WORLD UI: 31 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "stage1",
+      "passed": true,
+      "tail": [
+        "STAGE 1 PASS: mise 1, chybný vstup, ověření a uložení"
+      ]
+    },
+    {
+      "suite": "campaign",
+      "passed": true,
+      "tail": [
+        "MISSION 64 PASS: Obnova služby po výpadku napájení",
+        "MISSION 65 PASS: Kompletní přejímka serverovny",
+        "CAMPAIGN: 65 missions, 0 failures"
+      ]
+    },
+    {
+      "suite": "regression",
+      "passed": true,
+      "tail": [
+        "REGRESSION: 88 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "extended",
+      "passed": true,
+      "tail": [
+        "EXTENDED: 35 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "session_safety",
+      "passed": true,
+      "tail": [
+        "SESSION SAFETY: 124 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "save_safety",
+      "passed": true,
+      "tail": [
+        "SAVE SAFETY: 474 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "physical3d",
+      "passed": true,
+      "tail": [
+        "PHYSICAL3D: 41 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "world3d",
+      "passed": true,
+      "tail": [
+        "WORLD3D: 35 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "door3d",
+      "passed": true,
+      "tail": [
+        "DOOR3D: 15 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "world_playthrough",
+      "passed": true,
+      "tail": [
+        "WORLD PLAYTHROUGH: 34 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "training_rooms",
+      "passed": true,
+      "tail": [
+        "TRAINING ROOMS A-H: 68 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "tutorial_first",
+      "passed": true,
+      "tail": [
+        "FIRST TUTORIAL: 0 failures"
+      ]
+    },
+    {
+      "suite": "tutorial_navigation",
+      "passed": true,
+      "tail": [
+        "GUIDED NAVIGATION 1020 PASS",
+        "GUIDED NAVIGATION 1021 PASS",
+        "TUTORIAL NAVIGATION: 700 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "lessons",
+      "passed": true,
+      "tail": [
+        "LESSON 1020 exam PASS",
+        "LESSON 1021 exam PASS",
+        "LESSONS: 1075 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "training_features",
+      "passed": true,
+      "tail": [
+        "TRAINING FEATURES: 199 checks, 0 failures, 76 distinct configurations"
+      ]
+    },
+    {
+      "suite": "ui_safety",
+      "passed": true,
+      "tail": [
+        "UI SAFETY: 32 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "ui_smoke",
+      "passed": true,
+      "tail": [
+        "UI MISSION 64 PASS",
+        "UI MISSION 65 PASS",
+        "UI SMOKE: 65 missions through form signals; 0 failures"
+      ]
+    },
+    {
+      "suite": "training_ui",
+      "passed": true,
+      "tail": [
+        "TRAINING UI 1020 exam PASS",
+        "TRAINING UI 1021 exam PASS",
+        "TRAINING UI: 336 actions, 0 failures"
+      ]
+    },
+    {
+      "suite": "display_settings",
+      "passed": true,
+      "tail": [
+        "DISPLAY SETTINGS: 68 checks, 0 failures"
+      ]
+    }
+  ],
+  "graphics_passed": 28,
+  "mcp_checks": 31,
+  "mcp_preexisting_static_warnings": 8,
+  "exports_rebuilt": false,
+  "physical_pico_tested": false,
+  "user_reference_image_available": false,
+  "log_sha256": "f58730c851c0b42b33458831b5bc68a94b04116eb528cf809916a637c1921a76"
+}

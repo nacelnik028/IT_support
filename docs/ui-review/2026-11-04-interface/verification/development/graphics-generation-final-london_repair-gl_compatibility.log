@@ -1,0 +1,100 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Sémantická volba existuje: confirm / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] choose (res://tests/london_repair.gd:7)
+       [2] complete_ui (res://tests/london_repair.gd:30)
+       [3] choose (res://tests/london_repair.gd:14)
+       [4] click (res://tests/pause_repair.gd:56)
+       [5] frames (res://tests/pause_repair.gd:24)
+ERROR: Chybí skutečné tlačítko Přiložit CVIČNOU KARTU — zaplatit £30.00 / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] button (res://tests/pause_repair.gd:29)
+       [2] complete_ui (res://tests/london_repair.gd:33)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Skutečné UI zaplatí právě jednou v practice / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:34)
+       [2] frames (res://tests/pause_repair.gd:24)
+ERROR: Sémantická volba existuje: thanks / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] choose (res://tests/london_repair.gd:7)
+       [2] complete_ui (res://tests/london_repair.gd:35)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Chybí skutečné tlačítko Předložit vstupenku z peněženky / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] button (res://tests/pause_repair.gd:29)
+       [2] complete_ui (res://tests/london_repair.gd:36)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Celé UI dokončí stejnou relaci ve všech režimech / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:37)
+       [2] frames (res://tests/pause_repair.gd:24)
+ERROR: Výsledek potvrzuje jen skutečně splněné cíle / 1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:38)
+       [2] frames (res://tests/pause_repair.gd:24)
+ERROR: Sémantická volba existuje: confirm / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] choose (res://tests/london_repair.gd:7)
+       [2] complete_ui (res://tests/london_repair.gd:30)
+       [3] choose (res://tests/london_repair.gd:14)
+       [4] click (res://tests/pause_repair.gd:56)
+       [5] frames (res://tests/pause_repair.gd:24)
+ERROR: Chybí skutečné tlačítko Přiložit CVIČNOU KARTU — zaplatit £30.00 / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] button (res://tests/pause_repair.gd:29)
+       [2] complete_ui (res://tests/london_repair.gd:33)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Skutečné UI zaplatí právě jednou v practice / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:34)
+       [2] frames (res://tests/pause_repair.gd:24)
+ERROR: Sémantická volba existuje: thanks / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] choose (res://tests/london_repair.gd:7)
+       [2] complete_ui (res://tests/london_repair.gd:35)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Chybí skutečné tlačítko Předložit vstupenku z peněženky / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] button (res://tests/pause_repair.gd:29)
+       [2] complete_ui (res://tests/london_repair.gd:36)
+       [3] frames (res://tests/pause_repair.gd:24)
+ERROR: Celé UI dokončí stejnou relaci ve všech režimech / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:37)
+       [2] frames (res://tests/pause_repair.gd:24)
+ERROR: Výsledek potvrzuje jen skutečně splněné cíle / vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:21)
+       [1] complete_ui (res://tests/london_repair.gd:38)
+       [2] frames (res://tests/pause_repair.gd:24)
+LONDON REPAIR: 2063 checks, 14 failures

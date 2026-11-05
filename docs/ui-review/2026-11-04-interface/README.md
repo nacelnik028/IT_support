@@ -1,7 +1,9 @@
-# Celé zadání rozhraní a konstrukcí — 4. 11. 2026
+# Celé zadání rozhraní a konstrukcí — dokončeno 5. 11. 2026
 
-Práce pokračuje na všech bodech přiloženého zadání. Toto je průběžný záznam,
-nikoli prohlášení o dokončení všech bodů. EXE/APK zatím nejsou znovu sestavené.
+Všechny zdrojové úpravy bodů 1–15 a samostatného 9a jsou dokončené.
+Finální zdroj d8efc89: celý Test-All 51/51 PASS, všech 336 výukových UI akcí
+ve třech režimech; grafika v Compatibility i Forward+ PASS. EXE/APK zůstávají
+původní. Přesná omezení a rozdíl proti fyzickému headsetu jsou uvedené níže.
 
 - [x] 1: přečtené zadání/stav/README, reprodukce existujícího UI a geometrie.
 - [x] 2: kompaktní pauza, podnabídky a přesunuté funkce.
@@ -17,8 +19,8 @@ nikoli prohlášení o dokončení všech bodů. EXE/APK zatím nejsou znovu ses
 - [x] 11: hotové technické panely místo lišt na zazděné jižní stěně serverovny.
 - [x] 12: zkrácení prezentace textů se zachováním všech potřebných údajů.
 - [x] 13: společný vzhled a všechny ovládací cesty — závěrečné ověření.
-- [ ] 14: data a ochrany — původní 47sadový baseline PASS, finální regrese následuje.
-- [ ] 15: úplný aktuální runner, grafika/XR, snímky a konečné předání.
+- [x] 14: izolované testy, původní data/legacy24, odložené relace a ochrany — finální regrese PASS.
+- [x] 15: celý aktuální Test-All 51 PASS, oba renderery, skutečný XR viewport a finální důkazy.
 
 ## Konstrukční etapa (6, 8, 9, 11)
 
@@ -120,13 +122,13 @@ cíl, vzdálenost po cestě a směr; malá modrá značka ukazuje další část
 U cíle následuje E/trigger. Platba, lístek a příchod zůstávají fyzické akce.
 Příchod, interakce, zrušení, změna pokusu a ukončení zkoušky značku uklidí.
 
-Aktuální testy zatím: london_repair 1875 headless a 1950 Compatibility PASS;
+Závěrečná london_repair: 2002 headless / 2078 Compatibility / 2082 Forward+ PASS;
 počty fyzikálních kontrol závisí na skutečných snímcích chůze. Nový test
 kliká navigační tlačítka a skutečně dojde ke všem pěti místům, dokončí pěší
 nákup i cestu k věži, ověřuje pokračování téže relace a úklid značek.
 Navíc celé UI nákupu ve všech třech režimech na PC i oběma XR paprsky,
 chyby, rozbor a restart ve všech PC rozlišeních/textu. english_world 1094,
-english_model 1809, quiz, listening a profil PASS. Finální souhrn následuje.
+english_model 1809, quiz, listening a profil PASS. Konečný celý souhrn je na konci tohoto protokolu.
 
 ## Texty a styl (12, 13)
 
@@ -137,4 +139,94 @@ Katalogy, generátory a prvních 24 definic se nemění. Společná paleta použ
 modrý obrys pro fokus, zelený stav úspěchu a textové hodnocení. Žádné nové
 závislosti ani rastrová rozhraní. ui_workflow 615 a ui_design 162 PASS;
 nově skutečná grafická Compatibility matice včetně klávesnice, drag/scroll,
-fokusu, rušení drženého triggeru a obou rukou PASS. Forward+ právě dobíhá.
+fokusu, rušení drženého triggeru a obou rukou PASS. Compatibility i Forward+ jsou hotové: 28 cílených grafických běhů PASS.
+
+## Poslední kontrola zkoušky
+
+Odmítnutá volba ve zkoušce nyní zachová původní otázku NPC. Tím se skryje
+hodnocení i v samotné anglické replice, nejen v české zpětné vazbě. Výsledek
+přitom stále obsahuje skutečnou chybu. Nová kontrola zkouší i odmítnutou
+žádost o neexistující produkt; původní modelová regrese 1809 PASS.
+Závěrečný celý runner i londýnská grafika byly po této úpravě zopakované a prošly.
+
+## Reprodukce a meze
+
+Celý runner (včetně všech tří výukových režimů):
+
+```powershell
+& tools/Test-All.ps1 -GodotPath '..\..\Godot_v4.7.2-stable_win64_console.exe'
+```
+
+Samostatné nové kontroly: `tests/pause_repair.gd`, `tests/london_repair.gd`,
+`tests/editor_repair.gd`, `tests/architecture_repair.gd` a
+`tests/london_geometry.gd`. Graficky přidej `--rendering-method gl_compatibility`
+nebo `forward_plus` a za `--` volbu `--screenshots`. U geometrie/konstrukcí
+volba `--matrix` doplní všech šest PC kombinací. Každá sada si izoluje save/CFG.
+
+`verification/graphics-results.json` rozlišuje skutečné běhy a jejich zdroj.
+`source-manifest.json` zaznamenává zdrojové soubory i shodu legacy24;
+`screenshots.json` obsahuje rozměry a SHA256 všech uložených PNG včetně snímků
+výchozího stavu. Zachytávací obálky v `capture-harness/*.txt` pouze přesouvají
+výstup snímků do této složky nebo doplní fotografii skutečného VR editoru;
+asserty a akce původních sad zachovávají. Neúspěšné vývojové běhy jsou
+oddělené v `verification/development`.
+
+Referenční uživatelské obrázky nebyly k příloze připojené — dorazil jen text.
+Proto srovnání 9a používá vlastní přesně shodnou kameru před/po, nikoli tvrzení
+shody s nedodaným obrázkem. [Samostatné 9a a jeho reprodukční kamera](../2026-11-04-london-geometry/README.md).
+Fyzické PICO, stereo, optická čitelnost, výkon a komfort headsetu nebyly
+ověřené. Syntetické XR používá skutečný renderovaný SubViewport a vstupní
+cestu obou ovladačů. Subjektivní lidský poslech se tím nedokládá.
+
+Změny jsou ve zdrojích. EXE/APK 1.5.0 nebyly znovu sestavené; build soubory,
+katalogy a generátory jsou proti výchozímu `8f6dd87` beze změn. Bez Git push.
+
+Funkční commity: `a3f36e5` (9a), `45b85f4` (konstrukce/dveře/tabule),
+`1433add` (pauza/podpis), `d3724db` (editor), `3ac6550` (grafické ověření editoru),
+`34b9189` (Londýn/texty/navigace), `84478db` (neutrální zkouška).
+
+## Konečné ověření posledního zdroje
+
+**Celý Test-All.ps1: 51/51 PASS**, 51 startů Godotu, exit 0, bez runtime
+chyb/varování. Všech 21 lekcí ve všech třech režimech a 336 skutečných UI akcí.
+65 původních misí přes formuláře, legacy24, save/schema1/2, koncepty, jediné
+odměny, odložená kampaň i směna, platební revize a zrušení drženého XR kliknutí
+zachované. [Úplný log](verification/test-all.log), [strojový souhrn](verification/test-all.json).
+
+**28 cílených grafických běhů PASS** napříč etapami; poslední dotčené části
+jsou zopakované po poslední úpravě. Compatibility i Forward+, 1280×720,
+1920×1080 a 3840×2160 × text 100/130 %. Skutečný VR viewport 1600×1200,
+oba paprsky/triggery, virtuální klávesnice v reálném editoru, drag/scroll,
+panel 80/140 %, vzdálenost 0,9/2 m a ztráta kontextu.
+[Přesné běhy a zdroje](verification/graphics-results.json).
+MCP posledního zdroje: 31 PASS; stejných osm původních statických varování,
+bez nových nebo plošného potlačení. [MCP](verification/mcp-frozen.json).
+
+Závěrečné rozšíření navíc kontroluje nový pokus stejného scénáře a návrat
+z rozboru, neutrální zkoušku i při odmítnuté volbě, otočení PC kamery/XR hlavy
+a jméno cíle se vzdáleností v reálném VR náramkovém panelu. Testovací dokončení
+respektuje i náhodnou variantu nového procvičování. Předešlé neúspěšné nebo
+přerušené vývojové běhy jsou označené odděleně; nejsou konečným PASS.
+
+Prohlédnuté příklady:
+
+- [Pauza 720p / 130 %](pause-1280-130-forward_plus.png)
+- [Dialog / neutrální zkouška](london-dialog-exam-1280-130-forward_plus.png)
+- [Výsledek](london-result-exam-1280-130-forward_plus.png)
+- [Skutečná navigace](london-route-tower-walk-gl_compatibility.png)
+- [Editor a ověření](editor-verification-1280-130-forward_plus.png)
+- [Skutečný VR editor s klávesnicí](integration-forward_plus-vr-keyboard.png)
+- [Navigace na VR náramku](london-vr-wrist-tracked-world-forward_plus.png)
+- [Samostatné před/po 9a](../2026-11-04-london-geometry/README.md)
+
+Všechny uložené PNG mají zaznamenané skutečné rozměry a SHA256; reprezentativní
+snímky každé změněné části byly vizuálně prohlédnuté. PICO hardware a původní
+uživatelský úhel z nedodaného obrázku nejsou těmito důkazy potvrzené.
+Zdroj je v commitu `d8efc89`. Další dokončovací commity jsou `84478db`,
+`0e007fe` a `d8efc89`; dřívější funkční commity jsou uvedené výše.
+
+Poslední dvě úpravy dále potvrzují commity `0e007fe` (oddělení pokusů)
+a `d8efc89` (pohled a VR náramek). U fotografického přípravku bylo potřeba
+zaregistrovat syntetické trackery až po uzlech, aby obdržely první aktualizaci
+statické pózy; původní neúspěšný souhrn je označený ve development složce.
+Oba závěrečné snímky náramku jsou ze skutečně viditelného sledovaného uzlu.

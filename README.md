@@ -3,6 +3,7 @@
 Dodatečná **zdrojová etapa rozhraní a konstrukcí** upravuje pauzu, londýnské
 rozhovory/cíle/navigaci, programovací editor, tabule, dveřní kapsy i přesahy do
 Londýna (9 a samostatné 9a). [Průchod změnami, snímky a aktuální testy](docs/ui-review/2026-11-04-interface/README.md).
+Celý aktuální Test-All: **51/51 PASS**, grafika a syntetické XR v obou rendererech PASS.
 EXE/APK níže jsou původní vydání 1.5.0; tuto dodatečnou etapu ještě neobsahují.
 
 Aktuální verze **1.5.0** je vidět v **Nastavení** na PC i ve VR. Android vydání má versionCode **6**. Hotové lokální EXE/APK: celý runner **46 sad PASS**, grafická matice **351/351 PASS**, obě distribuce ověřené. [Výsledky, snímky a hashe](TEST_REPORT.md). Git push nebyl proveden.
@@ -19,7 +20,7 @@ studijních článků z poskytnutých Notion příruček. Původních24 misí z�
 
 Nová **Programming Academy** přidává třetí 3D místnost, editor vlastního kódu,
 15 Python + 13 webových lekcí, 60 praktických úloh a 12 opravovacích variant.
-Vstup je dveřmi vlevo od racků (západní stěna serverovny) z hlavního menu přes Programovací učebnu nebo Pauza → Programovací učebna.
+Vstup je dveřmi vlevo od racků (západní stěna serverovny) z hlavního menu přes Programovací učebnu nebo Pauza → Kam jít → Programování.
 Python používá omezený bezpečný interpret, web interaktivní HTML/CSS/JS náhled
 pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
@@ -27,7 +28,7 @@ jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 **Training academy / Rozcestník** je nové společné nástupní místo PC i VR.
 Čtyři skutečné průchody vedou do serverovny (01), IT tréninku (02), programování
 (03) a východní chodbou do Londýna (04). Místnosti a pracoviště zůstávají na svých
-souřadnicích. Pauza → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
+souřadnicích. Pauza → Kam jít → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
 [Dispozice, chování při pokračování a ochrana save](docs/ACADEMY_HUB.md).
 
 **English in London** je čtvrtý 3D pavilon: vstup východní chodbou rozcestníku **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Přímý průchod ze serverovny je na žádost uživatele zazděný. Obsahuje prostorové
@@ -45,8 +46,8 @@ a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivov
 
 ## Praktický úvod, směny a poslech
 
-Pauza → **Seznámení s ovládáním** nyní nabízí praktický průchod s dveřmi, monitorem
-a cvičným dílem. **Souvislé směny** v přehledu serverovny nebo pauze obsahují tři
+Nastavení → Ovládání → **Praktický úvod** nyní nabízí praktický průchod s dveřmi, monitorem
+a cvičným dílem. **Souvislé směny** v přehledu serverovny nebo Pauza → Kam jít → Tickety a směny obsahují tři
 směny po třech navazujících ticketech a dvě pokročilé směny po pěti současných incidentech nad jednou ukládanou infrastrukturou.
 Kampaň a směna mají samostatné obnovení; přechody mezi učebnami je bezpečně odkládají.
 [Ovládání a pravidla](docs/CONTINUOUS_SHIFTS.md).
@@ -54,7 +55,7 @@ Kampaň a směna mají samostatné obnovení; přechody mezi učebnami je bezpe�
 Síťový přehled ukazuje ověřenou cestu, příčinu/dopad a porovnání před/po.
 Londýn má **12 mluvených replik** a samostatné pomalé varianty; dostupné repliky
 nabízejí Poslechnout / zopakovat, Pomaleji a Zastavit. Ostatní věty zůstávají textové.
-[Offline řeč, licence a ovládání](docs/LONDON_AUDIO.md). Pauza také nabízí diagnostiku
+[Offline řeč, licence a ovládání](docs/LONDON_AUDIO.md). Nastavení → Obraz nabízí diagnostiku
 výkonu; VR komfort dovoluje změnit velikost/vzdálenost panelu bez změny rozlišení.
 [Budoucí test fyzického PICO](docs/PICO4_HARDWARE_CHECKLIST.md) je výslovně neprovedený.
 
@@ -168,7 +169,7 @@ Vendor plugin zůstává samostatný, takže další PICO varianty lze doplnit p
 PC i PICO mají vlastní lokální `user://academy_save.json`; PC 3D/VR ho sdílí.
 XP, mise, výsledky lekcí/zkoušek a infrastruktura zůstávají v původním schématu 2.
 Obraz, klávesy a VR komfort mají vlastní lokální CFG; automatická synchronizace není.
-Pauza → **Přenos uloženého postupu** → **Exportovat postup** vytvoří validovaný
+Nastavení → Postup → **Přenos uloženého postupu** → **Exportovat postup** vytvoří validovaný
 `user://academy-transfer.json`. **Importovat postup** ověří strukturu, zálohuje
 dosavadní save a vrátí hru do menu. Dočasné lekce se po načtení neobnovují.
 
@@ -263,7 +264,7 @@ Oficiálně ověřené podklady: [Godot XR Android](https://docs.godotengine.org
   Totéž platí pro teleport, načtení pozice mimo centrum nebo změnu scény.
   Dokončené výsledky, zkoušky, statistiky a kariérní XP zůstanou uložené.
 
-Administrátorské konzole jsou dostupné na monitorech. První směna nabízí krátké přeskočitelné seznámení; znovu ho otevřeš z pauzy:
+Administrátorské konzole jsou dostupné na monitorech. První směna nabízí krátké přeskočitelné seznámení; znovu ho otevřeš přes Nastavení → Ovládání:
 
 - Vstupní hra zůstává plně 3D: chůze po serverovně, fyzické interakce,
   dveře i samostatná tréninková místnost. Konzole se otevírají nad tímto světem.

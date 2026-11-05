@@ -1,0 +1,12 @@
+extends "res://tests/programming_integration.gd"
+var keyboard_shot=false
+func frames():
+	for i in 4: await process_frame
+	if keyboard_shot or root.get_child_count()==0: return
+	var game_shell=root.get_child(0)
+	if not "vr_active" in game_shell or not game_shell.vr_active: return
+	var monitor=game_shell.xr_rig.monitor
+	if not monitor.keyboard.visible: return
+	keyboard_shot=true
+	await RenderingServer.frame_post_draw
+	monitor.viewport.get_texture().get_image().save_png("res://docs/ui-review/2026-11-04-interface/integration-"+RenderingServer.get_current_rendering_method()+"-vr-keyboard.png")

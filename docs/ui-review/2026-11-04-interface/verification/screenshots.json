@@ -1,0 +1,5448 @@
+{
+  "before-dialog.png": {
+    "sha256": "4785dd31a270e8cdd20a71e52b3be1f8aca4b4dc71710761d0b0edb353a3f227",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "before-editor.png": {
+    "sha256": "c5d783a30089eb15cb0c5a61d05678d781d655edb3f097dc6cfe1346e69fb31e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "before-menu.png": {
+    "sha256": "e69589e478a51bbca8dec3100e93a36a75c5a52ff9590e4099d4895afb6ee228",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "before-pause.png": {
+    "sha256": "8e53088d0bd9edc3abc14eb97f220263ae08e3cda6c99606bb2d47188f2e20e9",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-code-1280-100.png": {
+    "sha256": "f09b29018195e93e894dddd8e63f82843a125046de0ac3ecc93eb1c7e18ed3c2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-code-1280-130.png": {
+    "sha256": "c766d81f421c1054e1c921ff2a9ea6d21ae7d5c38cd9a458245656b07fcde2c6",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-code-1920-100.png": {
+    "sha256": "e6c6a7ec87cf5d1c57127fe3348633eeac6377a2cae26bf748b70acbc13fb979",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-code-1920-130.png": {
+    "sha256": "62ad0f7ff44767b8b48e492ae38411354aa3fb451c57da09aa1c057facb147c8",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-code-3840-100.png": {
+    "sha256": "3feb68b2ef7f614335d2d348dfa67c5cbf848acc2dffbc559471127454adefd5",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-code-3840-130.png": {
+    "sha256": "c46b40dadd7539b8d21503b8c011cec21c233229dc0865ac10052857e79d9250",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-code-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "f6f1cba0007f2f49d3eec4c29eae5483e358a38e5374d5dfe52cdf6b73f77c18",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "c9987d81f3ebc1de5e73cb4c60b4f9aaac7f92b9a71e4aacbc8bc6d88a216aa2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "4784e074a4ba3b1dd3538a08982410b51eb758a707f5403ffef74ea7a81b43a9",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "ee175f68ec11b370f354caf459f92894c1c445bf9c4233b4dd47ac184ec3b680",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-vr-100-panel0.80000001192093.png": {
+    "sha256": "51eedc5f1294e4f4cfd34b180cb0609170463b93d73ce3010f1b4802470d0853",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-vr-100-panel1.39999997615814.png": {
+    "sha256": "53bb65faec077952f271b23119529568b5350343883f7781ac43874a3089b452",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-vr-130-panel0.80000001192093.png": {
+    "sha256": "f65f0fde69d864bae36eb39405fd2c6ea98acdb4bc76a0f706cfb9039bc9fbff",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-code-vr-130-panel1.39999997615814.png": {
+    "sha256": "6a347e4f78944e4749a4a41ec037c791e0bc3b68c5583c4f5882770fc490652d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-1280-100.png": {
+    "sha256": "54daa5bcce0212be912b6028b2a7c09c30848cd729e26880007cb1b8f2c53ace",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-continuation-1280-130.png": {
+    "sha256": "fffe4e2dc56d8d758a108d66e146a0eb4c089debcd57b4b72829c95de681baa3",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-continuation-1920-100.png": {
+    "sha256": "2544396be38aa272492fe5e314f2fdeb20949c1ef6e5710b4629919841ed2afc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-continuation-1920-130.png": {
+    "sha256": "d162e9bf47009d234d5fd71cc3991e3d89c2a9339d6cc3efc12e15ed8bf258a4",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-continuation-3840-100.png": {
+    "sha256": "8f95dd3e8351e429cb68d440e1c070f8a228b58ff631952de721135e8e3f8e44",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-continuation-3840-130.png": {
+    "sha256": "e49a969e96a55e55ba4b2688ab6765944b61ff9fc4543c7ebe513dabf5b0b30b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-continuation-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "4af398f7fc92daf9b45c43a6af01c34d3d420ae971a136aef11bd4473f521216",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "b66630e53bcb9951cc2dd4ee385dd6eb8d41830ff74d3fb1a919795ff72504bf",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "67ae3c423531b8773a496137a413a19b63789ea14bba2ca82c40d55b7536bde6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "d46d5235c7a27d331f1d9b5e3137842946000efde0f86c8804abba83892803d9",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-vr-100-panel0.80000001192093.png": {
+    "sha256": "2775715c1ca8f32529ed2fe10dcf6482b5894bddc3557947f3fa6090a9d05f06",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-vr-100-panel1.39999997615814.png": {
+    "sha256": "ce32157cec063cf4070bb39d14afd8b14fe12078e237cf066acbd828fd76bb34",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-vr-130-panel0.80000001192093.png": {
+    "sha256": "03cbc3a18d3d821a1f254fcc2ab6836383f24931a792c34f27887ee646715cda",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-continuation-vr-130-panel1.39999997615814.png": {
+    "sha256": "45599d62a7b958e744cffa91e7450790a4bbfe2c27d2c1770d34831b32255102",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-1280-100.png": {
+    "sha256": "02d735f87400fc4bb74d83659eecfcfcd8e1253413b9ca5ddb392a73a99528b8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-listening-1280-130.png": {
+    "sha256": "5d1c08f57ddf93231185bf06324884b2737d002ddab364074631f44a61131cb8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-listening-1920-100.png": {
+    "sha256": "06e46bb174ced3eb5db5f90ff6650ddb37542f2c770752af84ac5bf7834f48ef",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-listening-1920-130.png": {
+    "sha256": "d9d224c88fa071cc5dd50549e31fb067404503de35ae57065865427ce3a5c20d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-listening-3840-100.png": {
+    "sha256": "b0e1a77644eef37a6b8d7f91875c51d7a661abe8fcad4c3d287063346d43d75e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-listening-3840-130.png": {
+    "sha256": "1587e9bfd392fae5b7a4fffa478ac24c0c0f6ccc20011353d945f73f29b66e7b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-listening-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "31ffb010dbb4b383f0eb3a109619e6fea8dee6e037426494d947b97c5cac55e7",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "ad3948d353d8fbf21adfa5a4a6b06aae7a63b3ef3ccad048bc400bdb77c7f8af",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "c92002276c0d48a08e64d01760cf6daf2d79d92f9e63e5b0923e0b979554d692",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "0adf316edb03e6236509dae0727a6070022c32151699b3930c864dea0e1f4d12",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-1280-100.png": {
+    "sha256": "1edf4c98066235d15faa14a34a44b2939f5c11dc89455a17f2a359b0535c7998",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-listening-result-1280-130.png": {
+    "sha256": "b8240a2bd354e15a6c3fae6849649be32cb0b774dadacbdbb67e2d5e7d8eba7e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-listening-result-1920-100.png": {
+    "sha256": "ba0e79c67b911ce80065b898a421de9c24be7cc5fea2e7ab77a21f1a4138ecf7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-listening-result-1920-130.png": {
+    "sha256": "409fa45428548f7895312392b24d6f4f9181dd77000d50306045a023ef04a760",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-listening-result-3840-100.png": {
+    "sha256": "83b2e844cc1b0c9ef55d45fca081e3a830f229a85d4359fb8e724b1222aeeb26",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-listening-result-3840-130.png": {
+    "sha256": "bd1d6d550a304260cc14c8327b472f59292a84f5b6e002bab7565070f488ba3b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-listening-result-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "79ba81ee07bed14d50714fbfcca29d4f1f71535879b8b654702f3f76c230f82f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "79ba81ee07bed14d50714fbfcca29d4f1f71535879b8b654702f3f76c230f82f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "55abcf6d7cbfde2ae6607759167ae61641d82b483db99630f8bd57bf8e595428",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "3d8efe18535dfc25a6afaa066265db189a1a1cf02466e2399b414b94c6bad77c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-vr-100-panel0.80000001192093.png": {
+    "sha256": "eeec115e1031e2669de231c675d9fe9720ee0dc959334349763778d836bcfe25",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-vr-100-panel1.39999997615814.png": {
+    "sha256": "94bd209b86ef873850587ae78aa830f6a294fa437d23203430cda9d70c534840",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-vr-130-panel0.80000001192093.png": {
+    "sha256": "5caea300e8e7eb3982bb6442a38b5b4b688293a1925eff54f6781124ad022e49",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-result-vr-130-panel1.39999997615814.png": {
+    "sha256": "5caea300e8e7eb3982bb6442a38b5b4b688293a1925eff54f6781124ad022e49",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-vr-100-panel0.80000001192093.png": {
+    "sha256": "4e0a67e416153aa655f1f57b652c515d7acbffcd26a6e7dac5e0ad80a5ab5460",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-vr-100-panel1.39999997615814.png": {
+    "sha256": "ca5aba984a9d52939411bf8ac1003d5f40c8ce38f631212abc29afb3a7d43b01",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-vr-130-panel0.80000001192093.png": {
+    "sha256": "478aa4321209a1d91b3a08effb6d8eb9bede9454c5858bea153c221f9c4f9f3b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-listening-vr-130-panel1.39999997615814.png": {
+    "sha256": "478aa4321209a1d91b3a08effb6d8eb9bede9454c5858bea153c221f9c4f9f3b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-1280-100.png": {
+    "sha256": "cbfac1523cfb4b47decda1805a243a2b68a410be257a9ca6238cdae7a657f22b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-profile-1280-130.png": {
+    "sha256": "5cc6114c8acd3c1d1bc497551f91afc570e132b269d1d66d987d92fcec1060da",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-profile-1920-100.png": {
+    "sha256": "8f46671ab365d528adc1cc69f03fcd488a4551d786849a678234a96e20d79f7c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-profile-1920-130.png": {
+    "sha256": "5352696e4f7f554e5301f22dd2055f12f7eb030a177ec4c5dcc44fcc8254d0e7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-profile-3840-100.png": {
+    "sha256": "0b7ebfb1e756d93fa38e5add5ba9668ff19e03bb1ef6a2bc33787f223edfb5f2",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-profile-3840-130.png": {
+    "sha256": "f126e9fbf8876984a2adcad78f7f99f2fddae13446a317079988e68250ceea7a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-profile-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "9977229ce76b131b4043c0276fae8c5d1ff56d725bf4ea316376efe40718814e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "2c5f1e57c6d16b0e3b63728e96c308b4c87663245b995116e0d473c1aade69ca",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "a41d7b8d1a8bcb83f79e8c3e7a1d37b0351267ffe11bdd3065f51f5106f08323",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "0bdb38bf51ea8a8ef415f1dfea3bd63d0c91eedc12c65e74d187f131569ab5d7",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-vr-100-panel0.80000001192093.png": {
+    "sha256": "21611bbef047e77fcb0468d7a2ddc200504b9149ca7f135e362335adb3557651",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-vr-100-panel1.39999997615814.png": {
+    "sha256": "ad5c061416ab67d7ec3af0ea0c71efa2e107d9f048ba22f76cfdd58d420e79d5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-vr-130-panel0.80000001192093.png": {
+    "sha256": "028b9222954492afcda6a128055682a7145fbf91f3345b6cce93b1ce0bdc5dc4",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-profile-vr-130-panel1.39999997615814.png": {
+    "sha256": "734c72fc84f25e9445d1d3a3729158ac4a3a91546e9a86c7649ffa2eabc38220",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-1280-100.png": {
+    "sha256": "c0bb682ca26c7fbde30932f844b8d94dd5bcb2372e558c160d9e2ac4ce8cb986",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-review-1280-130.png": {
+    "sha256": "4cbada03f6f3889c9b112e79ae3f89fecc67637862d97856c1a6af89a1442f58",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-review-1920-100.png": {
+    "sha256": "b656c8ca974772e74989a068ab6698f86a42582611c04c29fd1934769deb89bb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-review-1920-130.png": {
+    "sha256": "956a7c2a9acc72ba99c15703b854308566d77cb63c53f4ea259118ad16776375",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-review-3840-100.png": {
+    "sha256": "44bc63ceec68ba99351c340b95d91945636078d6ddc40a08170961a2328b6032",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-review-3840-130.png": {
+    "sha256": "870263b7bfc07b164f7e68d089147dd32f4c56b665b25b511b8d324e2cab8d7a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-review-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "0f400a26822c58d387e77680fee1ddfd1a9a02b6d116b654feccc1cb052b44a5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "6f8aa4d58a9d1686e796c743fafa2c9df67fa8007a9b81859d3971138a52ab4e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "4b89853bff196c44a7d771f79b29ec978999d3a98e8759282ce900c9c5a363de",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "e78e60180e8fa613620e024058280460fdbccaee493b56ae9a9822ad7391407d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-vr-100-panel0.80000001192093.png": {
+    "sha256": "ca550fb144575289027d9982b643db9140f0fcae0b6a533569a607d7b0ff473f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-vr-100-panel1.39999997615814.png": {
+    "sha256": "cb4590626e2df2e4f5d6bc4f427b8ee7375a3153df39b7031890d4c2552a19f6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-vr-130-panel0.80000001192093.png": {
+    "sha256": "68fb4342de94297a1712800b9c73a02505fbbe992e6e372fd21befe0e1d162fd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-review-vr-130-panel1.39999997615814.png": {
+    "sha256": "df1b2bc2f85217afbfc132eaa44f59b134ae6fb3f16093dc07978d5017985f9e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-1280-100.png": {
+    "sha256": "da74efb08c1a2f94c6f392749f5dde1541fa1f8715a9b1ccbe0f2bc67ab82374",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-settings-1280-130.png": {
+    "sha256": "a90ba478cf82160b20e8bea2f3a21983c370900a2571f458e6c42a1b6152a600",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-settings-1920-100.png": {
+    "sha256": "808fa0d3c51a6a5add76e23ff11510bb350b180347b4fe77e08c2c13ca033557",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-settings-1920-130.png": {
+    "sha256": "71fabe670f76b19ef0a1792ad80eca58c1fe06b5d8b642a23b47e3a8c0b5b29b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-settings-3840-100.png": {
+    "sha256": "0d26253524461b8a6bf842559dfd17d330956549f88c4183eff7447b4c4880b8",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-settings-3840-130.png": {
+    "sha256": "0613ea879d572cef85017d8b5ef9c35503444e94d804a70bf74f8391bb3cbc90",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-settings-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "b56244f17906bc46323ffaec26db8d66823b583ed761ef9924f2c0f91101aa01",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "cecb9ec09c894b47c769097fb171287cb5622004901cd440b801fc061dc03910",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "922c20d1b40b7efba720289a310dcef547626855843a3feedf4dd89feeb8f5ef",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "da19afbde1cbb31e34ceef1ea4adf1cb4617592975e3afb5d9e66aa37a2d0d88",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-vr-100-panel0.80000001192093.png": {
+    "sha256": "dde3708e1a061b058eb67b84cb179bba40733e2ae5c721639b8406db9595e885",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-vr-100-panel1.39999997615814.png": {
+    "sha256": "453a2f90dd954a08dc1b455f41421697df108cbebd630d51d8335f2c57669b37",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-vr-130-panel0.80000001192093.png": {
+    "sha256": "4a4b92830dd3d08b6ce1388ca8e0609b1672928c646059a18c5097b55e9046fa",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-settings-vr-130-panel1.39999997615814.png": {
+    "sha256": "0beff8efaa24bf44cad5a2a515ea36ec5488fe9f45db714c1e1785a3446c950f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-1280-100.png": {
+    "sha256": "01c9fcd4aaf4fdec8e99f4ca807315a0b5e42368a65cb38afe2f6c058dfd856a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-shift-1280-130.png": {
+    "sha256": "d37706260c4f38fe3331435c2538a437163768c7b56e8800fb416d9ba8f181b2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-forward_plus-shift-1920-100.png": {
+    "sha256": "1c8a0c396076f612f5371d8ff3146843038c65bd1d0a3aff38d927c00852112a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-shift-1920-130.png": {
+    "sha256": "1848cc25c705fe05f2c36bb024a68921067495395377d149fb0380bd5db9e250",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-forward_plus-shift-3840-100.png": {
+    "sha256": "e5e49bb4f37401419c565409adff728ff7e3a075d30d0ae3310ded453e396a4d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-shift-3840-130.png": {
+    "sha256": "2a57ff0dc0deefac028ce2a2b4a12deac6b779ae2469ff7e39020111eb02c69c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-forward_plus-shift-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "1767970fd8b62cbfa5e0d66f1d66e0eacb9684f11580d998ec26b67f1bfdd347",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "b78d8e6e5ae1a8279697914d9ace1bef68b3dff8c9464080c86d87dfbdea616b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "dea115a272756c5cc4e25b5a261acb310c89af0e620f815664b4219cb0163147",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "d4da565b25c2fa049d1382e4d4177d566c4493adf079ef5cda2d5fb61a62cf75",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-vr-100-panel0.80000001192093.png": {
+    "sha256": "aede36d4b324831a50969fa8971e26fa38e5c712428317cf87b882e957fadf94",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-vr-100-panel1.39999997615814.png": {
+    "sha256": "5f4926a4f725662d53916cbd621fc1a18ff3b90bb645e6f6e16d3b282e98393b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-vr-130-panel0.80000001192093.png": {
+    "sha256": "adf983cc20048aabdda746abda2a00eb62e1f3a09d9433e44139434f4c11bbde",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-forward_plus-shift-vr-130-panel1.39999997615814.png": {
+    "sha256": "4018105b0b11b5b5a3404a1b859a88be2f3593e3c02ce648b01f09662980a22e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-1280-100.png": {
+    "sha256": "4fb715095f132e682c93e77d22002f9e75ddbc2562895ccfab9a92bd7fcbbb42",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-code-1280-130.png": {
+    "sha256": "e71750fb4c4767787940e1e714b3d5b712d0c483122ebe7fab196348759ce2af",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-code-1920-100.png": {
+    "sha256": "25c4774dbbfae1b6f1b125dd4a34f0cf2259756d6d5100f5596c438534eae122",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-code-1920-130.png": {
+    "sha256": "53d31d54c632ae0323f89729f64d7d2610933e0f327c555cfc348fe4cad73edc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-code-3840-100.png": {
+    "sha256": "e2b8b11cd2405bd157756ebb1ffa79b0b146cd84c74f0d1dd2b8d597ff75cda2",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-code-3840-130.png": {
+    "sha256": "0dda364142381ca797f4d0ca3985c66d3800f71924f3994be18a5a389b966b5e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-code-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "e42edfc05ca5deb68b681fc3b385b942d3382088a941b8255355316248a27372",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "ae6fc08630d9ed2d854f1874fd5aa9b0449a6d8b7d2de0fee15e176667d4feb5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "53e19390e1b4101d84fcca3ce349e0c2f04c4b0de6383e57c13b74ff1dca8cc4",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "cd8eaac0f4e5239b0b4e4b2d479cb8d19f14ba939aa211bcfe0fa0bd934ac69e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-vr-100-panel0.80000001192093.png": {
+    "sha256": "3bf236f973bd50d0e62307f7bf0add40313283faab6ff6d78e87621f3169b6b3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-vr-100-panel1.39999997615814.png": {
+    "sha256": "6a36ce7854853b28e00d56ecad1de3035b2da346b4d2e71f44b7c753ca0cb096",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-vr-130-panel0.80000001192093.png": {
+    "sha256": "a297ca990c17dcc35b1b7424bec24ba8a9421bdc76b7a1b1b71dac2f7c8801fe",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-code-vr-130-panel1.39999997615814.png": {
+    "sha256": "4d504661f330e4b049e0b186858b4e754b85e007760c6da1a5356014c3b06230",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-1280-100.png": {
+    "sha256": "599457ab7e48de578cccfc016af6904302575d01363d008d80da1f44eca028a2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-continuation-1280-130.png": {
+    "sha256": "4f7a66ce4b1c18ebbe0665f6d0f48fd2cdb373269fc746d11475e4ea5da8ef25",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-continuation-1920-100.png": {
+    "sha256": "1c30e4b487712e26bf19fd60d988d38ec397400cb6fb51560fd3ba795d7dedcb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-continuation-1920-130.png": {
+    "sha256": "83f2c4bc2e5c2752b5bc18b307c1990cc9454c43522846f635c01e1437ecdd4a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-continuation-3840-100.png": {
+    "sha256": "164649b72bac3d6e907017d0597b7ff507b6c8c157f967336f5d0ef19e115da5",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-continuation-3840-130.png": {
+    "sha256": "fb1a9a67ca9a71b9253a274af8b231e18cb9e19e7f92c1ff84bac549641177ee",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-continuation-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "e773103e44e1164d898099d1e067db747c5b54e1b0318817984f910385d436fe",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "1b9e488d11559d7cdb1cba356a86e9dd630da6b40d3c86f44e9f1788dc2b0104",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "4ff9194df2ffcf9c986684f21bfd50569b64c237c0bf4ce5fe851cd981e1f8fe",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "9936d574cfa8dde84f268d0b173ddfef6c2b0b93ac7a924dcd0c621ba44fdfef",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-vr-100-panel0.80000001192093.png": {
+    "sha256": "f3fc9e7211f1a8147a04f250c6124dc3e1de8caf0ce514e5df1b906222891d84",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-vr-100-panel1.39999997615814.png": {
+    "sha256": "93b57cdcccf8123d500b3f0277bdb03da17122b47bc4f964d49a7de2a3f3fdd1",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-vr-130-panel0.80000001192093.png": {
+    "sha256": "85e8cc3bb7f28d54d8db292169ae3429f2a70deca0b33043e84cc80b5c95c5d9",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-continuation-vr-130-panel1.39999997615814.png": {
+    "sha256": "9682ab574b8f02781a7fed5a9496ebcaa78b7577ec4df06a2e8614ec653dbb52",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-1280-100.png": {
+    "sha256": "25ff109f9c8c00f3bc25ec3782d860b103048f46684c4a6186f6579bd6c5546d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-listening-1280-130.png": {
+    "sha256": "c36e7f9464827525c3f3180290616cedcf1ca3c586f1aa187b410c2f8c6e90ff",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-listening-1920-100.png": {
+    "sha256": "7dcb9a18178046ab6c35d1087955a12df58249cbce6ca43504f2cc5a1b556e47",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-listening-1920-130.png": {
+    "sha256": "2b0846395cdb2d33615f860b67a7312ded5c7525f014e70ec89d2d33bd022201",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-listening-3840-100.png": {
+    "sha256": "cd01940ed7d0d78486103921a8cdb3a59386203f4eb394045987cd88f87e8e36",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-listening-3840-130.png": {
+    "sha256": "27f3781d5d468a9bf053388a1a73c430ac5f41ec04c8cd92247db2d0cf3da4c3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-listening-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "94957363b9d7f663f71ac76ab9f1a0afea9b0c37bcf9136ece2456c33eadec66",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "612c0a74b936ec943a9d0749f7e4f7d7630d7be215ca6ca0fc820439d07603d5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "074f4da7e2d2eb76b432e3951ca793a5b17056883c634b7f9709b17ea20beec9",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "165ab561e6e8e9a84a95fc3ae63f983f47e6c069a70f30989ef957b618cd37bc",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-1280-100.png": {
+    "sha256": "1bec38efd8fa26d3b237db91875a90b5247cc1407a485efed16a7edf3872021b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-1280-130.png": {
+    "sha256": "70649d06f7aecd5981fed9d2859d30ed5e1a5a96a82eb0b3266e2c81ecb51fda",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-1920-100.png": {
+    "sha256": "2243c1e43a1dc01fdf2adc21f1ebce0889633d0e7469c53e3bec73888ca43e12",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-1920-130.png": {
+    "sha256": "1012319f682466793fd7979a0cb45fe42f422642fac68b8dcf63e6f73f5d4cf0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-3840-100.png": {
+    "sha256": "918c687bca5256c49db8eb8aeefb16c2aa0a4f29b784a239e576f1037a4d0932",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-3840-130.png": {
+    "sha256": "5923b91fb641b3b4e82be5f51fabcef5e84a9b9762304557d655bf81d031b06c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "43b9cbe3190230416a81f3fa42c7f2849a1c0b5dba98708166e2d2d1d04b774b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "43b9cbe3190230416a81f3fa42c7f2849a1c0b5dba98708166e2d2d1d04b774b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "bd2c5414229b1f0246cd1165650b7ea5cdad936ae8af832e26293dd7d4eaf28e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "00637fec795f3b44f135807fdd5e50a5e40976c3da48a9ce317b8953e2cdcb8c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-vr-100-panel0.80000001192093.png": {
+    "sha256": "146ce9c32c7161149f44486e1df672a8db24d71421fda00dee0ce56ebe1cfe5c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-vr-100-panel1.39999997615814.png": {
+    "sha256": "146ce9c32c7161149f44486e1df672a8db24d71421fda00dee0ce56ebe1cfe5c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-vr-130-panel0.80000001192093.png": {
+    "sha256": "c955bc7a97a4a94f509a60b2c72fb8bdedb5c54bd65f50451c3ef3bae0de92aa",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-result-vr-130-panel1.39999997615814.png": {
+    "sha256": "c955bc7a97a4a94f509a60b2c72fb8bdedb5c54bd65f50451c3ef3bae0de92aa",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-vr-100-panel0.80000001192093.png": {
+    "sha256": "0792f62294f38be96a688af65596caca4462f173ac38e6e33e2472af9eb37b41",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-vr-100-panel1.39999997615814.png": {
+    "sha256": "c23def8453b3748f1a6cf1d0cc8b55fe71953f09cdd8919c846c2d5a837554a8",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-vr-130-panel0.80000001192093.png": {
+    "sha256": "1c1150a55751d487f8bd4eb7b24565292ca3bdffc35f22e31db4b2ffad5bf8f3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-listening-vr-130-panel1.39999997615814.png": {
+    "sha256": "1c1150a55751d487f8bd4eb7b24565292ca3bdffc35f22e31db4b2ffad5bf8f3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-1280-100.png": {
+    "sha256": "9da60e822f1a1478ec48547af8ee212538a3cf0935c6c7001b59c483c4b9c993",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-profile-1280-130.png": {
+    "sha256": "b84870e9b8c5736b1d08c4941aaf7d58c4fe945828055fc5fb3c3e45657344f8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-profile-1920-100.png": {
+    "sha256": "ec5f2c2eb68d0af7748c7d72c921a47d4f983d0d2c74fdbde19001abd247c7cd",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-profile-1920-130.png": {
+    "sha256": "677949bcb8b74a3283954c8659069348f47f110ac67b4ae060ab2f78f4853787",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-profile-3840-100.png": {
+    "sha256": "c546d14124db2b5d5fee66f3f60e4115b687be206cfe3b0c85538433bf1a986c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-profile-3840-130.png": {
+    "sha256": "2d2426300c431122ad724dbaf1e411d58d604d0d0c835a99a1b04e8daf673d0d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-profile-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "dc9cd1bdad341ec68ba521f7acaf7326d9aaa89c7290e34604a3f7c357995f93",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "598ed16eb56e43cf1cf8204583c63f9cb68f2980953fafe81529bfdff18bb34a",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "aeb6c3f1a9cf03d6cb3b46e5388271a5d9f69a44f63fbb2c6a1f18503ea556fa",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "9aa6885606ae0b1c8a55821946f52dbdb8131d573ed240fe87fd37bf3b3728c3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-vr-100-panel0.80000001192093.png": {
+    "sha256": "ea339b3cec0053a2ee11e124db5b9e69d7a94cfabd578fe5938b176850df2c92",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-vr-100-panel1.39999997615814.png": {
+    "sha256": "78c9e1c434484bd8481c804e7152ff3a596aa56ef6edada752e6baff6c6cf392",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-vr-130-panel0.80000001192093.png": {
+    "sha256": "c611ee7b992d4af3488196db8aa3960f7f81e91df73dbeb108f73fc948df975b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-profile-vr-130-panel1.39999997615814.png": {
+    "sha256": "f76a165630a8810e0f7440f9db6c838763aff89ec9bdb8166058f83cec377240",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-1280-100.png": {
+    "sha256": "c662fd5925a482c8122a1f670b4892340a214839f5a36307fa649ba596edfc3f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-review-1280-130.png": {
+    "sha256": "9d012024f9ff61df7b714f6fd3836e73229931134ca3562cecee75c976e6f913",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-review-1920-100.png": {
+    "sha256": "ef2e698fa8cd47a4ad219d8fb13db90cae1101fc4f60c619fbc6f34be57e1442",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-review-1920-130.png": {
+    "sha256": "e1fc5357003386a251be0269e6969c131ae996fc214b536757f67716c9b934e8",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-review-3840-100.png": {
+    "sha256": "258378ca9eaf1e07f47885e083f97f5119a5ceada06a5e27c9cda975fd9f7402",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-review-3840-130.png": {
+    "sha256": "d1c814e335aa723b61a5e78d7ed23e24b532d5f2ae03bb2b25be44734a394c85",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-review-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "89d6e5e9c97fc3e30ecb7c148620447d76097eee2ab45f7760bf4cac56adf126",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "f11fe4518058889a12b3fafe14d5feb29f2763d96a0298ab659191ff9bffb17b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "93644378d3a7018b5fb5b6da410fbd0d5aa96b4371fa6287a660710a066fd7e2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "7350cb4f6d1cb453fbe5d0327c7221b715dc5edb49c6cdce4e42961eea186bdd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-vr-100-panel0.80000001192093.png": {
+    "sha256": "549c4f5e36487a791b4e576b101e4f5e5a07d2de5153a50042267e939ad4b760",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-vr-100-panel1.39999997615814.png": {
+    "sha256": "02dc55d34e1a75cb847641ddcf1d3dbfb472e459b87d151e44b926b9b2df3abf",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-vr-130-panel0.80000001192093.png": {
+    "sha256": "8becd5a8002be98e7801c51bca8b430e326ea080bdfef64feafb2a2d3c60f063",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-review-vr-130-panel1.39999997615814.png": {
+    "sha256": "d69384b3d680bf3746dc0ceaf089b7c2ec8a05deae1eaa2018cc7dd0bd138bfd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-1280-100.png": {
+    "sha256": "60d29a350ebf3246c0423010004620914ffb3f4edf2b94fe8af15d2ae74c70bd",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-settings-1280-130.png": {
+    "sha256": "fd0b3417e35de5087d847466db74e16d757fd9ba52309719297ae6be9db4ea51",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-settings-1920-100.png": {
+    "sha256": "762e75dd46abcd6bbedee97eebb5b5addf9f41bb1197f57865a5cc45113bd550",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-settings-1920-130.png": {
+    "sha256": "8f155d3540a40f26fa58ff16a0e31013df798b5a2c5cbfd0d02136716a4a629c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-settings-3840-100.png": {
+    "sha256": "c9e44eea71f3423eacc56431226ba7e8dc6bdc708eaae34b48f13acf0ab89d3a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-settings-3840-130.png": {
+    "sha256": "1ad09da4ad1f6bf06bb383e2d5c254d67ecdb4f63afa9ca9e11fac4e09b20cc2",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-settings-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "05a095503a9b7e0b1586929a27bffd2e439e795953bb6a8a931d26ac186a8e9d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "0127997fce07c87e92e0a3a1a4c812a58a3aba3d41d4543760fd60b013011310",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "2cd590e836a4a78ac8474c08bde8b70499b7f5839a6cc156cc9aebc4e33fe99f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "05357ebff48d08ff6b124cd597326561db246bb3c815cdd383fe4bd069fd7693",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-vr-100-panel0.80000001192093.png": {
+    "sha256": "36463042b20d1009bdd1df95c6b0efedacc537c0bae05222641faf37731dc55b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-vr-100-panel1.39999997615814.png": {
+    "sha256": "27a565b44f0af8852c1085b228c8a5ce71e22fc4c216159f5ee498f7f247cdf4",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-vr-130-panel0.80000001192093.png": {
+    "sha256": "870690ffb45bd6971fc6f802dd77e2bf08e1e95fbe3dcfcc18e01644c895b090",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-settings-vr-130-panel1.39999997615814.png": {
+    "sha256": "39682c13c2a65234aa47bf85b9a7ccd22a4a7a7f1f75aadd1585f5e3ba0926c1",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-1280-100.png": {
+    "sha256": "44ca02fe2c246d55172d5e2c082ceec4e1e61ba41a74623707f10e5ee709df4f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-shift-1280-130.png": {
+    "sha256": "4acc30e412becae1e723a3ede9288a682801564b3a093ab904fd3c867913cc00",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "continuation-gl_compatibility-shift-1920-100.png": {
+    "sha256": "237250afeb1395e40607b4d3b7316f407d63da08a210ec35020c546341a2d189",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-shift-1920-130.png": {
+    "sha256": "4ad3129f76aa5ff64966ca4c53cd9b059209532a38a9baecb4dcfd27b84d129e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "continuation-gl_compatibility-shift-3840-100.png": {
+    "sha256": "1f21c1b4ba71211aa0bed9dd5f2eadcbb4150cd9a3589d5905e276beac8d0c17",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-shift-3840-130.png": {
+    "sha256": "258c51547ca501dd6d8531123b3fdd31065f43f658b1bfce490718041a63dea3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "continuation-gl_compatibility-shift-keyboard-vr-100-panel0.80000001192093.png": {
+    "sha256": "e797602a2bb39fcedc235aedcd71dfb90bf38bfcce7064cbbfcafa213d9141ea",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-keyboard-vr-100-panel1.39999997615814.png": {
+    "sha256": "dd19e23a8a9f9c9cc1347376636e02aa799e0209d8df4ad596d2597fc2038df4",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-keyboard-vr-130-panel0.80000001192093.png": {
+    "sha256": "c27c4ff2d12bcdf1c504f9151dc4c54b80e9354e72e2f07f2bebe85e8753c2f3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-keyboard-vr-130-panel1.39999997615814.png": {
+    "sha256": "ddb9b30e9eab0e66c8b60017446385e48e38d106baf245fc05bc381c8a185aa6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-vr-100-panel0.80000001192093.png": {
+    "sha256": "a6bea0f11541b15b7c250584c6bdbf881d1fd61bbe47a256d4af113c321ebbc2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-vr-100-panel1.39999997615814.png": {
+    "sha256": "e0f4ba183270d4e7d8c95bf2ec17086b5fa61a7cca5612f977a34b5394c1228a",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-vr-130-panel0.80000001192093.png": {
+    "sha256": "7658543e85a992569ca341db0013d12e9dd91841d94c4b9f2ff20821bcdfa3fa",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "continuation-gl_compatibility-shift-vr-130-panel1.39999997615814.png": {
+    "sha256": "6a23344dc4ef7b9b5592cb05a978b4411fcf8c76c68ac6b66575ce04bbb8e6e3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "destinations-1280-100-forward_plus.png": {
+    "sha256": "9a35e3535a251d10bb9c42fe507d1cd1919419783b399610a097081e2dc61b90",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "destinations-1280-100-gl_compatibility.png": {
+    "sha256": "2cf7a516dddded72beaad810f690a9a3cd911838f3e804b8f6684a469d084a84",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "destinations-1280-130-forward_plus.png": {
+    "sha256": "0448726489fa15c4425714d94014d8bd146c172d511ca6466cf24b308bea8c44",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "destinations-1280-130-gl_compatibility.png": {
+    "sha256": "ac61dc8f168bc205fa53f0aaaf7482badcff86ce4e9fe3aafc0f4d8afd5e650c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "destinations-1920-100-forward_plus.png": {
+    "sha256": "7f48c78649795579d83ff74ffe956901d509ba608566c71c0cfd35f42c1fd1c4",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "destinations-1920-100-gl_compatibility.png": {
+    "sha256": "62b23b4c25887e3700cf0b6ed2c9ab7cff204f8c5ae6a054ea81fd38016711c5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "destinations-1920-130-forward_plus.png": {
+    "sha256": "419013c7a48fd77e2004972842ddc557836f125f6416078b5a9f88eb38a1819f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "destinations-1920-130-gl_compatibility.png": {
+    "sha256": "533bb36273a2f7372ec54c4edbc5b6ec6dcdf76646216631e524515b6d5b2e9c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "destinations-3840-100-forward_plus.png": {
+    "sha256": "f40920b403703309b676090df58fc394ebbc3c9a2706903fba04b94fa3348cf6",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "destinations-3840-100-gl_compatibility.png": {
+    "sha256": "6fdd1ca1c7c88492a5510aeb9ce268eb018bce371c6e87d7287329436fad6514",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "destinations-3840-130-forward_plus.png": {
+    "sha256": "609b257d2b01fd81a21424160012c531fa53849c743f67bd6ab14dd604e35e92",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "destinations-3840-130-gl_compatibility.png": {
+    "sha256": "510d4e3de6a9e896cc5a47e896e41a7adc73fe4d668d8b9459ca165bce7aafe2",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-output-1280-100-forward_plus.png": {
+    "sha256": "3557670945c355490908c74faae911ae7521d8049b25389eaaf8242fd31ee60c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-output-1280-100-gl_compatibility.png": {
+    "sha256": "d0d2ccecbeac19ec3689c98740861206a65aaacfea985f0b0271fefc47d48ab5",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-output-1280-130-forward_plus.png": {
+    "sha256": "926484468b5040a271003d9fdadc766ca514a80a503df669c7cd76151742a5a2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-output-1280-130-gl_compatibility.png": {
+    "sha256": "1571c267ee2061da0e4ef9430673004bf74f1b8c1ce912650889922e7d449311",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-output-1920-100-forward_plus.png": {
+    "sha256": "8286587b59f9acb9f13bf0ea15befe31225315b05c3364ab495422677a570649",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-output-1920-100-gl_compatibility.png": {
+    "sha256": "6c34982456e95034e7b69d846a2d40c11edf95aab5892b6aa87008d033b3766f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-output-1920-130-forward_plus.png": {
+    "sha256": "5dfc25f4910f7c216d4aa86ad601a816d87e34e53eff098f7934e0fc476623ae",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-output-1920-130-gl_compatibility.png": {
+    "sha256": "f3225586292db1a9b59feb2221fca9ff892ecbfb1613d53f7df63f5d1b164e32",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-output-3840-100-forward_plus.png": {
+    "sha256": "c2c791cec044c5d5c00af2380664a2e80155e0f3dee5f39ea16cf5c5bb1b0228",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-output-3840-100-gl_compatibility.png": {
+    "sha256": "9ff6b433e05522c67ffe77c608c55f281b01c6f21d958239f994b70a759e9cff",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-output-3840-130-forward_plus.png": {
+    "sha256": "4c6bb125633b7bbec00b6dddc119db4008b07592a0a896031eb519581c363ca3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-output-3840-130-gl_compatibility.png": {
+    "sha256": "21b9dad7a85a63696a070411fc80e3eb3ed4e22a1eaaca865f20d263fb7015f8",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-output-vr-100-forward_plus.png": {
+    "sha256": "15e26937deb4bb89f92ea642e64e1d895b18e93813020dff0797896075613186",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-output-vr-100-gl_compatibility.png": {
+    "sha256": "26409dd72c28d27519aaa63e01eeb6dcac08d8c94eee1d523aea2dd3f23c72b6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-output-vr-130-forward_plus.png": {
+    "sha256": "98cdbc903b190a8eed7a1b6954ea537005f0afe4793c7b68e6ee746d16c71989",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-output-vr-130-gl_compatibility.png": {
+    "sha256": "0204d0f79c3d43c70db8b9dff7ee0be3aafcbd449f585cbe5d758a9d37dfb124",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-task-1280-100-forward_plus.png": {
+    "sha256": "5c94506e864fe526f0aec6272fcb16a93453a24410eca2784be65ba518ac0d45",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-task-1280-100-gl_compatibility.png": {
+    "sha256": "439be838678b46e5960092a2fcab47391b857bfa5097df9f2852a7d3148e95e8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-task-1280-130-forward_plus.png": {
+    "sha256": "160641f8db58f26a2669597dce96d99691cd811e3021904fc381370abbd28bf9",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-task-1280-130-gl_compatibility.png": {
+    "sha256": "83221539c7174339cd4e51f5c40c897d611010592ec3fe7ec125dd1eea14650f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-task-1920-100-forward_plus.png": {
+    "sha256": "98f9c099e346865f2ada657756a027705669f473c567730257b4ed5e43ff33cd",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-task-1920-100-gl_compatibility.png": {
+    "sha256": "f24c3f24ea2e238d6034e6cc639933a0140ac02ab5fa238fc4d7fea16a2d66de",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-task-1920-130-forward_plus.png": {
+    "sha256": "20ed2f57879c4e31a7bd6d0c729ba2051ad4025b043e9071932c5bc8587d3b04",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-task-1920-130-gl_compatibility.png": {
+    "sha256": "16f3b4b65a09d851e2c3ecafe7a34dfc6ba1245e526954d87bd07a58adb7cfc9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-task-3840-100-forward_plus.png": {
+    "sha256": "1fd03e3fb3a1dca05d6161c6c93531ac16bcbb6075f16797bb796b222f552ab5",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-task-3840-100-gl_compatibility.png": {
+    "sha256": "e8cb401d93b5a10cc69bf81cf29a36f25829f87bc97e263141261b065c4e7aeb",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-task-3840-130-forward_plus.png": {
+    "sha256": "2d24e37951488f0fbc3cc8aa054ba0c079c6dd2c8e864cc551e509659168c484",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-task-3840-130-gl_compatibility.png": {
+    "sha256": "4ceffd8a557d1eb97a3d968165f62688fcf9bcc94ba14de799932aae7c1cc580",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-task-vr-100-forward_plus.png": {
+    "sha256": "3fe94ad181b16e0239d09d67b6ca6d1afe1ae1be71de04dff4211b86a297cf36",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-task-vr-100-gl_compatibility.png": {
+    "sha256": "1579853d480c8352926209c01cf0e67999a3987d0a5b8b6ac7f2adf29ee88828",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-task-vr-130-forward_plus.png": {
+    "sha256": "809ddde05dc5d377e8183fedb5bd75c07153c09cc545a7094bf6cb153899c041",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-task-vr-130-gl_compatibility.png": {
+    "sha256": "347d03f30c27183cd0939c45cf042dc119878912bed2e3a0f15500223e1bd52a",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-verification-1280-100-forward_plus.png": {
+    "sha256": "65372338025b0150cf2ee2b8a6a9c94c4b29b61d3f92415e53122ed8e1f3ac5a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-verification-1280-100-gl_compatibility.png": {
+    "sha256": "77ba575d3fd74139b329e5cd3794d68d8aeb8a5d2892a64276ef268cf10b80c8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-verification-1280-130-forward_plus.png": {
+    "sha256": "6f3eb78f8d7886ed8dfcdd691697cfec55afca0c8041732d709b7daf10fe62e9",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-verification-1280-130-gl_compatibility.png": {
+    "sha256": "2a375e1074cfb6a0fbcfc0a041efeb4159c85175a3f16dd2f09e759ce4f562dc",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "editor-verification-1920-100-forward_plus.png": {
+    "sha256": "bc4706c95a89bd2f69b3bc0affc836315c4be69a1fea2074230871c49f706db9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-verification-1920-100-gl_compatibility.png": {
+    "sha256": "fc0611a10a4536d577e0c86a37a81b43ffe3ffa8d4e067096524b1ce6779b7e4",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-verification-1920-130-forward_plus.png": {
+    "sha256": "1a76cc6fa9a8d29f19fbbdc43b636f56a523bb98dd7fa7825619a371e8c3cf2c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-verification-1920-130-gl_compatibility.png": {
+    "sha256": "9854fed23583af5e1e76501f635188753b0d800751aba6ab04fc312af5f24c4c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "editor-verification-3840-100-forward_plus.png": {
+    "sha256": "0bcf53af3628567ac4ca21609e5abe8299a107164ad7ebd21c79451ca33277a7",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-verification-3840-100-gl_compatibility.png": {
+    "sha256": "033de49c2462a6449e583bcd87cdf20b15e3cb8fdb8e280ceaa22b55d1cb4003",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-verification-3840-130-forward_plus.png": {
+    "sha256": "4a7e68cf94177fbc8e7ca160a3f969f4103e405ba9b76286662461fc26033f23",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-verification-3840-130-gl_compatibility.png": {
+    "sha256": "cdb00169438034ee94d02de134fb267840e721ef504a97beec07555750c3bd4e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "editor-verification-vr-100-forward_plus.png": {
+    "sha256": "817def13149c453f3ad9467956cbdbb2ebc3888bf9042ca6f36c7c701e7d3693",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-verification-vr-100-gl_compatibility.png": {
+    "sha256": "ed7298a013d0199d356f3eaddf4dbb36c0a49e1362ea1a35d8bf8a321953e6fb",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-verification-vr-130-forward_plus.png": {
+    "sha256": "8e966161db1a09756c95fe4d308182e4b0f649f87ab3e47e7239b3ee05d0100e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "editor-verification-vr-130-gl_compatibility.png": {
+    "sha256": "501732fba4a45c5e9d345f476d3d5a07fbf49658efa728311733cd537c32f6e3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-audio-keyboard-vr-100.png": {
+    "sha256": "27da0eb14127e4ca1fd907a0e886d0b9642ab454363532ee0c31e91c8cdfdfdd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-audio-keyboard-vr-130.png": {
+    "sha256": "22f46cafefacaaac6d16c80e2d1581187277c1b024a839480fe534f269759a00",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-audio-vr-100.png": {
+    "sha256": "225f7e8e882cec850176e2e8037ed6d603c15f9e0bdc005225c1b9d7c6c4c8a6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-audio-vr-130.png": {
+    "sha256": "96742530b3c332701e022ddf988eb6e77a2392e32e75b34cdb9a36c42206c27d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-intro-keyboard-vr-100.png": {
+    "sha256": "4aa85ea0e11453819eff6ac07eec4b89721025440e281ec5930898226ccc13a7",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-intro-keyboard-vr-130.png": {
+    "sha256": "81df93a88af0c36da00540786a602edb735907cfb65f70cae32212bf828e4b00",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-1280-100.png": {
+    "sha256": "f6c8481255ff76c9c3d279da7cc464e6a6c80b68a5e62100e1612864ddf58f0b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-1280-130.png": {
+    "sha256": "471f0e9ef0d174e4e9ea8e18ffaf111c90c98df4aa0fac3d213bcdaa355e35ea",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-1920-100.png": {
+    "sha256": "8fe19c09916399c869da8558d63c49cf2c1ecef2538934e650985f0e8812fef4",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-1920-130.png": {
+    "sha256": "839c285e305a00342295150fe4ef76004d4455516c049029fd854b990b588e2b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-3840-100.png": {
+    "sha256": "f93d1e7494b716b1c13a95760fd232ee0448e5b58dc261d67ce09c0add6aa30e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-intro-offer-3840-130.png": {
+    "sha256": "1830857d0f442477b05eb913987f1e892ea730d539d66475e2a96a3c54bcbd31",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-intro-vr-100.png": {
+    "sha256": "d1e15bf5c997897f13be3829e1abbb466f95399195e1c87cc0ad5d8c70931176",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-intro-vr-130.png": {
+    "sha256": "a18def384930b237b297a3d440566a8279d8d78296dcea7e873fdc5620a52e86",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-intro-world-1280-100.png": {
+    "sha256": "3afba70eef3652cab188331419e60779d75329ba72a025ccacb3101845d1813b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-intro-world-1280-130.png": {
+    "sha256": "f3b4a01d2ca752e0cd3176e3534f71ae9e93c60b1dc65a292fa4b84420bdc0d6",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-intro-world-1920-100.png": {
+    "sha256": "da15433cfce6b8c18e612b88bdbf6e8fbe41fb66cd232dd55f5e8668563f055c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-intro-world-1920-130.png": {
+    "sha256": "aeacad78b5128b7cca38eb9863f6b3b8c9629928e009d7b4d045ccc4e9fb301f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-intro-world-3840-100.png": {
+    "sha256": "42e565d7a8a11b123981f1713986aa7265447cd5781e333e0e8fd43fe2b827c0",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-intro-world-3840-130.png": {
+    "sha256": "748f6ff057d92dd9d77bc1d292bf97e6825b6146837b81c0b1a625912b975886",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-london-audio-1280-100.png": {
+    "sha256": "456fdbfa39dc5b54a1c15075126bf05bb5bb09ec60b0e22b025c5347084e039a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-london-audio-1280-130.png": {
+    "sha256": "c0fb5a9365757e5a65ddd83eb6a3ef69b68cd791509de13090f1bff67310d1c1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-london-audio-1920-100.png": {
+    "sha256": "7713a8b6f2693f81236fbe8d29e7c5656615f5d61d873f43a58f14b42af60c73",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-london-audio-1920-130.png": {
+    "sha256": "d1221be35ff0fce55e2eb9d600396c8c84336614e3c9a31d0a67dc2f64525988",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-london-audio-3840-100.png": {
+    "sha256": "35363762aafec40c27e364888e9b60d3fd87138debb5e97c42a0716ba0a56292",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-london-audio-3840-130.png": {
+    "sha256": "b839f57c5ca6c700d11200827e4ba740ad484c3082c76d400dad2768a1cc6516",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-menu-1280-100.png": {
+    "sha256": "0b4b9fbdc29b07ec6441e22cd1f0d76066e385c58bdadce32d683790e9beb1eb",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-menu-1280-130.png": {
+    "sha256": "29917a8027dbc85d6251cd26760d833a6fe11ec0c02dcaec374b2878cb6f5cba",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-menu-1920-100.png": {
+    "sha256": "ee67d97bd9efe334c55aa6225019166dee36369c9f9373118663c32e5c4b4be9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-menu-1920-130.png": {
+    "sha256": "1224b4ae56eac2805fbeb11c27c86f350ca0484c14e9d0061b0dc917a2e95e70",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-menu-3840-100.png": {
+    "sha256": "ad73eef04aab9352959630080b5bd132c25131988614c09b67e30a8a57fce68b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-menu-3840-130.png": {
+    "sha256": "988c78b88d89bbf655e7080db1e71fa48e16253905cf94da456caec4b9fa400f",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-network-1280-100.png": {
+    "sha256": "527ea5fcc43cdf8229ae39c2dbe269b50c33cde8420467767ecefaaa2c8e2892",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-network-1280-130.png": {
+    "sha256": "bfe092b9d19667f30697d83c1cbbf32f529d5950cc0000977930651b3a80ad58",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-network-1920-100.png": {
+    "sha256": "44dae0ce942a8cb78d2fa129dd0a37fb46cf070f9d7b224c0a4063fb65e3cf2c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-network-1920-130.png": {
+    "sha256": "deda428a6f9f8d2706d09ebf01295796b707f75daee77da13fabaf4b0ef490b6",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-network-3840-100.png": {
+    "sha256": "66fcdaa6cc0d16cc956fc15514a819385807a0cc482a7f86464d793f60244a2d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-network-3840-130.png": {
+    "sha256": "fcac38e1850b21dc6b466a60a996e5713c05360ad30f1dde564863e3e16a6642",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-network-keyboard-vr-100.png": {
+    "sha256": "cd63a9b0ec309fcac2e7700c5c0928d7ae26adfe49d4aea39a4af864d27bcf29",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-network-keyboard-vr-130.png": {
+    "sha256": "6739b070a75f5be40801a2eecaec2084fb244962d57ec6b6e3e9a6eb7362a570",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-network-vr-100.png": {
+    "sha256": "de8bf4634f14243906cb2ab3e732869b62d5b30322a94a0e4f81a7626bd7ffde",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-network-vr-130.png": {
+    "sha256": "2076070395ca34ccb77d9805f6cf6218c4bd5e8f8e0d9302801a7b36f72c26a3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-shift-1280-100.png": {
+    "sha256": "d12c18c9856cae1c89762416360190b4478434835b241ac6c62cef00e2ba2aa9",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-shift-1280-130.png": {
+    "sha256": "4512c3698ae09849983e0066e00b0e18998e8beacef1aa7c666795a9d2856646",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-forward_plus-shift-1920-100.png": {
+    "sha256": "df479a29ce2ed84ac3238ad26786271db3010b3d1318274ee833e65731c4c58c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-shift-1920-130.png": {
+    "sha256": "38495498ed33bb91bcc51afa6fb9abd99436eb7dabd32aae72da91455ddd35cc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-forward_plus-shift-3840-100.png": {
+    "sha256": "12727b4ec7649a6b65d7cc59d6cb2e96dc38101f3945cf0befc4bb73bded7e02",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-shift-3840-130.png": {
+    "sha256": "6f38cc906f659022096360359a24d6720b84f264fe4b48a1f187d71b08031985",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-forward_plus-shift-keyboard-vr-100.png": {
+    "sha256": "aba89ac0254e55baa9e657331404eed375e9a819a7c6ec7118341db59a0e2789",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-shift-keyboard-vr-130.png": {
+    "sha256": "08b81da776f95139d8ed72169a7a6a3435c9209ff7cce8e2ea908c5a1472b806",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-shift-vr-100.png": {
+    "sha256": "18cbd2e279c3e2a5a2516b1781975ac9de2d479862f6d05da9de0d04594ef8a6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-forward_plus-shift-vr-130.png": {
+    "sha256": "828caafc6137b9e1d7954a536dce9e1d77f018959dda6e99a07dd51d17c33f1f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-audio-keyboard-vr-100.png": {
+    "sha256": "ae28930976873417e4c66c8f0563781c4dd49bd03028216b3b21b344d9fe3cab",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-audio-keyboard-vr-130.png": {
+    "sha256": "f723839f7dc758ed961847e15ae4241a481caf572fe2b09064e7e006fbb406c2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-audio-vr-100.png": {
+    "sha256": "39726a22363c031149481003c4286054eab566092643d96a6eed6704c4de9e3f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-audio-vr-130.png": {
+    "sha256": "16fc664ddd83c9e90cea654da7056a53e38b4ccbfce859c586df289192d0020d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-intro-keyboard-vr-100.png": {
+    "sha256": "ad9ecff3fd74a67a90a7dde9904c4649d4eb545bf7f54dc2f7f341d87f6155f0",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-intro-keyboard-vr-130.png": {
+    "sha256": "f6ec39e9afb20e6634e7bb8402f558f014727aacab8fdb68059f2651bd9a8c61",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-1280-100.png": {
+    "sha256": "915ce49474d03e0e6da81c608836a7689ba0ef5454661d920eae2a5b9a8ca8a0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-1280-130.png": {
+    "sha256": "3c693e9c948ca9f14cbb13db7c2ca5acfff570c539e4f715d7f05ad476b22254",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-1920-100.png": {
+    "sha256": "4d9cb9243b23b02fcab1d07932a56561310ab56cfc01c78927d68cfd33e607d0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-1920-130.png": {
+    "sha256": "212fe89b87c9dd2628c90bad03b80bb712d139136396ffc064e10f6c02f855fd",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-3840-100.png": {
+    "sha256": "249bfbfdb90446781cb58ce2bf4ad0b2c61ec0d3dc129eab618e646cfe12de4a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-intro-offer-3840-130.png": {
+    "sha256": "7a6de43bfc327d76df42e102e588f5bac10eae4022e42ce9cc0f52c2c5c364dc",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-intro-vr-100.png": {
+    "sha256": "a2a84346d0661f321a7f9330b2a7de71840c9d5356d4adb94d16ae70266188a1",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-intro-vr-130.png": {
+    "sha256": "01bcb6c316f5f1431d43a1523cca0ab89b0126443ba96a7458cdc19b87a607ef",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-1280-100.png": {
+    "sha256": "2fd2fcb382bad343d6c591ca923f7c6a5324f5bb2faa62af904a14c4741af356",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-1280-130.png": {
+    "sha256": "d87b19f1ffccf2e66c03641c66cefb1b5cf7abe5f8338763f8b651a48f8a1510",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-1920-100.png": {
+    "sha256": "464189cbbaad0e773b875ff3433e908e279470f44cff1e7d9297750b93f7d159",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-1920-130.png": {
+    "sha256": "9e11760d4ad388ed87f5a48b6ca1620f11bd3fe3c366fface34d85342b34d667",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-3840-100.png": {
+    "sha256": "f93a3a90f37de2044ed5b492b0fd3269f1374f34770548974cf0d65460fc27e0",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-intro-world-3840-130.png": {
+    "sha256": "e68248b45cae9a705dbb78e9b7180bc2a361d7e4c4dac3e7baac9f3603c057c9",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-1280-100.png": {
+    "sha256": "86c46dc733953610711ca631ffe5dbc48a7c31bea5cbdd7be1a285e52043e6fc",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-1280-130.png": {
+    "sha256": "cf384accaf97437d4220094d40e1dd3ecba693db4762a4674a084c36752c4581",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-1920-100.png": {
+    "sha256": "c771774e9e4c2d518e405e08ac4529fef0776539d81270d08cefd7a268dca194",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-1920-130.png": {
+    "sha256": "c2233a61748e87666e2e2f7193070554a02a80cb37e8a6da591024f9cc006764",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-3840-100.png": {
+    "sha256": "38d1ada952d32dad80e894c8d9d23c888346a798ee93ed19596d25c5aa4db2d2",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-london-audio-3840-130.png": {
+    "sha256": "2973525380c1ec3b268fc00d300a35135a805a3bfaf19ecf1930595efcc7c080",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-menu-1280-100.png": {
+    "sha256": "637beb9c87cf148ba1e577b4fa48bed44f10a474341509009abd7bdfdd4a3bbe",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-menu-1280-130.png": {
+    "sha256": "80d04bab847daf06266a5bbc153cc8152108a3adcdde9e4680816cb57840de42",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-menu-1920-100.png": {
+    "sha256": "48e7da025d7b3333f46e8daca6b85efade286367227fb3fcd3b32babc5a4a8a7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-menu-1920-130.png": {
+    "sha256": "683cace24e1583ddbd989a4cf8fcecce18e83d6fc922a2fd878a65d97cf0b89a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-menu-3840-100.png": {
+    "sha256": "83f6a7d6e78157d3a6cf48c8ab50e45d8e4cbe7a065eba1fd49ff111b2ab2e43",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-menu-3840-130.png": {
+    "sha256": "1e8dafad4bb10e414b7a3f2f765ad1179e2f79349da6411cb02ed7f439b1a116",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-network-1280-100.png": {
+    "sha256": "7475dcf9d859f1ff0164b4093b3cff406a91933e64467941dc5d8e6f6ec52027",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-network-1280-130.png": {
+    "sha256": "5768fbb25ede48f4dfccaa5f5b0747a99665ca0b8f6908664f95194d80ed6b28",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-network-1920-100.png": {
+    "sha256": "0151293a51850350c68d84a2ffd94442d21824c79961dcd86841ce14450e29b3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-network-1920-130.png": {
+    "sha256": "5fe5dce9e3648f17565ad09859bd3d3f79a498efddbb6b6a70f74587ccb00a8d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-network-3840-100.png": {
+    "sha256": "776eb620f128c24358d32eeb4f52b91fcde869483652df8c0e68bb962bc13508",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-network-3840-130.png": {
+    "sha256": "da7e74d1b3a15ade8521ee168375a8bf65e9705858798dbd1464e432e480dc88",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-network-keyboard-vr-100.png": {
+    "sha256": "20568b089506d6a6c655dff128ad4acf959dff8efa582c14b58947abf2bdfe3e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-network-keyboard-vr-130.png": {
+    "sha256": "24bc3a9c392abf99a2c752643e91a558053404448b8388e7663efb419b4ed2f5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-network-vr-100.png": {
+    "sha256": "3d97b7bac6643930aa83b65c89d0892aa8135db7e7cd9c35267c48e29d985e87",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-network-vr-130.png": {
+    "sha256": "7d8642d7443417446ad6e767bc5e53e73307711981c88dbb11cd4ab13e1c883d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-shift-1280-100.png": {
+    "sha256": "288e06be06c8ba11b1ef62ad7d9cdc07ea70f9de2121c718a3a97cafda6e0a4e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-shift-1280-130.png": {
+    "sha256": "a27a00bfdd389d4a1ba4ee8d85d0488d623477da4f1ce83d8a54c77fd45237d6",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "gameplay-gl_compatibility-shift-1920-100.png": {
+    "sha256": "c7e56f49328423f2151aee0d8608baf8ea7996b81cdb31340cdb2a1e257791fc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-shift-1920-130.png": {
+    "sha256": "4641687c477c40550abc0556b3f3fe4927905e96b9aabfaae42f4e27d9ac0cea",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "gameplay-gl_compatibility-shift-3840-100.png": {
+    "sha256": "42f9d345719bdc391e3b3c05c88b9d50c886db2967c7902b2b62f151f85644d1",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-shift-3840-130.png": {
+    "sha256": "dd82d01e916fc514e1c730525c32703bdf421ca0f77348af330fe96d0d2fd85e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "gameplay-gl_compatibility-shift-keyboard-vr-100.png": {
+    "sha256": "e87309e92d4729c4ccaab2634fa6f4c91d66b34971856f023efe5d33bee1ae3b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-shift-keyboard-vr-130.png": {
+    "sha256": "0953cd4b469f36f9752b7c110b56cdb52ffdefd444921671a48635577d28975f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-shift-vr-100.png": {
+    "sha256": "24c2bde3ca8d2507ae509b4a3a65c4e0ed8500d0eaa61e4b2c87b09284dfbc0d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "gameplay-gl_compatibility-shift-vr-130.png": {
+    "sha256": "61b7ea4995b938b863362d57dc079f3230ac43398f7090db45bfd8e981834c7d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "hub-portals-forward_plus.png": {
+    "sha256": "874e54a72d8e21dede985c3014cfa776a6944bee61c2cbb688c9f5b620af0682",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "hub-portals-gl_compatibility.png": {
+    "sha256": "3915d78357346ef84579d96661c8024f8769df664b6861c7347e6ff4110e8797",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "integration-forward_plus-vr-keyboard.png": {
+    "sha256": "c45e3d6c5c699f12055ef999e36a43cb7c8ae40eae789eedc2cdb71f6ffd1544",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "integration-gl_compatibility-vr-keyboard.png": {
+    "sha256": "9c4adad6212b44e7e5957078d6142abbd46e82823fd687018a755b37ed19b1d8",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "it-door-academy-closed-forward_plus.png": {
+    "sha256": "cbffa12ca1960eb381e62495225f45b97a587e6298e6dbf5a422fecf7a5f53fb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-academy-closed-gl_compatibility.png": {
+    "sha256": "e9b8b555231aec7951c3fee6c842f16414a51fe87b2168f9869e3068819fb61b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-academy-open-forward_plus.png": {
+    "sha256": "d3764f10551688dc7562e85daaaa10db1bd68ca62189259e10391b8c87c2ce80",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-academy-open-gl_compatibility.png": {
+    "sha256": "d82f6b476cc68bf2d417fc85e4ab2fc592531d0027061e263b4b90c74bab3378",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-ops-closed-forward_plus.png": {
+    "sha256": "1809d1df51b58850db0caf2e6986c8e9583adb3f88277c81520e7d0ac5a62edc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-ops-closed-gl_compatibility.png": {
+    "sha256": "a29cd703ec4a54919a1ac7a653b29313fca9d7989f3955a367e1551f684fd740",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-ops-open-forward_plus.png": {
+    "sha256": "4de92ab06108d2dac07d989c23453a30c4826f4aa7555bd45887a0aab07d175a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-door-ops-open-gl_compatibility.png": {
+    "sha256": "16e2d92026710530557488d7be75f57922f7726925dd41021bec6a1418606f66",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-instructor-forward_plus.png": {
+    "sha256": "4c4057d41d2b1b8bdaa975da1b036b9a2784a0d381929c90a5bf9fe8dd50ad7d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "it-instructor-gl_compatibility.png": {
+    "sha256": "f33aac031adbc513ebf29cad0d9f6689795f15fcebb64b9995b5bbfe9adbacbb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-boards-forward_plus.png": {
+    "sha256": "a4c36947da4848aa0b81c7c6337bb438879021fd978341c4386854a66a3b892a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-boards-gl_compatibility.png": {
+    "sha256": "28bbe8804ae7dbc72115139199f67262ac58eff53de4676813455b6d1e493df9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-complete-exam-1280-100-forward_plus.png": {
+    "sha256": "60d551e6910a8e513ff1c18f1f6501098646f3319ff6a087a3ffe23401d3b489",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-exam-1280-100-gl_compatibility.png": {
+    "sha256": "8f33b4fb31098d5ca52157164c4cca309734b90eaa890f188c8ff94827353eba",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-exam-vr-100-forward_plus.png": {
+    "sha256": "b97a9fb0e2ce44c289f8d4618fa25bef5033fbde56af3f774e6a0f12c3fc661c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-complete-exam-vr-100-gl_compatibility.png": {
+    "sha256": "88c12e10264a3b1ad6768f72c8cd701cdaf31867ee8bcd5af81201c8dac728ce",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-complete-learn-1280-100-forward_plus.png": {
+    "sha256": "2cf3ddba58814de59f2fd2cf6c4513e713e9ec5c20d504369d5c2586fe1f0ed4",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-learn-1280-100-gl_compatibility.png": {
+    "sha256": "912417d47ddfdf14e7db7eaf32cc1866642df39b9f7d1e8004d760360fcca4ef",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-learn-vr-100-forward_plus.png": {
+    "sha256": "ea6d4e416e0c3079082f5f34af02cd419b78bbb407fe27e866d14aaa6599f0f5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-complete-learn-vr-100-gl_compatibility.png": {
+    "sha256": "e316194cdea8c1b01dba9f4cf64045ac12b1e2b429ea57e0efe12c7b614eb5d8",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-complete-practice-1280-100-forward_plus.png": {
+    "sha256": "185d8d0c68f5aaf2d47faa80b57d1b177c354e160fc4c52802dd8b124e4b71a8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-practice-1280-100-gl_compatibility.png": {
+    "sha256": "4d4e92f39812ae63db160a7c8c169d61f9484099a1a3f6e5ccc63d9ebb8620b0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-complete-practice-vr-100-forward_plus.png": {
+    "sha256": "27b57744248d8222259da36e466d6ed4c7da6645ea21ec3bd2081368be261e24",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-complete-practice-vr-100-gl_compatibility.png": {
+    "sha256": "63767f3c5c334e41607f67586ee7ea1713e422fdabe62aac4cac7720095636ec",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-exam-1280-100-forward_plus.png": {
+    "sha256": "9ebddc133916770931bd95007cc7717197c704628b014fcc8c405141229fb877",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-exam-1280-100-gl_compatibility.png": {
+    "sha256": "b01bd950cf76cdd2adb68b5fab3fefb11894c8c09550e2d6efe3c837b023685c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-exam-1280-130-forward_plus.png": {
+    "sha256": "9489f522ed04c5271f842af88a82d2beee8544d4100f82f7558ce199a8ec55f3",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-exam-1280-130-gl_compatibility.png": {
+    "sha256": "cf728bf4abd4f071ff4ff0c2904a8a52c582053ce7a283db2e522ab944fa77b9",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-exam-1920-100-forward_plus.png": {
+    "sha256": "e3bb371ebb9d1d4f0c321c1673f82108d6d1adebc2fda3b12747063865b479f7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-exam-1920-100-gl_compatibility.png": {
+    "sha256": "12b8248565fa279c390cd65bb43cbb58730066fcdb6dea119b44f3b6e372c3b3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-exam-1920-130-forward_plus.png": {
+    "sha256": "d0a58727847c4c8f17bb46a4fdf36c94f0f4a6ad195326b4f980e4207fab42f5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-exam-1920-130-gl_compatibility.png": {
+    "sha256": "a9059a6abbb63e2428cdb4d80e649929f1ced1aa465d2396f32c16807e76b376",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-exam-3840-100-forward_plus.png": {
+    "sha256": "b9a21f3d257098735901a087e6f027eddb0c27d60ede9d2031a58cb11159ba3d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-exam-3840-100-gl_compatibility.png": {
+    "sha256": "f33853e16e1f59977610f0b88f8ff2b6b97e75cfe976273e17ffa80230cb95ff",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-exam-3840-130-forward_plus.png": {
+    "sha256": "6bcd2205f7768be9cbb087b75f4366cf03fe61181ff612ee62cc01bd737d54a9",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-exam-3840-130-gl_compatibility.png": {
+    "sha256": "975861d7e08ffcf7eb541c2d85b4e3d6f41c52289a5376ce52513b6c3eddd664",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-exam-vr-100-forward_plus.png": {
+    "sha256": "8dcdd1c4433aef3cbaa4a15ba6f4b08f946366917ff6986b16d98b3494751a0b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-exam-vr-100-gl_compatibility.png": {
+    "sha256": "540fdedd41b20cc2c0cc04ff8a84ae76f1ca469d58b3802cf2b61e2809973a4f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-exam-vr-130-forward_plus.png": {
+    "sha256": "5748ff1aab60b97bdd59007b90392ce0393537a940de681e571f57d8b760ced4",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-exam-vr-130-gl_compatibility.png": {
+    "sha256": "5e7bf488ad93aa4412cc2d40ed0a26ca3e4ee388c5d85b3be8249ac943d7d2a9",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-learn-1280-100-forward_plus.png": {
+    "sha256": "552a17eb17e98689ac1067f8c6fd3cfb356e471875bf6351a06c21c0f648a83c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-learn-1280-100-gl_compatibility.png": {
+    "sha256": "65f8cb785d58d1afd20f4fd5115b3474079515b05adf51fe52f54c12109557be",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-learn-1280-130-forward_plus.png": {
+    "sha256": "8354ef21cde23d77764b515378f8f1ded12fdc680600a0895ac589ce654a889f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-learn-1280-130-gl_compatibility.png": {
+    "sha256": "dc750f349de271a1dff2170a4fe0d914fb964480baa82632524a70d749a1535f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-learn-1920-100-forward_plus.png": {
+    "sha256": "9a81ba9d1f36ffed026458d3ff7eee92aa782da3a4dee14a4046948e110e07aa",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-learn-1920-100-gl_compatibility.png": {
+    "sha256": "dc47dd057ecfaca71a1ab26880ce9fe501a63750d23d14480a0643ea27d4f9c9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-learn-1920-130-forward_plus.png": {
+    "sha256": "8ea180d38d888f0d859cec94ff581e82b1efb07d6ec5082e3e4c087f27c0aa72",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-learn-1920-130-gl_compatibility.png": {
+    "sha256": "8595fb18aa043682a335891d6461f0d0a0bb7f86b63d0244164eee239cad4ea1",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-learn-3840-100-forward_plus.png": {
+    "sha256": "76324bc1e1837b4bf6492c787adc3d02c36aecbe3dcb3cd04e6d51f871e56e99",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-learn-3840-100-gl_compatibility.png": {
+    "sha256": "df95ff47edaccd02383366375993c30d08963c280734bdd8a10e4cf6847b798d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-learn-3840-130-forward_plus.png": {
+    "sha256": "bf19f62228e1536486f2899a7764426165202425cd31df1ab0227fd4997f998c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-learn-3840-130-gl_compatibility.png": {
+    "sha256": "2df42e37988d9f50f6d6afc234d78d95ab522ea6445b907b2c208d81d5ff4a8c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-learn-vr-100-forward_plus.png": {
+    "sha256": "9725b000841ee8afc1020685bdca90168868388e373a1cffb29e4a6d171490cc",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-learn-vr-100-gl_compatibility.png": {
+    "sha256": "c7f4d99d585c0dbc28ab2012fded4ace617844ae1ab3f71cb1a0887b04de1190",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-learn-vr-130-forward_plus.png": {
+    "sha256": "4760dbe594d3a706809f11db927754cc72eb56a554e225cb3b947dab026c2c41",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-learn-vr-130-gl_compatibility.png": {
+    "sha256": "15fdbad1844a983752d74b60bb4bbee24eabadd1b59dcfa0f5fa37d32785b09d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-practice-1280-100-forward_plus.png": {
+    "sha256": "7b99f4dc7c91f3e3146f1a30d43e357b92ca0e0c1cc9d07c10e86777a7963706",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-practice-1280-100-gl_compatibility.png": {
+    "sha256": "59cd980938778797d0eb622ad8c7c85bd18484fe9a150cf756c9ef1bf7ff5b88",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-practice-1280-130-forward_plus.png": {
+    "sha256": "c79636df106a4a23e740efb558b8c37d52ccc10e0e44b79aec0b597d3890d4ad",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-practice-1280-130-gl_compatibility.png": {
+    "sha256": "30d1a40e9b9479a490a11057f85c894c3d2fa3f187b25f7e366c35edb6d0cb05",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-dialog-practice-1920-100-forward_plus.png": {
+    "sha256": "71671f76344123499a1b6fe8c7446727cc1b63372bc94ae16c5124fe05f090d2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-practice-1920-100-gl_compatibility.png": {
+    "sha256": "c4edf841bcca6cbd4c4d156702a5daf6e98250d1fe8d17a6ea6ac3da568169f6",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-practice-1920-130-forward_plus.png": {
+    "sha256": "af8bb0f4939577e2d955bdaf4f842fc6f3ef6c7e0136f11ef0e097c20e58f99a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-practice-1920-130-gl_compatibility.png": {
+    "sha256": "f766f4af835ba0b5484c93fcb0c3d53caadb4f78f3eb19e1900b15301762e698",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-dialog-practice-3840-100-forward_plus.png": {
+    "sha256": "10083f03c3e0782dac934017cd86079d8174288389afa44cb234ce053458e9fc",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-practice-3840-100-gl_compatibility.png": {
+    "sha256": "3bb224cdbc4dca30ef1ab6a77f8a65b61b026b76ac315fc462d2574ea7bfd793",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-practice-3840-130-forward_plus.png": {
+    "sha256": "9edd5dd5527d668550cece19382090b812ee8c555e8deb00d9ad22a4bb59050f",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-practice-3840-130-gl_compatibility.png": {
+    "sha256": "73ce54c7e45a3a0675a0025f7143e1409508e692f445ca5b7cbe7f1a4ae0ac8d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-dialog-practice-vr-100-forward_plus.png": {
+    "sha256": "b59c79090167b5e0a2ca2537d1dc2d8e578c0412ddcb1df88c2f6cd5356b0ad2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-practice-vr-100-gl_compatibility.png": {
+    "sha256": "5858b34ad25c537400574f8c1d95ad06f22b81b15366d4bf3dc4934283c907fd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-practice-vr-130-forward_plus.png": {
+    "sha256": "5474116897fcf85d8ccfc39093aaf0b5b5c64d6f5aa4585568ba65d3812cf38a",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-dialog-practice-vr-130-gl_compatibility.png": {
+    "sha256": "ab28ed37e853e7babe1643eea1af3bdf65b5aafa85e86e4e27e9471a56940ba2",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-navigation-gate-walk-forward_plus.png": {
+    "sha256": "c21fa9f8d7a6ee765f15dff5ee4a8c2354c8cf4f2415c62bb6bf1bcfbf04f7c0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-gate-walk-gl_compatibility.png": {
+    "sha256": "7de7c717cdf9f38534d6804f3f04f2282f94534f5305876e6541197f08c3768e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-info-walk-forward_plus.png": {
+    "sha256": "88e09f207f2b09139f9cfa9fa2e412c065d01556c3992868925bcc5c37737698",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-info-walk-gl_compatibility.png": {
+    "sha256": "ba0c1cf090f97dd1e65727530339cae89c5e8c676cd41148670d7d9dcbe0ac63",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-terminal-walk-forward_plus.png": {
+    "sha256": "06972edcdb3ab2f6f0a933940dc1f1b7c9802afb376d9b63ff73b1be697a8954",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-terminal-walk-gl_compatibility.png": {
+    "sha256": "d9fba2336de5532bc2a6862ccbe842621f2e373341cc12520c315f0370b30f54",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-tickets-walk-forward_plus.png": {
+    "sha256": "7bb12cc4fd03c3b80087a0d6eefb9a4551977a2c92bb09b15eeee0ef2b29e840",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-tickets-walk-gl_compatibility.png": {
+    "sha256": "796681715ba33620b800160d3a0049a1e47ebedc8120d3d1398ee5949a4e59dd",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-tower-walk-forward_plus.png": {
+    "sha256": "af2226c4d0eeaa0e766542be7363850db49888b32622020dd28b63f5045defa4",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-navigation-tower-walk-gl_compatibility.png": {
+    "sha256": "dfd77a0b99a1e09f8d5163d00cbfe46e486457b425ed31e47dc46ef9da877fce",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-north-closed-forward_plus.png": {
+    "sha256": "0d791e3d72d7c68ff36c80f6cb9751b9ba208181c5b9ba2d357f5b11c347b9c2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-north-closed-gl_compatibility.png": {
+    "sha256": "a1bfc45970c24635c6cd20b7d33bf2ba40565670551f4d58fa2cccb6d25cdd2b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-north-open-forward_plus.png": {
+    "sha256": "0d791e3d72d7c68ff36c80f6cb9751b9ba208181c5b9ba2d357f5b11c347b9c2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-north-open-gl_compatibility.png": {
+    "sha256": "a1bfc45970c24635c6cd20b7d33bf2ba40565670551f4d58fa2cccb6d25cdd2b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-exam-1280-100-forward_plus.png": {
+    "sha256": "88f26bcce32280d7aa64ddc703b751415ac5d839d1f29c3f3e03fdd486cb0bdf",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-exam-1280-100-gl_compatibility.png": {
+    "sha256": "f8d741083797014780a8970f19f98427eed5c0d54c07ed88ae05f42d563f539c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-exam-1280-130-forward_plus.png": {
+    "sha256": "a8ff0a661810503843b88ff8d73f4d1dcf7bac3e473f1f9af5516868349630c5",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-exam-1280-130-gl_compatibility.png": {
+    "sha256": "e4a7068fd867f8ee79aef42d050d51a4583db390f12bb0d81620acc5b344a6f8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-exam-1920-100-forward_plus.png": {
+    "sha256": "b827ee66b47b3aeb07aed106bda23f15be577bb54c93566074962c23fe6227d5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-exam-1920-100-gl_compatibility.png": {
+    "sha256": "1b07518630ca457e0e52da30a8d86249526e60d62ecf8398516a8b26144cf017",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-exam-1920-130-forward_plus.png": {
+    "sha256": "e1769d5376508ed2892793c1e4b9a289a172c54038e2d2b483ddae8e2f94f4a0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-exam-1920-130-gl_compatibility.png": {
+    "sha256": "9a7f28389c69e01f19c68765817b61b3c8044fa4f029c92ee3c84fb1d342c84d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-exam-3840-100-forward_plus.png": {
+    "sha256": "c78615b7febf0744868b6b03f86bc13639a0086604bae877667ac0e446f18f9a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-exam-3840-100-gl_compatibility.png": {
+    "sha256": "9cf19a223c2c9ae87de4a8025ffc073092516477ab5043b13b0464406cb03739",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-exam-3840-130-forward_plus.png": {
+    "sha256": "1c22eea2beb49192a3288ff207177f7611c7999c2a8b6993d6cfa2ff5c03eb54",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-exam-3840-130-gl_compatibility.png": {
+    "sha256": "63092805d18c7b2707171d3d4b6ee140157cea251e3f5018195a6557156cf551",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-exam-vr-100-forward_plus.png": {
+    "sha256": "51992afe5cf88836b3a2a69c586065d5e2a0ffa5f7e774ebd397ed488982dcc5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-exam-vr-100-gl_compatibility.png": {
+    "sha256": "37c6a0bd48b4110c42c977445dc106cd9dd426f1cc68a9e51fabcaebba40431e",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-exam-vr-130-forward_plus.png": {
+    "sha256": "bb2d398b0e64422ca96c8a56e25236f1276a87cb6163e9f2bd860f0911a1640c",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-exam-vr-130-gl_compatibility.png": {
+    "sha256": "57d093dc4c079a9784d3ee85e9f68a777aa286545cebabbf38af28ae65ba58ef",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-learn-1280-100-forward_plus.png": {
+    "sha256": "ef42837f65b81f54ecb66952a39dc5eec265e9e96be13dc8a6f63f2dfb3140f0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-learn-1280-100-gl_compatibility.png": {
+    "sha256": "44b5712d387aabe373a41f4ff0c9fa83f69bbfe1c4116d632642a89bde8baa87",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-learn-1280-130-forward_plus.png": {
+    "sha256": "2b7751734e54cbe5d75e5af8b75dd2984dc9207b92cbef7b68434b595bb70c21",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-learn-1280-130-gl_compatibility.png": {
+    "sha256": "ae7f6c72de855c70fa08d0e40025412530818f35b880ddb1d7c9ec41c12aeea2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-learn-1920-100-forward_plus.png": {
+    "sha256": "af3c0ae40f820c2c3137d92f1ac9381bc0b7b4eae98416f263a805cc4e3f4b53",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-learn-1920-100-gl_compatibility.png": {
+    "sha256": "34c05e0773e051158b25de9fd260b2d8257bb946d1b23e49dc59ffc0cd2cee09",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-learn-1920-130-forward_plus.png": {
+    "sha256": "2c0ee2aa57f24960cd11bd9b27c81256b6b4e8974dad29b9bebcf4edcb9b88da",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-learn-1920-130-gl_compatibility.png": {
+    "sha256": "3614f1817f278781f3532ca441f5f7eedcc435b5e500e5ff8a9699bbea639cb5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-learn-3840-100-forward_plus.png": {
+    "sha256": "a63b0365326431b5517e98e88ed4653611fde032ca9f0adfa68387f297cb0c14",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-learn-3840-100-gl_compatibility.png": {
+    "sha256": "5ff116c5b2fa4077d599648bb76cbcc0672326203a8a6bb5de3b11478c68876a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-learn-3840-130-forward_plus.png": {
+    "sha256": "c451daa8b3f03b3d0cd9bab88ae90d28501e8b42afb1c40e4e92b2f7ea2382f1",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-learn-3840-130-gl_compatibility.png": {
+    "sha256": "cf951c8ae383abd96e7ba2dafe9e457a8a098ecbd5aeef4bbbd2eb61ac9daa22",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-learn-vr-100-forward_plus.png": {
+    "sha256": "116be06fd88465b6067b1a482cbb67b08d764ab07ea9bbe442c2cc553292ec53",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-learn-vr-100-gl_compatibility.png": {
+    "sha256": "ad33148d0d79c529d562409b7405bfbd3eb10878f417be79185da93f4951c095",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-learn-vr-130-forward_plus.png": {
+    "sha256": "30c0f561aa89a6c024b0a4a31e93607183adb6fab42bf914cc7cf54a1fdc52a5",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-learn-vr-130-gl_compatibility.png": {
+    "sha256": "870cfc0e6968dfa52f80f25efd8d80fff83744232c270fd5429c2bc747ee9837",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-practice-1280-100-forward_plus.png": {
+    "sha256": "4d28f277be046f525dd50f8122cc0c37fffd9ea3d0aa2da4513df6d9077084f1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-practice-1280-100-gl_compatibility.png": {
+    "sha256": "52ec750560dec6ec1fe9f43013c7494f6d53099a31b02eecb0f8730ff8da2074",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-practice-1280-130-forward_plus.png": {
+    "sha256": "ef8c9cb712e4ce915609f13195d2742c56ac479748fa44a17b1b8233fabccb68",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-practice-1280-130-gl_compatibility.png": {
+    "sha256": "8d780076f01f998ff9de09e07761b2ec607ec7020a1a832557f206cc87b108e2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-result-practice-1920-100-forward_plus.png": {
+    "sha256": "461da8e16458e8e3cdac895c9004a7b06d7169a6d1d7b32171b3e36c4757f615",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-practice-1920-100-gl_compatibility.png": {
+    "sha256": "3a8381babba3a18de7e528401c514dbc6cbbed2602b2706d562edbe26cbebce0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-practice-1920-130-forward_plus.png": {
+    "sha256": "8524529982eb292a6c13d39f101290188807fd7a225ce22453bc4cff9d84c0d2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-practice-1920-130-gl_compatibility.png": {
+    "sha256": "76e47839ffe7c0d8ec418888a39d2b0d7849aee51bc5a74e82ee4add49a15de7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-result-practice-3840-100-forward_plus.png": {
+    "sha256": "28d10276dc84cabef9d650ff671d71d2da7ce0da1bd2dd4a20a8dfb504dfaf32",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-practice-3840-100-gl_compatibility.png": {
+    "sha256": "094c5c554e129fb6154ad51ff9c9f5efda216244158b703f0e90f2b1b01cc4c8",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-practice-3840-130-forward_plus.png": {
+    "sha256": "448c793303ebd229dba2641bfaf0178cb55d94bbb4c18fb18e69ee446d70ec8d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-practice-3840-130-gl_compatibility.png": {
+    "sha256": "cde6e2c903e2a5fd2ad7054859c5e8ac6592a5b8a91fc14515333f5d4b91d7d3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "london-result-practice-vr-100-forward_plus.png": {
+    "sha256": "0e19708fde3bffd0d2d3e4e29d72a28046667ef5cfca35d907dfeb88e015288d",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-practice-vr-100-gl_compatibility.png": {
+    "sha256": "733f619236648f43eb8de6b036c6bc8cb0487eda5c22df026208b0398eec9b3f",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-practice-vr-130-forward_plus.png": {
+    "sha256": "ff3eecd7b2d778699b2027b7e383f8c51e1507d98a24ba5dff1be875f0f216cc",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-result-practice-vr-130-gl_compatibility.png": {
+    "sha256": "4faa7bdd8b6d3e3a01b275fabbebbc8d3561d16baf269fb8ec272736a881c9d3",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "london-route-gate-walk-forward_plus.png": {
+    "sha256": "ab1a28b87ef602d5852bc5c1d2aa69a71100ce13560685a0554f2ee798b396b3",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-gate-walk-gl_compatibility.png": {
+    "sha256": "95f105b2b285767da07a2eec5fb3d0963e007f59e3c7cdddbecc5c3d18f07f82",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-info-walk-forward_plus.png": {
+    "sha256": "21351f3c425874fa9f5abc5ef5d96a83b21becda23e3ce2dcba087e2d300f8e7",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-info-walk-gl_compatibility.png": {
+    "sha256": "61898a4977a7019b990bbc66033f062a68931e786667d9141b16e2128cac884d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-terminal-walk-forward_plus.png": {
+    "sha256": "a70901912246a63f011dbe233afc0fdc20ef243f9d60fb22e27bad996f766ac1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-terminal-walk-gl_compatibility.png": {
+    "sha256": "b56d82d54a6089623c73915ada5c2c25d3a05df7cd6eac9cba5aa627035c2029",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-tickets-walk-forward_plus.png": {
+    "sha256": "928a46cdb1530494faac288aee6298f72247b5582be159fa510cfe0878bc3ad0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-tickets-walk-gl_compatibility.png": {
+    "sha256": "4805231c59f5b222582e7141195aa80b2c0b23a8c29388b4d4288cd5a9987c58",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-tower-walk-forward_plus.png": {
+    "sha256": "3e9a6008d58857048d535675a42011046e0ebf97aab2ef9f6134798d0b21633d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-route-tower-walk-gl_compatibility.png": {
+    "sha256": "2f1bcf08864448c4e674a139ba6083ae67bf70a616e03b1784f035ee5d682cbe",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "london-vr-wrist-tracked-world-forward_plus.png": {
+    "sha256": "2be1a02d9bf6b1b22b3fed9688d4fe486e27e32b9385baab853598dc786e4bdd",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "london-vr-wrist-tracked-world-gl_compatibility.png": {
+    "sha256": "517e5155c35553303cd7f87ff7c9626a19cebe17c84e2597f9bf6b8485cc3c6d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "menu-1280-100-forward_plus.png": {
+    "sha256": "f2f2bf687689ec2e5ecb0663fadfe615158feaf032e199d478a9c11b4770f14c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "menu-1280-100-gl_compatibility.png": {
+    "sha256": "631ec4f1d62771a2a600851dd84a635620cebe66ea05f7f35654a129ac6da2c5",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "menu-1280-130-forward_plus.png": {
+    "sha256": "e118cf51f9528076541bd92c9f824ffe4db185f1c4e98df447873a7726f22df1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "menu-1280-130-gl_compatibility.png": {
+    "sha256": "1c0da4f40324c995edd776c314334223d96187ec098910e584e91209f1bd807f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "menu-1920-100-forward_plus.png": {
+    "sha256": "e8b2f7d2e8b436abe719b681eb638253bf8af1fec1c05bf3d7f1033518301e4d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "menu-1920-100-gl_compatibility.png": {
+    "sha256": "c7c090dbbf7732a8d318462414601c507f50effbf2643b501927c71710d532f9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "menu-1920-130-forward_plus.png": {
+    "sha256": "b7057fdaf31eb1f07e31ac75a0a7047ea3ee55b888075942fc61813dd77730e2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "menu-1920-130-gl_compatibility.png": {
+    "sha256": "a115391d0f6d012cd716851402a38a2b273aeff2b2ceb42127f0ef95bd64166c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "menu-3840-100-forward_plus.png": {
+    "sha256": "8ed8279f3213a5b92f9404282b679ae128b21f373d9012b9af6374745f97efe7",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "menu-3840-100-gl_compatibility.png": {
+    "sha256": "dd0eb8eae59ecacf5ac9c6fd24f87fdbd2c939dcb325af0e4b35967d62ab777b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "menu-3840-130-forward_plus.png": {
+    "sha256": "ce99514f92276e5b73badb2337d3add0ea78b056f19076a2aae806f212e1b256",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "menu-3840-130-gl_compatibility.png": {
+    "sha256": "48cf76ed15a6dc6572a0352aeb839577bd97d47906fd6a0b7ea3a59d55b1b617",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "pause-1280-100-forward_plus.png": {
+    "sha256": "c7e6ab98b777d429c87addb2b27ddc7cceb1fa76e5293a243855f7c44a8cd71d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "pause-1280-100-gl_compatibility.png": {
+    "sha256": "994d42afabef13b785687b0ed1ead70faa7b001ebc2f541fbf115cee0f49c0b3",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "pause-1280-130-forward_plus.png": {
+    "sha256": "42b3eec286d9f52d2b7cb34daadca8af11122fc22faf70849dd991ced632e24d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "pause-1280-130-gl_compatibility.png": {
+    "sha256": "9e4bdcea119cb0211d5e1780d12767d52758134ba8d8d5755728f992f1fb60fb",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "pause-1920-100-forward_plus.png": {
+    "sha256": "26f963d30eb0d48cad6d40c44bcaa6b6164531edf4b5bc75fe1804a7cbbb658f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "pause-1920-100-gl_compatibility.png": {
+    "sha256": "660b0c0fd40307d8a852da6dd4b6d4aabd01ac7f266c96b74889aa770ef83faf",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "pause-1920-130-forward_plus.png": {
+    "sha256": "1a5b98a7d59fc1c389fb7f4e3d5038bdab706ed9d8e23c4b982515c7c2916f52",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "pause-1920-130-gl_compatibility.png": {
+    "sha256": "edbf010bf173dd2b9b320358627bdaf41b990167ad7ef87363fbf60969b198cb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "pause-3840-100-forward_plus.png": {
+    "sha256": "01416e86dc433ca8d9b187197cc08f0d31ebbeddd5a1606d67d8a9ee242f170a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "pause-3840-100-gl_compatibility.png": {
+    "sha256": "b9d2bf4dd959de14df6611c18451859d378ca72338d56732eabdc3f3c01429e6",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "pause-3840-130-forward_plus.png": {
+    "sha256": "80bfbb0b2827c33f6722947cc506adeec791b56d384a5448b1ba786ccdbf7023",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "pause-3840-130-gl_compatibility.png": {
+    "sha256": "2ecc76bd6a309a2f47e659370962921f7e4acefa43711ea19d783df111d56d10",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "pause-vr-100-forward_plus.png": {
+    "sha256": "e4ecca3c98541edbdab7d5979bb43d1fecd6f9b701729f3097552b0614fc060b",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "pause-vr-100-gl_compatibility.png": {
+    "sha256": "ae6e79d6841ba7431cdab753a8c0352bd86fb9ae80d356ecd8b47a802e71d182",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "pause-vr-130-forward_plus.png": {
+    "sha256": "60fdb7455ac96d2e5d1243ed60dc95325f8910fc06b1ce926644d7c317ae3bc6",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "pause-vr-130-gl_compatibility.png": {
+    "sha256": "32a8502925c0263e3776328e973ae2bb8d3bf4abad9ebddb4b7c17815e53bafd",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  "physical-1280-100-door-forward_plus.png": {
+    "sha256": "a7222c8bc621381a41c86979058e97d0568e28e0a3afe45242a1162c7c998cec",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-door-gl_compatibility.png": {
+    "sha256": "08ae522a460d2b5fac2b23e251f5f338dd60fbbafb3e3d33a2460eb2473ca3db",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-listening-forward_plus.png": {
+    "sha256": "8388bfb771c32a26fe0aff4896425de6a484ee8eb231e07e7deef0dba0a52837",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-listening-gl_compatibility.png": {
+    "sha256": "cf395c3d5739315a0174e6fa575e2651283b11b57b851e36bbafd02d73c33ad0",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-quiz-forward_plus.png": {
+    "sha256": "f11bb9b629369773a8fd7a9d21766f8c8e230b6167d5b52567502bd82eeabb9f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-quiz-gl_compatibility.png": {
+    "sha256": "2a69404ca387da907f5d2cbedd95a0f9eef093ef9159c3e771333a96ec9a41c2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-wall-forward_plus.png": {
+    "sha256": "adb525b436af6612c34d997328042cfc7fa7f7ae034199f329afc290662acd3c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-100-wall-gl_compatibility.png": {
+    "sha256": "98546112128fecbbece259071245fac9e846ad7167c4bd7e6a2af0759fab9ea8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-door-forward_plus.png": {
+    "sha256": "970be299ce1f360b13e321f7927bedf3a67b27aad8fc28a144f0cc04b7136636",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-door-gl_compatibility.png": {
+    "sha256": "476cec5a2966e2ee4091786998322b57783063bef99aa71547358f75b664ecf8",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-listening-forward_plus.png": {
+    "sha256": "cfa414a5496e51c472d82cf30a9ae4a25af4af1eb20c6e93f2c3405bbd8e0e4e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-listening-gl_compatibility.png": {
+    "sha256": "7b19d35a510e459750ad45f2a7742b674bfdafa2600c1d1c93f99a85b201e92e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-quiz-forward_plus.png": {
+    "sha256": "1665b78d8258c7ac95df21a11befb8be8ce395017df9c6c7d5443868e40b8762",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-quiz-gl_compatibility.png": {
+    "sha256": "626f2a61011b6a2b4557d7c47210c95115ca6127b9787ac5a1cd251999b07bab",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-wall-forward_plus.png": {
+    "sha256": "97b71a226c0c0d0f2529caef2b8a1c82e60a17e064e8fd153d76e05336ae62aa",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1280-130-wall-gl_compatibility.png": {
+    "sha256": "8c43b99a882a7c7974b9367a851bf9970c2a57507cffe875ff80187d987375c6",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "physical-1920-100-door-forward_plus.png": {
+    "sha256": "79fa8fa746666092772c6a14085f3d87381431b5fcbac85f22c42027f1370540",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-door-gl_compatibility.png": {
+    "sha256": "b01909e31aa022fa15590f22a94ed13aa9bf6c1e0fbdbfa0ddb2a3e841a9e9ae",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-listening-forward_plus.png": {
+    "sha256": "43dd74cba5208d7e083349a97e3b7ecc6c5ba6700cf883b0fb4074f940da5bd6",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-listening-gl_compatibility.png": {
+    "sha256": "048ab6d16d89f90976bb1ca95c46105208de8f92e95ad96e607492d0f5bfc50d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-quiz-forward_plus.png": {
+    "sha256": "7b6c522c250e73d8e0cbbb00a2997e82f3a97a5d001a53255639045b56143be2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-quiz-gl_compatibility.png": {
+    "sha256": "66c102cd4cbcf771b9b5c572521bf8f0ae631522475fe28d3e2ca25da3c20c00",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-wall-forward_plus.png": {
+    "sha256": "a56785d4134ffd0e4a6572f6913c6765c8cd9d5b63ce2f9bd9a665b3bdc5be64",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-100-wall-gl_compatibility.png": {
+    "sha256": "18404e86da46a9478a21e618a71927f2508aaf53b33667498a8a520f99ec3433",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-door-forward_plus.png": {
+    "sha256": "3c31e098a1b357fac9e94152f8c5bc8cb75b0e94ec36ff4cd2f34d2cea0f0ed9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-door-gl_compatibility.png": {
+    "sha256": "be5deeefe80eca107c532015e283120619e0b980e3dd22a24a8dd3ce33da4695",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-listening-forward_plus.png": {
+    "sha256": "3365f37e23c3a49645e593fdf770189055951eb2af996aade9c4867cbe4c5e5f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-listening-gl_compatibility.png": {
+    "sha256": "947b0db1393d533e87f900a015ca227ebf15a6d27b145fc42a6de320083458d5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-quiz-forward_plus.png": {
+    "sha256": "9b517c992df43efab33b269b8d4c0d09a93bbe9070574a8006586f664eb17092",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-quiz-gl_compatibility.png": {
+    "sha256": "a17a9105acdb40edd1bc22bb4d675ddb5646370c44b4cda442e5da64b55dec34",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-wall-forward_plus.png": {
+    "sha256": "1e546b858a6b67e07db7d7d9c8956bc22d515deb67b8bc4ce1e7ca1e9581cda5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-1920-130-wall-gl_compatibility.png": {
+    "sha256": "ebbbfa2ac7b5e8634615e1f9a7d029b7ece8c8b1ab775c73d9e1117778ce59c1",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "physical-3840-100-door-forward_plus.png": {
+    "sha256": "c47e68cf0beeafb5df2432801c73a1f7cd2d8b743aa57038d311208d1e453a97",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-door-gl_compatibility.png": {
+    "sha256": "1eddc145962950def9afe453bf33786c14a075e68d8ee44ad1890056cc86f2d3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-listening-forward_plus.png": {
+    "sha256": "2ab37ed20d602a957d32cb890c0d6141d0e529c09e5420d111cbb9421f32956c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-listening-gl_compatibility.png": {
+    "sha256": "d648d2ba70eaf495398f8e72631225898c688dc04474a3569246f8137410fa24",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-quiz-forward_plus.png": {
+    "sha256": "b0d1465f10ed95d62b9a82bfd9c23ebb13f68c0b4fc1e0315418f33ab5ea3006",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-quiz-gl_compatibility.png": {
+    "sha256": "34dbc20ecefa6bf90673b4cd626344c583b6299571fb25ddccd91035771f6b25",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-wall-forward_plus.png": {
+    "sha256": "5324fbe0c03c92106128a35dda717cb61edf493ffd9526d9e14269ea9652cb8a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-100-wall-gl_compatibility.png": {
+    "sha256": "d6a27d7e680aa670abb86f6674c701ee83d70710f471cd67a0645a36fbe73851",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-door-forward_plus.png": {
+    "sha256": "a9028e85c8f42a719be68d5b25dc13fea15591bc1b151be7f5317d49a20fefb3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-door-gl_compatibility.png": {
+    "sha256": "ccb2f4fbfe1f9b1e3519e5dffff806587b25262a1f82b1129b8575691cb23b85",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-listening-forward_plus.png": {
+    "sha256": "43c3959081936d4105cbdbb437e004c155ab3849df99fea8d95b0d802b978b5a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-listening-gl_compatibility.png": {
+    "sha256": "331658f1f78bbaf9ffb7bd31bf31bad64d9a412ca18b739d377ccb30bdcc8e2d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-quiz-forward_plus.png": {
+    "sha256": "ded71131fee826acd5789e9cd0151d6ee4a98328fcb54492cdc40460130c934b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-quiz-gl_compatibility.png": {
+    "sha256": "57b852002de97f100185caa47a4fe72b337e82d194669287bf41831401961398",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-wall-forward_plus.png": {
+    "sha256": "d53f74993f0ad0dd50416b579642a67127325e991b005d9b024ea4a8b90a04db",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "physical-3840-130-wall-gl_compatibility.png": {
+    "sha256": "6ac40197c097fdebc5cc5ce1ff17523d1eeee09bdb1e2ae3d20570da842dacdc",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "program-dashboard-forward_plus.png": {
+    "sha256": "45f70102949e282e9e86a0dc4d54889a5ed9b0db2b87f607b7212aa66d380d1e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-dashboard-gl_compatibility.png": {
+    "sha256": "80bd0494388ac32c146df1e13af3263a64d744bf2e8515be8702b00beb649a11",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-ops-closed-forward_plus.png": {
+    "sha256": "54a391db6ef17ec6ceb06a8957a66d45d7078e1596e97d762b71d5a251bf76de",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-ops-closed-gl_compatibility.png": {
+    "sha256": "8b05998dd1193ca6c5668c1a6df6430baf4f656547e4c737336800bbfee003eb",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-ops-open-forward_plus.png": {
+    "sha256": "08ff0bff36ad53aac7381e77d5bb8c88605679e87836eba3bfd9e4b05d53f791",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-ops-open-gl_compatibility.png": {
+    "sha256": "616e51c0116ca87fedb8e43456fd296c56486242478b5bbeda1829b195cb8a8f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-room-closed-forward_plus.png": {
+    "sha256": "f16bc489addb579d375889eb37ef27bedc34acd9d057f78e32d3ad8184f0d8f9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-room-closed-gl_compatibility.png": {
+    "sha256": "6d87bc71ad90ed3a729844dd5a2d44ccad3331b727df552c1cf6b5b3add9a4f2",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-room-open-forward_plus.png": {
+    "sha256": "6c367243cdc08e3eca3982f11b55ac49b0493bbda9dddc7401e73a387a89594a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-door-room-open-gl_compatibility.png": {
+    "sha256": "bb0861b0c19cae41cc21076f9a5e39948d7e3e060ac4ad8ac6ca1a6cb1292d9d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-instructor-forward_plus.png": {
+    "sha256": "7db3472d80d34adf86db3e477e6a971916d24a29adcef24c427c00352350cadd",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "program-instructor-gl_compatibility.png": {
+    "sha256": "48a13f36aa536525fb9b420aab493a0d1365143b9afe00b8e1391020e1c7ea61",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "server-finished-wall-forward_plus.png": {
+    "sha256": "03ebcab2f5899bf6816476f958b05d0178f095cafc4c09e24d68ddbf6c47049c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "server-finished-wall-gl_compatibility.png": {
+    "sha256": "7ba2dd26357153b8b6462d010c1c27fe383ad503d623c6f1908211093b60fbc3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "server-monitor-forward_plus.png": {
+    "sha256": "71ce02fd58cf398e094b05b545f69bee6ff4f25b5859f5399b70f78c29ecb944",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "server-monitor-gl_compatibility.png": {
+    "sha256": "32155b94f6af0e0b511a0e1bb885c9a024e4f0f68734db7dc81669d7bbb18f8e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-errors-1280-100.png": {
+    "sha256": "f7c9c1083c37a086da6f28fbe00b890d1185bbec071a912bcf7cc0a8d6d5638b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-errors-1280-130.png": {
+    "sha256": "b4090cfb6de941cebec3f0767109480589ae801190ff916ecc3078faf93e46ed",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-errors-1920-100.png": {
+    "sha256": "ab89d4bb535ebc6f6ba073f7fb99dfab46a9657f63b5f4adb22abdbc749ee0a0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-errors-1920-130.png": {
+    "sha256": "0f1800deaffcd6817a9122b855c608a59cbe69f0141ce4bab72ca14cfc46574e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-errors-3840-100.png": {
+    "sha256": "dd523d66a23ff8d6154d59308fce15d909db199a501030e6066e45495a6a396f",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-errors-3840-130.png": {
+    "sha256": "a945ac4d45b717e1e479d94476be3a685dc959fbf1303fe23a3dc5ed21ecfcdc",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-output-1280-100.png": {
+    "sha256": "6c59ff5b5778047bd7a7318397ac323200a219dbd8974ddd0461081b84c957a2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-output-1280-130.png": {
+    "sha256": "948623830c1bbd9a18bb7293ed8b2906f93387277ee9a882763f237738d2f12c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-output-1920-100.png": {
+    "sha256": "ba01d625ab209ac2bb890f6da794e790cd1cc383ea7535c64bc94b821fa416e5",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-output-1920-130.png": {
+    "sha256": "db9738511e41b137bce29610cf66d0e0da3f05386a49fae5182a00bb360d6649",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-output-3840-100.png": {
+    "sha256": "fb0cee44b84d1688753bc8854ee0f62b80b0312aaf684365a076f79d8ef0356d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-output-3840-130.png": {
+    "sha256": "0129223bf639ea318f4d6a36a813e8b67ff5aea7f650efbd074c894b0e0101c7",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-results-1280-100.png": {
+    "sha256": "d56ef69e76866a52a6ed65bd87dcf905ac17ef99d71374ab82ef529eedb03597",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-results-1280-130.png": {
+    "sha256": "eb87ab60a5e10d1913e2c21c941041407685014809fa8ed38ff8b40f17e29a2a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-results-1920-100.png": {
+    "sha256": "a01081ad29e65bdb54ef5616568bbcb419c3d00875c04899275907e52965c63a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-results-1920-130.png": {
+    "sha256": "d48f0b8362e5c16dbaa452510b97ad804f43c05e8b66b9c5c383f7187e0e37fc",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-results-3840-100.png": {
+    "sha256": "c6f7b1284658a6a42a69deea772bcd6dc6cfc8f3822ea03d6313d1c5e1ff15bd",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-results-3840-130.png": {
+    "sha256": "149fcebf48a7ff9b3c2d7b5c318e8cb6ec4fef5b08f778d8cf4fe61f819c7c61",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-1280-100.png": {
+    "sha256": "648a3614b092b18f92723d3b5a932f73e5831fcaea56ee4c0558b38e45bfbf71",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-1280-130.png": {
+    "sha256": "b1d793d2b74702e455758e29a8924359027994f07f1695b7f30b95aacd35dd10",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-1920-100.png": {
+    "sha256": "c2001e3a3a81af798e26159c283c0d804f232f4fad981e568109695eb4be0d92",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-1920-130.png": {
+    "sha256": "07fa9738d5b5d50416346616911650d63b318a28b0359d61c989e775c4a4dcd0",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-3840-100.png": {
+    "sha256": "2cb248db53056109e28f37f0fd0429a923ff092412253e398f2ff5c710c22f4c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-editor-save-failure-3840-130.png": {
+    "sha256": "2ecd612fa246f4d91075d6cf0a03139aac099f848f553ba908db6a170d9dc7a7",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-long-1280-100.png": {
+    "sha256": "157613c53b1f02f0be56e9ab070711cf0c48da00786e4bfcf9fe674d2a839cf2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-long-1280-130.png": {
+    "sha256": "fd31085f0dc0361bf42772a5df97c88ddbeb4aeffb9e8aa1b8c5fd5b1bc8e177",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-long-1920-100.png": {
+    "sha256": "52568cef0e8598bcb77a1ca457dac19c48b63d42df85116cd43d4e29e537015a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-long-1920-130.png": {
+    "sha256": "d2c0bf608a6f7633093bbeeb2b9f039f31ea8f80db7beddaeb0e5296104e5a73",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-long-3840-100.png": {
+    "sha256": "20e94270586a38f85b04f8ceaf5086059652bd905de868bd73216b089ebd0111",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-long-3840-130.png": {
+    "sha256": "81dc0dbd37238585e6e7e5e42cad68cbcd5301e33c6cd5dd2674247017b0b78b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-1280-100.png": {
+    "sha256": "d587fdb203dcf874c2590c1e00638c4b7218639e223e6bb03343028019b74d2c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-1280-130.png": {
+    "sha256": "c9db6f168b1ddec079b0dbc033e9b252cedb4acca29edfd9c70fb6f7bd936940",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-1920-100.png": {
+    "sha256": "cee103f320e8b4df40bf59d685ca27f831bf9e552c7eb9f7c4d46c441e23941f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-1920-130.png": {
+    "sha256": "bebc9cb2b85bbbde860adf0bc7f469bf2ededab66f18fd179c90b2c724a87273",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-3840-100.png": {
+    "sha256": "29bf4f8b3a1b97accdfdfc9999593ed63ace571f367683564866af8634870825",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-save-failure-3840-130.png": {
+    "sha256": "43ead510d9586c8b91ebb5822f2977a19e509602a854684139e1dedddc108bcd",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-validation-1280-100.png": {
+    "sha256": "efe977cb8034f787756e1107d7eaed7b4ee089de2a4a751f95ec7700c3a4208b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-validation-1280-130.png": {
+    "sha256": "fda26a277a511f42588ddb35ac85a36b91ad5276e4aec8d7e483a16897403828",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-form-validation-1920-100.png": {
+    "sha256": "9c4d452b86c42d3f2427d958ae97b56398a5b2cd508d12e6b0b06e1aea0cc74e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-validation-1920-130.png": {
+    "sha256": "f74a3547c53c06d0d48bae0773cecb372eabeeb6cebb35b26ee44f5f04cf3b6e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-form-validation-3840-100.png": {
+    "sha256": "684dc30d94e6e3a734d3d4565a2d8f8ad13bcacfc1f641d2afc82e7d92c20f0c",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-form-validation-3840-130.png": {
+    "sha256": "7d7f3951a36a691e983bda3ebfdf4bde7d807e1e735f375547b2457fe51f571e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-hud-1280-100.png": {
+    "sha256": "ed6b5c9a137be2c398206fc80d5965c9621be5a8ec4f9569e81f2d1a804b57fd",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-hud-1280-130.png": {
+    "sha256": "102ff72715c60f27c11371124a2e85805b6b00dc96513af6fdff2cbd711d6767",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-hud-1920-100.png": {
+    "sha256": "235c5c94c52d34e02c918d9eb366de7879d5a3c39bc9b3044696887960be6eef",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-hud-1920-130.png": {
+    "sha256": "3ac3a0e6a4cff63c5b94ccb8077d7f693335da7115627f705dfdf4fe5906398c",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-hud-3840-100.png": {
+    "sha256": "502cbfeec18fa9d076ef1d8024c4ca7f83fa0004777c0f5762dd608709418d60",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-hud-3840-130.png": {
+    "sha256": "29eb8bd56697ebb35ac3b066b85f4d26695c76c51bf0409d5903842402a1ad8a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-lessons-1280-100.png": {
+    "sha256": "6fad84f1d7d6b76bb8bd30666adcccaed7fc233d2815c69a6fd200a12e69689e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-lessons-1280-130.png": {
+    "sha256": "a6b25a568be4353fb35fed978e1f4c0f5856f7c1a8a0695a023818deb36267e5",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-lessons-1920-100.png": {
+    "sha256": "92963b366ebcfce0be78476a07ae3ce816afc559d23eb7e299cb87cb8cbcfa20",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-lessons-1920-130.png": {
+    "sha256": "40f2a5c5e4c8948ce3a5a8d8c2546d7f363e41118ab5ea126885cf04a0d8c6f9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-lessons-3840-100.png": {
+    "sha256": "3cd196cf5c96487512caf47fb8f2f299b6eceb2b40ddc0452e2d1ab3004fc03a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-lessons-3840-130.png": {
+    "sha256": "805af32370b4ab44d95a5022044b82988fe8937361706cdcb9b59035f6ddb168",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-menu-1280-100.png": {
+    "sha256": "6011049cc858e5483a8ded0ff08da5d79d6bb4d9c5e686367dcc87c05181f565",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-menu-1280-130.png": {
+    "sha256": "c9d5824e55dda59f5caa88c4e3821e3e7787f5fdd565d4695653b38bb3e99ea2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-menu-1920-100.png": {
+    "sha256": "8dd39da5438004ca2b60e53f100b76675d830d4119d268842261ad4110a71aa7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-menu-1920-130.png": {
+    "sha256": "f5e0017453c2d11424a5b9020e22b9d3b7df7a669089cfca1e22578fbbeb634f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-menu-3840-100.png": {
+    "sha256": "7011189123653277b89baae07f224f1d2e51aeceaa5c3920d62c28fda6bf8ca3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-menu-3840-130.png": {
+    "sha256": "222e97d562bd2c10f6c943e2e949a282737ec7396b8e77d9dfb580658fd52c33",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-room-notice-1280-100.png": {
+    "sha256": "35dd4262bcc33bdf42b9faa9a2fb402c5379edc333aa001bbdc4b183b7e500c1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-room-notice-1280-130.png": {
+    "sha256": "fbd4446c0d2977348a5ffe8e4e8a870de83ac38ac4648e815c67ae70d0c40e7a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-room-notice-1920-100.png": {
+    "sha256": "c4c669986125a0a79c39741f53f75ee0af7abca5cce5a05b971ceed520a77180",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-room-notice-1920-130.png": {
+    "sha256": "61d5a409e9e7ab5ae5a1da60c1b1cfffa14ea18cec20644d36fa07beae2af145",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-room-notice-3840-100.png": {
+    "sha256": "132b36f29d62cc9b0379a8dec1952d3c356b50206a9fc98726565a3e3f57c62a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-room-notice-3840-130.png": {
+    "sha256": "c65854d889bda360b672e7a1bf69f3089cbadbaf8183a7cac36a48e0da1ef60d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-settings-1280-100.png": {
+    "sha256": "2a369b9e90776ce465cf11356ac53b284cb46b206172da677eb30dffb2da7388",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-settings-1280-130.png": {
+    "sha256": "00f453a8c4efdf7f8ab7c6954f7de05cdd0c2d799a95327aa786fddf9ec95112",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-forward_plus-settings-1920-100.png": {
+    "sha256": "0879305ae9f10df1116ffe71391ba50084ff8b0a4206842fe75ecd6da015d399",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-settings-1920-130.png": {
+    "sha256": "50568c7862a1702438ec916ede7ac66bc612f3781b604454f96acdf7ea640569",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-forward_plus-settings-3840-100.png": {
+    "sha256": "6fe51f3a2f98ba67146145f7c7db9f5123e58b91ce4946de31fff8b504802d6d",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-forward_plus-settings-3840-130.png": {
+    "sha256": "48a08555984afa0fa8aa2329aea1a00e5d756e5d681693d645c77994364f6c30",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-1280-100.png": {
+    "sha256": "164c19e097e6ed02069054318bc0af017a2850164792815fdacb0cea615e0a29",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-1280-130.png": {
+    "sha256": "7a233ec9fd5cc56c04562c54292b4eadb2fcb3cc07d1e95c0fc8a18c7fa893ab",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-1920-100.png": {
+    "sha256": "cd8b70b6563302e317ab3ff6897624004b68cd48ebd7672cb3696657305ddb78",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-1920-130.png": {
+    "sha256": "bc5da56333ae4e8c32189d3df66253c82c32f0d984cd81beeb01cdbb087d0095",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-3840-100.png": {
+    "sha256": "dae6b8497b265d2970d608a6839f11431b7914baa546d17cc08ce48b34dc8f0a",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-errors-3840-130.png": {
+    "sha256": "011629ae34e187aae8553187178131f8a911038766722c497eb4649452106385",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-1280-100.png": {
+    "sha256": "1828ef60f5a113d07a42f19e6383e84ff99f52293360fe5cc5f7eabf3c893edb",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-1280-130.png": {
+    "sha256": "ec845fde86327df2f65c882804c3c1e437ce3c27b4e5a148ee5d9a4c5892ffe7",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-1920-100.png": {
+    "sha256": "aae1be6a3bf60fd5f72075aad2a13acd6fa59892f0d367723e01e66dd0d96a80",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-1920-130.png": {
+    "sha256": "4fd1608a5c3a55432c7e26914f8de31e3f288a6f025aae265cb65f3455bac480",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-3840-100.png": {
+    "sha256": "ac4f50540b03f0c98d854b7f1f26cc54f8eaafdf23f62aec7c0369230a67f574",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-output-3840-130.png": {
+    "sha256": "f606e964ebd815f0a80437547b90f0daebd1ae5b008036e36daa27270556544e",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-1280-100.png": {
+    "sha256": "fd2e4fa50f89ea613e5750c7dff6b454e6c0571b62dedde795f1986b45a1a8c2",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-1280-130.png": {
+    "sha256": "fbc8d385e7e5fe1e557d4eb583c0a5efbe9133977f9543bb84653b8e3bcdfdf1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-1920-100.png": {
+    "sha256": "db34d4940579583802af69722cd244368acdce3d8867a091befed590c11db152",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-1920-130.png": {
+    "sha256": "be050e4c76ff81acc475c4376c7fbe9439ee713a362e50465ab34f5071c650d8",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-3840-100.png": {
+    "sha256": "251d6c81dd152996aa9a9e92606629a5eddfe7499ec7458b972fe2336b5ff7a0",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-results-3840-130.png": {
+    "sha256": "0206979794328de7f75e2fe66c43d5356ed166c30f7841f70bcc0f19aa8e09be",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-1280-100.png": {
+    "sha256": "53fa6ecc676f35c1e49d3186fbe019e12d47acfae4f3557e6bd5277e812d4bb1",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-1280-130.png": {
+    "sha256": "10341833abc74ab8604974db16f6d10d2d7c36252c1d6855f9ba41e70825438e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-1920-100.png": {
+    "sha256": "e93c875dc6822d9f09c06f228bb37609d785bc85ee740ca2b009eb43fce964a3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-1920-130.png": {
+    "sha256": "8634f0090755d84978a577519f38118c21775f12a547453cc1814e190f3ea0be",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-3840-100.png": {
+    "sha256": "f15ef0d8c366a857dc27b8f978fdb2e3dcda63eab0b3731d470c069a68fa9134",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-editor-save-failure-3840-130.png": {
+    "sha256": "c32cf7267726b7a680355bcef9f6c1bd10381e4ea90a719542adb686f5680e87",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-long-1280-100.png": {
+    "sha256": "250a8ef68eddd3c6b05db76ac40545c3c4bb97753c2b1c247b52234b2832b84b",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-long-1280-130.png": {
+    "sha256": "8af5bbdb4dbd99d856178671516ed0c97652544cd35483e43515f8e128d9d31d",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-long-1920-100.png": {
+    "sha256": "69e84c77a8bdf5000da9b9e4d5808dd131cb6a053525d8412a849fa992191046",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-long-1920-130.png": {
+    "sha256": "8a03953d13b41e9fbab840867c508a16bf763b5c81d68ac0f7632530ba02944e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-long-3840-100.png": {
+    "sha256": "6c8815985745faa35d6eeaf1d05c64455642858d5c7ccef7da7012b0a573ea6b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-long-3840-130.png": {
+    "sha256": "9005a15b8156546aa4de56428505ebb4602d6d15a86c2033cc296dac26e264ad",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-1280-100.png": {
+    "sha256": "2712d793604b4b2aa6c82c3d6e70c0840766fab83bc369dec79b24073abf718c",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-1280-130.png": {
+    "sha256": "c725df672ea247ed0c26f4b20646cf0b8b8683ee4284699a17a9af7f66fdfa03",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-1920-100.png": {
+    "sha256": "c8d326dbd43dc217a89485d9803a0051fa542c002c76e0fbafa1a5d8741d54d3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-1920-130.png": {
+    "sha256": "e8dc2aad04275b168cf96083fdd191463ba006c8850fc373fc92c2aa454df358",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-3840-100.png": {
+    "sha256": "571509b8f47495bbc516895d2d8139782aa538b8e8d67a2b666670859c983547",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-save-failure-3840-130.png": {
+    "sha256": "b9311931754427ef820cdf884578463e01c9c92176ff876f8cf5e6c146e37bd0",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-1280-100.png": {
+    "sha256": "98bc911e5e5c7947620c12c51a09ccf8fa8efc52053b203006d8b40fdffe428f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-1280-130.png": {
+    "sha256": "60ffa26cf84c37701f9116a34902c33db60e700b8508b2ed0812f7ce58f37926",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-1920-100.png": {
+    "sha256": "411c328b410f6d67b5bf464b8b36075f32b6e4488f023715d1684ebff70c631a",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-1920-130.png": {
+    "sha256": "6484de127bd4f28549fdde78e1506e00ce41e14e9a0fbcb99145ef98385413e1",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-3840-100.png": {
+    "sha256": "3a6a496744236ce9b765782a40b4e85cd9d3f141331735ee23a1ad15060455b9",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-form-validation-3840-130.png": {
+    "sha256": "8b97d1e1a826d09c25530bd1e2a1cf657db6a817639765d662527780884ac2c9",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-hud-1280-100.png": {
+    "sha256": "b34653508139599ebc6e629584defbbe35c6a742f2e13a1bd2559e0030f6976e",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-hud-1280-130.png": {
+    "sha256": "7b9dffaf3e06780fcb6a70278c193e887148eb0f282d31ff1b18c568fd80bf5f",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-hud-1920-100.png": {
+    "sha256": "d64502a19ed83a72a9015995fa57a13c1ea9e0ef5d1cd47cbfaa13a95b6afdb9",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-hud-1920-130.png": {
+    "sha256": "97cd501c8e37283d8940da4678c664ddbe79e58a254c1cbc294a853bcb1d0419",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-hud-3840-100.png": {
+    "sha256": "276461b1333741f0a89425b7b10bf4942c7fc0b537155ba0b930a76c36ba583b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-hud-3840-130.png": {
+    "sha256": "f7824284174d5ff47ebd46a3893af5ad156cb140fc46ef3d011a382e65d663c8",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-lessons-1280-100.png": {
+    "sha256": "bbefd52b5a83e7fe7c16d836091795af111592c0ef40c201c67d3b610af4eefc",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-lessons-1280-130.png": {
+    "sha256": "f09b8b0dc6d97f13449c924cde7d525539df6e7b59e8492f821f12c06a811163",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-lessons-1920-100.png": {
+    "sha256": "6c51be09af91c4ff72f113ea97ad003c54cafcdac17b8d6a2fb8df8297cdec0d",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-lessons-1920-130.png": {
+    "sha256": "a5ae8364debb38eaaf80ca8712dcd6c052495f90f439ffe6afa2f91a2dcccc7e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-lessons-3840-100.png": {
+    "sha256": "f55eaac61481239af7ad0592011c02b369286079354602cbebc33256f3df1a5b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-lessons-3840-130.png": {
+    "sha256": "ebb4316814c6bbc3a95065410d5fc35a0c0a21cbf8636a5bbed9c1aa94718a9b",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-menu-1280-100.png": {
+    "sha256": "e557cd466131ea9a348c28fac5b1370821f411a1a062f5a9640ba78b7858da82",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-menu-1280-130.png": {
+    "sha256": "92531be8a13847d1ae304181bfb5cb0bf86a6d11dc398ab542af035bc643d335",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-menu-1920-100.png": {
+    "sha256": "4b16de95963c3c5e47f620bf9537268c9eb0b6f09255216ea4f3deef68b183e7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-menu-1920-130.png": {
+    "sha256": "3607095ac8b8c71bd99f2ba21c5f1aa286560b0fccd0ef9f29f78734c5ec7f5b",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-menu-3840-100.png": {
+    "sha256": "d3a134c87b7b4e083003176df66db12c20797d9f08d71c365d389739daa348d6",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-menu-3840-130.png": {
+    "sha256": "e2e932f92bdcd0d5c1869eb8ac0623f2171a627affe49b5b42ca1e220c3b0ee3",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-1280-100.png": {
+    "sha256": "7ba8d11888ec05efc074065aa38e1dd22b2ae6f0f76976253601712856349d92",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-1280-130.png": {
+    "sha256": "41e5c8de0dac7b95d8d0e63af293ac11ab6488f932b3aaf7d7377c057f65a8cc",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-1920-100.png": {
+    "sha256": "10536f652a4d00890fc7ac725a1df8f5de6349db0be5df023c15be5d892fcdb7",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-1920-130.png": {
+    "sha256": "2a7d8ce048024be699092e65ff0c9459dba83645262445b502a494ebcd1917d3",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-3840-100.png": {
+    "sha256": "5dfa6b54f4e3af58e48603efff7a00decd38825b6a1205d8e1411fb6c2628093",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-room-notice-3840-130.png": {
+    "sha256": "dfd21d95059786c8bc0bdbb3affed7fbd95326144cecb0d59ecee50acfa78665",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-settings-1280-100.png": {
+    "sha256": "bf3d63c7112681e915d4409337db8596f38c14b8562bb36e379ba8eae619859a",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-settings-1280-130.png": {
+    "sha256": "28c98609301d646f8ad5d70d516f58c69a0192bfa52199e93e10943d907b2cb7",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "workflow-gl_compatibility-settings-1920-100.png": {
+    "sha256": "64216abd862bff1ea422eb5089891292a047661972cf45642465395e3848ce7e",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-settings-1920-130.png": {
+    "sha256": "d2529bb2a47df979ef74a783678f0cb1f9063eb3c19c27cfa01162f47b6d893f",
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "workflow-gl_compatibility-settings-3840-100.png": {
+    "sha256": "93b4075efe95a4ea12eba28d3f1174d241085c1ee05f9fb32d373cee481c9cbf",
+    "size": [
+      3840,
+      2160
+    ]
+  },
+  "workflow-gl_compatibility-settings-3840-130.png": {
+    "sha256": "ed027dfffcfd0cea06f0520fe954e65a5142beefe63ffc4072ddaa776f4617bf",
+    "size": [
+      3840,
+      2160
+    ]
+  }
+}

@@ -5,8 +5,9 @@ pomalé syntézy. `data/english/audio.json` mapuje ID, situaci, mluvčího, pře
 cesty a SHA256. Pokryté jsou vybrané NPC odpovědi a zákaznické otázky;
 ostatní dialog zůstává textový.
 
-U Sama nebo Alexe otevři odpovídající situaci. Pod dostupnou replikou jsou
-Poslechnout / zopakovat, Pomaleji a Zastavit. PC: myš nebo Tab/Enter;
+U Sama nebo Alexe otevři odpovídající situaci. NPC má u své dostupné repliky
+Poslechnout / zopakovat, Pomaleji a Zastavit. Zákaznické nahrávky mají vlastní
+výběr čísla repliky v pomocné části, mimo odpovědi. PC: myš nebo Tab/Enter;
 VR: oba paprsky/trigger, stick posouvá, B/Y zavírá, A/X přemisťuje panel.
 Poslech nikdy nevybírá odpověď. Automatika je volitelná a výchozím stavem vypnutá.
 Bus Speech (-3 dB) vede do Master a respektuje společnou hlasitost/ztlumení.
@@ -34,3 +35,7 @@ od subjektivního poslechu člověka. Reproduktory/komfort a výkon PICO čekaj�
 
 
 Navazující samostatné [poslechové procvičování](LONDON_LISTENING.md) používá původních 24 klipů bez nového audia; vlastní výsledky/režimy a bezpečná obnova. [Moje znalosti](KNOWLEDGE_PROFILE.md) odděluje dialog, kvíz a poslech.
+
+V aktuálním zdroji jsou ovladače NPC u jeho repliky. Zákaznické nahrávky mají
+samostatný výběr čísla repliky a Přehrát repliku / Repliku pomaleji / Zastavit
+repliku v pomocné části. Přehrání neodešle odpověď. [Nové rozhraní](ui-review/2026-11-04-interface/README.md).

@@ -1,0 +1,16 @@
+from pathlib import Path
+import subprocess,re,json,time
+root=Path.cwd()
+engine=str((root/'../../Godot_v4.7.2-stable_win64_console.exe').resolve())
+results=[]
+jobs=[(renderer,name,script) for renderer in ['gl_compatibility','forward_plus'] for name,script in [('london_repair','tests/london_repair.gd'),('editor_repair','tests/editor_repair.gd'),('continuation_review','test-output/continuation_current.gd'),('xr_modes','tests/xr_modes.gd'),('ui_workflow','test-output/workflow_current.gd'),('render_quality','tests/render_quality.gd')]]
+for renderer,name,script in jobs:
+    result=subprocess.run([engine,'--path','.', '--rendering-method',renderer,'--script',script,'--','--screenshots'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace',timeout=900)
+    filename=f'graphics-final-{name}-{renderer}.log'
+    (root/'test-output'/filename).write_text(result.stdout,encoding='utf-8')
+    bad=result.returncode!=0 or bool(re.search(r'^(SCRIPT ERROR:|ERROR:|WARNING:)',result.stdout,re.M))
+    results.append(dict(suite=name,renderer=renderer,exit_code=result.returncode,passed=not bad,log=filename))
+    print(name,renderer,'FAIL' if bad else 'PASS',flush=True)
+    (root/'test-output/graphics-final-results.json').write_text(json.dumps(results,indent=2),encoding='utf-8')
+print('COMPLETE',len(results),'failed',sum(not r['passed'] for r in results),flush=True)
+raise SystemExit(int(any(not r['passed'] for r in results)))

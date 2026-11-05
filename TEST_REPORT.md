@@ -1,5 +1,27 @@
 # Ověření rozšířené hratelné verze
 
+## Celé zadání rozhraní a konstrukcí — dokončeno 5. 11. 2026
+
+- Dokončené všechny zdrojové body 1–15 a samostatné 9a. Zdroj d8efc89.
+  Celý aktuální Test-All.ps1: 51/51 PASS, exit 0, 51 startů, žádná runtime
+  chyba/varování. Výuka všech 21 lekcí × 3 režimy, 336 skutečných UI akcí.
+- 28 cílených grafických běhů PASS v obou rendererech: PC 720p/1080p/4K ×
+  100/130 %, skutečný VR viewport, obě ruce, drag/scroll a klávesnice v editoru.
+  Nové případy zkoušky, generace stejné situace, směru podle pohledu a VR
+  náramku jsou zopakované po svých úpravách. MCP posledního zdroje 31 PASS,
+  osm stejných historických statických varování, žádné nové potlačení.
+- Prvních 24 definic/legacy i katalogy a generátory beze změn, kampaň/směna,
+  koncepty, revize a jediné platby/odměny zachované. Izolované save a CFG.
+- [Úplný protokol a snímky](docs/ui-review/2026-11-04-interface/README.md).
+  Prohlédnuté obrázky a manifesty zdroje/PNG, poslední celý log trvale ve
+  verification/test-all.log. Vývojová selhání jsou oddělená a vysvětlená.
+- EXE/APK jsou původní 1.5.0 a tuto zdrojovou etapu neobsahují. Bez push.
+  Fyzické PICO neprovedené. Příloha obsahovala jen text; 9a má vlastní
+  shodnou kameru před/po, shodu s nedodaným uživatelským snímkem nelze doložit.
+
+Následující sekce jsou etapové a historické záznamy.
+
+
 ## Finální vydání 1.5.0 — dokončeno 4. 11. 2026
 
 Tato sekce uvádí výsledky pro skutečné aktuální soubory. Starší oddíly níže jsou historické. Původní zadání bylo nejprve dokončené v ec51021; následně doplněná verze v Nastavení (88a0bdb), zrušení drženého XR stisku (a6d58e3) a platný tracker v testu (74edf37).
