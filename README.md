@@ -1,12 +1,16 @@
 # IT Support Simulator: Training academy
 
-Dodatečná **zdrojová etapa rozhraní a konstrukcí** upravuje pauzu, londýnské
-rozhovory/cíle/navigaci, programovací editor, tabule, dveřní kapsy i přesahy do
-Londýna (9 a samostatné 9a). [Průchod změnami, snímky a aktuální testy](docs/ui-review/2026-11-04-interface/README.md).
-Celý aktuální Test-All: **51/51 PASS**, grafika a syntetické XR v obou rendererech PASS.
-EXE/APK níže jsou původní vydání 1.5.0; tuto dodatečnou etapu ještě neobsahují.
+**Windows EXE v `build/ITSupportSimulator.exe` je přestavěné 5. 11. 2026** a obsahuje
+novou kompaktní pauzu i všechny dokončené opravy rozhraní a konstrukcí.
+[Snímek ze skutečného EXE a ověření](docs/ui-review/2026-11-05-exe-menu/README.md).
+Velikost 104480112 B, SHA256 v `build/SHA256SUMS`. Verze hry zůstává 1.5.0.
 
-Aktuální verze **1.5.0** je vidět v **Nastavení** na PC i ve VR. Android vydání má versionCode **6**. Hotové lokální EXE/APK: celý runner **46 sad PASS**, grafická matice **351/351 PASS**, obě distribuce ověřené. [Výsledky, snímky a hashe](TEST_REPORT.md). Git push nebyl proveden.
+Zdrojový Test-All: **51/51 PASS**. Přesný EXE pack: pauza **217 / 239 / 239 PASS**
+(headless / Compatibility / Forward+), audit obsahu **5674 PASS**, nativní smoke a UI kontrola PASS.
+[Celá zdrojová etapa a snímky](docs/ui-review/2026-11-04-interface/README.md).
+
+**PICO APK zůstává starší 1.5.0 / code 6** a tuto UI etapu zatím neobsahuje.
+Jeho zdroj a hash jsou uvedené odděleně v [distribučních metadatech](build/BUILD_INFO.md).
 
 Celá navazující etapa a ovládání: [ukládání, směny, rozbor, poslech a profil](docs/CONTINUATION_RELEASE.md). Přímý průchod serverovna–Londýn je zazděný; používej východní chodbu rozcestníku.
 

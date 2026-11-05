@@ -1,0 +1,8 @@
+{
+	"material_instances": 275,
+	"renderer": "forward_plus",
+	"shaders": [
+		"res://assets/materials/perforated_metal.gdshader",
+		"res://assets/materials/raised_floor.gdshader"
+	]
+}

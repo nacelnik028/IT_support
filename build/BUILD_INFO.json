@@ -2,13 +2,13 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
   "export": "Windows x86_64 Debug",
-  "bytes": 104454336,
-  "sha256": "7e8caea9d12a0771c65c15b553c8e96630c521f5935307f295bd124ebb39c366",
+  "bytes": 104480112,
+  "sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
   "embedded_pck": true,
-  "verification": "Native Windows EXE-only headless, Compatibility and Forward+; 27 external pack suites PASS",
+  "verification": "Native Windows headless EXE-only smoke",
   "native_windows_graphical_verified": true,
   "json_export": "lossless whitespace compaction + native Godot ZSTD container in isolated build copy",
-  "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
+  "source_commit": "a403a406865f8849e209a66918330eb7b951d5e0",
   "sources": [
     {
       "file": "project.godot",
@@ -440,7 +440,7 @@
     },
     {
       "file": "scripts/english/DialogueController.gd",
-      "sha256": "4bc5debe50018ffc76bd29ce93a5b2531e7e63d6add7469e12e6b0c968758f42"
+      "sha256": "28db87cf804f28d9a51a110b7ead412e84ec40e66a72d7bde5cb6a686b6dafeb"
     },
     {
       "file": "scripts/english/DialogueController.gd.uid",
@@ -448,7 +448,7 @@
     },
     {
       "file": "scripts/english/EnglishManager.gd",
-      "sha256": "6caeae1856c7fd7a40e506ad22dcb5d33ca2be39ea535165d72941afec9465fd"
+      "sha256": "2b932f2845e21e37212c64cdf73db06f0a03f8021cf3fbc2619c2dc41862b018"
     },
     {
       "file": "scripts/english/EnglishManager.gd.uid",
@@ -456,7 +456,7 @@
     },
     {
       "file": "scripts/english/EnglishRoom.gd",
-      "sha256": "d91992b1a5fee3c1fc4db715d5ff63f890366315c2b3ab1c0e3a4ab14fb5ddc0"
+      "sha256": "1497902a8e9354b826d8c428da16585763c0e8fab2eaea2c540bb7915c1bc16c"
     },
     {
       "file": "scripts/english/EnglishRoom.gd.uid",
@@ -472,11 +472,27 @@
     },
     {
       "file": "scripts/english/LondonListeningUI.gd",
-      "sha256": "368603d697db3e06ef2340f28283cdb5935badff565f04d8a36133034c61eaf9"
+      "sha256": "e13068ee6dfb96394aa61e39ee863f0a06ec633cba0bf70f8a9b372617611a9b"
     },
     {
       "file": "scripts/english/LondonListeningUI.gd.uid",
       "sha256": "85a2eeabc41f26778c0b652c2363740a6d5641c7a3d7dacad41b56b5597cc374"
+    },
+    {
+      "file": "scripts/english/LondonNavigation.gd",
+      "sha256": "b2ecc5f9832bc53c596456464e9fbebfad527e8ce59d9cc29a54d13d8cded65e"
+    },
+    {
+      "file": "scripts/english/LondonNavigation.gd.uid",
+      "sha256": "4204835f524912de989a1486618fab8ae08d5fe19efb31463bc692e6305eef8d"
+    },
+    {
+      "file": "scripts/english/LondonPresentation.gd",
+      "sha256": "80acb3be1cd39c8bc9853d3fa590720f2dc62800b1dcd0411360c756f35ca977"
+    },
+    {
+      "file": "scripts/english/LondonPresentation.gd.uid",
+      "sha256": "453b602a6060c1bd37367c61adb15b2954fdaaf68b727e922b2ecf1667d7f6d7"
     },
     {
       "file": "scripts/english/LondonQuiz.gd",
@@ -528,7 +544,7 @@
     },
     {
       "file": "scripts/programming/AcademyManager.gd",
-      "sha256": "71ee8a757c4d7aef36d0c13f3061c2df1b7c76933a514d40a8f97aba61dfbfec"
+      "sha256": "cfb4f7d27f0bf50ae9c534b7e8f068f146bbb42ea2de98de83e5b89d3c1e6c17"
     },
     {
       "file": "scripts/programming/AcademyManager.gd.uid",
@@ -536,7 +552,7 @@
     },
     {
       "file": "scripts/programming/AcademyRoom.gd",
-      "sha256": "1473c5bd3c446271d3608dbea7308ea2c7a0eb975f47e68718fb620c2a44d818"
+      "sha256": "38e344513cea80a190b19d9e332238e0d5d85ef924f43ddea3eb04b798e487f2"
     },
     {
       "file": "scripts/programming/AcademyRoom.gd.uid",
@@ -544,7 +560,7 @@
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd",
-      "sha256": "307a185b5de7f62e92c2642c9ad716f879f83eb6551b60d93152a4d8ad92b823"
+      "sha256": "df51d53909b7b846b5230c196cf8660e1d0117c537d301fb5f6d6b84bbb2b897"
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd.uid",
@@ -560,7 +576,7 @@
     },
     {
       "file": "scripts/programming/CodeEditorController.gd",
-      "sha256": "16a9da72258400830a7a67327b2a1a893481f0ba082647f3e9a2576a7a6b7a9b"
+      "sha256": "00eb4e5032795ec9834276319648c9ce685a29cb14d2a6810826188a9c85b474"
     },
     {
       "file": "scripts/programming/CodeEditorController.gd.uid",
@@ -568,7 +584,7 @@
     },
     {
       "file": "scripts/programming/CodeEvaluator.gd",
-      "sha256": "a0af85a36507cf10ddbd4467b6b984e04403b0f5d57160adc0030c2288ae2441"
+      "sha256": "00269838024146bca5eb9a6cd515629a4fca97de68b322bd0c1a0ea9debabb88"
     },
     {
       "file": "scripts/programming/CodeEvaluator.gd.uid",
@@ -816,11 +832,19 @@
     },
     {
       "file": "scripts/ui/AcademyTheme.gd",
-      "sha256": "776d48c671fbb920719bc93eb51e098ee6c965f5c9d29c5e7db38c10798ef5cc"
+      "sha256": "59fa4558160eecd564f6955919b291cdb378486de9319f3f2f4116d67685ab7e"
     },
     {
       "file": "scripts/ui/AcademyTheme.gd.uid",
       "sha256": "44face27e117b0be1e70373b8aac3e099462315e983f199c08ea968b1666b2df"
+    },
+    {
+      "file": "scripts/ui/BriefPresentation.gd",
+      "sha256": "cbb1839cd227a7b321e187856b08e0c8c6b315f63b1bdfe919d87df7ea0a855f"
+    },
+    {
+      "file": "scripts/ui/BriefPresentation.gd.uid",
+      "sha256": "db1759b673480db103014bda3e47f11982d9221f0702711ea96955b729d2f586"
     },
     {
       "file": "scripts/ui/CatalogSearch.gd",
@@ -872,7 +896,7 @@
     },
     {
       "file": "scripts/ui/KnowledgePresentation.gd",
-      "sha256": "42b2bfcd126516df5bdef594a72c443690a091a02f323ecf2284c829286fc93c"
+      "sha256": "e913a5adcbae0fcdc4f554e9983d3f204dd6982ff668ee1385a52f4be8aa38b4"
     },
     {
       "file": "scripts/ui/KnowledgePresentation.gd.uid",
@@ -880,7 +904,7 @@
     },
     {
       "file": "scripts/ui/MenuPresentation.gd",
-      "sha256": "4347fccc29a5247a757879efcf6700ab84862478c6e57ce78e42633e30929b4d"
+      "sha256": "ca356ae71a9b8761765c1d9c0be44ad86c95ad388cc7fb0310a473e4bd7b590a"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
@@ -895,6 +919,14 @@
       "sha256": "0a04bbad9afaa8c1e83b0be292de3b525808bf169b7c64e0cf172081db8fea33"
     },
     {
+      "file": "scripts/ui/PausePresentation.gd",
+      "sha256": "9bcdcd3df33e01df3949178f2186170d8d875ebe9f355d9cde11f605094fb712"
+    },
+    {
+      "file": "scripts/ui/PausePresentation.gd.uid",
+      "sha256": "1b07668a20556c75ffa04a6d41700ca9e3cdc535b3fceca774a7e3ef7f4d3972"
+    },
+    {
       "file": "scripts/ui/RackView.gd",
       "sha256": "01ce758c436a606efeb78ea22565a4d92b27dc55121b6e6c541aa3cb72a16636"
     },
@@ -904,7 +936,7 @@
     },
     {
       "file": "scripts/ui/SettingsPanel.gd",
-      "sha256": "387d3309409f9c54ef9ca030bfd1a6214ed80f869083518d127674c4e17c41d5"
+      "sha256": "209a244c055f26968270f0655fbc56dca0dcdbffe8049df1ba420e444a24b0d9"
     },
     {
       "file": "scripts/ui/SettingsPanel.gd.uid",
@@ -928,7 +960,7 @@
     },
     {
       "file": "scripts/ui/UIController.gd",
-      "sha256": "1f64873cb95545382ba52cc22c69160dbfabd94af58d7f23d48b855f2754db1f"
+      "sha256": "9668d02dfbc4e4dc910f343499a0ab3234d474de3b86017e90cf3152c6e356f7"
     },
     {
       "file": "scripts/ui/UIController.gd.uid",
@@ -936,7 +968,7 @@
     },
     {
       "file": "scripts/ui/VectorIcons.gd",
-      "sha256": "14d6e5176f4526c07e720eb102014ed3d5008156860eb8dbdabf7b48eb44f053"
+      "sha256": "f1fadc78d7539d2b27c2047413429e95c6f06384aac472606bf0f393880926ee"
     },
     {
       "file": "scripts/ui/VectorIcons.gd.uid",
@@ -952,7 +984,7 @@
     },
     {
       "file": "scripts/world/AcademyDecor.gd",
-      "sha256": "0c03f8eb7e30ab579f3c911ac965ed4abf6e6dc0359a741629ea7fcecd663a58"
+      "sha256": "5eb1ab3820caaa532b672765327f313760a319d8f903994ae082b8fdac192268"
     },
     {
       "file": "scripts/world/AcademyDecor.gd.uid",
@@ -960,7 +992,7 @@
     },
     {
       "file": "scripts/world/AcademyHub.gd",
-      "sha256": "d7f06ccf6b70c1ff16f1cbdd870ed4fa66184c6a91eb39cdc75ed68ea6a9b786"
+      "sha256": "5481836ac4f0a9c4765abf878f960e7448d821a2d889847085fa8dac842db9d1"
     },
     {
       "file": "scripts/world/AcademyHub.gd.uid",
@@ -968,7 +1000,7 @@
     },
     {
       "file": "scripts/world/Datacenter3D.gd",
-      "sha256": "b75abeb3a13a0a969eb98638033e4456232e1400b4113e950b066e80da80f2cd"
+      "sha256": "7af214047a8edf39df4ee3e70c2fef10b5f4849127d9837648713418a411a2bd"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -984,7 +1016,7 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "sha256": "bb089c447c394fbaf38f7c6bbc6823b2a1f7f9a81232c4fa0247adecffcbfbb3"
+      "sha256": "93df088b02696652a3d53f2a4df5da10d68edee23d80dc9c7153926c210820da"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -1047,8 +1079,16 @@
       "sha256": "9ee27878df3c090e0d2f6dd5163d854ae7c5ea67869550c0b5f2acbd49d00b54"
     },
     {
+      "file": "scripts/world/WorldArchitecture.gd",
+      "sha256": "e1f0067be308082b9af90d3c8fcc29594d6d3b7cec7ba0c188818a868b756693"
+    },
+    {
+      "file": "scripts/world/WorldArchitecture.gd.uid",
+      "sha256": "6c177db4a6fe219511525c31d4cf5364a696c385cbaccd21fafb67d0de4e2825"
+    },
+    {
       "file": "scripts/world/WorldVisuals.gd",
-      "sha256": "9311d0c31435f843caad38ec1e9093ec29998de5ca8c958ee024375dfe4ca4c4"
+      "sha256": "df05d6c83dfe5b90a2617de0b8d44568ee8fd349bdcd97f6628478c6916b7c7f"
     },
     {
       "file": "scripts/world/WorldVisuals.gd.uid",
@@ -1080,12 +1120,60 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "sha256": "a3d0eee16a0d127a22b4b084d595c433261d6b4d850b0a3faf793771e214f348"
+      "sha256": "05d89a7cec9404d5f5a562cb28f78c26a30923f7aecc59de3b4b9eaab3cfc54d"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
       "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
     }
   ],
-  "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022"
+  "source_manifest_sha256": "a94e3c805dc6831b59915eb2e2648adc42c886fcf0d2375707f61f6dab9eb437",
+  "native_gui_verification": {
+    "method": "Actual build/ITSupportSimulator.exe launched from an unrelated directory with --test-world; Windows computer-use input and captured window",
+    "checks": {
+      "compact_pause_after_escape": true,
+      "destinations_menu": true,
+      "escape_returns_to_pause": true,
+      "clean_window_exit": true
+    },
+    "screenshots": [
+      "docs/ui-review/2026-11-05-exe-menu/native-exe-pause.png",
+      "docs/ui-review/2026-11-05-exe-menu/native-exe-destinations.png"
+    ]
+  },
+  "pack_pause_verification": {
+    "exe_sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
+    "exe_bytes": 104480112,
+    "method": "External test scripts against the actual embedded EXE pack, unrelated temporary working directory",
+    "results": [
+      {
+        "test": "pause_repair",
+        "renderer": "headless",
+        "exit_code": 0,
+        "passed": true,
+        "log": "pack-pause-headless.log"
+      },
+      {
+        "test": "pause_repair",
+        "renderer": "gl_compatibility",
+        "exit_code": 0,
+        "passed": true,
+        "log": "pack-pause-gl_compatibility.log"
+      },
+      {
+        "test": "pause_repair",
+        "renderer": "forward_plus",
+        "exit_code": 0,
+        "passed": true,
+        "log": "pack-pause-forward_plus.log"
+      },
+      {
+        "test": "package_content",
+        "renderer": "headless",
+        "exit_code": 0,
+        "passed": true,
+        "log": "pack-content.log"
+      }
+    ]
+  }
 }

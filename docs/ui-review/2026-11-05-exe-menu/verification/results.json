@@ -1,0 +1,35 @@
+{
+  "exe_sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
+  "exe_bytes": 104480112,
+  "method": "External test scripts against the actual embedded EXE pack, unrelated temporary working directory",
+  "results": [
+    {
+      "test": "pause_repair",
+      "renderer": "headless",
+      "exit_code": 0,
+      "passed": true,
+      "log": "pack-pause-headless.log"
+    },
+    {
+      "test": "pause_repair",
+      "renderer": "gl_compatibility",
+      "exit_code": 0,
+      "passed": true,
+      "log": "pack-pause-gl_compatibility.log"
+    },
+    {
+      "test": "pause_repair",
+      "renderer": "forward_plus",
+      "exit_code": 0,
+      "passed": true,
+      "log": "pack-pause-forward_plus.log"
+    },
+    {
+      "test": "package_content",
+      "renderer": "headless",
+      "exit_code": 0,
+      "passed": true,
+      "log": "pack-content.log"
+    }
+  ]
+}

@@ -1,5 +1,20 @@
 # Ověření rozšířené hratelné verze
 
+## Windows EXE skutečně přestavěné — 5. 11. 2026
+
+- Původní EXE po zdrojové etapě zůstalo staré; uživatel proto viděl původní pauzu.
+  Nyní `build/ITSupportSimulator.exe` obsahuje aktuální zdroje a403a40.
+- 104480112 B, SHA256 `831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170`. Nativní EXE-only smoke,
+  skutečné Windows UI Esc / Kam jít / návrat PASS; snímky přímo ze spuštěného EXE.
+- Přesný vložený pack: pauza 217 headless / 239 Compatibility / 239 Forward+ PASS,
+  audit 5674 PASS / 292 souborů / 275 materiálů. Herní zdroje nezměněné,
+  původní celá source regrese 51 PASS stále odpovídá. Testovací save a CFG izolované.
+- [Protokol a snímky](docs/ui-review/2026-11-05-exe-menu/README.md).
+  Metadata a checksumy aktualizované; předchozí výsledky archivované odděleně.
+  PICO APK zůstává starší a nebylo přestavěné; manifesty nejsou označené jako shodné.
+
+
+
 ## Celé zadání rozhraní a konstrukcí — dokončeno 5. 11. 2026
 
 - Dokončené všechny zdrojové body 1–15 a samostatné 9a. Zdroj d8efc89.

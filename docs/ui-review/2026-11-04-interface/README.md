@@ -1,5 +1,11 @@
 # Celé zadání rozhraní a konstrukcí — dokončeno 5. 11. 2026
 
+**Dodatečně přestavěné Windows EXE (5. 11.) už tuto etapu obsahuje.**
+[Kontrola přímo v EXE a nový hash](../2026-11-05-exe-menu/README.md).
+Původní výroky o pouze zdrojových změnách níže jsou záznamem stavu před tímto přestavením;
+PICO APK zůstává starší.
+
+
 Všechny zdrojové úpravy bodů 1–15 a samostatného 9a jsou dokončené.
 Finální zdroj d8efc89: celý Test-All 51/51 PASS, všech 336 výukových UI akcí
 ve třech režimech; grafika v Compatibility i Forward+ PASS. EXE/APK zůstávají

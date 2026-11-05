@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+EXPORT_SMOKE menu=menu missions=65 lessons=21
+EXPORT_SMOKE game_version=1.5.0
+EXPORT_SMOKE hub=true neutral=true
+EXPORT_SMOKE world=world objects=97
+EXPORT_SMOKE training=true
+EXPORT_SMOKE programming_west=true
+EXPORT_SMOKE programming=true tasks=60 lessons=28
+EXPORT_SMOKE python=true
+EXPORT_SMOKE web=true preview=true
+EXPORT_SMOKE limits=true
+EXPORT_SMOKE programming_cancelled=true
+EXPORT_SMOKE english=true scenarios=6 completed=6
+EXPORT_SMOKE quiz=true questions=20 score=100
+EXPORT_SMOKE english_cancelled=true
+EXPORT_SMOKE return_main=true
+EXPORT_SMOKE shifts=true restored_shift=true
+EXPORT_SMOKE network=true
+EXPORT_SMOKE introduction=true
+EXPORT_SMOKE speech_clips=24
+EXPORT_SMOKE work_roundtrip=true
+EXPORT_SMOKE score_v2=true
+EXPORT_SMOKE advanced=true
+EXPORT_SMOKE debrief=true
+EXPORT_SMOKE listening=true
+EXPORT_SMOKE knowledge=true
