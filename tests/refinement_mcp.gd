@@ -9,7 +9,7 @@ func frames(count: int = 12):
 
 func capture(title: String):
 	await frames(); await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png(FOLDER+"mcp-"+title+".png")
+	get_viewport().get_texture().get_image().save_png(FOLDER+"mcp-"+title+"-"+RenderingServer.get_current_rendering_method()+".png")
 
 func _ready():
 	var tag="user://academy_test_refinement_mcp_"+str(OS.get_process_id())
@@ -35,3 +35,4 @@ func _ready():
 		print("MCP LAYOUT ",node.name," size=",node.size," min=",node.get_combined_minimum_size()," global=",node.get_global_rect())
 		node=node.get_parent()
 	print("REFINEMENT MCP: Alex sign/menu and editor captured at 720p / 130%; isolated save/CFG")
+	if "--quit-refinement" in OS.get_cmdline_user_args(): get_tree().quit()

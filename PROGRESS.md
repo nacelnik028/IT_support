@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Vizuální dokončení dělicí lišty — 5. 11. 2026
+
+- Vypnuté implicitní autohide grabberu a přidané kontrastní pozadí dělicí lišty; 18px zásahová plocha zachovaná. Nový regresní požadavek na trvale viditelnou lištu.
+- Aktuální editor_repair 1132 headless PASS. Grafická matice před čistě stylovou úpravou lišty 1202 PASS v obou rendererech; konečný styl prohlédnut ve stejné 720p/130% fixture Compatibility i Godot MCP Forward+.
+- MCP zachytil aktuální ceduli Alexe, nabídku i editor. Žádná runtime chyba a žádné nové statické varování: zbývá osm původních varování v nezměněných částech. Protokol verification/mcp-current.json a nové mcp-*-gl_compatibility/forward_plus.png.
+- Celý runner pokračuje, exporty následují po úspěchu. Zdrojové katalogy a legacy24 shodné s e122543.
+
+
 ## Programovací editor: skutečný prostor obsahu — 5. 11. 2026
 
 - Zkrácené zadání a okraje, instrukce v bočním panelu. Vstupy input() vedle výsledků, kompaktní stav a přepínač testů ve společném řádku. Viditelný 18px oddělovač s minimy obou oblastí a tlačítko Zvětšit výsledky / Běžné rozložení zachovávající soubory i pokus.

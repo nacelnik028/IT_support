@@ -94,6 +94,7 @@ func exercise(hand: int = -1):
 		if window.visible and window.title.begins_with("Rozepsaná"): await click(button("Začít znovu / nahradit tento koncept"),hand)
 	await frames()
 	check(code.workspace_split is VSplitContainer,"Výstup má skutečný svislý oddělovač")
+	check(code.workspace_split.get_theme_constant("autohide")==0 and code.workspace_split.get_theme_constant("minimum_grab_thickness")>=18,"Dělicí lišta je stále viditelná a má pohodlnou zásahovou plochu")
 	check_workspace(code,"Výstup při otevření")
 	await capture("editor-short-output",rig.monitor.viewport if hand>=0 else null)
 	code.editor.text="for i in range(80):\n    print(i)"

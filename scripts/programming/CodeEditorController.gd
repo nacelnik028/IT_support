@@ -129,6 +129,9 @@ func _ready():
 	tool_menu(actions,"Nástroje kódu",code_tools)
 	workspace_split=VSplitContainer.new(); workspace_split.size_flags_vertical=Control.SIZE_EXPAND_FILL; workspace_split.split_offset=0; workspace_split.add_theme_icon_override("grabber",preload("res://scripts/ui/VectorIcons.gd").icon("split")); main.add_child(workspace_split)
 	workspace_split.add_theme_constant_override("separation",18); workspace_split.add_theme_constant_override("minimum_grab_thickness",18)
+	workspace_split.add_theme_constant_override("autohide",0)
+	var split_style=StyleBoxFlat.new(); split_style.bg_color=Color("233c48"); split_style.border_color=Color("497782"); split_style.set_border_width_all(1); split_style.set_corner_radius_all(3)
+	workspace_split.add_theme_stylebox_override("split_bar_background",split_style)
 	workspace_split.tooltip_text="Táhni pro změnu poměru editoru a výsledků. Obě části zachovají místo na čtení."
 	code_split=HSplitContainer.new(); workspace_split.add_child(code_split); code_split.custom_minimum_size.y=120; code_split.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	editor=create_editor("main.py"); buffers["main.py"]=editor; code_split.add_child(editor)
