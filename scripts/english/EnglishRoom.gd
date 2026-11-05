@@ -51,8 +51,10 @@ func build(owner_world):
 	Geo.solid(self,Vector3(10,7.5,7),Vector3(22,7,0.25),Color("365366"))
 	for at in [Vector3(4,6,13),Vector3(16,6,14),Vector3(5,7,25),Vector3(17,6,25)]:
 		var light=OmniLight3D.new(); light.position=at; light.omni_range=14; light.light_energy=3; light.light_color=Color("e2eddf"); add_child(light)
-	Geo.text(self,"ZPĚT / ROZCESTNÍK  →",Vector3(20.78,2.7,9.5),28,0.0024).rotation.y=-PI/2
-	for z in [7.95,11.05]: Geo.box(self,Vector3(21,1.5,z),Vector3(0.35,3,0.12),Color("4cbaa9"))
+	var entrance=preload("res://scripts/world/WorldArchitecture.gd").portal(self,Vector3(21,0,9.5),PI/2,3,Color("e9a18b"))
+	for face in [-1,1]:
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(entrance,"04 / ENGLISH IN LONDON" if face>0 else "ROZCESTNÍK AKADEMIE","Angličtina · situace · kvíz · poslech" if face>0 else "Zpět východní chodbou",Color("e9a18b"),3.6)
+		sign_node.position=Vector3(0,3.64,face*0.32); sign_node.rotation.y=PI if face<0 else 0.0
 	sign_text("ENGLISH IN LONDON\nVýukový pavilon • upravené vzdálenosti, nejde o turistickou mapu",Vector3(10,9.5,28.8),44,0.005)
 	# Stylised South Bank, Thames and a wide, level, accessible bridge.
 	Geo.box(self,Vector3(10,-0.002,21.5),Vector3(21.7,0.006,3),Color("318b9e"),0.25)

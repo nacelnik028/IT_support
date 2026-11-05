@@ -126,7 +126,7 @@ func architecture():
 	for z in [1.2,2.8,4.4]:
 		var arrow = Geo.text(world,"›",Vector3(7.5,0.018,z),96,0.006,Color("d8c28d"))
 		arrow.rotation_degrees = Vector3(-90,0,0)
-	preload("res://scripts/world/WorldArchitecture.gd").pocket(world,Vector3(9,0,3.5),PI/2,1,3,Color("68cccb"))
+	preload("res://scripts/world/WorldArchitecture.gd").pocket(world,Vector3(9,0,3.5),PI/2,1,3,Color("efca8b"))
 	for node in world.get_children():
 		if not node is Label3D: continue
 		if node.text=="ADMINISTRACE":
@@ -281,13 +281,11 @@ func cabinet(object):
 	Geo.text(object.visual,"SAS  /  SATA",Vector3(0,-0.78,0.36),22,0.002)
 
 func door_details(object):
+	object.indicator.position=Vector3(0.09,0.8,1.15)
 	var body = object.visual.get_child(0)
 	body.material_override = Geo.material(Color("71808b"),0.6)
-	for side in [-1,1]:
-		Geo.bevel(body,Vector3(side*0.085,-0.05,0),Vector3(0.025,2.4,2.55),Color("354b59"),0.5,0.009)
-		Geo.text(body,"02 / IT TRÉNINK\nPosuvné dveře\nOvladač vedle průchodu",Vector3(side*0.13,0.15,0),26,0.0022).rotation.y=side*PI/2
-		Geo.box(body,Vector3(side*0.103,0,1.23),Vector3(0.012,2.3,0.025),Color("76d3cf"),0,1.3)
-		for z in [-0.5,0.5]: Geo.box(body,Vector3(side*0.108,0.35,z),Vector3(0.012,1.05,0.04),Color("708e9b"),0.6)
+	var leaf=Node3D.new(); object.visual.add_child(leaf); leaf.rotation.y=PI/2
+	preload("res://scripts/world/WorldArchitecture.gd").sliding_leaf(leaf,2.9,Color("efca8b"),"02","IT TRÉNINK")
 
 func screen(object):
 	for child in object.visual.get_children():

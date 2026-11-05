@@ -49,7 +49,6 @@ func build(owner_world):
 		if z<-7: label.rotation.y=PI
 		door_panels.append({"object":button,"label":label})
 	preload("res://scripts/programming/AcademyVisuals.gd").new().build(self)
-	Geo.text(self,"ZPĚT / SERVEROVNA",Vector3(-6.5,3.25,-7.25),32,0.0028).rotation.y=PI
 	# Keep every station, collider and entrance detail in room-local coordinates.
 	# World.item registers the identity first; parenting then preserves that identity.
 	for node in world.get_children():

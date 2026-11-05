@@ -63,6 +63,14 @@ func run():
 	check(world.door_open,"Vstup během zavírání automaticky vrátí křídlo")
 	await wait_motion()
 	check(world.devices["ACADEMY-DOOR"].position.z<1,"Čidlo dveře skutečně znovu otevřelo")
+	# Cross the decorated opening with the actual CharacterBody, both directions.
+	for side in [-1,1]:
+		world.player.position=Vector3(9+side*1.5,0.02,3.5); world.player.rotation.y=side*PI/2
+		shell.return_to_world(); Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+		Input.action_press("walk_forward")
+		for tick in 65: await physics_frame
+		Input.action_release("walk_forward")
+		check(world.player.position.x>9.6 if side<0 else world.player.position.x<8.4,"Skutečný průchod obloženými IT dveřmi oběma směry")
 	shell.queue_free()
 	await process_frame
 	print("DOOR3D: %d checks, %d failures" % [checks,failures])

@@ -11,7 +11,46 @@ static func portal(parent: Node3D, at: Vector3, yaw: float, width: float, accent
 		else: Geo.solid(frame,Vector3(side*(width*0.5+0.02),1.5,0),Vector3(0.12,3,0.54),Color("788a94"),0.65)
 		for face in [-1,1]: Geo.box(frame,Vector3(side*(width*0.5+0.02),1.5,face*0.277),Vector3(0.025,2.8,0.014),accent)
 	Geo.solid(frame,Vector3(0,3.05,0),Vector3(width+0.16,0.16,0.54),Color("788a94"),0.65)
+	frame.set_meta("academy_portal",true)
+	# Stepped wall collars sit outside the original clear opening and pocket.
+	# The same construction is finished on both sides of every partition.
+	for face in [-1,1]:
+		for side in [-1,1]:
+			var x=side*(width*0.5+0.115)
+			Geo.bevel(frame,Vector3(x,1.5,face*0.245),Vector3(0.31,3,0.1),Color("243a46"),0.45,0.015)
+			Geo.bevel(frame,Vector3(x,1.5,face*0.325),Vector3(0.27,3,0.08),Color("8d9ca0"),0.65,0.018)
+			Geo.bevel(frame,Vector3(x,0.19,face*0.38),Vector3(0.27,0.38,0.035),Color("374f5c"),0.55,0.012)
+			Geo.box(frame,Vector3(x,2.61,face*0.37),Vector3(0.13,0.38,0.014),accent)
+			for y in [0.5,2.85]:
+				var bolt=Geo.cylinder(frame,Vector3(x,y,face*0.373),0.023,0.014,Color("253b46"),0.7,8); bolt.rotation.x=PI/2
+		Geo.bevel(frame,Vector3(0,3.16,face*0.25),Vector3(width+0.54,0.28,0.1),Color("243a46"),0.45,0.018)
+		Geo.bevel(frame,Vector3(0,3.16,face*0.325),Vector3(width+0.46,0.22,0.08),Color("8d9ca0"),0.65,0.018)
+		Geo.box(frame,Vector3(0,3.16,face*0.373),Vector3(width-0.3,0.055,0.014),Color("374f5c"),0.5)
 	return frame
+
+static func portal_sign(parent: Node3D, title: String, subtitle: String, accent: Color, width: float = 3.5) -> Node3D:
+	var sign_node=Node3D.new(); sign_node.name="PortalDirectory"; parent.add_child(sign_node)
+	Geo.bevel(sign_node,Vector3.ZERO,Vector3(width,0.62,0.09),Color("173442"),0.35,0.02)
+	Geo.text(sign_node,title,Vector3(0,0.1,0.052),32,0.0032,accent)
+	Geo.text(sign_node,subtitle,Vector3(0,-0.16,0.052),22,0.0026,Color("d7e7e4"))
+	return sign_node
+
+static func sliding_leaf(parent: Node3D, width: float, accent: Color, number: String, title: String):
+	for face in [-1,1]:
+		var surface_node=Node3D.new(); parent.add_child(surface_node); surface_node.rotation.y=PI if face<0 else 0.0
+		Geo.bevel(surface_node,Vector3(0,0,0.088),Vector3(width-0.16,2.62,0.026),Color("354b59"),0.5,0.01)
+		Geo.bevel(surface_node,Vector3(0,0.24,0.107),Vector3(width-0.36,1.66,0.012),Color("263e4b"),0.4,0.005)
+		for y in [-1.13,1.12]: Geo.box(surface_node,Vector3(0,y,0.109),Vector3(width-0.3,0.06,0.014),Color("a2afb0"),0.7)
+		Geo.box(surface_node,Vector3(0,0.87,0.118),Vector3(width-0.45,0.035,0.008),accent)
+		Geo.text(surface_node,number,Vector3(0,0.49,0.125),40,0.0026,accent)
+		Geo.text(surface_node,title,Vector3(0,0.12,0.125),29,0.0025)
+		Geo.text(surface_node,"Ovladač vedle průchodu",Vector3(0,-0.26,0.125),22,0.0023,Color("b5c8cf"))
+		for x in [-width*0.38,width*0.38]:
+			Geo.bevel(surface_node,Vector3(x,-0.86,0.11),Vector3(0.2,0.22,0.015),Color("71808b"),0.65,0.006)
+
+static func control_surround(parent: Node3D, accent: Color):
+	Geo.bevel(parent,Vector3(0,0,-0.035),Vector3(0.39,0.56,0.045),Color("8d9ca0"),0.65,0.014)
+	Geo.box(parent,Vector3(0,-0.245,-0.006),Vector3(0.23,0.025,0.012),accent)
 
 static func pocket(parent: Node3D, at: Vector3, yaw: float, side: float, travel: float, accent: Color) -> Node3D:
 	var frame=portal(parent,at,yaw,3,accent,side)
@@ -22,6 +61,12 @@ static func pocket(parent: Node3D, at: Vector3, yaw: float, side: float, travel:
 	for face in [-1,1]:
 		Geo.solid(housing,Vector3(center,1.5,face*0.2),Vector3(span,3,0.1),Color("374753"))
 		Geo.box(housing,Vector3(center,2.65,face*0.257),Vector3(span-0.2,0.025,0.014),accent)
+		# Service cover, end seam and overhead drive enclosure never enter the cavity.
+		Geo.bevel(housing,Vector3(center,1.53,face*0.28),Vector3(span-0.24,2.12,0.05),Color("425966"),0.4,0.015)
+		Geo.bevel(housing,Vector3(center,3.18,face*0.27),Vector3(span,0.26,0.11),Color("8d9ca0"),0.65,0.018)
+		for x in [center-span*0.5+0.2,center+span*0.5-0.2]:
+			for y in [0.56,2.5]:
+				var bolt=Geo.cylinder(housing,Vector3(x,y,face*0.315),0.022,0.014,Color("a2afb0"),0.7,8); bolt.rotation.x=PI/2
 	Geo.solid(housing,Vector3(side*(1.55+span),1.5,0),Vector3(0.1,3,0.5),Color("374753"))
 	Geo.solid(housing,Vector3(center,3.05,0),Vector3(span,0.1,0.5),Color("374753"))
 	return housing

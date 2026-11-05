@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Společné dokončené vstupy — 5. 11. 2026
+
+- Společné WorldArchitecture rozšířené na všech 7 sestav: čtyři číslované portály hubu, obě posuvné sestavy a vstup Londýna. Oboustranné stupňované obložky se zkosením, zapuštěná ostění, patky, spojovací detaily, oddělené velké názvy a menší popisy.
+- Křídla, servisní kryty dutých kapes a pevné ovladače mají shodné materiály a konstrukci; průchozí profil i původní čidla zůstaly. Původní IT LED posunuta z dráhy rámu. Zazděný serverovna–Londýn zachován.
+- architecture_repair nově 19170 headless PASS: ovladače programování z obou stran přes ray/E i s otevřeným křídlem, opakovaný pohyb a fyzikální kontrola všech skutečných dekorací křídla v každém snímku. Grafické varianty před rozšířením ovladačového helperu 15466 PASS v obou rendererech; úplné aktuální opakování běží.
+- door3d 17 PASS včetně nové skutečné chůze oběma směry. academy_hub 55 a programming_location 116 PASS: fyzické průchody i ochrana kampaně. Nové snímky předních/vratných stran a kapes jsou ve stejné datované složce; finální vizuální kontrola pokračuje.
+- EXE/APK zatím beze změn, bez změn katalogů či legacy24.
+
+
 ## Alex jako informační bod — 5. 11. 2026
 
 - Alex zachován pro LON06. Kontext station=info nabízí přímo cestu k Elizabeth Tower, tři režimy a výslovné pokračování; oslovení ani volba režimu nemění rozpracovaný nákup či revizi.

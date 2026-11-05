@@ -23,8 +23,9 @@ func sign_at(words: String, at: Vector3, yaw: float, accent: Color, width: float
 
 func portal(at: Vector3, yaw: float, title: String, subtitle: String, accent: Color):
 	preload("res://scripts/world/WorldArchitecture.gd").portal(self,at,yaw,3,accent)
-	sign_at(title+"\n"+subtitle,at+Vector3(0,3.5,0.2).rotated(Vector3.UP,yaw),yaw,accent,5.2)
-	sign_at("ROZCESTNÍK AKADEMIE  ↑",at+Vector3(0,2.6,-0.25).rotated(Vector3.UP,yaw),yaw+PI,Color("d7e7e4"),2.8)
+	for face in [-1,1]:
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(self,title if face>0 else "ROZCESTNÍK AKADEMIE",subtitle if face>0 else title+" · návrat",accent,4.4)
+		sign_node.position=at+Vector3(0,3.64,face*0.32).rotated(Vector3.UP,yaw); sign_node.rotation.y=yaw+(PI if face<0 else 0.0)
 
 func build(owner_world):
 	world=owner_world; name="AcademyHub"

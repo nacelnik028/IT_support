@@ -95,12 +95,14 @@ func plant(at: Vector3):
 		var leaf=Geo.box(room,at+Vector3(sin(angle)*0.12,0.96,cos(angle)*0.12),Vector3(0.1,0.9,0.24),Color("477c6b")); leaf.rotation=Vector3(0,angle,0.15)
 
 func entrance():
-	for side in [-1,1]:
-		var face=Node3D.new(); face.position.z=side*0.085; face.rotation.y=0.0 if side>0 else PI; room.door.visual.add_child(face)
-		Geo.box(face,Vector3.ZERO,Vector3(2.55,2.5,0.015),Color("263e4b"),0.6)
-		Geo.box(face,Vector3(0,0.7,0.013),Vector3(2.5,0.025,0.01),PYTHON,0,0.9)
-		Geo.text(face,"03\nPROGRAMMING\nACADEMY\n\n[E] OTEVŘÍT",Vector3(0,0.08,0.027),38,0.0025,PYTHON)
+	preload("res://scripts/world/WorldArchitecture.gd").sliding_leaf(room.door.visual,2.9,PYTHON,"03","PROGRAMOVÁNÍ")
 	preload("res://scripts/world/WorldArchitecture.gd").pocket(room,Vector3(-6.5,0,-7),0,-1,3.1,PYTHON)
-	room.door_notice=Geo.text(room,"PROGRAMOVACÍ UČEBNA / [E] OTEVŘÍT",Vector3(-6.5,3.25,-6.8),34,0.0032,PYTHON)
+	for face in [-1,1]:
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(room,"03 / PROGRAMOVÁNÍ" if face>0 else "01 / SERVEROVNA","Python · HTML / CSS / JavaScript" if face>0 else "Pracovní směna · incidenty",PYTHON,3.7)
+		sign_node.position=Vector3(-6.5,3.64,-7+face*0.32); sign_node.rotation.y=PI if face<0 else 0.0
+	room.door_notice=Geo.text(room,"PROGRAMOVACÍ UČEBNA / [E] OTEVŘÍT",Vector3(-6.5,2.8,-6.59),22,0.0023,PYTHON)
+	for i in room.door_panels.size():
+		var mount=Node3D.new(); room.door_panels[i].object.visual.add_child(mount); mount.rotation.y=PI if i==1 else 0.0; mount.position.z=-0.065 if i==1 else 0.065
+		preload("res://scripts/world/WorldArchitecture.gd").control_surround(mount,PYTHON)
 	# The inside control must face the inside, including its text plane.
 	room.door_panels[1].label.position.z=-0.08

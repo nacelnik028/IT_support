@@ -253,10 +253,14 @@ func build_academy():
 		panel.visual.add_child(face)
 		face.rotation.y = side*PI/2
 		face.position.x = side*0.08
+		preload("res://scripts/world/WorldArchitecture.gd").control_surround(face,Color("efca8b"))
 		Geo.box(face,Vector3.ZERO,Vector3(0.27,0.4,0.025),Color("073e47"),0,0.6)
 		var words = Geo.text(face,"DVEŘE\n[E] OTEVŘÍT",Vector3(0,0,0.018),28,0.0014)
 		door_panels.append({"object":panel,"label":words})
-	door_status = Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(8.8,3.25,3.5),36,0.003)
+	for side in [-1,1]:
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(self,"02 / IT TRÉNINK" if side<0 else "01 / SERVEROVNA","Cvičná infrastruktura" if side<0 else "Pracovní směna · incidenty",Color("efca8b"),3.7)
+		sign_node.position=Vector3(9+side*0.32,3.64,3.5); sign_node.rotation.y=side*PI/2
+	door_status = Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(8.59,2.8,3.5),22,0.0023)
 	door_status.rotation.y = -PI/2
 	Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
 	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
