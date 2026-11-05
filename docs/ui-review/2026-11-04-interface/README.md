@@ -13,7 +13,7 @@ nikoli prohlášení o dokončení všech bodů. EXE/APK zatím nejsou znovu ses
 - [x] 8: skutečné kapsy a souvislé rámy obou posuvných dveří, sjednocené portály.
 - [x] 9: tmavé křídlo IT dveří se již neodsouvá do Londýna.
 - [x] 9a: béžové lamely, commit `a3f36e5`, samostatná reprodukce před/po.
-- [ ] 10: nastavitelný spodní panel programování a výsledky ověření.
+- [x] 10: nastavitelný spodní panel programování a výsledky ověření.
 - [x] 11: hotové technické panely místo lišt na zazděné jižní stěně serverovny.
 - [ ] 12: zkrácení prezentace textů se zachováním všech potřebných údajů.
 - [ ] 13: společný vzhled a všechny ovládací cesty — závěrečné ověření.
@@ -76,3 +76,23 @@ na již odstraněné tlačítko byla opravena; finální logy jsou čisté.
 [Kam jít](destinations-1280-130-gl_compatibility.png),
 [VR pauza](pause-vr-130-gl_compatibility.png),
 [podpis](menu-1280-130-gl_compatibility.png).
+
+## Editor (10)
+
+Skutečný VSplitContainer s viditelným úchytem mění poměr editoru a výsledků.
+Výstup má vlastní posuv; vstupy lze sbalit bez ztráty obsahu. Méně časté nástroje
+jsou ve dvou nabídkách. Celé zadání zůstává dostupné v dialogu ve všech režimech.
+Ověření rozlišuje počet testů, skóre, hlavní důvod a volitelné podrobnosti
+s očekávaným/skutečným výstupem mimo zkoušku. Po editaci je výsledek zastaralý.
+
+`editor_repair`: **380 headless / 410 Compatibility / 410 Forward+ PASS**.
+Celá PC matice, skutečné myší tažení a oba syntetické XR triggery, dlouhý výpis,
+input(), přechod na chybový řádek, úspěch/neúspěch, zastarání, úplné zadání,
+nabídky, koncepty a pravidla zkoušky. XR drag čeká na skutečné fyzikální snímky,
+které přenášejí pohyb paprsku; dřívější test čekající jen render snímky je
+oddělený neúspěšný vývojový běh. Regrese work_persistence 69,
+programming_catalog 1071, integration 765 / 252 variant a polish 29 PASS.
+[Výstup 720p/130 %](editor-output-1280-130-gl_compatibility.png),
+[ověření](editor-verification-1280-130-gl_compatibility.png),
+[celé zadání](editor-task-1280-130-gl_compatibility.png),
+[VR](editor-output-vr-130-gl_compatibility.png).

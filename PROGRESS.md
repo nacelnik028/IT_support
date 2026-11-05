@@ -9,6 +9,17 @@
 - Pauza a podpis (2/4): kompaktní základ bez scrollu i v 720p/130 %, Kam jít a pracovní podnabídka, přesunutá diagnostika/přenos/nápověda v Nastavení, VR komfort přímo. Esc a skutečné selhání uložení zachované. Přesný podpis `Vytvořil Vít Kellner`. Nové pause_repair **217 headless / 239 Compatibility / 239 Forward+ PASS**, všech šest PC kombinací a oba syntetické XR paprsky. Regrese workflow 615 / XR 120 / world_ui 31 / gameplay_review 77 PASS.
 - Další práce: Následují dialogy/cíle/navigace, editor, texty a úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
 
+## Editor — etapa 10, 5. 11. 2026
+
+- Commit d3724db obsahuje nastavitelný VSplitContainer, sbalitelné vstupy,
+  nabídky nástrojů, celé zadání a jasný výsledek se skóre/počty/důvodem/detailním
+  porovnáním mimo zkoušku. Skutečné editace zachovávají označení zastaralého výsledku.
+- Nová editor_repair: 380 headless / 410 Compatibility / 410 Forward+ PASS,
+  PC 720p/1080p/4K × 100/130 %, VR viewport a oba triggery. Test fyzikálního
+  pohybu paprsku nyní čeká na physics_frame; žádná produkční ochrana vypnutá.
+- Koncepty 69, katalog 1071, integrace 765 / 252 variant a polish 29 PASS.
+  Snímky/logy ve společné interface složce. EXE/APK zatím původní; bez push.
+
 ## Bod 9a — béžové lamely v Londýně, 4. 11. 2026
 
 - Původ potvrzen graficky i geometrií: `WorldVisuals.corridor()`, poslední trojice dekoru zadní stěny prosklené chodby serverovny (X −0,95/−0,83/−0,71, Z 10,34). Dvě lamely vystupovaly před západní stěnu Londýna. Původní smyčka přesahovala také levý konec vlastní chodby; nešlo o zbytek londýnského průchodu.

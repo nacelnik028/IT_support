@@ -15,7 +15,9 @@ func drag_split(code, hand: int = -1):
 		press=InputEventMouseButton.new(); press.position=finish; press.button_index=MOUSE_BUTTON_LEFT; press.pressed=false; viewport.push_input(press,true)
 	else:
 		point(hand,at); await frames(); rig.pressed(rig.left if hand==0 else rig.right,"trigger_click"); await frames(2)
-		point(hand,finish); await frames(3); rig.released(rig.left if hand==0 else rig.right,"trigger_click")
+		point(hand,finish)
+		for tick in 3: await physics_frame
+		await frames(3); rig.released(rig.left if hand==0 else rig.right,"trigger_click")
 	await frames()
 	check(code.workspace_split.split_offset!=before,"Skutečné tažení mění výšku spodního panelu")
 
