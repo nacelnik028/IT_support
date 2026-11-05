@@ -9,6 +9,19 @@
 - Pauza a podpis (2/4): kompaktní základ bez scrollu i v 720p/130 %, Kam jít a pracovní podnabídka, přesunutá diagnostika/přenos/nápověda v Nastavení, VR komfort přímo. Esc a skutečné selhání uložení zachované. Přesný podpis `Vytvořil Vít Kellner`. Nové pause_repair **217 headless / 239 Compatibility / 239 Forward+ PASS**, všech šest PC kombinací a oba syntetické XR paprsky. Regrese workflow 615 / XR 120 / world_ui 31 / gameplay_review 77 PASS.
 - Dialogy/cíle/navigace, editor a texty jsou implementované. Probíhá úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
 
+## Směr podle pohledu a VR náramek — 5. 11. 2026
+
+- Londýnská navigace vyhodnocuje směr vůči skutečné PC kameře nebo XR hlavě,
+  takže samotné otočení hlavy nezanechá šipku vůči starému natočení těla.
+  VR náramek nyní obsahuje i konkrétní cíl a vzdálenost z direction HUD.
+- London_repair 2002 headless PASS: navíc otáčení kamery na pěti pěších
+  trasách, otočení XR hlavy bez pohybu těla a skutečný obsah náramku.
+  xr_modes 120 PASS při samostatném opakování. Dřívější souběh dvou xr_modes
+  kolidoval na jejich pevné academy_test_xr_modes cestě; neúspěšný běh je
+  archivovaný odděleně a tyto dvě sady se již spouštějí sériově.
+- Po této etapě se opakuje celý runner i grafický londýnský průchod.
+  Katalogy a EXE/APK beze změn; žádný push, žádný fyzický headset test.
+
 ## Nový pokus stejné situace — 5. 11. 2026
 
 - DialogueController rozlišuje i generaci pokusu, nikoli jen ID scénáře.

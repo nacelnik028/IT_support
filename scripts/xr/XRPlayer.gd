@@ -372,7 +372,7 @@ func _physics_process(delta):
 		if teleporting: update_teleport()
 		var hit=ray_hit(right)
 		p.update_focus(hit.collider if not hit.is_empty() and hit.collider.has_method("set_focus") else null)
-		wrist.text=(shell.diagnostics.text+"\n" if shell.diagnostics.visible else "")+shell.status_label.text+"\n"+shell.instruction.text+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
+		wrist.text=(shell.diagnostics.text+"\n" if shell.diagnostics.visible else "")+shell.status_label.text+"\n"+shell.instruction.text+("\n"+shell.direction.text if shell.direction.text!="" else "")+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
 	else:
 		var hand=pointer_hand if is_instance_valid(pointer_hand) and monitor.pointer_down else right
 		var pixel=monitor.pixel_at(hand.global_position,-hand.global_basis.z) if hand.get_has_tracking_data() else Vector2(-1,-1)

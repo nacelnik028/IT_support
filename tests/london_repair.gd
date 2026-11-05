@@ -90,6 +90,10 @@ func walk_route(destination: String):
 	shell.open_english("info" if destination in ["info","tower"] else "tickets"); await frames(); await click(button(names[destination])); await frames()
 	check(nav.target==destination and not nav.route.is_empty(),"Skutečná trasa k "+destination)
 	check(shell.mode=="world" and "m po cestě" in shell.direction.text,"Tlačítko zavře panel a ukáže trvalý cíl se vzdáleností")
+	var original_view=p.camera.rotation; var original_arrow=shell.direction.text.split(" ")[0]
+	p.camera.rotate_y(PI); nav.update()
+	check(shell.direction.text.split(" ")[0]!=original_arrow,"Směr reaguje na skutečný pohled kamery")
+	p.camera.rotation=original_view; nav.update()
 	await capture("london-route-"+destination)
 	var run_id=m.session.run_id; var visited=[]
 	for tick in 2200:
@@ -152,6 +156,13 @@ func run():
 	for text_scale in [1.0,1.3]:
 		shell.ui.save_preference("text_scale",text_scale); suffix="vr-%d" % roundi(text_scale*100)
 		for hand in [0,1]: shell.enter_world("English in London"); await frames(); await exercise(hand)
+	m.cancel(); m.start("LON06","practice",0); shell.london_navigation.start("info"); await frames()
+	var original_arrow=shell.direction.text.split(" ")[0]
+	trackers[0].set_pose("default",Transform3D(Basis(Vector3.UP,PI),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	for tick in 4: await physics_frame
+	shell.london_navigation.update(); check(shell.direction.text.split(" ")[0]!=original_arrow,"Směr ve VR reaguje na otočení hlavy bez otočení těla")
+	for tick in 2: await physics_frame
+	check(shell.direction.text!="" and shell.direction.text in rig.wrist.text,"VR náramkový panel skutečně uvádí jméno cíle i vzdálenost")
 	rig.deactivate(); shell.vr_active=false
 	for tracker in trackers: XRServer.remove_tracker(tracker)
 	shell.queue_free(); await frames(); print("LONDON REPAIR: %d checks, %d failures" % [checks,failures]); quit(1 if failures else 0)

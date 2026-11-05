@@ -71,7 +71,8 @@ func update():
 	if is_instance_valid(marker): marker.global_position=route[mini(3,route.size()-1)]+Vector3(0,0.45,0); marker.visible=shell.mode=="world"
 	var distance=player.global_position.distance_to(waypoint)
 	for i in range(1,route.size()): distance+=route[i-1].distance_to(route[i])
-	var local=player.global_basis.inverse()*(waypoint-player.global_position)
+	var view_basis=shell.xr_rig.head.global_basis if shell.vr_active and is_instance_valid(shell.xr_rig) else player.camera.global_basis
+	var local=view_basis.inverse()*(waypoint-player.global_position)
 	var angle=atan2(local.x,-local.z)
 	var arrow="↑" if absf(angle)<0.35 else "↓" if absf(angle)>2.4 else "→" if angle>0 else "←"
 	shell.direction.text="%s %s · %.1f m po cestě" % [arrow,TARGETS[target][0],distance]
