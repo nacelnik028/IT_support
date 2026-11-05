@@ -55,7 +55,11 @@ func exercise(hand: int = -1):
 		check(m.session.errors.size()==1 and m.session.errors[0].language_ok,"Chyba je věcná, ne jazyková")
 		if mode=="learn": check("počet" in m.visible_feedback() and "oprav" in m.visible_feedback(),"Výuka vysvětlí chybu i pokračování")
 		elif mode=="practice": check(m.visible_feedback()=="! Zkontroluj volbu podle zadání.","Procvičování má stručnou odezvu")
-		else: check(m.visible_feedback().begins_with("• Volba zaznamenána") and not "chyba" in m.visible_feedback(),"Zkouška neodhalí správnost")
+		else:
+			check(m.visible_feedback().begins_with("• Volba zaznamenána") and not "chyba" in m.visible_feedback(),"Zkouška neodhalí správnost")
+			var original_npc=m.session.npc
+			await choose("product_cruise",hand)
+			check(m.session.npc==original_npc and m.visible_feedback().begins_with("• Volba zaznamenána"),"Ani odmítnutá volba neprozradí hodnocení replikou NPC")
 		await capture("london-dialog-"+mode,rig.monitor.viewport if hand>=0 else null)
 		await click(button("Ukončit a vyhodnotit zkoušku" if mode=="exam" else "Zhodnotit dosavadní pokus"),hand)
 		check(not m.session.completed and m.attempt_score()<100,"Nesplněný pokus není dokončení ani plné skóre")

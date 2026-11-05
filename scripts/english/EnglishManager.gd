@@ -172,6 +172,8 @@ func act(id: String, expected_revision: int) -> bool:
 	for item in choices():
 		if item.id==id: selected=item; break
 	if selected.is_empty(): return false
+	var previous_npc=session.npc
+	var previous_translation=session.translation
 	revision+=1
 	session.feedback=""
 	session.history.append({"node":session.node,"intent":selected.intent,"text":selected.text})
@@ -254,6 +256,11 @@ func act(id: String, expected_revision: int) -> bool:
 		elif selected.intent=="product" and session.cart.product!=session.goal.product:
 			reject("Jazykově vhodná volba, ale produkt neodpovídá požadovaným podmínkám. Před platbou znovu vyber nabídku.")
 		elif session.feedback=="": session.feedback="✓ Volba odpovídá tomuto kroku. "+current_step()
+	# The examination records rejected choices without the NPC giving away
+	# their assessment. Retain the actual question so the context stays usable.
+	if session.mode=="exam":
+		if not ok: session.npc=previous_npc; session.translation=previous_translation
+		elif selected.intent=="route": session.npc="Follow the signs to the tower. Have a lovely day!"
 	session.action_recorded=true
 	return ok
 

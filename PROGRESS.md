@@ -9,6 +9,18 @@
 - Pauza a podpis (2/4): kompaktní základ bez scrollu i v 720p/130 %, Kam jít a pracovní podnabídka, přesunutá diagnostika/přenos/nápověda v Nastavení, VR komfort přímo. Esc a skutečné selhání uložení zachované. Přesný podpis `Vytvořil Vít Kellner`. Nové pause_repair **217 headless / 239 Compatibility / 239 Forward+ PASS**, všech šest PC kombinací a oba syntetické XR paprsky. Regrese workflow 615 / XR 120 / world_ui 31 / gameplay_review 77 PASS.
 - Dialogy/cíle/navigace, editor a texty jsou implementované. Probíhá úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
 
+## Zkouška — neutrální replika po odmítnuté volbě, 5. 11. 2026
+
+- Kontrola odhalila, že česká odezva byla ve zkoušce neutrální, ale anglické
+  „Could you try that again“ prozrazovalo odmítnutí. Po odmítnuté volbě se
+  ve zkoušce zachová původní NPC otázka a hodnocení zůstane až ve výsledku.
+  Cíle, chyba, revize a podmínky dokončení se tím nemění.
+- Nová negativní UI kontrola volí neexistující produkt ve zkoušce na PC i
+  oběma XR paprsky; 1913 headless PASS. Původní english_model 1809 PASS.
+- Oba grafické renderery a celý aktuální 51sadový runner se po této poslední
+  změně opakují. Předchozí úplný běh se archivuje samostatně. Bez změny
+  katalogů, hráčova save, distribucí nebo push.
+
 ## Londýn a texty — etapa 3/5/7/12/13, 5. 11. 2026
 
 - Nový LondonPresentation odděluje úkol/parametry/objednávku/cíle, NPC,
@@ -55,7 +67,7 @@
 - Celé trojice se nově rozmísťují podle skutečných vnitřních hran bočních stěn chodby, se započtenou tloušťkou a odstupem. Dekor zůstává napojený na zadní stěnu. Žádná maskovací deska ani změna kolizí; v původním místě nejsou skryté kolize/interakce. Souvislá stěna a zazděný přímý průchod zachované, cesta rozcestníkem průchozí.
 - Nový `london_geometry`: **226 PASS headless / 226 PASS Compatibility / 226 PASS Forward+**, skutečný CharacterBody/input, oba stavy sousedních dveří, most/obvod/východní chodba/IT strana a blokace přímého průchodu z obou stran. Celý aktuální Test-All **47 sad PASS**, 47 skutečných startů, exit 0, žádná runtime chyba/varování, výukové UI 336 akcí ve všech třech režimech. Etapový commit `a3f36e5`; log trvale ve verification/test-all.log. MCP DesignMCP **31 PASS**, osm již evidovaných statických varování v nezměněných skriptech odděleně. Grafické XR **120 PASS** včetně skutečného viewportu/obou syntetických rukou/scrollu/klávesnice; bez fyzického PICO.
 - [Snímky a přesná reprodukce](docs/ui-review/2026-11-04-london-geometry/README.md): shodná vlastní kamera před/po, otevřené/zavřené dveře, oba renderery, 720p/1080p/4K × 100/130 %, obvod z obou stran. Nový uživatelský screenshot nebyl doručen (příloha obsahovala jen text), proto nelze potvrdit shodu s jeho původním úhlem. Reprodukční log se šesti skutečnými přesahy a dvěma chybami původní testovací trasy archivovaný odděleně; trasa opravena kolem květináče bez obcházení fyziky.
-- Odděleně potvrzen tmavý **ACADEMY-DOOR** u X 9 / otevřené Z 6,5, s přesahem do Z 7,95. Je to samostatný bod 9, který tato úzce zaměřená oprava 9a nemění; zůstává k opravě. Další obdobné béžové přesahy při prohlídce nenalezeny.
+- Odděleně potvrzen tmavý **ACADEMY-DOOR** u X 9 / otevřené Z 6,5, s přesahem do Z 7,95. Je to samostatný bod 9, který tato úzce zaměřená oprava 9a nemění; byl následně opraven v konstrukční etapě výše. Další obdobné béžové přesahy při prohlídce nenalezeny.
 - Pouze zdroje/testy/dokumentace; EXE/APK z vydání níže tuto dodatečnou opravu neobsahují. Vlastní testovací save/CFG, katalogy a legacy24 beze změn. Bez push.
 
 ## Finální vydání 1.5.0 — dokončeno 4. 11. 2026
