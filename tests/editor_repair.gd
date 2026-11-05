@@ -1,6 +1,47 @@
 extends "res://tests/pause_repair.gd"
 
 # Reuse isolated saves, complete mouse/XR clicks and capture helpers.
+func pixel_rect(control: Control) -> Rect2:
+	var transform=control.get_global_transform_with_canvas()
+	return Rect2(transform.origin,control.size*transform.get_scale())
+
+func visible_rows(control: TextEdit) -> int:
+	if not control.is_visible_in_tree(): return 0
+	var rect=pixel_rect(control); var factor=control.get_global_transform_with_canvas().get_scale().y
+	var style=control.get_theme_stylebox("read_only" if not control.editable else "normal")
+	rect.position.y+=style.get_margin(SIDE_TOP)*factor
+	rect.size.y-=style.get_minimum_size().y*factor
+	if control.get_h_scroll_bar().is_visible_in_tree(): rect.size.y-=control.get_h_scroll_bar().size.y*factor
+	var origin=rect.position.y-fposmod(control.scroll_vertical,1.0)*control.get_line_height()*factor
+	var clipped=rect.intersection(control.get_viewport().get_visible_rect())
+	var parent=control.get_parent()
+	while parent!=null:
+		if parent is Control and parent.clip_contents: clipped=clipped.intersection(pixel_rect(parent))
+		parent=parent.get_parent()
+	var line_height=control.get_line_height()*factor
+	return maxi(0,floori((clipped.end.y-origin)/line_height)-ceili((clipped.position.y-origin)/line_height))
+
+func check_workspace(code, title: String):
+	var rows=visible_rows(code.verification if code.output_tabs.current_tab==2 and code.verification.visible else code.console)
+	check(rows>=5,title+": alespoň pět skutečně celých řádků po všech ořezech (%d)" % rows)
+	if not code.results_enlarged: check(visible_rows(code.editor)>=5,"Editor současně zachová pět celých řádků")
+	for control in [code.run_button,code.test_button,code.results_button,code.workspace_split]:
+		check(control.get_viewport().get_visible_rect().encloses(pixel_rect(control)),"Základní akce/pracovní plocha není oříznutá")
+	print("VISIBLE ROWS ",suffix," ",title,": ",rows,"; code=",visible_rows(code.editor))
+
+func select_tab(code, index: int, hand: int):
+	var bar=code.output_tabs.get_tab_bar(); var local=bar.get_tab_rect(index).get_center(); var at=bar.get_global_transform_with_canvas()*local
+	if hand<0:
+		var viewport=code.get_viewport(); var move=InputEventMouseMotion.new(); move.position=at; viewport.push_input(move,true)
+		for down in [true,false]:
+			var event=InputEventMouseButton.new(); event.position=at; event.button_index=MOUSE_BUTTON_LEFT; event.pressed=down; viewport.push_input(event,true)
+	else:
+		point(hand,at)
+		for tick in 2: await physics_frame
+		rig.pressed(rig.left if hand==0 else rig.right,"trigger_click"); await frames(2); rig.released(rig.left if hand==0 else rig.right,"trigger_click")
+	await frames()
+	check(code.output_tabs.current_tab==index,"Skutečný klik přepne záložku "+str(index))
+
 func drag_split(code, hand: int = -1):
 	var rect=code.code_split.get_global_rect()
 	var at=Vector2(rect.get_center().x,rect.end.y+code.workspace_split.get_theme_constant("separation")*shell.ui.scale.y*0.5)
@@ -14,7 +55,9 @@ func drag_split(code, hand: int = -1):
 		move=InputEventMouseMotion.new(); move.position=finish; move.relative=finish-at; move.button_mask=MOUSE_BUTTON_MASK_LEFT; viewport.push_input(move,true)
 		press=InputEventMouseButton.new(); press.position=finish; press.button_index=MOUSE_BUTTON_LEFT; press.pressed=false; viewport.push_input(press,true)
 	else:
-		point(hand,at); await frames(); rig.pressed(rig.left if hand==0 else rig.right,"trigger_click"); await frames(2)
+		point(hand,at)
+		for tick in 2: await physics_frame
+		await frames(); rig.pressed(rig.left if hand==0 else rig.right,"trigger_click"); await frames(2)
 		point(hand,finish)
 		for tick in 3: await physics_frame
 		await frames(3); rig.released(rig.left if hand==0 else rig.right,"trigger_click")
@@ -27,37 +70,77 @@ func point(hand: int, at: Vector2):
 	var pose=rig.global_transform.affine_inverse()*Transform3D(monitor.global_basis,monitor.to_global(pixel)+monitor.global_basis.z*0.8)
 	trackers[hand+1].set_pose("aim",pose,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
 
+func scroll_output(control: TextEdit, hand: int):
+	control.scroll_vertical=0
+	if hand>=0:
+		# Aim the other hand away: either hand can own the panel's hover ray.
+		point(1-hand,Vector2(-200,-200)); point(hand,pixel_rect(control).get_center())
+		trackers[2].set_input("primary",Vector2(0,-1))
+		for tick in 22: await physics_frame
+		trackers[2].set_input("primary",Vector2.ZERO)
+	else:
+		var viewport=control.get_viewport(); var at=pixel_rect(control).get_center()
+		for i in 3:
+			for down in [true,false]:
+				var event=InputEventMouseButton.new(); event.position=at; event.button_index=MOUSE_BUTTON_WHEEL_DOWN; event.pressed=down; viewport.push_input(event,true)
+	await frames()
+	check(control.scroll_vertical>0,"Skutečný scroll funguje uvnitř "+("výstupu" if control==shell.code_editor.console else "podrobností"))
+
 func exercise(hand: int = -1):
 	var code=shell.code_editor
+	code.manager.progress.settings.font_size=22; code.zoom(0)
 	code.mode_picker.select(1); code.launch("PY01",false); await frames()
 	for window in code.find_children("*","AcceptDialog",true,false):
 		if window.visible and window.title.begins_with("Rozepsaná"): await click(button("Začít znovu / nahradit tento koncept"),hand)
 	await frames()
 	check(code.workspace_split is VSplitContainer,"Výstup má skutečný svislý oddělovač")
-	check(code.console.size.y>=code.console.get_theme_font_size("font_size")*5,"Výstup má místo alespoň na pět řádků i ve výchozí poloze")
+	check_workspace(code,"Výstup při otevření")
+	await capture("editor-short-output",rig.monitor.viewport if hand>=0 else null)
 	code.editor.text="for i in range(80):\n    print(i)"
 	await click(code.run_button,hand)
 	check(code.console.text.strip_edges().ends_with("79") and code.manager.last_result.is_empty(),"Spustit vypíše celý výstup bez hodnocení")
+	await scroll_output(code.console,hand)
+	code.console.scroll_vertical=0.5; await frames(); check_workspace(code,"Výstup s necelým posuvem")
 	code.console.scroll_vertical=2000; await frames()
 	check(code.console.scroll_vertical>0,"Dlouhý výstup se posouvá uvnitř panelu")
 	await drag_split(code,hand); check(code.editor.text.contains("range(80)"),"Tažení nezmění kód")
 	await capture("editor-output",rig.monitor.viewport if hand>=0 else null)
 	await click(code.input_toggle,hand); check(code.input_box.visible,"Vstupy lze rozbalit")
+	check_workspace(code,"Výstup s rozbalenými vstupy")
 	code.input_console.text="vlastní vstup"; code.editor.text="print(input())"
 	await click(code.run_button,hand); check(code.console.text.contains("vlastní vstup"),"Rozbalené input() skutečně ovlivní běh")
 	await click(code.input_toggle,hand); check(not code.input_box.visible and code.input_console.text=="vlastní vstup","Sbalení zachová vstupy")
 	code.editor.text="print(unknown_name)"; await click(code.run_button,hand)
 	check(code.output_tabs.current_tab==1 and code.errors_list.get_child_count()>0,"Chyba přepne na diagnostiku")
+	await capture("editor-error",rig.monitor.viewport if hand>=0 else null)
 	await click(code.errors_list.get_child(0),hand); check(code.editor.get_caret_line()==0,"Odkaz chyby stále vede na skutečný řádek")
-	code.editor.text="print('wrong')"; await click(code.test_button,hand)
+	code.editor.text="print('wrong')\nfor i in range(80):\n    print(i)"; await click(code.test_button,hand)
 	check(code.output_tabs.current_tab==2 and code.verification_state.text.begins_with("NESPLNĚNO"),"Ověření ukáže nesplněno, testy a skóre")
 	check("testů" in code.verification_state.text and "skóre" in code.verification_state.text,"Hlavní výsledek obsahuje počty i skóre")
 	await click(code.verification_details,hand)
 	check(code.verification.visible and "Očekáváno:" in code.verification.text and "wrong" in code.verification.text,"Podrobnosti mají skutečný a očekávaný výstup")
+	check_workspace(code,"Rozbalené podrobnosti testů")
+	await scroll_output(code.verification,hand)
+	await select_tab(code,0,hand); check_workspace(code,"Výstup po přepnutí záložky")
+	await select_tab(code,2,hand); check_workspace(code,"Podrobnosti po návratu na záložku")
+	await click(code.input_toggle,hand); check_workspace(code,"Podrobnosti a rozbalené vstupy")
+	await capture("editor-verification-inputs",rig.monitor.viewport if hand>=0 else null)
+	await click(code.input_toggle,hand)
+	var files=code.manager.files.duplicate(true); var attempt=code.manager.current.duplicate(true)
+	await click(code.results_button,hand); check_workspace(code,"Zvětšené podrobnosti")
+	await capture("editor-enlarged",rig.monitor.viewport if hand>=0 else null)
+	await click(code.results_button,hand); check_workspace(code,"Návrat k běžnému rozložení")
+	check(code.manager.files==files and code.manager.current==attempt,"Zvětšení a návrat zachovají kód i pokus")
+	if hand<0:
+		var resolution=shell.ui.display_settings.resolution
+		shell.ui.apply_display_settings(Vector2i(1920,1080) if resolution.x==1280 else Vector2i(1280,720),false); await frames(); check_workspace(code,"Podrobnosti po resize")
+		shell.ui.apply_display_settings(resolution,false); await frames(); check_workspace(code,"Podrobnosti po návratu velikosti")
 	await capture("editor-verification",rig.monitor.viewport if hand>=0 else null)
 	code.editor.select_all(); code.editor.insert_text_at_caret("print('Ahoj, světe!')"); await frames()
 	check("ZASTARALÉ" in code.verification_state.text,"Úprava označí ověření za zastaralé")
 	await click(code.test_button,hand); check(code.manager.last_result.ok and code.verification_state.text.begins_with("SPLNĚNO"),"Správné řešení projde skutečnými testy")
+	check_workspace(code,"Úspěšné ověření")
+	await capture("editor-passed",rig.monitor.viewport if hand>=0 else null)
 	await click(button("Celé zadání"),hand)
 	var dialog=code.find_children("*","AcceptDialog",true,false).filter(func(n): return n.visible)[0]
 	check(dialog.find_children("*","RichTextLabel",true,false)[0].text==code.brief_text,"Celé zadání je dostupné bez ořezu")

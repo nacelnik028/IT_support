@@ -127,8 +127,6 @@ func build_room():
 	key.light_energy = 0.6
 	key.shadow_enabled = true
 	add_child(key)
-	Geo.text(self,"NORTHSTAR  /  TRAINING ACADEMY",Vector3(-3,3.4,-6.8),60,0.004)
-	Geo.text(self,"SERVEROVNA 01     •     FYZICKÝ PŘÍSTUP",Vector3(-3,3.05,-6.8),32,0.003)
 
 func item(id: String, title: String, type: String, at: Vector3, dimensions: Vector3, console: String = "Proxmox"):
 	var object = Item.new()
@@ -262,8 +260,6 @@ func build_academy():
 		sign_node.position=Vector3(9+side*0.32,3.64,3.5); sign_node.rotation.y=side*PI/2
 	door_status = Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(8.59,2.8,3.5),22,0.0023)
 	door_status.rotation.y = -PI/2
-	Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(15,3.2,-6.8),64,0.005,Color("ffd392"))
-	Geo.text(self,"UČÍM SE  /  PROCVIČOVÁNÍ  /  ZKOUŠKA",Vector3(15,2.75,-6.8),36,0.0035)
 	for x in [12,18]:
 		for z in [-4,0,4]:
 			Geo.box(self,Vector3(x,3.8,z),Vector3(0.85,0.08,2),Color("8e908b"),0.4)

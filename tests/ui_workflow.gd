@@ -165,7 +165,7 @@ func run():
 			await click(code.test_button)
 			if not baseline:
 				check(code.manager.last_result.ok and code.output_tabs.current_tab==2,"Verify invokes existing evaluator")
-				check("této verze" in code.verification_state.text,"Verification version identified")
+				check("této verze" in code.verification_state.tooltip_text,"Verification version identified")
 			await capture("editor-results")
 			if not baseline:
 				Saves.path_override="user://missing-code-workflow-"+str(OS.get_process_id())+"/save.json"
@@ -180,7 +180,7 @@ func run():
 			if not baseline:
 				var best=code.manager.progress.results.PY01.best
 				await type_character(code.editor," ")
-				check("Předchozí" in code.verification_state.text and code.manager.progress.results.PY01.best==best,"Editing invalidates presentation, preserves best result")
+				check("ZASTARALÉ" in code.verification_state.text and "Předchozí" in code.verification_state.tooltip_text and code.manager.progress.results.PY01.best==best,"Editing invalidates presentation, preserves best result")
 				# Each matrix cell deliberately starts fresh. Persisted unfinished code is
 				# covered by work_persistence's real restore/fresh/delete dialog.
 				code.manager.start("WEB21","practice",false); code.load_current()

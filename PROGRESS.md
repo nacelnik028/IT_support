@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Programovací editor: skutečný prostor obsahu — 5. 11. 2026
+
+- Zkrácené zadání a okraje, instrukce v bočním panelu. Vstupy input() vedle výsledků, kompaktní stav a přepínač testů ve společném řádku. Viditelný 18px oddělovač s minimy obou oblastí a tlačítko Zvětšit výsledky / Běžné rozložení zachovávající soubory i pokus.
+- Desktop nad 900px přidává využitelnou plochu; VR zůstává v horních 900 pixelech skutečného SubViewportu 1600×1200 s rezervou pro klávesnici. Výstup/podrobnosti používají čitelné monospace písmo a vlastní skutečnou výšku řádků včetně znaků výsledku.
+- editor_repair nově 1122 headless PASS: nejméně pět celých viditelných řádků po všech ořezech a transformacích, včetně necelého scrollu, přepnutí záložek, vstupů, resize, rozbalení podrobností, neúspěchu/úspěchu, zvětšení/návratu, PC kolečka a obou syntetických VR paprsků se skutečným joystickovým scrollem a drag.
+- programming_integration 765 PASS / 252 variant. ui_workflow 615 PASS po aktualizaci kontrol tooltipu kompaktního ověření; zachována neplatnost po editaci, nejlepší výsledky, koncepty, web a fyzická/VR klávesnice. Aktivní úloha při návratu k editoru neotevírá nevyžádaný dialog.
+- Při vizuální kontrole odstraněny také čtyři staré stěnové popisky, které kolidovaly s novými cedulemi vstupů. Finální GPU matice a celý 51sadový runner probíhají; Windows build následuje po jejich úspěchu. APK se nepřestavuje.
+
+
 ## Společné dokončené vstupy — 5. 11. 2026
 
 - Společné WorldArchitecture rozšířené na všech 7 sestav: čtyři číslované portály hubu, obě posuvné sestavy a vstup Londýna. Oboustranné stupňované obložky se zkosením, zapuštěná ostění, patky, spojovací detaily, oddělené velké názvy a menší popisy.
