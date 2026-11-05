@@ -36,6 +36,8 @@ func capture(name, viewport=null):
 
 func click_button(button, hand=null):
 	if not is_instance_valid(button): return
+	# Let the newly opened panel lay out before revealing a nested scroll target.
+	await frames()
 	var ancestor=button.get_parent()
 	while ancestor!=null:
 		if ancestor is ScrollContainer: ancestor.ensure_control_visible(button); ancestor.scroll_vertical+=4
@@ -43,6 +45,10 @@ func click_button(button, hand=null):
 	await frames()
 	var viewport=button.get_viewport()
 	check(viewport.get_visible_rect().encloses(button.get_global_rect()),"Viditelné tlačítko "+button.text)
+	ancestor=button.get_parent()
+	while ancestor is Control:
+		if ancestor.clip_contents: check(ancestor.get_global_rect().encloses(button.get_global_rect()),"Tlačítko není oříznuté posuvem: "+button.text)
+		ancestor=ancestor.get_parent()
 	var at=button.get_global_rect().get_center()
 	if hand!=null:
 		var local=Vector3((at.x/1600.0-0.5)*rig.monitor.dimensions.x,(0.5-at.y/1200.0)*rig.monitor.dimensions.y,0)
@@ -55,7 +61,7 @@ func click_button(button, hand=null):
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		var move=InputEventMouseMotion.new(); move.position=at; viewport.push_input(move,true)
 		for down in [true,false]:
-			var e=InputEventMouseButton.new(); e.position=at; e.button_index=MOUSE_BUTTON_LEFT; e.pressed=down; viewport.push_input(e,true)
+			var e=InputEventMouseButton.new(); e.position=at; e.button_index=MOUSE_BUTTON_LEFT; e.pressed=down; e.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0; viewport.push_input(e,true)
 	await frames()
 
 func button(prefix):
@@ -88,7 +94,7 @@ func run():
 			shell.world.player.position=Vector3(12,0.02,8.8); shell.open_english()
 			await capture("london-audio")
 			var before=g.english.revision
-			await click_button(button("Poslechnout / zopakovat"))
+			await click_button(button("Přehrát repliku"))
 			check(shell.speech.playing and g.english.revision==before,"PC poslech hraje a nevybere odpověď")
 			shell.return_to_world(); check(not shell.speech.playing,"Odchod zastaví řeč")
 	# Real SubViewport contents and both complete controller press/release paths.
@@ -122,9 +128,9 @@ func run():
 			rig.monitor.keyboard.dismiss(); field.queue_free(); await frames()
 			if screen=="audio":
 				var rev=g.english.revision
-				await click_button(button("Poslechnout / zopakovat"),trackers[1])
+				await click_button(button("Přehrát repliku"),trackers[1])
 				check(shell.speech.playing and g.english.revision==rev,"Levý paprsek přehrává bez volby/dvojí akce")
-				await click_button(button("Pomaleji"),trackers[2])
+				await click_button(button("Repliku pomaleji"),trackers[2])
 				check(shell.speech.playing and shell.speech.pitch_scale==1.0,"Pravý paprsek ovládá pomalou variantu")
 	await synthetic_intro()
 	for tracker in trackers: XRServer.remove_tracker(tracker)

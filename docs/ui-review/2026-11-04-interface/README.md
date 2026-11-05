@@ -5,18 +5,18 @@ nikoli prohlášení o dokončení všech bodů. EXE/APK zatím nejsou znovu ses
 
 - [x] 1: přečtené zadání/stav/README, reprodukce existujícího UI a geometrie.
 - [x] 2: kompaktní pauza, podnabídky a přesunuté funkce.
-- [ ] 3: nové londýnské dialogy.
+- [x] 3: nové londýnské dialogy.
 - [x] 4: přesný podpis „Vytvořil Vít Kellner“ ve všech velikostech a VR.
-- [ ] 5: cíle, průběh a zpětná vazba podle režimu.
+- [x] 5: cíle, průběh a zpětná vazba podle režimu.
 - [x] 6: stojany a ukotvení fyzických tabulí.
-- [ ] 7: trvající navigace k pracovištím Londýna.
+- [x] 7: trvající navigace k pracovištím Londýna.
 - [x] 8: skutečné kapsy a souvislé rámy obou posuvných dveří, sjednocené portály.
 - [x] 9: tmavé křídlo IT dveří se již neodsouvá do Londýna.
 - [x] 9a: béžové lamely, commit `a3f36e5`, samostatná reprodukce před/po.
 - [x] 10: nastavitelný spodní panel programování a výsledky ověření.
 - [x] 11: hotové technické panely místo lišt na zazděné jižní stěně serverovny.
-- [ ] 12: zkrácení prezentace textů se zachováním všech potřebných údajů.
-- [ ] 13: společný vzhled a všechny ovládací cesty — závěrečné ověření.
+- [x] 12: zkrácení prezentace textů se zachováním všech potřebných údajů.
+- [x] 13: společný vzhled a všechny ovládací cesty — závěrečné ověření.
 - [ ] 14: data a ochrany — původní 47sadový baseline PASS, finální regrese následuje.
 - [ ] 15: úplný aktuální runner, grafika/XR, snímky a konečné předání.
 
@@ -96,3 +96,45 @@ programming_catalog 1071, integration 765 / 252 variant a polish 29 PASS.
 [ověření](editor-verification-1280-130-gl_compatibility.png),
 [celé zadání](editor-task-1280-130-gl_compatibility.png),
 [VR](editor-output-vr-130-gl_compatibility.png).
+
+## Londýn (3, 5, 7)
+
+Záhlaví a aktuální krok zůstávají na místě. Zadání s počty, produktem, časem,
+rozmezím a rozpočtem, skutečný košík a scénářové komunikační cíle jsou vlevo;
+replika NPC a souvislé odpovědi vpravo. Dlouhé části mají vlastní posuv. Překlad
+a nápověda jsou u zadání. Dostupné zákaznické nahrávky mají vlastní výběr
+číslované repliky, normální/pomalé přehrání a zastavení mimo odpovědi.
+
+Model rozlišuje zdvořilost věty a věcnou shodu počtů/produktu. Chybnou
+objednávku nepřepisuje. Výuka vysvětlí problém a další krok, procvičování má
+stručnou odezvu, zkouška pouze potvrzuje zaznamenání. Hodnocení zkoušky se
+odkryje až při dokončení nebo výslovném ukončení; ukončená zkouška už nepřijímá
+volby. Neúspěšný pokus neudělí dokončení. Výsledky uvádějí textový stav,
+skutečné cíle, skóre a podstatné chyby. Průběžný rozbor mimo zkoušku dovoluje
+pokračovat; úspěšný výsledek zachovává původní pravidlo skóre a odměn.
+
+Původní tlačítka jen zavírala panel. Nyní spouštějí trvající navigaci vázanou
+na konkrétní pokus. AStarGrid má půlmetrové buňky kontrolované fyzikální kapslí,
+respektuje stěny, přepážku, frontu a most. Po odchýlení obnoví trasu. HUD uvádí
+cíl, vzdálenost po cestě a směr; malá modrá značka ukazuje další část trasy.
+U cíle následuje E/trigger. Platba, lístek a příchod zůstávají fyzické akce.
+Příchod, interakce, zrušení, změna pokusu a ukončení zkoušky značku uklidí.
+
+Aktuální testy zatím: london_repair 1875 headless a 1950 Compatibility PASS;
+počty fyzikálních kontrol závisí na skutečných snímcích chůze. Nový test
+kliká navigační tlačítka a skutečně dojde ke všem pěti místům, dokončí pěší
+nákup i cestu k věži, ověřuje pokračování téže relace a úklid značek.
+Navíc celé UI nákupu ve všech třech režimech na PC i oběma XR paprsky,
+chyby, rozbor a restart ve všech PC rozlišeních/textu. english_world 1094,
+english_model 1809, quiz, listening a profil PASS. Finální souhrn následuje.
+
+## Texty a styl (12, 13)
+
+Menu a souhrny jsou kratší. Původní technická zadání a dlouhá vysvětlení
+jsou v nativních rozbalovacích podrobnostech; všechny údaje zůstávají
+přístupné také ve zkoušce. Výukový obsah a přirozené B1–B2 repliky zachované.
+Katalogy, generátory a prvních 24 definic se nemění. Společná paleta používá
+modrý obrys pro fokus, zelený stav úspěchu a textové hodnocení. Žádné nové
+závislosti ani rastrová rozhraní. ui_workflow 615 a ui_design 162 PASS;
+nově skutečná grafická Compatibility matice včetně klávesnice, drag/scroll,
+fokusu, rušení drženého triggeru a obou rukou PASS. Forward+ právě dobíhá.

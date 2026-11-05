@@ -19,7 +19,7 @@ static func draw(ui):
 	identity.add_child(ui.label("NORTHSTAR IT  /  OFFLINE VÝCVIKOVÉ STŘEDISKO",12,ui.CYAN))
 	var body=ui.hbox(all,20)
 	body.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	var left=ui.card(body,"Serverovna / pracovní směna","Řeš IT incidenty ve 3D. Rozehraná kampaň a její výsledky zůstávají zachované.")
+	var left=ui.card(body,"Serverovna / pracovní směna","Řeš IT incidenty ve 3D. Kampaň a výsledky se ukládají.")
 	left.add_theme_constant_override("separation",14)
 	var primary=ui.button("Rozcestník akademie  /  "+("VR" if OS.has_feature("android") else "klasické 3D"),func():
 		if ui.world_enabled and not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
@@ -50,14 +50,14 @@ static func draw(ui):
 			ui.game.set_campaign_mode(true); ui.mission_filter="3D praxe"; ui.navigate("Tickety")))
 	left.add_child(ui.label("65 misí  /  Proxmox VE · Hyper-V · Storage",13,ui.MUTED))
 	var right=ui.vbox(body,16); right.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	var training=ui.card(right,"IT tréninková akademie","21 serverových lekcí. Učím se, Procvičování nebo Zkouška; cvičná infrastruktura je oddělená od kampaně.")
+	var training=ui.card(right,"IT tréninková akademie","21 lekcí ve třech režimech. Vlastní cvičná infrastruktura.")
 	var train=ui.button("Vstoupit do IT tréninkové akademie",func(): ui.navigate("Trénink"))
 	training.add_child(train); ui.register_target("menu:training",train)
-	var programming=ui.card(right,"Programovací učebna","Python a tvorba webu. 28 lekcí, 60 úloh a opravy kódu. Učebna je vlevo od racků; úlohu si vybereš u počítače.")
+	var programming=ui.card(right,"Programovací učebna","Python a web: 28 lekcí, 60 úloh a opravy kódu. Začni u počítače.")
 	var code=ui.button("Vstoupit do programovací učebny",func(): ui.world_requested.emit("Programming Academy"))
 	code.disabled=not ui.world_enabled
 	programming.add_child(code); ui.register_target("menu:programming",code)
-	var english=ui.card(right,"English in London","6 situací B1–B2 a 20 otázek na Londýn. Lístky, zákaznické dotazy a cesta k věži.")
+	var english=ui.card(right,"English in London","6 situací B1–B2, 20 otázek a 12 poslechů.")
 	var london=ui.button("Vstoupit do Londýna",func(): ui.world_requested.emit("English in London"))
 	london.disabled=not ui.world_enabled
 	english.add_child(london); ui.register_target("menu:english",london)

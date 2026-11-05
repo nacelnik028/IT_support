@@ -7,7 +7,7 @@ static func evidence(meta: Dictionary) -> String:
 static func draw(ui, parent: Node):
 	if parent.get_parent() is ScrollContainer: parent.get_parent().follow_focus=true
 	var head=ui.card(parent,"Moje znalosti akademie","Stávající kariéra a ověřené výsledky napříč místnostmi. Otevření nic neodměňuje.")
-	head.add_child(ui.label("Stav popisuje zaznamenané pokusy, nikoli úplné zvládnutí celé oblasti. Nezkoušeno není neúspěch. Body IT, programování a jazykových úloh se nesčítají do společné známky ani CEFR certifikátu.",16))
+	head.add_child(ui.label("Přehled vychází z tvých pokusů. Nezkoušeno neznamená neúspěch. Oblasti mají vlastní hodnocení; nejde o společnou známku ani CEFR certifikát.",16))
 	var skills=ui.game.Profile.skills(ui.game)
 	for row in skills:
 		var card=ui.card(parent,row.skill+" / "+row.status,"Zaznamenané zdroje: "+str(int(row.count)))

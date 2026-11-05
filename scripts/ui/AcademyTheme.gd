@@ -11,6 +11,7 @@ const ACCENT = Color("4de0cb")
 const GOLD = Color("efc47d")
 const ERROR = Color("ff9ca8")
 const SUCCESS = Color("8ce2b3")
+const FOCUS = Color("9bbfff")
 static var semibold: SystemFont
 
 static func heading_font() -> SystemFont:
@@ -50,8 +51,12 @@ static func build(text_scale: float) -> Theme:
 		t.set_stylebox("hover", type, surface(Color("31434e"), ACCENT))
 		t.set_stylebox("pressed", type, surface(Color("214b48"), ACCENT))
 		t.set_stylebox("disabled", type, surface(Color("1a2229"), Color("2f3a44")))
-		t.set_stylebox("focus", type, focus_ring(ACCENT))
+		t.set_stylebox("focus", type, focus_ring(FOCUS))
 	t.set_type_variation("PrimaryButton", "Button")
+	t.set_type_variation("ReplyButton", "Button")
+	for state in ["normal","hover","pressed"]:
+		t.set_stylebox(state,"ReplyButton",surface(RAISED if state=="normal" else Color("303d56"),BORDER if state=="normal" else Color("9bbfff")))
+	t.set_stylebox("focus","ReplyButton",focus_ring(Color("9bbfff")))
 	for state in ["normal", "hover", "pressed"]:
 		t.set_stylebox(state, "PrimaryButton", surface({"normal": ACCENT,"hover": Color("8bf2e2"),"pressed": Color("34b9a7")}[state], ACCENT))
 		t.set_color("font_" + ("color" if state=="normal" else state+"_color"), "PrimaryButton", Color("082c2a"))
@@ -68,9 +73,9 @@ static func build(text_scale: float) -> Theme:
 	t.set_type_variation("InstructorButton", "Button")
 	t.set_stylebox("normal", "InstructorButton", surface(Color("393126"), Color("8a7047")))
 	t.set_color("font_color", "InstructorButton", GOLD)
-	t.set_stylebox("focus", "InstructorButton", focus_ring(GOLD))
+	t.set_stylebox("focus", "InstructorButton", focus_ring(FOCUS))
 	t.set_stylebox("normal", "LineEdit", surface(Color("10191f"), Color("4a5d6b"), 6, 12))
-	t.set_stylebox("focus", "LineEdit", focus_ring(ACCENT))
+	t.set_stylebox("focus", "LineEdit", focus_ring(FOCUS))
 	t.set_stylebox("read_only", "LineEdit", surface(Color("192128"), Color("303e48"), 6, 12))
 	t.set_color("font_placeholder_color", "LineEdit", MUTED)
 	t.set_color("caret_color", "LineEdit", ACCENT)
@@ -78,7 +83,7 @@ static func build(text_scale: float) -> Theme:
 	for type in ["TextEdit","CodeEdit"]:
 		t.set_stylebox("normal",type,surface(Color("10191f"),BORDER,6,12))
 		t.set_stylebox("read_only",type,surface(Color("121c24"),BORDER,6,12))
-		t.set_stylebox("focus",type,focus_ring(ACCENT))
+		t.set_stylebox("focus",type,focus_ring(FOCUS))
 		t.set_color("font_color",type,TEXT)
 		t.set_color("font_readonly_color",type,TEXT)
 		t.set_color("font_placeholder_color",type,MUTED)

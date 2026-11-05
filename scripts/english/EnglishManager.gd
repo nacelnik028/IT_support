@@ -13,6 +13,7 @@ var available = Callable()
 var persist = Callable()
 var location = Callable()
 var rng = RandomNumberGenerator.new()
+var run_serial=0
 
 func _init():
 	var ref=weakref(self)
@@ -52,7 +53,9 @@ func start(id: String, mode: String, variant: int = -1) -> bool:
 	if index >= definition.variants.size(): return false
 	var goal = definition.variants[index].duplicate(true)
 	quiz.cancel()
+	run_serial+=1
 	session = {"id":id,"mode":mode,"variant":index,"goal":goal,"node":"greeting","cart":{"adult":0,"child":0,"time":"","product":"standard"},"confirmed":false,"paid":false,"ticket":{},"spent":0,"payments":0,"errors":[],"hints":0,"translation_used":false,"history":[],"phrases":[],"asked_price":false,"asked_sold":false,"changed":false,"directions":false,"thanked":false,"completed":false,"feedback":"","asked":[],"understood":[],"question_page":0,"question_topic":"","return_node":"","declined":false,"npc":"Good afternoon. Tell me about your plans, and feel free to ask about our ticket options before you decide.","translation":"Dobrý den. Řekněte mi svůj plán a před rozhodnutím se ptejte na nabídku."}
+	session.run_id=run_serial
 	if id=="LON05":
 		session.cart={"adult":2,"child":0,"time":goal.time,"product":"standard"}
 		session.node="confirm"
@@ -83,7 +86,7 @@ func group_price(product: String, adults: int, children: int) -> int:
 	return adults*int(prices.adult)+children*int(prices.child)
 
 func open_questions(token: int, page: int = 0) -> bool:
-	if not allowed() or session.is_empty() or session.completed or session.paid or token!=revision or page<0 or page>2: return false
+	if not allowed() or session.is_empty() or session.completed or session.get("exam_ended",false) or session.paid or token!=revision or page<0 or page>2: return false
 	if not session.node in ["questions","answer"]: session.return_node=session.node
 	session.question_page=page; session.node="questions"; revision+=1
 	return true
@@ -106,7 +109,7 @@ func choice(id: String, text: String, intent: String, values: Dictionary = {}) -
 	return {"id":id,"text":text,"intent":intent,"values":values}
 
 func choices() -> Array:
-	if session.is_empty() or session.completed: return []
+	if session.is_empty() or session.completed or session.get("exam_ended",false): return []
 	var list: Array=[]
 	match session.node:
 		"questions":
@@ -148,6 +151,7 @@ func choices() -> Array:
 
 func reject(text: String, linguistic: bool = true) -> bool:
 	session.feedback=text
+	session.action_recorded=true
 	if session.errors.size()<1000: session.errors.append({"text":text,"language_ok":linguistic})
 	return false
 
@@ -163,7 +167,7 @@ func set_cart(adult: int, child: int, slot: String):
 	if session.id=="LON05" and adult==session.goal.adult and child==session.goal.child and session.cart!=previous: session.changed=true
 
 func act(id: String, expected_revision: int) -> bool:
-	if not allowed() or session.is_empty() or expected_revision!=revision or session.completed: return false
+	if not allowed() or session.is_empty() or expected_revision!=revision or session.completed or session.get("exam_ended",false): return false
 	var selected={}
 	for item in choices():
 		if item.id==id: selected=item; break
@@ -244,7 +248,58 @@ func act(id: String, expected_revision: int) -> bool:
 			session.npc="Could you try that again, please?"; session.translation="Můžete to prosím zkusit znovu?"
 			ok=reject("Věta je srozumitelná, ale v tomto kroku neodpovídá otázce ani cíli. Zkus jinou repliku.")
 	if ok and not selected.text in session.phrases: session.phrases.append(selected.text)
+	if ok:
+		if selected.intent=="order" and (session.cart.adult!=session.goal.adult or session.cart.child!=session.goal.child):
+			reject("Jazykově vhodná žádost, ale počet dospělých nebo dětí neodpovídá zadání. Před platbou oprav objednávku.")
+		elif selected.intent=="product" and session.cart.product!=session.goal.product:
+			reject("Jazykově vhodná volba, ale produkt neodpovídá požadovaným podmínkám. Před platbou znovu vyber nabídku.")
+		elif session.feedback=="": session.feedback="✓ Volba odpovídá tomuto kroku. "+current_step()
+	session.action_recorded=true
 	return ok
+
+func current_step() -> String:
+	if session.is_empty(): return "Vyber situaci."
+	return {"greeting":"Zjisti požadované podmínky a objednej.","order":"Vyber správné počty vstupenek.","product":"Porovnej produkt s podmínkami zadání.","time":"Vyber dostupný čas v daném rozmezí.","negotiate":"Vyjednej čas, který vyhovuje tvému plánu.","questions":"Polož požadovaný zákaznický dotaz.","answer":"Vlastními slovy ověř porozumění.","confirm":"Zkontroluj položky a potvrď skutečný součet.","pay":"Dojdi k terminálu a zaplať cvičnou kartou.","thanks":"Vrať se k Samovi a poděkuj.","gate":"Dojdi ke kontrole a předlož vydaný lístek.","ask_directions":"Požádej Alexe o cestu k věži.","understand":"Upřesni pokyny a potvrď porozumění.","walk":"Přejdi most a u věže potvrď příchod.","result":"Situace je dokončená."}.get(session.node,"")
+
+func visible_feedback() -> String:
+	if session.is_empty() or not session.get("action_recorded",false): return ""
+	if session.mode=="exam": return "• Volba zaznamenána. Hodnocení uvidíš ve výsledku."
+	if session.mode=="learn": return session.feedback
+	return "✓ Krok zaznamenán." if session.feedback.begins_with("✓") else "! Zkontroluj volbu podle zadání."
+
+func goal_status() -> Array:
+	if session.is_empty(): return []
+	var s=session; var goals=[]
+	var names={"options":"nabídka Standard / Flex","family":"věk a doprovod dětí","included":"obsah ceny","availability":"dostupnost","recommend":"doporučená alternativa","change":"možnost opravy","total":"skutečná celková cena","payment":"platba a použití lístku","repeat":"zopakování pokynů"}
+	for topic in definition().required:
+		goals.append({"label":"Dotaz a porozumění: "+names[topic],"met":topic in s.understood})
+	if s.id=="LON06":
+		goals.append({"label":"Potvrdit trasu podle orientačních bodů","met":s.directions})
+		goals.append({"label":"Dojít přes most a potvrdit příchod u věže","met":s.completed})
+	else:
+		goals.append({"label":"Počty vstupenek podle zadání","met":s.cart.adult==s.goal.adult and s.cart.child==s.goal.child})
+		goals.append({"label":"Produkt, čas a rozpočet podle zadání","met":s.cart.product==s.goal.product and s.cart.time==s.goal.time and valid_cart()})
+		if s.id=="LON03": goals.append({"label":"Porovnat cenu před rozhodnutím","met":s.asked_price})
+		if s.id=="LON04": goals.append({"label":"Vyřešit vyprodaný původní termín","met":s.asked_sold})
+		if s.id=="LON05": goals.append({"label":"Opravit původní chybnou objednávku","met":s.changed})
+		goals.append({"label":"Potvrdit objednávku","met":s.confirmed})
+		goals.append({"label":"Zaplatit jednou u terminálu","met":s.paid and s.payments==1})
+		goals.append({"label":"Poděkovat a použít lístek u kontroly","met":s.thanked and s.ticket.get("used",false)})
+	return goals
+
+func attempt_score() -> int:
+	if session.is_empty(): return 0
+	if session.completed: return int(session.result.score)
+	var goals=goal_status(); var met=goals.filter(func(goal): return goal.met).size()
+	return maxi(0,roundi(100.0*met/maxi(1,goals.size()))-session.errors.size()*10-int(session.hints)*5)
+
+func review_attempt():
+	if not allowed() or session.is_empty() or session.completed or session.mode!="exam" or session.get("exam_ended",false): return
+	session.exam_ended=true; revision+=1
+	var record={"id":session.id,"mode":session.mode,"variant":session.variant,"score":attempt_score(),"hints":session.hints,"errors":session.errors.duplicate(true),"translation":false,"time":int(Time.get_unix_time_from_system()),"passed":false}
+	progress.attempts.append(record)
+	if progress.attempts.size()>100: progress.attempts.pop_front()
+	if persist.is_valid(): persist.call()
 
 func valid_cart() -> bool:
 	return not session.is_empty() and int(session.cart.adult)+int(session.cart.child)>0 and session.cart.time in catalog.slots and session.cart.time!=session.goal.get("sold","") and session.cart.time>=session.goal.earliest and session.cart.time<=session.goal.latest and total()<=int(session.goal.budget)
@@ -253,13 +308,14 @@ func at_station(station: String) -> bool:
 	return location.is_valid() and location.call(station)
 
 func pay(expected_revision: int) -> bool:
-	if not allowed() or session.is_empty() or expected_revision!=revision or session.node!="pay" or session.paid or not session.confirmed: return false
+	if not allowed() or session.is_empty() or expected_revision!=revision or session.get("exam_ended",false) or session.node!="pay" or session.paid or not session.confirmed: return false
 	revision+=1
 	if not at_station("terminal"): return reject("Pro platbu dojdi k označenému terminálu u přepážky.")
 	if not valid_cart(): return reject("Platba zamítnuta: neplatný košík nebo nedostatečný rozpočet.")
 	session.spent=total(); session.paid=true; session.payments+=1
 	session.ticket={"id":"LON-"+str(Time.get_ticks_usec()),"adult":session.cart.adult,"child":session.cart.child,"time":session.cart.time,"product":session.cart.product,"pence":total(),"valid":true,"used":false}
 	session.node="thanks"; session.npc="Here's your ticket. Enjoy your visit!"; session.translation="Tady je vaše vstupenka. Užijte si návštěvu!"
+	session.feedback="✓ Platba proběhla jednou a lístek je v peněžence. Vrať se k Samovi a poděkuj."; session.action_recorded=true
 	return true
 
 func objectives_met() -> bool:
@@ -268,7 +324,7 @@ func objectives_met() -> bool:
 	return s.paid and s.thanked and communication_met() and s.cart.adult==s.goal.adult and s.cart.child==s.goal.child and s.cart.time==s.goal.time and s.cart.product==s.goal.product and (s.id!="LON03" or s.asked_price) and (s.id!="LON04" or s.asked_sold) and (s.id!="LON05" or s.changed)
 
 func present_ticket() -> bool:
-	if not allowed() or session.is_empty() or not at_station("gate"): return false
+	if not allowed() or session.is_empty() or session.get("exam_ended",false) or not at_station("gate"): return false
 	var ticket=session.ticket
 	if ticket.is_empty() or not ticket.get("valid",false) or ticket.get("used",true): return reject("Kontrola odmítla chybějící, neplatnou nebo již použitou vstupenku.")
 	if ticket.adult!=session.cart.adult or ticket.child!=session.cart.child or ticket.time!=session.cart.time or ticket.product!=session.cart.product or ticket.pence!=session.spent: return reject("Údaje vstupenky nesouhlasí s platbou.")
@@ -277,7 +333,7 @@ func present_ticket() -> bool:
 	return finish()
 
 func arrive_tower() -> bool:
-	if not allowed() or session.is_empty() or session.id!="LON06" or session.node!="walk" or not objectives_met(): return false
+	if not allowed() or session.is_empty() or session.get("exam_ended",false) or session.id!="LON06" or session.node!="walk" or not objectives_met(): return false
 	return finish()
 
 func hint() -> String:

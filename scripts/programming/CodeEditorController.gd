@@ -356,7 +356,7 @@ func refresh_verification():
 	var tests=result.get("checks",[])
 	var passed=tests.filter(func(item): return item.ok).size()
 	var state="OVĚŘENÍ JE ZASTARALÉ" if stale else "SPLNĚNO" if result.get("ok",false) else "NESPLNĚNO"
-	verification_state.text="%s · %d/%d testů · skóre %d/100\n%s" % [state,passed,tests.size(),int(result.get("score",0)),"Kód se změnil. Ověř řešení znovu." if stale else str(result.get("summary",""))]
+	verification_state.text="%s · %d/%d testů · skóre %d/100\n%s" % [state,passed,tests.size(),int(result.get("score",0)),"Předchozí ověření neplatí. Ověř řešení znovu." if stale else "Ověření této verze. "+str(result.get("summary",""))]
 	verification_state.add_theme_color_override("font_color",Design.GOLD if stale else Design.SUCCESS if manager.last_result.get("ok",false) else Design.ERROR)
 
 func clear_error_marks(control: CodeEdit):

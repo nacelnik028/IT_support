@@ -1,0 +1,206 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON REPAIR: 1846 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+EDITOR REPAIR: 380 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PAUSE REPAIR: 217 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ARCHITECTURE REPAIR: 4497 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.86966)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.010831, 7.988563)
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.81879)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.009165, 7.990468)
+WALK: (8.0, 0.02, 8.0) -> (8.011627, -0.009164, 7.999828)
+WALK: (8.0, 0.02, 18.8) -> (8.000157, -0.009161, 18.86984)
+WALK: (8.0, 0.02, 24.0) -> (8.000005, -0.009163, 24.01702)
+WALK: (0.0, 0.02, 24.0) -> (-0.047722, -0.009163, 24.00028)
+WALK: (0.0, 0.02, 28.3) -> (-0.001502, -0.009165, 28.31871)
+WALK: (0.0, 0.02, 24.0) -> (-0.000049, -0.009163, 23.99036)
+WALK: (20.45, 0.02, 24.0) -> (20.46426, -0.009163, 23.99993)
+WALK: (20.45, 0.02, 28.3) -> (20.45045, -0.009169, 28.31881)
+WALK: (20.45, 0.02, 24.0) -> (20.45002, -0.009163, 23.99045)
+WALK: (8.0, 0.02, 24.0) -> (7.985743, -0.009163, 23.99989)
+WALK: (8.0, 0.02, 18.8) -> (7.999633, -0.009162, 18.78552)
+WALK: (20.45, 0.02, 18.8) -> (20.46394, -0.009164, 18.79984)
+WALK: (20.45, 0.02, 9.5) -> (20.45022, -0.009163, 9.481201)
+WALK: (23.0, 0.02, 9.5) -> (23.01797, -0.009346, 9.499467)
+WALK: (23.0, 0.02, -11.5) -> (23.00012, -0.009178, -11.59443)
+WALK: (19.0, 0.02, -11.5) -> (18.95321, -0.009169, -11.50293)
+WALK: (16.0, 0.02, -5.0) -> (16.0391, -0.009168, -4.953458)
+WALK: (16.0, 0.02, 6.3) -> (16.00047, -0.009944, 6.39064)
+WALK: (10.0, 0.02, 6.3) -> (9.953367, -0.009171, 6.301964)
+LONDON GEOMETRY: 226 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST WINDOW FOCUS OUT / 1
+TEST WINDOW FOCUS OUT / 2
+TEST WINDOW FOCUS OUT / 3
+TEST WINDOW FOCUS OUT / 4
+TEST WINDOW FOCUS OUT / 5
+TEST WINDOW FOCUS OUT / 6
+TEST WINDOW FOCUS OUT / 7
+TEST WINDOW FOCUS OUT / 8
+TEST WINDOW FOCUS OUT / 9
+TEST WINDOW FOCUS OUT / 10
+TEST WINDOW FOCUS OUT / 11
+TEST WINDOW FOCUS OUT / 12
+CONTINUATION REVIEW: 239 checks, 0 failures; PC matrix and synthetic XR, no headset
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UNIFIED PROFILE: 38 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON LISTENING: 515 checks, 0 failures; audio decoded/player tested, no human listening claim
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ATTEMPT REVIEW: 49 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ADVANCED SHIFTS: 268 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SHIFT SCORING: 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORK PERSISTENCE: 69 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:91)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: PC poslech hraje a nevybere odpověď
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:92)
+       [2] click_button (res://tests/gameplay_review.gd:59)
+       [3] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:125)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Levý paprsek přehrává bez volby/dvojí akce
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:126)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Pomaleji
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:127)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Pravý paprsek ovládá pomalou variantu
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:128)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Poslechnout / zopakovat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:125)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Levý paprsek přehrává bez volby/dvojí akce
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:126)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Chybí tlačítko Pomaleji
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] button (res://tests/gameplay_review.gd:64)
+       [1] run (res://tests/gameplay_review.gd:127)
+       [2] frames (res://tests/gameplay_review.gd:23)
+ERROR: Pravý paprsek ovládá pomalou variantu
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/gameplay_review.gd:27)
+       [1] run (res://tests/gameplay_review.gd:128)
+       [2] frames (res://tests/gameplay_review.gd:23)
+GAMEPLAY REVIEW: 67 checks, 20 failures; synthetic XR, no headset

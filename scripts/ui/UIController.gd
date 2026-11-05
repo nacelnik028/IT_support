@@ -499,7 +499,7 @@ func draw_ticket(parent: Node):
 	var c = card(v,"INC-%03d" % int(game.current.id),game.current.priority+"  •  "+game.current.server)
 	c.add_child(label(game.current.title,23))
 	c.add_child(label("TRÉNINK" if game.training else ("VYŘEŠENO" if game.finished else "PROBÍHÁ ŘEŠENÍ"),11,CYAN))
-	c.add_child(label(game.current.description,14))
+	preload("res://scripts/ui/BriefPresentation.gd").draw(self,c,game.current.description)
 	c.add_child(label("PODMÍNKY PŘEDÁNÍ",11,MUTED))
 	var passed=0
 	for goal in game.goals():
@@ -1116,8 +1116,8 @@ func draw_training_center():
 		meta.add_child(label(lesson.get("training_category",lesson.category),13,MUTED))
 		Components.badge(self,meta,("✓ " if completed else "○ ")+status,Design.SUCCESS if completed else MUTED)
 		var description=label(lesson.description,14,MUTED)
-		description.max_lines_visible=2
-		description.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		description.max_lines_visible=-1
+		description.text_overrun_behavior=TextServer.OVERRUN_NO_TRIMMING
 		description.tooltip_text=lesson.description
 		c.add_child(description)
 		var row=hbox(c)
@@ -1195,13 +1195,13 @@ func draw_lesson_panel(parent: Node):
 		c.add_child(label("Krok %d z %d — %s" % [int(t.session.step)+1,t.lesson.steps.size(),step.title],19,CYAN))
 		c.add_child(label(step.text,15))
 		c.add_child(label("Proč?",13,CYAN))
-		c.add_child(label(step.why,13,MUTED))
+		preload("res://scripts/ui/BriefPresentation.gd").draw(self,c,step.why,"Proč / podrobnosti")
 		c.add_child(button("Více informací",func(): show_message(step.title,step.more)))
 		var recover=button("Zobrazit potřebný panel",recover_tutorial_target)
 		c.add_child(recover)
 		register_target("tutorial:recover",recover)
 	else:
-		c.add_child(label(game.current.description,14))
+		preload("res://scripts/ui/BriefPresentation.gd").draw(self,c,game.current.description)
 		for goal in game.goals(): c.add_child(label(("✓ " if goal.passed else "○ ")+goal.label,12,CYAN if goal.passed else MUTED))
 	if t.last_feedback!="": c.add_child(label(t.last_feedback,13,ORANGE))
 	if int(t.session.get("step",0))>=t.lesson.steps.size() and t.session.mode=="learn": c.add_child(label("Všechny kroky ověřeny. Lekci můžeš předat.",14,CYAN))

@@ -14,6 +14,8 @@ var content: VBoxContainer
 var last_dispatch=-1000
 var shown_session_id=""
 var recommendation={}
+var task_details=false
+var show_assessment=false
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -40,7 +42,7 @@ func draw():
 	elif page=="dialog" and not manager.session.is_empty():
 		selected_mode=manager.session.mode
 		if shown_session_id!=manager.session.id:
-			shown_session_id=manager.session.id; help_text=""; show_translation=false
+			shown_session_id=manager.session.id; help_text=""; show_translation=false; show_assessment=false
 	for child in get_children(): remove_child(child); child.queue_free()
 	buttons.clear(); actions.clear()
 	var shade=ColorRect.new(); shade.color=Color("101e2b"); add_child(shade); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -48,9 +50,20 @@ func draw():
 	for side in ["left","right"]: margin.add_theme_constant_override("margin_"+side,100)
 	for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,28)
 	var layout=VBoxContainer.new(); margin.add_child(layout)
-	var scroll=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; scroll.follow_focus=true; layout.add_child(scroll)
-	content=VBoxContainer.new(); content.size_flags_horizontal=Control.SIZE_EXPAND_FILL; content.add_theme_constant_override("separation",10); scroll.add_child(content)
-	label_text("ENGLISH IN LONDON  /  "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(selected_mode,"Učím se"),26,Color("77deca"))
+	var active_dialog=page=="dialog" and not manager.session.is_empty()
+	var heading=shell.ui.label("ENGLISH IN LONDON  /  "+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}.get(selected_mode,"Učím se"),20,Color("77deca")); layout.add_child(heading)
+	if active_dialog:
+		layout.add_child(shell.ui.label(manager.definition().title,24))
+		if manager.session.completed or show_assessment or manager.session.get("exam_ended",false):
+			var state="✓ SPLNĚNO" if manager.session.completed else "○ NESPLNĚNO — zkouška ukončena" if manager.session.get("exam_ended",false) else "○ NESPLNĚNO — pokus pokračuje"
+			layout.add_child(shell.ui.label(state+" · %d / 100" % manager.attempt_score(),23))
+			if not manager.session.completed and not manager.session.get("exam_ended",false): layout.add_child(shell.ui.label("Průběžné skóre · výsledek ještě není uložený.",16))
+		else: layout.add_child(shell.ui.label("Aktuální krok: "+manager.current_step(),17))
+	content=VBoxContainer.new(); content.size_flags_horizontal=Control.SIZE_EXPAND_FILL; content.add_theme_constant_override("separation",10)
+	if active_dialog and not (manager.session.completed or show_assessment or manager.session.get("exam_ended",false)):
+		content.size_flags_vertical=Control.SIZE_EXPAND_FILL; layout.add_child(content)
+	else:
+		var scroll=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; scroll.follow_focus=true; layout.add_child(scroll); scroll.add_child(content)
 	if page=="intro":
 		label_text("Vítej v Londýně",28)
 		label_text("U přepážky vyber situaci a anglické repliky. Zkontroluj košík, přilož cvičnou kartu u terminálu a ukaž lístek u kontroly. Alex u mostu poradí cestu k věži.\n\nPC: E, myš nebo šipky / Tab a Enter; repliky také 1–4. Esc zavře panel.\nPICO: oba paprsky a trigger, B/Y zavře panel, A/X přemístí panel. Levý stick klik teleportuje při zavřeném panelu.\n\nCvičné ceny, offline hra. Hodnotíme volbu replik a splnění úkolu. Big Ben je zvon v Elizabeth Tower.",22)
@@ -61,9 +74,12 @@ func draw():
 	elif page=="home": draw_home()
 	elif page=="progress": draw_progress()
 	else: draw_session()
-	var footer=HBoxContainer.new(); footer.add_theme_constant_override("separation",14); layout.add_child(footer)
-	for item in [["Zpět do pavilonu [Esc]",shell.return_to_world],["Situace / restart",func(): page="home"; draw()],["Moje výsledky",func(): page="progress"; draw()]]:
+	var footer=HFlowContainer.new(); footer.add_theme_constant_override("separation",14); layout.add_child(footer)
+	for item in [["Pavilon [Esc]",shell.return_to_world],["Situace",func(): page="home"; draw()],["Moje výsledky",func(): page="progress"; draw()]]:
 		var b=shell.ui.button(item[0],item[1]); b.custom_minimum_size.y=48; footer.add_child(b); buttons.append(b)
+	if active_dialog and not (manager.session.completed or show_assessment or manager.session.get("exam_ended",false)):
+		var review=shell.ui.button("Ukončit a vyhodnotit zkoušku" if manager.session.mode=="exam" else "Zhodnotit dosavadní pokus",func(): manager.review_attempt(); show_assessment=true; draw())
+		footer.add_child(review); buttons.append(review)
 	if page in ["home","dialog","listening_home","listening"]:
 		var autoplay=CheckButton.new(); autoplay.text="Auto řeč · Jenny"; autoplay.tooltip_text="Automaticky přehrát dostupné repliky. Hlas Jenny (Dioco)."
 		autoplay.button_pressed=shell.ui.display_settings.london_autoplay
@@ -78,6 +94,15 @@ func draw():
 	call_deferred("focus_first")
 
 func focus_first():
+	if not is_inside_tree() or not is_visible_in_tree(): return
+	if page=="dialog":
+		var replies=find_child("PlayerReplies",true,false)
+		if replies!=null:
+			for child in replies.get_children():
+				if child is Button and child.is_inside_tree():
+					child.grab_focus()
+					for scroll in find_children("*","ScrollContainer",true,false): scroll.scroll_vertical=0
+					return
 	if is_inside_tree() and not buttons.is_empty() and buttons[0].is_inside_tree(): buttons[0].grab_focus()
 
 func draw_home():
@@ -87,7 +112,7 @@ func draw_home():
 	for key in ["learn","practice","exam"]:
 		var b=shell.ui.button(("✓ " if selected_mode==key else "")+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}[key],func(): selected_mode=key; draw())
 		b.custom_minimum_size.y=50; row.add_child(b); buttons.append(b)
-	label_text("Učím se: překlad a opravy. Procvičování: obměny údajů. Zkouška: bez nápovědy a překladu.",17)
+	label_text("Učím se: vysvětlení. Procvičování: stručná odezva. Zkouška: hodnocení až ve výsledku. Nákup dokončí použití lístku; cestu příchod a interakce u věže.",17)
 	for i in range(scenario_page*3,mini(scenario_page*3+3,6)):
 		var definition=manager.catalog.scenarios[i]
 		var result=manager.progress.results.get(definition.id,{})
@@ -97,8 +122,7 @@ func draw_home():
 				page="dialog"; help_text=""; show_translation=false
 				# The directions conversation takes place with the information NPC.
 				if not shell.world.english_room.near("info" if definition.id=="LON06" else "tickets"):
-					shell.return_to_world(); shell.room_notice.text="Dojdi k Alexovi: INFORMATION u mostu." if definition.id=="LON06" else "Dojdi k Samovi: LONDON EYE TICKETS."
-					shell.room_notice.text+=" [E] otevře rozhovor."; shell.notice_time=8
+					shell.london_navigation.start("info" if definition.id=="LON06" else "tickets")
 				else: draw())
 	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
 	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
@@ -117,57 +141,10 @@ func draw_progress():
 	lines.add_child(shell.ui.label("Procvičené formulace:\n"+"\n".join(manager.progress.phrases),19))
 	for id in manager.progress.archive.get("results",{}): lines.add_child(shell.ui.label("Archiv A1–A2 / "+id+": "+str(int(manager.progress.archive.results[id].best))+" / 100",18))
 	for record in manager.progress.attempts.slice(maxi(0,manager.progress.attempts.size()-6)):
-		lines.add_child(shell.ui.label("%s / %s: %d bodů, %d nápověd" % [record.id,record.mode,int(record.score),int(record.hints)],18))
+		lines.add_child(shell.ui.label("%s / %s: %s · %d bodů, %d nápověd" % [record.id,record.mode,"SPLNĚNO" if record.get("passed",true) else "NESPLNĚNO",int(record.score),int(record.hints)],18))
 
 func draw_session():
-	var s=manager.session
-	if s.is_empty(): page="home"; draw_home(); return
-	selected_mode=s.mode
-	label_text(manager.task(),18)
-	if s.completed:
-		label_text("✓ Dokončeno — %d / 100" % int(s.result.score),28,Color("77deca"))
-		label_text(manager.definition().explanation,21)
-		var mistakes=[]
-		for error in s.errors: if not error.text in mistakes: mistakes.append(error.text)
-		label_text("Chyby: "+("Žádné." if mistakes.is_empty() else "\n".join(mistakes)),19)
-		label_text("Užitečné formulace:\n"+"\n".join(s.phrases.slice(0,4)),21)
-		return
-	label_text("Sam" if s.id!="LON06" else "Alex",16,Color("77deca"))
-	label_text(s.npc,25)
-	audio_controls(s.npc,"Alex" if s.id=="LON06" else "Sam")
-	if shell.ui.display_settings.london_autoplay and not shell.speech.find_line(s.npc,"Alex" if s.id=="LON06" else "Sam").is_empty(): shell.speech.speak(s.npc,"Alex" if s.id=="LON06" else "Sam")
-	if s.id!="LON06": label_text("Košík: %d adult + %d child • %s • %s • %s | Rozpočet %s | %s" % [int(s.cart.adult),int(s.cart.child),s.cart.product,s.cart.time if s.cart.time!="" else "čas nevybrán",manager.money(manager.total()),manager.money(int(s.goal.budget)-int(s.spent)),"ZAPLACENO" if s.paid else "POTVRZENO" if s.confirmed else "NEPOTVRZENO"],17)
-	if show_translation and s.mode!="exam": label_text(s.translation,18,Color("f3d598"))
-	if help_text!="" and s.mode!="exam": label_text(help_text,17,Color("f3d598"))
-	if s.feedback!="" and s.mode!="exam": label_text(s.feedback,17,Color("f3d598"))
-	if not s.ticket.is_empty(): label_text("PENĚŽENKA / %s • %d adult + %d child • %s • zaplaceno %s • %s" % [s.ticket.id,int(s.ticket.adult),int(s.ticket.child),s.ticket.time,manager.money(int(s.ticket.pence)),"POUŽITÝ" if s.ticket.used else "PLATNÝ"],18,Color("77deca"))
-	var token=manager.revision
-	if s.node=="pay":
-		if station=="terminal" and shell.world.english_room.near("terminal"):
-			action("Přiložit CVIČNOU KARTU — zaplatit "+manager.money(manager.total()),func(): manager.pay(token); draw(),true)
-		else: action("Dojít k platebnímu terminálu",shell.return_to_world,true)
-	elif s.node=="gate":
-		if station=="gate" and shell.world.english_room.near("gate"):
-			action("Předložit vstupenku z peněženky",func(): manager.present_ticket(); draw(),true)
-		else: action("Dojít ke kontrole vstupenek",shell.return_to_world,true)
-	elif s.node=="walk": action("Jít přes most k Elizabeth Tower",shell.return_to_world,true)
-	var options=manager.choices()
-	if not shell.world.english_room.near("info" if s.id=="LON06" else "tickets") and not s.node in ["pay","gate","walk"]:
-		options=[]
-		action("Dojít k NPC: "+("Alex / INFORMATION" if s.id=="LON06" else "Sam / TICKETS"),shell.return_to_world)
-	for option in options:
-		actions.append(option.id)
-		action("%d  %s" % [actions.size(),option.text],func(): choose(option.id,token))
-		audio_controls(option.text,"customer")
-	if not s.paid and not s.node in ["walk","gate"] and shell.world.english_room.near("info" if s.id=="LON06" else "tickets"):
-		action("Zpět k objednávce" if s.node in ["questions","answer"] else "Zeptat se na nabídku…" if s.id!="LON06" else "Požádat o zopakování…",func():
-			if s.node in ["questions","answer"]: s.node=s.return_node; manager.revision+=1
-			else: manager.open_questions(token,2 if s.id=="LON06" else 0)
-			draw())
-	if s.mode!="exam" and s.node!="pay":
-		var row=HBoxContainer.new(); row.add_theme_constant_override("separation",12); content.add_child(row)
-		for item in [["Překlad",toggle_translation],["Nápověda",request_hint]]:
-			var b=shell.ui.button(item[0],item[1]); row.add_child(b); buttons.append(b)
+	preload("res://scripts/english/LondonPresentation.gd").draw(self)
 
 func toggle_translation():
 	if not show_translation and not manager.session.is_empty(): manager.session.translation_used=true

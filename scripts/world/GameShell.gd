@@ -38,6 +38,7 @@ var speech
 var english_dialog
 var diagnostics
 var practical_intro
+var london_navigation
 
 func _notification(what: int):
 	if what!=MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT: return
@@ -70,6 +71,7 @@ func _ready():
 	ui.shell_ref=weakref(self)
 	layer.add_child(ui)
 	speech=preload("res://scripts/english/LondonSpeech.gd").new(); speech.shell=self; add_child(speech)
+	london_navigation=preload("res://scripts/english/LondonNavigation.gd").new(); london_navigation.shell=self
 	world.game = ui.game
 	practical_intro=preload("res://scripts/world/PracticalIntroduction.gd").new()
 	practical_intro.shell=self; add_child(practical_intro)
@@ -236,7 +238,7 @@ func _process(delta):
 		status_label.size.y=0
 		status_label.size.y=status_label.get_minimum_size().y
 		hud.get_node("StatusPlate").size.y=status_label.size.y+52
-		direction.position.y=650 if context_plate.visible else 730
+		direction.position.y=650 if context_plate.visible or (london_navigation!=null and london_navigation.target!="") else 730
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
@@ -382,6 +384,7 @@ func interact(object):
 	if ui.game.game_mode.is_hub(): return
 	if object.kind=="english":
 		if ui.game.game_mode.is_english():
+			london_navigation.interacted(object.console)
 			if object.console=="tower" and ui.game.english.arrive_tower(): open_english("tower")
 			elif object.console!="tower": open_english(object.console)
 		return
@@ -843,6 +846,9 @@ func update_guidance():
 	instruction.text = ""
 	direction.text = ""
 	if practical_intro.active: practical_intro.guidance(); return
+	if london_navigation!=null:
+		london_navigation.update()
+		if london_navigation.target!="": return
 	var game = ui.game
 	if not game.game_mode.is_training() or not game.active or game.session_kind!="lesson": return
 	var t = game.tutorial
@@ -906,6 +912,7 @@ func english_welcome():
 
 func _exit_tree():
 	leaving_scene = true
+	if london_navigation!=null: london_navigation.clear(); london_navigation.shell=null; london_navigation=null
 	if is_instance_valid(practical_intro) and practical_intro.active: practical_intro.finish(false)
 	if is_instance_valid(ui):
 		ui.game.room_probe = Callable()

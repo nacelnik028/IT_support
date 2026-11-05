@@ -13,7 +13,7 @@ static func draw(ui):
 	var listening=ui.manager.listening
 	if ui.page=="listening_home":
 		ui.label_text("Poslechové procvičování / 12 samostatných úloh",27)
-		ui.label_text("Přehraj celou repliku, vyber význam a porovnej vysvětlení. Přepis je skrytý; v Učím se a Procvičování ho lze vyžádat. Zkouška přepis nepovolí. Pomalá nahrávka, přepis i ztlumený zvuk se zaznamenají jako pomoc. Opakování normálního audia je povolené. Výsledky nejsou CEFR certifikát a nepřidávají XP.",19)
+		ui.label_text("Poslechni celou repliku a vyber význam. Normální audio můžeš opakovat. Pomaleji, přepis a ztlumení se počítají jako pomoc. Zkouška přepis nepovolí. Výsledek je bez XP a není CEFR certifikát.",19)
 		var row=HBoxContainer.new(); ui.content.add_child(row)
 		for mode in ["learn","practice","exam"]:
 			var button=ui.shell.ui.button(("✓ " if ui.selected_mode==mode else "")+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}[mode],func(): ui.selected_mode=mode; ui.draw())

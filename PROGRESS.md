@@ -7,7 +7,36 @@
 - London Quiz/Poslech mají menší čitelné panely, dvě nohy a podstavce s odpovídajícími kolizemi. Ukotvené monitory, dashboard, rozcestník, dekorativní panely a oba instruktoři; terminál už nezačíná nad podlahou. Nedokončenou mříž na jižní stěně serverovny nahrazují technické panely, bez další velké informační tabule.
 - Celý skutečný pohyb: architecture_repair **4497 GPU PASS Compatibility / 4497 GPU PASS Forward+**, třikrát oba směry, fyzikální objemový dotaz v každém snímku, dekorace i bezpečnostní obrat obou dveří. Cílené headless sady: dveře 15, umístění programování 116, hub 55, svět 35 a lamely 226 PASS. Materiály **278/0 chybějících**, stěny **30/0 koplanárních překryvů**. Nové fyzické snímky v obou rendererech včetně 720p/1080p/4K × 100/130 %.
 - Pauza a podpis (2/4): kompaktní základ bez scrollu i v 720p/130 %, Kam jít a pracovní podnabídka, přesunutá diagnostika/přenos/nápověda v Nastavení, VR komfort přímo. Esc a skutečné selhání uložení zachované. Přesný podpis `Vytvořil Vít Kellner`. Nové pause_repair **217 headless / 239 Compatibility / 239 Forward+ PASS**, všech šest PC kombinací a oba syntetické XR paprsky. Regrese workflow 615 / XR 120 / world_ui 31 / gameplay_review 77 PASS.
-- Další práce: Následují dialogy/cíle/navigace, editor, texty a úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
+- Dialogy/cíle/navigace, editor a texty jsou implementované. Probíhá úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
+
+## Londýn a texty — etapa 3/5/7/12/13, 5. 11. 2026
+
+- Nový LondonPresentation odděluje úkol/parametry/objednávku/cíle, NPC,
+  odpovědi a pomoc. Pevné záhlaví a výsledkový stav, samostatné posuvy;
+  žádné audio mezi odpověďmi. Zákaznické nahrávky mají výběr konkrétní repliky.
+- EnglishManager odvozuje průběh a cíle ze skutečné relace, rozlišuje jazyk
+  a věcně chybný počet/produkt a nic automaticky neopravuje. Výuka vysvětlí,
+  praxe stručně upozorní, zkouška hodnotí až při ukončení. Neúspěšná zkouška
+  nepřidá dokončení a po odkrytí výsledku už nepřijímá další volby. Úspěšné
+  skóre i původní ochrany platby/revizí zůstávají zachované.
+- LondonNavigation: fyzikálně kontrolovaný AStarGrid, trvající cíl/vzdálenost,
+  malá značka, skutečné průchody/most, obnovení trasy po odchýlení, E/trigger
+  u cíle a úklid při příchodu/interakci/zrušení/změně/ukončení zkoušky.
+- Pěší test navigačními tlačítky dokončí nákup i věž a zachová stejnou relaci.
+  Nová sada 1875 headless / 1950 Compatibility PASS; fyzikální počet závisí
+  na snímcích. Celé UI nákupu všechny 3 režimy PC a obě XR ruce. Starší UI
+  regrese english_world 1094, english_model 1809, ui_workflow 615,
+  ui_design, poslech, quiz, profil a koncepty PASS. Rozšířený audio helper
+  čeká na layout před posuvem a navíc kontroluje každý ořezávající předek.
+- Kratší menu/souhrny, úplná technická zadání přes BriefPresentation;
+  původní definice/katalogy/generátory ani legacy24 neměněné. Modrý fokus
+  odlišný od zeleného hodnocení. Žádné nové závislosti.
+- Compatibility celé grafické matice/klávesnice/drag/scroll/focus/trigger cancel
+  PASS, Forward+ dobíhá. Nový celý Test-All je právě spuštěný po posledních
+  úpravách. Předchozí přerušené/neúspěšné vývojové běhy jsou ve verification/
+  development odděleně; nejsou vydávané za závěrečný výsledek. MCP 31 PASS,
+  stejných osm historických statických varování, bez nových.
+- EXE/APK zůstávají původní 1.5.0, bez push; fyzický PICO test neprovedený.
 
 ## Editor — etapa 10, 5. 11. 2026
 
