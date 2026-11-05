@@ -439,6 +439,7 @@ func open_english(station: String = "tickets", intro: bool = false):
 	english_dialog=preload("res://scripts/english/DialogueController.gd").new()
 	english_dialog.shell=self; english_dialog.manager=ui.game.english; english_dialog.station=station
 	english_dialog.page=("listening_home" if ui.game.english.listening.session.is_empty() else "listening") if station=="listening" else "quiz_home" if station=="quiz" else "intro" if intro else "home" if ui.game.english.session.is_empty() else "dialog"
+	if station=="info" and not intro: english_dialog.page="home"
 	set_mode("english")
 	overlay.add_child(english_dialog)
 	if vr_active:

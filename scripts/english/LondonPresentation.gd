@@ -33,7 +33,7 @@ static func draw(ui):
 		goalbox.add_child(ui.shell.ui.label(("• " if s.mode=="exam" else "✓ " if goal.met else "○ ")+goal.label,16))
 	var main_scroll=ScrollContainer.new(); main_scroll.size_flags_horizontal=Control.SIZE_EXPAND_FILL; main_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; main_scroll.follow_focus=true; row.add_child(main_scroll)
 	var main=VBoxContainer.new(); main.size_flags_horizontal=Control.SIZE_EXPAND_FILL; main.add_theme_constant_override("separation",12); main_scroll.add_child(main)
-	var npc=section(ui,main,"Alex / INFORMATION" if s.id=="LON06" else "Sam / TICKETS")
+	var npc=section(ui,main,"Alex / informace · cesta k Elizabeth Tower" if s.id=="LON06" else "Sam / TICKETS")
 	npc.add_child(ui.shell.ui.label(s.npc,23))
 	var old=ui.content; ui.content=npc
 	ui.audio_controls(s.npc,"Alex" if s.id=="LON06" else "Sam")

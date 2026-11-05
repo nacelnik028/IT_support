@@ -147,6 +147,9 @@ func run_scenario(id: String, hand_index: int = -1):
 	var p=shell.world.player
 	p.position=Vector3(6,0.02,11.4) if id=="LON06" else Vector3(12,0.02,8.8)
 	shell.open_english("info" if id=="LON06" else "tickets")
+	if id=="LON06":
+		await frames()
+		await click_button(find_button("Pokračovat: cesta k Elizabeth Tower"),hand_index)
 	await frames()
 	if id=="LON06":
 		await choice("directions",hand_index); await inquiries(id,hand_index); await choice("route",hand_index)

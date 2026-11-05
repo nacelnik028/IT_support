@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Alex jako informační bod — 5. 11. 2026
+
+- Alex zachován pro LON06. Kontext station=info nabízí přímo cestu k Elizabeth Tower, tři režimy a výslovné pokračování; oslovení ani volba režimu nemění rozpracovaný nákup či revizi.
+- Malá ukotvená cedule vedle postavy, shodné označení v navigaci, interakci a rozhovoru. Obecné situace, kvíz a poslech zůstávají dostupné.
+- Rozšířený london_repair: 2755 headless kontrol PASS, LON06 ve všech režimech přes PC i oba syntetické XR paprsky; ochrana odložené kampaně. Aktuální grafické snímky nabídky i postavy prohlédnuté v docs/ui-review/2026-11-05-alex-portals-editor/.
+- GPU regrese a navazující konstrukce/editor pokračují. Save/CFG izolované. EXE/APK v této etapě ještě nepřestavěné.
+
+
 ## Windows EXE skutečně přestavěné — 5. 11. 2026
 
 - Původní EXE po zdrojové etapě zůstalo staré; uživatel proto viděl původní pauzu.

@@ -10,8 +10,11 @@ var checks=0
 var failures=0
 var suffix=""
 var save_path=""
+var capture_directory="res://docs/ui-review/2026-11-04-interface/"
 
 func _init():
+	if "--review-current" in OS.get_cmdline_user_args(): capture_directory="res://docs/ui-review/2026-11-05-alex-portals-editor/"
+	DirAccess.make_dir_recursive_absolute(capture_directory)
 	var tag="user://academy_test_pause_repair_"+str(OS.get_process_id())
 	save_path=tag+".json"; Saves.path_override=save_path; Display.path_override=tag+".cfg"; Comfort.path_override=tag+"_vr.cfg"
 	Saves.save_game({},true); call_deferred("run")
@@ -45,6 +48,7 @@ func click(b, hand: int = -1):
 		var pixel=Vector3((at.x/1600-0.5)*monitor.dimensions.x,(0.5-at.y/1200)*monitor.dimensions.y,0)
 		var pose=rig.global_transform.affine_inverse()*Transform3D(monitor.global_basis,monitor.to_global(pixel)+monitor.global_basis.z*0.8)
 		trackers[hand+1].set_pose("aim",pose,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+		for tick in 2: await physics_frame
 		await frames()
 		rig.pressed(rig.left if hand==0 else rig.right,"trigger_click"); await frames(2)
 		rig.released(rig.left if hand==0 else rig.right,"trigger_click")
@@ -63,7 +67,7 @@ func capture(title: String, viewport=null):
 	if DisplayServer.get_name()=="headless" or "--screenshots" not in OS.get_cmdline_user_args(): return
 	await frames(); await RenderingServer.frame_post_draw
 	var target=viewport if viewport!=null else root
-	check(target.get_texture().get_image().save_png("res://docs/ui-review/2026-11-04-interface/"+title+"-"+suffix+"-"+RenderingServer.get_current_rendering_method()+".png")==OK,"Snímek "+title)
+	check(target.get_texture().get_image().save_png(capture_directory+title+"-"+suffix+"-"+RenderingServer.get_current_rendering_method()+".png")==OK,"Snímek "+title)
 
 func check_panel():
 	var panel=shell.overlay.find_child("CompactPause",true,false)

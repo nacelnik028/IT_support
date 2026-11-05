@@ -87,7 +87,9 @@ func exercise(hand: int = -1):
 func walk_route(destination: String):
 	var nav=shell.london_navigation; var p=shell.world.player
 	var names={"tickets":"Ukázat cestu k Samovi","info":"Ukázat cestu k Alexovi","terminal":"Ukázat cestu k terminálu","gate":"Ukázat cestu ke kontrole","tower":"Ukázat cestu k věži přes most"}
-	shell.open_english("info" if destination in ["info","tower"] else "tickets"); await frames(); await click(button(names[destination])); await frames()
+	shell.open_english("info" if destination in ["info","tower"] else "tickets"); await frames()
+	if destination in ["info","tower"]: await click(button("Pokračovat: cesta k Elizabeth Tower"))
+	await click(button(names[destination])); await frames()
 	check(nav.target==destination and not nav.route.is_empty(),"Skutečná trasa k "+destination)
 	check(shell.mode=="world" and "m po cestě" in shell.direction.text,"Tlačítko zavře panel a ukáže trvalý cíl se vzdáleností")
 	var original_view=p.camera.rotation; var original_arrow=shell.direction.text.split(" ")[0]
@@ -117,6 +119,34 @@ func walk_route(destination: String):
 	check(p.target==shell.world.devices[ids[destination]],"Skutečný raycast cíle "+destination)
 	var e=InputEventKey.new(); e.keycode=KEY_E; e.physical_keycode=KEY_E; e.pressed=true; root.push_input(e,true); e=e.duplicate(); e.pressed=false; root.push_input(e,true); await frames()
 	check(shell.mode=="english" and nav.target=="" and m.session.run_id==run_id,"Interakce pokračuje ve stejné relaci a uklidí navigaci")
+	if destination=="info": await click(button("Pokračovat: cesta k Elizabeth Tower"))
+
+func alex_context(hand: int = -1):
+	var p=shell.world.player
+	for mode in ["learn","practice","exam"]:
+		m.cancel(); m.start("LON01",mode,0); m.act("order",m.revision)
+		var before=m.session.duplicate(true); var revision=m.revision
+		p.position=Vector3(6,0.02,11.4); shell.open_english("info"); await frames()
+		check(m.session==before and m.revision==revision,"Oslovení Alexe zachová nákup i revizi "+mode)
+		var dialog=shell.english_dialog
+		check(dialog.page=="home" and dialog.scenario_page==0,"Alex otevře kontext stanoviště")
+		var launch=dialog.buttons.filter(func(b): return b.text.begins_with("Nový pokus LON06"))[0]
+		check(dialog.get_viewport().get_visible_rect().encloses(launch.get_global_rect()),"LON06 je viditelná bez přepnutí stránky")
+		await capture("alex-menu",rig.monitor.viewport if hand>=0 else null)
+		await click(button({"learn":"✓ Učím se","practice":"Procvičování","exam":"Zkouška"}[mode]),hand)
+		check(m.session==before,"Výběr režimu sám nezahájí nový pokus")
+		launch=shell.english_dialog.buttons.filter(func(b): return b.text.begins_with("Nový pokus LON06"))[0]
+		await click(launch,hand)
+		check(m.session.id=="LON06" and m.session.mode==mode,"Výslovná kontextová volba zahájí správný režim")
+		var run=m.session.run_id
+		shell.open_english("info"); await frames(); check(m.session.run_id==run,"Opakované oslovení neresetuje LON06")
+		await click(button("Pokračovat: cesta k Elizabeth Tower"),hand)
+		await choose("directions",hand)
+		await click(button("Požádat o zopakování…"),hand)
+		await choose("q_repeat",hand); await choose("understood",hand); await choose("route",hand)
+		check(not m.arrive_tower(),"Rozhovor sám LON06 nedokončí")
+		p.position=Vector3(4,0.02,24); shell.interact(shell.world.devices["LONDON-TOWER"]); await frames()
+		check(m.session.completed and m.session.run_id==run and m.session.result.score==100,"LON06 dokončena interakcí u věže "+mode)
 
 func run():
 	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
@@ -127,6 +157,7 @@ func run():
 		for text_scale in [1.0,1.3]:
 			suffix="%d-%d" % [resolution.x,roundi(text_scale*100)]
 			shell.ui.apply_display_settings(resolution,false); shell.ui.save_preference("text_scale",text_scale); shell.enter_world("English in London"); await frames(); await exercise()
+			await alex_context()
 	# Physical navigation follows every waypoint with actual CharacterBody input.
 	shell.ui.apply_display_settings(Vector2i(1280,720),false); shell.ui.save_preference("text_scale",1.0); suffix="walk"
 	m.cancel(); m.start("LON01","learn",0); shell.world.player.position=Vector3(5,0.02,8.5); shell.return_to_world(); await frames()
@@ -155,7 +186,7 @@ func run():
 	shell.vr_active=true; rig.activate(false); await frames()
 	for text_scale in [1.0,1.3]:
 		shell.ui.save_preference("text_scale",text_scale); suffix="vr-%d" % roundi(text_scale*100)
-		for hand in [0,1]: shell.enter_world("English in London"); await frames(); await exercise(hand)
+		for hand in [0,1]: shell.enter_world("English in London"); await frames(); await exercise(hand); await alex_context(hand)
 	m.cancel(); m.start("LON06","practice",0); shell.london_navigation.start("info"); await frames()
 	var original_arrow=shell.direction.text.split(" ")[0]
 	trackers[0].set_pose("default",Transform3D(Basis(Vector3.UP,PI),Vector3(0,1.68,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)

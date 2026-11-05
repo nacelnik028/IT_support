@@ -2,7 +2,7 @@ extends RefCounted
 
 # A small physics-checked route graph is built only when a destination is chosen.
 # It uses the same capsule clearance as walking, never crosses the river or walls.
-const TARGETS={"tickets":["Sam / TICKETS",Vector3(12,0.02,8.8)],"info":["Alex / INFORMATION",Vector3(6,0.02,11.4)],"terminal":["Platební terminál",Vector3(10,0.02,8.7)],"gate":["Kontrola vstupenek",Vector3(16,0.02,18)],"tower":["Elizabeth Tower",Vector3(4,0.02,24)]}
+const TARGETS={"tickets":["Sam / TICKETS",Vector3(12,0.02,8.8)],"info":["Alex / informace · cesta k Elizabeth Tower",Vector3(6,0.02,11.4)],"terminal":["Platební terminál",Vector3(10,0.02,8.7)],"gate":["Kontrola vstupenek",Vector3(16,0.02,18)],"tower":["Elizabeth Tower",Vector3(4,0.02,24)]}
 var shell
 var target=""
 var run_id=-1

@@ -16,6 +16,7 @@ var shown_session_key=""
 var recommendation={}
 var task_details=false
 var show_assessment=false
+var all_situations=false
 
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -107,28 +108,49 @@ func focus_first():
 	if is_inside_tree() and not buttons.is_empty() and buttons[0].is_inside_tree(): buttons[0].grab_focus()
 
 func draw_home():
+	if station=="info" and not all_situations:
+		label_text("Alex / INFORMACE · cesta k Elizabeth Tower",26)
+		label_text("Angličtina: požádám o cestu, upřesním pokyny, přejdu most a potvrdím příchod u věže.",20)
+		if not manager.session.is_empty():
+			if manager.session.id=="LON06":
+				action("Pokračovat: cesta k Elizabeth Tower" if not manager.session.completed and not manager.session.get("exam_ended",false) else "Zobrazit výsledek cesty k věži",resume_session,true)
+			else:
+				label_text("Rozpracovaná situace zůstává zachovaná. Nový pokus LON06 ji nahradí až po volbě níže.",17)
+				action("Pokračovat v aktuální situaci",resume_session)
+		mode_selection()
+		scenario_action(manager.catalog.scenarios.filter(func(d): return d.id=="LON06")[0],6,true)
+		action("Všechny londýnské situace / kvíz / poslech",func(): all_situations=true; scenario_page=0; draw())
+		return
 	if recommendation.get("area")=="english": label_text("Doporučená situace: "+recommendation.id+". Můžeš zachovat současný rozhovor/kvíz nebo výslovně vybrat nový pokus.",18)
 	label_text("Vyber situaci. Nové spuštění zruší současný nákup; uložené výsledky zůstanou.",18)
+	mode_selection()
+	label_text("Učím se: vysvětlení. Procvičování: stručná odezva. Zkouška: hodnocení až ve výsledku. Nákup dokončí použití lístku; cestu příchod a interakce u věže.",17)
+	for i in range(scenario_page*3,mini(scenario_page*3+3,6)): scenario_action(manager.catalog.scenarios[i],i+1)
+	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
+	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
+	action("Poslechové procvičování / 12 úloh",func(): page="listening_home"; draw())
+	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",resume_session)
+
+func resume_session():
+	page="dialog"; show_assessment=false; draw()
+
+func mode_selection():
 	var row=HBoxContainer.new(); row.add_theme_constant_override("separation",12); content.add_child(row)
 	for key in ["learn","practice","exam"]:
 		var b=shell.ui.button(("✓ " if selected_mode==key else "")+{"learn":"Učím se","practice":"Procvičování","exam":"Zkouška"}[key],func(): selected_mode=key; draw())
 		b.custom_minimum_size.y=50; row.add_child(b); buttons.append(b)
-	label_text("Učím se: vysvětlení. Procvičování: stručná odezva. Zkouška: hodnocení až ve výsledku. Nákup dokončí použití lístku; cestu příchod a interakce u věže.",17)
-	for i in range(scenario_page*3,mini(scenario_page*3+3,6)):
-		var definition=manager.catalog.scenarios[i]
-		var result=manager.progress.results.get(definition.id,{})
-		action("%d / %s%s" % [i+1,definition.title,"  ✓ %d / 100" % int(result.best) if not result.is_empty() else ""],func():
-			manager.cancel()
-			if manager.start(definition.id,selected_mode):
-				page="dialog"; help_text=""; show_translation=false
-				# The directions conversation takes place with the information NPC.
-				if not shell.world.english_room.near("info" if definition.id=="LON06" else "tickets"):
-					shell.london_navigation.start("info" if definition.id=="LON06" else "tickets")
-				else: draw())
-	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
-	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
-	action("Poslechové procvičování / 12 úloh",func(): page="listening_home"; draw())
-	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",func(): page="dialog"; show_assessment=false; draw())
+
+func scenario_action(definition: Dictionary, number: int, primary: bool = false):
+	var result=manager.progress.results.get(definition.id,{})
+	var caption="Nový pokus LON06 / Zeptat se na cestu k Elizabeth Tower" if primary else "%d / %s" % [number,definition.title]
+	if not result.is_empty(): caption+="  ✓ %d / 100" % int(result.best)
+	action(caption,func():
+		manager.cancel()
+		if manager.start(definition.id,selected_mode):
+			page="dialog"; help_text=""; show_translation=false
+			if not shell.world.english_room.near("info" if definition.id=="LON06" else "tickets"):
+				shell.london_navigation.start("info" if definition.id=="LON06" else "tickets")
+			else: draw(),primary)
 
 func draw_progress():
 	action("Společný přehled znalostí",func(): shell.open_app("Moje znalosti"))

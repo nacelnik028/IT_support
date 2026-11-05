@@ -84,9 +84,16 @@ func build(owner_world):
 	var terminal=item("LONDON-TERMINAL","Simulovaná platba — přiložit cvičnou kartu [E]","terminal",STATIONS.terminal,Vector3(0.6,0.4,0.45))
 	Geo.box(terminal.visual,Vector3(0,0.05,-0.24),Vector3(0.45,0.25,0.03),Color("81d1ba"),0,0.5)
 	sign_text("CVIČNÁ KARTA / PLATBA [E]",Vector3(10,1.7,9.8),23,0.002)
-	item("LONDON-INFO","Alex — informace a směry [E]","info",STATIONS.info,Vector3(0.8,1.6,0.6))
+	item("LONDON-INFO","Alex / informace — cesta k Elizabeth Tower [E]","info",STATIONS.info,Vector3(0.8,1.6,0.6))
 	npc(Vector3(6,0,13),Color("547cba"))
-	sign_text("INFORMATION / ALEX\n[E] ÚKOLY A ROZHOVOR",Vector3(6,2.5,13),27,0.0024)
+	# A small grounded information plaque beside Alex, clear of the bridge route.
+	var plaque=Node3D.new(); plaque.name="AlexInformationSign"; add_child(plaque); plaque.position=Vector3(7.25,0,12.8); plaque.rotation.y=PI
+	Geo.bevel(plaque,Vector3(0,1.5,0),Vector3(1.65,0.9,0.12),Color("263e4b"),0.45,0.025)
+	Geo.solid(plaque,Vector3(0,0.7,-0.02),Vector3(0.08,1.4,0.08),Color("869b9e"),0.55)
+	Geo.solid(plaque,Vector3(0,0.04,0),Vector3(0.6,0.08,0.42),Color("526b76"),0.5)
+	Geo.text(plaque,"ALEX / INFORMACE",Vector3(0,1.77,0.07),32,0.003,Color("b5eee0"))
+	Geo.text(plaque,"Angličtina: dotaz na cestu\nk Elizabeth Tower",Vector3(0,1.48,0.07),27,0.0031)
+	Geo.text(plaque,"[E] Zeptat se na cestu",Vector3(0,1.2,0.07),27,0.0031,Color("b5eee0"))
 	var quiz_board=item("LONDON-QUIZ","Otázky na Londýn — B1–B2 [E]","quiz",Vector3(3,1.5,12.5),Vector3(2,1.05,0.16))
 	Geo.text(quiz_board.visual,"LONDON QUIZ\n20 otázek · B1–B2\n[E] OTEVŘÍT",Vector3(0,0,-0.1),26,0.004,Color("b5eee0")).rotation.y=PI
 	Geo.box(quiz_board.visual,Vector3(0,0.45,-0.09),Vector3(1.8,0.025,0.014),Color("76dfc7"))
