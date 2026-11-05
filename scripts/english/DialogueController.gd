@@ -12,7 +12,7 @@ var actions: Array=[]
 var buttons: Array=[]
 var content: VBoxContainer
 var last_dispatch=-1000
-var shown_session_id=""
+var shown_session_key=""
 var recommendation={}
 var task_details=false
 var show_assessment=false
@@ -41,8 +41,9 @@ func draw():
 	elif page=="quiz" and not manager.quiz.session.is_empty(): selected_mode=manager.quiz.session.mode
 	elif page=="dialog" and not manager.session.is_empty():
 		selected_mode=manager.session.mode
-		if shown_session_id!=manager.session.id:
-			shown_session_id=manager.session.id; help_text=""; show_translation=false; show_assessment=false
+		var session_key=manager.session.id+":"+str(manager.session.get("run_id",0))
+		if shown_session_key!=session_key:
+			shown_session_key=session_key; help_text=""; show_translation=false; show_assessment=false
 	for child in get_children(): remove_child(child); child.queue_free()
 	buttons.clear(); actions.clear()
 	var shade=ColorRect.new(); shade.color=Color("101e2b"); add_child(shade); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -127,7 +128,7 @@ func draw_home():
 	action("Další tři situace →" if scenario_page==0 else "← První tři situace",func(): scenario_page=1-scenario_page; draw())
 	action("Otázky na Londýn / 20 otázek B1–B2",func(): page="quiz_home"; draw())
 	action("Poslechové procvičování / 12 úloh",func(): page="listening_home"; draw())
-	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",func(): page="dialog"; draw())
+	if not manager.session.is_empty(): action("Pokračovat v aktuální situaci",func(): page="dialog"; show_assessment=false; draw())
 
 func draw_progress():
 	action("Společný přehled znalostí",func(): shell.open_app("Moje znalosti"))

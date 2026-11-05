@@ -27,7 +27,7 @@ func complete_ui(hand: int):
 			if m.choices().any(func(c): return c.id=="q_"+topic): break
 			await choose("questions_next",hand)
 		await choose("q_"+topic,hand); await choose("understood",hand)
-	for id in ["order_alt","product_standard","time_15:00","confirm"]: await choose(id,hand)
+	for id in ["order_alt","product_"+m.session.goal.product,"time_"+m.session.goal.time,"confirm"]: await choose(id,hand)
 	var run_id=m.session.run_id
 	shell.world.player.position=Vector3(10,0.02,8.7); shell.open_english("terminal"); await frames()
 	await click(button("Přiložit CVIČNOU KARTU — zaplatit "+m.money(m.total())),hand)
@@ -73,6 +73,15 @@ func exercise(hand: int = -1):
 		await click(button("Opakovat situaci") if mode=="exam" else button("Zhodnotit dosavadní pokus"),hand)
 		if mode!="exam": await click(button("Opakovat situaci"),hand)
 		check(m.session.cart.adult==0 and m.session.cart.child==0 and m.session.errors.is_empty(),"Výslovné opakování vytvoří nový pokus")
+		if mode=="practice":
+			await click(button("Zhodnotit dosavadní pokus"),hand); await click(button("Situace"),hand)
+			await click(button("Pokračovat v aktuální situaci"),hand)
+			check(not shell.english_dialog.show_assessment and shell.english_dialog.find_child("PlayerReplies",true,false)!=null,"Pokračovat z nabídky vrátí skutečný rozhovor")
+			await click(button("Zhodnotit dosavadní pokus"),hand); await click(button("Situace"),hand)
+			var previous_run=m.session.run_id
+			var scenario=shell.english_dialog.buttons.filter(func(b): return b.text.begins_with("1 / "))[0]
+			await click(scenario,hand)
+			check(m.session.run_id!=previous_run and not shell.english_dialog.show_assessment and shell.english_dialog.find_child("PlayerReplies",true,false)!=null,"Nový pokus stejného scénáře nepřevezme starý rozbor")
 		if suffix in ["1280-100","vr-100"]: await complete_ui(hand)
 
 func walk_route(destination: String):

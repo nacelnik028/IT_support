@@ -9,6 +9,20 @@
 - Pauza a podpis (2/4): kompaktní základ bez scrollu i v 720p/130 %, Kam jít a pracovní podnabídka, přesunutá diagnostika/přenos/nápověda v Nastavení, VR komfort přímo. Esc a skutečné selhání uložení zachované. Přesný podpis `Vytvořil Vít Kellner`. Nové pause_repair **217 headless / 239 Compatibility / 239 Forward+ PASS**, všech šest PC kombinací a oba syntetické XR paprsky. Regrese workflow 615 / XR 120 / world_ui 31 / gameplay_review 77 PASS.
 - Dialogy/cíle/navigace, editor a texty jsou implementované. Probíhá úplná finální regrese. EXE/APK se dosud nepřestavují; bez push. Původní 47sadový celý baseline po opravě 9a skutečně PASS, log uložený v její verification složce.
 
+## Nový pokus stejné situace — 5. 11. 2026
+
+- DialogueController rozlišuje i generaci pokusu, nikoli jen ID scénáře.
+  Nové spuštění stejné situace z nabídky už nepřevezme otevřený starý rozbor.
+  Pokračování existující situace z nabídky vrátí rozhovor; ukončená zkouška
+  nadále zůstane pouze ve výsledku podle modelového příznaku exam_ended.
+- Rozšířená london_repair skutečně kliká rozbor → nabídka → pokračování
+  i rozbor → nabídka → nový stejný scénář na PC/obou XR rukou.
+  1995 headless PASS. Dokončovací helper respektuje také náhodně vybraný
+  produkt a čas nové praxe, namísto původně pevné varianty 15:00.
+- Celý Test-All a oba grafické renderery běží po této úpravě znovu.
+  Předchozí dokončené běhy i chybná pevná testovací varianta jsou uložené
+  odděleně jako vývojové důkazy. Bez změn datových katalogů nebo distribucí.
+
 ## Zkouška — neutrální replika po odmítnuté volbě, 5. 11. 2026
 
 - Kontrola odhalila, že česká odezva byla ve zkoušce neutrální, ale anglické
