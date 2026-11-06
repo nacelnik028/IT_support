@@ -23,10 +23,10 @@ static func draw(shell, page: String = "main"):
 		add(ui,v,"Souvislé směny",func(): shell.enter_world("Hlavní serverovna"); shell.open_app("Souvislé směny"))
 		add(ui,v,"Zpět",shell.pause_destinations)
 	elif page=="help":
-		var text=ui.label("WASD: chůze · myš: pohled\nE: interakce · Tab: aktuální úkol\nF: baterka · Esc: návrat / pauza\n\nVR: levý joystick / teleport, pravý otáčení.\nTrigger: interakce · B/Y: zpět · A/X: panel.",17)
+		var text=ui.label(shell.controls_help_text(),17)
 		text.custom_minimum_size.x=500; v.add_child(text)
 		add(ui,v,"Praktické seznámení s ovládáním",shell.show_introduction,true)
-		add(ui,v,"Zpět do nastavení",shell.return_from_utility)
+		add(ui,v,"Zpět do nastavení" if shell.utility_to_settings else "Zpět do pauzy",shell.return_from_utility)
 	else:
 		add(ui,v,"Pokračovat",shell.return_to_world,true)
 		add(ui,v,"Kam jít",shell.pause_destinations)

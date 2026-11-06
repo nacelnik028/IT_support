@@ -22,6 +22,7 @@ var signals_connected = false
 var previous_physics_ticks = 60
 var teleport_line: MeshInstance3D
 var pointer_hand: XRController3D
+var world_pointer: XRController3D
 @onready var head: XRCamera3D = $Head
 @onready var left: XRController3D = $LeftHand
 @onready var right: XRController3D = $RightHand
@@ -150,11 +151,8 @@ func pressed(hand: XRController3D, action: String):
 	var tracker=XRServer.get_tracker("head")
 	if tracker==null or not tracker.has_pose("default") or not tracker.get_pose("default").has_tracking_data: return
 	if action in ["menu_button","by_button"]:
-		if shell.mode == "world": shell.pause_menu()
-		elif shell.practical_intro.active and shell.mode=="pause":
-			if shell.practical_intro.step==9: shell.practical_intro.finish(true)
-			else: shell.return_to_world()
-		else: shell.return_to_world()
+		var back=InputEventKey.new(); back.keycode=KEY_ESCAPE; back.pressed=true
+		shell._unhandled_key_input(back)
 		return
 	if action == "ax_button":
 		if shell.mode == "world": shell.show_tasks()
@@ -173,6 +171,7 @@ func pressed(hand: XRController3D, action: String):
 		teleporting = true
 		return
 	if action == "trigger_click":
+		world_pointer=hand
 		var hit = ray_hit(hand)
 		if not hit.is_empty(): interact_target(hit.collider,false,hand)
 	elif action == "grip_click":
@@ -370,9 +369,11 @@ func _physics_process(delta):
 		p.velocity.y=-0.5
 		p.move_and_slide()
 		if teleporting: update_teleport()
-		var hit=ray_hit(right)
+		var aim=world_pointer if is_instance_valid(world_pointer) and world_pointer.get_has_tracking_data() else right
+		var hit=ray_hit(aim)
+		if hit.is_empty() or not hit.collider.has_method("set_focus"): hit=ray_hit(left if aim==right else right)
 		p.update_focus(hit.collider if not hit.is_empty() and hit.collider.has_method("set_focus") else null)
-		wrist.text=(shell.diagnostics.text+"\n" if shell.diagnostics.visible else "")+shell.status_label.text+"\n"+shell.instruction.text+("\n"+shell.direction.text if shell.direction.text!="" else "")+"\nB/Y: menu  A/X: mise\nLevý stick klik: teleport"
+		wrist.text=(shell.diagnostics.text+"\n" if shell.diagnostics.visible else "")+shell.status_label.text+("\n"+shell.instruction.text if shell.instruction.text!="" else "")+("\n"+shell.direction.text if shell.direction.text!="" else "")+("\n"+shell.prompt.text if shell.prompt.text!="" else "")+"\nB/Y: pauza · ovládání v Nastavení"
 	else:
 		var hand=pointer_hand if is_instance_valid(pointer_hand) and monitor.pointer_down else right
 		var pixel=monitor.pixel_at(hand.global_position,-hand.global_basis.z) if hand.get_has_tracking_data() else Vector2(-1,-1)

@@ -31,6 +31,7 @@ func start():
 	g.suspend_session()
 	stash={"sim":g.sim,"main_sim":g.main_sim,"training_sim":g.training_sim,"active":g.active,"current":g.current,"session_kind":g.session_kind,"training":g.training,"finished":g.finished,"room":g.game_mode.current,"pose":shell.world.player.transform,"pitch":shell.world.player.camera.rotation,"door":shell.world.door_open,"drafts":shell.ui.form_drafts.duplicate(true)}
 	stash.cable=shell.pending_cable; stash.selected=shell.selected; stash.notice=shell.room_notice.text; stash.notice_time=shell.notice_time
+	if shell.vr_active: stash.xr_pose=shell.xr_rig.transform
 	g.introduction_active=true
 	g.active=false; g.current={}; g.session_kind="introduction"
 	g.game_mode.current=0
@@ -108,6 +109,7 @@ func return_spare() -> bool:
 
 func pause():
 	if step==9: advance()
+	shell.pause_page="main"
 	shell.set_mode("pause")
 	var v=shell.panel("Praktický úvod / pauza","Pokračuj, nebo úvod bezpečně zruš. Původní relace se obnoví.")
 	v.add_child(shell.ui.button("Pokračovat",func():
@@ -139,6 +141,7 @@ func finish(completed: bool):
 	shell.world.move_door(stash.door)
 	shell.pending_cable=stash.cable; shell.selected=stash.selected
 	if shell.vr_active:
+		shell.xr_rig.transform=stash.xr_pose
 		shell.xr_rig.hold_hand=null
 		shell.world.carried_disk.reparent(shell.world.player.camera)
 		shell.world.carried_disk.position=Vector3(0.32,-0.3,-0.65)

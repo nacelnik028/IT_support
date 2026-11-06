@@ -19,6 +19,8 @@ func _init():
 	var tag="user://academy_test_pause_repair_"+str(OS.get_process_id())
 	save_path=tag+".json"; Saves.path_override=save_path; Display.path_override=tag+".cfg"; Comfort.path_override=tag+"_vr.cfg"
 	Saves.save_game({},true); call_deferred("run")
+	if "--review-usability" in OS.get_cmdline_user_args():
+		var settings=Display.new(); settings.quality="Vyvážená"; settings.vsync=false; settings.save_settings()
 
 func check(ok: bool, title: String):
 	checks+=1

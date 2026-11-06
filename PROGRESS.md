@@ -1,5 +1,15 @@
 # Datacenter Academy — stav vývoje
 
+## Použitelnost: orientace a kontextový HUD — 6. 11. 2026
+
+- Stávající cedule: větší názvy, po reálném šikmém příchodu snížené pod stropní lamely. Čísla/názvy a čtyři barevné akcenty souhlasí s menu a původní orientační tabulí. Přesměrování existujících světel, počet stále 34. Beze změn kolizí, dispozice, čidel, dosahů nebo zazděného přímého průchodu do Londýna.
+- HUD po seznámení používá krátkou lištu a ovládání na F1 / v Nastavení. Kontext pojmenovává skutečnou akci, respektuje remapování i trigger; náramek a fokus odpovídají oběma XR paprskům. Stejné návraty Esc/B/Y. Zachované cíle, zkouška, inventář, blokování dveří i trvalá chyba zápisu; HUD je skrytý při otevřeném UI.
+- Dodatečně chráněna živá výuka proti změně uložené stránky při pouhém prohlížení Pokračování, obnovení již existujícího editorového bufferu a poloha XR rig při úvodu. Všechny tři živé výukové režimy mají vlastní kontrolu návratu.
+- Aktuální usability 263 headless PASS, grafické varianty před třemi doplněnými kontrolami prohlížení výuky 274 Compatibility / 276 Forward+ PASS; závěrečné opakování probíhá. editor_repair 1448 PASS v obou rendererech, architecture_repair 19170 PASS, ui_workflow 615 PASS, world_ui 31 PASS. Celý 52sadový runner běží, aktuální etapy neodvozují výsledky z historických záznamů.
+- Srovnatelné snímky před/po a benchmarky obou rendererů byly prohlédnuty; výkon v témže záběru bez významného zhoršení. Godot MCP běh potvrdil návrat do menu bez relace a sbalený editor se skutečným úspěchem. Po opravě jednoho nového typového varování zbývá původních osm varování, bez runtime chyby.
+- Dokumentace a snímky: docs/ui-review/2026-11-06-usability/. Následuje dokončení regrese a Windows export se zvláštní kontrolou nových prvků v přesném vloženém packu. APK beze změn, bez push.
+
+
 ## Použitelnost: sbalitelný seznam programování — 6. 11. 2026
 
 - Editor má viditelný přepínač Sbalit seznam lekcí a úloh / Zobrazit lekce a úlohy. Skrývá existující panel bez přestavby editoru nebo změny pokusu. Stav drží přes překreslení seznamu, záložky, běh/ověření a resize; aktuální titul, režim, celé zadání a nápověda zůstávají dostupné.

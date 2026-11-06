@@ -53,10 +53,10 @@ func build(owner_world):
 	Geo.text(self,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(4,1.9,-15.72),34,0.006)
 	for x in [-5,5,16]:
 		Geo.box(self,Vector3(x,3.85,-11.5),Vector3(3,0.08,0.5),Color("e1e9d7"),0,0.6)
-		var light=OmniLight3D.new(); light.position=Vector3(x,3,-11.5); light.light_energy=2; light.omni_range=9; add_child(light)
+		var light=OmniLight3D.new(); light.position={-5:Vector3(-7,2.8,-9.8),5:Vector3(4,2.8,-8.5),16:Vector3(16,2.8,-8.8)}[x]; light.light_energy=2.4; light.omni_range=7; light.light_color=Color("d7e7eb"); add_child(light)
 	for z in [-10,-2,6]:
 		Geo.box(self,Vector3(23,3.8,z),Vector3(2.5,0.06,0.4),Color("e1e9d7"),0,0.6)
-		var light=OmniLight3D.new(); light.position=Vector3(23,3,z); light.light_energy=1.6; light.omni_range=7; add_child(light)
+		var light=OmniLight3D.new(); light.position=Vector3(21.8,2.8,-11.5) if z==-10 else Vector3(23,3,z); light.light_energy=2.1 if z==-10 else 1.6; light.omni_range=6 if z==-10 else 7; light.light_color=Color("ffe4d6") if z==-10 else Color.WHITE; add_child(light)
 		Geo.text(self,"04 / LONDÝN  ↓",Vector3(23,0.018,z+1),28,0.003,Color("e9a18b")).rotation_degrees=Vector3(-90,180,0)
 	sign_at("04 / LONDON  →\nZpět do hubu po stejné chodbě",Vector3(23,2.3,11.3),PI,Color("e9a18b"),3.5)
 	for x in [0,10]:
@@ -87,8 +87,9 @@ func decorate():
 	Geo.bevel(wall,Vector3.ZERO,Vector3(7,1.6,0.1),Color("263f49"),0,0.04)
 	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(wall,7,1.6)
 	Geo.box(wall,Vector3(-3.2,0,0.065),Vector3(0.04,1.25,0.02),Color("96d3be"),0,0.3)
-	Geo.text(wall,"PROSTOR PRO TVŮJ DALŠÍ KROK",Vector3(0,0.28,0.07),38,0.005,Color("c5e6d9"))
-	Geo.text(wall,"Vyber si směr. Uč se vlastním tempem.",Vector3(0,-0.22,0.07),30,0.0045,Color("d3ddd5"))
+	Geo.text(wall,"VYBER UČEBNU / PRŮCHODY 01–04",Vector3(0,0.52,0.07),38,0.005,Color("e6efeb"))
+	for item in [["01 / SERVEROVNA",Vector3(-1.65,0.1,0.07),Color("8acfe9")],["02 / IT TRÉNINK",Vector3(1.65,0.1,0.07),Color("efca8b")],["03 / PROGRAMOVÁNÍ",Vector3(-1.65,-0.38,0.07),Color("76dfc7")],["04 / LONDÝN",Vector3(1.65,-0.38,0.07),Color("e9a18b")]]:
+		Geo.text(wall,item[0],item[1],34,0.0048,item[2])
 	# Repeated wall accents help identify the return corridor without a maze.
 	for z in [-10,-3,4]:
 		Geo.bevel(self,Vector3(24.8,1.65,z),Vector3(0.07,1.4,1.8),Color("2a4550"),0,0.025)

@@ -98,7 +98,7 @@ func entrance():
 	preload("res://scripts/world/WorldArchitecture.gd").sliding_leaf(room.door.visual,2.9,PYTHON,"03","PROGRAMOVÁNÍ")
 	preload("res://scripts/world/WorldArchitecture.gd").pocket(room,Vector3(-6.5,0,-7),0,-1,3.1,PYTHON)
 	for face in [-1,1]:
-		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(room,"03 / PROGRAMOVÁNÍ" if face>0 else "01 / SERVEROVNA","Python · HTML / CSS / JavaScript" if face>0 else "Pracovní směna · incidenty",PYTHON,3.7)
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(room,"03 / PROGRAMOVÁNÍ" if face>0 else "01 / SERVEROVNA","Python · HTML / CSS / JavaScript" if face>0 else "Pracovní směna · incidenty",Color("76dfc7") if face>0 else Color("8acfe9"),3.7)
 		sign_node.position=Vector3(-6.5,3.64,-7+face*0.32); sign_node.rotation.y=PI if face<0 else 0.0
 	room.door_notice=Geo.text(room,"PROGRAMOVACÍ UČEBNA / [E] OTEVŘÍT",Vector3(-6.5,2.8,-6.59),22,0.0023,PYTHON)
 	for i in room.door_panels.size():

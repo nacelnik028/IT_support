@@ -256,7 +256,7 @@ func build_academy():
 		var words = Geo.text(face,"DVEŘE\n[E] OTEVŘÍT",Vector3(0,0,0.018),28,0.0014)
 		door_panels.append({"object":panel,"label":words})
 	for side in [-1,1]:
-		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(self,"02 / IT TRÉNINK" if side<0 else "01 / SERVEROVNA","Cvičná infrastruktura" if side<0 else "Pracovní směna · incidenty",Color("efca8b"),3.7)
+		var sign_node=preload("res://scripts/world/WorldArchitecture.gd").portal_sign(self,"02 / IT TRÉNINK" if side<0 else "01 / SERVEROVNA","Cvičná infrastruktura" if side<0 else "Pracovní směna · incidenty",Color("efca8b") if side<0 else Color("8acfe9"),3.7)
 		sign_node.position=Vector3(9+side*0.32,3.64,3.5); sign_node.rotation.y=side*PI/2
 	door_status = Geo.text(self,"IT TRÉNINKOVÁ AKADEMIE",Vector3(8.59,2.8,3.5),22,0.0023)
 	door_status.rotation.y = -PI/2

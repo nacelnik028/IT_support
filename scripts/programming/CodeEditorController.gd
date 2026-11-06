@@ -223,7 +223,14 @@ func tool_menu(parent: Control, title: String, controls: Array):
 	var popup=PopupPanel.new(); popup.theme=shell.ui.theme; popup.name=title.replace(" ",""); add_child(popup)
 	var entries=VBoxContainer.new(); popup.add_child(entries)
 	for control in controls:
-		control.reparent(entries); control.pressed.connect(popup.hide)
+		control.reparent(entries)
+		var callbacks=control.pressed.get_connections()
+		for connection in callbacks: control.pressed.disconnect(connection.callable)
+		# Close the popup before opening a sibling dialog, so its focus teardown
+		# cannot hide or steal the first click from the newly opened window.
+		control.pressed.connect(func():
+			popup.hide()
+			for connection in callbacks: connection.callable.call_deferred())
 	var trigger=button(title,func():
 		popup.content_scale_factor=shell.ui.scale.x
 		popup.popup_centered(Vector2i(Vector2(420,entries.get_combined_minimum_size().y+24)*shell.ui.scale)))

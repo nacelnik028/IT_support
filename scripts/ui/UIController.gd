@@ -459,7 +459,7 @@ func navigate(target: String):
 	page=target
 	tab=""
 	notice=""
-	if game.session_kind=="lesson":
+	if game.session_kind=="lesson" and page!="Pokračování":
 		game.tutorial.session.page=page
 		game.tutorial.session.tab=tab
 		game.save()

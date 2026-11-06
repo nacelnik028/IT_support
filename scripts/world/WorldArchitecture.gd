@@ -9,7 +9,7 @@ static func portal(parent: Node3D, at: Vector3, yaw: float, width: float, accent
 		if side==pocket_side:
 			for face in [-1,1]: Geo.solid(frame,Vector3(side*(width*0.5+0.02),1.5,face*0.22),Vector3(0.12,3,0.1),Color("788a94"),0.65)
 		else: Geo.solid(frame,Vector3(side*(width*0.5+0.02),1.5,0),Vector3(0.12,3,0.54),Color("788a94"),0.65)
-		for face in [-1,1]: Geo.box(frame,Vector3(side*(width*0.5+0.02),1.5,face*0.277),Vector3(0.025,2.8,0.014),accent)
+		for face in [-1,1]: Geo.box(frame,Vector3(side*(width*0.5+0.02),1.5,face*0.277),Vector3(0.06,2.8,0.014),accent,0,0.55)
 	Geo.solid(frame,Vector3(0,3.05,0),Vector3(width+0.16,0.16,0.54),Color("788a94"),0.65)
 	frame.set_meta("academy_portal",true)
 	# Stepped wall collars sit outside the original clear opening and pocket.
@@ -30,9 +30,16 @@ static func portal(parent: Node3D, at: Vector3, yaw: float, width: float, accent
 
 static func portal_sign(parent: Node3D, title: String, subtitle: String, accent: Color, width: float = 3.5) -> Node3D:
 	var sign_node=Node3D.new(); sign_node.name="PortalDirectory"; parent.add_child(sign_node)
-	Geo.bevel(sign_node,Vector3.ZERO,Vector3(width,0.62,0.09),Color("173442"),0.35,0.02)
-	Geo.text(sign_node,title,Vector3(0,0.1,0.052),32,0.0032,accent)
-	Geo.text(sign_node,subtitle,Vector3(0,-0.16,0.052),22,0.0026,Color("d7e7e4"))
+	# Mount the existing board below ceiling fins, with its lower edge over the
+	# lintel. Letters stay in the sightline of a player arriving at an angle.
+	Geo.bevel(sign_node,Vector3(0,-0.16,0.05),Vector3(width,0.46,0.09),Color("213e4b"),0.15,0.02)
+	Geo.box(sign_node,Vector3(0,0.05,0.105),Vector3(width-0.12,0.035,0.016),accent,0,0.55)
+	# Physical letter height is readable while approaching, not just close up.
+	var heading=Geo.text(sign_node,title,Vector3(0,-0.11,0.105),40,0.005,accent)
+	var sign_font=heading.font if heading.font!=null else ThemeDB.fallback_font
+	var font_width=sign_font.get_string_size(title,HORIZONTAL_ALIGNMENT_LEFT,-1,heading.font_size).x
+	heading.pixel_size=minf(heading.pixel_size,(width-0.22)/maxf(1,font_width))
+	Geo.text(sign_node,subtitle,Vector3(0,-0.30,0.105),26,0.0036,Color("e6efeb"))
 	return sign_node
 
 static func sliding_leaf(parent: Node3D, width: float, accent: Color, number: String, title: String):
@@ -50,7 +57,7 @@ static func sliding_leaf(parent: Node3D, width: float, accent: Color, number: St
 
 static func control_surround(parent: Node3D, accent: Color):
 	Geo.bevel(parent,Vector3(0,0,-0.035),Vector3(0.39,0.56,0.045),Color("8d9ca0"),0.65,0.014)
-	Geo.box(parent,Vector3(0,-0.245,-0.006),Vector3(0.23,0.025,0.012),accent)
+	Geo.box(parent,Vector3(0,-0.245,-0.006),Vector3(0.29,0.04,0.012),accent,0,0.6)
 
 static func pocket(parent: Node3D, at: Vector3, yaw: float, side: float, travel: float, accent: Color) -> Node3D:
 	var frame=portal(parent,at,yaw,3,accent,side)

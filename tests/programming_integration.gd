@@ -98,6 +98,8 @@ func run():
 	shell.xr_rig=rig; shell.vr_active=true; rig.activate(false)
 	shell.open_programming(); ui=shell.code_editor; ui.launch("PY01",false); await frames()
 	check(shell.ui_layer.get_parent()==rig.monitor.viewport,"Editor is inside VR SubViewport")
+	ui.toggle_sidebar()
+	check(ui.sidebar_collapsed and not ui.sidebar.visible,"VR typing and file switching use the collapsed workspace")
 	ui.editor.grab_focus(); rig.monitor.keyboard.track_focus()
 	rig.monitor.keyboard.type_text("print('Ahoj, světe!')\n"); ui.run_code()
 	check(ui.console.text.contains("Ahoj, světe!"),"VR keyboard writes executable code")

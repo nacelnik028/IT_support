@@ -45,7 +45,10 @@ static func resume(ui, entry: Dictionary):
 		"code":
 			if not ui.world_enabled: return
 			ui.world_requested.emit("Programming Academy")
-			if ui.game.programming.restore_draft(entry.key): ui.shell_ref.get_ref().open_programming(ui.game.programming.current.category)
+			if ui.game.programming.restore_draft(entry.key):
+				var shell=ui.shell_ref.get_ref()
+				if is_instance_valid(shell.code_editor) and not shell.code_editor.is_queued_for_deletion(): shell.code_editor.load_current()
+				shell.open_programming(ui.game.programming.current.category)
 			else: ui.show_message("Obnovení odmítnuto","Koncept již není dostupný. Uložená práce zůstala zachovaná.")
 
 static func draw(ui):

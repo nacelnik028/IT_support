@@ -29,6 +29,7 @@ var settings_from_pause = false
 var pause_page="main"
 var utility_to_settings=false
 var controls_label: Label
+var controls_plate: Panel
 var introduction_step = 0
 var introduction_return_mode="world"
 var ui_layer: CanvasLayer
@@ -85,7 +86,7 @@ func _ready():
 	ui.lesson_launched.connect(func(): enter_world())
 	world.player.interaction_requested.connect(interact)
 	world.player.focus_changed.connect(func(target):
-		if is_instance_valid(prompt): prompt.text = "Stiskni E pro interakci\n"+target.caption if is_instance_valid(target) else ""
+		if is_instance_valid(prompt): prompt.text = interaction_hint(target)
 		if is_instance_valid(reticle): reticle.set_focus(is_instance_valid(target))
 		if is_instance_valid(context_plate): context_plate.visible = is_instance_valid(target))
 	chrome = Control.new()
@@ -112,7 +113,7 @@ func _ready():
 	context_plate.visible = false
 	instruction_plate = hud_plate(Vector2(1055,20),Vector2(522,282),Color("9a8157"))
 	instruction_plate.visible = false
-	hud_plate(Vector2(22,850),Vector2(1556,35),Color("253f50"))
+	controls_plate=hud_plate(Vector2(22,850),Vector2(1556,35),Color("253f50"))
 	prompt = ui.label("",18)
 	hud.add_child(prompt)
 	prompt.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
@@ -207,10 +208,18 @@ func _process(delta):
 		world.programming_room.sync()
 		world.english_room.sync()
 		var keys=ui.display_settings.bindings
-		controls_label.text="%s/%s/%s/%s pohyb  •  myš rozhlížení  •  %s interakce  •  %s rychle  •  %s zadání  •  %s baterka  •  Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
-		if is_instance_valid(world.player.target): prompt.text="Stiskni %s pro interakci\n%s" % [OS.get_keycode_string(keys.interact),world.player.target.caption]
+		if vr_active: controls_label.text="B/Y: pauza a ovládání · A/X: aktuální úkol"
+		elif ui.display_settings.introduction_seen and not practical_intro.active: controls_label.text="Esc: pauza · %s: úkol · %sovládání" % [OS.get_keycode_string(keys.task_list),"F1: " if not KEY_F1 in keys.values() else "Nastavení → "]
+		else: controls_label.text="%s/%s/%s/%s pohyb · myš pohled · %s interakce · %s rychle · %s zadání · %s baterka · Esc pauza" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.walk_fast),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight)]
+		controls_label.size.x=630 if vr_active or (ui.display_settings.introduction_seen and not practical_intro.active) else 1520
+		controls_plate.size.x=controls_label.size.x+32
+		prompt.text=interaction_hint(world.player.target)
+		context_plate.visible=prompt.text!=""
+		prompt.size.y=0; prompt.size.y=prompt.get_minimum_size().y
+		prompt.position.y=minf(766,819-prompt.size.y)
+		context_plate.position.y=prompt.position.y-12; context_plate.size.y=prompt.size.y+24
 		status_label.text = "SERVEROVNA 01"
-		if ui.game.game_mode.is_hub(): status_label.text="TRAINING ACADEMY / ROZCESTNÍK\n01 Serverovna · 02 IT trénink\n03 Programování · 04 Londýn"
+		if ui.game.game_mode.is_hub(): status_label.text="ROZCESTNÍK AKADEMIE / 01–04\nVyber označený průchod do učebny."
 		if ui.game.game_mode.is_english():
 			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
 			if not ui.game.english.session.is_empty(): status_label.text+="\n"+ui.game.english.definition().title
@@ -227,9 +236,11 @@ func _process(delta):
 				status_label.text += "\n%d / %d cílů  ·  %s zadání" % [complete,goals.size(),OS.get_keycode_string(keys.task_list)]
 				var next=goals.filter(func(goal): return not goal.passed)
 				status_label.text += "\nDalší cíl: "+str(next[0].label) if not next.is_empty() else "\n✓ Vše ověřeno · předej ticket"
-			if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" — dojdi k SW-CORE a vyber port [E]."
-			if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
 		if practical_intro.active: status_label.text="PRAKTICKÝ ÚVOD / DOČASNÝ STAV\nKampaň i směna jsou bezpečně odložené. Bez XP."
+		if pending_cable!="": status_label.text += "\nNeseš konektor "+pending_cable+" → SW-CORE / vyber port."
+		if ui.game.sim.state.world.held!="": status_label.text += "\nNeseš: "+ui.game.sim.state.world.stock[ui.game.sim.state.world.held].serial
+		if world.door_feedback!="" and not ui.game.game_mode.is_english() and not ui.game.game_mode.is_programming(): status_label.text+="\n"+world.door_feedback+" / ustup od dveří"
+		if ui.game.game_mode.is_programming() and "OBSAZENÝ" in world.programming_room.door_notice.text: status_label.text+="\nPRŮCHOD OBSAZENÝ / ustup od dveří"
 		if ui.game.unsaved: status_label.text += "\nZMĚNY NEJSOU ULOŽENÉ — Esc → Zkusit uložit znovu"
 		update_guidance()
 		instruction_plate.visible = instruction.text!=""
@@ -239,10 +250,32 @@ func _process(delta):
 		status_label.size.y=0
 		status_label.size.y=status_label.get_minimum_size().y
 		hud.get_node("StatusPlate").size.y=status_label.size.y+52
-		direction.position.y=650 if context_plate.visible or (london_navigation!=null and london_navigation.target!="") else 730
+		direction.position.y=minf(650.0,context_plate.position.y-direction.size.y-8) if context_plate.visible else 650.0 if london_navigation!=null and london_navigation.target!="" else 730.0
 	if mode == "world" and save_time>8.0:
 		save_time = 0.0
 		store_pose()
+
+func interaction_hint(object) -> String:
+	if not is_instance_valid(object): return ""
+	var use="Trigger" if vr_active else OS.get_keycode_string(ui.display_settings.bindings.interact)
+	if practical_intro.active and object.device_id!=practical_intro.target_id(): return "Teď najdi "+practical_intro.target_id() if practical_intro.target_id()!="" else "Pokračuj podle kroku úvodu."
+	if ui.game.game_mode.is_hub(): return "Nejdřív projdi označeným vstupem do učebny."
+	if object.kind=="english" and not ui.game.game_mode.is_english(): return "Nejdřív vstup do Londýna."
+	if object.kind=="programming" and not ui.game.game_mode.is_programming(): return "Nejdřív vstup do programovací učebny."
+	if not object.kind in ["door","program_door","programming","english"]:
+		var training_object=object.laboratory or object.kind=="instructor" or object.device_id=="EXAM-PC"
+		if ui.game.game_mode.is_english() or ui.game.game_mode.is_programming() or ui.game.game_mode.is_training()!=training_object: return "Toto zařízení patří do jiné učebny."
+	var action={"computer":"Otevřít konzoli","server":"Prohlédnout zařízení","disk":"Prohlédnout disk / zásah","spares":"Vybrat nebo vrátit díl","monitor":"Otevřít přehled","door":"Ovládat dveře","program_door":"Ovládat dveře","programming":"Otevřít programování","english":"Zahájit interakci","instructor":"Vybrat lekci","cable":"Uchopit konektor / připojení","supply":"Zkontrolovat napájení","switch":"Otevřít síť","port":"Připojit nesený konektor" if pending_cable!="" else "Nejdřív uchop konektor u serveru"}.get(object.kind,"Otevřít")
+	if object.kind in ["door","program_door"]:
+		var blocked=world.door_feedback if object.kind=="door" else world.programming_room.door_notice.text
+		if "OBSAZENÝ" in blocked: return "PRŮCHOD OBSAZENÝ / ustup od dveří"
+	var caption=object.caption.replace(" [E]","").replace(" dveře — "," · ")
+	return "%s · %s\n%s" % [use,action,caption]
+
+func controls_help_text() -> String:
+	if vr_active: return "Levý joystick / teleport: pohyb\nPravý joystick: otáčení / posuv v panelu\nOba paprsky + trigger: interakce\nGrip: uchopení dílu · B/Y: pauza / zpět\nA/X: úkol / přemístění panelu"
+	var keys=ui.display_settings.bindings
+	return "%s/%s/%s/%s: chůze · myš: pohled\n%s: interakce · %s: aktuální úkol\n%s: baterka · %s: rychlá chůze\nEsc: pauza / zpět" % [OS.get_keycode_string(keys.walk_forward),OS.get_keycode_string(keys.walk_left),OS.get_keycode_string(keys.walk_back),OS.get_keycode_string(keys.walk_right),OS.get_keycode_string(keys.interact),OS.get_keycode_string(keys.task_list),OS.get_keycode_string(keys.flashlight),OS.get_keycode_string(keys.walk_fast)]
 
 func set_mode(value: String):
 	if value!="english" and is_instance_valid(speech): speech.stop_speech()
@@ -602,8 +635,8 @@ func pause_work():
 	pause_page="work"
 	preload("res://scripts/ui/PausePresentation.gd").draw(self,pause_page)
 
-func show_controls_help():
-	pause_page="help"; utility_to_settings=true
+func show_controls_help(from_settings: bool = true):
+	pause_page="help"; utility_to_settings=from_settings
 	preload("res://scripts/ui/PausePresentation.gd").draw(self,pause_page)
 
 func return_from_utility():
@@ -729,6 +762,7 @@ func export_smoke():
 	await get_tree().process_frame
 	print("EXPORT_SMOKE menu=",mode," missions=",ui.game.missions.size()," lessons=",ui.game.tutorial.lessons.size())
 	print("EXPORT_SMOKE game_version=",ProjectSettings.get_setting("application/config/version","neurčena"))
+	print("EXPORT_SMOKE usability_menu=",ui.ui_targets.has("menu:intro") and ui.ui_targets.has("menu:resume") and ui.ui_targets["menu:resume"].disabled)
 	enter_world("Rozcestník akademie")
 	await get_tree().process_frame
 	print("EXPORT_SMOKE hub=",ui.game.game_mode.is_hub()," neutral=",not ui.game.active)
@@ -747,6 +781,9 @@ func export_smoke():
 	open_programming("web")
 	code_editor.load_current()
 	code_editor.run_code()
+	var preserved_files=ui.game.programming.files.duplicate(true)
+	code_editor.toggle_sidebar()
+	print("EXPORT_SMOKE sidebar_preserved=",code_editor.sidebar_collapsed and not code_editor.sidebar.visible and ui.game.programming.files==preserved_files)
 	print("EXPORT_SMOKE web=",ui.game.programming.test_program().ok," preview=",code_editor.preview.document.nodes.size()>0)
 	print("EXPORT_SMOKE limits=",FileAccess.file_exists("res://data/programming/LIMITS.txt"))
 	enter_world("Hlavní serverovna")
@@ -830,6 +867,8 @@ func _input(event):
 
 func _unhandled_key_input(event):
 	if not event.pressed or event.echo: return
+	if event.keycode==KEY_F1 and mode=="world" and not KEY_F1 in ui.display_settings.bindings.values():
+		show_controls_help(false); get_viewport().set_input_as_handled(); return
 	if event.keycode == KEY_ESCAPE:
 		if mode == "world": pause_menu()
 		elif mode == "introduction": finish_introduction()
@@ -858,7 +897,7 @@ func update_guidance():
 	if not game.game_mode.is_training() or not game.active or game.session_kind!="lesson": return
 	var t = game.tutorial
 	if not t.guided():
-		instruction.text = ("ZKOUŠKA" if t.session.mode=="exam" else "PROCVIČOVÁNÍ")+"\n"+game.current.description
+		instruction.text = ("ZKOUŠKA / bez nápovědy" if t.session.mode=="exam" else "PROCVIČOVÁNÍ / vlastní postup")+"\n"+("A/X: celé zadání" if vr_active else "%s: celé zadání" % OS.get_keycode_string(ui.display_settings.bindings.task_list))
 		return
 	var step = t.current_step()
 	var target = world.academy_targets.get(game.current.server,world.academy_targets["PVE-01"])
@@ -873,7 +912,7 @@ func update_guidance():
 			var key = "TRAIN-PC-HV" if game.current.get("module","")=="Hyper-V" else "TRAIN-PC-PVE"
 			if game.current.get("module","")=="Storage": key = "RAID-TRAIN-01"
 			target = world.devices[key]
-		instruction.text += "\nStiskni E u zařízení a otevři administrační konzoli."
+		if not is_instance_valid(world.player.target): instruction.text += "\n"+("Namiř paprsek a stiskni trigger." if vr_active else "Zaměř zařízení a stiskni %s." % OS.get_keycode_string(ui.display_settings.bindings.interact))
 	target.set_guided(true)
 	var offset = target.global_position-world.player.global_position
 	var local = world.player.global_basis.inverse()*offset
