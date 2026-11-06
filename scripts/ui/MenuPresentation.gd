@@ -1,74 +1,46 @@
 extends RefCounted
 
 static func draw(ui):
-	# Menu has no 3D return bar; reserve a separate, non-interactive credit row.
 	ui.root_box.add_theme_constant_override("margin_bottom",24)
 	ui.root_box.add_theme_constant_override("margin_right",24)
-	var all = ui.vbox(ui.content_box,18)
-	all.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var all=ui.vbox(ui.content_box,16); all.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var header=ui.hbox(all,14)
-	var emblem=TextureRect.new()
-	emblem.texture=load("res://assets/icons/academy.svg")
-	emblem.custom_minimum_size=Vector2(40,40)
-	emblem.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
-	emblem.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	header.add_child(emblem)
-	var identity=ui.vbox(header,2)
-	identity.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var emblem=TextureRect.new(); emblem.texture=load("res://assets/icons/academy.svg"); emblem.custom_minimum_size=Vector2(40,40); emblem.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; emblem.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED; header.add_child(emblem)
+	var identity=ui.vbox(header,2); identity.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	identity.add_child(ui.label("TRAINING ACADEMY",30))
-	identity.add_child(ui.label("NORTHSTAR IT  /  OFFLINE VÝCVIKOVÉ STŘEDISKO",12,ui.CYAN))
-	var body=ui.hbox(all,20)
-	body.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	var left=ui.card(body,"Serverovna / pracovní směna","Řeš IT incidenty ve 3D. Kampaň a výsledky se ukládají.")
-	left.add_theme_constant_override("separation",14)
-	var primary=ui.button("Rozcestník akademie  /  "+("VR" if OS.has_feature("android") else "klasické 3D"),func():
-		if ui.world_enabled and not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
-		if ui.world_enabled: ui.world_requested.emit("Rozcestník akademie")
-		else: ui.navigate("Serverovna"),true)
-	primary.custom_minimum_size.y=54
-	left.add_child(primary); ui.register_target("menu:primary",primary)
-	if not OS.has_feature("android") and ui.world_enabled:
-		var vr=ui.button("Spustit ve VR  /  PICO 4 · OpenXR",func(): ui.play_mode_requested.emit("vr"))
-		vr.tooltip_text="Připojený PC headset a OpenXR runtime. Stejná uložená směna jako ve 3D."
-		left.add_child(vr); ui.register_target("menu:vr",vr)
-	left.add_child(ui.label("3D: klávesnice a myš. VR: připojený headset s OpenXR.",13,ui.MUTED))
-	if ui.game.active:
-		var current=ui.label("Rozehráno: "+ui.game.current.title,14,ui.CYAN)
-		current.max_lines_visible=2; current.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS; left.add_child(current)
-	var tickets=ui.button("Kampaň a přehled ticketů",func():
-		if ui.game.session_kind!="campaign": ui.game.resume_campaign()
-		elif not ui.game.active: ui.game.start_mission(0)
-		ui.game.set_campaign_mode(false); ui.navigate("Tickety"))
-	left.add_child(ui.button("Pokračování / výuka a rozepsaná práce",func(): ui.navigate("Pokračování")))
-	left.add_child(tickets); ui.register_target("menu:tickets",tickets)
-	left.add_child(ui.button("Volný trénink / všechny laboratoře",func():
-		if not ui.game.active: ui.game.start_mission(0,true)
-		ui.game.set_campaign_mode(true); ui.navigate("Tickety")))
+	identity.add_child(ui.label("NORTHSTAR IT  /  UČ SE VLASTNÍM TEMPEM",12,ui.CYAN))
+	var body=ui.hbox(all,20); body.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var continuation=preload("res://scripts/ui/ContinuationPresentation.gd")
+	var work=continuation.available(ui.game)
+	var left=ui.card(body,"Tvoje další práce","Vrať se k rozpracované činnosti, nebo začni v některé učebně.")
+	var resume=ui.button("Pokračovat v rozehrané práci"+("  (%d)" % work.size() if work.size()>1 else ""),func(): ui.navigate("Pokračování"),true)
+	resume.disabled=work.is_empty(); left.add_child(resume); ui.register_target("menu:resume",resume)
+	left.add_child(ui.label("Žádná rozpracovaná činnost. Vyber učebnu nebo praktický úvod." if work.is_empty() else (work[0].title+"\n"+work[0].status if work.size()==1 else "%d činností · nejdřív si vybereš, ke které se vrátit." % work.size()),16,ui.MUTED))
 	if ui.world_enabled:
-		left.add_child(ui.button("15 praktických úkolů ve 3D",func():
-			if not ui.game.active: ui.game.start_mission(0,true)
-			ui.game.set_campaign_mode(true); ui.mission_filter="3D praxe"; ui.navigate("Tickety")))
-	left.add_child(ui.label("65 misí  /  Proxmox VE · Hyper-V · Storage",13,ui.MUTED))
-	var right=ui.vbox(body,16); right.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	var training=ui.card(right,"IT tréninková akademie","21 lekcí ve třech režimech. Vlastní cvičná infrastruktura.")
-	var train=ui.button("Vstoupit do IT tréninkové akademie",func(): ui.navigate("Trénink"))
-	training.add_child(train); ui.register_target("menu:training",train)
-	var programming=ui.card(right,"Programovací učebna","Python a web: 28 lekcí, 60 úloh a opravy kódu. Začni u počítače.")
-	var code=ui.button("Vstoupit do programovací učebny",func(): ui.world_requested.emit("Programming Academy"))
-	code.disabled=not ui.world_enabled
-	programming.add_child(code); ui.register_target("menu:programming",code)
-	var english=ui.card(right,"English in London","6 situací B1–B2, 20 otázek a 12 poslechů.")
-	var london=ui.button("Vstoupit do Londýna",func(): ui.world_requested.emit("English in London"))
-	london.disabled=not ui.world_enabled
-	english.add_child(london); ui.register_target("menu:english",london)
-	var footer=ui.hbox(all,12)
-	footer.add_child(ui.label("VLASTNÍ TEMPO  /  ČESKÁ VÝUKOVÁ SIMULACE",12,ui.MUTED))
-	for item in [["Moje znalosti",func(): ui.navigate("Moje znalosti"),"knowledge"],["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:
+		var fresh=not ui.display_settings.introduction_seen and not continuation.has_history(ui.game)
+		var intro=ui.card(left,"Poprvé v akademii?" if fresh else "Ovládání a praktický úvod","Dojdi k pracovišti → zaměř zařízení → otevři → proveď zásah → ověř.")
+		var start=ui.button("Začít praktickým úvodem",func(): ui.shell_ref.get_ref().practical_intro.start(),fresh)
+		intro.add_child(start); ui.register_target("menu:intro",start)
+		if fresh:
+			var skip=ui.button("Přeskočit úvod",func(): ui.save_preference("introduction_seen",true); ui.draw_ui())
+			intro.add_child(skip); ui.register_target("menu:skip_intro",skip)
+		intro.add_child(ui.label("Dobrovolné · 3–5 minut · kdykoliv bezpečně ukončíš",13,ui.MUTED))
+	var right=ui.card(body,"Vybrat učebnu","Čtyři oblasti. Konkrétní úlohu a režim vybereš uvnitř.")
+	var primary=ui.button("Vybrat učebnu / rozcestník",func():
+		if ui.world_enabled:
+			if not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
+			ui.world_requested.emit("Rozcestník akademie")
+		else: ui.navigate("Tickety"),true)
+	right.add_child(primary); ui.register_target("menu:primary",primary)
+	for item in [["01 / Serverovna a pracovní úlohy","Hlavní serverovna","tickets","8acfe9"],["02 / IT trénink","Trénink","training","efca8b"],["03 / Programování","Programming Academy","programming","76dfc7"],["04 / Angličtina v Londýně","English in London","english","e9a18b"]]:
+		var entry=ui.button(item[0],func():
+			if ui.world_enabled: ui.world_requested.emit(item[1])
+			else: ui.navigate("Trénink" if item[2]=="training" else "Tickety"))
+		entry.add_theme_color_override("font_color",Color(item[3])); right.add_child(entry); ui.register_target("menu:"+item[2],entry)
+	var footer=ui.hbox(all,10)
+	var spacer=Control.new(); spacer.size_flags_horizontal=Control.SIZE_EXPAND_FILL; footer.add_child(spacer)
+	if ui.world_enabled and not OS.has_feature("android"):
+		var vr=ui.button("Spustit ve VR",func(): ui.play_mode_requested.emit("vr")); footer.add_child(vr); ui.register_target("menu:vr",vr)
+	for item in [["Moje znalosti",func(): ui.navigate("Moje znalosti"),"knowledge"],["Studijní materiály",func(): ui.navigate("Akademie"),"study"],["Nastavení",ui.open_settings,"settings"],["Ukončit hru",ui.quit_game,"quit"]]:
 		var b=ui.button(item[0],item[1]); footer.add_child(b); ui.register_target("menu:"+item[2],b)
-	var credit=ui.label("Vytvořil Vít Kellner",14,ui.MUTED)
-	credit.name="AuthorCredit"
-	credit.autowrap_mode=TextServer.AUTOWRAP_OFF
-	credit.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-	credit.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	credit.focus_mode=Control.FOCUS_NONE
-	all.add_child(credit)
+	var credit=ui.label("Vytvořil Vít Kellner",14,ui.MUTED); credit.name="AuthorCredit"; credit.autowrap_mode=TextServer.AUTOWRAP_OFF; credit.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; credit.mouse_filter=Control.MOUSE_FILTER_IGNORE; credit.focus_mode=Control.FOCUS_NONE; all.add_child(credit)

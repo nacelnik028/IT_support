@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Použitelnost: menu, pokračování a praktický úvod — 6. 11. 2026
+
+- Nová hierarchie pokračování / výběr učebny, čtyři číslované oblasti, vedlejší VR/nastavení/materiály. Nový profil vidí dobrovolný praktický úvod a přeskočení; existující profil není automaticky směrován do úvodu.
+- Existující Pokračování nyní zobrazuje skutečné samostatné kampaně, směny, snímky IT výuky a přesné programovací koncepty s režimem. Samotné menu/přehled nic nespouští, nehodnotí ani neukládá. Prázdné pokračování je neaktivní. Esc vrací menu.
+- Praktický úvod končí výslovným ověřením po zásahu, pokyny odpovídají PC předvolbám nebo VR. Odmítnutí při chybě zápisu; obnovení původní obrazovky, kabelu a relace. Bez nových odměn či změn save schématu.
+- Aktuálně: usability 213 PASS (6 PC kombinací + skutečný SubViewport a oba syntetické XR paprsky), gameplay 217 PASS (celý fyzický průchod), gameplay_review 104 PASS včetně XR ověření zásahu. Izolované SaveManager.path_override, CFG i VR CFG. Menu 720p/130 % graficky prohlédnuté.
+- Srovnávací předchozí snímky a benchmarky obou rendererů: docs/ui-review/2026-11-06-usability/before/. Další etapy editoru a HUD následují; EXE zatím nepřestavěné, APK se v tomto zadání nepřestavuje. Katalogy a legacy24 beze změn.
+
+
 ## Vizuální dokončení dělicí lišty — 5. 11. 2026
 
 - Vypnuté implicitní autohide grabberu a přidané kontrastní pozadí dělicí lišty; 18px zásahová plocha zachovaná. Nový regresní požadavek na trvale viditelnou lištu.

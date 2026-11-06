@@ -463,10 +463,11 @@ func navigate(target: String):
 		game.tutorial.session.page=page
 		game.tutorial.session.tab=tab
 		game.save()
-	if not game.active and not page in ["Trénink","menu"]: game.start_mission(0)
+	if not game.active and page in ["Serverovna","Tickety","Proxmox","Hyper-V","Storage","Síť","Terminál"]: game.start_mission(0)
 	context_open=false
 	TutorialUI.route(self)
 	draw_ui()
+	if world_enabled and shell_ref!=null and shell_ref.get_ref()!=null and shell_ref.get_ref().mode=="menu" and page!="menu": shell_ref.get_ref().set_mode("app")
 
 func draw_datacenter():
 	var contents = scroll(center)

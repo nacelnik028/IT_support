@@ -30,6 +30,7 @@ var pause_page="main"
 var utility_to_settings=false
 var controls_label: Label
 var introduction_step = 0
+var introduction_return_mode="world"
 var ui_layer: CanvasLayer
 var xr_rig
 var vr_active = false
@@ -320,6 +321,7 @@ func enter_world(destination: String = "Serverovna"):
 		if not ui.display_settings.introduction_seen: introduction_step=0; show_introduction()
 
 func show_introduction():
+	introduction_return_mode=mode
 	set_mode("introduction")
 	var v=panel("Seznámení s ovládáním","Praktický úvod na 3–5 minut: rozhlédnutí v hale, pohyb, dveře, monitor, cvičný díl a pauza. Tvůj postup i rozpracovaná relace se po skončení obnoví.")
 	v.add_child(ui.button("Zahájit praktický úvod",practical_intro.start,true))
@@ -328,7 +330,8 @@ func show_introduction():
 func finish_introduction():
 	if practical_intro.active: practical_intro.finish(false); return
 	ui.save_preference("introduction_seen",true)
-	return_to_world()
+	if introduction_return_mode=="menu": ui.page="menu"; ui.draw_ui(); set_mode("menu")
+	else: return_to_world()
 
 func return_to_world():
 	ui.capture_form_drafts()
@@ -830,10 +833,11 @@ func _unhandled_key_input(event):
 	if event.keycode == KEY_ESCAPE:
 		if mode == "world": pause_menu()
 		elif mode == "introduction": finish_introduction()
-		elif mode == "pause" and practical_intro.active and practical_intro.step==9: practical_intro.finish(true)
+		elif mode == "pause" and practical_intro.active and practical_intro.step==10: practical_intro.finish(true)
 		elif mode=="pause" and pause_page=="work": pause_destinations()
 		elif mode=="pause" and pause_page!="main": return_from_utility()
 		elif mode == "app" and ui.page=="Nastavení": ui.close_settings()
+		elif mode == "app" and ui.page=="Pokračování": ui.page="menu"; ui.draw_ui(); set_mode("menu")
 		elif mode == "app" and ui.context_open: ui.context_open=false; ui.draw_ui()
 		elif mode != "menu": return_to_world()
 		get_viewport().set_input_as_handled()
