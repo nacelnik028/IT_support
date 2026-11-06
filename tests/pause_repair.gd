@@ -14,6 +14,7 @@ var capture_directory="res://docs/ui-review/2026-11-04-interface/"
 
 func _init():
 	if "--review-current" in OS.get_cmdline_user_args(): capture_directory="res://docs/ui-review/2026-11-05-alex-portals-editor/"
+	if "--review-usability" in OS.get_cmdline_user_args(): capture_directory="res://docs/ui-review/2026-11-06-usability/matrix/"
 	DirAccess.make_dir_recursive_absolute(capture_directory)
 	var tag="user://academy_test_pause_repair_"+str(OS.get_process_id())
 	save_path=tag+".json"; Saves.path_override=save_path; Display.path_override=tag+".cfg"; Comfort.path_override=tag+"_vr.cfg"
@@ -55,8 +56,10 @@ func click(b, hand: int = -1):
 	else:
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		var move=InputEventMouseMotion.new(); move.position=at; viewport.push_input(move,true)
+		await frames(2)
 		for down in [true,false]:
 			var event=InputEventMouseButton.new(); event.position=at; event.button_index=MOUSE_BUTTON_LEFT; event.pressed=down; event.button_mask=MOUSE_BUTTON_MASK_LEFT if down else 0; viewport.push_input(event,true)
+			await frames(2)
 	await frames()
 
 func escape():

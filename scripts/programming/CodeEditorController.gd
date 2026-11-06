@@ -49,6 +49,9 @@ var results_button: Button
 var results_enlarged=false
 var regular_split=0
 var layout_extent=Vector2.ZERO
+var sidebar: VBoxContainer
+var sidebar_button: Button
+var sidebar_collapsed=false
 
 func _notification(what):
 	if what==NOTIFICATION_VISIBILITY_CHANGED and not is_visible_in_tree():
@@ -77,6 +80,9 @@ func _ready():
 	top.add_child(heading)
 	top.add_child(button("Zpět do učebny  [Esc]",shell.return_to_world))
 	var tools_row=HFlowContainer.new(); root.add_child(tools_row)
+	sidebar_button=button("Sbalit seznam lekcí a úloh",toggle_sidebar); tools_row.add_child(sidebar_button)
+	sidebar_button.toggle_mode=true
+	sidebar_button.tooltip_text="Skryje pouze výběr úloh. Aktuální zadání, režim, kód i výsledky zůstanou otevřené."
 	mode_picker=OptionButton.new()
 	for caption in ["Učím se","Procvičování","Zkouška"]: mode_picker.add_item(caption)
 	tools_row.add_child(mode_picker)
@@ -95,7 +101,7 @@ func _ready():
 	shell.ui.game.persistence_changed.connect(refresh_save_state)
 	refresh_save_state()
 	var body=HBoxContainer.new(); root.add_child(body); body.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	var sidebar=VBoxContainer.new(); body.add_child(sidebar); sidebar.custom_minimum_size.x=290
+	sidebar=VBoxContainer.new(); body.add_child(sidebar); sidebar.custom_minimum_size.x=290
 	category_picker=OptionButton.new()
 	for caption in ["Všechny oblasti","Python","HTML","CSS","JavaScript","Celý webový vývoj"]: category_picker.add_item(caption)
 	sidebar.add_child(category_picker)
@@ -171,6 +177,12 @@ func _ready():
 
 func _process(_delta):
 	fit_workspace()
+
+func toggle_sidebar():
+	sidebar_collapsed=not sidebar_collapsed
+	sidebar.visible=not sidebar_collapsed
+	sidebar_button.text="Zobrazit lekce a úlohy" if sidebar_collapsed else "Sbalit seznam lekcí a úloh"
+	sidebar_button.set_pressed_no_signal(sidebar_collapsed)
 
 func fit_workspace():
 	if not is_instance_valid(workspace_split): return

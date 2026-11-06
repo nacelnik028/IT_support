@@ -1,5 +1,14 @@
 # Datacenter Academy — stav vývoje
 
+## Použitelnost: sbalitelný seznam programování — 6. 11. 2026
+
+- Editor má viditelný přepínač Sbalit seznam lekcí a úloh / Zobrazit lekce a úlohy. Skrývá existující panel bez přestavby editoru nebo změny pokusu. Stav drží přes překreslení seznamu, záložky, běh/ověření a resize; aktuální titul, režim, celé zadání a nápověda zůstávají dostupné.
+- Prokazatelně získává přes 280 logických pixelů. Zachované přesné soubory, input(), výstup, ověření a jeho zastaralost, nativní buffer a koncept. Dělicí lišta, minima a zvětšení výsledků beze změn.
+- Aktuální editor_repair: 1322 headless PASS; následná rozšířená grafická matice Compatibility 1448 PASS v 720p/1080p/4K × 100/130 % i VR 1600×1200 × oba paprsky. Nově kontrola otevřené klávesnice a nejméně pěti celých řádků. programming_integration 765 PASS / 252 variant.
+- Při grafickém vývoji odhaleny dva nespolehlivé syntetické kliky v popupu; test nyní odděluje pohyb/stisk/uvolnění do snímků a odklání neaktivní XR paprsek od předchozího popupu. Kontroly zachované, finální Compatibility bez chyb. Forward+ a celá závěrečná regrese následují.
+- Prohlédnuté snímky v docs/ui-review/2026-11-06-usability/matrix/. EXE zatím původní; APK se nepřestavuje.
+
+
 ## Použitelnost: menu, pokračování a praktický úvod — 6. 11. 2026
 
 - Nová hierarchie pokračování / výběr učebny, čtyři číslované oblasti, vedlejší VR/nastavení/materiály. Nový profil vidí dobrovolný praktický úvod a přeskočení; existující profil není automaticky směrován do úvodu.

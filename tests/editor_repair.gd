@@ -1,6 +1,11 @@
 extends "res://tests/pause_repair.gd"
 
 # Reuse isolated saves, complete mouse/XR clicks and capture helpers.
+func click(b, hand: int = -1):
+	# The unused synthetic controller must not remain over the previous popup.
+	if hand>=0: point(1-hand,Vector2(-200,-200))
+	await super.click(b,hand)
+
 func pixel_rect(control: Control) -> Rect2:
 	var transform=control.get_global_transform_with_canvas()
 	return Rect2(transform.origin,control.size*transform.get_scale())
@@ -88,6 +93,7 @@ func scroll_output(control: TextEdit, hand: int):
 
 func exercise(hand: int = -1):
 	var code=shell.code_editor
+	if code.sidebar_collapsed: await click(code.sidebar_button,hand)
 	code.manager.progress.settings.font_size=22; code.zoom(0)
 	code.mode_picker.select(1); code.launch("PY01",false); await frames()
 	for window in code.find_children("*","AcceptDialog",true,false):
@@ -128,6 +134,26 @@ func exercise(hand: int = -1):
 	await capture("editor-verification-inputs",rig.monitor.viewport if hand>=0 else null)
 	await click(code.input_toggle,hand)
 	var files=code.manager.files.duplicate(true); var attempt=code.manager.current.duplicate(true)
+	var expanded_width=code.editor.size.x
+	var retained={"input":code.input_console.text,"out":code.console.text,"verification":code.verification.text,"result":code.manager.last_result.duplicate(true),"run":code.manager.last_run.duplicate(true),"key":code.buffer_key,"buffer":code.editor,"tab":code.output_tabs.current_tab}
+	await click(code.sidebar_button,hand)
+	check(code.sidebar_collapsed and not code.sidebar.visible and code.sidebar_button.text=="Zobrazit lekce a úlohy","Seznam lze skutečně sbalit a znovu otevřít pojmenovaným ovladačem")
+	check(code.editor.size.x>=expanded_width+280,"Sbalení přidá alespoň 280 logických pixelů pro kód a výsledky")
+	code.populate(); await frames()
+	check(not code.sidebar.visible and code.sidebar_collapsed,"Překreslení seznam neotevře")
+	check(code.manager.files==files and code.manager.current==attempt and code.input_console.text==retained.input and code.console.text==retained.out and code.verification.text==retained.verification and code.manager.last_result==retained.result and code.manager.last_run==retained.run and code.buffer_key==retained.key and code.editor==retained.buffer and code.output_tabs.current_tab==retained.tab,"Sbalení zachová přesný kód, vstupy, výstup, ověření, pokus i nativní editor")
+	check(code.details.text.begins_with("PY01") and code.mode_picker.get_item_text(code.mode_picker.selected)=="Procvičování","Aktuální úloha a režim zůstanou přímo viditelné")
+	check_workspace(code,"Sbalený seznam")
+	if hand>=0:
+		code.editor.grab_focus(); rig.monitor.keyboard.track_focus(); await frames()
+		check(rig.monitor.keyboard.visible and rig.monitor.keyboard.get_global_rect().end.y<=1200,"Celá skutečná virtuální klávesnice se vejde do VR viewportu")
+		check(pixel_rect(code.workspace_split).end.y<=rig.monitor.keyboard.get_global_rect().position.y,"Klávesnice nepřekryje pracovní plochu ani výsledky")
+		check_workspace(code,"Sbalený seznam s VR klávesnicí")
+		await capture("editor-collapsed-keyboard",rig.monitor.viewport)
+		rig.monitor.keyboard.dismiss()
+	await drag_split(code,hand); await scroll_output(code.verification,hand)
+	await select_tab(code,0,hand); await select_tab(code,2,hand)
+	await capture("editor-sidebar-collapsed",rig.monitor.viewport if hand>=0 else null)
 	await click(code.results_button,hand); check_workspace(code,"Zvětšené podrobnosti")
 	await capture("editor-enlarged",rig.monitor.viewport if hand>=0 else null)
 	await click(code.results_button,hand); check_workspace(code,"Návrat k běžnému rozložení")
@@ -141,6 +167,9 @@ func exercise(hand: int = -1):
 	check("ZASTARALÉ" in code.verification_state.text,"Úprava označí ověření za zastaralé")
 	await click(code.test_button,hand); check(code.manager.last_result.ok and code.verification_state.text.begins_with("SPLNĚNO"),"Správné řešení projde skutečnými testy")
 	check_workspace(code,"Úspěšné ověření")
+	check(code.sidebar_collapsed and not code.sidebar.visible,"Běh, ověření, záložky ani resize seznam samy neotevřou")
+	await click(code.sidebar_button,hand)
+	check(code.sidebar.visible and code.manager.last_result.ok and code.editor.text=="print('Ahoj, světe!')","Opětovné otevření zachová úspěšný výsledek i kód")
 	await capture("editor-passed",rig.monitor.viewport if hand>=0 else null)
 	await click(button("Celé zadání"),hand)
 	var dialog=code.find_children("*","AcceptDialog",true,false).filter(func(n): return n.visible)[0]
