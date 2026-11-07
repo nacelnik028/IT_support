@@ -1,15 +1,15 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
-  "date": "2026-11-05",
-  "source_commit": "a403a406865f8849e209a66918330eb7b951d5e0",
-  "source_manifest_sha256": "a94e3c805dc6831b59915eb2e2648adc42c886fcf0d2375707f61f6dab9eb437",
+  "date": "2026-11-07",
+  "source_commit": "b9f442039abe519b0015f8bfa8f30df1f172feae",
+  "source_manifest_sha256": "f9ad8f1a3a1afc10521148c25d520415e7241ff1a141736c00dbc94ad1a43dc9",
   "source_manifests_match": false,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104480112,
-      "sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170"
+      "bytes": 104489040,
+      "sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -21,61 +21,34 @@
     "rebuilt": true,
     "export": "Windows x86_64 Debug",
     "embedded_pck": true,
-    "source_commit": "a403a406865f8849e209a66918330eb7b951d5e0",
-    "native_headless_smoke": true,
-    "native_gui": {
-      "method": "Actual build/ITSupportSimulator.exe launched from an unrelated directory with --test-world; Windows computer-use input and captured window",
-      "checks": {
-        "compact_pause_after_escape": true,
-        "destinations_menu": true,
-        "escape_returns_to_pause": true,
-        "clean_window_exit": true
-      },
-      "screenshots": [
-        "docs/ui-review/2026-11-05-exe-menu/native-exe-pause.png",
-        "docs/ui-review/2026-11-05-exe-menu/native-exe-destinations.png"
-      ]
-    },
+    "source_commit": "b9f442039abe519b0015f8bfa8f30df1f172feae",
+    "native_headless_smoke": "docs/ui-review/2026-11-06-usability/verification/native-headless.log",
     "packaged_interface_tests": {
-      "exe_sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
-      "exe_bytes": 104480112,
-      "method": "External test scripts against the actual embedded EXE pack, unrelated temporary working directory",
-      "results": [
-        {
-          "test": "pause_repair",
-          "renderer": "headless",
-          "exit_code": 0,
-          "passed": true,
-          "log": "pack-pause-headless.log"
-        },
-        {
-          "test": "pause_repair",
-          "renderer": "gl_compatibility",
-          "exit_code": 0,
-          "passed": true,
-          "log": "pack-pause-gl_compatibility.log"
-        },
-        {
-          "test": "pause_repair",
-          "renderer": "forward_plus",
-          "exit_code": 0,
-          "passed": true,
-          "log": "pack-pause-forward_plus.log"
-        },
-        {
-          "test": "package_content",
-          "renderer": "headless",
-          "exit_code": 0,
-          "passed": true,
-          "log": "pack-content.log"
-        }
-      ]
+      "report": "docs/ui-review/2026-11-06-usability/verification/package/results.json",
+      "exe_sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd",
+      "bytes": 104489040,
+      "runtime": "Native Windows EXE + external tests against the same embedded pack",
+      "results": {
+        "native_graphical": true,
+        "usability": true,
+        "editor_repair": true,
+        "package_content": true
+      },
+      "usability_checks": 263,
+      "editor_checks": 1354,
+      "content_checks": 5864
     }
   },
   "source_regressions": {
-    "report": "docs/ui-review/2026-11-04-interface/verification/test-all.json",
-    "suites": 51,
-    "runtime_sources_unchanged": true
+    "report": "docs/ui-review/2026-11-06-usability/verification/test-all.log",
+    "suites": 52,
+    "passed_suites": 52,
+    "training_lessons_by_mode": {
+      "learn": 21,
+      "practice": 21,
+      "exam": 21
+    },
+    "training_ui_actions": 336
   },
   "pico4": {
     "rebuilt": false,
@@ -84,5 +57,39 @@
     "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
     "previous_verification": "docs/ui-review/2026-11-05-exe-menu/verification/previous-distributions.json"
   },
-  "hardware": "Physical PICO not tested"
+  "hardware": "Physical PICO not tested",
+  "graphical_matrices": {
+    "renderers": [
+      "gl_compatibility",
+      "forward_plus"
+    ],
+    "resolutions": [
+      [
+        1280,
+        720
+      ],
+      [
+        1920,
+        1080
+      ],
+      [
+        3840,
+        2160
+      ]
+    ],
+    "text_percent": [
+      100,
+      130
+    ],
+    "usability_checks_per_renderer": 279,
+    "editor_checks_per_renderer": 1448,
+    "synthetic_vr": {
+      "viewport": [
+        1600,
+        1200
+      ],
+      "both_rays": true,
+      "keyboard": true
+    }
+  }
 }

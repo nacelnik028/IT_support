@@ -21,4 +21,24 @@ Navazuje na zdroj `601fa0d`. Dřívější nepřidaná složka `2026-11-05-alex-
 - `tests/usability_capture.gd -- --screenshots`: srovnávací snímky a tři opakování měření stejného 1080p záběru. `--baseline` byl použit před úpravami.
 - Grafické matice: `tests/usability.gd` a `tests/editor_repair.gd -- --screenshots --review-usability`. Matice používá profil Vyvážená; srovnávací snímky/benchmarky výchozí Vysoká. Syntetický VR ověřuje rozložení a vstupy, nikoli fyzické PICO nebo jeho výkon.
 
-Závěrečné logy, souhrn regrese a ověření nového Windows EXE jsou ve [verification](verification/). Vývojové neúspěšné běhy nejsou vydávány za finální výsledky. Katalogy, generátory a prvních 24 definic zůstávají beze změn. PICO APK se v tomto zadání nepřestavuje.
+Závěrečný `Test-All.ps1` prošel ve všech 52 sadách. Výuka prošla 21 lekcemi v každém
+ze tří režimů a testy provedly 336 akcí. Použitelnost prošla 263 kontrolami bez
+grafiky a 279 v každém rendereru. Editor prošel 1 354 kontrolami bez grafiky
+a 1 448 v každém rendereru. Katalogy, generátory a prvních 24 definic odpovídají
+výchozímu zdroji `601fa0d`. [Protokol regrese](verification/test-all.log).
+
+Průměr ze tří měření stejného 1080p záběru se v Compatibility změnil z 4,12 na
+4,07 ms a ve Forward+ z 3,40 na 3,38 ms. V obou případech je ve scéně 34 světel.
+Údaje popisují tento záběr na testovacím PC. [Měření před](before/) a [po](after/).
+
+Samostatné Windows EXE vzniklo 7. 11. 2026. Nativní test s obrazem i bez něj
+potvrdil nové menu a sbalení editoru. Uložené činnosti, editor a integritu obsahu
+ověřily testy přímo nad vloženými herními daty. Starší PICO APK má samostatná
+metadata. Fyzický PICO test zbývá. [Windows EXE](../../../build/ITSupportSimulator.exe)
+a [ověření balíčku](verification/package/results.json).
+
+Vývojové běhy jsou oddělené v [development](verification/development/). Regrese
+při první kontrole odhalila test navázaný na starý popisek desktopového tlačítka.
+Aktuální test místo popisku ověřuje otevření rozcestníku a funkční chůzi.
+První běh nad vloženými daty odhalil nadbytečnou tvorbu složky v oblasti pouze
+pro čtení. Společná příprava testu už cílovou složku vytváří.

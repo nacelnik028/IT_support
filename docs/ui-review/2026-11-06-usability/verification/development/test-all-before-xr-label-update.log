@@ -1,0 +1,252 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+USABILITY: 258 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON REPAIR: 2755 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+VISIBLE ROWS 1280-100 Výstup při otevření: 6; code=9
+VISIBLE ROWS 1280-100 Výstup s necelým posuvem: 6; code=9
+VISIBLE ROWS 1280-100 Výstup s rozbalenými vstupy: 8; code=8
+VISIBLE ROWS 1280-100 Rozbalené podrobnosti testů: 6; code=8
+VISIBLE ROWS 1280-100 Výstup po přepnutí záložky: 8; code=8
+VISIBLE ROWS 1280-100 Podrobnosti po návratu na záložku: 6; code=8
+VISIBLE ROWS 1280-100 Podrobnosti a rozbalené vstupy: 6; code=8
+VISIBLE ROWS 1280-100 Sbalený seznam: 6; code=8
+VISIBLE ROWS 1280-100 Zvětšené podrobnosti: 18; code=0
+VISIBLE ROWS 1280-100 Návrat k běžnému rozložení: 8; code=6
+VISIBLE ROWS 1280-100 Podrobnosti po resize: 10; code=8
+VISIBLE ROWS 1280-100 Podrobnosti po návratu velikosti: 8; code=6
+VISIBLE ROWS 1280-100 Úspěšné ověření: 7; code=6
+VISIBLE ROWS 1280-130 Výstup při otevření: 9; code=6
+VISIBLE ROWS 1280-130 Výstup s necelým posuvem: 9; code=6
+VISIBLE ROWS 1280-130 Výstup s rozbalenými vstupy: 10; code=5
+VISIBLE ROWS 1280-130 Rozbalené podrobnosti testů: 8; code=5
+VISIBLE ROWS 1280-130 Výstup po přepnutí záložky: 10; code=5
+VISIBLE ROWS 1280-130 Podrobnosti po návratu na záložku: 8; code=5
+VISIBLE ROWS 1280-130 Podrobnosti a rozbalené vstupy: 8; code=5
+VISIBLE ROWS 1280-130 Sbalený seznam: 8; code=5
+VISIBLE ROWS 1280-130 Zvětšené podrobnosti: 16; code=0
+VISIBLE ROWS 1280-130 Návrat k běžnému rozložení: 6; code=6
+VISIBLE ROWS 1280-130 Podrobnosti po resize: 8; code=8
+VISIBLE ROWS 1280-130 Podrobnosti po návratu velikosti: 6; code=6
+VISIBLE ROWS 1280-130 Úspěšné ověření: 6; code=5
+VISIBLE ROWS 1920-100 Výstup při otevření: 11; code=8
+VISIBLE ROWS 1920-100 Výstup s necelým posuvem: 11; code=8
+VISIBLE ROWS 1920-100 Výstup s rozbalenými vstupy: 14; code=7
+VISIBLE ROWS 1920-100 Rozbalené podrobnosti testů: 12; code=7
+VISIBLE ROWS 1920-100 Výstup po přepnutí záložky: 14; code=7
+VISIBLE ROWS 1920-100 Podrobnosti po návratu na záložku: 12; code=7
+VISIBLE ROWS 1920-100 Podrobnosti a rozbalené vstupy: 12; code=7
+VISIBLE ROWS 1920-100 Sbalený seznam: 12; code=7
+VISIBLE ROWS 1920-100 Zvětšené podrobnosti: 22; code=0
+VISIBLE ROWS 1920-100 Návrat k běžnému rozložení: 14; code=5
+VISIBLE ROWS 1920-100 Podrobnosti po resize: 10; code=5
+VISIBLE ROWS 1920-100 Podrobnosti po návratu velikosti: 14; code=5
+VISIBLE ROWS 1920-100 Úspěšné ověření: 11; code=5
+VISIBLE ROWS 1920-130 Výstup při otevření: 14; code=5
+VISIBLE ROWS 1920-130 Výstup s necelým posuvem: 14; code=5
+VISIBLE ROWS 1920-130 Výstup s rozbalenými vstupy: 12; code=7
+VISIBLE ROWS 1920-130 Rozbalené podrobnosti testů: 10; code=7
+VISIBLE ROWS 1920-130 Výstup po přepnutí záložky: 12; code=7
+VISIBLE ROWS 1920-130 Podrobnosti po návratu na záložku: 10; code=7
+VISIBLE ROWS 1920-130 Podrobnosti a rozbalené vstupy: 10; code=7
+VISIBLE ROWS 1920-130 Sbalený seznam: 10; code=7
+VISIBLE ROWS 1920-130 Zvětšené podrobnosti: 19; code=0
+VISIBLE ROWS 1920-130 Návrat k běžnému rozložení: 12; code=5
+VISIBLE ROWS 1920-130 Podrobnosti po resize: 8; code=5
+VISIBLE ROWS 1920-130 Podrobnosti po návratu velikosti: 12; code=5
+VISIBLE ROWS 1920-130 Úspěšné ověření: 8; code=5
+VISIBLE ROWS 3840-100 Výstup při otevření: 24; code=13
+VISIBLE ROWS 3840-100 Výstup s necelým posuvem: 24; code=13
+VISIBLE ROWS 3840-100 Výstup s rozbalenými vstupy: 27; code=10
+VISIBLE ROWS 3840-100 Rozbalené podrobnosti testů: 25; code=10
+VISIBLE ROWS 3840-100 Výstup po přepnutí záložky: 27; code=10
+VISIBLE ROWS 3840-100 Podrobnosti po návratu na záložku: 25; code=10
+VISIBLE ROWS 3840-100 Podrobnosti a rozbalené vstupy: 25; code=10
+VISIBLE ROWS 3840-100 Sbalený seznam: 25; code=10
+VISIBLE ROWS 3840-100 Zvětšené podrobnosti: 39; code=0
+VISIBLE ROWS 3840-100 Návrat k běžnému rozložení: 28; code=8
+VISIBLE ROWS 3840-100 Podrobnosti po resize: 10; code=5
+VISIBLE ROWS 3840-100 Podrobnosti po návratu velikosti: 28; code=8
+VISIBLE ROWS 3840-100 Úspěšné ověření: 22; code=8
+VISIBLE ROWS 3840-130 Výstup při otevření: 29; code=7
+VISIBLE ROWS 3840-130 Výstup s necelým posuvem: 28; code=7
+VISIBLE ROWS 3840-130 Výstup s rozbalenými vstupy: 32; code=5
+VISIBLE ROWS 3840-130 Rozbalené podrobnosti testů: 30; code=5
+VISIBLE ROWS 3840-130 Výstup po přepnutí záložky: 32; code=5
+VISIBLE ROWS 3840-130 Podrobnosti po návratu na záložku: 30; code=5
+VISIBLE ROWS 3840-130 Podrobnosti a rozbalené vstupy: 30; code=5
+VISIBLE ROWS 3840-130 Sbalený seznam: 30; code=5
+VISIBLE ROWS 3840-130 Zvětšené podrobnosti: 37; code=0
+VISIBLE ROWS 3840-130 Návrat k běžnému rozložení: 27; code=7
+VISIBLE ROWS 3840-130 Podrobnosti po resize: 8; code=5
+VISIBLE ROWS 3840-130 Podrobnosti po návratu velikosti: 27; code=7
+VISIBLE ROWS 3840-130 Úspěšné ověření: 21; code=7
+VISIBLE ROWS vr-100 Výstup při otevření: 12; code=5
+VISIBLE ROWS vr-100 Výstup s necelým posuvem: 12; code=5
+VISIBLE ROWS vr-100 Výstup s rozbalenými vstupy: 10; code=6
+VISIBLE ROWS vr-100 Rozbalené podrobnosti testů: 8; code=6
+VISIBLE ROWS vr-100 Výstup po přepnutí záložky: 10; code=6
+VISIBLE ROWS vr-100 Podrobnosti po návratu na záložku: 8; code=6
+VISIBLE ROWS vr-100 Podrobnosti a rozbalené vstupy: 8; code=6
+VISIBLE ROWS vr-100 Sbalený seznam: 8; code=6
+VISIBLE ROWS vr-100 Sbalený seznam s VR klávesnicí: 8; code=6
+VISIBLE ROWS vr-100 Zvětšené podrobnosti: 18; code=0
+VISIBLE ROWS vr-100 Návrat k běžnému rozložení: 10; code=5
+VISIBLE ROWS vr-100 Úspěšné ověření: 8; code=5
+VISIBLE ROWS vr-100 Výstup při otevření: 12; code=5
+VISIBLE ROWS vr-100 Výstup s necelým posuvem: 12; code=5
+VISIBLE ROWS vr-100 Výstup s rozbalenými vstupy: 10; code=6
+VISIBLE ROWS vr-100 Rozbalené podrobnosti testů: 8; code=6
+VISIBLE ROWS vr-100 Výstup po přepnutí záložky: 10; code=6
+VISIBLE ROWS vr-100 Podrobnosti po návratu na záložku: 8; code=6
+VISIBLE ROWS vr-100 Podrobnosti a rozbalené vstupy: 8; code=6
+VISIBLE ROWS vr-100 Sbalený seznam: 8; code=6
+VISIBLE ROWS vr-100 Sbalený seznam s VR klávesnicí: 8; code=6
+VISIBLE ROWS vr-100 Zvětšené podrobnosti: 18; code=0
+VISIBLE ROWS vr-100 Návrat k běžnému rozložení: 10; code=5
+VISIBLE ROWS vr-100 Úspěšné ověření: 8; code=5
+VISIBLE ROWS vr-130 Výstup při otevření: 10; code=5
+VISIBLE ROWS vr-130 Výstup s necelým posuvem: 10; code=5
+VISIBLE ROWS vr-130 Výstup s rozbalenými vstupy: 9; code=6
+VISIBLE ROWS vr-130 Rozbalené podrobnosti testů: 6; code=6
+VISIBLE ROWS vr-130 Výstup po přepnutí záložky: 9; code=6
+VISIBLE ROWS vr-130 Podrobnosti po návratu na záložku: 6; code=6
+VISIBLE ROWS vr-130 Podrobnosti a rozbalené vstupy: 6; code=6
+VISIBLE ROWS vr-130 Sbalený seznam: 6; code=6
+VISIBLE ROWS vr-130 Sbalený seznam s VR klávesnicí: 6; code=6
+VISIBLE ROWS vr-130 Zvětšené podrobnosti: 16; code=0
+VISIBLE ROWS vr-130 Návrat k běžnému rozložení: 8; code=5
+VISIBLE ROWS vr-130 Úspěšné ověření: 6; code=5
+VISIBLE ROWS vr-130 Výstup při otevření: 10; code=5
+VISIBLE ROWS vr-130 Výstup s necelým posuvem: 10; code=5
+VISIBLE ROWS vr-130 Výstup s rozbalenými vstupy: 9; code=6
+VISIBLE ROWS vr-130 Rozbalené podrobnosti testů: 6; code=6
+VISIBLE ROWS vr-130 Výstup po přepnutí záložky: 9; code=6
+VISIBLE ROWS vr-130 Podrobnosti po návratu na záložku: 6; code=6
+VISIBLE ROWS vr-130 Podrobnosti a rozbalené vstupy: 6; code=6
+VISIBLE ROWS vr-130 Sbalený seznam: 6; code=6
+VISIBLE ROWS vr-130 Sbalený seznam s VR klávesnicí: 6; code=6
+VISIBLE ROWS vr-130 Zvětšené podrobnosti: 16; code=0
+VISIBLE ROWS vr-130 Návrat k běžnému rozložení: 8; code=5
+VISIBLE ROWS vr-130 Úspěšné ověření: 6; code=5
+EDITOR REPAIR: 1354 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PAUSE REPAIR: 217 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ARCHITECTURE REPAIR: 19170 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.81879)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.010831, 7.937693)
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.81879)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.009165, 7.990468)
+WALK: (8.0, 0.02, 8.0) -> (8.011627, -0.009164, 7.999828)
+WALK: (8.0, 0.02, 18.8) -> (8.000157, -0.009161, 18.8189)
+WALK: (8.0, 0.02, 24.0) -> (8.000005, -0.009163, 24.07996)
+WALK: (0.0, 0.02, 24.0) -> (-0.047395, -0.009163, 24.00133)
+WALK: (0.0, 0.02, 28.3) -> (-0.001489, -0.009722, 28.31812)
+WALK: (0.0, 0.02, 24.0) -> (-0.000049, -0.009163, 23.93699)
+WALK: (20.45, 0.02, 24.0) -> (20.46413, -0.009163, 23.99956)
+WALK: (20.45, 0.02, 28.3) -> (20.45045, -0.010021, 28.31902)
+WALK: (20.45, 0.02, 24.0) -> (20.45001, -0.009163, 23.93789)
+WALK: (8.0, 0.02, 24.0) -> (7.985851, -0.009163, 23.99929)
+WALK: (8.0, 0.02, 18.8) -> (7.999635, -0.009162, 18.73828)
+WALK: (20.45, 0.02, 18.8) -> (20.46371, -0.009164, 18.7993)
+WALK: (20.45, 0.02, 9.5) -> (20.44164, -0.009163, 9.484829)
+WALK: (23.0, 0.02, 9.5) -> (23.0216, -0.009341, 9.499575)
+WALK: (23.0, 0.02, -11.5) -> (23.00014, -0.009934, -11.54779)
+WALK: (19.0, 0.02, -11.5) -> (18.95265, -0.009169, -11.50148)
+WALK: (16.0, 0.02, -5.0) -> (16.03857, -0.009167, -4.951997)
+WALK: (16.0, 0.02, 6.3) -> (16.00047, -0.009944, 6.392125)
+WALK: (10.0, 0.02, 6.3) -> (9.95338, -0.009933, 6.301997)
+LONDON GEOMETRY: 226 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST WINDOW FOCUS OUT / 1
+TEST WINDOW FOCUS OUT / 2
+TEST WINDOW FOCUS OUT / 3
+TEST WINDOW FOCUS OUT / 4
+TEST WINDOW FOCUS OUT / 5
+TEST WINDOW FOCUS OUT / 6
+TEST WINDOW FOCUS OUT / 7
+TEST WINDOW FOCUS OUT / 8
+TEST WINDOW FOCUS OUT / 9
+TEST WINDOW FOCUS OUT / 10
+TEST WINDOW FOCUS OUT / 11
+TEST WINDOW FOCUS OUT / 12
+CONTINUATION REVIEW: 239 checks, 0 failures; PC matrix and synthetic XR, no headset
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UNIFIED PROFILE: 38 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON LISTENING: 515 checks, 0 failures; audio decoded/player tested, no human listening claim
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ATTEMPT REVIEW: 49 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ADVANCED SHIFTS: 268 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SHIFT SCORING: 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORK PERSISTENCE: 69 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GAMEPLAY REVIEW: 104 checks, 0 failures; synthetic XR, no headset
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GAMEPLAY: 217 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SHIFTS: 136 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ACADEMY HUB: 55 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON QUIZ: 527 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ENGLISH MODEL: 1809 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ENGLISH WORLD: 1097 checks, 0 failures (synthetic XR, no headset)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI WORKFLOW: 615 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING RUNTIME 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING CATALOG 1071 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING ACADEMY 64 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING INTEGRATION 766 checks, 0 failures; 252 generated variants
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST explicit Continue after desktop focus loss
+PROGRAMMING POLISH 29 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING LOCATION: 116 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Menu nabízí desktop
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/xr_modes.gd:23)
+       [1] run (res://tests/xr_modes.gd:57)
+       [2] frames (res://tests/xr_modes.gd:26)
+XR_MODES: 120 checks, 1 failures; synthetic tests, no hardware tracking claim

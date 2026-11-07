@@ -1,13 +1,11 @@
 # IT Support Simulator: Training academy
 
-**Windows EXE v `build/ITSupportSimulator.exe` je přestavěné 5. 11. 2026** a obsahuje
-novou kompaktní pauzu i všechny dokončené opravy rozhraní a konstrukcí.
-[Snímek ze skutečného EXE a ověření](docs/ui-review/2026-11-05-exe-menu/README.md).
-Velikost 104480112 B, SHA256 v `build/SHA256SUMS`. Verze hry zůstává 1.5.0.
+**Windows EXE v `build/ITSupportSimulator.exe` bylo přestavěno 7. 11. 2026.** Obsahuje nové
+menu, praktický úvod, sbalitelný seznam v editoru, čitelnější vstupy a kontextový HUD.
+Verze hry je 1.5.0, velikost 104489040 B a SHA256 je v `build/SHA256SUMS`.
 
-Zdrojový Test-All: **51/51 PASS**. Přesný EXE pack: pauza **217 / 239 / 239 PASS**
-(headless / Compatibility / Forward+), audit obsahu **5674 PASS**, nativní smoke a UI kontrola PASS.
-[Celá zdrojová etapa a snímky](docs/ui-review/2026-11-04-interface/README.md).
+Všech **52 sad Test-All** prošlo včetně výuky ve všech třech režimech.
+[Snímky před a po a výsledky ověření](docs/ui-review/2026-11-06-usability/README.md).
 
 **PICO APK zůstává starší 1.5.0 / code 6** a tuto UI etapu zatím neobsahuje.
 Jeho zdroj a hash jsou uvedené odděleně v [distribučních metadatech](build/BUILD_INFO.md).
@@ -50,8 +48,10 @@ a vlastními výsledky. Staré A1–A2 výsledky zůstávají čitelně archivov
 
 ## Praktický úvod, směny a poslech
 
-Nastavení → Ovládání → **Praktický úvod** nyní nabízí praktický průchod s dveřmi, monitorem
-a cvičným dílem. **Souvislé směny** v přehledu serverovny nebo Pauza → Kam jít → Tickety a směny obsahují tři
+V hlavní nabídce zvol **Začít praktickým úvodem**. Nový profil nabízí i přeskočení.
+Úvod lze kdykoli zopakovat z nabídky nebo přes Nastavení → Ovládání. Projdeš dveřmi,
+pracuješ s cvičným dílem a ověříš zásah na monitoru. Ovládání v PC hře otevřeš klávesou F1.
+**Souvislé směny** v přehledu serverovny nebo Pauza → Kam jít → Tickety a směny obsahují tři
 směny po třech navazujících ticketech a dvě pokročilé směny po pěti současných incidentech nad jednou ukládanou infrastrukturou.
 Kampaň a směna mají samostatné obnovení; přechody mezi učebnami je bezpečně odkládají.
 [Ovládání a pravidla](docs/CONTINUOUS_SHIFTS.md).
@@ -65,9 +65,10 @@ výkonu; VR komfort dovoluje změnit velikost/vzdálenost panelu bez změny rozl
 
 ## Rozepsaná práce a dobrovolné pokračování
 
-Menu → **Pokračování / výuka a rozepsaná práce** rozlišuje kampaň, směnu a
-uloženou IT výuku. V programovací učebně tlačítko **Rozepsaná práce** obnoví
-přesné soubory, režim i generovanou variantu; nic samo nespouští ani nehodnotí.
+Menu → **Pokračovat v rozehrané práci** zobrazí dostupné kampaně, směny, uložené
+IT lekce a programovací koncepty. Vyber konkrétní položku podle názvu a stavu.
+Obnova vrátí soubory a režim, kód spustíš nebo ověříš vlastním tlačítkem.
+Koncepty lze spravovat i přímo v editoru přes Studium a postup → Rozepsaná práce.
 IT formuláře zachovají nepoužitý text jen pro stejný pokus a zařízení.
 Stav zápisu a čas posledního úspěchu jsou viditelné; chybu lze zopakovat.
 [Pravidla, limity a ochrana starých save](docs/WORK_PERSISTENCE.md).
@@ -78,15 +79,14 @@ Dobrovolná otázka nezmění skóre ani nepřidá XP. [Pravidla rozboru](docs/R
 
 ## Aktuální rozhraní
 
-Kompaktní menu nabízí hlavní vstup do rozcestníku a samostatnou pracovní směnu,
-IT tréninkovou akademii, programovací učebnu a angličtinu. Rozcestník i všechny
-místnosti mají doplněné procedurální dekorace. Hlavní akce, VR, Nastavení a Ukončit
-jsou dostupné i v 720p při 130 % textu.
+Z hlavní nabídky můžeš pokračovat v rozehrané práci nebo vybrat jednu ze čtyř
+učeben. Rozcestník používá stejná čísla a barevné akcenty jako menu. Vstupy mají
+větší názvy a cílené osvětlení. Základní nabídka se vejde do 720p při 130 % textu.
 Editor nabízí **Spustit kód** a **Ověřit řešení**, samostatné záložky Výstup / Chyby /
 Ověření a přechod z chyby na známý řádek. Po editaci označí předchozí ověření jako
-zastaralé. Formuláře rozlišují koncept, použití v simulaci a skutečné uložení.
-Přejmenování zachovává původní složku uložených pozic a nastavení.
-[Snímky před a po, reprodukce a omezení](docs/ui-review/2026-11-02-ux/README.md).
+zastaralé. **Sbalit seznam lekcí a úloh** uvolní místo pro kód a výsledek při zachování
+rozpracovaných souborů, vstupů a pokusu. HUD zvýrazňuje cíl a akci zaměřeného zařízení.
+[Srovnávací snímky, reprodukce a omezení](docs/ui-review/2026-11-06-usability/README.md).
 
 ## Spuštění
 
@@ -96,13 +96,13 @@ Jde o oficiální **Windows x86_64 Debug export Godotu 4.7.2**, nikoli Release.
 Soubor je přímo v Gitu bez LFS; použij stažení původního souboru (Raw),
 ne ukládání HTML stránky GitHubu. Kontrolní součet je v `build/SHA256SUMS`.
 [Reprodukovatelné sestavení a ověření](build/README.md).
-PICO APK je ve stejné složce `build/pico4/`; sestavuje se z aktuálních zdrojů.
+Starší PICO APK je ve složce `build/pico4/`.
 Starší Windows ZIP a pracovní exporty byly odstraněny.
 
 PC OpenXR je součást Godotu;
 Android vendor plugin se přibaluje pouze do APK.
-Menu **Rozcestník akademie / klasické 3D** otevře nástupní halu a zachová místní postup.
-**HRÁT VE VR / PICO 4 · OpenXR** uloží postup a spustí stejnou hru s OpenXR.
+Menu **Vybrat učebnu / rozcestník** otevře nástupní halu a zachová místní postup.
+**Spustit ve VR** uloží postup a spustí stejnou hru s OpenXR.
 Pro PC VR připoj headset přes funkční PC VR streaming a nastav kompatibilní aktivní
 OpenXR runtime. Nedostupný runtime/headset zobrazí chybu a menu pro klasické 3D.
 Z VR lze přes pauzu → hlavní menu zvolit klasické 3D se stejným GameManagerem/save.

@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Použitelnost dokončena a Windows EXE přestavěno — 7. 11. 2026
+
+- Herní zdroj `b9f4420`. Závěrečný `Test-All.ps1` dokončil všech 52 sad bez chyb. Výuka prošla 21 lekcemi v každém ze tří režimů a 336 akcemi. Testy nyní procházejí desktopový rozcestník a cestu k volnému tréninku ze serverovny.
+- Použitelnost prošla 263 kontrolami bez grafiky a 279 v každém rendereru. Editor prošel 1 354 kontrolami bez grafiky a 1 448 v každém rendereru. PC matice pokrývá 720p, 1080p a 4K při 100 a 130 % textu. VR matice pokrývá oba syntetické paprsky, viewport 1600 × 1200 a virtuální klávesnici.
+- Prohlédnuté snímky před a po zachycují nabídku, příchody k portálům, sbalený i rozbalený editor a HUD. Průměr času snímku ve stejném záběru je 4,12 → 4,07 ms v Compatibility a 3,40 → 3,38 ms ve Forward+. Godot MCP ověřil menu, úvod a editor bez runtime chyb. Osm původních statických varování je zaznamenáno v protokolu.
+- Nový `build/ITSupportSimulator.exe` má 104489040 B a SHA256 `58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd`. Samotný EXE prošel nativním startem s obrazem i bez něj. Nad jeho vloženým packem prošlo 263 kontrol použitelnosti, 1 354 kontrol editoru a 5 864 kontrol obsahu.
+- [Snímky a ověření](docs/ui-review/2026-11-06-usability/README.md). Prvních 24 definic, katalogy a generátory odpovídají výchozímu zdroji. PICO APK je starší 1.5.0 / code 6 a fyzický test zbývá. Všechny úpravy jsou lokální.
+
 ## Použitelnost: orientace a kontextový HUD — 6. 11. 2026
 
 - Stávající cedule: větší názvy, po reálném šikmém příchodu snížené pod stropní lamely. Čísla/názvy a čtyři barevné akcenty souhlasí s menu a původní orientační tabulí. Přesměrování existujících světel, počet stále 34. Beze změn kolizí, dispozice, čidel, dosahů nebo zazděného přímého průchodu do Londýna.

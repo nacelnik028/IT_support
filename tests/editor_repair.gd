@@ -194,7 +194,6 @@ func exercise(hand: int = -1):
 
 func run():
 	root.gui_embed_subwindows=true
-	DirAccess.make_dir_recursive_absolute("res://docs/ui-review/2026-11-04-interface")
 	shell=load("res://scenes/world/Game.tscn").instantiate(); root.add_child(shell); await frames()
 	for resolution in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(3840,2160)]:
 		for text_scale in [1.0,1.3]:

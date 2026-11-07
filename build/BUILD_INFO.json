@@ -2,13 +2,13 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
   "export": "Windows x86_64 Debug",
-  "bytes": 104480112,
-  "sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
+  "bytes": 104489040,
+  "sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd",
   "embedded_pck": true,
-  "verification": "Native Windows headless EXE-only smoke",
+  "verification": "Native Windows standalone headless and graphical smoke with embedded pack tests",
   "native_windows_graphical_verified": true,
   "json_export": "lossless whitespace compaction + native Godot ZSTD container in isolated build copy",
-  "source_commit": "a403a406865f8849e209a66918330eb7b951d5e0",
+  "source_commit": "b9f442039abe519b0015f8bfa8f30df1f172feae",
   "sources": [
     {
       "file": "project.godot",
@@ -440,7 +440,7 @@
     },
     {
       "file": "scripts/english/DialogueController.gd",
-      "sha256": "28db87cf804f28d9a51a110b7ead412e84ec40e66a72d7bde5cb6a686b6dafeb"
+      "sha256": "341b4e46ddb97e46e4b00b9e38431392976cf5bce18df344785abc450822d784"
     },
     {
       "file": "scripts/english/DialogueController.gd.uid",
@@ -456,7 +456,7 @@
     },
     {
       "file": "scripts/english/EnglishRoom.gd",
-      "sha256": "1497902a8e9354b826d8c428da16585763c0e8fab2eaea2c540bb7915c1bc16c"
+      "sha256": "310fc39651f219b5749cf6f4f3360858c8902adf786881f2ba01ee85d05f2f12"
     },
     {
       "file": "scripts/english/EnglishRoom.gd.uid",
@@ -480,7 +480,7 @@
     },
     {
       "file": "scripts/english/LondonNavigation.gd",
-      "sha256": "b2ecc5f9832bc53c596456464e9fbebfad527e8ce59d9cc29a54d13d8cded65e"
+      "sha256": "32b6a88fd634a15ffc260a96a48138a7adaefb25dce226afb2e3e5dbc2354fdb"
     },
     {
       "file": "scripts/english/LondonNavigation.gd.uid",
@@ -488,7 +488,7 @@
     },
     {
       "file": "scripts/english/LondonPresentation.gd",
-      "sha256": "80acb3be1cd39c8bc9853d3fa590720f2dc62800b1dcd0411360c756f35ca977"
+      "sha256": "da12c9764398b7a0794850c958b49234b6510bd1062f5b00acd26df14aaa8fbc"
     },
     {
       "file": "scripts/english/LondonPresentation.gd.uid",
@@ -552,7 +552,7 @@
     },
     {
       "file": "scripts/programming/AcademyRoom.gd",
-      "sha256": "38e344513cea80a190b19d9e332238e0d5d85ef924f43ddea3eb04b798e487f2"
+      "sha256": "0f8212e41d0659916345ef1dee382157e3a5366604495eaab439d61f7a24d687"
     },
     {
       "file": "scripts/programming/AcademyRoom.gd.uid",
@@ -560,7 +560,7 @@
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd",
-      "sha256": "df51d53909b7b846b5230c196cf8660e1d0117c537d301fb5f6d6b84bbb2b897"
+      "sha256": "e4c1c23ed957c079117db036f56204417676e6baede98d036c94e77177a272b7"
     },
     {
       "file": "scripts/programming/AcademyVisuals.gd.uid",
@@ -576,7 +576,7 @@
     },
     {
       "file": "scripts/programming/CodeEditorController.gd",
-      "sha256": "00eb4e5032795ec9834276319648c9ce685a29cb14d2a6810826188a9c85b474"
+      "sha256": "e3fbe7e34765f7d792c5eb879dbfb629d3a35ad282969c3e40688b780b40c808"
     },
     {
       "file": "scripts/programming/CodeEditorController.gd.uid",
@@ -864,7 +864,7 @@
     },
     {
       "file": "scripts/ui/ContinuationPresentation.gd",
-      "sha256": "59589b3b1c24921fa6c42dc2a86bb7b6a884109f2d89758a0938b8ba202c90e4"
+      "sha256": "61067d334343571212401e31e9cc15f645a996808dacecd10bd3f86e0e6bba40"
     },
     {
       "file": "scripts/ui/ContinuationPresentation.gd.uid",
@@ -904,7 +904,7 @@
     },
     {
       "file": "scripts/ui/MenuPresentation.gd",
-      "sha256": "ca356ae71a9b8761765c1d9c0be44ad86c95ad388cc7fb0310a473e4bd7b590a"
+      "sha256": "1c0db7c1bed8143c7a88dc30a56f1f40feb906bcb8f60a90134677b3664d98ae"
     },
     {
       "file": "scripts/ui/MenuPresentation.gd.uid",
@@ -920,7 +920,7 @@
     },
     {
       "file": "scripts/ui/PausePresentation.gd",
-      "sha256": "9bcdcd3df33e01df3949178f2186170d8d875ebe9f355d9cde11f605094fb712"
+      "sha256": "24e85284f5cc4b18f540be6cd6279f1001b75fd97eca6a3ebff873021142a42d"
     },
     {
       "file": "scripts/ui/PausePresentation.gd.uid",
@@ -960,7 +960,7 @@
     },
     {
       "file": "scripts/ui/UIController.gd",
-      "sha256": "9668d02dfbc4e4dc910f343499a0ab3234d474de3b86017e90cf3152c6e356f7"
+      "sha256": "342f1ae10bb7374f2d8f23679376cc8c54e6d2a5016086298c65504451282e98"
     },
     {
       "file": "scripts/ui/UIController.gd.uid",
@@ -992,7 +992,7 @@
     },
     {
       "file": "scripts/world/AcademyHub.gd",
-      "sha256": "5481836ac4f0a9c4765abf878f960e7448d821a2d889847085fa8dac842db9d1"
+      "sha256": "cdc383709a0d1ad580ffe7ea072c2bd6ddaf478958b875a159175e2abb98fe26"
     },
     {
       "file": "scripts/world/AcademyHub.gd.uid",
@@ -1000,7 +1000,7 @@
     },
     {
       "file": "scripts/world/Datacenter3D.gd",
-      "sha256": "7af214047a8edf39df4ee3e70c2fef10b5f4849127d9837648713418a411a2bd"
+      "sha256": "4b385e01851640e01326daf538a0b5e702d36b05c2e1eae22f9b55a18a0ed5ce"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -1016,7 +1016,7 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "sha256": "93df088b02696652a3d53f2a4df5da10d68edee23d80dc9c7153926c210820da"
+      "sha256": "b2a94113dd4e2f8ce5f13adf630d8293f2eef1815ec238434741fd2b92d80074"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -1048,7 +1048,7 @@
     },
     {
       "file": "scripts/world/PracticalIntroduction.gd",
-      "sha256": "bd88f833d8a7a84bf27f93f04fa9fedf13eef04a86180cc80a35fa1f5ad586bd"
+      "sha256": "da8b12054ea8783eada08e7d0cabaa4d361d0135ed9732f3f11193499f56bf7b"
     },
     {
       "file": "scripts/world/PracticalIntroduction.gd.uid",
@@ -1080,7 +1080,7 @@
     },
     {
       "file": "scripts/world/WorldArchitecture.gd",
-      "sha256": "e1f0067be308082b9af90d3c8fcc29594d6d3b7cec7ba0c188818a868b756693"
+      "sha256": "564e792ae1691e1a0a3ac91b908db4d4e5d9a5465b8677b360ef26f7844531ec"
     },
     {
       "file": "scripts/world/WorldArchitecture.gd.uid",
@@ -1088,7 +1088,7 @@
     },
     {
       "file": "scripts/world/WorldVisuals.gd",
-      "sha256": "df05d6c83dfe5b90a2617de0b8d44568ee8fd349bdcd97f6628478c6916b7c7f"
+      "sha256": "b27252dfa7f6819decea9c5efd291397219a8fc334fe61fe5caf9e9d31c42c24"
     },
     {
       "file": "scripts/world/WorldVisuals.gd.uid",
@@ -1120,60 +1120,14 @@
     },
     {
       "file": "scripts/xr/XRPlayer.gd",
-      "sha256": "05d89a7cec9404d5f5a562cb28f78c26a30923f7aecc59de3b4b9eaab3cfc54d"
+      "sha256": "7dd457559f4d344ebe69e809d270d63b3082125f02fd188446b129820c2270b4"
     },
     {
       "file": "scripts/xr/XRPlayer.gd.uid",
       "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
     }
   ],
-  "source_manifest_sha256": "a94e3c805dc6831b59915eb2e2648adc42c886fcf0d2375707f61f6dab9eb437",
-  "native_gui_verification": {
-    "method": "Actual build/ITSupportSimulator.exe launched from an unrelated directory with --test-world; Windows computer-use input and captured window",
-    "checks": {
-      "compact_pause_after_escape": true,
-      "destinations_menu": true,
-      "escape_returns_to_pause": true,
-      "clean_window_exit": true
-    },
-    "screenshots": [
-      "docs/ui-review/2026-11-05-exe-menu/native-exe-pause.png",
-      "docs/ui-review/2026-11-05-exe-menu/native-exe-destinations.png"
-    ]
-  },
-  "pack_pause_verification": {
-    "exe_sha256": "831f5540f0e18a8427cf19eb412cd1cedaf355a1582067b1e0b676b30dd8e170",
-    "exe_bytes": 104480112,
-    "method": "External test scripts against the actual embedded EXE pack, unrelated temporary working directory",
-    "results": [
-      {
-        "test": "pause_repair",
-        "renderer": "headless",
-        "exit_code": 0,
-        "passed": true,
-        "log": "pack-pause-headless.log"
-      },
-      {
-        "test": "pause_repair",
-        "renderer": "gl_compatibility",
-        "exit_code": 0,
-        "passed": true,
-        "log": "pack-pause-gl_compatibility.log"
-      },
-      {
-        "test": "pause_repair",
-        "renderer": "forward_plus",
-        "exit_code": 0,
-        "passed": true,
-        "log": "pack-pause-forward_plus.log"
-      },
-      {
-        "test": "package_content",
-        "renderer": "headless",
-        "exit_code": 0,
-        "passed": true,
-        "log": "pack-content.log"
-      }
-    ]
-  }
+  "source_manifest_sha256": "f9ad8f1a3a1afc10521148c25d520415e7241ff1a141736c00dbc94ad1a43dc9",
+  "build_date": "2026-11-07",
+  "packaged_verification": "docs/ui-review/2026-11-06-usability/verification/package/results.json"
 }

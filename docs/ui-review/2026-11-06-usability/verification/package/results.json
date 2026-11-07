@@ -1,0 +1,11 @@
+{
+  "exe_sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd",
+  "bytes": 104489040,
+  "runtime": "Native Windows EXE + external tests against the same embedded pack",
+  "results": {
+    "native_graphical": true,
+    "usability": true,
+    "editor_repair": true,
+    "package_content": true
+  }
+}

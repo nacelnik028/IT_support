@@ -54,7 +54,9 @@ func run():
 	root.add_child(shell)
 	await frames()
 	check(shell.ui.ui_targets.has("menu:vr"),"Menu nabízí VR")
-	check(shell.ui.ui_targets["menu:primary"].text.to_lower().contains("klasické 3d"),"Menu nabízí desktop")
+	shell.ui.ui_targets["menu:primary"].pressed.emit(); await frames()
+	check(not shell.vr_active and shell.mode=="world" and shell.ui.game.game_mode.is_hub() and shell.world.player.enabled,"Menu skutečně otevře desktopový rozcestník s chůzí")
+	shell.enter_world("Hlavní serverovna"); shell.ui.page="menu"; shell.ui.draw_ui(); shell.set_mode("menu")
 	shell.start_vr()
 	check(not shell.vr_active and shell.mode=="menu","Chybějící OpenXR vrací menu")
 	for child in shell.ui.get_children():

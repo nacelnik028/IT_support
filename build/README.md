@@ -1,9 +1,9 @@
 # Samostatné Windows EXE
 
-`ITSupportSimulator.exe` je nové sestavení z 5. 11. 2026 a obsahuje kompaktní pauzu,
-Kam jít i celé aktuální opravy. Herní data jsou vložená; stačí jediný EXE bez PCK,
-editoru nebo instalátoru. Windows x86_64 Debug, méně než 100 MiB, bez LFS.
-Hash ověř v SHA256SUMS. [Snímek skutečného EXE](../docs/ui-review/2026-11-05-exe-menu/README.md).
+`ITSupportSimulator.exe` ze 7. 11. 2026 obsahuje úpravy menu, úvodu, editoru,
+orientace v budově a HUD. Herní data jsou vložená přímo do souboru.
+Jde o Windows x86_64 Debug pod 100 MiB. Kontrolní součet je v `SHA256SUMS`.
+[Snímky a protokol](../docs/ui-review/2026-11-06-usability/README.md).
 
 ## Sestavení
 
@@ -23,10 +23,14 @@ Přesné výsledky a rozdílné zdroje Windows/PICO viz BUILD_INFO.md a VERIFICA
 
 ## Ověření této distribuce
 
-Nativní EXE-only smoke a skutečné klikání ve spuštěném EXE: Esc, nová pauza,
-Kam jít a Esc zpět. Nad přesným vloženým packem také pause_repair 217/239/239 PASS
-ve všech PC velikostech/textu a syntetickém XR, audit obsahu 5674 PASS.
-[Logy a snímky](../docs/ui-review/2026-11-05-exe-menu/README.md).
+Závěrečný běh `Test-All.ps1` pokrývá 52 sad včetně všech tří výukových režimů.
+Nativní testy spustí samotné EXE z cizí složky s izolovaným uložením a nastavením.
+Další testy ověřují pokračování, HUD a editor přímo nad vloženými herními daty.
+Výsledky i inventář balíčku jsou v [protokolu](../docs/ui-review/2026-11-06-usability/verification/).
 
-PICO APK v pico4/ je dosud starší vydání 1.5.0 / code 6, bez těchto UI změn.
-Při této opravě Windows nebylo přestavěné. Fyzický PICO test neprovedený.
+```powershell
+python tools/test_usability_package.py --godot C:/Godot/Godot_console.exe
+```
+
+PICO APK v `pico4/` je starší vydání 1.5.0 / code 6. VR rozhraní a vstupy byly
+ověřeny syntetickými ovladači v Godotu. Zkouška na fyzickém PICO zbývá.
