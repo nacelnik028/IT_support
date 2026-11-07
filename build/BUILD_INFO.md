@@ -1,18 +1,19 @@
 # Training academy — Windows EXE 7. 11. 2026
 
-`ITSupportSimulator.exe` obsahuje nové menu, praktický úvod, sbalitelný seznam
-editoru, čitelnější rozcestník a kontextový HUD. Herní zdroj je
-`b9f442039abe519b0015f8bfa8f30df1f172feae`. Windows x86_64 Debug s vloženým PCK,
-Godot 4.7.2.stable.official.ed1daf0bf, verze hry 1.5.0.
+`ITSupportSimulator.exe` obsahuje síťovou učebnu 05 / Počítačové sítě
+a 40 úloh pro oba ročníky. Herní zdroj je `dcb54fca8d173351f1490e5ea955a26012640920`.
+Windows x86_64 Debug s vloženým PCK, Godot 4.7.2.stable.official.ed1daf0bf,
+verze hry 1.5.0.
 
-- Velikost **104489040 B**, rezerva **368560 B** pod 100 MiB.
-- SHA256 `58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd`.
-- `Test-All.ps1` prošel všemi 52 sadami včetně všech tří režimů výuky.
-- Nativní běhy samotného EXE s obrazem i bez něj potvrdily nové menu a sbalení editoru.
-- Nad vloženým packem prošlo 263 kontrol použitelnosti, 1 354 kontrol editoru a
-  5 864 kontrol obsahu. Audit zahrnul 292 souborů a 284 materiálů.
+- Velikost **104558112 B**, rezerva **299488 B** pod 100 MiB.
+- SHA256 `67c7604edb2c9e9b369f478135e9ef7fc787c0521ae4bcc54b68137e40334410`.
+- `Test-All.ps1` prošel všemi 53 sadami včetně výuky ve všech třech režimech.
+- Samostatný soubor se spustil nativně ve Windows s grafikou i bez ní.
+- Přímo nad vloženým balíčkem prošlo 855 kontrol laboratoře bez
+  grafiky, 862 s grafikou a 6724 kontrol obsahu. Grafický
+  test zahrnoval 720p při 130 % textu a syntetický VR viewport 1600 × 1200.
 
-[Snímky a protokol](../docs/ui-review/2026-11-06-usability/README.md).
+[Učebna a zdroje úloh](../docs/NETWORK_LAB.md).
 Úplná metadata jsou v `BUILD_INFO.json` a `VERIFICATION.json`.
 
 PICO APK je starší vydání 1.5.0 / code 6 ze zdroje

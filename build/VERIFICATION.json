@@ -2,14 +2,14 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
   "date": "2026-11-07",
-  "source_commit": "b9f442039abe519b0015f8bfa8f30df1f172feae",
-  "source_manifest_sha256": "f9ad8f1a3a1afc10521148c25d520415e7241ff1a141736c00dbc94ad1a43dc9",
+  "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920",
+  "source_manifest_sha256": "18af92eb04eb9ba793f22724c39dd7462f450b089bfd5d222d9af6a3bc73872e",
   "source_manifests_match": false,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104489040,
-      "sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd"
+      "bytes": 104558112,
+      "sha256": "67c7604edb2c9e9b369f478135e9ef7fc787c0521ae4bcc54b68137e40334410"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -21,75 +21,60 @@
     "rebuilt": true,
     "export": "Windows x86_64 Debug",
     "embedded_pck": true,
-    "source_commit": "b9f442039abe519b0015f8bfa8f30df1f172feae",
-    "native_headless_smoke": "docs/ui-review/2026-11-06-usability/verification/native-headless.log",
-    "packaged_interface_tests": {
-      "report": "docs/ui-review/2026-11-06-usability/verification/package/results.json",
-      "exe_sha256": "58b1da8be57867d5d1c3a58924233b15c7c6b163d71b4a9f639f89f874347ecd",
-      "bytes": 104489040,
-      "runtime": "Native Windows EXE + external tests against the same embedded pack",
-      "results": {
-        "native_graphical": true,
-        "usability": true,
-        "editor_repair": true,
-        "package_content": true
-      },
-      "usability_checks": 263,
-      "editor_checks": 1354,
-      "content_checks": 5864
-    }
+    "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920",
+    "native_headless_smoke": true,
+    "native_graphical_smoke": true,
+    "packaged_tests": {
+      "network_lab_headless": true,
+      "package_content": true,
+      "network_lab_graphical": true
+    },
+    "packaged_checks": {
+      "network_lab_headless": 855,
+      "network_lab_graphical": 862,
+      "package_content": 6724
+    },
+    "network_lab_exercises": 40
   },
   "source_regressions": {
-    "report": "docs/ui-review/2026-11-06-usability/verification/test-all.log",
-    "suites": 52,
-    "passed_suites": 52,
+    "suites": 53,
+    "passed_suites": 53,
     "training_lessons_by_mode": {
       "learn": 21,
       "practice": 21,
       "exam": 21
     },
-    "training_ui_actions": 336
+    "training_ui_actions": 336,
+    "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920"
   },
   "pico4": {
     "rebuilt": false,
-    "status": "Previous 1.5.0 / code 6; does not include the interface update",
+    "status": "Previous 1.5.0 / code 6",
     "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
     "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
     "previous_verification": "docs/ui-review/2026-11-05-exe-menu/verification/previous-distributions.json"
   },
   "hardware": "Physical PICO not tested",
   "graphical_matrices": {
-    "renderers": [
-      "gl_compatibility",
-      "forward_plus"
-    ],
-    "resolutions": [
-      [
+    "network_lab": {
+      "source_renderers": [
+        "gl_compatibility",
+        "forward_plus"
+      ],
+      "packaged_renderer": "gl_compatibility",
+      "pc_resolution": [
         1280,
         720
       ],
-      [
-        1920,
-        1080
-      ],
-      [
-        3840,
-        2160
-      ]
-    ],
-    "text_percent": [
-      100,
-      130
-    ],
-    "usability_checks_per_renderer": 279,
-    "editor_checks_per_renderer": 1448,
-    "synthetic_vr": {
-      "viewport": [
-        1600,
-        1200
-      ],
-      "both_rays": true,
-      "keyboard": true
+      "text_percent": 130,
+      "synthetic_vr": {
+        "viewport": [
+          1600,
+          1200
+        ],
+        "both_rays": true,
+        "teleport": true
+      }
     }
   }
 }

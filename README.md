@@ -1,14 +1,14 @@
 # IT Support Simulator: Training academy
 
-**Windows EXE v `build/ITSupportSimulator.exe` bylo přestavěno 7. 11. 2026.** Obsahuje nové
-menu, praktický úvod, sbalitelný seznam v editoru, čitelnější vstupy a kontextový HUD.
-Verze hry je 1.5.0, velikost 104489040 B a SHA256 je v `build/SHA256SUMS`.
+**Windows EXE v `build/ITSupportSimulator.exe` obsahuje síťovou učebnu
+05 / Počítačové sítě a všech 40 úloh.** Sestaveno 7. 11. 2026 jako verze
+1.5.0. Soubor má 104558112 B a SHA256 je v `build/SHA256SUMS`.
 
-Všech **52 sad Test-All** prošlo včetně výuky ve všech třech režimech.
-[Snímky před a po a výsledky ověření](docs/ui-review/2026-11-06-usability/README.md).
+Všech **53 sad Test-All** prošlo včetně výuky ve všech třech režimech.
+[Ověření samostatného Windows EXE](build/BUILD_INFO.md).
 
-**PICO APK zůstává starší 1.5.0 / code 6** a tuto UI etapu zatím neobsahuje.
-Jeho zdroj a hash jsou uvedené odděleně v [distribučních metadatech](build/BUILD_INFO.md).
+**PICO APK je starší vydání 1.5.0 / code 6.**
+Jeho zdroj a hash uvádějí [distribuční metadata](build/BUILD_INFO.md).
 
 Celá navazující etapa a ovládání: [ukládání, směny, rozbor, poslech a profil](docs/CONTINUATION_RELEASE.md). Přímý průchod serverovna–Londýn je zazděný; používej východní chodbu rozcestníku.
 
@@ -36,7 +36,6 @@ Pět skutečných průchodů vede do serverovny (01), IT tréninku (02), program
 stanovištích a samostatné výsledky. Zapoj PC a tiskárnu, sleduj DHCP, ARP a
 zachycené rámce a oprav přístup k webu. Vpravo je model DSL, WLAN a GSM včetně
 přesunu SIM. Vstup vede z rozcestníku, hlavního menu a **Pauza → Kam jít**.
-Učebna je dostupná z aktuálního zdrojového projektu Godotu.
 [Průchod, ovládání a zdroje každé úlohy](docs/NETWORK_LAB.md).
 
 **English in London** je čtvrtý 3D pavilon: vstup východní chodbou rozcestníku **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Přímý průchod ze serverovny je na žádost uživatele zazděný. Obsahuje prostorové

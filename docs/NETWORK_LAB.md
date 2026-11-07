@@ -1,6 +1,6 @@
 # 05 / Počítačové sítě
 
-Síťová laboratoř je za tyrkysovým portálem v severní stěně rozcestníku. Lze do ní vstoupit také volbou **05 / Počítačové sítě** z hlavní nabídky nebo přes **Pauza → Kam jít → Počítačové sítě**. Zpět vede označený portál do haly. Rozcestník i serverovna jsou dostupné z pauzy.
+Ve Windows spusť [ITSupportSimulator.exe](../build/ITSupportSimulator.exe). Síťová laboratoř je za tyrkysovým portálem v severní stěně rozcestníku. Lze do ní vstoupit také volbou **05 / Počítačové sítě** z hlavní nabídky nebo přes **Pauza → Kam jít → Počítačové sítě**. Zpět vede označený portál do haly. Rozcestník i serverovna jsou dostupné z pauzy.
 
 U plánu napravo od vstupu vyber ročník. Rozdělení lekcí odpovídá podkladům. První ročník pracuje hlavně s topologií, adresami, vrstvami a DNS. Druhý přidává Ethernet, DHCP, ARP, diagnostiku přístupových sítí a GSM. Terminál nabízí všech šest stanovišť, měření, analyzátor, studijní materiál a uložené výsledky.
 

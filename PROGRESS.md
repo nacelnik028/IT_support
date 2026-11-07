@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Windows EXE se síťovou laboratoří — 7. 11. 2026
+
+- `build/ITSupportSimulator.exe` obsahuje učebnu 05 a všech 40 úloh ze zdroje `dcb54fc`. Samostatný soubor má 104558112 B a vložená herní data.
+- Nativní start prošel s grafikou i bez ní. Nad vloženým balíčkem prošlo 855 kontrol laboratoře bez grafiky, 862 s grafikou a 6724 kontrol obsahu. [Ověření a SHA256](build/BUILD_INFO.md).
+
 ## Síťová laboratoř 05 / Počítačové sítě — 7. 11. 2026
 
 - Pátý průchod je na severní stěně rozcestníku. Síťová učebna je dostupná také z hlavního menu a přes Pauza → Kam jít. Servisní rack, dvě PC, tiskárna, živé schéma, terminál a demonstrační zóna mají skutečné kolize a společné ovládání PC a VR.
