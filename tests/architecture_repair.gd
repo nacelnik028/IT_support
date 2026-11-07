@@ -71,7 +71,7 @@ func run():
 	var portals=[]
 	for node in world.find_children("*","Node3D",true,false):
 		if node.get_meta("academy_portal",false): portals.append(node)
-	check(portals.size()==7,"Společná konstrukce je u čtyř vstupů hubu, obou dveří a vstupu Londýna")
+	check(portals.size()==8,"Společná konstrukce je u pěti vstupů hubu, obou dveří a vstupu Londýna")
 	await programming_controls(room)
 	p.position=Vector3(7,0.02,1)
 	for cycle in 3:

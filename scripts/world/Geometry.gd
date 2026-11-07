@@ -240,8 +240,8 @@ static func collect_static(node: Node, groups: Dictionary):
 	if node is Node3D and not node.visible: return
 	if node.has_method("set_focus") or node.get_meta("dynamic",false): return
 	if node is MeshInstance3D and node.mesh != null and node.material_override != null:
-		# Keep all three rooms as separate culling groups.
-		var room = "hub" if node.global_position.z < -7 and node.global_position.x >= -9 or node.global_position.x>21 else "english" if node.global_position.z>7.15 else "programming" if node.global_position.x < -9 else "academy" if node.global_position.x>9 else "operations"
+		# Keep room geometry in separate culling groups.
+		var room = "network_lab" if node.global_position.z < -16.18 and node.global_position.x >= -3 and node.global_position.x <= 11 else "hub" if node.global_position.z < -7 and node.global_position.x >= -9 or node.global_position.x>21 else "english" if node.global_position.z>7.15 else "programming" if node.global_position.x < -9 else "academy" if node.global_position.x>9 else "operations"
 		var key = room+str(node.mesh.get_instance_id())+":"+str(node.material_override.get_instance_id())
 		if not groups.has(key): groups[key] = []
 		groups[key].append(node)

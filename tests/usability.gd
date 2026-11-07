@@ -59,7 +59,7 @@ func hud_checks():
 	for sign_node in shell.world.hub.find_children("PortalDirectory","Node3D",true,false):
 		var labels=sign_node.find_children("*","Label3D",true,false)
 		check(labels[0].font_size*labels[0].pixel_size>=0.16,"Názvy portálů mají čitelnou skutečnou výšku znaků")
-	check(shell.world.find_children("*","Light3D",true,false).size()==34,"Orientace nepřidala žádná světla")
+	check(shell.world.find_children("*","Light3D",true,false).size()-shell.world.network_room.find_children("*","Light3D",true,false).size()==34,"V původních prostorách zůstává 34 světel")
 
 func run():
 	capture_directory="res://docs/ui-review/2026-11-06-usability/after/"; DirAccess.make_dir_recursive_absolute(capture_directory)

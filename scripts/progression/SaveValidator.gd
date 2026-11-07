@@ -42,6 +42,7 @@ func valid(data) -> bool:
 	if not education(data.get("education",{})): return false
 	if not programming(data.get("programming",{})): return false
 	if not english(data.get("english",{})): return false
+	if not network_attempts(data.get("network_lab",[])): return false
 	if not shifts(data.get("shifts",{})): return false
 	if data.has("saved_at") and (not typeof(data.saved_at) in [TYPE_INT,TYPE_FLOAT] or not is_finite(data.saved_at) or data.saved_at<0): return false
 	if not preload("res://scripts/progression/WorkArchive.gd").valid(data.get("work",{}),self): return false
@@ -50,6 +51,14 @@ func valid(data) -> bool:
 		var batch=data.get("education",{}).get("random",{})
 		if batch.is_empty() or not batch.has("session"): return false
 		if int(active.id)!=int(batch.queue[int(batch.position)].id) or active.definition!=batch.queue[int(batch.position)]: return false
+	return true
+
+func network_attempts(data) -> bool:
+	if not data is Array or data.size()>100: return false
+	for record in data:
+		if not required(record,{"id":"","mode":"","score":0,"passed":false,"hints":0,"errors":0,"time":0}): return false
+		if record.id.is_empty() or record.id.length()>64 or record.mode not in ["learn","practice","exam"]: return false
+		if not integer(record.score,0,100) or not integer(record.hints,0,1) or not integer(record.errors,0) or not integer(record.time,0,9999999999): return false
 	return true
 
 func shifts(data) -> bool:

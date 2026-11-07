@@ -25,14 +25,14 @@ static func draw(ui):
 			var skip=ui.button("Přeskočit úvod",func(): ui.save_preference("introduction_seen",true); ui.draw_ui())
 			intro.add_child(skip); ui.register_target("menu:skip_intro",skip)
 		intro.add_child(ui.label("Dobrovolné · 3–5 minut · kdykoliv bezpečně ukončíš",13,ui.MUTED))
-	var right=ui.card(body,"Vybrat učebnu","Čtyři oblasti. Konkrétní úlohu a režim vybereš uvnitř.")
+	var right=ui.card(body,"Vybrat učebnu","Pět oblastí. Konkrétní úlohu a režim vybereš uvnitř.")
 	var primary=ui.button("Vybrat učebnu / rozcestník",func():
 		if ui.world_enabled:
 			if not OS.has_feature("android"): ui.play_mode_requested.emit("desktop")
 			ui.world_requested.emit("Rozcestník akademie")
 		else: ui.navigate("Tickety"),true)
 	right.add_child(primary); ui.register_target("menu:primary",primary)
-	for item in [["01 / Serverovna a pracovní úlohy","Hlavní serverovna","tickets","8acfe9"],["02 / IT trénink","Trénink","training","efca8b"],["03 / Programování","Programming Academy","programming","76dfc7"],["04 / Angličtina v Londýně","English in London","english","e9a18b"]]:
+	for item in [["01 / Serverovna a pracovní úlohy","Hlavní serverovna","tickets","8acfe9"],["02 / IT trénink","Trénink","training","efca8b"],["03 / Programování","Programming Academy","programming","76dfc7"],["04 / Angličtina v Londýně","English in London","english","e9a18b"],["05 / Počítačové sítě","Počítačové sítě","network_lab","43dad0"]]:
 		var entry=ui.button(item[0],func():
 			if ui.world_enabled: ui.world_requested.emit(item[1])
 			else: ui.navigate("Trénink" if item[2]=="training" else "Tickety"))

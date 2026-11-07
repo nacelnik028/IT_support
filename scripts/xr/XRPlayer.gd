@@ -137,6 +137,8 @@ func allowed(object) -> bool:
 	if not is_instance_valid(object): return false
 	if shell.practical_intro.active: return true
 	if "kind" in object:
+		if object.kind=="network_lab": return shell.ui.game.game_mode.is_network_lab()
+		if shell.ui.game.game_mode.is_network_lab(): return false
 		if object.kind=="english": return shell.ui.game.game_mode.is_english()
 		if shell.ui.game.game_mode.is_english(): return false
 		if object.kind=="program_door": return true
@@ -271,7 +273,8 @@ func can_teleport(point: Vector3) -> bool:
 	var in_programming=shell.world.programming_room.contains_point(point)
 	var in_london=shell.world.english_room.walkable_point(point)
 	var in_hub=shell.world.hub.floor_point(point)
-	if point.y < -0.05 or point.y > 0.15 or not (in_main or in_programming or in_london or in_hub): return false
+	var in_network_lab: bool = shell.world.network_room.BOUNDS.has_point(point)
+	if point.y < -0.05 or point.y > 0.15 or not (in_main or in_programming or in_london or in_hub or in_network_lab): return false
 	var shape = CapsuleShape3D.new()
 	shape.radius=0.31
 	shape.height=1.8

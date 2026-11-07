@@ -1,0 +1,1463 @@
+{
+  "chapters": {
+    "start": {
+      "title": "Počítačové sítě – 1. ročník",
+      "url": "https://app.notion.com/p/411bceb1e4138110a655c7f44b541312"
+    },
+    "topology": {
+      "title": "01 · Topologie počítačových sítí",
+      "url": "https://app.notion.com/p/411bceb1e41381868cfcf1ac8db4a915"
+    },
+    "cast": {
+      "title": "02 · Typy vysílání a přenosové módy",
+      "url": "https://app.notion.com/p/411bceb1e41381fb87c7e8e458200dca"
+    },
+    "equipment": {
+      "title": "03 · Síťové prvky, kabeláž a PoE",
+      "url": "https://app.notion.com/p/411bceb1e41381a088fed1bcb020c94d"
+    },
+    "services": {
+      "title": "04 · Hlasové a datové služby",
+      "url": "https://app.notion.com/p/411bceb1e41381bca03ff929a8378509"
+    },
+    "mac": {
+      "title": "05 · Protokoly a MAC adresy",
+      "url": "https://app.notion.com/p/411bceb1e41381efa322f55f51c3abb0"
+    },
+    "l1": {
+      "title": "06 · OSI L1 – fyzická vrstva",
+      "url": "https://app.notion.com/p/411bceb1e41381c2a8ced16ad01ca4bb"
+    },
+    "l2": {
+      "title": "07 · OSI L2 – linková vrstva",
+      "url": "https://app.notion.com/p/411bceb1e413810a80c8c19d8a2fb7dd"
+    },
+    "l3": {
+      "title": "08 · OSI L3 – síťová vrstva",
+      "url": "https://app.notion.com/p/411bceb1e41381548206eb485b2b6225"
+    },
+    "l4": {
+      "title": "09 · OSI L4 – transportní vrstva",
+      "url": "https://app.notion.com/p/411bceb1e413810f8c82e74ad2c23849"
+    },
+    "l5": {
+      "title": "10 · OSI L5 – relační vrstva",
+      "url": "https://app.notion.com/p/411bceb1e413812587d8c9b42ae1aad8"
+    },
+    "l6": {
+      "title": "11 · OSI L6 – prezentační vrstva",
+      "url": "https://app.notion.com/p/411bceb1e4138129a0c9edda88f7b44d"
+    },
+    "l7": {
+      "title": "12 · OSI L7 – aplikační vrstva",
+      "url": "https://app.notion.com/p/411bceb1e41381f69ecbda396a71548d"
+    },
+    "stack": {
+      "title": "13 · TCP/IP a zapouzdření",
+      "url": "https://app.notion.com/p/411bceb1e4138140b89ffb6750b43d56"
+    },
+    "dns": {
+      "title": "14 · DNS, domény a záznamy",
+      "url": "https://app.notion.com/p/411bceb1e41381a0af92e56e3ae2c435"
+    },
+    "lab": {
+      "title": "Počítačové sítě – síťová laboratoř",
+      "url": "https://app.notion.com/p/411bceb1e41381f8a634da0e29546657"
+    },
+    "ethernet": {
+      "title": "01 · Ethernet a linková vrstva",
+      "url": "https://app.notion.com/p/411bceb1e41381a0a211e9b41d1dc6ed"
+    },
+    "dhcp": {
+      "title": "02 · DHCPv4 a nastavení stanice",
+      "url": "https://app.notion.com/p/411bceb1e413819d95a2e80ed96c892a"
+    },
+    "arp": {
+      "title": "03 · ARP, cache a ochrana linky",
+      "url": "https://app.notion.com/p/411bceb1e41381a1966bfd3ca8343a7b"
+    },
+    "quality": {
+      "title": "04 · Přenosové technologie, kapacita a latence",
+      "url": "https://app.notion.com/p/411bceb1e4138187bbe2f49f7abe34bb"
+    },
+    "dsl": {
+      "title": "05 · DSL a připojení po telefonním vedení",
+      "url": "https://app.notion.com/p/411bceb1e4138148ac40f7ea1e212e07"
+    },
+    "wifi": {
+      "title": "06 · WLAN, Wi‑Fi a přístupový bod",
+      "url": "https://app.notion.com/p/411bceb1e413819da9e0e617d8a43b78"
+    },
+    "gsm": {
+      "title": "07 · GSM, buňky a architektura mobilní sítě",
+      "url": "https://app.notion.com/p/411bceb1e413817eb93cffd70d5eefc2"
+    },
+    "sim": {
+      "title": "08 · SIM, eSIM a identity v mobilní síti",
+      "url": "https://app.notion.com/p/411bceb1e413811c9cb4e6b58b57333e"
+    },
+    "ports": {
+      "title": "09 · TCP, UDP, porty a sokety",
+      "url": "https://app.notion.com/p/411bceb1e4138116accedc3a34ca4dd2"
+    }
+  },
+  "stations": [
+    "Kabeláž, topologie a Ethernet",
+    "IPv4, VLAN a DHCP",
+    "ARP a komunikace se sousedem",
+    "Analyzátor provozu, OSI, TCP/IP a DNS",
+    "DSL, WLAN a kvalita přenosu",
+    "GSM a identity"
+  ],
+  "cards": [
+    {
+      "source": "topology",
+      "year": 1,
+      "station": 0,
+      "text": "Fyzická hvězda má jeden spoj na každou stanici. Porucha spoje odpojí jeden uzel. Výpadek středu může odpojit celou větev. Sběrnice sdílí páteř, kruh může mít záložní směr, strom spojuje hvězdy a mesh nabízí alternativní cesty."
+    },
+    {
+      "source": "cast",
+      "year": 1,
+      "station": 0,
+      "text": "Unicast míří jednomu příjemci, multicast skupině a broadcast celé místní doméně. Simplex přenáší jedním směrem, half duplex oběma střídavě a full duplex současně."
+    },
+    {
+      "source": "equipment",
+      "year": 1,
+      "station": 0,
+      "text": "Patch panel zakončuje kabeláž. Switch rozhoduje podle MAC, router předává pakety mezi sítěmi a AP připojuje bezdrátové klienty. PoE zdroj a zařízení musejí být kompatibilní a vejít se do rozpočtu napájení."
+    },
+    {
+      "source": "l1",
+      "year": 1,
+      "station": 0,
+      "text": "Měď vede elektrický signál, optika světlo a bezdrát rádiové vlny. U neaktivní linky ověř kabel, port a propojení v rozvaděči."
+    },
+    {
+      "source": "mac",
+      "year": 1,
+      "station": 0,
+      "text": "Ethernetová MAC má šest bajtů a identifikuje rozhraní na místním spoji. Kabelový a bezdrátový adaptér jednoho zařízení mohou mít různé MAC."
+    },
+    {
+      "source": "l2",
+      "year": 1,
+      "station": 0,
+      "text": "Switch se učí z MAC odesílatele a podle cílové MAC volí výstup. Tabulka switche mapuje MAC na port v rámci VLAN."
+    },
+    {
+      "source": "l3",
+      "year": 1,
+      "station": 1,
+      "text": "IP prefix určuje místní síť. Na vzdálený cíl použije stanice bránu, pokud nenajde vhodnější trasu. U našeho PC je místní tiskárna .50 a brána .1."
+    },
+    {
+      "source": "ethernet",
+      "year": 2,
+      "station": 0,
+      "text": "Ethernet II nese cílovou a zdrojovou MAC, EtherType a data. 0x0806 označuje ARP, 0x0800 IPv4. CRC ve FCS pomáhá odhalit poškození rámce."
+    },
+    {
+      "source": "dhcp",
+      "year": 2,
+      "station": 1,
+      "text": "Klient používá UDP 68, server UDP 67. Potvrzení ACK přidělí adresu z rozsahu .20–.49 a předá masku, bránu a resolver. Tiskárna .50 leží mimo rozsah."
+    },
+    {
+      "source": "arp",
+      "year": 2,
+      "station": 2,
+      "text": "ARP cache páruje IP s MAC. U vzdáleného serveru se v prvním ethernetovém rámci použije MAC brány, zatímco cílová IP patří serveru. Nevyžádané odpovědi i plánovaná výměna routeru mohou změnit cache."
+    },
+    {
+      "source": "stack",
+      "year": 1,
+      "station": 3,
+      "text": "Při zapouzdření obalí DNS zprávu UDP, IPv4 a Ethernet. Na kabelu se rámec přenáší jako signál. Každá hlavička řeší jiný druh doručení."
+    },
+    {
+      "source": "l4",
+      "year": 1,
+      "station": 3,
+      "text": "TCP přenáší uspořádaný proud bajtů. UDP předává datagramy bez záruky doručení a pořadí. Porty rozlišují koncové body transportu."
+    },
+    {
+      "source": "l5",
+      "year": 1,
+      "station": 3,
+      "text": "Relační vrstva popisuje správu dialogu. Web může udržovat přihlášení pomocí cookie i přes více TCP spojení."
+    },
+    {
+      "source": "l6",
+      "year": 1,
+      "station": 3,
+      "text": "Prezentační funkce popisují reprezentaci dat. UTF‑8 kóduje text, JSON určuje formát, gzip komprimuje a TLS chrání přenos."
+    },
+    {
+      "source": "l7",
+      "year": 1,
+      "station": 3,
+      "text": "Aplikační protokoly popisují význam zpráv. DNS řeší jména a HTTP požaduje obsah. Odpověď HTTP 404 může přijít, až když už funguje spojení."
+    },
+    {
+      "source": "dns",
+      "year": 1,
+      "station": 3,
+      "text": "Resolver vyhledává jména a ukládá výsledky po dobu TTL. Záznam A přiřazuje IPv4. NXDOMAIN značí neexistující dotazované jméno."
+    },
+    {
+      "source": "services",
+      "year": 1,
+      "station": 3,
+      "text": "Klasická telefonní síť vyhrazuje zdroje pro hovor. VoIP může používat SIP pro signalizaci a RTP pro zvuk. Výpadky zvuku při záloze mohou souviset s frontami, kolísáním zpoždění či ztrátami."
+    },
+    {
+      "source": "ports",
+      "year": 2,
+      "station": 3,
+      "text": "HTTPS přes TCP typicky používá cílový port 443. Ping měří odpověď ICMP. Test TCP ověří navázání na konkrétní port, překlad jména má vlastní výsledek."
+    },
+    {
+      "source": "dsl",
+      "year": 2,
+      "station": 4,
+      "text": "Splitter odděluje telefonní a DSL větev. Modem synchronizuje spoj s DSLAM. Stabilní synchronizace je samostatná informace vedle nastavení WAN a dostupnosti služby."
+    },
+    {
+      "source": "wifi",
+      "year": 2,
+      "station": 4,
+      "text": "AP propojuje WLAN s místní sítí. Klient může být připojený k SSID a přesto nezískat DHCP konfiguraci. Ztráty k místní bráně přes Wi‑Fi mohou ukázat na pokrytí nebo rušení."
+    },
+    {
+      "source": "quality",
+      "year": 2,
+      "station": 4,
+      "text": "RTT zahrnuje cestu tam i zpět. V příkladu se při záloze plní odchozí fronta a RTT roste z 18 na 180 ms. Srovnej měření v klidu a při zátěži, místní bránu a vzdálený cíl."
+    },
+    {
+      "source": "gsm",
+      "year": 2,
+      "station": 5,
+      "text": "BTS obsluhuje rádio, BSC řídí více BTS a MSC přepíná hovory. Při handoveru během hovoru síť přidělí vhodný rádiový zdroj a předá aktivní spoj."
+    },
+    {
+      "source": "sim",
+      "year": 2,
+      "station": 5,
+      "text": "IMEI patří zařízení a IMSI předplatnému. MSISDN je telefonní číslo. Profil eSIM se nahrává na eUICC. GSM ověřuje odpověď SRES na výzvu RAND a používá TMSI jako dočasnou identitu."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "cable",
+      "station": 0,
+      "year": 1,
+      "title": "PC 04 bez linky",
+      "kind": "practical",
+      "goal": "Obnov funkční fyzický spoj.",
+      "situation": "PC 04 je bez linky. PC 02 a tiskárna na stejném switchi fungují.",
+      "evidence": "PC 04: linka neaktivní\nPC 02 a tiskárna: linka aktivní",
+      "prompt": "V učebně vyber konektor u PC 04 a zapoj ho do volného funkčního portu switche. Potom ověř řešení.",
+      "hint": "Porovnej kontrolku PC 04 a volné porty na switchi.",
+      "why": "V hvězdě vede z každé stanice samostatný spoj. Nově navázaná linka u PC 04 potvrzuje opravu koncového spoje. Další aktivní linky ukazují, že switch běžel i před opravou.",
+      "sources": [
+        "topology",
+        "l1",
+        "equipment"
+      ],
+      "targets": [
+        "pc04",
+        "4",
+        "5",
+        "6"
+      ],
+      "demo": "link"
+    },
+    {
+      "id": "roles",
+      "station": 0,
+      "year": 1,
+      "title": "Zařízení a jejich role",
+      "kind": "match",
+      "goal": "Rozliš pasivní a aktivní prvky.",
+      "situation": "Na servisním racku jsou patch panel, switch a router.",
+      "evidence": "Zařízení jsou označená přímo v racku.",
+      "prompt": "Přiřaď každému zařízení jednu roli.",
+      "hint": "Začni prvkem, který pouze zakončuje kabely.",
+      "why": "Patch panel zakončuje trasu, switch rozhoduje podle MAC a router volí cestu mezi IP sítěmi.",
+      "sources": [
+        "equipment"
+      ],
+      "rows": [
+        "Patch panel",
+        "Switch",
+        "Router"
+      ],
+      "options": [
+        "Předává pakety mezi IP sítěmi",
+        "Zakončuje pevnou kabeláž",
+        "Předává rámce podle MAC"
+      ],
+      "answer": [
+        1,
+        2,
+        0
+      ],
+      "targets": [
+        "patch",
+        "switch",
+        "router"
+      ],
+      "demo": "link"
+    },
+    {
+      "id": "topology_branch",
+      "station": 0,
+      "year": 1,
+      "title": "Výpadek celé větve",
+      "kind": "choice",
+      "goal": "Najdi společný bod poruchy.",
+      "situation": "Po vypnutí SW-1 ztratila spojení celá učebna. Druhá učebna funguje.",
+      "evidence": "PC A → SW-1 ← PC B\nSW-1 → nadřazený switch ← SW-2",
+      "prompt": "Vyber fyzickou topologii uvnitř první učebny.",
+      "options": [
+        "Sběrnice",
+        "Hvězda",
+        "Plný mesh"
+      ],
+      "answer": 1,
+      "hint": "Najdi zařízení, do kterého vede každý koncový kabel.",
+      "why": "Stanice mají samostatné spoje do společného středu. Tím vzniká hvězda. Spojení dvou takových větví může vytvořit strom.",
+      "sources": [
+        "topology"
+      ],
+      "targets": [
+        "switch"
+      ],
+      "demo": "link"
+    },
+    {
+      "id": "poe",
+      "station": 0,
+      "year": 1,
+      "title": "Kamera po přepojení zhasla",
+      "kind": "choice",
+      "goal": "Ověř napájení přes Ethernet.",
+      "situation": "Kamera fungovala na předchozím portu. Na novém portu je bez jiného napájení.",
+      "evidence": "Původní port: PoE aktivní\nNový port: Ethernet bez PoE",
+      "prompt": "Vyber první údaj, který ověříš.",
+      "options": [
+        "Záznam DNS",
+        "Číslo transportního portu",
+        "Podporu a rozpočet PoE na novém portu"
+      ],
+      "answer": 2,
+      "hint": "Kamera potřebuje kromě dat také energii.",
+      "why": "PSE musí podporovat napájení použitelné pro kameru a mít dostatečný rozpočet. Změna DNS její napájení neobnoví.",
+      "sources": [
+        "equipment",
+        "ethernet"
+      ],
+      "targets": [
+        "patch",
+        "switch"
+      ],
+      "demo": "link"
+    },
+    {
+      "id": "broadcast",
+      "station": 0,
+      "year": 1,
+      "title": "Komu šel první rámec?",
+      "kind": "choice",
+      "goal": "Přečti cíl ethernetového rámce.",
+      "situation": "PC 04 hledá MAC místní tiskárny.",
+      "evidence": "Cíl rámce: ff:ff:ff:ff:ff:ff\nSpoj PC–switch: full duplex",
+      "prompt": "Vyber typ vysílání podle adresy příjemce.",
+      "options": [
+        "Multicast",
+        "Broadcast",
+        "Unicast"
+      ],
+      "answer": 1,
+      "hint": "Posuzuj adresu příjemce. Duplex popisuje směr přenosu.",
+      "why": "Ethernetový broadcast míří do místní broadcastové domény. Full duplex může současně vysílat i přijímat.",
+      "sources": [
+        "cast",
+        "mac"
+      ],
+      "targets": [
+        "pc04",
+        "switch"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "pairs",
+      "station": 0,
+      "year": 1,
+      "title": "Linka spadla na 100 Mb/s",
+      "kind": "choice",
+      "goal": "Zvol kontrolu fyzického spoje.",
+      "situation": "Po výměně patch kabelu stanice vyjedná jen 100 Mb/s. Jinde běží stejný typ PC na 1 Gb/s.",
+      "evidence": "Port i karta podporují 1000BASE‑T.",
+      "prompt": "Vyber nejlepší ověřovací krok.",
+      "options": [
+        "Vyzkoušet známý funkční kabel a ověřit páry",
+        "Změnit DNS resolver",
+        "Přidělit jinou IPv4 z rozsahu"
+      ],
+      "answer": 0,
+      "hint": "Soustřeď se na rozdíl v použité kabeláži.",
+      "why": "1000BASE‑T potřebuje všechny čtyři páry, zatímco 100BASE‑TX dva. Vyjednaná rychlost je vodítko a kabel je třeba ověřit.",
+      "sources": [
+        "l1",
+        "ethernet"
+      ],
+      "targets": [
+        "pc04",
+        "patch"
+      ],
+      "demo": "link"
+    },
+    {
+      "id": "ethernet",
+      "station": 0,
+      "year": 2,
+      "title": "Tři pole rámce",
+      "kind": "match",
+      "goal": "Rozpoznej Ethernet II.",
+      "situation": "Analyzátor zachytil žádost PC 04 o MAC místní tiskárny.",
+      "evidence": "ff:ff:ff:ff:ff:ff  |  02:00:00:00:10:23  |  0x0806",
+      "prompt": "Přiřaď každé hodnotě význam.",
+      "hint": "Všimni si hodnoty broadcastu a krátkého dvojbajtového pole.",
+      "why": "Žádost jde broadcastem. PC 04 je zdroj. EtherType 0x0806 označuje ARP.",
+      "sources": [
+        "ethernet",
+        "mac",
+        "arp"
+      ],
+      "rows": [
+        "ff:ff:ff:ff:ff:ff",
+        "02:00:00:00:10:23",
+        "0x0806"
+      ],
+      "options": [
+        "EtherType · ARP",
+        "Cílová MAC",
+        "Zdrojová MAC"
+      ],
+      "answer": [
+        1,
+        2,
+        0
+      ],
+      "targets": [
+        "switch",
+        "pc04",
+        "terminal"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "source_learning",
+      "station": 0,
+      "year": 2,
+      "title": "Co si switch zapamatuje",
+      "kind": "choice",
+      "goal": "Přečti směr učení MAC.",
+      "situation": "Na port 05 přišel rámec od PC 04. Cílem je známá MAC tiskárny na portu 07.",
+      "evidence": "VLAN 10 · zdroj 02:00:00:00:10:23 · cíl 02:00:00:00:10:50",
+      "prompt": "Vyber záznam, který vznikne učením z příchozího rámce.",
+      "options": [
+        "MAC tiskárny → port 05",
+        "MAC PC 04 → port 05 ve VLAN 10",
+        "IP PC 04 → MAC tiskárny"
+      ],
+      "answer": 1,
+      "hint": "Učení probíhá na vstupu podle odesílatele.",
+      "why": "Switch si zapíše zdrojovou MAC a vstupní port ve VLAN. Cílová MAC se použije pro volbu výstupu.",
+      "sources": [
+        "ethernet",
+        "l2"
+      ],
+      "targets": [
+        "switch",
+        "5",
+        "7"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "fcs",
+      "station": 0,
+      "year": 2,
+      "title": "Rámec s chybným FCS",
+      "kind": "choice",
+      "goal": "Rozliš kontrolu rámce a opakování dat.",
+      "situation": "Příjemce zjistí nesoulad kontrolní hodnoty ethernetového rámce.",
+      "evidence": "Ethernet II · kontrola CRC/FCS selhala",
+      "prompt": "Co s rámcem příjemce obvykle udělá?",
+      "options": [
+        "Předá ho DNS resolveru",
+        "Opraví chybu změnou VLAN",
+        "Zahodí ho"
+      ],
+      "answer": 2,
+      "hint": "Odděl detekci poškození a opětovné odeslání dat.",
+      "why": "Chybný FCS vede obvykle k zahození rámce. Opakování může podle situace zajistit vyšší vrstva, například TCP.",
+      "sources": [
+        "ethernet",
+        "l2",
+        "l4"
+      ],
+      "targets": [
+        "switch",
+        "terminal"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "route",
+      "station": 1,
+      "year": 1,
+      "title": "Přímo, nebo přes bránu?",
+      "kind": "choice",
+      "goal": "Rozpoznej místní a vzdálený cíl.",
+      "situation": "PC 04 má přidělenou adresu a chce poslat data tiskárně.",
+      "evidence": "PC: 192.168.10.23/24\nTiskárna: 192.168.10.50\nBrána: 192.168.10.1",
+      "prompt": "Vyber první IP souseda pro paket k tiskárně.",
+      "hint": "Srovnej prefix stanice s adresou tiskárny.",
+      "why": "Tiskárna leží v téže podsíti. Stanice může zjistit její MAC přímo.",
+      "sources": [
+        "l3",
+        "lab"
+      ],
+      "options": [
+        "192.168.10.1",
+        "203.0.113.20",
+        "192.168.10.50"
+      ],
+      "answer": 2,
+      "targets": [
+        "printer",
+        "router"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "prefix",
+      "station": 1,
+      "year": 1,
+      "title": "Adresa pro stanici",
+      "kind": "choice",
+      "goal": "Rozliš adresu sítě, hosta a broadcastu.",
+      "situation": "Správce má v učebně přidělit PC adresu v síti /24. Brána je už .1.",
+      "evidence": "192.168.10.0/24\nBrána: 192.168.10.1\nPC zatím bez adresy",
+      "prompt": "Vyber běžnou adresu hosta v dané podsíti.",
+      "options": [
+        "192.168.10.255",
+        "192.168.10.23",
+        "192.168.10.0",
+        "192.168.20.23"
+      ],
+      "answer": 1,
+      "hint": "V /24 určuje prvních 24 bitů stejnou síť.",
+      "why": ".0 je adresa sítě a .255 broadcast. .23 patří mezi adresy hostů v 192.168.10.0/24.",
+      "sources": [
+        "lab",
+        "l3"
+      ],
+      "targets": [
+        "pc04",
+        "router"
+      ],
+      "demo": "dhcp"
+    },
+    {
+      "id": "dora",
+      "station": 1,
+      "year": 2,
+      "title": "První pronájem IPv4",
+      "kind": "order",
+      "goal": "Seřaď výměnu DHCPv4.",
+      "situation": "Nově připojené PC 04 zatím nemá IPv4 konfiguraci.",
+      "evidence": "Klient: UDP 68  |  Server: UDP 67",
+      "prompt": "Seřaď čtyři zprávy běžného prvního přidělení adresy.",
+      "hint": "Která zpráva vůbec najde server?",
+      "why": "Discover · klient hledá servery → Offer · server nabízí adresu → Request · klient přijímá vybranou nabídku → ACK · server potvrzuje pronájem a konfiguraci.",
+      "sources": [
+        "dhcp"
+      ],
+      "options": [
+        "Request",
+        "Discover",
+        "ACK",
+        "Offer"
+      ],
+      "answer": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "targets": [
+        "pc04",
+        "router"
+      ],
+      "demo": "dhcp"
+    },
+    {
+      "id": "vlan",
+      "station": 1,
+      "year": 2,
+      "title": "Linka svítí, DHCP mlčí",
+      "kind": "practical",
+      "goal": "Obnov konfiguraci PC 04.",
+      "situation": "PC 04 má aktivní linku, ale DHCP se zastaví u Discover. Server DHCP je dostupný v učebně.",
+      "evidence": "PC 04: port 04, VLAN 20\nBrána a DHCP: VLAN 10\nUčebna: 192.168.10.0/24",
+      "prompt": "Obnov správné členství portu a obnov pronájem DHCP. Ověř přidělenou konfiguraci.",
+      "hint": "Porovnej VLAN portu s VLAN serveru DHCP.",
+      "why": "Discover v nesprávné VLAN nedosáhl DHCP serveru. ACK na správném segmentu potvrdil adresu, masku, bránu a resolver.",
+      "sources": [
+        "lab",
+        "dhcp",
+        "ethernet"
+      ],
+      "targets": [
+        "4",
+        "switch",
+        "pc04"
+      ],
+      "demo": "dhcp"
+    },
+    {
+      "id": "pool",
+      "station": 1,
+      "year": 2,
+      "title": "Pevná adresa tiskárny",
+      "kind": "choice",
+      "goal": "Vyber adresu mimo dynamický rozsah.",
+      "situation": "Přidáváš tiskárnu s ručním nastavením. Brána už používá .1.",
+      "evidence": "192.168.10.0/24\nDHCP: 192.168.10.20–192.168.10.49",
+      "prompt": "Vyber volnou adresu ve stejné síti, kterou DHCP nenabízí.",
+      "options": [
+        "192.168.10.23",
+        "192.168.10.50",
+        "192.168.20.50"
+      ],
+      "answer": 1,
+      "hint": "Zkontroluj podsíť i poslední oktet proti rozsahu DHCP.",
+      "why": "Tiskárna .50 je v místní síti a za horní hranicí dynamického rozsahu.",
+      "sources": [
+        "dhcp",
+        "lab"
+      ],
+      "targets": [
+        "printer",
+        "router"
+      ],
+      "demo": "dhcp"
+    },
+    {
+      "id": "dhcp_renew",
+      "station": 1,
+      "year": 2,
+      "title": "Obnova za čtyři hodiny",
+      "kind": "choice",
+      "goal": "Rozliš první přidělení a obnovu.",
+      "situation": "PC získalo výchozí osmihodinový pronájem. Po čtyřech hodinách už má funkční adresu.",
+      "evidence": "Pronájem 8 h · výchozí T1 · původní server dostupný",
+      "prompt": "Vyber zprávu, kterou klient při běžné obnově typicky odešle.",
+      "options": [
+        "DHCPREQUEST",
+        "DHCPACK",
+        "Celé DORA od Discover"
+      ],
+      "answer": 0,
+      "hint": "Klient už má pronájem a zná vybraný server.",
+      "why": "V T1 se klient obvykle obrátí na původní server pomocí DHCPREQUEST. První přidělení začíná hledáním serverů.",
+      "sources": [
+        "dhcp"
+      ],
+      "targets": [
+        "pc04",
+        "router"
+      ],
+      "demo": "dhcp"
+    },
+    {
+      "id": "next_hop",
+      "station": 2,
+      "year": 1,
+      "title": "Dvě adresy na cestě",
+      "kind": "choice",
+      "goal": "Rozliš linkovou a síťovou adresu.",
+      "situation": "PC už ví, kudy k portálu, a předává první rámec do místní sítě.",
+      "evidence": "Brána 192.168.10.1 · MAC …:01\nPortál 203.0.113.20 · vzdálená síť",
+      "prompt": "Vyber údaj, který se použije jako linkový cíl prvního úseku.",
+      "options": [
+        "MAC brány",
+        "IP portálu",
+        "MAC kabelového adaptéru PC"
+      ],
+      "answer": 0,
+      "hint": "Ethernet doručuje na tomto místním úseku.",
+      "why": "První rámec dostane brána. Pro další úsek router vytvoří nový rámec, zatímco cílová IP v tomto modelu dál označuje portál.",
+      "sources": [
+        "mac",
+        "l3"
+      ],
+      "targets": [
+        "router",
+        "pc04"
+      ],
+      "demo": "arp"
+    },
+    {
+      "id": "arp",
+      "station": 2,
+      "year": 2,
+      "title": "MAC pro první rámec",
+      "kind": "choice",
+      "goal": "Rozliš cíl paketu a cíl prvního rámce.",
+      "situation": "Stanice 192.168.10.23/24 posílá paket na 203.0.113.20.",
+      "evidence": "Brána: 192.168.10.1\nTiskárna: 192.168.10.50",
+      "prompt": "Vyber IP adresu, pro kterou stanice nejprve potřebuje zjistit MAC.",
+      "hint": "Zjisti, jestli cílová IP leží v místní síti.",
+      "why": "První rámec míří na MAC brány 02:00:00:00:10:01. IP paket uvnitř má stále cílovou adresu 203.0.113.20.",
+      "sources": [
+        "arp",
+        "l3"
+      ],
+      "options": [
+        "192.168.10.23",
+        "192.168.10.1",
+        "192.168.10.50",
+        "203.0.113.20"
+      ],
+      "answer": 1,
+      "targets": [
+        "printer",
+        "router"
+      ],
+      "demo": "arp"
+    },
+    {
+      "id": "spoof",
+      "station": 2,
+      "year": 2,
+      "title": "Podezřelá změna souseda",
+      "kind": "diagnosis",
+      "goal": "Porovnej změnu cache se správou sítě.",
+      "situation": "V pondělí proběhla plánovaná výměna routeru. Dnes cache opět ukazuje novou MAC brány.",
+      "evidence": "A · Pondělí: výměna routeru zapsaná správcem.\nB · Dnes: změna bez zásahu, opakované nevyžádané odpovědi z klientského portu.\nC · Linka PC 04 stále svítí.",
+      "prompt": "Označ pravděpodobnou příčinu a důkaz, který ji odlišuje od plánované výměny.",
+      "hint": "Porovnej okolnosti obou změn MAC.",
+      "why": "Opakovaná nevyžádaná oznámení z klientského portu bez výměny routeru ukazují na možné podvržení. Při převzetí brány může obdobná změna být legitimní.",
+      "sources": [
+        "arp"
+      ],
+      "options": [
+        "Přerušený kabel",
+        "Podezření na podvržení ARP",
+        "Plánovaná výměna brány"
+      ],
+      "proof": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answer": [
+        1,
+        1
+      ],
+      "targets": [
+        "router",
+        "switch"
+      ],
+      "demo": "arp"
+    },
+    {
+      "id": "arp_fields",
+      "station": 2,
+      "year": 2,
+      "title": "Broadcast v rámcovém obalu",
+      "kind": "choice",
+      "goal": "Rozliš ARP zprávu a její rámec.",
+      "situation": "V analyzátoru je ARP Request pro místní tiskárnu.",
+      "evidence": "Rámec: cíl ff:ff:ff:ff:ff:ff\nARP: hledaná MAC 00:00:00:00:00:00",
+      "prompt": "Vysvětli rozdíl mezi oběma hodnotami.",
+      "options": [
+        "Obě hodnoty jsou MAC tiskárny",
+        "Rámec je broadcast a MAC tiskárny v žádosti zatím neznáme",
+        "Rámec patří bráně a nuly identifikují resolver"
+      ],
+      "answer": 1,
+      "hint": "Porovnej adresu doručení s údajem, na který se PC teprve ptá.",
+      "why": "Žádost se doručuje broadcastem na místní lince. Hledaná linková adresa uvnitř ARP zprávy dosud není známá.",
+      "sources": [
+        "arp",
+        "ethernet"
+      ],
+      "targets": [
+        "switch",
+        "printer"
+      ],
+      "demo": "printer"
+    },
+    {
+      "id": "arp_defense",
+      "station": 2,
+      "year": 2,
+      "title": "Ověření ARP odpovědí",
+      "kind": "choice",
+      "goal": "Vyber mechanismus, který pracuje s vazbami.",
+      "situation": "Na spravovaném switchi vznikají důvěryhodné vazby z DHCP provozu.",
+      "evidence": "DHCP snooping aktivní\nZ klientského portu přišlo podezřelé mapování IP a MAC.",
+      "prompt": "Vyber mechanismus, který může ARP kontrolovat proti těmto vazbám.",
+      "options": [
+        "DNSSEC",
+        "Full duplex",
+        "Dynamic ARP Inspection"
+      ],
+      "answer": 2,
+      "hint": "Hledej kontrolu přímo nad ARP zprávami.",
+      "why": "Dynamic ARP Inspection může kontrolovat ARP proti vazbám ze snoopingu nebo proti schváleným statickým pravidlům.",
+      "sources": [
+        "arp"
+      ],
+      "targets": [
+        "switch",
+        "router"
+      ],
+      "demo": "arp"
+    },
+    {
+      "id": "layers",
+      "station": 3,
+      "year": 1,
+      "title": "Čtení jednoho DNS dotazu",
+      "kind": "match",
+      "goal": "Přiřaď zachycené údaje vrstvám.",
+      "situation": "PC 04 odeslal dotaz na adresu webu.",
+      "evidence": "IPv4 192.168.10.23 → 192.168.10.2\nUDP 52111 → 53\nDNS A portal.example.com",
+      "prompt": "Přiřaď každý údaj k vrstvě OSI.",
+      "hint": "Najdi zvlášť adresy, porty a význam dotazu.",
+      "why": "IP určuje síťový cíl, UDP port vybírá transportní koncový bod a záznam A patří do aplikační DNS zprávy.",
+      "sources": [
+        "stack",
+        "l3",
+        "l4",
+        "l7",
+        "dns"
+      ],
+      "rows": [
+        "IPv4 adresy",
+        "UDP porty",
+        "DNS typ A"
+      ],
+      "options": [
+        "L7 · Aplikační",
+        "L3 · Síťová",
+        "L4 · Transportní"
+      ],
+      "answer": [
+        1,
+        2,
+        0
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "dns",
+      "station": 3,
+      "year": 1,
+      "title": "Web podle jména nedostupný",
+      "kind": "diagnosis",
+      "goal": "Rozliš překlad jména a dostupnost TCP.",
+      "situation": "Portál se po zadání jména neotevře. Znáš jeho očekávanou IP adresu.",
+      "evidence": "A · TCP 203.0.113.20:443 → spojení navázáno\nB · DNS A portal.example.com → NXDOMAIN",
+      "prompt": "Vyber oblast závady a označ měření, které ji prokazuje.",
+      "hint": "Rozliš výsledek dotazu DNS od spojení na IP a port.",
+      "why": "NXDOMAIN znamená, že dotazované jméno neexistuje. Test na IP ověřil navázání TCP na portu 443.",
+      "sources": [
+        "dns",
+        "ports"
+      ],
+      "options": [
+        "Překlad názvu",
+        "Fyzický spoj",
+        "Nedostupný TCP port 443"
+      ],
+      "proof": [
+        "A",
+        "B"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "encap",
+      "station": 3,
+      "year": 1,
+      "title": "Od DNS zprávy k signálu",
+      "kind": "order",
+      "goal": "Seřaď zapouzdření.",
+      "situation": "PC má připravený DNS dotaz, který odešle po Ethernetu.",
+      "evidence": "DNS A · UDP 53 · IPv4 · Ethernet II",
+      "prompt": "Seřaď kroky od aplikační zprávy k ethernetovému rámci.",
+      "options": [
+        "IPv4 přidá adresy",
+        "Ethernet přidá linkový obal",
+        "DNS vytvoří dotaz",
+        "UDP přidá porty"
+      ],
+      "answer": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "hint": "Začni obsahem, který aplikace chce odeslat.",
+      "why": "DNS zprávu obalí UDP, potom IPv4 a nakonec ethernetový rámec. Médium přenese jeho signál.",
+      "sources": [
+        "stack",
+        "l1",
+        "l2"
+      ],
+      "targets": [
+        "terminal",
+        "switch"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "cookie",
+      "station": 3,
+      "year": 1,
+      "title": "Přihlášení po změně spojení",
+      "kind": "choice",
+      "goal": "Rozliš relaci a transportní spojení.",
+      "situation": "Web otevřel nové TCP spojení. Prohlížeč přesto zůstal přihlášený.",
+      "evidence": "Původní TCP spojení ukončeno\nCookie platí dál",
+      "prompt": "Který údaj pomáhá webu zachovat stav přihlášení?",
+      "options": [
+        "Pořadové číslo TCP původního spojení",
+        "Cílová MAC brány",
+        "Cookie aplikační relace"
+      ],
+      "answer": 2,
+      "hint": "Stav přihlášení sleduje aplikace.",
+      "why": "Aplikační relace může přes cookie přetrvat napříč více TCP spojeními.",
+      "sources": [
+        "l5"
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "utf8",
+      "station": 3,
+      "year": 1,
+      "title": "Rozbitá diakritika ve webu",
+      "kind": "choice",
+      "goal": "Urči oblast práce s reprezentací.",
+      "situation": "Server úspěšně poslal JSON. Po zobrazení jsou znaky s diakritikou chybné.",
+      "evidence": "TCP navázáno · TLS dokončeno · HTTP 200\nObsah je JSON v UTF‑8.",
+      "prompt": "Vyber první kontrolu podle pozorovaného projevu.",
+      "options": [
+        "Porovnat kódování dat a způsob dekódování",
+        "Znovu zapojit ethernetový kabel",
+        "Obnovit DHCP pronájem"
+      ],
+      "answer": 0,
+      "hint": "Přenos proběhl a chyba se projevila při čtení znaků.",
+      "why": "Nesoulad kódování znaků a dekódování vysvětluje chybnou reprezentaci textu i při úspěšném přenosu.",
+      "sources": [
+        "l6",
+        "l7"
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "http404",
+      "station": 3,
+      "year": 1,
+      "title": "Server odpověděl 404",
+      "kind": "choice",
+      "goal": "Přečti aplikační výsledek.",
+      "situation": "Prohlížeč zobrazí chybu při otevření jedné stránky. Úvodní stránka téhož webu funguje.",
+      "evidence": "GET /materialy → HTTP 404",
+      "prompt": "Kterou oblast ověříš jako první?",
+      "options": [
+        "Napájení switche",
+        "Cestu k požadovanému zdroji na webu",
+        "Fyzický link k bráně"
+      ],
+      "answer": 1,
+      "hint": "Stavový kód přišel jako odpověď služby.",
+      "why": "HTTP 404 znamená, že služba odpověděla a požadovaný zdroj nenašla nebo ho takto nezpřístupní.",
+      "sources": [
+        "l7"
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "ttl",
+      "station": 3,
+      "year": 1,
+      "title": "Stará IP po přestěhování webu",
+      "kind": "choice",
+      "goal": "Rozliš cache resolveru a zdroj záznamu.",
+      "situation": "Autoritativní DNS už vrací novou adresu. Část klientů ještě dostává původní.",
+      "evidence": "Autoritativní server → nová IP\nRekurzivní resolver → stará IP, kladné TTL",
+      "prompt": "Které vysvětlení nejlépe odpovídá výpisu?",
+      "options": [
+        "Všechna TCP spojení mají stejný zdrojový port",
+        "Ethernet posílá rámec do jiné VLAN",
+        "Resolver ještě smí používat starou odpověď z cache"
+      ],
+      "answer": 2,
+      "hint": "TTL určuje dobu, po kterou může cache výsledek používat.",
+      "why": "Platný záznam může v cache zůstat do uplynutí TTL i po změně zdrojového záznamu.",
+      "sources": [
+        "dns"
+      ],
+      "targets": [
+        "terminal",
+        "router"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "media_voice",
+      "station": 3,
+      "year": 1,
+      "title": "Hovor se spojí, zvuk se seká",
+      "kind": "choice",
+      "goal": "Odděl signalizaci a přenos zvuku.",
+      "situation": "Uživatel naváže VoIP hovor. Jen během odchozí zálohy má protistrana výpadky zvuku.",
+      "evidence": "SIP relace navázána\nPři záloze kolísá doručení RTP",
+      "prompt": "Co změříš při zátěži jako první?",
+      "options": [
+        "Počet znaků v DNS jménu",
+        "Jitter a ztráty v odchozím toku",
+        "Číslo VLAN tiskárny"
+      ],
+      "answer": 1,
+      "hint": "Signalizace vytvořila hovor. Sleduj data se zvukem.",
+      "why": "RTP nese časované audio. Ztráty a kolísání zpoždění mohou při záloze narušit zvuk.",
+      "sources": [
+        "services",
+        "l5",
+        "quality"
+      ],
+      "targets": [
+        "terminal",
+        "router"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "transport",
+      "station": 3,
+      "year": 2,
+      "title": "DNS funguje, port neodpovídá",
+      "kind": "diagnosis",
+      "goal": "Odděl závadu transportu od překladu.",
+      "situation": "Klient získal očekávanou IP portálu. Prohlížeč stále nedostane odpověď HTTP.",
+      "evidence": "A · DNS A portal.example.com → 203.0.113.20\nB · ICMP k 203.0.113.20 → odpověď\nC · TCP SYN na 203.0.113.20:443 → bez odpovědi",
+      "prompt": "Označ první prokázanou selhávající část a příslušné měření.",
+      "hint": "Zkontroluj, které měření používá konkrétní transportní port.",
+      "why": "Klient dosáhl serveru přes ICMP, ale nenavázal TCP na cílový port. Prověř naslouchající službu, vazbu na rozhraní nebo filtrování.",
+      "sources": [
+        "ports",
+        "dns",
+        "l7"
+      ],
+      "options": [
+        "DNS překlad",
+        "Obsah stránky / HTTP 404",
+        "Navázání TCP na 443"
+      ],
+      "proof": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answer": [
+        2,
+        2
+      ],
+      "targets": [
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "journey",
+      "station": 3,
+      "year": 2,
+      "title": "Od zásuvky až k webu",
+      "kind": "practical",
+      "goal": "Zprovozni učebnu a ověř celý řetězec.",
+      "situation": "PC 04 i tiskárna čekají na připojení. Nový portál dosud nefunguje.",
+      "evidence": "Síť: 192.168.10.0/24\nBrána: 192.168.10.1\nPortál: portal.example.com → 203.0.113.20",
+      "prompt": "Připoj obě PC a tiskárnu ke switchi ve VLAN 10. Obnov DHCP, zachyť ARP pro tiskárnu i bránu a oprav překlad portálu. Ověř řešení.",
+      "hint": "Začni fyzickými linkami. Po DHCP porovnej DNS dotaz s přímým TCP testem.",
+      "why": "Kabely obnovily lokální spoje, ACK potvrdil konfiguraci, ARP rozlišil tiskárnu a bránu. Po opravě záznamu A projde DNS, TCP i HTTPS.",
+      "sources": [
+        "lab",
+        "topology",
+        "dhcp",
+        "arp",
+        "dns",
+        "ports"
+      ],
+      "targets": [
+        "pc04",
+        "pc02",
+        "printer",
+        "terminal"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "tcp_order",
+      "station": 3,
+      "year": 2,
+      "title": "Navázání TCP spojení",
+      "kind": "order",
+      "goal": "Seřaď navázání spojení na HTTPS.",
+      "situation": "DNS už vrátil správnou IP. Klient se připojuje k portu 443/TCP.",
+      "evidence": "Klient 192.168.10.23:52345 → server 203.0.113.20:443",
+      "prompt": "Seřaď zprávy navázání TCP.",
+      "options": [
+        "ACK",
+        "SYN‑ACK",
+        "SYN"
+      ],
+      "answer": [
+        2,
+        1,
+        0
+      ],
+      "hint": "Klient nejprve žádá o navázání spojení.",
+      "why": "SYN vyšle klient, SYN‑ACK vrátí server a ACK potvrdí klient. Pak mohou pokračovat TLS a HTTP.",
+      "sources": [
+        "ports",
+        "lab",
+        "l4"
+      ],
+      "targets": [
+        "terminal",
+        "router"
+      ],
+      "demo": "web"
+    },
+    {
+      "id": "access",
+      "station": 4,
+      "year": 2,
+      "title": "Kam až data dojdou?",
+      "kind": "diagnosis",
+      "goal": "Odděl přípojku DSL, WLAN a IP nastavení.",
+      "situation": "Bezdrátový notebook nedosáhne služby. Servisní kabelový počítač web otevře.",
+      "evidence": "A · DSL synchronizováno\nB · Notebook připojen k Ucebna\nC · Notebook: 169.254.10.23, očekává DHCP\nD · Servisní PC: web dostupný",
+      "prompt": "Vyber oblast, kterou prověříš jako první, a nejpřímější důkaz.",
+      "hint": "Najdi přidělenou IPv4 adresu notebooku.",
+      "why": "Spojení k AP proběhlo, ale notebook nezískal DHCP konfiguraci. Prověř DHCP a přiřazení bezdrátové sítě do VLAN.",
+      "sources": [
+        "dsl",
+        "wifi",
+        "dhcp"
+      ],
+      "options": [
+        "Synchronizace DSL",
+        "Přidělení IP pro WLAN",
+        "Výpadek vzdáleného webu"
+      ],
+      "proof": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": [
+        1,
+        2
+      ],
+      "targets": [
+        "dsl",
+        "splitter",
+        "ap"
+      ],
+      "demo": "dsl"
+    },
+    {
+      "id": "latency",
+      "station": 4,
+      "year": 2,
+      "title": "Zpomalení při záloze",
+      "kind": "choice",
+      "goal": "Vyber srovnání, které zúží zdroj zpoždění.",
+      "situation": "Přípojka má 200 Mb/s download a 20 Mb/s upload. Při záloze roste odezva.",
+      "evidence": "RTT v klidu: 18 ms\nRTT při záloze: 180 ms",
+      "prompt": "Vyber dvojici cílů, kterou má smysl měřit v klidu i při záloze.",
+      "hint": "Jeden cíl musí být ještě před podezřelým odchozím spojem.",
+      "why": "Srovnání místní brány se vzdáleným cílem pomůže lokalizovat čekání ve frontě. Přenosy lze doplnit měřením obou směrů.",
+      "sources": [
+        "quality"
+      ],
+      "options": [
+        "Dva DNS záznamy téhož webu",
+        "Místní brána a vzdálený cíl",
+        "Dva sousední WLAN kanály"
+      ],
+      "answer": 1,
+      "targets": [
+        "dsl",
+        "router"
+      ],
+      "demo": "latency"
+    },
+    {
+      "id": "split",
+      "station": 4,
+      "year": 2,
+      "title": "Tři přípojné body splitteru",
+      "kind": "match",
+      "goal": "Rozliš společné vedení, telefon a modem.",
+      "situation": "Dílna má analogový telefon i DSL na stejném vedení. Připravuješ schéma ke splitteru.",
+      "evidence": "Společné vedení · telefonní větev · DSL větev",
+      "prompt": "Přiřaď každý přípojný bod správnému zařízení nebo vedení.",
+      "options": [
+        "DSL modem",
+        "Přívod od operátora",
+        "Analogový telefon"
+      ],
+      "answer": [
+        1,
+        2,
+        0
+      ],
+      "hint": "Splitter rozdělí společný přívod do dvou větví.",
+      "why": "Splitter oddělí frekvence pro analogový telefon a DSL modem.",
+      "sources": [
+        "dsl"
+      ],
+      "targets": [
+        "splitter",
+        "splitter",
+        "dsl"
+      ],
+      "demo": "dsl",
+      "rows": [
+        "Společný vstup",
+        "Telefonní výstup",
+        "DSL výstup"
+      ]
+    },
+    {
+      "id": "wifi_loss",
+      "station": 4,
+      "year": 2,
+      "title": "Ztráty u zadní stěny",
+      "kind": "diagnosis",
+      "goal": "Rozliš pokrytí od závady WAN.",
+      "situation": "Notebook při chůzi dozadu ztrácí spojení. Kabelový PC u stejné brány funguje.",
+      "evidence": "A · Platná IPv4 konfigurace\nB · Ztráty ICMP k místní bráně pouze přes Wi‑Fi u zadní stěny\nC · DSL synchronizováno",
+      "prompt": "Označ první oblast kontroly a nejpřímější důkaz.",
+      "options": [
+        "Přístupový bod, signál a rušení",
+        "Záznam A portálu",
+        "Pronájem pro kabelový PC"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "hint": "Vyber měření, které selhává už před přístupem do WAN.",
+      "why": "Ztráty k místní bráně na rádiovém spoji souvisejí s lokální Wi‑Fi cestou. Prověř signál, rušení a kanál.",
+      "sources": [
+        "wifi",
+        "dsl"
+      ],
+      "targets": [
+        "ap",
+        "dsl"
+      ],
+      "demo": "dsl",
+      "proof": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "handover",
+      "station": 5,
+      "year": 2,
+      "title": "Hovor mezi dvěma buňkami",
+      "kind": "choice",
+      "goal": "Rozpoznej předání aktivního hovoru.",
+      "situation": "Během jízdy slábne původní BTS. Síť přidělí kanál v sousední buňce a pokračuje stejný hovor.",
+      "evidence": "MS → BTS A / BTS B → společný BSC → MSC",
+      "prompt": "Pojmenuj převod aktivního spojení na druhý rádiový zdroj.",
+      "hint": "Pozoruj, zda hovor při změně buňky pokračuje.",
+      "why": "Jde o handover. V ukázce obě BTS řídí společný BSC a probíhající hovor zůstává navázaný.",
+      "sources": [
+        "gsm"
+      ],
+      "options": [
+        "Paging",
+        "Roaming",
+        "Handover"
+      ],
+      "answer": 2,
+      "targets": [
+        "gsm"
+      ],
+      "demo": "gsm"
+    },
+    {
+      "id": "sim",
+      "station": 5,
+      "year": 2,
+      "title": "Stejná SIM v jiném telefonu",
+      "kind": "practical",
+      "goal": "Porovnej identitu zařízení a předplatného.",
+      "situation": "Telefon A má funkční fyzickou SIM. Má ji převzít telefon B.",
+      "evidence": "Přehled identit je na mobilním panelu.",
+      "prompt": "V učebně vyjmi SIM z telefonu A, vlož ji do B a na panelu porovnej údaje. Označ identitu, která se změnila.",
+      "hint": "Najdi údaj, který patří telefonu.",
+      "why": "Po přesunu stejné SIM se v této ukázce změnilo IMEI. IMSI předplatného a MSISDN zůstaly stejné.",
+      "sources": [
+        "sim"
+      ],
+      "options": [
+        "IMSI",
+        "IMEI",
+        "MSISDN"
+      ],
+      "answer": 1,
+      "targets": [
+        "sim_a",
+        "sim_b",
+        "gsm"
+      ],
+      "demo": "gsm"
+    },
+    {
+      "id": "gsm_roles",
+      "station": 5,
+      "year": 2,
+      "title": "Kdo obsluhuje hovor?",
+      "kind": "match",
+      "goal": "Přiřaď úlohy prvků GSM.",
+      "situation": "Schéma hovoru ukazuje tři prvky sítě mezi telefonem a druhou stranou.",
+      "evidence": "MS → BTS → BSC → MSC",
+      "prompt": "Přiřaď každému prvku jeho roli.",
+      "options": [
+        "Řídí rádiové zdroje více BTS",
+        "Přepíná hovory",
+        "Komunikuje rádiem s telefonem"
+      ],
+      "answer": [
+        2,
+        0,
+        1
+      ],
+      "hint": "Začni u prvku přímo u mobilní stanice.",
+      "why": "BTS obsluhuje rádio, BSC řídí zdroje více BTS a MSC přepíná hovory.",
+      "sources": [
+        "gsm"
+      ],
+      "targets": [
+        "gsm",
+        "gsm",
+        "gsm"
+      ],
+      "demo": "gsm",
+      "rows": [
+        "BTS",
+        "BSC",
+        "MSC"
+      ]
+    },
+    {
+      "id": "temporary_id",
+      "station": 5,
+      "year": 2,
+      "title": "Dočasná identita GSM",
+      "kind": "choice",
+      "goal": "Rozliš údaje předplatného a zařízení.",
+      "situation": "Telefon se pohybuje v obsluhované oblasti. Síť omezuje posílání trvalé identity přes rádio.",
+      "evidence": "Síť si uchovává mapování dočasné hodnoty na IMSI.",
+      "prompt": "Vyber dočasnou identitu používanou v GSM.",
+      "options": [
+        "IMEI",
+        "TMSI",
+        "MSISDN"
+      ],
+      "answer": 1,
+      "hint": "Hledej identitu účastníka pro určitou oblast.",
+      "why": "TMSI je dočasná identita. Síť ji mapuje na IMSI předplatného.",
+      "sources": [
+        "sim",
+        "gsm"
+      ],
+      "targets": [
+        "gsm"
+      ],
+      "demo": "gsm"
+    },
+    {
+      "id": "esim",
+      "station": 5,
+      "year": 2,
+      "title": "Nový profil bez výměny karty",
+      "kind": "choice",
+      "goal": "Popiš princip eSIM.",
+      "situation": "Operátor připravil profil k aktivaci na školním telefonu.",
+      "evidence": "Telefon má eUICC · aktivace probíhá vzdáleně.",
+      "prompt": "Vyber, co se při aktivaci přenese do telefonu.",
+      "options": [
+        "Profil eSIM uložený na eUICC",
+        "Nové IMEI rádiového zařízení",
+        "Dočasné číslo BTS"
+      ],
+      "answer": 0,
+      "hint": "Rozliš profil předplatného a identitu telefonu.",
+      "why": "Vzdáleně se nahraje profil eSIM na eUICC. IMEI označuje zařízení.",
+      "sources": [
+        "sim"
+      ],
+      "targets": [
+        "gsm",
+        "sim_a"
+      ],
+      "demo": "gsm"
+    }
+  ]
+}

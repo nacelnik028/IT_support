@@ -3,7 +3,7 @@
 Nová hra i běžný vstup z hlavního menu začínají v samostatné severní hale,
 na volné podlaze (4, 0.02, -11), s pohledem na orientační tabuli. Samotný hub
 nezahajuje lekci, nákup ani IT úlohu a neuděluje XP. Prostor má lavičky,
-čtyři barevně rozlišené portály a vlastní světla; nepřesouvá žádné pracoviště.
+pět barevně rozlišených portálů a vlastní světla; nepřesouvá žádné pracoviště.
 
 | Průchod | Skutečná fyzická cesta od hubu |
 |---|---|
@@ -11,8 +11,10 @@ nezahajuje lekci, nákup ani IT úlohu a neuděluje XP. Prostor má lavičky,
 | 02 / IT trénink | Jižní otvor vpravo, x=16, z=-7. Mezi cvičné racky. |
 | 03 / Programování | Západní otvor x=-9, z=-12. Do dosavadní západní učebny. |
 | 04 / English in London | Východní portál x=21, z=-11.5, chodba x=23 jižně, pak vpravo západním směrem do otvoru x=21, z=9.5. |
+| 05 / Počítačové sítě | Severní portál x=4, z=-16. Laboratoř pokračuje přímo na sever. |
 
 Hala zabírá x=-9…21, z=-16…-7. Londýnská chodba x=21…25, z=-16…11.5.
+Síťová laboratoř zabírá x=-3…11, z=-29…-16. [Síťové úlohy a ovládání](NETWORK_LAB.md).
 Všechny cesty mají souvislou podlahu, kolize, skutečné průchozí otvory a zpětné
 značení. Nové portály jsou otevřené průchody. Původní posuvné dveře serverovna ↔
 IT a serverovna ↔ programování nadále fungují oběma směry s bezpečnostními čidly.
@@ -36,7 +38,7 @@ i chodbu, cílovou kapsli kontroluje fyzika a paprsek oblouku zastaví překáž
 - Odchod z výuky či Londýna ruší dočasnou relaci a její UI. Permanentní výsledky
   zůstávají. Programovací zdrojové koncepty a samostatný snímek IT lekce se nyní ukládají pro výslovné pokračování ve správné učebně; živé cvičení se při odchodu dál vyčistí. [Pravidla](WORK_PERSISTENCE.md).
 
-`HUB=4` zachovává hodnoty 0/1/2/3. `is_education()` vyjmenovává výukové režimy,
+`HUB=4` a `NETWORK_LAB=5` zachovávají hodnoty 0/1/2/3. `is_education()` vyjmenovává výukové režimy,
 `is_away()` zahrnuje i hub. Čidlo haly doplňuje dosavadní prostorové sondy.
 Hub není cvičná infrastruktura, kterou by bylo možné uložit přes odloženou kampaň.
 Save zachovává schéma 2 a atomický zápis. Validátor přijímá skutečné nové polohy,

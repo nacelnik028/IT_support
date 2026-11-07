@@ -27,6 +27,7 @@ var training_zone
 var programming_room
 var english_room
 var hub
+var network_room
 
 func _ready():
 	build_room()
@@ -53,6 +54,9 @@ func _ready():
 	english_room.build(self)
 	hub=preload("res://scripts/world/AcademyHub.gd").new()
 	add_child(hub); hub.build(self)
+	network_room = preload("res://scripts/network_lab/LabRoom.gd").new()
+	add_child(network_room)
+	network_room.build(self)
 	player = preload("res://scenes/world/Player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector3(0,0.02,3)

@@ -23,6 +23,8 @@ var room_probe = Callable()
 var programming_probe = Callable()
 var english_probe = Callable()
 var hub_probe = Callable()
+var network_lab_probe = Callable()
+var network_lab = preload("res://scripts/network_lab/LabSession.gd").new()
 var reconciling_room=false
 var programming = preload("res://scripts/programming/AcademyManager.gd").new()
 var english = preload("res://scripts/english/EnglishManager.gd").new()
@@ -74,6 +76,7 @@ func resume_lesson(id: int, mode: String) -> bool:
 func _init():
 	var owner_ref=weakref(self)
 	shifts.owner_ref=owner_ref
+	network_lab.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
 	programming.changed=func():
 		if owner_ref.get_ref()!=null: owner_ref.get_ref().mark_work_dirty()
 	english.available=func():
@@ -98,6 +101,7 @@ func _init():
 		work.data.merge(saved.get("work",{}),true)
 		last_saved_at=float(saved.get("saved_at",0))
 		english.load_progress(saved.get("english",{}))
+		network_lab.attempts = saved.get("network_lab",[])
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
 		var normalized_scores={}
@@ -135,7 +139,8 @@ func reconcile_room():
 	if introduction_active: return
 	if reconciling_room: return
 	reconciling_room=true
-	if english_probe.is_valid() and english_probe.call(): enter_english()
+	if network_lab_probe.is_valid() and network_lab_probe.call(): enter_network_lab()
+	elif english_probe.is_valid() and english_probe.call(): enter_english()
 	elif programming_probe.is_valid() and programming_probe.call(): enter_programming()
 	elif hub_probe.is_valid() and hub_probe.call(): enter_hub()
 	elif room_probe.is_valid():
@@ -191,10 +196,22 @@ func enter_english() -> bool:
 	save(); room_changed.emit(false)
 	return true
 
+func enter_network_lab() -> bool:
+	if network_lab_probe.is_valid() and not network_lab_probe.call(): return false
+	if game_mode.is_network_lab(): return true
+	if game_mode.is_away(): leave_training()
+	suspend_session()
+	game_mode.switch_to(Modes.Mode.NETWORK_LAB)
+	active=false; current={}; finished=false; training=true; session_kind="lesson"
+	tutorial.cancel(); undo_states.clear(); training_sim.reset({}); sim=training_sim
+	session_revision+=1
+	save(); room_changed.emit(false)
+	return true
+
 func enter_training() -> bool:
 	if room_probe.is_valid() and not room_probe.call(): return false
-	if game_mode.is_programming() or game_mode.is_english() or game_mode.is_hub(): leave_training()
 	if game_mode.is_training(): return true
+	if game_mode.is_away(): leave_training()
 	suspend_session()
 	game_mode.switch_to(Modes.Mode.TRAINING)
 	training_sim.reset({})
@@ -225,6 +242,7 @@ func leave_training() -> bool:
 	cache_lesson()
 	programming.cancel()
 	english.cancel()
+	network_lab.cancel()
 	game_mode.switch_to(Modes.Mode.MAIN)
 	active = false
 	current = {}
@@ -407,7 +425,7 @@ func save(recover_invalid: bool = false) -> Error:
 	cache_lesson()
 	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"network_lab":network_lab.attempts,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
 	pending_work_at=-1
 	unsaved = last_save_error != OK
 	if not unsaved: last_saved_at=Time.get_unix_time_from_system()
@@ -521,6 +539,7 @@ func start_lesson(id: int,mode: String,resume: bool=true) -> bool:
 	return true
 
 func resume_campaign():
+	if game_mode.is_network_lab() and network_lab_probe.is_valid() and network_lab_probe.call(): return
 	shifts.data.selected="campaign"
 	if game_mode.is_away():
 		if hub_probe.is_valid() and hub_probe.call(): return

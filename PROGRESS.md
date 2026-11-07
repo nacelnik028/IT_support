@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Síťová laboratoř 05 / Počítačové sítě — 7. 11. 2026
+
+- Pátý průchod je na severní stěně rozcestníku. Síťová učebna je dostupná také z hlavního menu a přes Pauza → Kam jít. Servisní rack, dvě PC, tiskárna, živé schéma, terminál a demonstrační zóna mají skutečné kolize a společné ovládání PC a VR.
+- Offline katalog obsahuje 40 úloh pro oba ročníky, 23 výukových karet, tři režimy, pět formátů a komentované ukázky. Každá úloha odkazuje na konkrétní kapitoly Notionu. [Průchod, ovládání a zdroje](docs/NETWORK_LAB.md).
+- Model učebny propojuje kabeláž, VLAN, DHCP, ARP, analyzátor, DNS a TCP/HTTPS. DSL, WLAN a GSM mají vlastní měření a ukázky ve stejné učebně. Rozbor praktické opravy porovnává stav a měření před a po. Výsledky mají vlastní větev save, reset ani odchod z učebny nepřepíše rozpracovanou kampaň nebo směnu.
+- Cílená sada `network_lab.gd` prošla 855 kontrolami bez grafiky a 862 v obou rendererech. Grafické ověření pokrylo 720p při 130 % textu, syntetické paprsky a teleport v původním VR viewportu 1600 × 1200. Godot 4.7.2 načetl projekt v editoru a spustil učebnu přes Godot MCP. Fyzický headset nebyl k dispozici.
+- `Test-All.ps1` dokončil všech 53 sad bez chyb. Rozhraní stávající výuky prošlo 21 lekcemi ve všech třech režimech a 336 akcemi. Prvních 24 misí, legacy katalog a generátory se shodují s výchozím stavem. Učebnu lze spustit z aktuálního zdrojového projektu.
+
 ## Použitelnost dokončena a Windows EXE přestavěno — 7. 11. 2026
 
 - Herní zdroj `b9f4420`. Závěrečný `Test-All.ps1` dokončil všech 52 sad bez chyb. Výuka prošla 21 lekcemi v každém ze tří režimů a 336 akcemi. Testy nyní procházejí desktopový rozcestník a cestu k volnému tréninku ze serverovny.

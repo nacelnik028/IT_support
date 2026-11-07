@@ -152,6 +152,6 @@ func finish(completed: bool):
 	shell.ui.page=return_page
 	if return_mode=="menu": shell.ui.draw_ui()
 	shell.set_mode(return_mode if return_mode in ["world","menu","app","coding"] else "world"); shell.world.sync_state(); shell.update_guidance()
-	shell.room_notice.text="Úvod dokončen. V hale vyber průchod 01–04; směny jsou v nabídce serverovny." if completed else "Úvod ukončen. Původní pracovní relace obnovena. Zopakování: Pauza → Seznámení."
+	shell.room_notice.text="Úvod dokončen. V hale vyber průchod 01–05; směny jsou v nabídce serverovny." if completed else "Úvod ukončen. Původní pracovní relace obnovena. Zopakování: Pauza → Seznámení."
 	shell.notice_time=8.0
 	stash={}

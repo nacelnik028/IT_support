@@ -28,10 +28,16 @@ pro Windows i PICO. [Rozsah, ovládání a testy](docs/PROGRAMMING_ACADEMY.md)
 jsou popsané v dokumentaci; omezení jsou také přímo v editoru.
 
 **Training academy / Rozcestník** je nové společné nástupní místo PC i VR.
-Čtyři skutečné průchody vedou do serverovny (01), IT tréninku (02), programování
-(03) a východní chodbou do Londýna (04). Místnosti a pracoviště zůstávají na svých
-souřadnicích. Pauza → Kam jít → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
+Pět skutečných průchodů vede do serverovny (01), IT tréninku (02), programování
+(03), východní chodbou do Londýna (04) a severním vstupem do síťové laboratoře (05). Pauza → Kam jít → **Rozcestník akademie** bezpečně odloží pracovní kampaň.
 [Dispozice, chování při pokračování a ochrana save](docs/ACADEMY_HUB.md).
+
+**05 / Počítačové sítě** přidává 3D učebnu pro oba ročníky, 40 úloh na šesti
+stanovištích a samostatné výsledky. Zapoj PC a tiskárnu, sleduj DHCP, ARP a
+zachycené rámce a oprav přístup k webu. Vpravo je model DSL, WLAN a GSM včetně
+přesunu SIM. Vstup vede z rozcestníku, hlavního menu a **Pauza → Kam jít**.
+Učebna je dostupná z aktuálního zdrojového projektu Godotu.
+[Průchod, ovládání a zdroje každé úlohy](docs/NETWORK_LAB.md).
 
 **English in London** je čtvrtý 3D pavilon: vstup východní chodbou rozcestníku **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Přímý průchod ze serverovny je na žádost uživatele zazděný. Obsahuje prostorové
 London Eye a Elizabeth Tower, šest situací B1–B2, tři režimy, skutečný cvičný
@@ -79,8 +85,8 @@ Dobrovolná otázka nezmění skóre ani nepřidá XP. [Pravidla rozboru](docs/R
 
 ## Aktuální rozhraní
 
-Z hlavní nabídky můžeš pokračovat v rozehrané práci nebo vybrat jednu ze čtyř
-učeben. Rozcestník používá stejná čísla a barevné akcenty jako menu. Vstupy mají
+Z hlavní nabídky můžeš pokračovat v rozehrané práci nebo vybrat jednu z pěti
+oblastí. Rozcestník používá stejná čísla a barevné akcenty jako menu. Vstupy mají
 větší názvy a cílené osvětlení. Základní nabídka se vejde do 720p při 130 % textu.
 Editor nabízí **Spustit kód** a **Ověřit řešení**, samostatné záložky Výstup / Chyby /
 Ověření a přechod z chyby na známý řádek. Po editaci označí předchozí ověření jako

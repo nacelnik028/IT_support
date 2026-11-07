@@ -163,6 +163,7 @@ func _ready():
 	ui.game.programming_probe=world.programming_room.contains_player
 	ui.game.english_probe=world.english_room.contains_player
 	ui.game.hub_probe=world.hub.contains_player
+	ui.game.network_lab_probe=world.network_room.contains_player
 	ui.game.english.location=world.english_room.near
 	ui.game.room_changed.connect(on_room_changed)
 	set_mode("menu")
@@ -207,6 +208,7 @@ func _process(delta):
 		world.sync_state()
 		world.programming_room.sync()
 		world.english_room.sync()
+		world.network_room.sync()
 		var keys=ui.display_settings.bindings
 		if vr_active: controls_label.text="B/Y: pauza a ovládání · A/X: aktuální úkol"
 		elif ui.display_settings.introduction_seen and not practical_intro.active: controls_label.text="Esc: pauza · %s: úkol · %sovládání" % [OS.get_keycode_string(keys.task_list),"F1: " if not KEY_F1 in keys.values() else "Nastavení → "]
@@ -219,7 +221,14 @@ func _process(delta):
 		prompt.position.y=minf(766,819-prompt.size.y)
 		context_plate.position.y=prompt.position.y-12; context_plate.size.y=prompt.size.y+24
 		status_label.text = "SERVEROVNA 01"
-		if ui.game.game_mode.is_hub(): status_label.text="ROZCESTNÍK AKADEMIE / 01–04\nVyber označený průchod do učebny."
+		if ui.game.game_mode.is_hub(): status_label.text="ROZCESTNÍK AKADEMIE / 01–05\nVyber označený průchod do učebny."
+		if ui.game.game_mode.is_network_lab():
+			var lab = ui.game.network_lab
+			status_label.text = "05 / POČÍTAČOVÉ SÍTĚ\nVyber ročník u plánu nebo u terminálu."
+			if lab.demo_step>=0:
+				status_label.text = "UKÁZKA / "+lab.task.title+"\n"+lab.demo_comment
+			elif not lab.task.is_empty():
+				status_label.text = ("05 / "+lab.task.title+"\n"+lab.network.last_message).strip_edges()
 		if ui.game.game_mode.is_english():
 			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
 			if not ui.game.english.session.is_empty(): status_label.text+="\n"+ui.game.english.definition().title
@@ -260,6 +269,17 @@ func interaction_hint(object) -> String:
 	var use="Trigger" if vr_active else OS.get_keycode_string(ui.display_settings.bindings.interact)
 	if practical_intro.active and object.device_id!=practical_intro.target_id(): return "Teď najdi "+practical_intro.target_id() if practical_intro.target_id()!="" else "Pokračuj podle kroku úvodu."
 	if ui.game.game_mode.is_hub(): return "Nejdřív projdi označeným vstupem do učebny."
+	if object.kind=="network_lab":
+		if not ui.game.game_mode.is_network_lab(): return "Nejdřív projdi vstupem do síťové laboratoře."
+		var lab = ui.game.network_lab
+		var title: String = object.caption
+		var can_edit: bool = not lab.task.is_empty() and lab.demo_step<0 and not lab.locked()
+		if can_edit and object.console in lab.network.CLIENTS:
+			title += " · vybrat nebo odložit konektor"
+		elif can_edit and lab.network.cable!="" and str(object.console).is_valid_int():
+			title += " · zapojit vybraný konektor"
+		return "%s · %s" % [use,title]
+	if ui.game.game_mode.is_network_lab(): return "Toto zařízení patří do jiné učebny."
 	if object.kind=="english" and not ui.game.game_mode.is_english(): return "Nejdřív vstup do Londýna."
 	if object.kind=="programming" and not ui.game.game_mode.is_programming(): return "Nejdřív vstup do programovací učebny."
 	if not object.kind in ["door","program_door","programming","english"]:
@@ -291,7 +311,8 @@ func set_mode(value: String):
 	ui.visible = value in ["menu","app"]
 	hud.visible = value == "world"
 	app_bar.visible = value == "app"
-	overlay.visible = value in ["detail","pause","tasks","introduction","coding"]
+	overlay.visible = value in ["detail","pause","tasks","introduction","coding","network_lab"]
+	overlay.offset_bottom = 300 if vr_active and value=="network_lab" else 0
 	if value=="english": overlay.visible=true
 	if is_instance_valid(english_dialog): english_dialog.visible=value=="english"
 	if is_instance_valid(code_editor): code_editor.visible=value=="coding"
@@ -312,6 +333,15 @@ func enter_world(destination: String = "Serverovna"):
 	if destination=="Rozcestník akademie":
 		pending_cable=""
 		world.player.position=world.hub.SPAWN
+		world.player.velocity=Vector3.ZERO
+		world.player.rotation.y=0; world.player.camera.rotation.x=0
+		ui.game.reconcile_room()
+		pose_revision=ui.game.session_revision
+		set_mode("world")
+		ui.first_shift_requested=false
+		return
+	if destination=="Počítačové sítě":
+		world.player.position=world.network_room.SPAWN
 		world.player.velocity=Vector3.ZERO
 		world.player.rotation.y=0; world.player.camera.rotation.x=0
 		ui.game.reconcile_room()
@@ -418,6 +448,10 @@ func interact(object):
 	if practical_intro.interact(object): return
 	ui.game.reconcile_room()
 	if ui.game.game_mode.is_hub(): return
+	if object.kind=="network_lab":
+		if ui.game.game_mode.is_network_lab(): interact_network_lab(object.console)
+		return
+	if ui.game.game_mode.is_network_lab(): return
 	if object.kind=="english":
 		if ui.game.game_mode.is_english():
 			london_navigation.interacted(object.console)
@@ -468,6 +502,54 @@ func interact(object):
 		"monitor": show_monitor()
 		"door": world.toggle_door()
 		"instructor": open_app("Trénink")
+
+func interact_network_lab(id: String):
+	var lab = ui.game.network_lab
+	var model = lab.network
+	if id in ["year1","year2"]:
+		lab.year = int(id.right(1))
+		lab.station = -1
+		open_network_lab("home")
+		return
+	if id=="plan":
+		lab.station = -1
+		open_network_lab("home")
+		return
+	if not lab.task.is_empty() and lab.demo_step<0 and not lab.locked():
+		if id in model.CLIENTS:
+			model.select_cable(id)
+			world.network_room.sync()
+			return
+		if id.is_valid_int() and model.cable!="":
+			model.connect_cable(int(id))
+			world.network_room.sync()
+			return
+		if id in ["sim_a","sim_b"]:
+			model.move_sim(0 if id=="sim_a" else 1)
+			world.network_room.sync()
+			return
+	if lab.task.is_empty():
+		lab.station = 5 if id in ["gsm","sim_a","sim_b"] else 4 if id in ["splitter","dsl","ap"] else 0 if id!="terminal" else -1
+		open_network_lab("home")
+	elif id.is_valid_int():
+		lab.selected_port = int(id)
+		open_network_lab("measure")
+	elif id in ["switch","patch","router","splitter","dsl","ap","gsm","sim_a","sim_b"]:
+		open_network_lab("measure")
+	else:
+		open_network_lab()
+
+func open_network_lab(page: String = ""):
+	if not ui.game.game_mode.is_network_lab(): return
+	if page!="": ui.game.network_lab.view = page
+	for child in overlay.get_children():
+		overlay.remove_child(child)
+		child.queue_free()
+	var panel_node = preload("res://scripts/network_lab/LabPanel.gd").new()
+	panel_node.shell = self
+	set_mode("network_lab")
+	overlay.add_child(panel_node)
+	if vr_active: xr_rig.monitor.place_in_front(xr_rig.head)
 
 func open_english(station: String = "tickets", intro: bool = false):
 	if not ui.game.game_mode.is_english(): return
@@ -835,8 +917,9 @@ func show_tasks():
 	ui.game.reconcile_room()
 	if ui.game.game_mode.is_hub():
 		set_mode("tasks")
-		var v=panel("Rozcestník akademie","01 / Serverovna — kampaň a incidenty\n02 / IT trénink — cvičná infrastruktura\n03 / Programování — Python a web\n04 / English in London — B1–B2 a londýnský kvíz")
+		var v=panel("Rozcestník akademie","01 / Serverovna — kampaň a incidenty\n02 / IT trénink — cvičná infrastruktura\n03 / Programování — Python a web\n04 / English in London — B1–B2 a londýnský kvíz\n05 / Počítačové sítě — síťová laboratoř")
 		v.add_child(ui.button("Zpět do haly",return_to_world)); return
+	if ui.game.game_mode.is_network_lab(): open_network_lab(); return
 	if ui.game.game_mode.is_english(): open_english(); return
 	if ui.game.game_mode.is_programming(): open_programming(); return
 	if not ui.game.active:
@@ -923,7 +1006,7 @@ func update_guidance():
 
 func on_room_changed(training_room: bool):
 	if leaving_scene or not ui.is_inside_tree(): return
-	if ui.game.game_mode.current==0 and not ui.game.active and not world.hub.contains_player() and not world.training_zone.contains_player() and not world.programming_room.contains_player() and not world.english_room.contains_player(): ui.game.resume_campaign()
+	if ui.game.game_mode.current==0 and not ui.game.active and not world.hub.contains_player() and not world.training_zone.contains_player() and not world.programming_room.contains_player() and not world.english_room.contains_player() and not world.network_room.contains_player(): ui.game.resume_campaign()
 	pose_revision = ui.game.session_revision
 	if training_room:
 		var p = world.player
@@ -942,9 +1025,9 @@ func on_room_changed(training_room: bool):
 	if mode != "menu": set_mode("world")
 	ui.page = "Trénink" if training_room else "Serverovna"
 	ui.draw_ui()
-	var current_room="hub" if ui.game.game_mode.is_hub() else "english" if ui.game.game_mode.is_english() else "programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
+	var current_room="network_lab" if ui.game.game_mode.is_network_lab() else "hub" if ui.game.game_mode.is_hub() else "english" if ui.game.game_mode.is_english() else "programming" if ui.game.game_mode.is_programming() else "training" if training_room else "main"
 	var exit_text={"english":"Odchod z angličtiny.","programming":"Odchod z programovací učebny.","training":"Odchod z IT tréninkové akademie."}.get(previous_room,"")+" Kampaň obnovena."
-	room_notice.text={"hub":"Rozcestník / kampaň bezpečně odložena. Vyber si označený průchod.","english":"English in London / přepážka Tickets, Alex a most k věži.","programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,exit_text)
+	room_notice.text={"network_lab":"05 / Počítačové sítě · ročník vyber u plánu nebo u terminálu.","hub":"Rozcestník / kampaň bezpečně odložena. Vyber si označený průchod.","english":"English in London / přepážka Tickets, Alex a most k věži.","programming":"Programovací učebna / vyber lekci u počítače.","training":"IT tréninková akademie / vyber serverovou lekci."}.get(current_room,exit_text)
 	if current_room=="english" and not ui.game.english.progress.intro_seen:
 		call_deferred("english_welcome")
 	previous_room=current_room
@@ -963,5 +1046,6 @@ func _exit_tree():
 		ui.game.programming_probe=Callable()
 		ui.game.english_probe=Callable()
 		ui.game.hub_probe=Callable()
+		ui.game.network_lab_probe=Callable()
 		ui.game.english.location=Callable()
 		ui.game.leave_training()

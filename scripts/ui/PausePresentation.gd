@@ -14,7 +14,7 @@ static func draw(shell, page: String = "main"):
 	var ui=shell.ui
 	v.add_child(ui.label({"main":"Pauza","destinations":"Kam jít","help":"Ovládání a nápověda","work":"Tickety a směny"}.get(page,"Pauza"),28,ui.CYAN))
 	if page=="destinations":
-		for item in [["Rozcestník akademie","Rozcestník akademie"],["Serverovna","Hlavní serverovna"],["IT trénink","Trénink"],["Programování","Programming Academy"],["English in London","English in London"]]:
+		for item in [["Rozcestník akademie","Rozcestník akademie"],["Serverovna","Hlavní serverovna"],["IT trénink","Trénink"],["Programování","Programming Academy"],["English in London","English in London"],["Počítačové sítě","Počítačové sítě"]]:
 			add(ui,v,item[0],func(): shell.enter_world(item[1]))
 		add(ui,v,"Tickety a směny",shell.pause_work)
 		add(ui,v,"Zpět do pauzy",shell.pause_menu)
@@ -32,7 +32,7 @@ static func draw(shell, page: String = "main"):
 		add(ui,v,"Kam jít",shell.pause_destinations)
 		add(ui,v,"Moje znalosti",func(): shell.open_app("Moje znalosti"))
 		add(ui,v,"Nastavení",func(): shell.settings_from_pause=true; shell.open_app("Nastavení"))
-		if ui.game.active or not ui.game.english.session.is_empty() or not ui.game.programming.current.is_empty(): add(ui,v,"Aktuální úkol",shell.open_current_task)
+		if ui.game.active or not ui.game.english.session.is_empty() or not ui.game.programming.current.is_empty() or ui.game.game_mode.is_network_lab(): add(ui,v,"Aktuální úkol",shell.open_current_task)
 		if shell.vr_active: add(ui,v,"Komfort VR",shell.show_vr_settings)
 		if ui.game.unsaved:
 			v.add_child(ui.label(ui.game.save_message,16,ui.ORANGE))

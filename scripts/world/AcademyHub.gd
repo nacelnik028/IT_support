@@ -1,6 +1,7 @@
 extends Node3D
 
 const Geo=preload("res://scripts/world/Geometry.gd")
+const NetworkLab=preload("res://scripts/network_lab/LabRoom.gd")
 const SPAWN=Vector3(4,0.02,-11)
 const HALL=AABB(Vector3(-9,-0.4,-16),Vector3(30,4.5,9))
 const PASSAGE=AABB(Vector3(21,-0.4,-16),Vector3(4,4.5,27.5))
@@ -33,7 +34,10 @@ func build(owner_world):
 	Geo.solid(self,Vector3(23,-0.16,-2.25),Vector3(4,0.3,27.5),Color("53656b"))
 	Geo.box(self,Vector3(6,4,-11.5),Vector3(30,0.15,9),Color("283f4a"))
 	Geo.box(self,Vector3(23,4,-2.25),Vector3(4,0.15,27.5),Color("283f4a"))
-	Geo.solid(self,Vector3(8,2,-16),Vector3(34,4,0.25),Color("455e69"))
+	for span in [[-3.25,11.5],[15.25,19.5]]:
+		Geo.solid(self,Vector3(span[0],2,-16),Vector3(span[1],4,0.25),Color("455e69"))
+	Geo.solid(self,Vector3(NetworkLab.PORTAL_X,3.5,-16),Vector3(3,1,0.25),Color("455e69"))
+	portal(Vector3(NetworkLab.PORTAL_X,0,-16),0,"05 / POČÍTAČOVÉ SÍTĚ","Kabeláž · protokoly · diagnostika",NetworkLab.ACCENT)
 	# Shared west/south walls are owned by the existing rooms. The short west
 	# return is outside the classroom; no second coplanar wall is introduced.
 	Geo.solid(self,Vector3(-9,2,-15.75),Vector3(0.25,4,0.5),Color("455e69"))
@@ -47,10 +51,10 @@ func build(owner_world):
 	portal(Vector3(16,0,-7),PI,"02 / IT TRÉNINK","21 lekcí · cvičná infrastruktura",Color("efca8b"))
 	portal(Vector3(-9,0,-12),PI/2,"03 / PROGRAMOVÁNÍ","Python · HTML / CSS / JavaScript",Color("76dfc7"))
 	portal(Vector3(21,0,-11.5),-PI/2,"04 / ENGLISH IN LONDON","B1–B2 · situace a otázky na Londýn",Color("e9a18b"))
-	var directory=Geo.box(self,Vector3(4,2.1,-15.8),Vector3(13,2.4,0.1),Color("153440"))
-	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(directory,13,2.4)
-	Geo.text(self,"TRAINING ACADEMY / ROZCESTNÍK",Vector3(4,2.8,-15.73),52,0.007,Color("b5eee0"))
-	Geo.text(self,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(4,1.9,-15.72),34,0.006)
+	var directory=Geo.box(self,Vector3(11.6,2.1,-15.8),Vector3(10.6,2.4,0.1),Color("153440"))
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(directory,10.6,2.4)
+	Geo.text(self,"TRAINING ACADEMY / ROZCESTNÍK",Vector3(11.6,2.8,-15.73),47,0.006,Color("b5eee0"))
+	Geo.text(self,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n05  Počítačové sítě  ←   vedle tabule\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(11.6,1.85,-15.72),32,0.0056)
 	for x in [-5,5,16]:
 		Geo.box(self,Vector3(x,3.85,-11.5),Vector3(3,0.08,0.5),Color("e1e9d7"),0,0.6)
 		var light=OmniLight3D.new(); light.position={-5:Vector3(-7,2.8,-9.8),5:Vector3(4,2.8,-8.5),16:Vector3(16,2.8,-8.8)}[x]; light.light_energy=2.4; light.omni_range=7; light.light_color=Color("d7e7eb"); add_child(light)
@@ -71,7 +75,9 @@ func decorate():
 	# controller reach and all four physical routes remain free of colliders.
 	for x in [-7.5,-6.9,-6.3,-5.7,13.4,14.0,14.6,15.2,15.8,16.4,17.0,17.6,18.2,18.8]:
 		Geo.bevel(self,Vector3(x,1.9,-15.79),Vector3(0.16,3.35,0.12),Color("a58c6a"),0,0.02)
-	Geo.box(self,Vector3(6,0.14,-15.7),Vector3(29.6,0.22,0.06),Color("223d46"))
+	for span in [[-3.25,11.2],[13.2,15.1]]:
+		Geo.box(self,Vector3(span[0],0.14,-15.7),Vector3(span[1],0.22,0.06),Color("223d46"))
+	Geo.box(self,Vector3(NetworkLab.PORTAL_X,0.014,-14.65),Vector3(0.09,0.012,2.55),NetworkLab.ACCENT,0,0.3)
 	for span in [[-8.25,1.1],[5,18.6],[19.25,3.1]]:
 		Geo.box(self,Vector3(span[0],0.14,-7.35),Vector3(span[1],0.22,0.06),Color("223d46"))
 	Geo.box(self,Vector3(4,0.001,-13),Vector3(13,0.012,3),Color("697d74"))
@@ -87,8 +93,8 @@ func decorate():
 	Geo.bevel(wall,Vector3.ZERO,Vector3(7,1.6,0.1),Color("263f49"),0,0.04)
 	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(wall,7,1.6)
 	Geo.box(wall,Vector3(-3.2,0,0.065),Vector3(0.04,1.25,0.02),Color("96d3be"),0,0.3)
-	Geo.text(wall,"VYBER UČEBNU / PRŮCHODY 01–04",Vector3(0,0.52,0.07),38,0.005,Color("e6efeb"))
-	for item in [["01 / SERVEROVNA",Vector3(-1.65,0.1,0.07),Color("8acfe9")],["02 / IT TRÉNINK",Vector3(1.65,0.1,0.07),Color("efca8b")],["03 / PROGRAMOVÁNÍ",Vector3(-1.65,-0.38,0.07),Color("76dfc7")],["04 / LONDÝN",Vector3(1.65,-0.38,0.07),Color("e9a18b")]]:
+	Geo.text(wall,"VYBER UČEBNU / PRŮCHODY 01–05",Vector3(0,0.52,0.07),38,0.005,Color("e6efeb"))
+	for item in [["01 / SERVEROVNA",Vector3(-1.65,0.1,0.07),Color("8acfe9")],["02 / IT TRÉNINK",Vector3(1.65,0.1,0.07),Color("efca8b")],["03 / PROGRAMOVÁNÍ",Vector3(-1.65,-0.38,0.07),Color("76dfc7")],["04 / LONDÝN",Vector3(1.65,-0.38,0.07),Color("e9a18b")],["05 / SÍTĚ",Vector3(0,-0.60,0.07),NetworkLab.ACCENT]]:
 		Geo.text(wall,item[0],item[1],34,0.0048,item[2])
 	# Repeated wall accents help identify the return corridor without a maze.
 	for z in [-10,-3,4]:
