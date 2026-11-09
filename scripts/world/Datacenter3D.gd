@@ -40,8 +40,9 @@ func _ready():
 	build_server("BACKUP-01",Vector3(6.2,1.4,-3),"Storage")
 	build_disks()
 	build_switch()
-	build_workstation(Vector3(-5,0,2),"ADMIN-01","Proxmox")
-	build_workstation(Vector3(-2.3,0,2),"ADMIN-02","Hyper-V")
+	# Keep the monitors on the rack side of the approach to programming.
+	build_workstation(Vector3(-5,0,1.05),"ADMIN-01","Proxmox")
+	build_workstation(Vector3(-2.3,0,1.05),"ADMIN-02","Hyper-V")
 	item("SPARES","Servisní skříň — náhradní disky","spares",Vector3(-7.6,0.9,-2),Vector3(1,1.8,0.65),"Storage")
 	Geo.text(devices.SPARES.visual,"SERVIS\nNÁHRADNÍ DISKY",Vector3(0,0.5,0.34),38,0.003)
 	build_details()

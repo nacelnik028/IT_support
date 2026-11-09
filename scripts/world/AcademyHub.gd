@@ -51,10 +51,11 @@ func build(owner_world):
 	portal(Vector3(16,0,-7),PI,"02 / IT TRÉNINK","21 lekcí · cvičná infrastruktura",Color("efca8b"))
 	portal(Vector3(-9,0,-12),PI/2,"03 / PROGRAMOVÁNÍ","Python · HTML / CSS / JavaScript",Color("76dfc7"))
 	portal(Vector3(21,0,-11.5),-PI/2,"04 / ENGLISH IN LONDON","B1–B2 · situace a otázky na Londýn",Color("e9a18b"))
-	var directory=Geo.box(self,Vector3(11.6,2.1,-15.8),Vector3(10.6,2.4,0.1),Color("153440"))
-	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(directory,10.6,2.4)
-	Geo.text(self,"TRAINING ACADEMY / ROZCESTNÍK",Vector3(11.6,2.8,-15.73),47,0.006,Color("b5eee0"))
-	Geo.text(self,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n05  Počítačové sítě  ←   vedle tabule\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(11.6,1.85,-15.72),32,0.0056)
+	# The directory fits between portal 05 and the slatted section of the wall.
+	var directory=Geo.box(self,Vector3(9.7,2.3,-15.8),Vector3(6.8,2.4,0.1),Color("153440"))
+	preload("res://scripts/world/WorldArchitecture.gd").wall_mount(directory,6.8,2.4)
+	Geo.text(directory,"TRAINING ACADEMY / ROZCESTNÍK",Vector3(0,0.7,0.07),47,0.006,Color("b5eee0"))
+	Geo.text(directory,"01  Serverovna  ↓ vlevo       02  IT trénink  ↓ vpravo\n03  Programování  ←       04  English in London  →\n05  Počítačové sítě  ←   vedle tabule\nVyber si cestu. Úlohu zahájíš až u pracoviště.",Vector3(0,-0.25,0.08),32,0.0056)
 	for x in [-5,5,16]:
 		Geo.box(self,Vector3(x,3.85,-11.5),Vector3(3,0.08,0.5),Color("e1e9d7"),0,0.6)
 		var light=OmniLight3D.new(); light.position={-5:Vector3(-7,2.8,-9.8),5:Vector3(4,2.8,-8.5),16:Vector3(16,2.8,-8.8)}[x]; light.light_energy=2.4; light.omni_range=7; light.light_color=Color("d7e7eb"); add_child(light)
@@ -83,7 +84,7 @@ func decorate():
 	Geo.box(self,Vector3(4,0.001,-13),Vector3(13,0.012,3),Color("697d74"))
 	for x in [-2.55,10.55]: Geo.box(self,Vector3(x,0.009,-13),Vector3(0.025,0.004,2.9),Color("b9baa0"))
 	for x in [-7.7,19.3]: plant(Vector3(x,0,-14.4))
-	plant(Vector3(12,0,-14.8))
+	plant(Vector3(15.2,0,-15))
 	# Simple ceiling fins add depth without new lights, textures or shaders.
 	for x in [-7,0,7,14,20]: Geo.bevel(self,Vector3(x,3.78,-11.5),Vector3(0.14,0.26,8.6),Color("58717a"),0,0.02)
 	for route in [[Vector3(-6,0.012,-9),Vector3(0.09,0.01,3.7),Color("8acfe9")],[Vector3(16,0.012,-9),Vector3(0.09,0.01,3.7),Color("efca8b")],[Vector3(-7.7,0.012,-12),Vector3(2.1,0.01,0.09),Color("76dfc7")],[Vector3(19.7,0.012,-11.5),Vector3(2.1,0.01,0.09),Color("e9a18b")]]:

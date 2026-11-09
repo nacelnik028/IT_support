@@ -23,14 +23,16 @@ static func plant(parent: Node3D, at: Vector3):
 			leaf.rotation=Vector3(0,angle,0.5 if i%2 else -0.5)
 
 static func technical(world):
-	panel(world,Vector3(-8.76,2,4.9),PI/2,"01 / PROVOZNÍ ZÓNA","DIAGNOSTIKA → ZÁSAH → OVĚŘENÍ\nPřed servisem ověř nezávislou zálohu.",Color("86d2e6"),3.3)
+	# Use the masonry between the end of the sliding pocket and the south wall.
+	panel(world,Vector3(-8.76,2,5.85),PI/2,"01 / PROVOZNÍ ZÓNA","DIAGNOSTIKA → ZÁSAH → OVĚŘENÍ\nPřed servisem ověř\nnezávislou zálohu.",Color("86d2e6"),1.9)
 	panel(world,Vector3(20.76,2,-0.5),-PI/2,"02 / LABORATOŘ","POZORUJ → OPRAV → OVĚŘ\nVlastní tempo. Bezpečný prostor pro chyby.",Color("efca8b"),3.5)
 	# Wall-mounted service equipment stays outside the existing access lanes.
 	var cabinet=Geo.bevel(world,Vector3(8.72,1.2,6.25),Vector3(0.16,0.62,0.48),Color("a96558"),0.2,0.025)
 	Geo.box(cabinet,Vector3(-0.09,0,0),Vector3(0.015,0.32,0.08),Color("e4daca"))
 	for dz in [-0.1,0.1]: Geo.box(cabinet,Vector3(-0.09,0,dz),Vector3(0.015,0.08,0.12),Color("e4daca"))
-	for at in [Vector3(-8.72,0.17,4.9),Vector3(20.72,0.17,-0.5)]:
-		for dz in [-1.3,1.3]: Geo.box(world,at+Vector3(0,0,dz),Vector3(0.06,0.3,0.06),Color("8da59e"),0.4)
+	for dz in [-1,1]:
+		Geo.box(world,Vector3(-8.72,0.17,5.85+dz*0.8),Vector3(0.06,0.3,0.06),Color("8da59e"),0.4)
+		Geo.box(world,Vector3(20.72,0.17,-0.5+dz*1.3),Vector3(0.06,0.3,0.06),Color("8da59e"),0.4)
 	plant(world,Vector3(20.25,0,6.25))
 	# Flush floor inlays add identity without changing floor collision height.
 	for x in [-5,-2.3]: Geo.box(world,Vector3(x,0.008,1.1),Vector3(2.1,0.006,0.035),Color("64a7b5"))

@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Čitelné tabule a vstup do programování — 9. 11. 2026
+
+- Hlavní tabule rozcestníku se vejde mezi vstup 05 a dřevěné lamely. Text je výš nad lavicí a květináč stojí vpravo u lamel.
+- Tabule provozní zóny se vejde na stěnu vedle krytu posuvných dveří. Obě pracoviště správců jsou blíž k rackům, takže z jižního příchodu nezakrývají popisky na dveřích.
+- Srovnatelné snímky před a po potvrdily čitelnost v režimech Forward+ a Compatibility. Test konstrukce v Compatibility prošel 19 170 kontrolami včetně ovládání a celého pohybu posuvných dveří.
+
 ## Windows EXE se síťovou laboratoří — 7. 11. 2026
 
 - `build/ITSupportSimulator.exe` obsahuje učebnu 05 a všech 40 úloh ze zdroje `dcb54fc`. Samostatný soubor má 104558112 B a vložená herní data.
