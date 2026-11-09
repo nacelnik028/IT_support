@@ -2,13 +2,13 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
   "export": "Windows x86_64 Debug",
-  "bytes": 104558112,
-  "sha256": "67c7604edb2c9e9b369f478135e9ef7fc787c0521ae4bcc54b68137e40334410",
+  "bytes": 104558176,
+  "sha256": "4771d16d73f1b9414cc997aa69a5cc73f3d4da56d523961d88a124606768a808",
   "embedded_pck": true,
-  "verification": "Native Windows standalone headless and graphical smoke plus network lab and content tests against the embedded pack",
+  "verification": "Native Windows headless EXE-only smoke",
   "native_windows_graphical_verified": true,
   "json_export": "lossless whitespace compaction + native Godot ZSTD container in isolated build copy",
-  "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920",
+  "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
   "sources": [
     {
       "file": "project.godot",
@@ -1020,7 +1020,7 @@
     },
     {
       "file": "scripts/world/AcademyDecor.gd",
-      "sha256": "5eb1ab3820caaa532b672765327f313760a319d8f903994ae082b8fdac192268"
+      "sha256": "700cd758788291eb0fe39b9e64a47858ad6436b5cdd51eb7271cef30db28f087"
     },
     {
       "file": "scripts/world/AcademyDecor.gd.uid",
@@ -1028,7 +1028,7 @@
     },
     {
       "file": "scripts/world/AcademyHub.gd",
-      "sha256": "943f7be5182457e64050022678e833bf2df704de8d423f705e5f2bceec1427f6"
+      "sha256": "981d6b7a3365dfb9d0d920c0e09c4b61b99c0d8058268d1a1dbcf95a842b9a29"
     },
     {
       "file": "scripts/world/AcademyHub.gd.uid",
@@ -1036,7 +1036,7 @@
     },
     {
       "file": "scripts/world/Datacenter3D.gd",
-      "sha256": "7d4eaab143fd3b381d199bcfe5bc352ce45fe77ee036414c8584d35e48ab25f3"
+      "sha256": "85f57892c7c308a44ea448c46a0701625fe7e7388219f4d9a56ffa0c45da2d67"
     },
     {
       "file": "scripts/world/Datacenter3D.gd.uid",
@@ -1163,5 +1163,5 @@
       "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
     }
   ],
-  "source_manifest_sha256": "18af92eb04eb9ba793f22724c39dd7462f450b089bfd5d222d9af6a3bc73872e"
+  "source_manifest_sha256": "6cc6d5e98bc0c9344fabf249f75bbe9c033a5d8bd3756f2f633aa89103919a21"
 }

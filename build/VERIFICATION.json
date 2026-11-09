@@ -1,15 +1,15 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
-  "date": "2026-11-07",
-  "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920",
-  "source_manifest_sha256": "18af92eb04eb9ba793f22724c39dd7462f450b089bfd5d222d9af6a3bc73872e",
+  "date": "2026-11-09",
+  "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
+  "source_manifest_sha256": "6cc6d5e98bc0c9344fabf249f75bbe9c033a5d8bd3756f2f633aa89103919a21",
   "source_manifests_match": false,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104558112,
-      "sha256": "67c7604edb2c9e9b369f478135e9ef7fc787c0521ae4bcc54b68137e40334410"
+      "bytes": 104558176,
+      "sha256": "4771d16d73f1b9414cc997aa69a5cc73f3d4da56d523961d88a124606768a808"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -21,18 +21,21 @@
     "rebuilt": true,
     "export": "Windows x86_64 Debug",
     "embedded_pck": true,
-    "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920",
+    "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
     "native_headless_smoke": true,
     "native_graphical_smoke": true,
     "packaged_tests": {
       "network_lab_headless": true,
       "package_content": true,
-      "network_lab_graphical": true
+      "network_lab_graphical": true,
+      "wayfinding_screenshots": true,
+      "programming_location": true
     },
     "packaged_checks": {
       "network_lab_headless": 855,
       "network_lab_graphical": 862,
-      "package_content": 6724
+      "package_content": 6724,
+      "programming_location": 116
     },
     "network_lab_exercises": 40
   },
@@ -45,7 +48,7 @@
       "exam": 21
     },
     "training_ui_actions": 336,
-    "source_commit": "dcb54fca8d173351f1490e5ea955a26012640920"
+    "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2"
   },
   "pico4": {
     "rebuilt": false,
@@ -75,6 +78,23 @@
         "both_rays": true,
         "teleport": true
       }
+    },
+    "wayfinding": {
+      "source_renderers": [
+        "gl_compatibility",
+        "forward_plus"
+      ],
+      "packaged_renderer": "gl_compatibility",
+      "pc_resolution": [
+        1920,
+        1080
+      ],
+      "views": [
+        "directory",
+        "directory_diagonal",
+        "server_room",
+        "programming_aisle"
+      ]
     }
   }
 }

@@ -4,7 +4,9 @@
 
 - Hlavní tabule rozcestníku se vejde mezi vstup 05 a dřevěné lamely. Text je výš nad lavicí a květináč stojí vpravo u lamel.
 - Tabule provozní zóny se vejde na stěnu vedle krytu posuvných dveří. Obě pracoviště správců jsou blíž k rackům, takže z jižního příchodu nezakrývají popisky na dveřích.
-- Srovnatelné snímky před a po potvrdily čitelnost v režimech Forward+ a Compatibility. Test konstrukce v Compatibility prošel 19 170 kontrolami včetně ovládání a celého pohybu posuvných dveří.
+- Srovnatelné snímky před a po ukázaly rozdíl ve Forward+. Čitelnost po opravě potvrdily také snímky z Compatibility a přímo z vloženého balíčku EXE. Test konstrukce v Compatibility prošel 19 170 kontrolami včetně ovládání a celého pohybu posuvných dveří.
+- Samostatné Windows EXE se spustilo s grafikou i bez ní. Z jeho vložených dat prošlo 116 kontrol průchodu do programování, 855 kontrol síťové laboratoře bez grafiky, 862 s grafikou a 6724 kontrol obsahu. [Ověření a SHA256](build/BUILD_INFO.md).
+- Prošlo všech 53 sad ze seznamu `Test-All.ps1`. Prvních 22 ověřil společný běh a zbývajících 31 samostatné běhy se stejnými parametry. Výukové rozhraní prošlo 21 lekcemi v každém ze tří režimů a 336 akcemi s izolovanými uloženými daty.
 
 ## Windows EXE se síťovou laboratoří — 7. 11. 2026
 

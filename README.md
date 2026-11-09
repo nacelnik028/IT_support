@@ -1,8 +1,9 @@
 # IT Support Simulator: Training academy
 
-**Windows EXE v `build/ITSupportSimulator.exe` obsahuje síťovou učebnu
-05 / Počítačové sítě a všech 40 úloh.** Sestaveno 7. 11. 2026 jako verze
-1.5.0. Soubor má 104558112 B a SHA256 je v `build/SHA256SUMS`.
+**Windows EXE v `build/ITSupportSimulator.exe` obsahuje opravené tabule v
+rozcestníku a serverovně i síťovou učebnu 05 / Počítačové sítě se 40 úlohami.**
+Sestaveno 9. 11. 2026 jako verze 1.5.0. Soubor má 104558176 B a SHA256
+je v `build/SHA256SUMS`.
 
 Všech **53 sad Test-All** prošlo včetně výuky ve všech třech režimech.
 [Ověření samostatného Windows EXE](build/BUILD_INFO.md).
