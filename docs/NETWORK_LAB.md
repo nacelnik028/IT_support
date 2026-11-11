@@ -4,6 +4,8 @@ Ve Windows spusť [ITSupportSimulator.exe](../build/ITSupportSimulator.exe). Sí
 
 U plánu napravo od vstupu vyber ročník. Rozdělení lekcí odpovídá podkladům. První ročník pracuje hlavně s topologií, adresami, vrstvami a DNS. Druhý přidává Ethernet, DHCP, ARP, diagnostiku přístupových sítí a GSM. Terminál nabízí všech šest stanovišť, měření, analyzátor, studijní materiál a uložené výsledky.
 
+Za dveřmi vzadu vpravo je samostatná [Síťová tréninková dílna](NETWORK_WORKSHOP.md) s osmi servisními tickety, volným tréninkem a vlastní historií. Dveře mají ovladače na obou stranách.
+
 ## Ovládání a pokusy
 
 - Na PC se pohybuj jako ve zbytku akademie a zamiř na zařízení klávesou interakce (výchozí E). Tab otevírá aktuální úlohu a Esc vrací do učebny. V panelu funguje myš, Tab, šipky a Enter.
@@ -11,7 +13,7 @@ U plánu napravo od vstupu vyber ročník. Rozdělení lekcí odpovídá podklad
 - Připojení má dva kroky. Vyber konektor stanice a potom volný port switche. Opakovaným výběrem stanice konektor odložíš. Stav kabelu, LED, tabule a analyzátor sdílejí stejný model. Port 08 má v modelu poruchu. Pokud zamíříš na port bez vybraného konektoru, otevře se jeho nastavení.
 - **Výuka** nabízí komentované kroky a prostorové zvýraznění. Tlačítko **Pozorovat v 3D** nechá komentář v přehledu a uvolní výhled na označené prvky. Ukázka má samostatnou síť a po ukončení se vrátíš k vlastnímu pokusu. **Procvičování** umožňuje dobrovolnou nápovědu a opakování. **Zkouška** nabídne rozbor po odevzdání a uzavře daný pokus. Za úspěch v tréninkových režimech se odečítá 10 bodů za chybný pokus a 5 bodů za vyžádanou nápovědu. Jedna odevzdaná zkoušková úloha má 0 nebo 100 bodů.
 - Reset obnoví výchozí stav aktuální úlohy. Nové zapojení, konfigurace nebo změna odpovědi označí předchozí ověření jako zastaralé. Stejný pokus se zapíše jednou. Save má samostatnou historii až 100 posledních výsledků a schéma 2. Vstup a čtení karet nevytvářejí výsledek.
-- Opuštění učebny ukončí rozpracované cvičení. Kampaň i souvislá směna se obnovují stávajícím postupem. Laboratoř simuluje modelovou učebnu a používá fiktivní údaje. Výklad, ukázky, měření a hodnocení fungují offline. Otevření kapitoly Notionu používá prohlížeč.
+- Přechod dveřmi do dílny dočasně zachová učební cvičení. Opuštění celého pavilonu ukončí dočasné pokusy učebny i dílny. Kampaň i souvislá směna se obnovují stávajícím postupem. Laboratoř simuluje modelovou učebnu a používá fiktivní údaje. Výklad, ukázky, měření a hodnocení fungují offline. Otevření kapitoly Notionu používá prohlížeč.
 
 ## Souvislý průchod
 

@@ -1,12 +1,13 @@
 # IT Support Simulator: Training academy
 
-**Windows EXE v `build/ITSupportSimulator.exe` obsahuje opravené tabule v
-rozcestníku a serverovně i síťovou učebnu 05 / Počítačové sítě se 40 úlohami.**
-Sestaveno 9. 11. 2026 jako verze 1.5.0. Soubor má 104558176 B a SHA256
-je v `build/SHA256SUMS`.
+**Windows EXE v `build/ITSupportSimulator.exe` obsahuje rozšířený pavilon 05:
+síťovou učebnu se 40 původními úlohami a samostatnou tréninkovou dílnu s osmi
+tickety A–H.** Cesta: rozcestník → 05 → vzadu vpravo → dveře Tréninková dílna.
+Sestaveno 11. 11. 2026 ze zdroje `d2617b6` jako verze 1.5.0; 104605624 B.
+Kontrolní součet je v `build/SHA256SUMS`.
 
-Všech **53 sad Test-All** prošlo včetně výuky ve všech třech režimech.
-[Ověření samostatného Windows EXE](build/BUILD_INFO.md).
+Všech **54 sad Test-All** prošlo včetně výuky ve všech třech režimech.
+[Ověření Windows EXE](build/BUILD_INFO.md) · [Dílna a tickety](docs/NETWORK_WORKSHOP.md).
 
 **PICO APK je starší vydání 1.5.0 / code 6.**
 Jeho zdroj a hash uvádějí [distribuční metadata](build/BUILD_INFO.md).
@@ -37,7 +38,11 @@ Pět skutečných průchodů vede do serverovny (01), IT tréninku (02), program
 stanovištích a samostatné výsledky. Zapoj PC a tiskárnu, sleduj DHCP, ARP a
 zachycené rámce a oprav přístup k webu. Vpravo je model DSL, WLAN a GSM včetně
 přesunu SIM. Vstup vede z rozcestníku, hlavního menu a **Pauza → Kam jít**.
-[Průchod, ovládání a zdroje každé úlohy](docs/NETWORK_LAB.md).
+[Průchod, ovládání a zdroje každé úlohy](docs/NETWORK_LAB.md). Za dveřmi vzadu vpravo je
+**Síťová tréninková dílna**: servisní stůl, osm ticketů, volný trénink, vlastní
+pracovní síť, měření před/po, vrácení zásahu a samostatná historie. Závěrečný
+ticket spojuje VLAN, DHCP a DNS s ověřením HTTPS, tiskárny a kontrolního PC.
+[Dílna, pravidla režimů a návrat k odložené práci](docs/NETWORK_WORKSHOP.md).
 
 **English in London** je čtvrtý 3D pavilon: vstup východní chodbou rozcestníku **04 / Angličtina v Londýně**, případně z menu nebo pauzy. Přímý průchod ze serverovny je na žádost uživatele zazděný. Obsahuje prostorové
 London Eye a Elizabeth Tower, šest situací B1–B2, tři režimy, skutečný cvičný

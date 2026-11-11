@@ -1,36 +1,28 @@
 # Samostatné Windows EXE
 
-`ITSupportSimulator.exe` z 9. 11. 2026 obsahuje opravené tabule v rozcestníku
-a serverovně i síťovou učebnu 05 / Počítačové sítě se 40 úlohami. Herní data
-jsou vložená přímo do souboru. Jde o Windows x86_64 Debug pod 100 MiB.
-Kontrolní součet je v `SHA256SUMS`.
-[Ovládání a zdroje úloh](../docs/NETWORK_LAB.md).
+`ITSupportSimulator.exe` z 11. 11. 2026 obsahuje síťovou učebnu 05 se 40 úlohami
+a samostatnou tréninkovou dílnu s osmi tickety A–H. Data jsou vložená do souboru.
+Jde o Windows x86_64 Debug pod 100 MiB, zdroj `d2617b6`. Kontrolní součet je v
+`SHA256SUMS`. [Cesta do dílny](../docs/NETWORK_WORKSHOP.md).
 
-## Sestavení
+## Sestavení a ověření
 
 Použij Godot 4.7.2.stable.official.ed1daf0bf a shodnou oficiální Windows Debug šablonu.
-Z kořene projektu:
 
 ```powershell
 ./tools/Build-Windows.ps1 -GodotPath 'C:/Godot/Godot_console.exe'
-# nebo
-python tools/build_windows.py --godot C:/Godot/Godot_console.exe
+python tools/test_workshop_package.py --godot C:/Godot/Godot_console.exe
 ```
 
 Builder exportuje v izolované dočasné kopii, bezeztrátově komprimuje katalogy,
-kontroluje PE/vložený PCK/limit velikosti a spustí přejmenované EXE z cizí složky.
-Teprve úspěšný výsledek nahradí distribuci. Zdrojové katalogy zůstávají beze změn.
-Přesné výsledky a rozdílné zdroje Windows/PICO viz BUILD_INFO.md a VERIFICATION.json.
+ověří PE, vložený pack a velikost a spustí přejmenovaný EXE v oddělené složce.
+Smoke test projde portálem 05 a dveřmi dílny, opraví H a obnoví směnu.
+Zdrojové katalogy zůstávají zachované.
 
-## Ověření této distribuce
+Celý Test-All prošel 54 sadami včetně všech tří režimů výuky. Přesný pack nového
+EXE prošel 855 kontrolami laboratoře, 438 kontrolami dílny bez grafiky,
+444 s grafikou a 7687 kontrolami obsahu. Samotný EXE prošel nativním startem
+i fyzickým průchodem s grafikou a bez ní. Save a nastavení jsou izolované.
 
-Prošlo všech 53 sad ze seznamu `Test-All.ps1` včetně všech tří výukových režimů.
-Nativní testy spustily samotné EXE z oddělené složky s izolovaným uložením
-a nastavením. Testy `network_lab.gd` a `package_content.gd` pracovaly přímo
-s balíčkem vloženým v tomto EXE. Prošlo 855 kontrol laboratoře bez
-grafiky, 862 s grafikou a 6724 kontrol obsahu.
-Ze stejného balíčku byly pořízeny snímky obou tabulí a prošlo 116 kontrol
-přístupu do programovací učebny.
-
-PICO APK v `pico4/` je starší vydání 1.5.0 / code 6. VR rozhraní a vstupy byly
-ověřeny syntetickými ovladači v Godotu. Zkouška na fyzickém PICO zbývá.
+Podrobnosti: [BUILD_INFO.md](BUILD_INFO.md) a [protokoly](../docs/ui-review/2026-11-11-network-workshop/README.md).
+PICO APK je starší 1.5.0 / code 6; VR bylo ověřené synteticky, fyzické PICO zbývá.

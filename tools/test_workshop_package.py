@@ -36,6 +36,7 @@ def main():
             for parent in ['pause_repair', 'network_lab']:
                 text = text.replace(f'res://tests/{parent}.gd', (tmp/f'{parent}.gd').as_posix())
             text = text.replace('res://docs/ui-review/2026-11-11-network-workshop/after/', (OUT/'screenshots').as_posix()+'/')
+            text = text.replace('res://docs/ui-review/', (OUT/'screenshots').as_posix()+'/')
             text = text.replace('res://test-output/', (OUT/'screenshots').as_posix()+'/')
             (tmp/f'{name}.gd').write_text(text, encoding='utf-8')
         (OUT/'screenshots').mkdir(exist_ok=True)

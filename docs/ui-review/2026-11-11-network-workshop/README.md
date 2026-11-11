@@ -50,5 +50,43 @@ v `test-output`; za rozhodující se považují až závěrečné úspěšné b�
 - Běžný Windows export má vlastní opt-in smoke kontrolu: fyzická cesta přes
   portál a dveře, oprava H, čtení rozboru a návrat do odložené směny.
 
-Závěrečné počty kontrol, benchmarky a verze EXE budou doplněné po dokončení
-regrese a exportu. Tento protokol zatím neoznačuje vydání za ověřené.
+## Závěrečný výsledek
+
+- Celý [Test-All](verification/test-all-release.log): **54/54 PASS**, exit 0,
+  54 startů Godotu bez chyb/varování. Výuka: 21 lekcí v každém režimu, 336 UI akcí.
+- Po opravě návratu polohy prošly [další 5 cílené sady](verification/return-regression/).
+- Dílna: [438 kontrol bez grafiky](verification/workshop-headless-mac.log).
+  Grafická matice: [504 Compatibility](verification/workshop-compatibility-release.log) a
+  [504 Forward+](verification/workshop-forward-release.log). Geometrie a rozhraní se
+  po této matici neměnily; poslední oprava pouze sjednotila MAC v ARP a Ethernetu.
+  Její dvě nové kontroly prošly také v přesném exportu.
+- [Godot MCP](verification/mcp-current.json): fyzický průchod, ticket H a návrat do
+  směny PASS. Žádná runtime chyba; osm původních statických varování mimo nové
+  síťové skripty, žádné nové potlačení.
+- [Katalog](verification/catalog.json): deterministický generátor, osm ticketů,
+  původních 40 úloh a 23 karet, kampaň/legacy a chráněné generátory zachované.
+- Windows EXE `d2617b6`, 104605624 B, SHA256 `11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11`.
+  [Ověření exportu](verification/package/results.json): nativní start s grafikou i
+  bez ní, fyzická cesta 05 → dílna → oprava H → rozbor → obnovená směna.
+  Přesný pack: 855 původní laboratoř, 438 dílna bez grafiky,
+  444 dílna s grafikou, 7687 obsah — vše PASS a bez varování.
+- Benchmark stejného záběru: Compatibility **0,755 → 0,985 ms**,
+  Forward+ **1,998 → 2,062 ms**. Nová místnost přidala 0,23 / 0,06 ms;
+  jde o krátké měření na NVIDIA RTX 5060, nikoli odhad výkonu PICO.
+- [143 snímků se skutečnými rozměry a SHA256](verification/screenshots.json).
+  Prohlédnuté porovnávací sestavy pokrývají všech šest PC kombinací v obou
+  rendererech; 720p/130 % a VR panely byly prohlédnuté také v plném rozlišení.
+
+[Vstup 05](after/portal-1280-130-gl_compatibility.png) ·
+[Cvičný rack](after/workshop-rack-1280-130-forward_plus.png) ·
+[Diagnostika](after/workshop-diagnostics-1280-130-forward_plus.png) ·
+[VR panel](after/workshop-vr-diagnostics-vr-1600x1200-130-gl_compatibility.png) ·
+[Rozbor přímo ze samostatného EXE](verification/package/native-review.png).
+
+Vývojové protokoly v `verification/development/` zahrnují opravený počet portálů,
+chybu popisu zásahu, stabilizaci testovacího kurzoru a přesměrování výstupní
+složky testů mimo read-only export. Nejsou závěrečným výsledkem. Předchozí
+export před opravou MAC je archivovaný zvlášť.
+
+PICO APK se nepřestavovalo. **Fyzický headset nebyl dostupný**; všechny zde
+uvedené VR výsledky jsou syntetické.

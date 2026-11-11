@@ -1,0 +1,1155 @@
+{
+  "reviewed": "Six PC combinations in both renderers, eight scene/panel views each; full-size 720p/130 and VR panels inspected separately. Native EXE review inspected.",
+  "physical_headset": false,
+  "files": [
+    {
+      "file": "before/benchmark-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "ca66b2bdf517777699d31672dec30602dfcb065d63806dc96e7bd06660959c40"
+    },
+    {
+      "file": "before/benchmark-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8ac6d11b3bf9ae8148be36bfffd4056c537ee3972dec5a69a8e16524ba92b73e"
+    },
+    {
+      "file": "before/network-capture-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "df5d8ee3bf1f4f71c07f39c0011aacc1774e853b10ff709fa327bae3ded39ff3"
+    },
+    {
+      "file": "before/network-capture-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "19d189eba70469f2efe22ca39c56e8125fe147cbae75a20444d39d3fa4e34259"
+    },
+    {
+      "file": "before/network-home-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e695906871c6f5a495ab8d646fe10224b9d306c1b5f9d0ba8de07f2ce5df561e"
+    },
+    {
+      "file": "before/network-home-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1b0cef1dee130718bfed95f7b052f781e60415423939b174cbcc4d727cc5dad1"
+    },
+    {
+      "file": "before/network-hub-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c4d68eee58099f2b990db8a65c736ebb3bbd978a1a3d80203c6e2092ebd39aef"
+    },
+    {
+      "file": "before/network-hub-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "0946bffe518d1a3f48492e7e7ce3627389f928ed268f97ec0326a8f36d3a17a9"
+    },
+    {
+      "file": "before/network-room-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "d9d3b8a145df1bff8470678730ca815ba40e819a5149a14f4991e5a3ac771350"
+    },
+    {
+      "file": "before/network-room-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "af60ba70df712b4ea8e167fa30303cbd9506ac0471327ecbccdfdf6d9a85ed27"
+    },
+    {
+      "file": "before/network-task-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "be693221b46bfc3620bdc9eead0f78b7fa12b91dcd542c87588f7030481cc0c5"
+    },
+    {
+      "file": "before/network-task-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c51135c1df4ac1187ed6152f3017bb5b4a92b52aa7ce5ed2bf69f5553e8469c0"
+    },
+    {
+      "file": "before/network-task-vr-1600x1200-130-forward_plus.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "3a84825f85fb519ec3ce9479086601f0621e9edab2366c3ea06abcc35c142436"
+    },
+    {
+      "file": "before/network-task-vr-1600x1200-130-gl_compatibility.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "febd41a560affec512f29fb0de7fd3222cfa32649fe409f867396bd3654f0766"
+    },
+    {
+      "file": "before/network-verified-720p-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "99097e9909755030454837b6297e1b781328b195515c0bcf0ef46d02327d3d68"
+    },
+    {
+      "file": "before/network-verified-720p-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9ea89e424832b1f8a7c5ca8ade06d3d7553cb13ddbe00f7a245226fce2b56cb1"
+    },
+    {
+      "file": "after/benchmark-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "64dab936a02966946b72027a85d6e982036166956247b6f2ab251cd2010fae5b"
+    },
+    {
+      "file": "after/benchmark-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "fff023ee1c73417d29b22ac410cac341e36df64c9b4d8c9325652ab06343e55f"
+    },
+    {
+      "file": "after/classroom-rack-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "84779391b23c22aecabfcabac7b602ab439f4d5026c798961ee84902e23e233f"
+    },
+    {
+      "file": "after/classroom-rack-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1383f3acd5358fdfab366828a558322af995a8b02a4b3fd5c765952784dc4e24"
+    },
+    {
+      "file": "after/classroom-rack-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "cf01580c2e649cdb94040028e24b0c7aba9c06c76656f9d14056d460568506f2"
+    },
+    {
+      "file": "after/classroom-rack-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "01c979b89816269833597bd96b674b8c9b36db7aa5124b818e341351c220a05a"
+    },
+    {
+      "file": "after/classroom-rack-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8c4d2c075f1216fe53ba7aaaf02b0b696a79b4621a14ad81c6a62cb78f422b3d"
+    },
+    {
+      "file": "after/classroom-rack-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "dae3bf5bae8b4a6e5807f31b071b236b2988e3d25fffc58bc244ad2595189f22"
+    },
+    {
+      "file": "after/classroom-rack-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "c2916ec152bfec32d3e9b1654119857b6fdfba383438239bac1393513b8b99ca"
+    },
+    {
+      "file": "after/classroom-rack-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "3df2ac034394110071e0726862d1f673bff44ff901b8cc53d4f465de1fe511ba"
+    },
+    {
+      "file": "after/classroom-rack-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "58d54024a3c29c9bd27085358606b1568032fbf596160f3938943576cc4c39e5"
+    },
+    {
+      "file": "after/classroom-rack-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "76feb1df81f595e9570bac65dcfe3f4598404d99e991651aeac942b5bc8ba38c"
+    },
+    {
+      "file": "after/classroom-rack-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "5e88b5403205e2f97ba281a14f0eed9adc3fa74510ee9bed0a970184c75976fd"
+    },
+    {
+      "file": "after/classroom-rack-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "f6c6877da44c24c31bab952b9d30f6b5e19e09fdf4f5eb01d11ce432156fb8f3"
+    },
+    {
+      "file": "after/demonstrations-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "985ba868c4aad734f00b50ad4e907a101d15049cbbbd17b6faa7b678e451c83c"
+    },
+    {
+      "file": "after/demonstrations-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "7c8a5929d8f8341d6c4a946366bad4daf84673b97fafcc7bedf8f96ebf73a946"
+    },
+    {
+      "file": "after/demonstrations-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "7a0d991b8e9c25dddbac55fcd14872ca3aa081e4577718fc2b8f99bd1812a2ac"
+    },
+    {
+      "file": "after/demonstrations-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "d92579d0927943eede3e45951ca49ad30a7d338357ef9dd8d0127a2ff7cad399"
+    },
+    {
+      "file": "after/demonstrations-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "0c1430ceed949779f437afcbeb48f4c7e8641e3a5c7dfdb58fb75dd549adeec9"
+    },
+    {
+      "file": "after/demonstrations-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "1231bdc6c50de66f2b1fa74bf1129b5182d435c0d9802913e070d9887dcc3238"
+    },
+    {
+      "file": "after/demonstrations-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8951338adfbbfc82a0110c9c079aeeb1fccfea52ceb20022deb22f425e76358a"
+    },
+    {
+      "file": "after/demonstrations-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "c4b3b27e1604648df4991a34055f9dc1639e373b97758e5c23787c3e1d95f000"
+    },
+    {
+      "file": "after/demonstrations-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "c9be6814b0bdae182aa52b162458008f79da43cff38796ce21c655956a9b6237"
+    },
+    {
+      "file": "after/demonstrations-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "03c969d6a75fe897e9fa9459260f53b67eeb9eda5880669450c2be8bc3a91131"
+    },
+    {
+      "file": "after/demonstrations-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "65d46b7eb79c1dfa57b227ce46cdb2f8e86cb89d74879e6b1e14f7ff03409405"
+    },
+    {
+      "file": "after/demonstrations-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "040ca937e9d85a66a16b70a449f66f3fa2e0956dc5577c89a7c5d2dfaaf0513c"
+    },
+    {
+      "file": "after/diagnostics-before--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "ad936994b28baccd0065aefe6fdb216875d6b3b898283a4a128292f40802fddd"
+    },
+    {
+      "file": "after/diagnostics-before--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a571336de54f72401ceba44aab49499375ca51b772dea64d3dde6767ef03db9e"
+    },
+    {
+      "file": "after/entry--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "7e1853c87f27950e89bab5fea330dcf945386f40e3e6b5bae554b0be3dc2cfa6"
+    },
+    {
+      "file": "after/entry--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "47f1f76efd994bed68bfa676321a3db5c273abcc5b35281eff941d7cb048f7e0"
+    },
+    {
+      "file": "after/mcp-workshop-review.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "8b7d157eaecb114cc7c8652b0e981d839c464f5bcbae7ea922822a2cd28adb39"
+    },
+    {
+      "file": "after/portal-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "05f341584751c844cad58fcc4a8c0b0c816374e16f49a1467e5313ce0e57e376"
+    },
+    {
+      "file": "after/portal-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c7982a1ab250cca0235b93f4568dfdc74359c299edff8e3e89b036e6a1d04efe"
+    },
+    {
+      "file": "after/portal-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f3741bde638b47f4cea0698f7f7acbe31e3eb2f09e9f70f8d56b45ba163cacc6"
+    },
+    {
+      "file": "after/portal-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4bff63a20943968696e10ba4360e6b97aa62618246454abc6b778e74f7ad8252"
+    },
+    {
+      "file": "after/portal-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "a4474dbfd796304a06b55bee8c0988d6898b7d1f71292e058b14d18455902398"
+    },
+    {
+      "file": "after/portal-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "9960a9e2748b346337947dc9f7f9ae033107bc1a6d7dfbc3695d243e2f8c139b"
+    },
+    {
+      "file": "after/portal-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "f346fd00906374f664c6bb8557a6bb6d2cbacca496ac64f29e1629c423563405"
+    },
+    {
+      "file": "after/portal-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "d98f7ea0172d1e3f860d2cdde2ac8715dc7d4ab62ba6aac59e1bf6a853880cc3"
+    },
+    {
+      "file": "after/portal-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "2ef8fff3bcdac248a81cafeac87c81fbb3c065a4d0eba07cafcf26fa5f9d3bcb"
+    },
+    {
+      "file": "after/portal-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "7132acb52f9b5cd7277ccde5d5b0498fa794c2898a6f602e68de5b41386626fd"
+    },
+    {
+      "file": "after/portal-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "37e8cd78ce233fd55e8a749a791ad2b57ff843f0ff123e8c4d0d99881b163f46"
+    },
+    {
+      "file": "after/portal-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "1d96deb938c950e01034f324fd2de587d95d7d946de749279e4ec31e5b2541a1"
+    },
+    {
+      "file": "after/review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "8b7d157eaecb114cc7c8652b0e981d839c464f5bcbae7ea922822a2cd28adb39"
+    },
+    {
+      "file": "after/review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9e525139f245bf108c838a4e9beeac3768326cfef9e61dda2f80f15f8aa0a8a0"
+    },
+    {
+      "file": "after/terminal-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b778c3e3abdc3226b7d14a9fad010996e17213027c60b1841fd288599603f6ff"
+    },
+    {
+      "file": "after/terminal-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c5b3fb271c51b06ad12b9deca17f8c6a54cbb2133220da7ed50eaa582efaa05f"
+    },
+    {
+      "file": "after/terminal-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4dffe6089081c9375c0099639a06e2c679c0c844a55643aecc78ce01c71dd18d"
+    },
+    {
+      "file": "after/terminal-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c39bfb0742b7fa40d2ad4e703a6047fbd30196a85a93e402cd3a7ab6e402c217"
+    },
+    {
+      "file": "after/terminal-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "3afc69181361a7bf9541827012d789a6cbb1ee437ebebb22ff445fa9e7539b08"
+    },
+    {
+      "file": "after/terminal-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "035b778623abd7b0b89dfb422b49f44e7295028eb54c2fe5967659c611be8c3e"
+    },
+    {
+      "file": "after/terminal-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8e1704e88687717f1835833d4fdfb01b7e37a480114e8b5dbf0fc40ba75634ec"
+    },
+    {
+      "file": "after/terminal-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "2c4c6d2a44861db8a74e6e3fe50b2d8ae66802da3ba6cbb04757038f9688ceef"
+    },
+    {
+      "file": "after/terminal-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "baf58b4f6ab3f375176624d17f315570bcccfc566e0b4b25110d610831cbef22"
+    },
+    {
+      "file": "after/terminal-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "7ec27c38396b4dcaec3f4dbd419f320d8f80ee454682a891e86cf7db8ab88f87"
+    },
+    {
+      "file": "after/terminal-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "7f9ebf4799fb6772c751676707308b33f4b9467b27cfd48f387a7060076cd86f"
+    },
+    {
+      "file": "after/terminal-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "4d25bd9a01c9c40f345ced8fc3e616b954ca6dabf2b5967c3873ee1858ae7e42"
+    },
+    {
+      "file": "after/ticket-A-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "7a71cb3ad0d675af4ca3feac8c39a32e810985b84d81154ef736519d6ea56777"
+    },
+    {
+      "file": "after/ticket-A-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1153daf7b73b69d4c65ad47b301a6344d7c671e163d3b6c3edcdc4ed76315a29"
+    },
+    {
+      "file": "after/ticket-B-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "865d5104bc6cd9457effecb978b33ee7f9e51ff895c84282bf67168f32463818"
+    },
+    {
+      "file": "after/ticket-B-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "993ea36cf1d7f2e6613e8a9a04c7f237c6307164a9f89ba7740b35d1259bfd56"
+    },
+    {
+      "file": "after/ticket-C-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "9dbb5ee54289f75803bec7cd2b467e595cdc1b0577862b1d100fbb91d5d3e992"
+    },
+    {
+      "file": "after/ticket-C-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "54dffa6bc9112af9993020d56912e4feecbb4f51df2ea9a67d7eae232c6a1cb2"
+    },
+    {
+      "file": "after/ticket-D-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "d360107f926575be6dc6f51ca603a415f5639cf32fe97f3818e222672d94bb02"
+    },
+    {
+      "file": "after/ticket-D-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "696d8ee27e8f49fb22c9fc459341096e6c5e09fbabfa8f7fcc9e6048bd267636"
+    },
+    {
+      "file": "after/ticket-E-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "1d0328225e94f5da32f3d87fecb7751cdd89e9bb2a163c5a6be10c7e4ff05344"
+    },
+    {
+      "file": "after/ticket-E-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "cdfdc00fcd769d89cf0eaabdfa8fb71996ae57052106d6ff549d9d2469bbcb71"
+    },
+    {
+      "file": "after/ticket-F-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "56b56facd143d1bdbadb0d6781c6fabf9e6935cbe2b35946426545a90988db4a"
+    },
+    {
+      "file": "after/ticket-F-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "3cfef7062b47ce9e6fddd7dae953887e8837c566188f09165f60a6f5d610a189"
+    },
+    {
+      "file": "after/ticket-G-review--forward_plus.png",
+      "size": [
+        1600,
+        900
+      ],
+      "sha256": "5767617192f572d621a14ccada7100359fce5a11df02cdcea135cb2fd4deacbc"
+    },
+    {
+      "file": "after/ticket-G-review--gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a40181ac3e57e4a21633a23497b3f9b2a008e1b0d1293f2a8ec484e000d6eff9"
+    },
+    {
+      "file": "after/workshop-diagnostics-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "73d9fa21599c701c9ffe912584541b58ed8422024da6fb4c7a6651b1ba103eea"
+    },
+    {
+      "file": "after/workshop-diagnostics-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f9637f287e0dc6b80c5334410fc6744769c47499aa088c51304bd5226808f1cc"
+    },
+    {
+      "file": "after/workshop-diagnostics-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "09d9abba39a9730abd651efb1c2e31364fe11bffda5a55266926cfdfd72d1b0d"
+    },
+    {
+      "file": "after/workshop-diagnostics-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f3dd282078076ef3391918d79766828a0a5b72bc770777d03f3135f90e487945"
+    },
+    {
+      "file": "after/workshop-diagnostics-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "7f94718f129adcd2dc3fcc9fcc4dd45dafd48c60753df9cad6993054bb0acb73"
+    },
+    {
+      "file": "after/workshop-diagnostics-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "701eaa338b3b02f46121fadb27e025d6c28bf855848dd10241bac4e5073e7f1e"
+    },
+    {
+      "file": "after/workshop-diagnostics-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "be93f47d7ef53bc98addcf6dfde6b0c91b362e2d565ae6f0caeb964b51a11414"
+    },
+    {
+      "file": "after/workshop-diagnostics-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "671c771acae433dc279980b35412a590fd0d7f7dd01f7751d01febc459f4af59"
+    },
+    {
+      "file": "after/workshop-diagnostics-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "7dfe357cc5f10fa18560db4c3536510449b0ad9d5a3da23131b92f436f3c32e2"
+    },
+    {
+      "file": "after/workshop-diagnostics-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "a2abe6888af9f8112516486d36dd1ed5d4b6461466820972afc8cd062914494e"
+    },
+    {
+      "file": "after/workshop-diagnostics-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "964353636b975c4fb6f5437568a769394a5b67137eb287f736ed970c517cdf0f"
+    },
+    {
+      "file": "after/workshop-diagnostics-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "8fb24e239c8c97d8342ed693132c68c9cea6626b6fde4f29a4255dd045aa76cb"
+    },
+    {
+      "file": "after/workshop-door-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "8b78f475e0d75cd127b0d8d1ea8efea5c88e49d70fbea81359ca14cce86724a2"
+    },
+    {
+      "file": "after/workshop-door-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "d0e3fcbd2f6a67c316b5713da7fc70c27eb602d486e3fd2d6c5cc76de40e8310"
+    },
+    {
+      "file": "after/workshop-door-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "935372493ac7ce58414c1e63dd7b1022d2159f630fafba28b88de499caefa98f"
+    },
+    {
+      "file": "after/workshop-door-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "2a76b61f83e1f618d95c51323a2f05717edcc7d309fc5bc3601510134bf8bc3f"
+    },
+    {
+      "file": "after/workshop-door-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "680193088933f202dffcb64cd0ec662f93e0a4dfcf6cc198bc81cd541ac141e1"
+    },
+    {
+      "file": "after/workshop-door-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "973941dec2276880dd4e6485aada388a832040a8698618edd60550a74a81e48d"
+    },
+    {
+      "file": "after/workshop-door-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "3de777fb41fba02bfc7800318159b868e10c21486ae910745086b07487048f33"
+    },
+    {
+      "file": "after/workshop-door-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "fd625b0f3d7d1fefaf1656a65669f64eed4776a7227287da60f869911e1b7d12"
+    },
+    {
+      "file": "after/workshop-door-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "959ac3ece57c8ea732a261c0e1170ee0a2e1965a41ce585b85a1242dd6fc33a2"
+    },
+    {
+      "file": "after/workshop-door-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "f9dcbc9f9390077a672fcb724ac648d6a8ae55c1ce57021c71251b691b010275"
+    },
+    {
+      "file": "after/workshop-door-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "f0572de1ef1634b3608d62108983739c4882a5bf2297c705c28590e762032ec2"
+    },
+    {
+      "file": "after/workshop-door-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "ed321df8576bda7efb88f757baaa932d528c47efe718690fb84d0caaa8ee7ecd"
+    },
+    {
+      "file": "after/workshop-rack-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9ebd8f73145b234dc4e388c4bec1f9cd07e32bd842c09c53b16c08e8e350868f"
+    },
+    {
+      "file": "after/workshop-rack-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ec811736cf0429eb569f8257a1ef2b5e217f97b1cc334adfbe7ceb8975a7d997"
+    },
+    {
+      "file": "after/workshop-rack-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "6a89ef902ce1c92c99c9727e5d5cc3c6e69374a16bcbdec795c79dba4523f2b9"
+    },
+    {
+      "file": "after/workshop-rack-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ec04c549afcb63797e249434c8c496337e36773b8bb6bedb0c52bb29ed23bce8"
+    },
+    {
+      "file": "after/workshop-rack-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "9114da431d6903293c5751a18bfc6c716db171dcc49d3997303c9e157ebff751"
+    },
+    {
+      "file": "after/workshop-rack-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "a5931e34bf212bcd9656525b26e05e8f44a9f4fdceaa96eaffa0fda86da932ba"
+    },
+    {
+      "file": "after/workshop-rack-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "1e32951edb5b8175e79fb039508e072b0981dfd4f573fe09cf8d598e1d607e0d"
+    },
+    {
+      "file": "after/workshop-rack-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "1a679185de3b25b90f8ea9f067d05db730a0ace99176b6b4fc39929ae3079ef3"
+    },
+    {
+      "file": "after/workshop-rack-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "4cf6398be7a3c0762b50713889da31d54ca8c85c395b82090dcf922cfe44f1db"
+    },
+    {
+      "file": "after/workshop-rack-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "5534d7a1ca0e4502ac25c97d89842c05ab176ed78dccfafb2d9c1dd4a7da80cd"
+    },
+    {
+      "file": "after/workshop-rack-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "fcdc2e24c5b43b89bea3d5604bb110a82ad6cd1ae0d7059687b6738ac126be6d"
+    },
+    {
+      "file": "after/workshop-rack-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "2d9548fa904f135bfc9bacd34a7509ef2c723cf6cdea82d61c95b5baa5481897"
+    },
+    {
+      "file": "after/workshop-review-1280-100-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "2243cb30be44a9349dad6fd3d79f8759783b74b140e9a92b3f7a03cecab9007b"
+    },
+    {
+      "file": "after/workshop-review-1280-100-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "98e91ded036de2cb381c5e084a8aead3c361e2ddcd31abefc97bf7eea55c530f"
+    },
+    {
+      "file": "after/workshop-review-1280-130-forward_plus.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "665ab03ed819b3831fa37f5f6e261277944a2ded39e8a4b8a893c9367cf09aa4"
+    },
+    {
+      "file": "after/workshop-review-1280-130-gl_compatibility.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b66111392f5e1edf478947da80d1b9a6c45bd21e1f6915c465728f7ee9b7b2cf"
+    },
+    {
+      "file": "after/workshop-review-1920-100-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8f160cf7455d1a7d9b1370873fd5297dd58f82286232e25e8781cfa2db90ad3a"
+    },
+    {
+      "file": "after/workshop-review-1920-100-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "ecff650aaf6f7d1c904373bf7bfe67a2ea61ea3305da1b38065ceec2f5a7e599"
+    },
+    {
+      "file": "after/workshop-review-1920-130-forward_plus.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "613a3e39390a1a77414c8dc358fcb105ffdeb3e79118aa4efbe22993795891f1"
+    },
+    {
+      "file": "after/workshop-review-1920-130-gl_compatibility.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "8b9961931e534e91a113cbe09de2c924c85483fa3b1d4f224cebc762f59e9ed7"
+    },
+    {
+      "file": "after/workshop-review-3840-100-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "0b904eb318b6eab85a5705899e360696e684af9b5e0900212858cb4f10b71495"
+    },
+    {
+      "file": "after/workshop-review-3840-100-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "3074ef2da10c75c62f95ab0808376ee7ec123d432e46196cf4045456369567b9"
+    },
+    {
+      "file": "after/workshop-review-3840-130-forward_plus.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "c144d696bc2055ebdeb3679e9d233f9c15728c8936168f0cbf6b3ac77a18d88a"
+    },
+    {
+      "file": "after/workshop-review-3840-130-gl_compatibility.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "sha256": "b9eb06766d0650a73583ac433aeae8aabb63b2a251c389188f5b9d48bf00fa4c"
+    },
+    {
+      "file": "after/workshop-vr-diagnostics-vr-1600x1200-100-forward_plus.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "d2280494655802c1f1c677e977fcf4327105bf210182972638f7f059c46851d4"
+    },
+    {
+      "file": "after/workshop-vr-diagnostics-vr-1600x1200-100-gl_compatibility.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "44c89861bcaa1264c0f858c61fa9e2975fa1cbc882c6ecdcca6c663fb99bd248"
+    },
+    {
+      "file": "after/workshop-vr-diagnostics-vr-1600x1200-130-forward_plus.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "76b75913c360e7fb7728b87e84fab565e023de60b0c3359d6d2638757b3583f9"
+    },
+    {
+      "file": "after/workshop-vr-diagnostics-vr-1600x1200-130-gl_compatibility.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "fc1299d7ea14c98540ec2f6b376222b3ce096068b8222ce4e4e46806af717694"
+    },
+    {
+      "file": "after/workshop-vr-review-vr-1600x1200-100-forward_plus.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "c503aad2b6e374a0eb69729c67f672538d003edac06bae14d3808591168885d0"
+    },
+    {
+      "file": "after/workshop-vr-review-vr-1600x1200-100-gl_compatibility.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "b81fe7f31e5507f001439ce006961984d9556c7a8f1d1ac6b2135044dde6fdaa"
+    },
+    {
+      "file": "after/workshop-vr-review-vr-1600x1200-130-forward_plus.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "68cda3f22b40553334b1a6b4e5768c24650153868ad849a049b9ab98adf23798"
+    },
+    {
+      "file": "after/workshop-vr-review-vr-1600x1200-130-gl_compatibility.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "sha256": "1dcecd1d72dd519c6f78e98c45f43c866ab0b2a867437c85faf6a311eef02359"
+    }
+  ],
+  "layout_source_commit": "caa460f93133f421749c52bcc914ecf59c1cc962",
+  "before_source_commit": "03bdfa2efc373bcd39b8716c2f9fac9f95e2e1b9",
+  "final_game_source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c",
+  "mcp_image_source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c",
+  "native_review_sha256": "1cc0b4e438a8272b30576cb37b1fa7687bede9b47cb000227a3e5a6d258b8317"
+}

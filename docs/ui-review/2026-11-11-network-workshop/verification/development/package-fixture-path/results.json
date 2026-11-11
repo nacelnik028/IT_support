@@ -1,0 +1,13 @@
+{
+  "exe_sha256": "ced7f1f0e5fc8874b31ebf8c50b14c3dee861675c8619d5d8130a934a4f4a66e",
+  "bytes": 104604600,
+  "runtime": "Native Windows EXE alone; external tests on its embedded pack",
+  "results": {
+    "native-headless": true,
+    "native-graphical": true,
+    "network_lab-headless": false,
+    "network_workshop-headless": false,
+    "network_workshop-graphical": false,
+    "package_content-headless": true
+  }
+}

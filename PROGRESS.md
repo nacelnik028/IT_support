@@ -1,5 +1,15 @@
 # Datacenter Academy — stav vývoje
 
+## Síťový pavilon a dílna dokončené — 11. 11. 2026
+
+- Cesta: rozcestník → severní 05 / Počítačové sítě → vzadu vpravo → dveře Tréninková dílna → servisní stůl. Hotové tickety A–H: linka, VLAN, DHCP, ARP, DNS cache, HTTPS, Wi-Fi a závěrečná dvojí závada. Výuka, Procvičování, Zkouška a Volný trénink mají vlastní pracovní relaci a samostatnou historii.
+- Celý Test-All dokončil 54/54 sad bez chyb a varování; výuka všech 21 lekcí ve všech třech režimech, 336 UI akcí. Po opravě skutečné návratové polohy prošlo dalších pět sad. Finální dílna 438 headless PASS, grafická matice 504 PASS v každém rendereru; PC 720p/1080p/4K × 100/130 %, skutečný VR viewport a oba syntetické paprsky. Poslední oprava MAC je navíc ověřená dvěma testy rámce a TCP cesty v přesném novém exportu.
+- Windows `build/ITSupportSimulator.exe`: herní zdroj `d2617b6cde53af3184328dd24f7d76d5863c6a9c`, 104605624 B, SHA256 `11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11`. Samotný EXE prošel s grafikou i bez ní celou fyzickou cestou do dílny, opravou H, rozborem a návratem ke směně. Přesný vložený pack: 855 původní laboratoř, 438 dílna headless, 444 dílna graficky, 7687 obsah; vše PASS bez varování.
+- Zachované všechny původní síťové úlohy a karty, celá kampaň a legacy katalog. Ověřené staré profily, skutečná chyba zápisu a opakování bez duplicity, uložené výsledky, odchody pěšky/teleportem/pauzou/menu/zánikem scény a restart. Při přechodu učebna ↔ dílna se pokusy drží po dobu návštěvy pavilonu.
+- Prohlédnuté snímky, skutečné rozměry a kontrolní součty: [protokol](docs/ui-review/2026-11-11-network-workshop/README.md). Benchmark téhož záběru: 0,755 → 0,985 ms Compatibility a 1,998 → 2,062 ms Forward+. Godot MCP bez runtime chyby a bez nových statických varování; osm původních je evidovaných. PICO APK je starší a fyzické PICO nebylo ověřené.
+
+Následují historické etapové záznamy.
+
 ## Síťová dílna — shodná MAC v důkazech, 11. 11. 2026
 
 - Závěrečná kontrola ARP odhalila nesoulad nové MAC brány s ethernetovou hlavičkou. Dílenský model nyní používá stejnou adresu pro cache, ARP payload, zdroj i cíl rámce, MAC tabulku a unicastovou cestu TCP. Původní LabNetwork a jeho 40 úloh jsou beze změn.

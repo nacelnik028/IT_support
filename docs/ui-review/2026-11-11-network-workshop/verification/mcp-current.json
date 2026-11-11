@@ -64,11 +64,12 @@
     "",
     "WARNING: The variable \"v\" is declared below in the parent block.\r",
     "",
-    "   at: GDScript::reload (res://scripts/world/GameShell.gd:962)\r",
+    "   at: GDScript::reload (res://scripts/world/GameShell.gd:967)\r",
     "",
     "   GDScript backtrace (most recent call first):\r",
     "       [0] _ready (res://tests/network_workshop_mcp.gd:8)\r",
     ""
   ],
-  "assessment": "Physical workshop route, ticket H, review, and shift return PASS. No runtime errors; eight pre-existing static warnings outside new network workshop code."
+  "assessment": "Final-source H and physical route PASS; no runtime error; eight pre-existing warnings outside new workshop code.",
+  "source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c"
 }

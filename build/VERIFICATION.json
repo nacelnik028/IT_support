@@ -1,15 +1,15 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
-  "date": "2026-11-09",
-  "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
-  "source_manifest_sha256": "6cc6d5e98bc0c9344fabf249f75bbe9c033a5d8bd3756f2f633aa89103919a21",
+  "date": "2026-11-11",
+  "source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c",
+  "source_manifest_sha256": "b765fa82bd6c8fecfbda4ea8478a83d4c3697c9576ebf1b73c56e4d2cb95d2d8",
   "source_manifests_match": false,
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104558176,
-      "sha256": "4771d16d73f1b9414cc997aa69a5cc73f3d4da56d523961d88a124606768a808"
+      "bytes": 104605624,
+      "sha256": "11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -21,34 +21,40 @@
     "rebuilt": true,
     "export": "Windows x86_64 Debug",
     "embedded_pck": true,
-    "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
+    "source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c",
     "native_headless_smoke": true,
     "native_graphical_smoke": true,
     "packaged_tests": {
-      "network_lab_headless": true,
-      "package_content": true,
-      "network_lab_graphical": true,
-      "wayfinding_screenshots": true,
-      "programming_location": true
+      "native-headless": true,
+      "native-graphical": true,
+      "network_lab-headless": true,
+      "network_workshop-headless": true,
+      "network_workshop-graphical": true,
+      "package_content-headless": true
     },
     "packaged_checks": {
       "network_lab_headless": 855,
-      "network_lab_graphical": 862,
-      "package_content": 6724,
-      "programming_location": 116
+      "workshop_headless": 438,
+      "workshop_graphical": 444,
+      "package_content": 7687
     },
-    "network_lab_exercises": 40
+    "network_lab_exercises": 40,
+    "workshop_tickets": 8
   },
   "source_regressions": {
-    "suites": 53,
-    "passed_suites": 53,
+    "suites": 54,
+    "passed_suites": 54,
     "training_lessons_by_mode": {
       "learn": 21,
       "practice": 21,
       "exam": 21
     },
     "training_ui_actions": 336,
-    "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2"
+    "final_return_suites": 5,
+    "final_workshop_headless": 438,
+    "graphical_workshop_per_renderer": 504,
+    "arp_model_checks": 139,
+    "note": "Full regression followed by focused return and workshop checks. The final change is isolated workshop MAC evidence; verified again against the exact new embedded pack."
   },
   "pico4": {
     "rebuilt": false,
@@ -57,19 +63,31 @@
     "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
     "previous_verification": "docs/ui-review/2026-11-05-exe-menu/verification/previous-distributions.json"
   },
-  "hardware": "Physical PICO not tested",
+  "hardware": "Physical PICO not tested; synthetic XR only",
   "graphical_matrices": {
-    "network_lab": {
+    "network_workshop": {
       "source_renderers": [
         "gl_compatibility",
         "forward_plus"
       ],
-      "packaged_renderer": "gl_compatibility",
-      "pc_resolution": [
-        1280,
-        720
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          3840,
+          2160
+        ]
       ],
-      "text_percent": 130,
+      "text_percent": [
+        100,
+        130
+      ],
       "synthetic_vr": {
         "viewport": [
           1600,
@@ -77,24 +95,9 @@
         ],
         "both_rays": true,
         "teleport": true
-      }
-    },
-    "wayfinding": {
-      "source_renderers": [
-        "gl_compatibility",
-        "forward_plus"
-      ],
-      "packaged_renderer": "gl_compatibility",
-      "pc_resolution": [
-        1920,
-        1080
-      ],
-      "views": [
-        "directory",
-        "directory_diagonal",
-        "server_room",
-        "programming_aisle"
-      ]
+      },
+      "screenshots": "docs/ui-review/2026-11-11-network-workshop/verification/screenshots.json"
     }
-  }
+  },
+  "evidence": "docs/ui-review/2026-11-11-network-workshop/README.md"
 }

@@ -1,0 +1,11 @@
+native-headless: exit=0, clean=True
+native-graphical: exit=0, clean=True
+network_lab-headless: exit=0, clean=True
+NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR
+network_workshop-headless: exit=0, clean=True
+NETWORK WORKSHOP: 438 checks, 0 failures
+network_workshop-graphical: exit=0, clean=True
+NETWORK WORKSHOP: 444 checks, 0 failures
+package_content-headless: exit=0, clean=True
+PACK CONTENT: 7687 checks, 0 failures; 312 packaged files; 339 materials
+WORKSHOP WINDOWS PACKAGE PASS 11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11

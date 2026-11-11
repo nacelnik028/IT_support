@@ -2,17 +2,17 @@
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
   "export": "Windows x86_64 Debug",
-  "bytes": 104558176,
-  "sha256": "4771d16d73f1b9414cc997aa69a5cc73f3d4da56d523961d88a124606768a808",
+  "bytes": 104605624,
+  "sha256": "11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11",
   "embedded_pck": true,
   "verification": "Native Windows headless EXE-only smoke",
   "native_windows_graphical_verified": true,
   "json_export": "lossless whitespace compaction + native Godot ZSTD container in isolated build copy",
-  "source_commit": "91d1776dd12652646b45bc7aeadd1ec6af070fb2",
+  "source_commit": "d2617b6cde53af3184328dd24f7d76d5863c6a9c",
   "sources": [
     {
       "file": "project.godot",
-      "sha256": "b9f5e183e90a7032a7b3148016a4302a8820922e271962230ad10ec2b011bc9a"
+      "sha256": "6c150c5d9862fe66a3284c53c5f3a66790516e5afbb10fa3c68d8010af5cce53"
     },
     {
       "file": "export_presets.cfg",
@@ -323,6 +323,10 @@
       "sha256": "43a9bc4e9b7f3aecff974c2bbaaef5b5cb2aa7928c73fda2da05c2088c8cc9f9"
     },
     {
+      "file": "data/network_lab/workshop.json",
+      "sha256": "8b3b5f70bb938ab325ab721f3326c03c834dcb8c17a04c5225d889af1ff16962"
+    },
+    {
       "file": "data/programming/catalog.json",
       "sha256": "1bace002aa35c398fd45d48111bcd514aad756a45e1c95ff232a655a60e66387"
     },
@@ -420,7 +424,7 @@
     },
     {
       "file": "scripts/core/GameManager.gd",
-      "sha256": "4d7e4334a7aca264cd1d9532433adb2f639b193b76d1a3ddf7f318946cf81164"
+      "sha256": "167db5bf8e7b0b0a44f2a3d936d0dddea758d928b473ddc25ed723a78c1c4015"
     },
     {
       "file": "scripts/core/GameManager.gd.uid",
@@ -564,7 +568,7 @@
     },
     {
       "file": "scripts/network_lab/LabRoom.gd",
-      "sha256": "7a873f9329fea6aa5d8dc9bcaf6dff2bd5f53d26b10f16af2a4cb3cb261f78f8"
+      "sha256": "d5c9efabdb5a2e27a4ce372cd20c9489825b3489578876a1e2591c4d138b43b5"
     },
     {
       "file": "scripts/network_lab/LabRoom.gd.uid",
@@ -577,6 +581,46 @@
     {
       "file": "scripts/network_lab/LabSession.gd.uid",
       "sha256": "4f27f8de25cc6461fdf6cbae3191b926c81abe3239c9c7f4610e6a06bf84ffdc"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopNetwork.gd",
+      "sha256": "4750d3b8ac7b3109f6e613dfbf2164ea37991cdfdf95d0f6cfcb03b6bb83c8c1"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopNetwork.gd.uid",
+      "sha256": "a4e11a65bda6e932a345fd61be5236157f7b92dd45e1e3fec77270c9ea71f203"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopPanel.gd",
+      "sha256": "9ec4a9b590acb6a908b054cb1cd9c8675091dcadabc6866bbf27b799c28d82f4"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopPanel.gd.uid",
+      "sha256": "f04252f3b6ee21bfad768a14fb584afdc272edbf5ee3e6ea1d94b592d3cdee93"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopRoom.gd",
+      "sha256": "c68f879985d3d0289d93ed3d2f804d78672781fba1aab51358f0d6d35adee419"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopRoom.gd.uid",
+      "sha256": "a959326d36e2a7fe79bbeb4498b54b653e221df338a2a421f3177334f444b71d"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopSession.gd",
+      "sha256": "df0aae0b9da51993c8baad19231188a3bab013f2995603ef4588af2e7b9365b9"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopSession.gd.uid",
+      "sha256": "c1ee61d08d0000ae3d39db6acfdcf5de62a8c0eef8308218c51c479258bdb170"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopSmoke.gd",
+      "sha256": "312adb535dd9f425716f1c3f6d39665bd30fb0b8fe84f0e1dd7f0fb957bd89b7"
+    },
+    {
+      "file": "scripts/network_lab/WorkshopSmoke.gd.uid",
+      "sha256": "a6d351d60c9cb928a4f93785cb93b249d31c14a224cbccfdda2197dde99472f5"
     },
     {
       "file": "scripts/programming/AcademyManager.gd",
@@ -684,7 +728,7 @@
     },
     {
       "file": "scripts/progression/SaveValidator.gd",
-      "sha256": "408856647c28ffde4185d87893b00beac7543aab9c1f4fe9927e5f55619d9cf0"
+      "sha256": "2543892e93f827ee1c17d9c900ee63bf13eda6ce51e1434286fd51dc3159f7d8"
     },
     {
       "file": "scripts/progression/SaveValidator.gd.uid",
@@ -1052,7 +1096,7 @@
     },
     {
       "file": "scripts/world/GameShell.gd",
-      "sha256": "3394e8abe10f84cfa9b453de2d1a4899525ed21c19c2ceaecf768b49d077a2c6"
+      "sha256": "025281c17a05882efa98f2dd99f5cb8d1d25f5408b042eb899fd77e61a36c1a6"
     },
     {
       "file": "scripts/world/GameShell.gd.uid",
@@ -1163,5 +1207,18 @@
       "sha256": "2e50a77c3ee4d7a4cca32773dd400f334f174eeeacddceeec669b2b48f419df1"
     }
   ],
-  "source_manifest_sha256": "6cc6d5e98bc0c9344fabf249f75bbe9c033a5d8bd3756f2f633aa89103919a21"
+  "source_manifest_sha256": "b765fa82bd6c8fecfbda4ea8478a83d4c3697c9576ebf1b73c56e4d2cb95d2d8",
+  "workshop_verification": {
+    "exe_sha256": "11676710ad01a760c2ee5b0dd60687a251baa057d7d9ad74416a5fa58fd8bf11",
+    "bytes": 104605624,
+    "runtime": "Native Windows EXE alone; external tests on its embedded pack",
+    "results": {
+      "native-headless": true,
+      "native-graphical": true,
+      "network_lab-headless": true,
+      "network_workshop-headless": true,
+      "network_workshop-graphical": true,
+      "package_content-headless": true
+    }
+  }
 }
