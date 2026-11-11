@@ -187,6 +187,16 @@ func model_checks():
 	repair(s)
 	s.evidence_summary = {"led_only":true}
 	check(not s.assessment().passed,"Závěrečný ticket vyžaduje volbu skutečných důkazů, samotná LED nestačí")
+	prepare(s,"D")
+	repair(s)
+	var matching_reply := false
+	for frame in s.network.capture:
+		if frame.title=="ARP Reply" and frame.application.contains(s.network.gateway_mac):
+			matching_reply = frame.frame.begins_with(s.network.gateway_mac)
+	check(matching_reply and s.network.learned[10].has(s.network.gateway_mac),"Nová MAC brány souhlasí v ARP payloadu, ethernetovém rámci i MAC tabulce")
+	s.network.probe("tcp")
+	var syn: Dictionary = s.network.capture.filter(func(frame): return frame.title=="TCP SYN")[-1]
+	check(syn.frame.contains(s.network.gateway_mac) and syn.path==["pc04","switch","router"],"TCP po obnově ARP používá novou MAC a známý port brány bez floodingu")
 
 func safety_checks(game):
 	var s = game.network_workshop

@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Síťová dílna — shodná MAC v důkazech, 11. 11. 2026
+
+- Závěrečná kontrola ARP odhalila nesoulad nové MAC brány s ethernetovou hlavičkou. Dílenský model nyní používá stejnou adresu pro cache, ARP payload, zdroj i cíl rámce, MAC tabulku a unicastovou cestu TCP. Původní LabNetwork a jeho 40 úloh jsou beze změn.
+- Aktuální modelová sada prošla 139 kontrolami včetně všech osmi oprav ve třech režimech a dvou nových kontrol skutečné hlavičky rámce a unicastové cesty. Celý Test-All už dokončil 54/54 sad a 336 UI akcí výuky; závěrečné cílené běhy a nový export ověří tuto opravu nad přesným vloženým balíčkem.
+
 ## Síťová dílna — prostor, návraty a ovládání, 11. 11. 2026
 
 - Dokončena fyzická cesta k zásuvce Z04, dohledání PP04 a přesný switch port; funkční návratný ovladač dveří a čekání zavírání v obsazené dráze. Učebna má zavěšený rozcestník a živé monitory, dílna čitelné porty, kabelové žlaby, tiskárnu a skutečný přesun AP podle měření.

@@ -95,15 +95,41 @@ func renew() -> bool:
 	return super.renew()
 
 func arp(target: String, packet_ip: String, refresh := false) -> bool:
-	if target=="router" and cache.has(IPS.router) and not refresh and cache[IPS.router]!=gateway_mac:
-		transmit("Rámec na starou MAC","pc04","router","0x0800",packet_ip,"—","Bez odpovědi; cache používá "+str(cache[IPS.router]))
+	if target!="router": return super.arp(target,packet_ip,refresh)
+	if lease.is_empty() or not link("pc04"):
+		last_message = "ARP · PC 04 nemá funkční linku nebo IPv4 nastavení."
+		return false
+	if refresh: cache.erase(IPS.router)
+	if cache.has(IPS.router) and cache[IPS.router]!=gateway_mac:
+		transmit("Rámec na starou MAC","pc04",cache[IPS.router],"0x0800",packet_ip,"—","Bez odpovědi; cache používá "+str(cache[IPS.router]))
 		last_message = "Brána · rámec na MAC z cache bez odpovědi."
 		return false
-	var okay := super.arp(target,packet_ip,refresh)
-	if okay and target=="router":
+	if not cache.has(IPS.router):
+		transmit("ARP Request","pc04",BROADCAST,"0x0806","—","—","Kdo má "+IPS.router+"?")
+		if not reachable("pc04","router"):
+			last_message = "ARP · bez odpovědi pro "+IPS.router
+			return false
+		transmit("ARP Reply","router","pc04","0x0806","—","—",IPS.router+" je na "+gateway_mac)
 		cache[IPS.router] = gateway_mac
-		if refresh: transmit("ARP po výměně brány","router","pc04","0x0806","—","—",IPS.router+" → "+gateway_mac)
-	return okay
+	last_message = "První rámec → %s · paket → %s" % [gateway_mac,packet_ip]
+	return true
+
+func transmit(title: String, source: String, target: String, ether_type: String, ip: String, transport: String, application: String, source_mac: String = ""):
+	if not link(source): return
+	var vlan := segment(source)
+	if not learned.has(vlan): learned[vlan] = {}
+	var sender: String = gateway_mac if source=="router" else MACS[source]
+	if source_mac!="": sender = source_mac
+	var destination: String = gateway_mac if target=="router" else MACS.get(target,target)
+	learned[vlan][sender] = ports[source]
+	var receivers: Array = []
+	if destination==BROADCAST or not learned[vlan].has(destination):
+		for device in ports:
+			if device!=source and reachable(source,device): receivers.append(device)
+	elif reachable(source,target): receivers.append(target)
+	last_path = [source,"switch"]+receivers
+	capture.append({"title":title,"frame":"%s → %s   %s   VLAN %d" % [sender,destination,ether_type,vlan],"ip":ip,"transport":transport,"application":application,"path":last_path.duplicate()})
+	if capture.size()>40: capture.pop_front()
 
 func dns_test() -> String:
 	if not arp("resolver",IPS.resolver):
