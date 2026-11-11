@@ -43,6 +43,7 @@ func valid(data) -> bool:
 	if not programming(data.get("programming",{})): return false
 	if not english(data.get("english",{})): return false
 	if not network_attempts(data.get("network_lab",[])): return false
+	if not workshop_attempts(data.get("network_workshop",[])): return false
 	if not shifts(data.get("shifts",{})): return false
 	if data.has("saved_at") and (not typeof(data.saved_at) in [TYPE_INT,TYPE_FLOAT] or not is_finite(data.saved_at) or data.saved_at<0): return false
 	if not preload("res://scripts/progression/WorkArchive.gd").valid(data.get("work",{}),self): return false
@@ -59,6 +60,21 @@ func network_attempts(data) -> bool:
 		if not required(record,{"id":"","mode":"","score":0,"passed":false,"hints":0,"errors":0,"time":0}): return false
 		if record.id.is_empty() or record.id.length()>64 or record.mode not in ["learn","practice","exam"]: return false
 		if not integer(record.score,0,100) or not integer(record.hints,0,1) or not integer(record.errors,0) or not integer(record.time,0,9999999999): return false
+	return true
+
+func workshop_attempts(data) -> bool:
+	if not network_attempts(data): return false
+	for record in data:
+		if record.id not in ["A","B","C","D","E","F","G","H"]: return false
+		if not required(record,{"proof":[],"causes":{},"changes":[]}): return false
+		if record.proof.size()>60 or record.changes.size()>30: return false
+		for evidence in record.proof:
+			if not required(evidence,{"kind":"","source":"","target":"","passed":false,"detail":"","revision":0}): return false
+			if not integer(evidence.revision,0) or evidence.detail.length()>4000: return false
+		for change in record.changes:
+			if not change is String or change.length()>256: return false
+		for key in record.causes:
+			if key not in ["vlan","dns","cable"] or not record.causes[key] is bool: return false
 	return true
 
 func shifts(data) -> bool:

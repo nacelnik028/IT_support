@@ -1,0 +1,290 @@
+{
+  "version": 1,
+  "offline": true,
+  "tasks": [
+    {
+      "id": "A",
+      "title": "PC 04 bez linky",
+      "year": 1,
+      "difficulty": "základní",
+      "service": "linka a brána",
+      "ticket": "Po údržbě je PC 04 bez linky. PC 02 musí zůstat v provozu.",
+      "cause": "PC 04 vede ze Z04 přes PP04 na vadný port 08.",
+      "initial": {
+        "scenario": "A",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 8
+      },
+      "actions": [
+        "cable"
+      ],
+      "goals": [
+        "link",
+        "gateway",
+        "control"
+      ],
+      "before": [
+        "link"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Porovnej linku PC 04 a PC 02; projdi Z04 → PP04 → switch.",
+      "review": "Přepoj PP04 do volného funkčního portu VLAN 10. Port 08 je vadný."
+    },
+    {
+      "id": "B",
+      "title": "Zásuvka ve špatné VLAN",
+      "year": 2,
+      "difficulty": "základní",
+      "service": "DHCP ve VLAN 10",
+      "ticket": "PC 04 svítí linka, ale po údržbě nezíská pronájem. Hostovská větev VLAN 20 musí zůstat oddělená.",
+      "cause": "Klientský port 04 je ve VLAN 20.",
+      "initial": {
+        "scenario": "B",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "vlan",
+        "cable"
+      ],
+      "goals": [
+        "dhcp",
+        "link",
+        "control"
+      ],
+      "before": [
+        "dhcp"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Porovnej linku, obsazený port a jeho VLAN; zachyť DHCP Discover.",
+      "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20."
+    },
+    {
+      "id": "C",
+      "title": "DHCP po změně rozsahu",
+      "year": 2,
+      "difficulty": "střední",
+      "service": "úplný pronájem DHCP",
+      "ticket": "Linka a VLAN fungují. Po změně rozsahu PC 04 nedostane nabídku DHCP. Požadujeme dynamickou adresu, masku, bránu a DNS.",
+      "cause": "Rozsah .20–.49 je vyčerpaný.",
+      "initial": {
+        "scenario": "C",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "pool",
+        "static"
+      ],
+      "goals": [
+        "dhcp",
+        "link",
+        "gateway",
+        "control"
+      ],
+      "before": [
+        "dhcp"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Zachyť výměnu DHCP a zjisti, zda přichází Offer.",
+      "review": "Uvolni laboratorní rozsah .20–.49 a obnov pronájem. Statická adresa DHCP neopravuje."
+    },
+    {
+      "id": "D",
+      "title": "Stará ARP položka po výměně brány",
+      "year": 2,
+      "difficulty": "střední",
+      "service": "místní a vzdálená cesta",
+      "ticket": "Brána byla vyměněna: nová MAC 02:00:00:00:10:11. Tiskárna funguje, vzdálený cíl ne. Porovnej cache se štítkem.",
+      "cause": "Cache PC 04 stále uvádí starou MAC brány 02:00:00:00:10:01.",
+      "initial": {
+        "scenario": "D",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "arp"
+      ],
+      "goals": [
+        "arp",
+        "printer",
+        "gateway",
+        "control"
+      ],
+      "before": [
+        "gateway",
+        "arp"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Porovnej cache 192.168.10.1 s MAC na štítku nové brány; tiskárnu měř zvlášť.",
+      "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl."
+    },
+    {
+      "id": "E",
+      "title": "Portál se přestěhoval",
+      "year": 1,
+      "difficulty": "střední",
+      "service": "HTTPS podle jména",
+      "ticket": "Portál se přesunul na 203.0.113.20. DNS správce uvádí nový záznam, PC 04 stále otevírá starou adresu.",
+      "cause": "Cache klienta drží 203.0.113.19, autoritativní záznam už je 203.0.113.20.",
+      "initial": {
+        "scenario": "E",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "dns",
+        "flush"
+      ],
+      "goals": [
+        "dns",
+        "https",
+        "control"
+      ],
+      "before": [
+        "dns"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Porovnej DNS záznam a cache klienta při stejném dotazu.",
+      "review": "Obnov cache PC 04 a otevři portal.example.com přes HTTPS."
+    },
+    {
+      "id": "F",
+      "title": "DNS odpovídá, HTTPS selže",
+      "year": 2,
+      "difficulty": "střední",
+      "service": "TCP 443 a HTTPS",
+      "ticket": "Portál má správný DNS záznam, ale HTTPS neodpovídá. Ostatní laboratorní pravidla musí zůstat zachována.",
+      "cause": "Služba TCP/HTTPS na portu 443 je vypnutá.",
+      "initial": {
+        "scenario": "F",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "tcp",
+        "https_rule",
+        "management"
+      ],
+      "goals": [
+        "gateway",
+        "dns",
+        "tcp",
+        "https",
+        "control"
+      ],
+      "before": [
+        "dns",
+        "tcp"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Porovnej dosažitelnost brány, DNS odpověď a TCP SYN na port 443.",
+      "review": "Spusť službu HTTPS. Povolení správy ani změna všech pravidel není opravou."
+    },
+    {
+      "id": "G",
+      "title": "Wi-Fi v zadní části dílny",
+      "year": 2,
+      "difficulty": "střední",
+      "service": "pokrytí, DHCP a HTTPS",
+      "ticket": "Kabelová kontrolní stanice funguje. U W2 v zadní části vypadává Wi-Fi. Porovnej W1 a W2 a uprav polohu AP.",
+      "cause": "AP je na předním úchytu; W2 má −84 dBm.",
+      "initial": {
+        "scenario": "G",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "ap"
+      ],
+      "goals": [
+        "near",
+        "far",
+        "control"
+      ],
+      "before": [
+        "near",
+        "far"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Změř W1 i W2; rozliš signál, připojení, přidělení IP a dostupnost služby.",
+      "review": "Přesuň AP na středový úchyt. Nově změř oba body a kabelové PC 02."
+    },
+    {
+      "id": "H",
+      "title": "Závěrečná servisní směna",
+      "year": 2,
+      "difficulty": "pokročilá",
+      "service": "síťová cesta a portál",
+      "ticket": "Po údržbě PC 04 nezíská síť a portál se přestěhoval na 203.0.113.20. Obnov HTTPS podle jména. Tiskárna i PC 02 musí zůstat funkční. Ticket zakonči příčinami a důkazy.",
+      "cause": "Port PC 04 je ve VLAN 20 a autoritativní DNS stále vrací 203.0.113.19.",
+      "initial": {
+        "scenario": "H",
+        "seed": 0,
+        "socket": "Z04",
+        "patch": "PP04",
+        "switch": 4
+      },
+      "actions": [
+        "vlan",
+        "cable",
+        "dns",
+        "flush"
+      ],
+      "goals": [
+        "dhcp",
+        "link",
+        "dns",
+        "tcp",
+        "https",
+        "printer",
+        "control"
+      ],
+      "before": [
+        "dhcp",
+        "dns"
+      ],
+      "side_services": [
+        "PC 02",
+        "VLAN 20 na portu 05"
+      ],
+      "hint": "Začni linkou, VLAN a DHCP. Po zprovoznění cesty změř překlad jména.",
+      "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC."
+    }
+  ]
+}

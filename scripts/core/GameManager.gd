@@ -25,6 +25,7 @@ var english_probe = Callable()
 var hub_probe = Callable()
 var network_lab_probe = Callable()
 var network_lab = preload("res://scripts/network_lab/LabSession.gd").new()
+var network_workshop = preload("res://scripts/network_lab/WorkshopSession.gd").new()
 var reconciling_room=false
 var programming = preload("res://scripts/programming/AcademyManager.gd").new()
 var english = preload("res://scripts/english/EnglishManager.gd").new()
@@ -77,6 +78,7 @@ func _init():
 	var owner_ref=weakref(self)
 	shifts.owner_ref=owner_ref
 	network_lab.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
+	network_workshop.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
 	programming.changed=func():
 		if owner_ref.get_ref()!=null: owner_ref.get_ref().mark_work_dirty()
 	english.available=func():
@@ -102,6 +104,7 @@ func _init():
 		last_saved_at=float(saved.get("saved_at",0))
 		english.load_progress(saved.get("english",{}))
 		network_lab.attempts = saved.get("network_lab",[])
+		network_workshop.attempts = saved.get("network_workshop",[])
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
 		var normalized_scores={}
@@ -243,6 +246,7 @@ func leave_training() -> bool:
 	programming.cancel()
 	english.cancel()
 	network_lab.cancel()
+	network_workshop.cancel()
 	game_mode.switch_to(Modes.Mode.MAIN)
 	active = false
 	current = {}
@@ -425,7 +429,7 @@ func save(recover_invalid: bool = false) -> Error:
 	cache_lesson()
 	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"network_lab":network_lab.attempts,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"network_lab":network_lab.attempts,"network_workshop":network_workshop.attempts,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
 	pending_work_at=-1
 	unsaved = last_save_error != OK
 	if not unsaved: last_saved_at=Time.get_unix_time_from_system()

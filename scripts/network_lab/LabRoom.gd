@@ -7,7 +7,7 @@ const ACCENT = Color("43dad0")
 const STEEL = Color("3e5562")
 const WALL = Color("acbec0")
 const DARK = Color("172e3a")
-const BOUNDS = AABB(Vector3(-3,-0.4,-29),Vector3(14,4.5,13))
+const BOUNDS = AABB(Vector3(-3,-0.4,-41),Vector3(14,4.5,25))
 const SPAWN = Vector3(4,0.02,-17.2)
 const PORTAL_X = 4.0
 
@@ -23,12 +23,13 @@ var cell_lamps: Array[MeshInstance3D]
 var handset: Node3D
 var sim_tokens: Array[MeshInstance3D]
 var cable_signature := ""
+var workshop
 
 func contains_player() -> bool:
 	if not is_instance_valid(world.player): return false
 	var p: Vector3 = world.player.global_position
 	var edge := -15.84 if world.game!=null and world.game.game_mode.is_network_lab() else -16.16
-	return p.z<edge and p.x>-3 and p.x<11 and p.z>-29 and p.y>-0.4 and p.y<4.1
+	return p.z<edge and p.x>-3 and p.x<11 and p.z>-41 and p.y>-0.4 and p.y<4.1
 
 func lab_sign(parent: Node3D, words: String, at: Vector3, yaw: float = 0.0, scale_value: float = 0.0035) -> Label3D:
 	var label := Geo.text(parent,words,at,34,scale_value,Color("e4f8f5"))
@@ -50,7 +51,10 @@ func build(owner_world):
 	for x in [-3,11]:
 		Geo.solid(self,Vector3(x,2,-22.5),Vector3(0.24,4,13),WALL)
 		Geo.box(self,Vector3(x+(-0.15 if x>4 else 0.15),0.28,-22.5),Vector3(0.06,0.45,12.8),STEEL)
-	Geo.solid(self,Vector3(4,2,-29),Vector3(14,4,0.24),WALL)
+	# The shared partition has a real 2.4 m opening at x=8.
+	Geo.solid(self,Vector3(1.9,2,-29),Vector3(9.8,4,0.24),WALL)
+	Geo.solid(self,Vector3(10.1,2,-29),Vector3(1.8,4,0.24),WALL)
+	Geo.solid(self,Vector3(8,3.5,-29),Vector3(2.4,1,0.24),WALL)
 	for x in [2.35,5.65]:
 		Geo.box(self,Vector3(x,0.004,-22.5),Vector3(0.045,0.009,12.65),ACCENT,0,0.25)
 	for x in range(-2,11,2):
@@ -74,16 +78,20 @@ func build(owner_world):
 	cables.name = "PatchCables"
 	cables.set_meta("dynamic",true)
 	add_child(cables)
+	workshop = preload("res://scripts/network_lab/WorkshopRoom.gd").new()
+	add_child(workshop)
+	workshop.build(self)
 
 func build_entry():
 	var plan = item("plan","Plán učebny a volba ročníku",Vector3(7.23,1.72,-18.05),Vector3(2.3,1.04,0.13),-PI/2)
-	lab_sign(plan.visual,"05 / POČÍTAČOVÉ SÍTĚ\nVlevo rack a stanice · vpředu terminál\nVpravo DSL, WLAN a GSM\nVýuka · Procvičování · Zkouška",Vector3(0,0.08,0.082),0.0,0.0024)
+	lab_sign(plan.visual,"05 / SÍŤOVÁ UČEBNA\nServisní rack · Diagnostika\nTréninková dílna → vzadu vpravo\nRočník 1 / 2 · Výuka / Praxe / Zkouška",Vector3(0,0.08,0.082),0.0,0.0024)
 	Architecture.board_stand(plan,2.3)
 	for year in [1,2]:
 		var control = item("year"+str(year),"%d. ročník" % year,Vector3(7.12,1.19,-18.6+(year-1)*1.11),Vector3(1.0,0.23,0.10),-PI/2)
 		lab_sign(control.visual,"%d. ROČNÍK" % year,Vector3(0,0,0.066),0.0,0.0027)
 	Geo.box(self,Vector3(-0.4,2.42,-16.2),Vector3(2.9,0.4,0.08),DARK)
 	lab_sign(self,"SERVISNÍ RACK  →",Vector3(-0.4,2.42,-16.25),PI,0.0032)
+	lab_sign(self,"05 / SÍŤOVÁ UČEBNA\n← Servisní rack    Diagnostika ↑\nTréninková dílna ↗",Vector3(4,3.0,-20),0,0.004)
 
 func build_rack():
 	var rack := Node3D.new()
@@ -135,7 +143,7 @@ func build_clients():
 			Geo.box(self,Vector3(-1.14,1.39,z),Vector3(0.023,0.54,0.9),Color("294e5c"),0,0.22)
 			Geo.box(self,Vector3(-1.20,0.99,z),Vector3(0.11,0.19,0.18),STEEL,0.5)
 			Geo.box(self,Vector3(-0.76,0.92,z),Vector3(0.24,0.04,0.61),DARK)
-			lab_sign(self,row[1],Vector3(-1.122,1.39,z),PI/2)
+			labels["screen_"+row[0]] = lab_sign(self,row[1],Vector3(-1.122,1.39,z),PI/2,0.0022)
 		lab_sign(self,row[1],Vector3(-0.16,1.42,z),PI/2,0.003)
 
 func build_terminal():
@@ -211,6 +219,7 @@ func build_demo():
 
 func sync():
 	if world.game==null: return
+	workshop.sync(world.game.network_workshop.model())
 	var lab = world.game.network_lab
 	var model = lab.current_network()
 	var active: bool = world.game.game_mode.is_network_lab()
@@ -221,6 +230,8 @@ func sync():
 		var has_link: bool = model.link(device)
 		targets[device].set_status("Healthy" if has_link else "Offline")
 		labels[device].text = "VYBRÁNO" if model.cable==device else "LINK" if has_link else "BEZ LINKY"
+		if labels.has("screen_"+device):
+			labels["screen_"+device].text = Network.NAMES[device]+"\n"+("Bez linky" if not has_link else "VLAN %d / %s" % [model.segment(device),str(model.lease.get("ip","DHCP nepřiděleno")) if device=="pc04" else Network.IPS[device]])
 	for port in range(1,9):
 		var key := str(port)
 		var occupied: String = model.occupant(port)

@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Síťová dílna — první funkční etapa, 11. 11. 2026
+
+- Pavilon 05 je rozšířený severně o samostatnou dílnu s dveřmi a ovladači na obou stranách. Cesta: rozcestník → 05 → vzadu vpravo → servisní stůl. Učebna a dílna drží nezávislé dočasné relace během jedné návštěvy; opuštění pavilonu je ukončí a obnoví odloženou práci.
+- Osm datových ticketů A–H nad samostatnou instancí LabNetwork: kabel/port, VLAN, DHCP, ARP, DNS cache, HTTPS, Wi-Fi a dvě závady závěrečného ticketu. Samostatná historie, skutečná měření před/po, zastaralost, jediné odevzdání, uzavření zkoušky, undo a izolovaná ukázka. Katalog generuje tools/build_network_workshop.py; původních 40 úloh a 23 karet zůstává.
+- Dosud skutečně prošlo 177 kontrol network_workshop bez grafiky a 180 s Compatibility: všechny referenční opravy ve třech režimech, chybná zkratka každého ticketu a celý fyzický/UI průchod ticketem H včetně obnovení kampaně. Původní network_lab po rozšíření prošel 855 kontrolami bez grafiky. Výchozí grafické průchody před změnou: 862 kontrol v obou rendererech.
+- Pokračuje širší prostorová a VR matice, odolnost zápisu, úplná regrese a sestavení EXE. Toto je etapový záznam, nikoli tvrzení o dokončeném vydání. Save a nastavení jsou ve všech testech izolované.
+
 ## Čitelné tabule a vstup do programování — 9. 11. 2026
 
 - Hlavní tabule rozcestníku se vejde mezi vstup 05 a dřevěné lamely. Text je výš nad lavicí a květináč stojí vpravo u lamel.

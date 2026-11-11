@@ -308,7 +308,7 @@ func run():
 	await escape()
 	await prepare_xr()
 	var center := Vector3(4,0,-22)
-	check(rig.can_teleport(center) and not rig.can_teleport(Vector3(0.18,0,-21.0)) and not rig.can_teleport(Vector3(4,0,-30)),"Teleport respektuje uličku, rack a hranice")
+	check(rig.can_teleport(center) and not rig.can_teleport(Vector3(0.18,0,-21.0)) and not rig.can_teleport(Vector3(4,0,-42)),"Teleport respektuje uličku, rack a rozšířené hranice pavilonu")
 	check(rig.teleport_to(Vector3(4,0,-14)) and game.game_mode.is_hub(),"Syntetický teleport do hubu ruší ukázku")
 	rig.left.global_transform = Transform3D(Basis().looking_at(Vector3(0,-0.28,-1)),Vector3(4,1.35,-14.5))
 	rig.update_teleport()

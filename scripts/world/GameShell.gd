@@ -229,6 +229,11 @@ func _process(delta):
 				status_label.text = "UKÁZKA / "+lab.task.title+"\n"+lab.demo_comment
 			elif not lab.task.is_empty():
 				status_label.text = ("05 / "+lab.task.title+"\n"+lab.network.last_message).strip_edges()
+			if world.network_room.workshop.in_workshop:
+				var workshop = ui.game.network_workshop
+				status_label.text = "05 / SÍŤOVÁ TRÉNINKOVÁ DÍLNA\n"+(workshop.task.title if not workshop.task.is_empty() else "Vyber ticket u servisního stolu.")
+				if workshop.network.cable!="": status_label.text += "\nKonektor "+workshop.network.cable+" / "+str(workshop.network.patch_map.get(workshop.network.cable,""))+" → vyber SW port"
+				elif workshop.network.last_message!="": status_label.text += "\n"+workshop.network.last_message
 		if ui.game.game_mode.is_english():
 			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
 			if not ui.game.english.session.is_empty(): status_label.text+="\n"+ui.game.english.definition().title
@@ -504,6 +509,9 @@ func interact(object):
 		"instructor": open_app("Trénink")
 
 func interact_network_lab(id: String):
+	if id.begins_with("work:"):
+		interact_network_workshop(id.trim_prefix("work:"))
+		return
 	var lab = ui.game.network_lab
 	var model = lab.network
 	if id in ["year1","year2"]:
@@ -541,11 +549,44 @@ func interact_network_lab(id: String):
 
 func open_network_lab(page: String = ""):
 	if not ui.game.game_mode.is_network_lab(): return
+	if world.network_room.workshop.in_workshop:
+		open_network_workshop()
+		return
 	if page!="": ui.game.network_lab.view = page
 	for child in overlay.get_children():
 		overlay.remove_child(child)
 		child.queue_free()
 	var panel_node = preload("res://scripts/network_lab/LabPanel.gd").new()
+	panel_node.shell = self
+	set_mode("network_lab")
+	overlay.add_child(panel_node)
+	if vr_active: xr_rig.monitor.place_in_front(xr_rig.head)
+
+func interact_network_workshop(id: String):
+	var lab = ui.game.network_workshop
+	if id.begins_with("door_"):
+		world.network_room.workshop.toggle()
+		return
+	if id.begins_with("socket_") or id.begins_with("patch_"): id = id.get_slice("_",1)
+	if id in lab.network.CLIENTS and (not lab.task.is_empty() or lab.mode=="free"):
+		lab.select_cable(id)
+		return
+	if id.is_valid_int():
+		lab.selected_port = int(id)
+		if lab.network.cable!="":
+			lab.connect_port(int(id))
+			return
+	if id.begins_with("screen_"): lab.selected = id.trim_prefix("screen_")
+	if id in ["near","far"] and not lab.task.is_empty(): lab.measure(id)
+	open_network_workshop("home" if id=="desk" else "measure")
+
+func open_network_workshop(page: String = ""):
+	if not ui.game.game_mode.is_network_lab(): return
+	if page!="": ui.game.network_workshop.view = page
+	for child in overlay.get_children():
+		overlay.remove_child(child)
+		child.queue_free()
+	var panel_node = preload("res://scripts/network_lab/WorkshopPanel.gd").new()
 	panel_node.shell = self
 	set_mode("network_lab")
 	overlay.add_child(panel_node)
