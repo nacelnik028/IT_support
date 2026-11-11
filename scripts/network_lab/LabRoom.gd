@@ -91,7 +91,9 @@ func build_entry():
 		lab_sign(control.visual,"%d. ROČNÍK" % year,Vector3(0,0,0.066),0.0,0.0027)
 	Geo.box(self,Vector3(-0.4,2.42,-16.2),Vector3(2.9,0.4,0.08),DARK)
 	lab_sign(self,"SERVISNÍ RACK  →",Vector3(-0.4,2.42,-16.25),PI,0.0032)
-	lab_sign(self,"05 / SÍŤOVÁ UČEBNA\n← Servisní rack    Diagnostika ↑\nTréninková dílna ↗",Vector3(4,3.0,-20),0,0.004)
+	Geo.box(self,Vector3(4,3,-20),Vector3(5.8,0.9,0.12),DARK)
+	for x in [1.7,6.3]: Geo.box(self,Vector3(x,3.68,-20),Vector3(0.06,0.5,0.06),STEEL,0.6)
+	lab_sign(self,"05 / SÍŤOVÁ UČEBNA\n← Servisní rack    Diagnostika ↑\nTréninková dílna ↗",Vector3(4,3.0,-19.92),0,0.004)
 
 func build_rack():
 	var rack := Node3D.new()

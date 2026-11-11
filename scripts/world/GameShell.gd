@@ -307,6 +307,10 @@ func set_mode(value: String):
 	if value == "menu" and ui.game.game_mode.is_away():
 		world.player.position = Vector3(7,0.02,3.5)
 		ui.game.reconcile_room()
+		var restored_pose = ui.game.sim.state.world.player
+		world.player.position = safe_saved_position(Vector3(restored_pose.x,0.02,restored_pose.z))
+		world.player.rotation.y = restored_pose.yaw
+		world.player.camera.rotation.x = restored_pose.pitch
 		ui.page = "menu"
 		ui.draw_ui()
 	if mode=="world" and value!="world": store_pose()
@@ -333,6 +337,7 @@ func safe_saved_position(point: Vector3) -> Vector3:
 	return point
 
 func enter_world(destination: String = "Serverovna"):
+	var restore_main_pose: bool = destination=="Hlavní serverovna" and ui.game.game_mode.is_away()
 	# A fresh menu entry starts in the neutral hall. Continue inside the live
 	# world keeps its pose; explicit course shortcuts still target their rooms.
 	if destination=="Rozcestník akademie":
@@ -359,7 +364,7 @@ func enter_world(destination: String = "Serverovna"):
 		world.player.velocity = Vector3.ZERO
 		ui.game.reconcile_room()
 	if not ui.game.active and not ui.game.game_mode.is_away(): ui.game.start_mission(0)
-	if pose_revision != ui.game.session_revision:
+	if pose_revision != ui.game.session_revision or restore_main_pose:
 		var pose = ui.game.sim.state.world.player
 		world.player.position = safe_saved_position(Vector3(pose.x,0.02,pose.z))
 		world.player.rotation.y = pose.yaw
@@ -948,6 +953,7 @@ func export_smoke():
 	print("EXPORT_SMOKE english_cancelled=",english.session.is_empty())
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
 	preload("res://scripts/shifts/GameplaySmoke.gd").run(self)
+	await preload("res://scripts/network_lab/WorkshopSmoke.gd").run(self)
 	get_tree().quit()
 
 func smoke_question(english, topic: String):

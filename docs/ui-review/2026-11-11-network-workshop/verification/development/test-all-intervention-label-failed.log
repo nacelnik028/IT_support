@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:32)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:35)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:32)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:35)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:32)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:35)
+       [2] model_checks (res://tests/network_workshop.gd:53)
+       [3] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] model_checks (res://tests/network_workshop.gd:73)
+       [2] run (res://tests/network_workshop.gd:234)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] operate (res://scripts/network_lab/WorkshopPanel.gd:136)
+       [2] <anonymous lambda> (res://scripts/ui/UIController.gd:138)
+       [3] click (res://tests/pause_repair.gd:63)
+       [4] frames (res://tests/pause_repair.gd:30)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] operate (res://scripts/network_lab/WorkshopPanel.gd:136)
+       [2] <anonymous lambda> (res://scripts/ui/UIController.gd:138)
+       [3] click (res://tests/pause_repair.gd:63)
+       [4] frames (res://tests/pause_repair.gd:30)
+SCRIPT ERROR: Invalid operands 'bool' and 'String' in operator '=='.
+   at: edit (res://scripts/network_lab/WorkshopSession.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] edit (res://scripts/network_lab/WorkshopSession.gd:69)
+       [1] repair (res://tests/network_workshop.gd:35)
+       [2] safety_checks (res://tests/network_workshop.gd:115)
+       [3] run (res://tests/network_workshop.gd:282)
+       [4] ui_all_tickets (res://tests/network_workshop.gd:163)
+       [5] click (res://tests/network_workshop.gd:15)
+       [6] click (res://tests/pause_repair.gd:65)
+       [7] frames (res://tests/pause_repair.gd:30)
+NETWORK WORKSHOP: 299 checks, 0 failures

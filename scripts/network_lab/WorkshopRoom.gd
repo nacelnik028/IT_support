@@ -55,8 +55,8 @@ func build(owner_room):
 		var title := "TRÉNINKOVÁ DÍLNA" if face>0 else "SÍŤOVÁ UČEBNA"
 		var panel = Arch.portal_sign(self,title,"05 / servisní tickety" if face>0 else "05 / návrat k lekci",AMBER,3.1)
 		panel.position = Vector3(8,3.64,-29+face*0.34)
-		panel.rotation.y = 0 if face>0 else PI
-		var control = item("door_"+str(face),"Dveře dílny · otevřít / zavřít",Vector3(9.78,1.35,-29+face*0.38),Vector3(0.28,0.4,0.1),0 if face>0 else PI)
+		panel.rotation.y = 0.0 if face>0 else PI
+		var control = item("door_"+str(face),"Dveře dílny · otevřít / zavřít",Vector3(9.78,1.35,-29+face*0.38),Vector3(0.28,0.4,0.1),0.0 if face>0 else PI)
 		Arch.control_surround(control.visual,AMBER)
 		room.lab_sign(control.visual,"DVEŘE",Vector3(0,0,0.065),0,0.0018)
 	hinge = Node3D.new()
@@ -67,7 +67,7 @@ func build(owner_room):
 	door.sync_to_physics = false
 	hinge.add_child(door)
 	door.position = Vector3(-1.16,1.44,0)
-	Geo.collision(door,Vector3(2.28,2.88,0.16))
+	Geo.collision(door,Vector3(2.28,2.88,0.27))
 	Geo.box(door,Vector3.ZERO,Vector3(2.28,2.88,0.16),DARK)
 	Arch.sliding_leaf(door,2.28,AMBER,"05","DÍLNA / UČEBNA")
 	table(Vector3(5.7,0,-31.5),Vector2(2.5,1.0))
@@ -85,6 +85,11 @@ func build(owner_room):
 		var socket = item("socket_"+row[0],row[1]+" · zásuvka",Vector3(-2.81,1.2,row[2]),Vector3(0.6,0.34,0.12),PI/2)
 		room.lab_sign(socket.visual,"Z / "+row[0].to_upper(),Vector3(0,0,0.08),0,0.0018)
 		Geo.tube(self,[Vector3(-0.3,1.17,row[2]),Vector3(-0.6,0.7,row[2]),Vector3(-2.7,0.7,row[2]),Vector3(-2.7,1.2,row[2])],0.017,Color("43dad0"))
+		var patch: Vector3 = targets["patch_"+row[0]].position
+		Geo.tube(self,[Vector3(-2.7,1.2,row[2]),Vector3(-2.65,0.62,row[2]),Vector3(-2.65,0.62,patch.z),Vector3(-0.6,0.62,patch.z),Vector3(-0.6,2.02,patch.z)],0.014,Color("a5bac0"))
+		if row[0]=="printer":
+			Geo.solid(self,Vector3(-1.12,1.05,row[2]),Vector3(0.65,0.32,0.72),Color("bdc8c6"))
+			Geo.box(self,Vector3(-0.8,1.2,row[2]),Vector3(0.04,0.06,0.45),DARK)
 	var diagnostics = item("diagnostics","Diagnostický pult · měření a analyzátor",Vector3(4.7,1.48,-39),Vector3(2.2,0.8,0.16))
 	Arch.board_stand(diagnostics,2.2)
 	room.lab_sign(diagnostics.visual,"DIAGNOSTIKA / 05\nZdroj · cíl · výsledek měření",Vector3(0,0,0.1),0,0.0027)
@@ -115,6 +120,7 @@ func _physics_process(delta):
 	hinge.rotation.y = angle
 
 func sync(model):
+	targets.ap.position.z = -37.2 if model.ap_position=="center" else -33.0
 	var active: bool = room.workshop.in_workshop and world.game.game_mode.is_network_lab()
 	for key in targets: targets[key].set_guided(active and key in model.last_path)
 	for id in ["pc04","pc02","printer"]:
@@ -124,7 +130,7 @@ func sync(model):
 	for port in range(1,9):
 		var id := str(port)
 		var occupied: String = model.occupant(port)
-		labels[id].text = "%02d / VLAN %d\n%s" % [port,model.vlans[port],"VADNÝ" if port==8 else occupied.to_upper() if occupied!="" else "VOLNÝ"]
+		labels[id].text = "%02d\n%s" % [port,"×" if port==8 else "L%d" % model.vlans[port] if occupied!="" else "—"]
 		targets[id].set_status("Failed" if port==8 else "Healthy" if occupied!="" else "Offline")
 	var current := str(model.ports)+str(model.last_path)
 	if signature==current: return

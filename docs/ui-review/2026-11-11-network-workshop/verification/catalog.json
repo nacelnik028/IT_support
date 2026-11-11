@@ -1,0 +1,14 @@
+{
+  "deterministic_workshop_generator": true,
+  "tickets": 8,
+  "original_40_tasks_and_23_cards_unchanged": true,
+  "campaign_and_legacy_unchanged": true,
+  "protected": [
+    "data/network_lab/catalog.json",
+    "data/missions/campaign.json",
+    "data/missions/legacy_campaign.json",
+    "tools/build_content.py",
+    "tools/build_extension.py",
+    "tools/extension_catalog.py"
+  ]
+}

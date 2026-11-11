@@ -66,10 +66,17 @@ func draw(keep_position := true):
 			"history":
 				heading("Odevzdané tickety / samostatná historie")
 				if lab.attempts.is_empty(): paragraph("Zatím bez odevzdaného výsledku. Volný trénink sem nic nezapisuje.")
+				if lab.selected_history>=0 and lab.selected_history<lab.attempts.size():
+					var selected_record: Dictionary = lab.attempts[lab.selected_history]
+					var task: Dictionary = lab.definition(selected_record.id)
+					paragraph("SYMPTOM / "+task.ticket+"\nPŘÍČINA / "+task.cause)
+					paragraph("ZÁSAH / "+"; ".join(selected_record.changes))
+					for proof in selected_record.proof: paragraph(proof.detail+" / "+("OK" if proof.passed else "NESPLNĚNO"))
+					paragraph("Nápověda %d / chybná ověření %d" % [selected_record.hints,selected_record.errors])
 				var records: Array = lab.attempts.duplicate()
 				records.reverse()
 				for record in records:
-					paragraph("%s / %s / %s / %d bodů" % [record.id,lab.MODES[record.mode],"Splněno" if record.passed else "Nesplněno",record.score])
+					action(content,"%s / %s / %s / %d bodů" % [record.id,lab.MODES[record.mode],"Splněno" if record.passed else "Nesplněno",record.score],func(): lab.selected_history = lab.attempts.find(record); draw(false))
 	var footer := HFlowContainer.new()
 	layout.add_child(footer)
 	if not lab.task.is_empty() and not lab.demo and not lab.submitted:
@@ -108,6 +115,13 @@ func workshop_ticket():
 	paragraph("Požadovaná služba: "+lab.task.service+". Důkazy: "+", ".join(lab.task.goals)+". PC 02 a VLAN 20 musí zůstat funkční a oddělené.")
 	if lab.mode=="learn":
 		paragraph("1. Změř výchozí stav: "+", ".join(lab.task.before)+". 2. Dohledávej cestu od zásuvky přes patch ke switchi. 3. Po zásahu změř všechny požadované služby. Kroky potvrzuje skutečné měření.")
+		var observed := 0
+		var fresh := 0
+		for key in lab.task.before:
+			if lab.network.measurements.has(key): observed += 1
+		for key in lab.task.goals:
+			if lab.network.fresh(key): fresh += 1
+		paragraph("Průběh: výchozí měření %d/%d · zásahy %d · nové důkazy %d/%d" % [observed,lab.task.before.size(),lab.undo_stack.size(),fresh,lab.task.goals.size()])
 		action(content,"Komentovaná ukázka",func(): lab.start_demo(); draw())
 	if lab.mode not in ["exam","free"] and not lab.submitted:
 		action(content,"Nápověda na vyžádání",func(): lab.hint(); draw())
@@ -116,6 +130,9 @@ func workshop_ticket():
 		heading("Uzavření ticketu / vyber zjištěné příčiny")
 		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam"],["cable","Vadný kabel"]]:
 			action(content,("✓ " if lab.causes.get(pair[0],false) else "○ ")+pair[1],func(): lab.causes[pair[0]] = not lab.causes.get(pair[0],false); draw())
+		heading("Důkazy o opravě / výběr musí odpovídat skutečnému měření")
+		for pair in [["dhcp","Úplný DHCP pronájem"],["services","HTTPS, tiskárna a PC 02"],["led_only","Stačí svítící LED"]]:
+			action(content,("✓ " if lab.evidence_summary.get(pair[0],false) else "○ ")+pair[1],func(): lab.evidence_summary[pair[0]] = not lab.evidence_summary.get(pair[0],false); draw())
 	action(content,"Změřit",navigate.bind("measure"),true)
 
 func operate(callback: Callable):
@@ -129,7 +146,7 @@ func workshop_measure():
 	for key in model.CLIENTS:
 		action(devices,model.NAMES[key],func(): lab.selected = key; draw(),lab.selected==key)
 	data(model.overview()+"\n"+model.configuration())
-	data("Z04 → PP04 → SW %02d / Z02 → PP02 → SW %02d / Z07 → PP07 → SW %02d\nDNS záznam %s / cache %s\nDHCP .20–.49: %s / brána MAC %s\nHTTPS služba %s / pravidlo 443 %s / správa %s / AP %s" % [model.ports.pc04,model.ports.pc02,model.ports.printer,model.dns_record,model.dns_cache,"volné adresy" if model.dhcp_pool else "vyčerpáno",model.gateway_mac,str(model.tcp_enabled),str(model.rules.https),str(model.rules.management),model.ap_position])
+	data("Z04 → PP04 → SW %02d / Z02 → PP02 → SW %02d / Z07 → PP07 → SW %02d\nDNS záznam %s / cache %s\nDHCP .20–.49: %s / brána MAC %s\nHTTPS %s / pravidlo 443 %s / správa %s / AP %s" % [model.ports.pc04,model.ports.pc02,model.ports.printer,model.dns_record,model.dns_cache,"volné adresy" if model.dhcp_pool else "vyčerpáno",model.gateway_mac,"běží" if model.tcp_enabled else "zastaveno","povoleno" if model.rules.https else "blokováno","povolena" if model.rules.management else "blokována","uprostřed" if model.ap_position=="center" else "vpředu"])
 	if model.last_message!="": paragraph(model.last_message)
 	if lab.submitted:
 		paragraph("Pokus je uzavřený. Nový pokus spusť výslovným výběrem ticketu.")

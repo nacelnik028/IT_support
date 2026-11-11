@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Síťová dílna — prostor, návraty a ovládání, 11. 11. 2026
+
+- Dokončena fyzická cesta k zásuvce Z04, dohledání PP04 a přesný switch port; funkční návratný ovladač dveří a čekání zavírání v obsazené dráze. Učebna má zavěšený rozcestník a živé monitory, dílna čitelné porty, kabelové žlaby, tiskárnu a skutečný přesun AP podle měření.
+- Výchozí stav všech osmi ticketů nyní kompletně určuje generovaný katalog: porty, VLAN, DHCP, ARP, cache DNS, služba a AP. Závěrečný ticket vyžaduje nejdřív změřenou obnovu cesty a starou DNS odpověď, potom opravu i nové důkazy a závěrečný výběr příčin a důkazů. Historii lze znovu rozkliknout po restartu.
+- Přesná ochrana směny prověřena při pauze, menu, zániku scény a restartu. Opraven také skutečný návrat hráče na odloženou pozici při výslovném návratu do serverovny. Po opravě prošly znovu network_lab, usability, pause_repair, academy_hub a session_safety.
+- Cílená sada prošla 436 kontrolami bez grafiky; před závěrečným zpřesněním vstupní testovací sondy prošlo 403 kontrol v Compatibility a 392 ve Forward+. Závěrečná grafická matice a celý 54sadový Test-All ještě dobíhají. Syntetické VR je oddělené od neprovedeného fyzického headset testu. Výchozí benchmark stejného záběru: Compatibility 0,755 → 0,985 ms; Forward+ 1,998 → 2,062 ms.
+- Původní 40úlohový katalog, 23 karet, celý katalog kampaně/legacy i tři chráněné generátory odpovídají výchozímu zdroji. Protokoly a reprodukce: docs/ui-review/2026-11-11-network-workshop/. EXE následuje až po ověření.
+
 ## Síťová dílna — první funkční etapa, 11. 11. 2026
 
 - Pavilon 05 je rozšířený severně o samostatnou dílnu s dveřmi a ovladači na obou stranách. Cesta: rozcestník → 05 → vzadu vpravo → servisní stůl. Učebna a dílna drží nezávislé dočasné relace během jedné návštěvy; opuštění pavilonu je ukončí a obnoví odloženou práci.

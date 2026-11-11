@@ -24,19 +24,23 @@ func setup(id: String):
 	lease_source = "dhcp"
 	measurements = {}
 	journal = []
+	var definitions: Dictionary = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/network_lab/workshop.json"))
+	var initial := {}
+	for task in definitions.tasks:
+		if task.id==id: initial = task.initial
+	if not initial.is_empty():
+		ports.clear()
+		for device in initial.ports: ports[device] = int(initial.ports[device])
+		vlans.clear()
+		for port in initial.vlans: vlans[int(port)] = int(initial.vlans[port])
+		dhcp_pool = initial.dhcp_pool
+		dns_record = initial.dns_record
+		dns_cache = initial.dns_cache
+		gateway_mac = initial.gateway_mac
+		tcp_enabled = initial.tcp_enabled
+		ap_position = initial.ap_position
 	renew()
-	match id:
-		"A": ports.pc04 = 8
-		"B","H": vlans[4] = 20
-		"C": dhcp_pool = false
-		"D":
-			gateway_mac = "02:00:00:00:10:11"
-			cache[IPS.router] = MACS.router
-		"E": dns_cache = "203.0.113.19"
-		"F": tcp_enabled = false
-		"G": ap_position = "front"
-	if id=="H": dns_record = "203.0.113.19"
-	if id in ["A","B","C","H"]: lease.clear()
+	if not initial.is_empty(): cache = initial.arp_cache.duplicate()
 	capture.clear()
 	last_path.clear()
 	last_message = "Vyber zařízení a proveď výchozí měření."

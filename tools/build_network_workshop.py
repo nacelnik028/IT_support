@@ -56,10 +56,25 @@ ROWS = [
 def catalogue():
     tasks = []
     for key, title, year, difficulty, service, ticket, cause, goals, before, actions, hint, review in ROWS:
+        initial = dict(scenario=key, seed=0, socket='Z04', patch='PP04',
+                       ports=dict(router=1, resolver=2, pc02=3, pc04=4, printer=7),
+                       vlans={str(port): (20 if port == 5 else 10) for port in range(1, 9)},
+                       dhcp_pool=True, dns_record='203.0.113.20', dns_cache='',
+                       gateway_mac='02:00:00:00:10:01', arp_cache={}, tcp_enabled=True,
+                       ap_position='center')
+        if key == 'A': initial['ports']['pc04'] = 8
+        if key in ['B', 'H']: initial['vlans']['4'] = 20
+        if key == 'C': initial['dhcp_pool'] = False
+        if key == 'D':
+            initial['gateway_mac'] = '02:00:00:00:10:11'
+            initial['arp_cache']['192.168.10.1'] = '02:00:00:00:10:01'
+        if key == 'E': initial['dns_cache'] = '203.0.113.19'
+        if key == 'F': initial['tcp_enabled'] = False
+        if key == 'G': initial['ap_position'] = 'front'
+        if key == 'H': initial['dns_record'] = '203.0.113.19'
         tasks.append(dict(id=key, title=title, year=year, difficulty=difficulty,
                           service=service, ticket=ticket, cause=cause,
-                          initial=dict(scenario=key, seed=0, socket='Z04', patch='PP04',
-                                       switch=8 if key == 'A' else 4),
+                          initial=initial,
                           actions=actions, goals=goals, before=before,
                           side_services=['PC 02', 'VLAN 20 na portu 05'],
                           hint=hint, review=review))

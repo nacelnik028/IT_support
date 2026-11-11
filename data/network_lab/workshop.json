@@ -15,7 +15,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 8
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 8,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "cable"
@@ -48,7 +71,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 20,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "vlan",
@@ -82,7 +128,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": false,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "pool",
@@ -117,7 +186,32 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:11",
+        "arp_cache": {
+          "192.168.10.1": "02:00:00:00:10:01"
+        },
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "arp"
@@ -152,7 +246,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "203.0.113.19",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "dns",
@@ -186,7 +303,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": false,
+        "ap_position": "center"
       },
       "actions": [
         "tcp",
@@ -224,7 +364,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.20",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "front"
       },
       "actions": [
         "ap"
@@ -258,7 +421,30 @@
         "seed": 0,
         "socket": "Z04",
         "patch": "PP04",
-        "switch": 4
+        "ports": {
+          "router": 1,
+          "resolver": 2,
+          "pc02": 3,
+          "pc04": 4,
+          "printer": 7
+        },
+        "vlans": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 20,
+          "5": 20,
+          "6": 10,
+          "7": 10,
+          "8": 10
+        },
+        "dhcp_pool": true,
+        "dns_record": "203.0.113.19",
+        "dns_cache": "",
+        "gateway_mac": "02:00:00:00:10:01",
+        "arp_cache": {},
+        "tcp_enabled": true,
+        "ap_position": "center"
       },
       "actions": [
         "vlan",

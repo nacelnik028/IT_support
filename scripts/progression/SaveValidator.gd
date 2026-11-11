@@ -75,6 +75,10 @@ func workshop_attempts(data) -> bool:
 			if not change is String or change.length()>256: return false
 		for key in record.causes:
 			if key not in ["vlan","dns","cable"] or not record.causes[key] is bool: return false
+		if record.has("evidence_summary"):
+			if not record.evidence_summary is Dictionary: return false
+			for key in record.evidence_summary:
+				if key not in ["dhcp","services","led_only"] or not record.evidence_summary[key] is bool: return false
 	return true
 
 func shifts(data) -> bool:

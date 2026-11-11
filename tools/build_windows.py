@@ -112,7 +112,7 @@ def main():
         for expected in ['menu=menu missions=65 lessons=21','training=true','programming=true tasks=60 lessons=28',
                          'python=true','web=true preview=true','programming_cancelled=true','return_main=true','programming_west=true',
                          'english=true scenarios=6 completed=6','english_cancelled=true',
-                         'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24',f'game_version={game_version}','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true','usability_menu=true','sidebar_preserved=true']:
+                         'hub=true neutral=true','quiz=true questions=20 score=100', 'shifts=true restored_shift=true','network=true','introduction=true','speech_clips=24',f'game_version={game_version}','work_roundtrip=true','score_v2=true','advanced=true','debrief=true','listening=true','knowledge=true','usability_menu=true','sidebar_preserved=true','workshop=true']:
             if expected not in output: raise RuntimeError('Missing export evidence: '+expected)
         if list(isolated.glob('*.pck')): raise RuntimeError('Unexpected external pack')
         staged=target.with_suffix('.exe.tmp'); shutil.copy2(result,staged); staged.replace(target)

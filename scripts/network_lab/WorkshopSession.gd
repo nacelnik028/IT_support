@@ -12,6 +12,7 @@ var selected := "pc04"
 var selected_port := 4
 var filter := "Vše"
 var selected_frame := -1
+var selected_history := -1
 var attempts: Array = []
 var undo_stack: Array = []
 var result := {}
@@ -21,6 +22,7 @@ var errors := 0
 var submitted := false
 var credited := false
 var causes := {}
+var evidence_summary := {}
 var demo := false
 var demo_step := 0
 var persist := Callable()
@@ -46,6 +48,7 @@ func start(id: String):
 	submitted = false
 	credited = false
 	causes = {}
+	evidence_summary = {}
 	demo = false
 	demo_step = 0
 
@@ -55,7 +58,7 @@ func cancel():
 
 func locked() -> bool: return submitted
 func model(): return example if demo else network
-func stale() -> bool: return not result.is_empty() and result.revision!=network.revision
+func stale() -> bool: return not result.is_empty() and (result.revision!=network.revision or result.get("causes",{})!=causes or result.get("evidence_summary",{})!=evidence_summary)
 
 func remember(state: Dictionary, title: String):
 	undo_stack.append({"state":state,"title":title})
@@ -64,7 +67,9 @@ func remember(state: Dictionary, title: String):
 func edit(kind: String, value = null):
 	if locked() or demo: return
 	var state: Dictionary = network.snapshot()
-	if network.edit(kind,value): remember(state,kind+" / "+str(value))
+	if network.edit(kind,value):
+		var titles := {"pool":"DHCP rozsah .20–.49 / "+("uvolněn" if value else "vyčerpán"),"dns":"Záznam A → "+str(value),"flush":"Obnova DNS cache PC 04","arp":"Smazání souseda 192.168.10.1","tcp":"Služba HTTPS / "+("spuštěna" if value else "zastavena"),"https_rule":"Pravidlo HTTPS / "+("povoleno" if value else "blokováno"),"management":"Správa / "+("povolena" if value else "blokována"),"ap":"AP / "+("středový úchyt" if str(value)=="center" else "přední úchyt"),"static":"PC 04 / pevná IPv4 adresa"}
+		remember(state,titles.get(kind,kind))
 
 func vlan(port: int, value: int):
 	if locked() or demo: return
@@ -79,7 +84,7 @@ func connect_port(port: int):
 	if locked() or demo: return
 	var state: Dictionary = network.snapshot()
 	network.connect_cable(port)
-	if state.revision!=network.revision: remember(state,"Přepojení "+str(state.cable)+" → SW %02d" % port)
+	if state.revision!=network.revision: remember(state,"Přepojení "+str(network.NAMES.get(state.cable,state.cable))+" → SW %02d" % port)
 
 func undo():
 	if locked() or demo or undo_stack.is_empty(): return
@@ -139,12 +144,20 @@ func assessment() -> Dictionary:
 	if task.id=="C" and (network.lease.get("mask")!="255.255.255.0" or network.lease.get("gateway")!=network.IPS.router or network.lease.get("dns")!=network.IPS.resolver): missing.append("Ověř úplnou IPv4 konfiguraci.")
 	if task.id=="F" and (network.rules.management or not network.rules.guest_isolated): missing.append("Zachovej pravidla správy a izolace.")
 	if task.id=="H" and (not causes.get("vlan",false) or not causes.get("dns",false) or causes.get("cable",false)): missing.append("Uzavři ticket výběrem obou příčin: VLAN a DNS.")
+	if task.id=="H" and (not evidence_summary.get("dhcp",false) or not evidence_summary.get("services",false) or evidence_summary.get("led_only",false)): missing.append("Vyber důkazy: úplný DHCP pronájem a HTTPS s tiskárnou i PC 02. Samotná LED nestačí.")
+	if task.id=="H":
+		var observed_dns := false
+		for proof in network.journal:
+			if proof.kind=="dns" and proof.detail.contains("cache 203.0.113.19") and proof.revision<network.revision: observed_dns = true
+		if not observed_dns: missing.append("Po zprovoznění sítě změř starou DNS odpověď před její opravou.")
 	return {"passed":missing.is_empty(),"missing":missing}
 
 func verify() -> Dictionary:
 	if task.is_empty() or demo or submitted: return result
 	result = assessment()
 	result.revision = network.revision
+	result.causes = causes.duplicate()
+	result.evidence_summary = evidence_summary.duplicate()
 	if not result.passed: errors += 1
 	result.score = maxi(0,100-10*errors-5*hints) if result.passed else 0
 	view = "review"
@@ -160,7 +173,7 @@ func submit() -> Dictionary:
 			var summary: Dictionary = entry.duplicate(true)
 			summary.erase("frames")
 			proof.append(summary)
-		var record := {"id":task.id,"mode":mode,"passed":result.passed,"score":result.score,"hints":hints,"errors":errors,"time":int(Time.get_unix_time_from_system()),"proof":proof,"causes":causes.duplicate(),"changes":[]}
+		var record := {"id":task.id,"mode":mode,"passed":result.passed,"score":result.score,"hints":hints,"errors":errors,"time":int(Time.get_unix_time_from_system()),"proof":proof,"causes":causes.duplicate(),"evidence_summary":evidence_summary.duplicate(),"changes":[]}
 		for change in undo_stack: record.changes.append(change.title)
 		attempts.append(record)
 		if attempts.size()>100: attempts.pop_front()
@@ -172,7 +185,17 @@ func submit() -> Dictionary:
 func review_text() -> String:
 	if result.is_empty(): return "Nejdřív ověř řešení; ve zkoušce odevzdej ticket."
 	if mode=="exam" and not submitted: return "Rozbor bude dostupný po odevzdání."
-	var lines: PackedStringArray = ["SYMPTOM / "+task.ticket,"DŮKAZ PŘED / "+str(before.ports)+" / DNS "+str(before.dns_record)+" / cache "+str(before.dns_cache),"PŘÍČINA / "+task.cause,"ZÁSAH / "+task.review,"NOVÉ MĚŘENÍ"]
+	var interventions: PackedStringArray = []
+	for change in undo_stack: interventions.append(change.title)
+	var initial = Model.new()
+	initial.restore(before)
+	var observations: PackedStringArray = [initial.overview(),initial.configuration()]
+	for key in task.before:
+		for proof in network.journal:
+			if proof.kind==key:
+				observations.append(proof.detail)
+				break
+	var lines: PackedStringArray = ["SYMPTOM / "+task.ticket,"DŮKAZ PŘED\n"+"\n".join(observations),"PŘÍČINA / "+task.cause,"ZÁSAH / "+"; ".join(interventions),"VYSVĚTLENÍ / "+task.review,"NOVÉ MĚŘENÍ"]
 	for key in network.measurements:
 		var entry: Dictionary = network.measurements[key]
 		lines.append(entry.detail+(" / ZASTARALÉ" if entry.revision!=network.revision else " / OK" if entry.passed else " / NESPLNĚNO"))

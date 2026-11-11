@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Fyzická chůze (5.7, 0.02, -30.2) → (7.72191, -0.009167, -30.59928) / 
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] walk_to (res://tests/network_lab.gd:105)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Chybí skutečné tlačítko H / Závěrečná servisní směna / 
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] button (res://tests/pause_repair.gd:35)
+       [2] run (res://tests/network_workshop.gd:360)
+       [3] aim_pc (res://tests/network_workshop.gd:35)
+       [4] aim_pc (res://tests/network_lab.gd:119)
+       [5] frames (res://tests/pause_repair.gd:30)
+SCRIPT ERROR: Invalid access to property or key 'id' on a base object of type 'Dictionary'.
+   at: run (res://tests/network_workshop.gd:361)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/network_workshop.gd:361)
+       [1] aim_pc (res://tests/network_workshop.gd:35)
+       [2] aim_pc (res://tests/network_lab.gd:119)
+       [3] frames (res://tests/pause_repair.gd:30)
