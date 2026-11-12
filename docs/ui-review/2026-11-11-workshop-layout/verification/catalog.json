@@ -1,0 +1,66 @@
+{
+  "data/missions/campaign.json": {
+    "same_bytes": false,
+    "sha256": "229e00072f78ef3cbfd78bcc4a826bf96371c110367af6cf7242569047135616",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "data/missions/legacy_campaign.json": {
+    "same_bytes": false,
+    "sha256": "4f9099a338a194b8a0fbaa348e5ddefe95a731076895e0ebb54d2e53226f1bb5",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "data/network_lab/catalog.json": {
+    "same_bytes": true,
+    "sha256": "43a9bc4e9b7f3aecff974c2bbaaef5b5cb2aa7928c73fda2da05c2088c8cc9f9",
+    "same_git_content": true,
+    "working_tree_crlf": false
+  },
+  "data/network_lab/workshop.json": {
+    "same_bytes": false,
+    "sha256": "8b3b5f70bb938ab325ab721f3326c03c834dcb8c17a04c5225d889af1ff16962",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "tools/build_content.py": {
+    "same_bytes": false,
+    "sha256": "474120fc9a82a53c45321d384c0133e79e988dda879a15878b4dca48c38941b7",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "tools/build_extension.py": {
+    "same_bytes": true,
+    "sha256": "e14c8388efa82a1127371f46c7d26f2539bacdcee316d958b1df54e11019e92c",
+    "same_git_content": true,
+    "working_tree_crlf": false
+  },
+  "tools/extension_catalog.py": {
+    "same_bytes": false,
+    "sha256": "b252ef9b44bb79b72a06beb0f6332600e703ce6a148e1584806a1aca7999e262",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "tools/build_network_workshop.py": {
+    "same_bytes": true,
+    "sha256": "b0d2c2eb39bed041f17358fb8fc3c05f10ee5109a302af715806f9447992aed2",
+    "same_git_content": true,
+    "working_tree_crlf": false
+  },
+  "scripts/network_lab/WorkshopNetwork.gd": {
+    "same_bytes": false,
+    "sha256": "4750d3b8ac7b3109f6e613dfbf2164ea37991cdfdf95d0f6cfcb03b6bb83c8c1",
+    "same_git_content": true,
+    "working_tree_crlf": true
+  },
+  "scripts/network_lab/LabNetwork.gd": {
+    "same_bytes": true,
+    "sha256": "43a6b0e427216b784fd82fd7e93b91de8e210a74e3d5ac6663da95a852fc90c0",
+    "same_git_content": true,
+    "working_tree_crlf": false
+  },
+  "counts": {
+    "tasks": 40,
+    "cards": 23
+  }
+}

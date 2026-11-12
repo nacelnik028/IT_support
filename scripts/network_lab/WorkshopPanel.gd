@@ -234,13 +234,17 @@ func device_summary(model) -> String:
 func workshop_measure():
 	var model = lab.model()
 	var wide: bool = not shell.vr_active and size.x/ui.display_settings.text_scale>=1400
-	var columns: Container = HBoxContainer.new() if wide else VBoxContainer.new()
+	var columns: Container
+	if wide: columns = HBoxContainer.new()
+	else: columns = VBoxContainer.new()
 	columns.add_theme_constant_override("separation",18)
 	content.add_child(columns)
 	var devices = ui.vbox(columns,8)
 	if wide: devices.custom_minimum_size.x = 280
 	devices.add_child(ui.label("Zařízení / linka a brána",18,ui.CYAN))
-	var choices: Container = HFlowContainer.new() if not wide else VBoxContainer.new()
+	var choices: Container
+	if wide: choices = VBoxContainer.new()
+	else: choices = HFlowContainer.new()
 	devices.add_child(choices)
 	for key in model.CLIENTS:
 		control(choices,model.NAMES[key],func(): lab.selected = key; draw(),lab.selected==key,"device:"+key)
@@ -385,10 +389,10 @@ func workshop_ticket():
 	if lab.task.id=="H" and not lab.submitted:
 		heading("Uzavření ticketu / vyber zjištěné příčiny")
 		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam"],["cable","Vadný kabel"]]:
-			control(content,("✓ " if lab.causes.get(pair[0],false) else "○ ")+pair[1],func(): lab.causes[pair[0]] = not lab.causes.get(pair[0],false); draw())
+			control(content,("✓ " if lab.causes.get(pair[0],false) else "○ ")+pair[1],func(): lab.causes[pair[0]] = not lab.causes.get(pair[0],false); draw(),false,"cause:"+pair[0])
 		heading("Důkazy o opravě / výběr musí odpovídat skutečnému měření")
 		for pair in [["dhcp","Úplný DHCP pronájem"],["services","HTTPS, tiskárna a PC 02"],["led_only","Stačí svítící LED"]]:
-			control(content,("✓ " if lab.evidence_summary.get(pair[0],false) else "○ ")+pair[1],func(): lab.evidence_summary[pair[0]] = not lab.evidence_summary.get(pair[0],false); draw())
+			control(content,("✓ " if lab.evidence_summary.get(pair[0],false) else "○ ")+pair[1],func(): lab.evidence_summary[pair[0]] = not lab.evidence_summary.get(pair[0],false); draw(),false,"evidence:"+pair[0])
 	measurement_overview()
 	control(content,"Změřit",navigate.bind("measure"))
 

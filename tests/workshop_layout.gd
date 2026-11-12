@@ -171,7 +171,7 @@ func geometry_checks():
 func room_shots():
 	shell.return_to_world()
 	var w = shell.world.network_room.workshop
-	for shot in [["door-approach",Vector3(7.1,0.02,-25.1),Vector3(7.9,2.3,-29)], ["topology-gsm",Vector3(5,0.02,-24.3),Vector3(6.6,2.3,-28.8)], ["door-open-control",Vector3(8,0.02,-27.0),Vector3(9.5,1.6,-29)], ["return-classroom",Vector3(7.8,0.02,-31.5),Vector3(8,2.1,-29)]]:
+	for shot in [["door-approach",Vector3(7.1,0.02,-25.1),Vector3(7.9,2.3,-29)], ["topology-gsm",Vector3(5,0.02,-24.3),Vector3(6.6,2.3,-28.8)], ["topology-full",Vector3(5.9,0.02,-23.3),Vector3(3.25,2.35,-28.72)], ["gsm-workplace",Vector3(7.0,0.02,-25.1),Vector3(9.45,1.35,-25.1)], ["door-open-control",Vector3(8,0.02,-27.0),Vector3(9.5,1.6,-29)], ["return-classroom",Vector3(7.8,0.02,-31.5),Vector3(8,2.1,-29)]]:
 		w.opened = shot[0] in ["door-open-control","return-classroom"]
 		shell.world.player.position = shot[1]
 		shell.world.player.camera.rotation = Vector3.ZERO
@@ -192,12 +192,17 @@ func layout_shots(baseline: bool):
 			shell.open_network_workshop("measure")
 			await frames()
 			if not baseline: await viewport_checks()
+			panel().scroll.scroll_vertical = 0
+			await frames()
 			await capture("diagnostics")
 			if baseline:
 				panel().scroll.scroll_vertical = 1000
 				await capture("repairs")
 			else:
 				await click(button("Opravy"))
+				await viewport_checks(false)
+				panel().scroll.scroll_vertical = 0
+				await frames()
 				await capture("repairs")
 			await room_shots()
 	await prepare_xr()
@@ -251,7 +256,7 @@ func scroll_page(hand: int = -1):
 	await frames()
 	check(panel().scroll.scroll_vertical>0,"Skutečné posouvání obsahu / paprsek "+str(hand))
 
-func viewport_checks():
+func viewport_checks(diagnostic := true):
 	var bounds: Rect2 = panel().get_global_rect()
 	var footer = panel().find_child("WorkFooter",true,false)
 	var tabs = panel().find_child("WorkTabs",true,false)
@@ -261,7 +266,14 @@ func viewport_checks():
 	for b in tabs.get_children(): check(b.global_position.y==first_y and bounds.encloses(b.get_global_rect()),"Pracovní záložka se vejde do jediného řádku / "+b.text)
 	for b in footer.find_children("*","Button",true,false): check(bounds.encloses(b.get_global_rect()),"Spodní tlačítko je celé dostupné / "+b.text)
 	var footer_y: float = footer.global_position.y
-	await scroll_page()
+	if diagnostic: await scroll_page()
+	else:
+		panel().scroll.scroll_vertical = 100000
+		await frames()
+		check(panel().scroll.get_global_rect().encloses(identified("attempt:reset").get_global_rect()),"Poslední akce Oprav je dostupná nad spodní lištou")
+	for b in panel().actions:
+		if panel().scroll.is_ancestor_of(b):
+			check(b.get_global_rect().position.x>=bounds.position.x and b.get_global_rect().end.x<=bounds.end.x,"Obsahové tlačítko není vodorovně oříznuté / "+b.text)
 	check(footer.global_position.y==footer_y and panel().scroll.get_global_rect().end.y<=footer_y,"Posouvání nezmění spodní lištu a obsah ji nepřekrývá")
 	var status = shell.status_label
 	check(shell.hud.get_global_rect().encloses(status.get_global_rect()),"Levý horní HUD je celý uvnitř podporovaného viewportu")
@@ -279,7 +291,9 @@ func run():
 	if not baseline:
 		await ui_checks()
 		await geometry_checks()
-	if DisplayServer.get_name()!="headless" or baseline: await layout_shots(baseline)
+	if DisplayServer.get_name()!="headless" or baseline:
+		shell.ui.game.network_lab.cancel()
+		await layout_shots(baseline)
 	shell.queue_free()
 	await frames()
 	print("WORKSHOP LAYOUT: %d checks, %d failures" % [checks,failures])

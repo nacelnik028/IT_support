@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Dílna — rozšířená kontrola a příprava exportu, 12. 11. 2026
+
+- Obě grafické matice prošly 454 kontrolami: šest PC kombinací, skutečný VR viewport, oba syntetické paprsky, posouvání a B/Y. Dodatečné kontroly celé šířky obsahu, konce Oprav a sjednocené záběry ještě rozšiřují konečný protokol. Fyzický headset zůstává neověřený.
+- Po přesunu celé GSM sestavy se původní VR test přemisťuje mezi skutečné aktuální pozice obou telefonů; dále vyžaduje zásah oběma paprsky, přesun SIM a výsledek pokusu. Neoslabuje dosah. Aktuální celý runner zatím potvrdil dílnu 492, nové rozložení 284, původní učebnu 855 a použitelnost 273 kontrolami.
+- Godot MCP potvrdil průchod portálem a dveřmi, ticket H a návrat do směny. Dvě nová typová varování panelu odstraněná bez potlačení, zbývá osm původních mimo nový panel. Editor při otevření odstranil výchozí XR klíče; původní project.godot je obnovený a nové testy běží nad ním.
+- Kampaň, legacy24, 40 úloh, 23 karet, osm ticketů, síťové modely a generátory odpovídají původnímu Git obsahu; rozdíly bajtů CRLF/LF jsou v protokolu rozlišené. Finální celý Test-All a nový přesný Windows export následují.
+
 ## Pracovní panel dílny a prostor dveří — funkční etapa, 11. 11. 2026
 
 - Pět pracovních záložek, samostatný výběr ticketů a historie, trvalá spodní lišta. Diagnostika obsahuje skupiny měření se skutečným zdrojem, cílem, aktuálností a rozbalovacími detaily; sedm skupin Oprav odděluje konfiguraci od diagnostiky. Kabeláž zachovává obsazené porty, reset vyžaduje potvrzení, undo pojmenovává zásah. Stav prezentace je lokální během návštěvy pavilonu, bez nové save větve.
