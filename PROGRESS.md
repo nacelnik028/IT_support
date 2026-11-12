@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Pracovní panel dílny a prostor dveří — funkční etapa, 11. 11. 2026
+
+- Pět pracovních záložek, samostatný výběr ticketů a historie, trvalá spodní lišta. Diagnostika obsahuje skupiny měření se skutečným zdrojem, cílem, aktuálností a rozbalovacími detaily; sedm skupin Oprav odděluje konfiguraci od diagnostiky. Kabeláž zachovává obsazené porty, reset vyžaduje potvrzení, undo pojmenovává zásah. Stav prezentace je lokální během návštěvy pavilonu, bez nové save větve.
+- Topologie je celá v samostatné menší tabuli s odstupem od zárubně. Celá GSM sestava včetně cílových objektů a kolizí je odsazená. Nová fyzikální kontrola celého pohybu našla původní kolizi křídla s vlastní zárubní; závěs je odsazený za obložku při zachování typu a ochrany zavírání. HUD na skutečných celých snímcích není oříznutý.
+- Dosud aktuálně prošlo 492 kontrol původní sady network_workshop a 284 nových kontrol workshop_layout bez grafiky: zdroje všech 11 měření, navigace bez zásahů, fokus/posun, návrat do 3D, potvrzení resetu, režimy včetně A–H ve volném tréninku, skutečné selhání zápisu/opakování, 90 fyzikálních kroků křídla, obousměrná chůze, ovladače a fyzická SIM/GSM handover. Save i obě nastavení jsou izolované.
+- Výchozí a první výsledné snímky prohlédnuté zejména v 720p/130 %. Rozšířená finální grafická matice, celý nově 55sadový Test-All a přesný nový Windows export následují. Zatím nejde o záznam dokončeného vydání. Původní katalogy a generátory beze změn; APK se nepřestavuje.
+
 ## Síťový pavilon a dílna dokončené — 11. 11. 2026
 
 - Cesta: rozcestník → severní 05 / Počítačové sítě → vzadu vpravo → dveře Tréninková dílna → servisní stůl. Hotové tickety A–H: linka, VLAN, DHCP, ARP, DNS cache, HTTPS, Wi-Fi a závěrečná dvojí závada. Výuka, Procvičování, Zkouška a Volný trénink mají vlastní pracovní relaci a samostatnou historii.

@@ -8,7 +8,7 @@ import tempfile
 
 from test_windows import ROOT, run, isolate_test
 
-OUT = ROOT / 'docs/ui-review/2026-11-11-network-workshop/verification/package'
+OUT = ROOT / 'docs/ui-review/2026-11-11-workshop-layout/verification/package'
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -31,9 +31,9 @@ def main():
             results[label] = run(command, tmp, OUT/f'{label}.log')
             output = (OUT/f'{label}.log').read_text(encoding='utf-8')
             results[label] &= 'workshop=true tickets=8' in output and 'shift_restored=true' in output
-        for name in ['pause_repair', 'network_lab', 'network_workshop', 'package_content']:
+        for name in ['pause_repair', 'network_lab', 'network_workshop', 'workshop_layout', 'package_content']:
             text = isolate_test((ROOT/f'tests/{name}.gd').read_text(encoding='utf-8'), 'workshop_pack')
-            for parent in ['pause_repair', 'network_lab']:
+            for parent in ['pause_repair', 'network_lab', 'network_workshop']:
                 text = text.replace(f'res://tests/{parent}.gd', (tmp/f'{parent}.gd').as_posix())
             text = text.replace('res://docs/ui-review/2026-11-11-network-workshop/after/', (OUT/'screenshots').as_posix()+'/')
             text = text.replace('res://docs/ui-review/', (OUT/'screenshots').as_posix()+'/')
@@ -41,11 +41,12 @@ def main():
             (tmp/f'{name}.gd').write_text(text, encoding='utf-8')
         (OUT/'screenshots').mkdir(exist_ok=True)
         for name, graphical in [('network_lab', False), ('network_workshop', False),
-                                ('network_workshop', True), ('package_content', False)]:
+                                ('network_workshop', True), ('workshop_layout', True), ('package_content', False)]:
             label = name+('-graphical' if graphical else '-headless')
             command = [engine, '--audio-driver', 'Dummy', '--main-pack', exe, '--script', tmp/f'{name}.gd']
             command += ['--rendering-method', 'gl_compatibility'] if graphical else ['--headless']
             command += ['--']
+            if name=='workshop_layout': command += ['--compact', '--screenshots']
             # The native EXE above supplies the exported review screenshot;
             # the complete source matrix is already retained without copies.
             if name=='package_content': command += [f'--reference={ROOT.as_posix()}', f'--inventory-out={OUT/"inventory.json"}']

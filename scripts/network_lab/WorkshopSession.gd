@@ -26,6 +26,9 @@ var evidence_summary := {}
 var demo := false
 var demo_step := 0
 var persist := Callable()
+# Local presentation state survives closing the panel during this visit only.
+var panel_state := {}
+var attempt_serial := 0
 
 func _init(): network.setup("")
 
@@ -35,6 +38,8 @@ func definition(id: String) -> Dictionary:
 	return {}
 
 func start(id: String):
+	attempt_serial += 1
+	panel_state.clear()
 	task = definition(id)
 	network.setup(id)
 	view = "ticket" if not task.is_empty() else "measure"

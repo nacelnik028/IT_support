@@ -333,7 +333,8 @@ func run():
 	check(lab.result.passed and lab.attempts.size()==6,"VR oprava funguje bez psaní")
 	await start_task("sim")
 	await click(button("Jít k telefonům A a B"),0)
-	check(rig.teleport_to(Vector3(6.7,0,-26.95)),"Teleport k mobilnímu modelu")
+	var phones: Vector3 = (shell.world.network_room.targets.sim_a.global_position+shell.world.network_room.targets.sim_b.global_position)*0.5
+	check(rig.teleport_to(Vector3(phones.x-1.8,0,phones.z)),"Teleport k aktuální poloze obou telefonů mobilního modelu")
 	await aim_xr("sim_a",1)
 	await aim_xr("sim_b",0)
 	check(model.sim_slot==1,"Fyzická SIM byla přemístěna oběma paprsky")

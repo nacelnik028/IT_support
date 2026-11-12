@@ -29,5 +29,5 @@ func _ready():
 	shell.open_network_workshop("review")
 	for frame in 20: await get_tree().process_frame
 	await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png("res://docs/ui-review/2026-11-11-network-workshop/after/mcp-workshop-review.png")
+	get_viewport().get_texture().get_image().save_png("res://docs/ui-review/2026-11-11-workshop-layout/after/mcp-workshop-review.png")
 	print("WORKSHOP MCP current-source H=",s.result.passed," isolated=true; physical portal, door and shift return checked")

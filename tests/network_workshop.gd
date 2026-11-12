@@ -279,6 +279,9 @@ func ui_all_tickets():
 		for key in s.task.before:
 			var names := {"link":"Změřit linku","dhcp":"Obnovit a změřit DHCP","gateway":"Změřit bránu","arp":"Porovnat ARP","dns":"Změřit DNS","tcp":"Změřit TCP 443","near":"Změřit W1","far":"Změřit W2"}
 			await click(button(names[key]))
+		await click(button("Opravy"))
+		var groups := {"A":"Kabeláž a porty","B":"VLAN","C":"DHCP a adresace","D":"ARP","E":"DNS","F":"HTTPS a pravidla","G":"Wi-Fi a poloha AP"}
+		await click(button(groups[id]))
 		match id:
 			"A":
 				await click(button("Konektor / PC 04"))
@@ -289,6 +292,7 @@ func ui_all_tickets():
 			"E": await click(button("Obnovit DNS cache"))
 			"F": await click(button("HTTPS / spustit službu"))
 			"G": await click(button("AP / středový úchyt"))
+		await click(button("Diagnostika"))
 		if s.network.lease.is_empty(): await click(button("Obnovit a změřit DHCP"))
 		var names := {"link":"Změřit linku","dhcp":"Obnovit a změřit DHCP","gateway":"Změřit bránu","arp":"Porovnat ARP","dns":"Změřit DNS","tcp":"Změřit TCP 443","near":"Změřit W1","far":"Změřit W2","https":"Otevřít HTTPS","control":"Změřit PC 02","printer":"Změřit tiskárnu"}
 		for key in s.task.goals: await click(button(names[key]))
@@ -353,7 +357,7 @@ func xr_workshop():
 		suffix = "vr-1600x1200-%d" % roundi(scale_value*100)
 		shell.open_network_workshop("measure")
 		check(shell.overlay.get_viewport()==rig.monitor.viewport and rig.monitor.viewport.size==Vector2i(1600,1200),"Skutečný VR viewport dílny")
-		await click(button("Aktuální ticket"),0)
+		await click(button("Ticket"),0)
 		await click(button("Diagnostika"),1)
 		await capture("workshop-vr-diagnostics",rig.monitor.viewport)
 		await click(button("Rozbor"),0)
@@ -393,7 +397,8 @@ func remaining_boundaries():
 	return state
 
 func run():
-	capture_directory = "res://docs/ui-review/2026-11-11-network-workshop/after/"
+	capture_directory = "res://docs/ui-review/2026-11-11-workshop-layout/after/integration/"
+	DirAccess.make_dir_recursive_absolute(capture_directory)
 	model_checks()
 	shell = load("res://scenes/world/Game.tscn").instantiate()
 	root.add_child(shell)
@@ -427,13 +432,19 @@ func run():
 	await click(button("Obnovit a změřit DHCP"))
 	await click(button("Změřit DNS"))
 	await capture("diagnostics-before")
+	await click(button("Opravy"))
+	await click(button("VLAN"))
 	await click(button("Port 04 → VLAN 10"))
+	await click(button("Diagnostika"))
 	await click(button("Obnovit a změřit DHCP"))
 	await click(button("Změřit DNS"))
+	await click(button("Opravy"))
+	await click(button("DNS"))
 	await click(button("DNS A / 203.0.113.20"))
 	await click(button("Obnovit DNS cache"))
+	await click(button("Diagnostika"))
 	for title in ["Obnovit a změřit DHCP","Změřit linku","Změřit DNS","Změřit TCP 443","Otevřít HTTPS","Změřit tiskárnu","Změřit PC 02"]: await click(button(title))
-	await click(button("Aktuální ticket"))
+	await click(button("Ticket"))
 	await click(button("○ Nesprávná VLAN"))
 	await click(button("○ Starý DNS záznam"))
 	await click(button("○ Úplný DHCP pronájem"))

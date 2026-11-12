@@ -149,28 +149,33 @@ func build_clients():
 		lab_sign(self,row[1],Vector3(-0.16,1.42,z),PI/2,0.003)
 
 func build_terminal():
-	var wall_board := Geo.box(self,Vector3(4,2.35,-28.72),Vector3(6.25,2.4,0.16),DARK)
-	Architecture.wall_mount(wall_board,6.25,2.4)
-	Geo.box(self,Vector3(4,3.28,-28.61),Vector3(5.84,0.026,0.04),ACCENT,0,0.7)
-	lab_sign(self,"SÍŤOVÁ TOPOLOGIE / ŽIVÝ STAV",Vector3(4,3.12,-28.58),0.0,0.0048)
+	# One local assembly keeps every glyph, line and endpoint within the board.
+	var topology := Node3D.new()
+	topology.name = "TopologyBoard"
+	topology.position = Vector3(3.25,2.35,-28.72)
+	add_child(topology)
+	var wall_board := Geo.box(topology,Vector3.ZERO,Vector3(5.8,2.4,0.16),DARK)
+	Architecture.wall_mount(wall_board,5.8,2.4)
+	Geo.box(topology,Vector3(0,0.93,0.11),Vector3(5.4,0.026,0.04),ACCENT,0,0.7)
+	lab_sign(topology,"SÍŤOVÁ TOPOLOGIE / ŽIVÝ STAV",Vector3(0,0.77,0.14),0.0,0.0044)
 	var rows := ["pc04","pc02","printer","router","resolver"]
 	for index in rows.size():
 		var device: String = rows[index]
-		var y := 2.82-index*0.25
-		var nameplate := Geo.box(self,Vector3(2.01,y,-28.57),Vector3(1.70,0.20,0.021),Color("284b5b"))
-		lab_sign(nameplate,Network.NAMES[device],Vector3(0,0,0.022),0.0,0.00325)
-		board_ports[device] = lab_sign(self,"",Vector3(3.6,y,-28.53),0.0,0.00285)
-		var start := Vector3(4.37,y,-28.54)
-		var end := Vector3(5.68,2.32,-28.54)
-		var beam := Geo.box(self,(start+end)*0.5,Vector3(start.distance_to(end),0.018,0.022),ACCENT,0,0.6)
+		var y := 0.47-index*0.25
+		var nameplate := Geo.box(topology,Vector3(-1.88,y,0.15),Vector3(1.46,0.20,0.021),Color("284b5b"))
+		lab_sign(nameplate,Network.NAMES[device],Vector3(0,0,0.022),0.0,0.003)
+		board_ports[device] = lab_sign(topology,"",Vector3(-0.35,y,0.19),0.0,0.0027)
+		var start := Vector3(0.43,y,0.18)
+		var end := Vector3(1.48,-0.03,0.18)
+		var beam := Geo.box(topology,(start+end)*0.5,Vector3(start.distance_to(end),0.018,0.022),ACCENT,0,0.6)
 		beam.rotation.z = atan2(end.y-start.y,end.x-start.x)
 		beam.set_meta("dynamic",true)
 		board_links[device] = beam
-	var icon := Geo.bevel(self,Vector3(6.19,2.32,-28.53),Vector3(1.08,0.65,0.10),Color("305464"))
+	var icon := Geo.bevel(topology,Vector3(2,-0.03,0.19),Vector3(1.08,0.65,0.10),Color("305464"))
 	lab_sign(icon,"SWITCH",Vector3(0,0.09,0.06),0.0,0.0036)
 	lab_sign(icon,"VLAN 10 / 20",Vector3(0,-0.11,0.06),0.0,0.00245)
-	flow = lab_sign(self,"",Vector3(4,1.55,-28.58),0.0,0.00285)
-	var terminal = item("terminal","Terminál · úlohy, konfigurace a analyzátor",Vector3(4,1.42,-26.65),Vector3(2.0,0.61,0.18))
+	flow = lab_sign(topology,"",Vector3(0,-0.89,0.14),0.0,0.0025)
+	var terminal = item("terminal","Terminál · úlohy, konfigurace a analyzátor",Vector3(3.25,1.42,-26.65),Vector3(2.0,0.61,0.18))
 	Architecture.board_stand(terminal,2.0)
 	lab_sign(terminal.visual,"TERMINÁL / 05\nÚlohy · měření · zachycený provoz",Vector3(0,0,0.11),0.0,0.0028)
 
@@ -186,6 +191,7 @@ func build_demo():
 	Geo.bevel(self,Vector3(9.66,1.02,-19.24),Vector3(0.26,0.20,0.32),STEEL)
 	Geo.bevel(self,Vector3(9.67,1.145,-19.24),Vector3(0.22,0.07,0.30),Color("d5c4a1"))
 	lab_sign(self,"VEDENÍ → SPLITTER\nDSL MODEM / TELEFON\nWLAN · Ucebna",Vector3(10.84,1.97,-20.8),-PI/2,0.0038)
+	var gsm_before := get_children()
 	table(Vector3(9.1,0,-25.7),Vector2(1.7,4.25))
 	var model := Node3D.new()
 	model.position = Vector3(9.0,0.9,-25.7)
@@ -219,6 +225,13 @@ func build_demo():
 		sim_tokens.append(token)
 		labels[body.console] = lab_sign(body.visual,"",Vector3(0,-0.237,0.08),0.0,0.002)
 
+	var gsm_station := Node3D.new()
+	gsm_station.name = "GSMStation"
+	add_child(gsm_station)
+	for child in get_children():
+		if child!=gsm_station and child not in gsm_before: child.reparent(gsm_station)
+	gsm_station.position = Vector3(0.35,0,0.6)
+
 func sync():
 	if world.game==null: return
 	workshop.sync(world.game.network_workshop.model())
@@ -250,6 +263,8 @@ func sync():
 	var path: PackedStringArray = []
 	for node in observed_path: path.append(Network.NAMES.get(node,"SWITCH"))
 	flow.text = (("VYBRANÝ RÁMEC  /  " if lab.view=="capture" and lab.selected_capture>=0 else "POSLEDNÍ RÁMEC  /  ")+path[0]+" → SWITCH  /  "+(" · ".join(path.slice(2)) if path.size()==3 else "%d výstupů" % (path.size()-2))) if path.size()>=2 else "Switch čeká na první rámec"
+	flow.width = 2050
+	flow.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	for phone in [0,1]:
 		sim_tokens[phone].visible = model.sim_slot==phone
 		labels["sim_a" if phone==0 else "sim_b"].text = "SIM VLOŽENA" if model.sim_slot==phone else "BEZ SIM"

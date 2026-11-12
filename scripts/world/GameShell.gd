@@ -583,7 +583,7 @@ func interact_network_workshop(id: String):
 			return
 	if id.begins_with("screen_"): lab.selected = id.trim_prefix("screen_")
 	if id in ["near","far"] and not lab.task.is_empty(): lab.measure(id)
-	open_network_workshop("home" if id=="desk" else "measure")
+	open_network_workshop("home" if id=="desk" else "repair" if id.is_valid_int() or id=="ap" else "measure")
 
 func open_network_workshop(page: String = ""):
 	if not ui.game.game_mode.is_network_lab(): return

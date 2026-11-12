@@ -61,7 +61,9 @@ func build(owner_room):
 		room.lab_sign(control.visual,"DVEŘE",Vector3(0,0,0.065),0,0.0018)
 	hinge = Node3D.new()
 	hinge.set_meta("dynamic",true)
-	hinge.position = Vector3(9.16,0,-29)
+	# Mount the pivot behind the stepped jamb: a thick leaf rotating at the
+	# partition centre intersected its own frame throughout most of the sweep.
+	hinge.position = Vector3(9.16,0,-29.43)
 	add_child(hinge)
 	door = AnimatableBody3D.new()
 	door.sync_to_physics = false

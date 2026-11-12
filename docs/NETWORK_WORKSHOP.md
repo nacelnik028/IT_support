@@ -13,7 +13,7 @@ zůstávají společné pro celý pavilon.
    komentovaná ukázka používá vlastní kopii sítě.
 2. Změř výchozí stav. Zásuvky Z04/Z02/Z07 mají pevné trasy k PP04/PP02/PP07.
    Vyber konektor na PC, zásuvce nebo patch panelu a potom konkrétní port switche.
-   Stejné akce jsou v Diagnostice jako přesná očíslovaná tlačítka. Opakovaný výběr
+   Stejné akce jsou v záložce **Opravy → Kabeláž a porty** jako přesná očíslovaná tlačítka. Opakovaný výběr
    konektor odloží; obsazený port zachová dosavadní zapojení a vysvětlí odmítnutí.
 3. Oprav konfiguraci nebo přepojení. Panel vždy ukazuje zařízení, stav,
    konfiguraci, zdroj a cíl měření. Linka a brána mohou měřit zvolené zařízení;
@@ -29,6 +29,42 @@ zůstávají společné pro celý pavilon.
 PC používá stávající přemapovatelnou interakci, myš, Tab/šipky/Enter a Esc.
 VR používá teleport, oba paprsky, trigger a B/Y. Otevřený panel zastaví pohyb.
 Povinné hodnoty mají tlačítka a předvolby, není potřeba psát.
+
+## Pracovní panel
+
+Hlavička uvádí ticket, režim a skutečný stav pokusu. Pět pracovních záložek je
+v jednom řádku: **Ticket, Diagnostika, Opravy, Analyzátor, Rozbor**. Samostatný
+**Výběr ticketů** a **Historie** slouží k prohlížení; až výslovné spuštění ticketu
+zahájí nový pokus. Přepnutí režimu v seznamu vybírá režim příštího pokusu.
+
+Diagnostika odděluje výběr zařízení od nástrojů. Na širším desktopu jsou vedle
+sebe, při větším textu a ve VR pod sebou. Připojení, Adresace, Služby, Kontrolní
+měření a Wi-Fi uvádějí zdroj a cíl jednotlivých operací. Obnova DHCP opravdu
+obnoví pronájem. Výsledek rozlišuje **— Nezměřeno**, **✓ Úspěšné**, **× Neúspěšné**
+a **! Zastaralé**; neúspěšné měření je stále platný důkaz závady, nikoli známka
+za ticket. Starší výsledek uvádí původní zdroj i po výběru jiného zařízení.
+Technické detaily každého výsledku a celé zapojení se rozbalují na vyžádání.
+
+Opravy zobrazují jednu ze sedmi skupin. Kabeláž ukazuje držený konektor,
+skutečnou trasu, zvolený port, obsazenost a VLAN. Konfigurační skupiny zobrazují
+současný stav odděleně od změnových akcí. Nic nevybírá správné řešení automaticky.
+**Vrátit poslední zásah** uvádí název vracené změny. **Obnovit výchozí stav pokusu**
+vyžaduje samostatné potvrzení; odmítnutí zachová celou rozpracovanou práci.
+
+Spodní lišta s ověřením, odevzdáním, návratem do 3D a případnou chybou ukládání
+zůstává mimo posouvaný obsah. Ve Zkoušce se ověřování a nápověda nenabízejí,
+ve Volném tréninku se neodevzdává do hodnocené historie. Odevzdaný pokus zůstává
+uzavřený. Opakování skutečně neúspěšného zápisu uloží tentýž výsledek jednou.
+
+Přepínání stránek a návrat do 3D drží zařízení, port, konektor, filtr, vybraný
+rámec a rozbalené detaily během návštěvy pavilonu. Posun a fokus se obnovují
+podle stabilní identity ovládání. Tab, šipky a Enter doplňují myš; VR používá
+oba paprsky, trigger, posouvání pravou páčkou a návrat B/Y.
+
+Tabule topologie má samostatnou sestavu včetně popisků a spojnic a odstup od
+zárubně. GSM stůl, model BTS, telefony, fyzická SIM, popisky, cíle a kolize jsou
+odsazené společně. Závěs stávajícího křídla je za obložkou, takže její pohyb
+neprotíná rám; zavírání nadále čeká při obsazení celé dráhy hráčem.
 
 ## Tickety
 
@@ -82,4 +118,4 @@ provoz ani spouštění příkazů operačního systému.
 
 Katalog vytváří `tools/build_network_workshop.py`. Původní katalog 40 úloh,
 23 karet, prvních 24 misí, legacy katalog a jejich generátory jsou zachované.
-Ověření je v [protokolu a snímcích](ui-review/2026-11-11-network-workshop/README.md).
+Ověření je v [protokolu a snímcích](ui-review/2026-11-11-workshop-layout/README.md).
