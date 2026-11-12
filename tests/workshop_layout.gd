@@ -125,6 +125,18 @@ func ui_checks():
 	Saves.path_override = save_path
 	await click(identified("save:retry"))
 	check(not shell.ui.game.unsaved and s.attempts.size()==count+1,"Opakování zápisu přes UI neduplikuje výsledek")
+	s.mode = "free"
+	s.start("")
+	var route_state: Dictionary = s.network.snapshot()
+	shell.return_to_world()
+	shell.interact_network_workshop("ap")
+	await frames()
+	check(panel().repair_group=="wifi" and panel().scroll.scroll_vertical==0 and button("AP / středový úchyt")!=null,"Oslovení fyzického AP směruje na začátek jeho skupiny Oprav")
+	shell.return_to_world()
+	shell.interact_network_workshop("6")
+	await frames()
+	check(s.selected_port==6 and panel().repair_group=="vlan" and panel().scroll.scroll_vertical==0 and button("Port 06 → VLAN 20")!=null,"Oslovení konkrétního portu bez kabelu otevře jeho nastavení VLAN")
+	check(s.network.snapshot()==route_state,"Kontextové otevření AP a portu samo neprovede zásah")
 
 func geometry_checks():
 	var room = shell.world.network_room

@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Dílna — kontext AP a portu po návratu ze 3D, 12. 11. 2026
+
+- Fyzický AP otevře vlastní skupinu Wi-Fi, port bez drženého kabelu nastavení VLAN přesně zvoleného portu. Nový kontext se nastaví až po uložení stavu opouštěného panelu; starý skrytý panel jej tedy nepřepíše. Přesný model zůstává beze změn, nový kontext začíná nahoře.
+- S ochrannou oblastí nové špičky a celým rozhraním analyzátoru prošlo 293 cílených kontrol bez grafiky. Celá regrese již dokončila 53/55 sad bez chyb; finální export následuje po dokončení zbývající výuky a nastavení.
+
 ## Dílna — úplná ochrana odsazeného křídla, 12. 11. 2026
 
 - Po odsazení závěsu zahrnuje ochrana zavírání také novou vzdálenou špičku křídla a poloměr hráče, do z = −32,1. Přidaný skutečný fyzikální průchod u této krajní části prošel s celou sadou dílny: 493 kontrol bez chyb a varování. Typ, kolize i oba ovladače zůstávají.

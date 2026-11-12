@@ -46,7 +46,8 @@ za ticket. Starší výsledek uvádí původní zdroj i po výběru jiného zař
 Technické detaily každého výsledku a celé zapojení se rozbalují na vyžádání.
 
 Opravy zobrazují jednu ze sedmi skupin. Kabeláž ukazuje držený konektor,
-skutečnou trasu, zvolený port, obsazenost a VLAN. Konfigurační skupiny zobrazují
+skutečnou trasu, zvolený port, obsazenost a VLAN. Oslovení portu ve 3D bez drženého konektoru otevře jeho VLAN; AP otevře skupinu
+Wi-Fi. Konfigurační skupiny zobrazují
 současný stav odděleně od změnových akcí. Nic nevybírá správné řešení automaticky.
 **Vrátit poslední zásah** uvádí název vracené změny. **Obnovit výchozí stav pokusu**
 vyžaduje samostatné potvrzení; odmítnutí zachová celou rozpracovanou práci.

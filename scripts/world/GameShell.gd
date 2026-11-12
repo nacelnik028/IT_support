@@ -583,14 +583,20 @@ func interact_network_workshop(id: String):
 			return
 	if id.begins_with("screen_"): lab.selected = id.trim_prefix("screen_")
 	if id in ["near","far"] and not lab.task.is_empty(): lab.measure(id)
-	open_network_workshop("home" if id=="desk" else "repair" if id.is_valid_int() or id=="ap" else "measure")
+	var repair_group := "vlan" if id.is_valid_int() else "wifi" if id=="ap" else ""
+	open_network_workshop("home" if id=="desk" else "repair" if repair_group!="" else "measure",repair_group)
 
-func open_network_workshop(page: String = ""):
+func open_network_workshop(page: String = "", repair_group: String = ""):
 	if not ui.game.game_mode.is_network_lab(): return
 	if page!="": ui.game.network_workshop.view = page
 	for child in overlay.get_children():
 		overlay.remove_child(child)
 		child.queue_free()
+	# The previous panel first stores its state on exit; explicit 3D context
+	# then chooses the new repair group without changing the network.
+	if repair_group!="":
+		ui.game.network_workshop.panel_state["group"] = repair_group
+		ui.game.network_workshop.panel_state.get("positions",{}).erase("repair")
 	var panel_node = preload("res://scripts/network_lab/WorkshopPanel.gd").new()
 	panel_node.shell = self
 	set_mode("network_lab")
