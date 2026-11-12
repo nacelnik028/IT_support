@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Chybí skutečné tlačítko Změřit / 
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] button (res://tests/pause_repair.gd:35)
+       [2] ui_all_tickets (res://tests/network_workshop.gd:282)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Chybí skutečné tlačítko Změřit linku / 
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] button (res://tests/pause_repair.gd:35)
+       [2] ui_all_tickets (res://tests/network_workshop.gd:285)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+NETWORK WORKSHOP: 491 checks, 2 failures

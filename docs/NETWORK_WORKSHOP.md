@@ -86,8 +86,23 @@ neprotíná rám; zavírání nadále čeká při obsazení celé dráhy hráče
 - **H / Závěrečná směna**: nesprávná VLAN a starý DNS záznam; oprava celé
   cesty, DHCP, DNS, TCP/HTTPS, měření tiskárny a PC 02 a výběr obou příčin.
 
-Každý ticket má jednu opakovatelnou výchozí variantu, seed 0. Alternativní porty
-se hodnotí podle skutečného stavu. Náhodné kosmetické varianty se negenerují.
+Výběr nabízí **Základní zadání** (původní seed 0) a **Obměněné zadání**.
+Spuštění obměny jednou vylosuje seed; generátor verze 1 vybírá jednu ze tří
+ověřených obměn každého ticketu podle `(seed - 1) % 3`. Nejde o neomezený počet
+různých závad. Opětovné otevření panelu, měření a 3D stav nemění.
+**Detail varianty** uvádí seed a verzi. Historie uchovává tuto identitu a nabízí
+**Zopakovat tuto variantu**. Staré záznamy bez identity ji nedostávají zpětně.
+Reset obnoví stejnou variantu; nový pokus výslovně zahodí rozpracovaný ticket
+po potvrzení. Undo vrací konfiguraci a zneplatňuje důkazy, nemění variantu.
+Ukázka má odpovídající vlastní síť. Ve Zkoušce je historie s řešením uzavřená.
+
+Obměny mění dostupné porty a zapojení, VLAN konkrétní trasy, vyčerpaný DHCP
+rozsah včetně skutečně nabídnuté adresy, starou/aktuální MAC brány, DNS cache
+versus záznam, službu versus pravidlo 443 a polohu AP ve fyzickém prostoru.
+H kombinuje VLAN+DNS, nedostupný port+cache nebo VLAN+pravidlo HTTPS. Nabídka
+příčin je pro všechny varianty stejná; nic předem nevybírá řešení.
+Vyhodnocení chrání PC 02, tiskárnu, správu a hostovskou VLAN 20 a přijímá
+alternativní dostupný port či opravu VLAN podle skutečného výsledného stavu.
 
 ## Relace a ukládání
 

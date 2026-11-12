@@ -1,5 +1,6 @@
 """Deterministic standalone workshop catalogue; legacy/classroom data stay intact."""
 import json
+from copy import deepcopy
 from pathlib import Path
 
 ROWS = [
@@ -78,7 +79,88 @@ def catalogue():
                           actions=actions, goals=goals, before=before,
                           side_services=['PC 02', 'VLAN 20 na portu 05'],
                           hint=hint, review=review))
-    return dict(version=1, offline=True, tasks=tasks)
+    for task in tasks:
+        task['variants'] = [variation(task, index) for index in range(1, 4)]
+    return dict(version=2, generator_version=1, offline=True, tasks=tasks)
+
+def variation(base, index):
+    """Three bounded, solvable incidents per ticket. Seed zero stays untouched."""
+    task = deepcopy(base)
+    initial = task['initial']
+    key = task['id']
+    initial.update(bad_ports=[8], pool_start=20, pool_end=49, offer=23,
+                   old_dns='203.0.113.19', rules=dict(https=True, management=False, guest_isolated=True))
+    task['required_causes'] = ['vlan', 'dns'] if key == 'H' else []
+    task['observe_old_dns'] = key == 'H'
+    if key == 'A':
+        port = [4, 6, 8][index-1]
+        initial['ports']['pc04'] = port
+        initial['bad_ports'] = [port]
+        if index == 3:
+            initial['ports']['pc04'] = 0  # disconnected patch lead
+            initial['bad_ports'] = [6]
+        task['cause'] = 'Nedokončená trasa PP04.' if index == 3 else f'PC 04 je připojené na nedostupný port {port:02d}.'
+        task['review'] = 'Dohledání trasy a přepojení na volný dostupný port VLAN 10 obnoví linku; poté obnov pronájem.'
+    if key in ['B', 'H']:
+        port = [6, 8, 4][index-1]
+        initial['ports']['pc04'] = port
+        initial['bad_ports'] = [4] if port == 8 else [8]
+        initial['vlans']['4'] = 10
+        initial['vlans'][str(port)] = 20
+        task['cause'] = f'Klientský port {port:02d} je ve VLAN 20.'
+    if key == 'C':
+        start = [60, 100, 150][index-1]
+        initial.update(pool_start=start, pool_end=start+19, offer=start+3)
+        task['cause'] = f'Rozsah .{start}–.{start+19} je vyčerpaný.'
+        task['review'] = 'Uvolni skutečný rozsah uvedený v konfiguraci a obnov dynamický pronájem; zkontroluj všechny IPv4 parametry.'
+    if key == 'D':
+        initial['gateway_mac'] = f'02:00:00:00:10:{index+20:02x}'
+        initial['arp_cache']['192.168.10.1'] = f'02:00:00:00:10:{index+10:02x}'
+        task['cause'] = 'Cache obsahuje '+initial['arp_cache']['192.168.10.1']+', štítek brány uvádí '+initial['gateway_mac']+'.'
+    if key in ['E', 'H']:
+        old = f'203.0.113.{[18, 21, 30][index-1]}'
+        initial['old_dns'] = old
+        initial['dns_cache'] = old
+        if key == 'E':
+            initial['dns_record'] = '203.0.113.20' if index == 1 else old
+            if index == 3: initial['dns_cache'] = ''
+            task['cause'] = 'Cache a autoritativní odpověď nejsou shodné s aktuální službou. Výchozí odpověď: '+old+'.'
+            task['review'] = 'Porovnej záznam a cache; oprav jen chybnou vrstvu a zopakuj DNS i HTTPS.'
+        else:
+            initial['dns_record'] = old
+            task['cause'] += ' DNS vrací '+old+'.'
+    if key == 'F':
+        initial['tcp_enabled'] = index == 1
+        initial['rules']['https'] = index == 3
+        # Variant 1 moves the client to a different working cable route.
+        if index == 3: initial['dns_cache'] = '203.0.113.19'
+        task['cause'] = ['Pravidlo blokuje TCP 443.', 'Služba stojí a pravidlo blokuje TCP 443.', 'Služba stojí a klient má starou DNS cache.'][index-1]
+        task['review'] = 'Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.'
+    if key == 'G':
+        initial['ap_position'] = ['rear', 'corner', 'side'][index-1]
+        task['cause'] = 'Nevhodné umístění AP: '+initial['ap_position']+'. Porovnej obě skutečná měřicí místa.'
+        task['review'] = 'Středový úchyt pokrývá W1 i W2; ověř signál, DHCP a službu v obou místech.'
+    if key == 'H' and index == 2:
+        initial['vlans'][str(initial['ports']['pc04'])] = 10
+        initial['bad_ports'] = [initial['ports']['pc04']]
+        initial['dns_record'] = '203.0.113.20'
+        task['required_causes'] = ['cable', 'dns']
+        task['cause'] = 'Nedostupný klientský port a stará DNS cache.'
+    if key == 'H' and index == 3:
+        initial['dns_record'] = '203.0.113.20'
+        initial['dns_cache'] = ''
+        initial['rules']['https'] = False
+        task['required_causes'] = ['vlan', 'https']
+        task['observe_old_dns'] = False
+        task['cause'] += ' Pravidlo blokuje HTTPS; DNS je aktuální.'
+    task['ticket'] = {'A':'Po údržbě nejde na PC 04 připojení.', 'B':'Po přesunu PC 04 nefungují síťové služby.',
+                      'C':'PC 04 po změně adresního rozsahu nefunguje.', 'D':'Mohu tisknout, ale vzdálená služba se neotevře.',
+                      'E':'Přihlášení funguje, firemní portál se neotevře.', 'F':'Firemní portál neodpovídá.',
+                      'G':'Při pohybu po dílně mi vypadává Wi-Fi.', 'H':'Po údržbě pracoviště nefungují některé služby.'}[key]
+    if key == 'D': task['ticket'] += ' Správce poskytl štítek brány: '+initial['gateway_mac']+'.'
+    task['hint'] = 'Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.'
+    initial['seed'] = index
+    return task
 
 if __name__ == '__main__':
     target = Path(__file__).resolve().parents[1] / 'data/network_lab/workshop.json'

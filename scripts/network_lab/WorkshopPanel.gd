@@ -8,6 +8,8 @@ const PROBES = [
 	["Wi-Fi",[["near","Změřit W1"],["far","Změřit W2"]]]]
 const GROUPS = {"cable":"Kabeláž a porty","vlan":"VLAN","dhcp":"DHCP a adresace","arp":"ARP","dns":"DNS","https":"HTTPS a pravidla","wifi":"Wi-Fi a poloha AP"}
 var menu_mode := "practice"
+var menu_variant := false
+var start_pending := ""
 var repair_group := "cable"
 var expanded := {}
 var positions := {}
@@ -315,7 +317,7 @@ func workshop_repairs():
 				var vlans := row()
 				for value in [10,20]: control(vlans,"Port %02d → VLAN %d" % [lab.selected_port,value],operate.bind(lab.vlan.bind(lab.selected_port,value)),false,"vlan:"+str(value))
 		"dhcp":
-			paragraph("Rozsah .20–.49: "+("volné adresy" if model.dhcp_pool else "vyčerpán")+". PC 04: "+str(model.lease)+" / zdroj "+model.lease_source)
+			paragraph("Rozsah "+model.pool_label()+": "+("volné adresy" if model.dhcp_pool else "vyčerpán")+". PC 04: "+str(model.lease)+" / zdroj "+model.lease_source)
 			edit_controls([["pool",true,"DHCP / uvolnit rozsah"],["pool",false,"DHCP / vyčerpat rozsah"],["static",null,"PC 04 / pevná adresa"]])
 		"arp":
 			paragraph("PC 04 / ARP cache: "+str(model.cache)+". Štítek brány: "+model.gateway_mac)
@@ -338,7 +340,7 @@ func workshop_repairs():
 	if reset_pending:
 		paragraph("Obnovit výchozí stav? Rozpracované změny tohoto pokusu zmizí.")
 		var confirm := row()
-		control(confirm,"Potvrdit obnovení pokusu",func(): lab.start(str(lab.task.get("id",""))); expanded.clear(); positions.clear(); reset_pending = false; draw(false),false,"attempt:confirm-reset")
+		control(confirm,"Potvrdit obnovení pokusu",func(): lab.reset_attempt(); expanded.clear(); positions.clear(); reset_pending = false; draw(false),false,"attempt:confirm-reset")
 		control(confirm,"Zachovat rozpracovaný pokus",func(): reset_pending = false; draw())
 
 func edit_controls(changes: Array):
@@ -360,11 +362,21 @@ func workshop_home():
 	var modes := row()
 	for key in lab.MODES:
 		control(modes,lab.MODES[key],func(): menu_mode = key; draw(),menu_mode==key)
+	var variants := row()
+	control(variants,"Základní zadání",func(): menu_variant = false; draw(),not menu_variant)
+	control(variants,"Obměněné zadání",func(): menu_variant = true; draw(),menu_variant)
+	if start_pending!="":
+		paragraph("Nový pokus ukončí současný dočasný ticket. Změny se zahodí.")
+		control(content,"Potvrdit nový pokus",func(): begin_ticket(start_pending); draw(false))
+		control(content,"Zachovat současný pokus",func(): start_pending = ""; draw())
 	if menu_mode=="free":
 		control(content,"Otevřít funkční výchozí síť",func(): lab.mode = "free"; lab.start(""); draw(false))
 	for task in lab.catalog.tasks:
 		paragraph("%s / %d. ročník / %s / %s" % [task.id,task.year,task.difficulty,task.service])
-		control(content,task.id+" / "+task.title,func(): lab.mode = menu_mode; lab.start(task.id); draw(false))
+		control(content,task.id+" / "+task.title,func():
+			if not lab.task.is_empty() and not lab.submitted: start_pending = task.id
+			else: begin_ticket(task.id)
+			draw(false))
 
 func workshop_ticket():
 	if lab.task.is_empty():
@@ -372,6 +384,8 @@ func workshop_ticket():
 		return
 	heading("Ticket %s / %d. ročník / %s" % [lab.task.id,lab.task.year,lab.task.difficulty])
 	paragraph(lab.task.ticket)
+	paragraph("Základní zadání" if lab.variant_seed==0 else "Obměněné zadání / stejné po celou dobu pokusu")
+	fold(content,"variant","Detail varianty", "Seed %d / generátor %d" % [lab.variant_seed,lab.generator_version])
 	paragraph("Požadovaná služba: "+lab.task.service+". Důkazy: "+", ".join(lab.task.goals)+". PC 02 a VLAN 20 musí zůstat funkční a oddělené.")
 	if lab.mode=="learn":
 		paragraph("1. Změř výchozí stav: "+", ".join(lab.task.before)+". 2. Dohledávej cestu od zásuvky přes patch ke switchi. 3. Po zásahu změř všechny požadované služby. Kroky potvrzuje skutečné měření.")
@@ -388,7 +402,7 @@ func workshop_ticket():
 		if lab.hints: paragraph(lab.task.hint)
 	if lab.task.id=="H" and not lab.submitted:
 		heading("Uzavření ticketu / vyber zjištěné příčiny")
-		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam"],["cable","Vadný kabel"]]:
+		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam"],["cable","Vadný kabel"],["https","Nedostupná služba HTTPS"]]:
 			control(content,("✓ " if lab.causes.get(pair[0],false) else "○ ")+pair[1],func(): lab.causes[pair[0]] = not lab.causes.get(pair[0],false); draw(),false,"cause:"+pair[0])
 		heading("Důkazy o opravě / výběr musí odpovídat skutečnému měření")
 		for pair in [["dhcp","Úplný DHCP pronájem"],["services","HTTPS, tiskárna a PC 02"],["led_only","Stačí svítící LED"]]:
@@ -398,15 +412,21 @@ func workshop_ticket():
 
 
 func workshop_history():
+	if lab.mode=="exam" and not lab.submitted and not lab.task.is_empty():
+		paragraph("Historie s rozborem bude dostupná po odevzdání zkoušky.")
+		return
 	heading("Odevzdané tickety / samostatná historie")
 	if lab.attempts.is_empty(): paragraph("Zatím bez odevzdaného výsledku. Volný trénink sem nic nezapisuje.")
 	if lab.selected_history>=0 and lab.selected_history<lab.attempts.size():
 		var selected_record: Dictionary = lab.attempts[lab.selected_history]
-		var task: Dictionary = lab.definition(selected_record.id)
+		var task: Dictionary = lab.variant(selected_record.id,int(selected_record.get("variant",{}).get("seed",0)),int(selected_record.get("variant",{}).get("generator_version",1)))
 		paragraph("SYMPTOM / "+task.ticket+"\nPŘÍČINA / "+task.cause)
 		paragraph("ZÁSAH / "+"; ".join(selected_record.changes))
 		for proof in selected_record.proof: paragraph(proof.detail+" / "+("OK" if proof.passed else "NESPLNĚNO"))
 		paragraph("Nápověda %d / chybná ověření %d" % [selected_record.hints,selected_record.errors])
+		if selected_record.has("variant"):
+			paragraph("Seed %d / generátor %d" % [selected_record.variant.seed,selected_record.variant.generator_version])
+			control(content,"Zopakovat tuto variantu",func(): lab.mode = selected_record.mode; lab.start(selected_record.id,int(selected_record.variant.seed)); draw(false))
 	var records: Array = lab.attempts.duplicate()
 	records.reverse()
 	for record in records:
@@ -427,3 +447,8 @@ func workshop_capture():
 		var frame: Dictionary = model.capture[index]
 		if lab.filter!="Vše" and not frame.title.contains(lab.filter): continue
 		control(content,"Rámec %02d / %s" % [index+1,frame.title],func(): lab.selected_frame = index; model.last_path = frame.path.duplicate(); draw())
+
+func begin_ticket(id: String):
+	lab.mode = menu_mode
+	lab.start(id,randi_range(1,2147483646) if menu_variant else 0)
+	start_pending = ""

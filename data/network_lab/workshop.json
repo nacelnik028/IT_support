@@ -1,5 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
+  "generator_version": 1,
   "offline": true,
   "tasks": [
     {
@@ -56,7 +57,219 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Porovnej linku PC 04 a PC 02; projdi Z04 → PP04 → switch.",
-      "review": "Přepoj PP04 do volného funkčního portu VLAN 10. Port 08 je vadný."
+      "review": "Přepoj PP04 do volného funkčního portu VLAN 10. Port 08 je vadný.",
+      "variants": [
+        {
+          "id": "A",
+          "title": "PC 04 bez linky",
+          "year": 1,
+          "difficulty": "základní",
+          "service": "linka a brána",
+          "ticket": "Po údržbě nejde na PC 04 připojení.",
+          "cause": "PC 04 je připojené na nedostupný port 04.",
+          "initial": {
+            "scenario": "A",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              4
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "cable"
+          ],
+          "goals": [
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "link"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Dohledání trasy a přepojení na volný dostupný port VLAN 10 obnoví linku; poté obnov pronájem.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "A",
+          "title": "PC 04 bez linky",
+          "year": 1,
+          "difficulty": "základní",
+          "service": "linka a brána",
+          "ticket": "Po údržbě nejde na PC 04 připojení.",
+          "cause": "PC 04 je připojené na nedostupný port 06.",
+          "initial": {
+            "scenario": "A",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 6,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              6
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "cable"
+          ],
+          "goals": [
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "link"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Dohledání trasy a přepojení na volný dostupný port VLAN 10 obnoví linku; poté obnov pronájem.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "A",
+          "title": "PC 04 bez linky",
+          "year": 1,
+          "difficulty": "základní",
+          "service": "linka a brána",
+          "ticket": "Po údržbě nejde na PC 04 připojení.",
+          "cause": "Nedokončená trasa PP04.",
+          "initial": {
+            "scenario": "A",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 0,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              6
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "cable"
+          ],
+          "goals": [
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "link"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Dohledání trasy a přepojení na volný dostupný port VLAN 10 obnoví linku; poté obnov pronájem.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "B",
@@ -113,7 +326,222 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Porovnej linku, obsazený port a jeho VLAN; zachyť DHCP Discover.",
-      "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20."
+      "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20.",
+      "variants": [
+        {
+          "id": "B",
+          "title": "Zásuvka ve špatné VLAN",
+          "year": 2,
+          "difficulty": "základní",
+          "service": "DHCP ve VLAN 10",
+          "ticket": "Po přesunu PC 04 nefungují síťové služby.",
+          "cause": "Klientský port 06 je ve VLAN 20.",
+          "initial": {
+            "scenario": "B",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 6,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 20,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "B",
+          "title": "Zásuvka ve špatné VLAN",
+          "year": 2,
+          "difficulty": "základní",
+          "service": "DHCP ve VLAN 10",
+          "ticket": "Po přesunu PC 04 nefungují síťové služby.",
+          "cause": "Klientský port 08 je ve VLAN 20.",
+          "initial": {
+            "scenario": "B",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 8,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 20
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              4
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "B",
+          "title": "Zásuvka ve špatné VLAN",
+          "year": 2,
+          "difficulty": "základní",
+          "service": "DHCP ve VLAN 10",
+          "ticket": "Po přesunu PC 04 nefungují síťové služby.",
+          "cause": "Klientský port 04 je ve VLAN 20.",
+          "initial": {
+            "scenario": "B",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 20,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Přiřaď port PC 04 do VLAN 10 nebo přepoj na volný port VLAN 10; port 05 zůstává VLAN 20.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "C",
@@ -171,7 +599,225 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Zachyť výměnu DHCP a zjisti, zda přichází Offer.",
-      "review": "Uvolni laboratorní rozsah .20–.49 a obnov pronájem. Statická adresa DHCP neopravuje."
+      "review": "Uvolni laboratorní rozsah .20–.49 a obnov pronájem. Statická adresa DHCP neopravuje.",
+      "variants": [
+        {
+          "id": "C",
+          "title": "DHCP po změně rozsahu",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "úplný pronájem DHCP",
+          "ticket": "PC 04 po změně adresního rozsahu nefunguje.",
+          "cause": "Rozsah .60–.79 je vyčerpaný.",
+          "initial": {
+            "scenario": "C",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": false,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 60,
+            "pool_end": 79,
+            "offer": 63,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "pool",
+            "static"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Uvolni skutečný rozsah uvedený v konfiguraci a obnov dynamický pronájem; zkontroluj všechny IPv4 parametry.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "C",
+          "title": "DHCP po změně rozsahu",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "úplný pronájem DHCP",
+          "ticket": "PC 04 po změně adresního rozsahu nefunguje.",
+          "cause": "Rozsah .100–.119 je vyčerpaný.",
+          "initial": {
+            "scenario": "C",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": false,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 100,
+            "pool_end": 119,
+            "offer": 103,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "pool",
+            "static"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Uvolni skutečný rozsah uvedený v konfiguraci a obnov dynamický pronájem; zkontroluj všechny IPv4 parametry.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "C",
+          "title": "DHCP po změně rozsahu",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "úplný pronájem DHCP",
+          "ticket": "PC 04 po změně adresního rozsahu nefunguje.",
+          "cause": "Rozsah .150–.169 je vyčerpaný.",
+          "initial": {
+            "scenario": "C",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": false,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 150,
+            "pool_end": 169,
+            "offer": 153,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "pool",
+            "static"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "dhcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Uvolni skutečný rozsah uvedený v konfiguraci a obnov dynamický pronájem; zkontroluj všechny IPv4 parametry.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "D",
@@ -231,7 +877,231 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Porovnej cache 192.168.10.1 s MAC na štítku nové brány; tiskárnu měř zvlášť.",
-      "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl."
+      "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl.",
+      "variants": [
+        {
+          "id": "D",
+          "title": "Stará ARP položka po výměně brány",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "místní a vzdálená cesta",
+          "ticket": "Mohu tisknout, ale vzdálená služba se neotevře. Správce poskytl štítek brány: 02:00:00:00:10:15.",
+          "cause": "Cache obsahuje 02:00:00:00:10:0b, štítek brány uvádí 02:00:00:00:10:15.",
+          "initial": {
+            "scenario": "D",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:15",
+            "arp_cache": {
+              "192.168.10.1": "02:00:00:00:10:0b"
+            },
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "arp"
+          ],
+          "goals": [
+            "arp",
+            "printer",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "gateway",
+            "arp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "D",
+          "title": "Stará ARP položka po výměně brány",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "místní a vzdálená cesta",
+          "ticket": "Mohu tisknout, ale vzdálená služba se neotevře. Správce poskytl štítek brány: 02:00:00:00:10:16.",
+          "cause": "Cache obsahuje 02:00:00:00:10:0c, štítek brány uvádí 02:00:00:00:10:16.",
+          "initial": {
+            "scenario": "D",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:16",
+            "arp_cache": {
+              "192.168.10.1": "02:00:00:00:10:0c"
+            },
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "arp"
+          ],
+          "goals": [
+            "arp",
+            "printer",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "gateway",
+            "arp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "D",
+          "title": "Stará ARP položka po výměně brány",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "místní a vzdálená cesta",
+          "ticket": "Mohu tisknout, ale vzdálená služba se neotevře. Správce poskytl štítek brány: 02:00:00:00:10:17.",
+          "cause": "Cache obsahuje 02:00:00:00:10:0d, štítek brány uvádí 02:00:00:00:10:17.",
+          "initial": {
+            "scenario": "D",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:17",
+            "arp_cache": {
+              "192.168.10.1": "02:00:00:00:10:0d"
+            },
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "arp"
+          ],
+          "goals": [
+            "arp",
+            "printer",
+            "gateway",
+            "control"
+          ],
+          "before": [
+            "gateway",
+            "arp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Vymaž pouze souseda 192.168.10.1. Zachyť novou ARP odpověď a ověř tiskárnu i vzdálený cíl.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "E",
@@ -288,7 +1158,222 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Porovnej DNS záznam a cache klienta při stejném dotazu.",
-      "review": "Obnov cache PC 04 a otevři portal.example.com přes HTTPS."
+      "review": "Obnov cache PC 04 a otevři portal.example.com přes HTTPS.",
+      "variants": [
+        {
+          "id": "E",
+          "title": "Portál se přestěhoval",
+          "year": 1,
+          "difficulty": "střední",
+          "service": "HTTPS podle jména",
+          "ticket": "Přihlášení funguje, firemní portál se neotevře.",
+          "cause": "Cache a autoritativní odpověď nejsou shodné s aktuální službou. Výchozí odpověď: 203.0.113.18.",
+          "initial": {
+            "scenario": "E",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "203.0.113.18",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.18",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dns",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej záznam a cache; oprav jen chybnou vrstvu a zopakuj DNS i HTTPS.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "E",
+          "title": "Portál se přestěhoval",
+          "year": 1,
+          "difficulty": "střední",
+          "service": "HTTPS podle jména",
+          "ticket": "Přihlášení funguje, firemní portál se neotevře.",
+          "cause": "Cache a autoritativní odpověď nejsou shodné s aktuální službou. Výchozí odpověď: 203.0.113.21.",
+          "initial": {
+            "scenario": "E",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.21",
+            "dns_cache": "203.0.113.21",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.21",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dns",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej záznam a cache; oprav jen chybnou vrstvu a zopakuj DNS i HTTPS.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "E",
+          "title": "Portál se přestěhoval",
+          "year": 1,
+          "difficulty": "střední",
+          "service": "HTTPS podle jména",
+          "ticket": "Přihlášení funguje, firemní portál se neotevře.",
+          "cause": "Cache a autoritativní odpověď nejsou shodné s aktuální službou. Výchozí odpověď: 203.0.113.30.",
+          "initial": {
+            "scenario": "E",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.30",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.30",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dns",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej záznam a cache; oprav jen chybnou vrstvu a zopakuj DNS i HTTPS.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "F",
@@ -349,7 +1434,234 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Porovnej dosažitelnost brány, DNS odpověď a TCP SYN na port 443.",
-      "review": "Spusť službu HTTPS. Povolení správy ani změna všech pravidel není opravou."
+      "review": "Spusť službu HTTPS. Povolení správy ani změna všech pravidel není opravou.",
+      "variants": [
+        {
+          "id": "F",
+          "title": "DNS odpovídá, HTTPS selže",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "TCP 443 a HTTPS",
+          "ticket": "Firemní portál neodpovídá.",
+          "cause": "Pravidlo blokuje TCP 443.",
+          "initial": {
+            "scenario": "F",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": false,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "tcp",
+            "https_rule",
+            "management"
+          ],
+          "goals": [
+            "gateway",
+            "dns",
+            "tcp",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns",
+            "tcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "F",
+          "title": "DNS odpovídá, HTTPS selže",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "TCP 443 a HTTPS",
+          "ticket": "Firemní portál neodpovídá.",
+          "cause": "Služba stojí a pravidlo blokuje TCP 443.",
+          "initial": {
+            "scenario": "F",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": false,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": false,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "tcp",
+            "https_rule",
+            "management"
+          ],
+          "goals": [
+            "gateway",
+            "dns",
+            "tcp",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns",
+            "tcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "F",
+          "title": "DNS odpovídá, HTTPS selže",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "TCP 443 a HTTPS",
+          "ticket": "Firemní portál neodpovídá.",
+          "cause": "Služba stojí a klient má starou DNS cache.",
+          "initial": {
+            "scenario": "F",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "203.0.113.19",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": false,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "tcp",
+            "https_rule",
+            "management"
+          ],
+          "goals": [
+            "gateway",
+            "dns",
+            "tcp",
+            "https",
+            "control"
+          ],
+          "before": [
+            "dns",
+            "tcp"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "G",
@@ -406,7 +1718,222 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Změř W1 i W2; rozliš signál, připojení, přidělení IP a dostupnost služby.",
-      "review": "Přesuň AP na středový úchyt. Nově změř oba body a kabelové PC 02."
+      "review": "Přesuň AP na středový úchyt. Nově změř oba body a kabelové PC 02.",
+      "variants": [
+        {
+          "id": "G",
+          "title": "Wi-Fi v zadní části dílny",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "pokrytí, DHCP a HTTPS",
+          "ticket": "Při pohybu po dílně mi vypadává Wi-Fi.",
+          "cause": "Nevhodné umístění AP: rear. Porovnej obě skutečná měřicí místa.",
+          "initial": {
+            "scenario": "G",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "rear",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "ap"
+          ],
+          "goals": [
+            "near",
+            "far",
+            "control"
+          ],
+          "before": [
+            "near",
+            "far"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Středový úchyt pokrývá W1 i W2; ověř signál, DHCP a službu v obou místech.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "G",
+          "title": "Wi-Fi v zadní části dílny",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "pokrytí, DHCP a HTTPS",
+          "ticket": "Při pohybu po dílně mi vypadává Wi-Fi.",
+          "cause": "Nevhodné umístění AP: corner. Porovnej obě skutečná měřicí místa.",
+          "initial": {
+            "scenario": "G",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "corner",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "ap"
+          ],
+          "goals": [
+            "near",
+            "far",
+            "control"
+          ],
+          "before": [
+            "near",
+            "far"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Středový úchyt pokrývá W1 i W2; ověř signál, DHCP a službu v obou místech.",
+          "required_causes": [],
+          "observe_old_dns": false
+        },
+        {
+          "id": "G",
+          "title": "Wi-Fi v zadní části dílny",
+          "year": 2,
+          "difficulty": "střední",
+          "service": "pokrytí, DHCP a HTTPS",
+          "ticket": "Při pohybu po dílně mi vypadává Wi-Fi.",
+          "cause": "Nevhodné umístění AP: side. Porovnej obě skutečná měřicí místa.",
+          "initial": {
+            "scenario": "G",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "side",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.19",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "ap"
+          ],
+          "goals": [
+            "near",
+            "far",
+            "control"
+          ],
+          "before": [
+            "near",
+            "far"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Středový úchyt pokrývá W1 i W2; ověř signál, DHCP a službu v obou místech.",
+          "required_causes": [],
+          "observe_old_dns": false
+        }
+      ]
     },
     {
       "id": "H",
@@ -470,7 +1997,252 @@
         "VLAN 20 na portu 05"
       ],
       "hint": "Začni linkou, VLAN a DHCP. Po zprovoznění cesty změř překlad jména.",
-      "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC."
+      "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+      "variants": [
+        {
+          "id": "H",
+          "title": "Závěrečná servisní směna",
+          "year": 2,
+          "difficulty": "pokročilá",
+          "service": "síťová cesta a portál",
+          "ticket": "Po údržbě pracoviště nefungují některé služby.",
+          "cause": "Klientský port 06 je ve VLAN 20. DNS vrací 203.0.113.18.",
+          "initial": {
+            "scenario": "H",
+            "seed": 1,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 6,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 20,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.18",
+            "dns_cache": "203.0.113.18",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.18",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable",
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "dns",
+            "tcp",
+            "https",
+            "printer",
+            "control"
+          ],
+          "before": [
+            "dhcp",
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+          "required_causes": [
+            "vlan",
+            "dns"
+          ],
+          "observe_old_dns": true
+        },
+        {
+          "id": "H",
+          "title": "Závěrečná servisní směna",
+          "year": 2,
+          "difficulty": "pokročilá",
+          "service": "síťová cesta a portál",
+          "ticket": "Po údržbě pracoviště nefungují některé služby.",
+          "cause": "Nedostupný klientský port a stará DNS cache.",
+          "initial": {
+            "scenario": "H",
+            "seed": 2,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 8,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 10,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "203.0.113.21",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.21",
+            "rules": {
+              "https": true,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable",
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "dns",
+            "tcp",
+            "https",
+            "printer",
+            "control"
+          ],
+          "before": [
+            "dhcp",
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+          "required_causes": [
+            "cable",
+            "dns"
+          ],
+          "observe_old_dns": true
+        },
+        {
+          "id": "H",
+          "title": "Závěrečná servisní směna",
+          "year": 2,
+          "difficulty": "pokročilá",
+          "service": "síťová cesta a portál",
+          "ticket": "Po údržbě pracoviště nefungují některé služby.",
+          "cause": "Klientský port 04 je ve VLAN 20. DNS vrací 203.0.113.30. Pravidlo blokuje HTTPS; DNS je aktuální.",
+          "initial": {
+            "scenario": "H",
+            "seed": 3,
+            "socket": "Z04",
+            "patch": "PP04",
+            "ports": {
+              "router": 1,
+              "resolver": 2,
+              "pc02": 3,
+              "pc04": 4,
+              "printer": 7
+            },
+            "vlans": {
+              "1": 10,
+              "2": 10,
+              "3": 10,
+              "4": 20,
+              "5": 20,
+              "6": 10,
+              "7": 10,
+              "8": 10
+            },
+            "dhcp_pool": true,
+            "dns_record": "203.0.113.20",
+            "dns_cache": "",
+            "gateway_mac": "02:00:00:00:10:01",
+            "arp_cache": {},
+            "tcp_enabled": true,
+            "ap_position": "center",
+            "bad_ports": [
+              8
+            ],
+            "pool_start": 20,
+            "pool_end": 49,
+            "offer": 23,
+            "old_dns": "203.0.113.30",
+            "rules": {
+              "https": false,
+              "management": false,
+              "guest_isolated": true
+            }
+          },
+          "actions": [
+            "vlan",
+            "cable",
+            "dns",
+            "flush"
+          ],
+          "goals": [
+            "dhcp",
+            "link",
+            "dns",
+            "tcp",
+            "https",
+            "printer",
+            "control"
+          ],
+          "before": [
+            "dhcp",
+            "dns"
+          ],
+          "side_services": [
+            "PC 02",
+            "VLAN 20 na portu 05"
+          ],
+          "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
+          "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+          "required_causes": [
+            "vlan",
+            "https"
+          ],
+          "observe_old_dns": false
+        }
+      ]
     }
   ]
 }

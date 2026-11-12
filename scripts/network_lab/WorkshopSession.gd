@@ -29,6 +29,19 @@ var persist := Callable()
 # Local presentation state survives closing the panel during this visit only.
 var panel_state := {}
 var attempt_serial := 0
+var variant_seed := 0
+var generator_version := 1
+
+func variant(id: String, seed_value := 0, version_value := 1) -> Dictionary:
+	var base := definition(id).duplicate(true)
+	if base.is_empty() or version_value!=1 or seed_value<0: return {}
+	if seed_value>0: base = base.variants[posmod(seed_value-1,3)].duplicate(true)
+	base.erase("variants")
+	base.initial.seed = seed_value
+	return base
+
+func reset_attempt():
+	start(str(task.get("id","")),variant_seed,generator_version)
 
 func _init(): network.setup("")
 
@@ -37,14 +50,18 @@ func definition(id: String) -> Dictionary:
 		if entry.id==id: return entry
 	return {}
 
-func start(id: String):
+func start(id: String, seed_value := 0, version_value := 1):
+	var next_task := variant(id,seed_value,version_value)
+	if id!="" and next_task.is_empty(): return
 	attempt_serial += 1
 	panel_state.clear()
-	task = definition(id)
-	network.setup(id)
+	task = next_task
+	variant_seed = seed_value
+	generator_version = version_value
+	network.setup(id,task.get("initial",{}))
 	view = "ticket" if not task.is_empty() else "measure"
 	selected = "pc04"
-	selected_port = int(network.ports.pc04)
+	selected_port = int(network.ports.pc04) if int(network.ports.pc04)>0 else 4
 	selected_frame = -1
 	undo_stack = []
 	result = {}
@@ -74,7 +91,7 @@ func edit(kind: String, value = null):
 	if locked() or demo: return
 	var state: Dictionary = network.snapshot()
 	if network.edit(kind,value):
-		var titles := {"pool":"DHCP rozsah .20–.49 / "+("uvolněn" if value else "vyčerpán"),"dns":"Záznam A → "+str(value),"flush":"Obnova DNS cache PC 04","arp":"Smazání souseda 192.168.10.1","tcp":"Služba HTTPS / "+("spuštěna" if value else "zastavena"),"https_rule":"Pravidlo HTTPS / "+("povoleno" if value else "blokováno"),"management":"Správa / "+("povolena" if value else "blokována"),"ap":"AP / "+("středový úchyt" if str(value)=="center" else "přední úchyt"),"static":"PC 04 / pevná IPv4 adresa"}
+		var titles := {"pool":"DHCP rozsah "+network.pool_label()+" / "+("uvolněn" if value else "vyčerpán"),"dns":"Záznam A → "+str(value),"flush":"Obnova DNS cache PC 04","arp":"Smazání souseda 192.168.10.1","tcp":"Služba HTTPS / "+("spuštěna" if value else "zastavena"),"https_rule":"Pravidlo HTTPS / "+("povoleno" if value else "blokováno"),"management":"Správa / "+("povolena" if value else "blokována"),"ap":"AP / "+("středový úchyt" if str(value)=="center" else "přední úchyt"),"static":"PC 04 / pevná IPv4 adresa"}
 		remember(state,titles.get(kind,kind))
 
 func vlan(port: int, value: int):
@@ -111,7 +128,7 @@ func measure(kind: String) -> Dictionary:
 
 func start_demo():
 	if mode!="learn" or task.is_empty() or submitted: return
-	example.setup(task.id)
+	example.setup(task.id,task.initial)
 	demo = true
 	demo_step = 0
 
@@ -121,15 +138,19 @@ func demo_next():
 	if demo_step==0: example.probe("link")
 	elif demo_step==1: example.probe("dhcp")
 	elif demo_step==2:
-		if example.ports.pc04==8:
+		if not example.link("pc04"):
 			example.select_cable("pc04")
-			example.connect_cable(6)
+			for port in range(3,9):
+				if example.occupant(port)=="" and port not in example.bad_ports and example.vlans[port]==10:
+					example.connect_cable(port)
+					break
 		example.set_vlan(example.ports.pc04,10)
 		example.edit("pool",true)
 		example.edit("arp")
 		example.edit("dns",example.WEB)
 		example.edit("flush")
 		example.edit("tcp",true)
+		example.edit("https_rule",true)
 		example.edit("ap","center")
 	elif demo_step==3: example.probe("dhcp")
 	elif demo_step==4: example.probe("https")
@@ -145,16 +166,19 @@ func assessment() -> Dictionary:
 		for entry in network.journal:
 			if entry.kind==key and entry.revision<network.revision: observed = true
 		if not observed: missing.append("Chybí výchozí měření: "+str(key))
-	if not network.reachable("pc02","router") or int(network.vlans[5])!=20: missing.append("Zachovej PC 02 a oddělení hostovské VLAN 20.")
+	if not network.reachable("pc02","router") or not network.reachable("printer","router") or int(network.vlans[5])!=20 or not network.rules.guest_isolated or network.rules.management: missing.append("Zachovej PC 02, tiskárnu, správu a oddělení hostovské VLAN 20.")
 	if task.id in ["B","C","H"] and (network.lease.is_empty() or network.lease_source!="dhcp" or not network.dhcp_pool): missing.append("Požadován skutečný DHCP pronájem.")
 	if task.id=="C" and (network.lease.get("mask")!="255.255.255.0" or network.lease.get("gateway")!=network.IPS.router or network.lease.get("dns")!=network.IPS.resolver): missing.append("Ověř úplnou IPv4 konfiguraci.")
 	if task.id=="F" and (network.rules.management or not network.rules.guest_isolated): missing.append("Zachovej pravidla správy a izolace.")
-	if task.id=="H" and (not causes.get("vlan",false) or not causes.get("dns",false) or causes.get("cable",false)): missing.append("Uzavři ticket výběrem obou příčin: VLAN a DNS.")
-	if task.id=="H" and (not evidence_summary.get("dhcp",false) or not evidence_summary.get("services",false) or evidence_summary.get("led_only",false)): missing.append("Vyber důkazy: úplný DHCP pronájem a HTTPS s tiskárnou i PC 02. Samotná LED nestačí.")
 	if task.id=="H":
+		var expected: Array = task.get("required_causes",["vlan","dns"])
+		for key in ["vlan","dns","cable","https"]:
+			if causes.get(key,false)!=(key in expected): missing.append("Výběr příčin neodpovídá incidentu.")
+	if task.id=="H" and (not evidence_summary.get("dhcp",false) or not evidence_summary.get("services",false) or evidence_summary.get("led_only",false)): missing.append("Vyber důkazy: úplný DHCP pronájem a HTTPS s tiskárnou i PC 02. Samotná LED nestačí.")
+	if task.id=="H" and task.get("observe_old_dns",true):
 		var observed_dns := false
 		for proof in network.journal:
-			if proof.kind=="dns" and proof.detail.contains("cache 203.0.113.19") and proof.revision<network.revision: observed_dns = true
+			if proof.kind=="dns" and proof.detail.contains("cache "+network.old_dns) and proof.revision<network.revision: observed_dns = true
 		if not observed_dns: missing.append("Po zprovoznění sítě změř starou DNS odpověď před její opravou.")
 	return {"passed":missing.is_empty(),"missing":missing}
 
@@ -180,6 +204,7 @@ func submit() -> Dictionary:
 			summary.erase("frames")
 			proof.append(summary)
 		var record := {"id":task.id,"mode":mode,"passed":result.passed,"score":result.score,"hints":hints,"errors":errors,"time":int(Time.get_unix_time_from_system()),"proof":proof,"causes":causes.duplicate(),"evidence_summary":evidence_summary.duplicate(),"changes":[]}
+		record.variant = {"seed":variant_seed,"generator_version":generator_version}
 		for change in undo_stack: record.changes.append(change.title)
 		attempts.append(record)
 		if attempts.size()>100: attempts.pop_front()

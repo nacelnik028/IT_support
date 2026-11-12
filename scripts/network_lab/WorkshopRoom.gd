@@ -122,7 +122,7 @@ func _physics_process(delta):
 	hinge.rotation.y = angle
 
 func sync(model):
-	targets.ap.position.z = -37.2 if model.ap_position=="center" else -33.0
+	targets.ap.position = model.AP_POSITIONS[model.ap_position]
 	var active: bool = room.workshop.in_workshop and world.game.game_mode.is_network_lab()
 	for key in targets: targets[key].set_guided(active and key in model.last_path)
 	for id in ["pc04","pc02","printer"]:
@@ -132,8 +132,8 @@ func sync(model):
 	for port in range(1,9):
 		var id := str(port)
 		var occupied: String = model.occupant(port)
-		labels[id].text = "%02d\n%s" % [port,"×" if port==8 else "L%d" % model.vlans[port] if occupied!="" else "—"]
-		targets[id].set_status("Failed" if port==8 else "Healthy" if occupied!="" else "Offline")
+		labels[id].text = "%02d\n%s" % [port,"×" if port in model.bad_ports else "L%d" % model.vlans[port] if occupied!="" else "—"]
+		targets[id].set_status("Failed" if port in model.bad_ports else "Healthy" if occupied!="" else "Offline")
 	var current := str(model.ports)+str(model.last_path)
 	if signature==current: return
 	signature = current

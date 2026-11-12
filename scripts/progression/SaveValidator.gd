@@ -65,6 +65,9 @@ func network_attempts(data) -> bool:
 func workshop_attempts(data) -> bool:
 	if not network_attempts(data): return false
 	for record in data:
+		if record.has("variant"):
+			if not required(record.variant,{"seed":0,"generator_version":0}): return false
+			if not integer(record.variant.seed,0,2147483646) or record.variant.generator_version!=1: return false
 		if record.id not in ["A","B","C","D","E","F","G","H"]: return false
 		if not required(record,{"proof":[],"causes":{},"changes":[]}): return false
 		if record.proof.size()>60 or record.changes.size()>30: return false
@@ -74,7 +77,7 @@ func workshop_attempts(data) -> bool:
 		for change in record.changes:
 			if not change is String or change.length()>256: return false
 		for key in record.causes:
-			if key not in ["vlan","dns","cable"] or not record.causes[key] is bool: return false
+			if key not in ["vlan","dns","cable","https"] or not record.causes[key] is bool: return false
 		if record.has("evidence_summary"):
 			if not record.evidence_summary is Dictionary: return false
 			for key in record.evidence_summary:

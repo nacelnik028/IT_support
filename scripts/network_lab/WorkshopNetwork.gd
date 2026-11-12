@@ -2,7 +2,13 @@ extends "res://scripts/network_lab/LabNetwork.gd"
 
 # A separate instance of the classroom switch, with service faults and probes.
 # No host networking or real terminal commands are used.
-const FIELDS = ["ports","vlans","lease","cache","learned","capture","dns_record","tcp_enabled","revision","cable","last_path","last_message","dhcp_pool","dns_cache","gateway_mac","ap_position","rules","measurements","journal","patch_map","lease_source"]
+const FIELDS = ["ports","vlans","lease","cache","learned","capture","dns_record","tcp_enabled","revision","cable","last_path","last_message","dhcp_pool","dns_cache","gateway_mac","ap_position","rules","measurements","journal","patch_map","lease_source","bad_ports","pool_start","pool_end","offer","old_dns"]
+const AP_POSITIONS = {"front":Vector3(10.4,2.2,-33),"center":Vector3(10.4,2.2,-37.2),"rear":Vector3(10.4,2.2,-40),"corner":Vector3(-2.4,2.2,-40),"side":Vector3(-2.4,2.2,-33)}
+var bad_ports: Array = [8]
+var pool_start := 20
+var pool_end := 49
+var offer := 23
+var old_dns := "203.0.113.19"
 var dhcp_pool := true
 var dns_cache := ""
 var gateway_mac := MACS.router
@@ -13,7 +19,7 @@ var measurements := {}
 var journal: Array = []
 var lease_source := "dhcp"
 
-func setup(id: String):
+func setup(id: String, override_initial := {}):
 	reset("")
 	vlans[5] = 20
 	dhcp_pool = true
@@ -22,12 +28,18 @@ func setup(id: String):
 	ap_position = "center"
 	rules = {"https":true,"management":false,"guest_isolated":true}
 	lease_source = "dhcp"
+	bad_ports = [8]
+	pool_start = 20
+	pool_end = 49
+	offer = 23
+	old_dns = "203.0.113.19"
 	measurements = {}
 	journal = []
 	var definitions: Dictionary = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/network_lab/workshop.json"))
 	var initial := {}
 	for task in definitions.tasks:
 		if task.id==id: initial = task.initial
+	if not override_initial.is_empty(): initial = override_initial
 	if not initial.is_empty():
 		ports.clear()
 		for device in initial.ports: ports[device] = int(initial.ports[device])
@@ -39,12 +51,25 @@ func setup(id: String):
 		gateway_mac = initial.gateway_mac
 		tcp_enabled = initial.tcp_enabled
 		ap_position = initial.ap_position
+		bad_ports = initial.get("bad_ports",[8]).duplicate()
+		pool_start = int(initial.get("pool_start",20))
+		pool_end = int(initial.get("pool_end",49))
+		offer = int(initial.get("offer",23))
+		old_dns = initial.get("old_dns","203.0.113.19")
+		rules = initial.get("rules",rules).duplicate()
 	renew()
 	if not initial.is_empty(): cache = initial.arp_cache.duplicate()
 	capture.clear()
 	last_path.clear()
 	last_message = "Vyber zařízení a proveď výchozí měření."
 	revision = 0
+
+func link(device: String) -> bool:
+	var port := int(ports.get(device,0))
+	return port in range(1,9) and port not in bad_ports
+
+func pool_label() -> String:
+	return ".%d–.%d" % [pool_start,pool_end]
 
 func snapshot() -> Dictionary:
 	var state := {}
@@ -78,7 +103,7 @@ func set_vlan(port: int, vlan: int):
 	super.set_vlan(port,vlan)
 
 func set_dns(address: String):
-	if address not in [WEB,"203.0.113.19",""] or dns_record==address:
+	if address not in [WEB,old_dns,"203.0.113.19",""] or dns_record==address:
 		last_message = "Záznam beze změny; zvol platnou laboratorní adresu."
 		return
 	dns_record = address
@@ -90,9 +115,18 @@ func renew() -> bool:
 	if not dhcp_pool:
 		lease.clear()
 		if link("pc04"): transmit("DHCP Discover","pc04",BROADCAST,"0x0800","0.0.0.0 → 255.255.255.255","UDP 68 → 67","Požadavek na pronájem.")
-		last_message = "PC 04 → DHCP · bez nabídky; rozsah .20–.49 nemá volné adresy."
+		last_message = "PC 04 → DHCP · bez nabídky; rozsah "+pool_label()+" nemá volné adresy."
 		return false
-	return super.renew()
+	var okay := super.renew()
+	if okay:
+		lease.ip = "192.168.10."+str(offer)
+		# Replace model-generated DHCP packet data with the actual offered lease.
+		for frame in capture:
+			if frame.title.begins_with("DHCP"):
+				frame.ip = frame.ip.replace(IPS.pc04,lease.ip)
+				frame.application = frame.application.replace(".23 z rozsahu .20–.49",".%d z rozsahu %s" % [offer,pool_label()])
+		last_message = "DHCP ACK · %s/24 · brána %s · DNS %s" % [lease.ip,lease.gateway,lease.dns]
+	return okay
 
 func arp(target: String, packet_ip: String, refresh := false) -> bool:
 	if target!="router": return super.arp(target,packet_ip,refresh)
@@ -178,8 +212,8 @@ func edit(kind: String, value = null) -> bool:
 			rules.management = bool(value)
 			revision += 1
 		"ap":
-			if value not in ["front","center"]:
-				last_message = "AP lze ukotvit vpředu nebo uprostřed dílny."
+			if not AP_POSITIONS.has(value):
+				last_message = "AP musí být na označeném úchytu uvnitř dílny."
 				return false
 			ap_position = value
 			revision += 1
@@ -235,7 +269,8 @@ func probe(kind: String, device := "pc04") -> Dictionary:
 			okay = web_test()
 			detail = last_message
 		"near","far":
-			var rssi := -45 if kind=="near" else -58 if ap_position=="center" else -84
+			var signal_levels: Array = {"front":[-45,-84],"center":[-45,-58],"rear":[-83,-43],"corner":[-86,-79],"side":[-68,-85]}[ap_position]
+			var rssi: int = signal_levels[0 if kind=="near" else 1]
 			okay = rssi> -75 and dhcp_pool and reachable("pc04","router")
 			detail = "%s → AP / %d dBm · %s · IP %s · HTTPS %s" % ["W1" if kind=="near" else "W2",rssi,"připojeno" if rssi> -75 else "slabý signál / odpojeno","192.168.10.25/24" if okay else "nepřidělena","200" if okay and tcp_enabled and rules.https and dns_record==WEB else "nedostupné"]
 			okay = okay and tcp_enabled and rules.https and dns_record==WEB

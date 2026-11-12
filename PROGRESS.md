@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — etapa A / varianty, 12. 11. 2026
+
+- Zachované základní A–H (seed 0), tři funkční obměny každého ticketu; generátor verze 1, výslovná volba a opakování identity z historie. Reset/undo/ukázka respektují stejnou variantu, historie ukládá pouze nová metadata bez doplňování starých záznamů. Životnost dočasných dílenských pokusů se nemění.
+- Model rozšířený lokálně: dostupnost portů, DHCP rozsah/adresa, ARP soused, DNS cache/záznam, HTTPS pravidlo a AP na skutečných úchytech. Původní LabNetwork zůstává beze změny. Kontroluje se také tiskárna, správa a izolace.
+- workshop_variants: 1 067 kontrol PASS ve Výuce, Procvičování, Zkoušce a Volném tréninku; reprodukce, reference, alternativní opravy, odmítnuté zkratky, zastaralost, reset, undo, oddělená ukázka a staré výsledky. Výchozí sady: dílna 493, laboratoř 855, Python 31, angličtina 1 809 a relace 124 PASS. Aktuální původní dílenská sada: 495 PASS; potvrzení nového pokusu test explicitně obsluhuje při zachovaných kontrolách.
+- Pokračují etapy testeru, zvuku, dialogu a společných misí; Windows EXE zatím nepřestavěné. Bez push/APK a bez testu fyzického headsetu.
+
+
 ## Pracovní dílna a dveře dokončené, Windows EXE ověřené — 12. 11. 2026
 
 - Pět pracovních záložek, samostatný výběr ticketů/historie, stálé spodní akce a opakování zápisu. Měření ukazují skutečný zdroj, cíl, výsledek a zastaralost; detaily jsou rozbalovací. Sedm skupin oprav, skutečný stav kabelu/portů, pojmenované undo a potvrzený reset. Zachovaný fokus, posun, zařízení, kabel a analyzátor během návštěvy. Fyzický AP/port otevírají správnou skupinu bez zásahu do sítě.

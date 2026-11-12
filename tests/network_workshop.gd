@@ -278,6 +278,11 @@ func ui_all_tickets():
 		shell.open_network_workshop("home")
 		await frames()
 		await click(button(id+" / "+s.definition(id).title))
+		# The new attempt explicitly confirms replacing unfinished work.
+		for candidate in shell.find_children("*","Button",true,false):
+			if candidate.is_visible_in_tree() and candidate.text=="Potvrdit nový pokus":
+				await click(candidate)
+				break
 		check(s.task.get("id")==id,"Výslovný výběr ticketu "+id)
 		await click(button("Změřit"))
 		for key in s.task.before:
