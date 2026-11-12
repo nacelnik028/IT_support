@@ -149,6 +149,7 @@ func draw(keep_position := true):
 			"review": workshop_review()
 			"history": workshop_history()
 			"tester": workshop_tester()
+			"customer": workshop_customer()
 	var footer_card := PanelContainer.new()
 	footer_card.name = "WorkFooter"
 	footer_card.add_theme_stylebox_override("panel",ui.box(Color("20313e"),Color("53616a"),6))
@@ -387,6 +388,7 @@ func workshop_ticket():
 		return
 	heading("Ticket %s / %d. ročník / %s" % [lab.task.id,lab.task.year,lab.task.difficulty])
 	paragraph(lab.task.ticket)
+	control(content,"Zákazník / English support",navigate.bind("customer"),false,"customer:open")
 	paragraph("Základní zadání" if lab.variant_seed==0 else "Obměněné zadání / stejné po celou dobu pokusu")
 	fold(content,"variant","Detail varianty", "Seed %d / generátor %d" % [lab.variant_seed,lab.generator_version])
 	paragraph("Požadovaná služba: "+lab.task.service+". Důkazy: "+", ".join(lab.task.goals)+". PC 02 a VLAN 20 musí zůstat funkční a oddělené.")
@@ -427,6 +429,7 @@ func workshop_history():
 		paragraph("ZÁSAH / "+"; ".join(selected_record.changes))
 		for proof in selected_record.proof: paragraph(proof.detail+" / "+("OK" if proof.passed else "NESPLNĚNO"))
 		paragraph("Nápověda %d / chybná ověření %d" % [selected_record.hints,selected_record.errors])
+		if selected_record.has("communication"): paragraph("Komunikace / %d bodů · technické hodnocení zůstává samostatné. Nejde o certifikát CEFR." % selected_record.communication.score)
 		if selected_record.has("variant"):
 			paragraph("Seed %d / generátor %d" % [selected_record.variant.seed,selected_record.variant.generator_version])
 			control(content,"Zopakovat tuto variantu",func(): lab.mode = selected_record.mode; lab.start(selected_record.id,int(selected_record.variant.seed)); draw(false))
@@ -472,3 +475,33 @@ func workshop_tester():
 		control(endpoints,"Tester → SW %02d" % port,func(): lab.tester.port = port; draw(),lab.tester.port==port)
 	control(content,"Spustit měření testeru",func(): lab.measure_tester(); draw())
 	control(content,"Zrušit připojení sond",func(): lab.tester.source = ""; lab.tester.port = 0; draw())
+
+func support_reply(id: String, text: String, active := false):
+	var token: int = lab.dialogue.data.revision
+	var b := preload("res://scripts/english/DialogueControls.gd").reply(ui,content,("✓ " if active else "")+text,func(): lab.dialogue.select(id,token,lab); draw(),false,46)
+	b.set_meta("workshop_id","customer:"+id)
+	actions.append(b)
+	return b
+
+func workshop_customer():
+	if lab.task.is_empty():
+		paragraph("Nejdřív vyber servisní situaci.")
+		return
+	heading("Customer / English IT support · B1–B2")
+	paragraph("Zákazník popisuje vlastní pozorování. Rozhovor sám nevytváří technický důkaz. Technické a komunikační hodnocení jsou samostatná; nejde o certifikát CEFR.")
+	paragraph(lab.dialogue.data.npc if lab.dialogue.data.npc!="" else lab.dialogue.observe(lab,"what"))
+	if lab.submitted:
+		paragraph("Komunikace: %d / 100" % lab.dialogue.assessment(lab).score)
+		return
+	for question in lab.dialogue.catalog.questions:
+		support_reply("ask:"+question.id,question.text,question.id in lab.dialogue.data.asked)
+	control(content,("− " if expanded.get("customer:handover",false) else "+ ")+"Explain the cause and hand over the service",func(): expanded["customer:handover"] = not expanded.get("customer:handover",false); draw(),false,"customer:handover")
+	if expanded.get("customer:handover",false):
+		heading("Explain the cause / select all that you found")
+		for key in lab.dialogue.catalog.causes: support_reply("cause:"+key,lab.dialogue.catalog.causes[key],lab.dialogue.data.causes.get(key,false))
+		heading("Explain your actual changes")
+		for key in lab.dialogue.catalog.interventions: support_reply("action:"+key,lab.dialogue.catalog.interventions[key],lab.dialogue.data.interventions.get(key,false))
+		support_reply("verify","I repeated the required service and control tests after the change.",lab.dialogue.data.verification)
+		support_reply("confirm","Could you try the portal and printing again and confirm that they work?")
+		support_reply("blame","It is your fault. There is no need to test it.")
+	if lab.mode!="exam": support_reply("translate","Česká jazyková opora / zaznamená pomoc")

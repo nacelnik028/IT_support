@@ -153,3 +153,21 @@ nevytvoří. Změna sítě označí starý displej i důkaz za zastaralý; nové
 vyhodnotí aktuální zapojení. Ve Zkoušce neobsahuje skrytou příčinu ani pomoc.
 Odchod z dílny vrací jediný předmět domů, síťový pokus zůstává během návštěvy
 pavilonu. Opuštění pavilonu jej dosavadním způsobem ukončí.
+
+## Zákazník / English support
+
+Na stránce Ticket otevři **Zákazník / English support**. Pět otázek zjišťuje
+příznaky, dobu, rozsah, změny a další služby; jsou bez bodové penalizace.
+Jde o zákaznická pozorování výchozího incidentu, nikoli laboratorní měření.
+Rozbal **Explain the cause and hand over the service** a vyber příčiny i
+skutečné zásahy. Uveď provedené ověření a požádej zákazníka o vyzkoušení.
+Potvrzení vychází z aktuální služby; neopravená síť neprojde zdvořilou větou.
+Vybrané zásahy musí odpovídat skutečné změně, ověření čerstvým důkazům.
+Po změně sítě je staré zákaznické potvrzení neaktuální.
+
+Komunikace má vlastní skóre 0–100 vedle původního technického skóre. Nejde o
+CEFR certifikát, hodnocení výslovnosti ani nový XP systém. Tři a více běžných
+otázek, přesná příčina, skutečný zásah, ověření a platné potvrzení tvoří pět
+částí po 20 bodech; nevhodné obviňování snižuje o 5. Česká opora je samostatně
+zaznamenaná pomoc; ve Zkoušce není dostupná. Historická skóre bez těchto dat
+se nedoplňují. Nový výsledek uchová dialog i samostatné hodnocení právě jednou.

@@ -1657,7 +1657,7 @@
             "VLAN 20 na portu 05"
           ],
           "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
-          "review": "Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.",
+          "review": "Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů. Porovnej také starou cache a správný DNS záznam; obnov cache.",
           "required_causes": [],
           "observe_old_dns": false
         }
@@ -2154,7 +2154,7 @@
             "VLAN 20 na portu 05"
           ],
           "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
-          "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+          "review": "Dohledáním trasy obnov linku na funkčním portu VLAN 10, obnov DHCP, změř starý překlad a obnov cache. Ověř všechny služby.",
           "required_causes": [
             "cable",
             "dns"
@@ -2168,7 +2168,7 @@
           "difficulty": "pokročilá",
           "service": "síťová cesta a portál",
           "ticket": "Po údržbě pracoviště nefungují některé služby.",
-          "cause": "Klientský port 04 je ve VLAN 20. DNS vrací 203.0.113.30. Pravidlo blokuje HTTPS; DNS je aktuální.",
+          "cause": "Klientský port je ve VLAN 20 a pravidlo blokuje HTTPS; DNS je aktuální.",
           "initial": {
             "scenario": "H",
             "seed": 3,
@@ -2235,7 +2235,7 @@
             "VLAN 20 na portu 05"
           ],
           "hint": "Porovnej skutečnou trasu, konfiguraci a výchozí měření. Po každé změně obnov požadované důkazy.",
-          "review": "Oprav VLAN PC 04, obnov DHCP, oprav záznam A a cache; dolož HTTPS, tiskárnu a kontrolní PC.",
+          "review": "Oprav VLAN skutečného klientského portu, obnov DHCP a povol konkrétní pravidlo HTTPS; zachovej správu a izolaci.",
           "required_causes": [
             "vlan",
             "https"

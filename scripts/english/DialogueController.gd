@@ -29,10 +29,7 @@ func label_text(text: String, size_value: int = 20, color: Color = Color("e4edf1
 	return label
 
 func action(text: String, callback: Callable, primary: bool = false) -> Button:
-	var button=shell.ui.button(text,callback,primary)
-	button.custom_minimum_size.y=58
-	button.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	content.add_child(button)
+	var button=preload("res://scripts/english/DialogueControls.gd").reply(shell.ui,content,text,callback,primary)
 	buttons.append(button)
 	return button
 

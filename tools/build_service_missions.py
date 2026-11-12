@@ -1,0 +1,33 @@
+"""Shared support dialogue and service-mission source catalogue (offline)."""
+import json
+from pathlib import Path
+
+def catalogue():
+    return dict(version=1, questions=[
+        dict(id='what', text='Could you describe exactly what is not working?', translation='Co přesně nefunguje?'),
+        dict(id='since', text='When did you first notice the problem?', translation='Od kdy problém pozorujete?'),
+        dict(id='others', text='Are any other devices affected?', translation='Týká se to i jiných zařízení?'),
+        dict(id='change', text='Has anything changed at your workstation recently?', translation='Co se naposledy změnilo?'),
+        dict(id='services', text='Can you use any other services, such as printing?', translation='Fungují jiné služby, například tisk?')],
+        causes=dict(cable='The physical connection was incomplete or its port was unavailable.',
+                    vlan='The workstation was connected to the wrong network segment.',
+                    dhcp='The address pool had no free leases.', arp='The workstation was still using an old gateway address in its neighbour cache.',
+                    dns='The name lookup still used an outdated service address.', https='The web service or its access rule prevented HTTPS connections.',
+                    wifi='The access point position did not provide coverage at both work areas.'),
+        interventions=dict(cable='I moved the connection to a working port.', vlan='I corrected the port network assignment.',
+                           dhcp='I made addresses available and renewed the lease.', arp='I refreshed the outdated neighbour entry.',
+                           dns='I corrected the name lookup data and refreshed the client cache as needed.',
+                           https='I restored the HTTPS service and its specific access rule as needed.', wifi='I moved the access point and checked both work areas.'),
+        missions=[dict(id='SERVICE-PORTAL', title='Firemní portál po změně sítě', ticket='H', seed=1,
+                       symptom='I can sign in locally, but the company portal will not open.',
+                       dataset='logs', function='failed_checks', required=['dhcp','link','dns','tcp','https','printer','control']),
+                  dict(id='SERVICE-MOVE', title='Přesunuté pracoviště a tisk', ticket='A', seed=1,
+                       symptom='Since my desk was moved, I cannot print or open the company portal.',
+                       dataset='clients', function='affected_clients', required=['dhcp','link','https','printer','control'])])
+
+def build():
+    root=Path(__file__).resolve().parents[1]
+    (root/'data/service_missions.json').write_text(json.dumps(catalogue(),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    print('Service support: five intents and two mission definitions')
+
+if __name__=='__main__': build()

@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — etapa D / zákaznická komunikace, 12. 11. 2026
+
+- Pět běžných doptání v B1–B2, odpovědi z pozorování konkrétního incidentu. Zákazník nezná interní závadu; potvrzení po opravě se zkouší proti vlastní izolované kopii aktuální sítě a nevytváří technický důkaz. Rozhovor nemůže přepsat měření.
+- Hráč volí příčiny, skutečné zásahy a popis ověření; zákazník potvrdí jen reálně fungující služby. Oddělené komunikační skóre, zneplatnění potvrzení po změně, opora jako zaznamenaná pomoc, žádné otázky jako nápověda. Ve Zkoušce bez překladu nebo skrytého řešení. Staré callbacky/repliky a odevzdané dialogy uzavřené.
+- Společné nativní reply ovládání s původním londýnským DialogueController, oba paprsky a klávesnice. Nová metadata pouze v nových dílenských výsledcích; původní skóre a odměny se nepřepočítávají. Zdrojový generátor tools/build_service_missions.py.
+- support_dialogue: 2 124 kontrol PASS / všech osm ticketů × čtyři varianty × tři režimy. support_ui: 42 grafických PASS / šest PC kombinací a skutečný VR 1600×1200 × oba paprsky. Prohlédnutá čitelnost 720p/130 %. workshop_variants znovu 1 067 PASS. Zbývají společné mise, kompletní regrese a nové EXE.
+
 ## Servisní rozšíření — etapa C / zvuk, 12. 11. 2026
 
 - Sedm vlastních procedurálních PCM zvuků, deterministický generátor a původ/licence/hash v data/service_audio.json. Čtyři sdílené prostorové racky sledují běh a napájení, čtyři opakovaně použité efekty a tři dveřní zdroje. Smyčka racku je periodická, napájení a ztišení při řeči mají plynulý přechod.

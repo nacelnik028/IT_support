@@ -32,6 +32,7 @@ var attempt_serial := 0
 var variant_seed := 0
 var generator_version := 1
 var tester = preload("res://scripts/network_lab/CableTester.gd").new()
+var dialogue = preload("res://scripts/english/SupportDialogue.gd").new()
 
 func variant(id: String, seed_value := 0, version_value := 1) -> Dictionary:
 	var base := definition(id).duplicate(true)
@@ -76,6 +77,7 @@ func start(id: String, seed_value := 0, version_value := 1):
 	demo = false
 	demo_step = 0
 	tester = preload("res://scripts/network_lab/CableTester.gd").new()
+	dialogue = preload("res://scripts/english/SupportDialogue.gd").new()
 
 func cancel():
 	start("")
@@ -219,6 +221,8 @@ func submit() -> Dictionary:
 			proof.append(summary)
 		var record := {"id":task.id,"mode":mode,"passed":result.passed,"score":result.score,"hints":hints,"errors":errors,"time":int(Time.get_unix_time_from_system()),"proof":proof,"causes":causes.duplicate(),"evidence_summary":evidence_summary.duplicate(),"changes":[]}
 		record.variant = {"seed":variant_seed,"generator_version":generator_version}
+		record.communication = dialogue.assessment(self)
+		record.dialogue = dialogue.data.duplicate(true)
 		for change in undo_stack: record.changes.append(change.title)
 		attempts.append(record)
 		if attempts.size()>100: attempts.pop_front()

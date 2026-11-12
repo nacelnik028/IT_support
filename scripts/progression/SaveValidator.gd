@@ -65,6 +65,9 @@ func network_attempts(data) -> bool:
 func workshop_attempts(data) -> bool:
 	if not network_attempts(data): return false
 	for record in data:
+		if record.has("communication"):
+			if not support_dialogue(record.get("dialogue",{})) or not required(record.communication,{"score":0,"passed":false,"confirmed":false,"assisted":false,"questions":0,"cause_accurate":false,"intervention_accurate":false,"verified":false,"errors":0}): return false
+			if not integer(record.communication.score,0,100): return false
 		if record.has("variant"):
 			if not required(record.variant,{"seed":0,"generator_version":0}): return false
 			if not integer(record.variant.seed,0,2147483646) or record.variant.generator_version!=1: return false
@@ -429,4 +432,17 @@ static func json_value(value) -> bool:
 			if not json_value(item): return false
 	elif typeof(value) in [TYPE_INT,TYPE_FLOAT]: return is_finite(float(value))
 	elif not typeof(value) in [TYPE_STRING,TYPE_BOOL]: return false
+	return true
+
+func support_dialogue(value) -> bool:
+	if not required(value,{"asked":[],"causes":{},"interventions":{},"verification":false,"confirmed":false,"confirmation_revision":0,"history":[],"assisted":false,"errors":0,"revision":0,"npc":""}): return false
+	if value.asked.size()>5 or value.history.size()>40 or value.npc.length()>4000: return false
+	if not integer(value.revision,0) or not integer(value.confirmation_revision,-1) or not integer(value.errors,0): return false
+	for key in value.asked:
+		if key not in ["what","since","others","change","services"]: return false
+	for collection in [value.causes,value.interventions]:
+		for key in collection:
+			if key not in ["cable","vlan","dhcp","arp","dns","https","wifi"] or not collection[key] is bool: return false
+	for entry in value.history:
+		if not required(entry,{"intent":"","reply":"","revision":0}) or entry.reply.length()>4000 or not integer(entry.revision,0): return false
 	return true

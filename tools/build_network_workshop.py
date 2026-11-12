@@ -136,6 +136,7 @@ def variation(base, index):
         if index == 3: initial['dns_cache'] = '203.0.113.19'
         task['cause'] = ['Pravidlo blokuje TCP 443.', 'Služba stojí a pravidlo blokuje TCP 443.', 'Služba stojí a klient má starou DNS cache.'][index-1]
         task['review'] = 'Porovnej stav služby a konkrétní pravidlo HTTPS; zachovej zablokovanou správu a izolaci hostů.'
+        if index == 3: task['review'] += ' Porovnej také starou cache a správný DNS záznam; obnov cache.'
     if key == 'G':
         initial['ap_position'] = ['rear', 'corner', 'side'][index-1]
         task['cause'] = 'Nevhodné umístění AP: '+initial['ap_position']+'. Porovnej obě skutečná měřicí místa.'
@@ -146,13 +147,15 @@ def variation(base, index):
         initial['dns_record'] = '203.0.113.20'
         task['required_causes'] = ['cable', 'dns']
         task['cause'] = 'Nedostupný klientský port a stará DNS cache.'
+        task['review'] = 'Dohledáním trasy obnov linku na funkčním portu VLAN 10, obnov DHCP, změř starý překlad a obnov cache. Ověř všechny služby.'
     if key == 'H' and index == 3:
         initial['dns_record'] = '203.0.113.20'
         initial['dns_cache'] = ''
         initial['rules']['https'] = False
         task['required_causes'] = ['vlan', 'https']
         task['observe_old_dns'] = False
-        task['cause'] += ' Pravidlo blokuje HTTPS; DNS je aktuální.'
+        task['cause'] = 'Klientský port je ve VLAN 20 a pravidlo blokuje HTTPS; DNS je aktuální.'
+        task['review'] = 'Oprav VLAN skutečného klientského portu, obnov DHCP a povol konkrétní pravidlo HTTPS; zachovej správu a izolaci.'
     task['ticket'] = {'A':'Po údržbě nejde na PC 04 připojení.', 'B':'Po přesunu PC 04 nefungují síťové služby.',
                       'C':'PC 04 po změně adresního rozsahu nefunguje.', 'D':'Mohu tisknout, ale vzdálená služba se neotevře.',
                       'E':'Přihlášení funguje, firemní portál se neotevře.', 'F':'Firemní portál neodpovídá.',
