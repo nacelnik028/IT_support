@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Dílna — úplná ochrana odsazeného křídla, 12. 11. 2026
+
+- Po odsazení závěsu zahrnuje ochrana zavírání také novou vzdálenou špičku křídla a poloměr hráče, do z = −32,1. Přidaný skutečný fyzikální průchod u této krajní části prošel s celou sadou dílny: 493 kontrol bez chyb a varování. Typ, kolize i oba ovladače zůstávají.
+- Konečné rozložení a akce analyzátoru dokončily 805 kontrol v každém rendereru. Celý 55sadový runner pokračuje bez chyb; následuje přesný export a jeho kontrola.
+
 ## Dílna — zachovaný rámec analyzátoru, 12. 11. 2026
 
 - Závěrečný průchod zachováním výběru doplnil přesnou akci Ukázat cestu ve 3D: po zásahu či dalším měření znovu zvýrazní právě uložený vybraný rámec, nikoli poslední jiný provoz. Nový pokus/reset naopak zruší výběr rámce předchozího pokusu. Filtr se zachová.

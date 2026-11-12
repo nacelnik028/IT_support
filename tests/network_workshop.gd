@@ -250,6 +250,10 @@ func door_safety():
 	var w = shell.world.network_room.workshop
 	shell.return_to_world()
 	# Both controls use the same action; closing waits for the entire sweep.
+	shell.world.player.position = Vector3(8.55,0.02,-31.94)
+	w.opened = false
+	for frame in 12: await physics_frame
+	check(absf(w.angle+PI/2)<0.01,"Zavření počká i u vzdálené špičky odsazeného křídla včetně poloměru hráče")
 	shell.world.player.position = Vector3(8,0.02,-30.4)
 	w.opened = false
 	for frame in 12: await physics_frame

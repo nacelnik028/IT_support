@@ -117,7 +117,7 @@ func _physics_process(delta):
 	elif p.z> -28.8: in_workshop = false
 	var desired := -PI/2 if opened else 0.0
 	# A closing leaf waits while the player occupies any part of its sweep.
-	if not opened and p.x>6.4 and p.x<9.65 and p.z> -31.8 and p.z< -28.5: return
+	if not opened and p.x>6.4 and p.x<9.65 and p.z> -32.1 and p.z< -28.5: return
 	angle = move_toward(angle,desired,delta*1.5)
 	hinge.rotation.y = angle
 
