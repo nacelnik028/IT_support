@@ -422,7 +422,7 @@ func workshop_capture():
 	if lab.selected_frame>=0 and lab.selected_frame<model.capture.size():
 		var frame: Dictionary = model.capture[lab.selected_frame]
 		data(frame.title+"\n"+frame.frame+"\n"+frame.ip+"\n"+frame.transport+"\n"+frame.application)
-		control(content,"Ukázat cestu ve 3D",shell.return_to_world)
+		control(content,"Ukázat cestu ve 3D",func(): model.last_path = frame.path.duplicate(); shell.return_to_world(),false,"capture:show-path")
 	for index in range(model.capture.size()-1,-1,-1):
 		var frame: Dictionary = model.capture[index]
 		if lab.filter!="Vše" and not frame.title.contains(lab.filter): continue

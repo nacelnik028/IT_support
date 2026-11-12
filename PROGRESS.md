@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Dílna — zachovaný rámec analyzátoru, 12. 11. 2026
+
+- Závěrečný průchod zachováním výběru doplnil přesnou akci Ukázat cestu ve 3D: po zásahu či dalším měření znovu zvýrazní právě uložený vybraný rámec, nikoli poslední jiný provoz. Nový pokus/reset naopak zruší výběr rámce předchozího pokusu. Filtr se zachová.
+- Nový průchod panelu s tímto scénářem prošel 289 kontrolami bez grafiky. Rozšířené matice před tímto jediným doplněním průchodu analyzátorem prošly 800 kontrolami v Compatibility i Forward+; finální EXE znovu ověří skutečnou tuto akci.
+
 ## Dílna — rozšířená kontrola a příprava exportu, 12. 11. 2026
 
 - Obě grafické matice prošly 454 kontrolami: šest PC kombinací, skutečný VR viewport, oba syntetické paprsky, posouvání a B/Y. Dodatečné kontroly celé šířky obsahu, konce Oprav a sjednocené záběry ještě rozšiřují konečný protokol. Fyzický headset zůstává neověřený.

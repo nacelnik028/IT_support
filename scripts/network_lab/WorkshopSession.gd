@@ -45,6 +45,7 @@ func start(id: String):
 	view = "ticket" if not task.is_empty() else "measure"
 	selected = "pc04"
 	selected_port = int(network.ports.pc04)
+	selected_frame = -1
 	undo_stack = []
 	result = {}
 	before = network.snapshot()
