@@ -1,13 +1,18 @@
 # IT Support Simulator: Training academy
 
-**Windows EXE v `build/ITSupportSimulator.exe` obsahuje rozšířený pavilon 05:
-síťovou učebnu se 40 původními úlohami a samostatnou tréninkovou dílnu s osmi
-tickety A–H.** Cesta: rozcestník → 05 → vzadu vpravo → dveře Tréninková dílna.
-Sestaveno 11. 11. 2026 ze zdroje `d2617b6` jako verze 1.5.0; 104605624 B.
+**Windows EXE v `build/ITSupportSimulator.exe` obsahuje přehlednější pracovní
+panel síťové dílny: Ticket, Diagnostika, Opravy, Analyzátor a Rozbor, samostatný
+výběr ticketů a historii, stálou spodní lištu a měření s přesným zdrojem a stavem.**
+Tabule, dveře a GSM mají upravené uspořádání. Cesta: rozcestník → 05 → vzadu
+vpravo → Tréninková dílna. Zachováno všech 40 úloh učebny, 23 karet a osm ticketů.
+
+Sestaveno 12. 11. 2026 ze zdroje `fdcbe4b`, verze 1.5.0, 104616280 B.
 Kontrolní součet je v `build/SHA256SUMS`.
 
-Všech **54 sad Test-All** prošlo včetně výuky ve všech třech režimech.
-[Ověření Windows EXE](build/BUILD_INFO.md) · [Dílna a tickety](docs/NETWORK_WORKSHOP.md).
+Všech **55 sad Test-All** prošlo včetně 21 lekcí v každém ze tří režimů.
+Ověřený také přesný nový EXE s grafikou a bez ní.
+[Windows EXE](build/BUILD_INFO.md) · [Ovládání dílny](docs/NETWORK_WORKSHOP.md) ·
+[Snímky a ověření](docs/ui-review/2026-11-11-workshop-layout/README.md).
 
 **PICO APK je starší vydání 1.5.0 / code 6.**
 Jeho zdroj a hash uvádějí [distribuční metadata](build/BUILD_INFO.md).
@@ -510,6 +515,12 @@ V PowerShellu s cestou ke console variantě Godotu:
 ```powershell
 ./tools/Test-All.ps1 -GodotPath 'C:/cesta/Godot_console.exe'
 ```
+
+`network_workshop.gd` ověřuje referenční opravy A–H, původní režimy, skutečnou
+chůzi, oba ovladače, bezpečnost křídla, oddělené relace a opakování chybného zápisu.
+`workshop_layout.gd` přidává zdroje měření, zachování fokusu/posunu, reset s
+potvrzením, kontext fyzických zařízení a grafickou PC/VR matici. Přepínač
+`-- --screenshots` ukládá důkazy do datované složky výše.
 
 `london_geometry.gd` ověřuje meze dekoru serverové chodby, skutečnou chůzi kolem
 Londýna, kolize/interakce u původního přesahu a zazděný přímý průchod z obou stran.

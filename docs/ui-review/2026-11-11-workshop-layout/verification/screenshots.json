@@ -1,0 +1,1499 @@
+{
+  "count": 166,
+  "images": [
+    {
+      "file": "after/diagnostics-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 132931,
+      "sha256": "7791df32eef7a645495b75ed05f23cb637464cb972112f614d12e89ccba0fe95"
+    },
+    {
+      "file": "after/diagnostics-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 147677,
+      "sha256": "0c05549c4f0c3cb781eb645d461cce958fa1f4345c0ae43c0e65c4cc71434a99"
+    },
+    {
+      "file": "after/diagnostics-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 138673,
+      "sha256": "87ff298486dc60de20d38d585960d975f338459906db14e316e127eeca3151e0"
+    },
+    {
+      "file": "after/diagnostics-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 154167,
+      "sha256": "764073a17eb0d683c8b424775319df5a60620c7f17599991de9e7039e98fab2e"
+    },
+    {
+      "file": "after/diagnostics-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 271831,
+      "sha256": "8341f8667435df61a0566b44b53083e3ef17f4c13ee0ddd83a1c9d61aa122c4e"
+    },
+    {
+      "file": "after/diagnostics-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 304250,
+      "sha256": "3b9a0bef84b31449b482855b15d7f05acaafe18311aba0a513031f623ecaecb1"
+    },
+    {
+      "file": "after/diagnostics-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 237757,
+      "sha256": "ddc1af1c63747e8d5fba638e2e6a44426f36f7b58117f23ce3259ea5a76c8560"
+    },
+    {
+      "file": "after/diagnostics-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 264498,
+      "sha256": "97d30ec1aa52bfada886467e04dee0542047a5ab1ddac16e0d01e1607b525277"
+    },
+    {
+      "file": "after/diagnostics-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 720757,
+      "sha256": "33ff49caedd254652f531b0f0c363ccf04a498e37771151b3e9d5ce4724b3d39"
+    },
+    {
+      "file": "after/diagnostics-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 805887,
+      "sha256": "b6b4eca754b7ffff863b9e91e059cdc604e6d4b5817a1593b60b23a5cf593b64"
+    },
+    {
+      "file": "after/diagnostics-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 538687,
+      "sha256": "b291609336d8073182abc61141d91b41b73dd269d9f58ff960cbfa2131477873"
+    },
+    {
+      "file": "after/diagnostics-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 595169,
+      "sha256": "745952791dcb49d53e4d9f694120f3967ddbd7bd6f0e55016f54798aa0270179"
+    },
+    {
+      "file": "after/door-approach-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 317873,
+      "sha256": "97fe535a5aedc5eeefefc155dc501de77e9f49441d208cd8724471102658e0e2"
+    },
+    {
+      "file": "after/door-approach-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 305002,
+      "sha256": "258705501d5bd38720ebba4cf47ecf1229279b43223a023e927d80520eb19ba8"
+    },
+    {
+      "file": "after/door-approach-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 322991,
+      "sha256": "26f865acae968de4e751b7e073e95ea08bc3fdad455933080980881353c06fee"
+    },
+    {
+      "file": "after/door-approach-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 310785,
+      "sha256": "60b9ac83fbd2b615b3361ea253b6a184490b80e6d8be67f542386939c7d35709"
+    },
+    {
+      "file": "after/door-approach-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 574400,
+      "sha256": "56e4ef689c230f4fa91ea8c9f492f77d95574c3e1b273f005e7bd6c07ea9f622"
+    },
+    {
+      "file": "after/door-approach-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 530152,
+      "sha256": "3f9eb434782d3d6aa4b9468830dbbb936d024cb54e82beecbd9c12630e4d15d1"
+    },
+    {
+      "file": "after/door-approach-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 580928,
+      "sha256": "378acdf76edbc3ab34693aff3687d49f810a901369a6d3e768bad099579af237"
+    },
+    {
+      "file": "after/door-approach-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 537711,
+      "sha256": "71ded78cf06be1677a5d2d8c32b22c3c9640ebdbc0936f364ceed17926185f71"
+    },
+    {
+      "file": "after/door-approach-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1586619,
+      "sha256": "b05c389fe3ed028659285f411a3c39b32354a3d7b3f1b805e71e6f3cc8d9483b"
+    },
+    {
+      "file": "after/door-approach-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1403779,
+      "sha256": "8603d34689ffcaeff9f8707e98575e1c23fa63e84c8245882534260fd34841c3"
+    },
+    {
+      "file": "after/door-approach-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1599863,
+      "sha256": "c91f084751d9a113327ca0b1d20f8fa0be5978f4ea9ce44b41d0583d646ff79c"
+    },
+    {
+      "file": "after/door-approach-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1419636,
+      "sha256": "178eda023ee208fbc5e4ce5721ef6ac5f62e82383b92e0901dfdf9cdd003b3fc"
+    },
+    {
+      "file": "after/door-open-control-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 313885,
+      "sha256": "ba9c4df3429ff8a0cced0eba9a81d0abdc7eba6aa8daed64f3e33070336ece53"
+    },
+    {
+      "file": "after/door-open-control-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 286068,
+      "sha256": "616503d7455f8be5ec21d1c33acd7c51489297c9a04b8da7c90a2a152199b0ef"
+    },
+    {
+      "file": "after/door-open-control-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 317485,
+      "sha256": "13cdf101724fbd007e17555c75a4943e03eed75811c5ef6de4a82d20c2372af8"
+    },
+    {
+      "file": "after/door-open-control-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 289101,
+      "sha256": "01bfacb8edc34d7a7dc310e7cff98b5b567a44b537c63968c5348072238008a5"
+    },
+    {
+      "file": "after/door-open-control-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 575787,
+      "sha256": "8108addfdf2eae79ef46331f55e5d70c7893bd74385e9dbfa5e44653d0920c96"
+    },
+    {
+      "file": "after/door-open-control-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 507022,
+      "sha256": "aa70adb42afe5364f644a51a50ad0b6a6fac8e7d1c57bae2cecc7de97055afbf"
+    },
+    {
+      "file": "after/door-open-control-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 580089,
+      "sha256": "002e9a8f5672c5c6a14775abe454adeac07136bccfa5ede5c9b853eaf1458e92"
+    },
+    {
+      "file": "after/door-open-control-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 509572,
+      "sha256": "5053b8c2c652cd29757999505f9c8c16b056be091d9176ad683278e0fee42d85"
+    },
+    {
+      "file": "after/door-open-control-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1614013,
+      "sha256": "d827deb2a08d6030dc2c56a539cc032b42ef5643cef8486bb1cc81aca32e9644"
+    },
+    {
+      "file": "after/door-open-control-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1360753,
+      "sha256": "26cbd33173a55aff78dd234da3dae7413af5a0bee26e92763ad937f0aca344a4"
+    },
+    {
+      "file": "after/door-open-control-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1619593,
+      "sha256": "9be26b3bcaf483c10a1c0d81226688c51f5b659fa2ca5d8e420936cfea592772"
+    },
+    {
+      "file": "after/door-open-control-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1364510,
+      "sha256": "bd5d80f7249606067c970683d52e97053f7a39a40466287f532e10c98618508d"
+    },
+    {
+      "file": "after/gsm-workplace-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 265510,
+      "sha256": "649bb728aa650f95149950b21bb566f391a5ce9e70ce201c9afb079756720381"
+    },
+    {
+      "file": "after/gsm-workplace-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 253946,
+      "sha256": "1972d711ce9ee0c5f7ab33212ee529e7bf7d7445e686600ce6623575c69f5c16"
+    },
+    {
+      "file": "after/gsm-workplace-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 272555,
+      "sha256": "cfae99ad86cf53cfc202cd1acd9e6a845a8435d1b8823af05e742a98867d7a08"
+    },
+    {
+      "file": "after/gsm-workplace-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 262266,
+      "sha256": "2b5e8e70add0db28677b09232760d125d0661d844e03eb85107b5d27b1931d48"
+    },
+    {
+      "file": "after/gsm-workplace-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 484529,
+      "sha256": "f8e5dfb52ffdf7bce1d0f53bcbcd3ea9f3f4c3058b9855280f399c334a580fa3"
+    },
+    {
+      "file": "after/gsm-workplace-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 448876,
+      "sha256": "6d03cf615878134aba5133ae39a65e1160e6722c672d2747abe4fe49baa33c12"
+    },
+    {
+      "file": "after/gsm-workplace-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 492885,
+      "sha256": "54fa336c4f544526845839e7016801831248ece9bdb54cb55c54c06ef56877a8"
+    },
+    {
+      "file": "after/gsm-workplace-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 458531,
+      "sha256": "095bcf6c53b7723da610257a61985302fb94033092f566e19f6fdb86e5bb095e"
+    },
+    {
+      "file": "after/gsm-workplace-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1343556,
+      "sha256": "9729922e79b5b19585f68409493a3e214a6ed159136a39505d2fd94a117bdd98"
+    },
+    {
+      "file": "after/gsm-workplace-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1197912,
+      "sha256": "c498a53e39e4f53e3ed76ff593a26e58160b6a9dc0e42dcf457f8478faa70918"
+    },
+    {
+      "file": "after/gsm-workplace-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1356135,
+      "sha256": "d58ed96ecb0a7c5f508510d858846c39d2bd333a136bb513d7a4a2fb5b32c66c"
+    },
+    {
+      "file": "after/gsm-workplace-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1212835,
+      "sha256": "c5ffc5f2c59b713490d8573999d6724984ccea7044beac4f9958c94d6c035964"
+    },
+    {
+      "file": "after/mcp-workshop-review.png",
+      "pixels": [
+        1600,
+        900
+      ],
+      "bytes": 123888,
+      "sha256": "6dc3a58a8f0dcd31dbc9085c2daac1e8d8c96838d58c75b12ee099fc336cfc57"
+    },
+    {
+      "file": "after/repairs-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 150655,
+      "sha256": "2e28932fbe1b0b30bfaa48188c8a5b2b2a40df80b749af4fa4d441052ee54055"
+    },
+    {
+      "file": "after/repairs-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 167417,
+      "sha256": "8666982caa5ef508b3a4e50598440e4b2cfe9b55c1fbfb3adda2de4cb0a00c35"
+    },
+    {
+      "file": "after/repairs-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 179899,
+      "sha256": "ec33e8d9b9c16c64ef38c2e85dcb3039e15792f7ba014fa420a3d3047f957db0"
+    },
+    {
+      "file": "after/repairs-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 199217,
+      "sha256": "11abe685d679d83bd371772f40486ff4dff91a900c1fa572d34671017269fe1b"
+    },
+    {
+      "file": "after/repairs-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 261138,
+      "sha256": "476699adddc91563cc72327b1ee618ed011c8b4a983c035bf10d7cdb5458164a"
+    },
+    {
+      "file": "after/repairs-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 290468,
+      "sha256": "f418d015aa4878eb477a3cd8d86d0187617b6ce7a8fc5cfc0911a6ef6cba0996"
+    },
+    {
+      "file": "after/repairs-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 300396,
+      "sha256": "b850eab4e43413006e91b029acfa59bcb51ef2a3ef663212baf7e8d88be796e3"
+    },
+    {
+      "file": "after/repairs-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 331816,
+      "sha256": "005c1780cd7cdc704a603e511106e371419cb4fbd5b93894d3cf27a12901e49b"
+    },
+    {
+      "file": "after/repairs-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 597077,
+      "sha256": "091b711b5b5748188c2cad7fadba33334147cf0c93674842a9bdbfba6686d1f7"
+    },
+    {
+      "file": "after/repairs-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 658639,
+      "sha256": "9863947dd73596e467e792189f46e1833655473e56c5245c4c027628c6300131"
+    },
+    {
+      "file": "after/repairs-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 654986,
+      "sha256": "fd0c69a68a08879a177e446a6b07fda5cdd16da374abb057d3341f8555ba0bb3"
+    },
+    {
+      "file": "after/repairs-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 720403,
+      "sha256": "bdb11035ec8821e80de17530799587169cdbaff7217321aded46bfd0bc819ec2"
+    },
+    {
+      "file": "after/return-classroom-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 334745,
+      "sha256": "68463c467409181b8b44d1ad1fe08b0df212ab003bd9002bc775c567a3f927cc"
+    },
+    {
+      "file": "after/return-classroom-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 359847,
+      "sha256": "22806d51fe5173f0e8c1b6fa21b53008fb821c0e32fe84e0588bffd823a5f1d2"
+    },
+    {
+      "file": "after/return-classroom-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 339518,
+      "sha256": "e873457b2f1b19182201701a3f56f2ffc1ff2ed83db46133494f5c9d28b80121"
+    },
+    {
+      "file": "after/return-classroom-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 364467,
+      "sha256": "6f25dc4427b0c2ceda9a54cdf4c50ab414021bf68bf96711122a378118ca030c"
+    },
+    {
+      "file": "after/return-classroom-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 623529,
+      "sha256": "c7efc51783a083a120292a691580b0bc56ed8fe1426469cd28b7f2b36e35d3a1"
+    },
+    {
+      "file": "after/return-classroom-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 665274,
+      "sha256": "f1231ad7c3c49126d21c7071f3b056b8dbb459fa92787d434c35b4fcd2cff306"
+    },
+    {
+      "file": "after/return-classroom-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 631161,
+      "sha256": "a031a34f2414bafd57a36520067454b064e6cc214225de550a0e000dc7ef5719"
+    },
+    {
+      "file": "after/return-classroom-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 673762,
+      "sha256": "25a3277d0e51b2737c2d5debc058b008d14346da74a03dde9dc98a5826a90a4c"
+    },
+    {
+      "file": "after/return-classroom-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1837324,
+      "sha256": "c294ada0bf279579247f032a465f9806084605e3e93eb72e2a23e595427782fb"
+    },
+    {
+      "file": "after/return-classroom-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1957144,
+      "sha256": "23bebfb346ff0b2c96e9dbc99dd783ada99a023ef2fc70dfc879672071a57c7d"
+    },
+    {
+      "file": "after/return-classroom-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1852902,
+      "sha256": "c89fb41a7a9517cf758be4f9c91fde8dad927b67f8a9721e14628d20338f495d"
+    },
+    {
+      "file": "after/return-classroom-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1972047,
+      "sha256": "73e59fad7a099da69cd814646d076b1919b0f78bfaff5e53862068d739bcd08f"
+    },
+    {
+      "file": "after/topology-full-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 354977,
+      "sha256": "5d7dae0fb5de843887e679a4b02c8bb9fc4d25cb603e0e83a762a8c8af1f24de"
+    },
+    {
+      "file": "after/topology-full-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 389680,
+      "sha256": "b75d033f21a6b548e2bfdb91de2de80bcdad064afa85cec3e82e2cf7d125bf7e"
+    },
+    {
+      "file": "after/topology-full-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 359739,
+      "sha256": "c3b3c0f130c8d66ed9f516fab654014b10c645534ea3b3cd54010450aeb4fe5e"
+    },
+    {
+      "file": "after/topology-full-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 394665,
+      "sha256": "ee8e088dbf0b4c90f1190e1f44837f3b28af2b17e6d48b0e36ac0824b4734b50"
+    },
+    {
+      "file": "after/topology-full-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 649921,
+      "sha256": "a6020e1dabcae8f7777444d8bb0bf613d75aa4f2ec2e9d1abb274324c0a30a20"
+    },
+    {
+      "file": "after/topology-full-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 677805,
+      "sha256": "a15b8287c599c63aee4eab8d800542f7f663a526db840d19f5cb6934baffeebf"
+    },
+    {
+      "file": "after/topology-full-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 655737,
+      "sha256": "058b9205c0c8ef2c8927219daccc21899effa9896358450b0903325eef63836d"
+    },
+    {
+      "file": "after/topology-full-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 684409,
+      "sha256": "5a20039c1e45a38350190d53d424949fc7171ebc22a962a215fd38ca7b8baf39"
+    },
+    {
+      "file": "after/topology-full-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1829672,
+      "sha256": "821b43281e022a967124e6cf14b15cc9e20cf5c3e289a4dba96e429c076be67f"
+    },
+    {
+      "file": "after/topology-full-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1769683,
+      "sha256": "ec33f769fd13803fdb46ef5f8377d28b69d89fdec79c6b1ac5b6f7679dc3bdea"
+    },
+    {
+      "file": "after/topology-full-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1842912,
+      "sha256": "36b12d930b2bd67d735a597d5a4e3ecbb6a334333d3074727067d29bad0d856c"
+    },
+    {
+      "file": "after/topology-full-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1784263,
+      "sha256": "4d38d43093afc2d06555800a6296ad5723a2ab67406a7114dd997fea49f0d353"
+    },
+    {
+      "file": "after/topology-gsm-1280-100-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 347169,
+      "sha256": "510165f49cbf4b45654efbd896a1710292d31145c681acbbb9f75a28cdd592af"
+    },
+    {
+      "file": "after/topology-gsm-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 353275,
+      "sha256": "bcf7fe66024f7de836a4f799cf6931285f936afeacf9ce2b5a67d1c27f71b879"
+    },
+    {
+      "file": "after/topology-gsm-1280-130-forward_plus.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 351399,
+      "sha256": "3aa320cc66a37b6b9aba0155225076e74c0964c874d4a63a8567e1341651ae17"
+    },
+    {
+      "file": "after/topology-gsm-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 356591,
+      "sha256": "b7b2414b7545589ec8dc2afdc7abe6908bbffe1123db6679a6ffb32730930094"
+    },
+    {
+      "file": "after/topology-gsm-1920-100-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 633634,
+      "sha256": "7b762ac509fed64c03c88efccd8a7610f0f43055d9b681135f251a77dd4416e8"
+    },
+    {
+      "file": "after/topology-gsm-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 608747,
+      "sha256": "573ef15b80445a3b7158f572981319ae72db2a6bfc0798311e6bda322fdb4af8"
+    },
+    {
+      "file": "after/topology-gsm-1920-130-forward_plus.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 638811,
+      "sha256": "aee96bef8286898443171177122809aaff24a79cd94a3fca33549123af6dc882"
+    },
+    {
+      "file": "after/topology-gsm-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 613877,
+      "sha256": "9947746bebccf770eb074052d79afc83e31a4aad6d0383ec4a1e447ed21c7059"
+    },
+    {
+      "file": "after/topology-gsm-3840-100-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1766703,
+      "sha256": "b778a3a239c8705ba87bff3919b70a7a7a156bb6c9db69d2a04a96d73b366f3d"
+    },
+    {
+      "file": "after/topology-gsm-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1589408,
+      "sha256": "479dd5b08a91847d82d3a145c874cbb95dcd760dc0234c378716abc88cc72401"
+    },
+    {
+      "file": "after/topology-gsm-3840-130-forward_plus.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1776775,
+      "sha256": "d677403b40044cf0703732bdcaf7e2a03f0c2c607e6f6f2e707a47e6044a77d4"
+    },
+    {
+      "file": "after/topology-gsm-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1598585,
+      "sha256": "a7958b21b5676f435d1b6bd231f4a9306508e21e6154a3af34e4e5aa906e0e3c"
+    },
+    {
+      "file": "after/vr-diagnostics-vr-1600x1200-100-forward_plus.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 149188,
+      "sha256": "2c8a244e1ba8cefe32a5aa3a7633bbc49814c845a7b00ca39cf8dd72a642bce5"
+    },
+    {
+      "file": "after/vr-diagnostics-vr-1600x1200-100-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 164573,
+      "sha256": "4799ec350863a6d31977252e8c06a77fc4eb9bb85c498564a432db08e1a336ce"
+    },
+    {
+      "file": "after/vr-diagnostics-vr-1600x1200-130-forward_plus.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 154123,
+      "sha256": "1148d9262ebff37d1efe7d13c0a855f89495db9f268e6e6745883a92902abcc0"
+    },
+    {
+      "file": "after/vr-diagnostics-vr-1600x1200-130-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 169021,
+      "sha256": "606d7b6b65b6b2512ca253432ada4c4ffb7b83c2442aedfeb63d5b1120bb03e0"
+    },
+    {
+      "file": "after/vr-repairs-vr-1600x1200-100-forward_plus.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 121055,
+      "sha256": "8180d08c3887d7cda0118fcfbde4dbe711a0055a20d7614ca86b313b5d65b4f7"
+    },
+    {
+      "file": "after/vr-repairs-vr-1600x1200-100-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 132591,
+      "sha256": "413e95a8c6c7b674062eccc217fa7f1eedf4aeedaf68ee28164a72cc87a8ceb0"
+    },
+    {
+      "file": "after/vr-repairs-vr-1600x1200-130-forward_plus.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 132811,
+      "sha256": "38d13dbccc6337e90a0f23a63fc47ae653412a1f33721c1cd64979bfd7decc6a"
+    },
+    {
+      "file": "after/vr-repairs-vr-1600x1200-130-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 144890,
+      "sha256": "7b78a75f07a3ce6b76b104f7665bc08238804b3a4892648151ab8dbac95a0fa7"
+    },
+    {
+      "file": "before/diagnostics-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 189904,
+      "sha256": "aed07bffe73261a1e00afd2cf599045cd871346d36567d1f9092cc05fa8f014c"
+    },
+    {
+      "file": "before/diagnostics-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 207503,
+      "sha256": "b8f053ce52cbd9fd0cb5c62ddcc0af43afb0efb92ffe4b7d726d42055858a26b"
+    },
+    {
+      "file": "before/diagnostics-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 388698,
+      "sha256": "d6af5a92af416d6d84cf74c4a14c2eb24f35e5d10406e7b176130071daa23e39"
+    },
+    {
+      "file": "before/diagnostics-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 354775,
+      "sha256": "4eb972c310c639ee25dc96ba289e99189bed076da50d92582ce7ed03827c30ba"
+    },
+    {
+      "file": "before/diagnostics-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1048317,
+      "sha256": "71d0c1c1e25abe35778d0c411c83fc9455500048c77c32a2370ecf83bdf152d8"
+    },
+    {
+      "file": "before/diagnostics-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 767247,
+      "sha256": "9df17b3003c282a83221776c7c37f6c1ddcad33ac90e2dd6541f0db06f1ea413"
+    },
+    {
+      "file": "before/door-approach-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 329499,
+      "sha256": "c9676a57233fac96fa1332575d539271de0610a4203ae2394689911fce234633"
+    },
+    {
+      "file": "before/door-approach-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 330846,
+      "sha256": "2a02ffaed54fd14fbb3661a30e0b67afdef235664d8ff7fb3cd76f7c07b6bb04"
+    },
+    {
+      "file": "before/door-approach-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 568001,
+      "sha256": "1f901dc9bdad680f4d87736fad72a7ce6df0a1a0fb5d5978df4981588a3c0ba9"
+    },
+    {
+      "file": "before/door-approach-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 575359,
+      "sha256": "5c8167e028529b3ee18d6f9e15ae9c3a9c5bb9e72516cddb690280a065bbb673"
+    },
+    {
+      "file": "before/door-approach-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1536807,
+      "sha256": "88ca26a1b5e63cfd467bf81cfd2f20e59b65384703b832badf93a15b59abd74d"
+    },
+    {
+      "file": "before/door-approach-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1553460,
+      "sha256": "fa7c4acf93b7fe09b4515e99cffae4205499a227b552ddcc77bd52f7061601cb"
+    },
+    {
+      "file": "before/door-open-control-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 291188,
+      "sha256": "74ae409d2e6fb628fe038c1ea53f54dc1b0584aacce298d46f8c1a06e12dbf94"
+    },
+    {
+      "file": "before/door-open-control-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 294864,
+      "sha256": "2b2653f549f624e02b93b7976ee232cb4bc91959b101f5f46088f594bada65b4"
+    },
+    {
+      "file": "before/door-open-control-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 507138,
+      "sha256": "72a004fbce72be7c49c8f2e86c401a49f3a01ffb9b55a2e3071510b59fa382f8"
+    },
+    {
+      "file": "before/door-open-control-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 510441,
+      "sha256": "512f989fff36aae23b4f7d5a0740354d07ff84cbc93b2007f9be8e2982f74854"
+    },
+    {
+      "file": "before/door-open-control-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1380069,
+      "sha256": "05edc01303da9bb27b2b5c91d4be59d2b03f533821e1f3f9cb04dd7a0b3c94d6"
+    },
+    {
+      "file": "before/door-open-control-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1413092,
+      "sha256": "975e3b706ae9b487c9e89465b0010399e94c7465f70abb1432168165775e73cc"
+    },
+    {
+      "file": "before/gsm-workplace-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 262849,
+      "sha256": "6b33904c35aa48eee97759d168dd0ecf6bc5eb02b8b9dcc34bbb1484e1f72de6"
+    },
+    {
+      "file": "before/gsm-workplace-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 271196,
+      "sha256": "2bc73c29e6678ac9c6efd07a0e6bf4f264ac4de1860ea1af86b13743496ea8e9"
+    },
+    {
+      "file": "before/gsm-workplace-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 464017,
+      "sha256": "1389084bde38249defc0a6a782a4f95ecbfffda01e39b800c358460341f6d449"
+    },
+    {
+      "file": "before/gsm-workplace-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 474520,
+      "sha256": "23a65dd5c251d3831421d600fc62f5c874939ab2656da45dad2c6eb39aaed6a5"
+    },
+    {
+      "file": "before/gsm-workplace-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1245017,
+      "sha256": "691615403d413103274c6528c5c0928c0beadf4b46f388c5ef69f8890f6ab85c"
+    },
+    {
+      "file": "before/gsm-workplace-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1261771,
+      "sha256": "ea1369183b925cd3b5bb5d982ab1bac6b6543de0e3160656940fb97e942aa4a2"
+    },
+    {
+      "file": "before/repairs-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 196005,
+      "sha256": "4dea5e5947025db65d81c0b7abd24c7eaf91a413f8a87742bb776865f5c3efe2"
+    },
+    {
+      "file": "before/repairs-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 203835,
+      "sha256": "4e2be0c384deed6399525c56b32befe3820d768cf70cb775351569ebfd2b23aa"
+    },
+    {
+      "file": "before/repairs-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 418002,
+      "sha256": "822cd34779018749bc15cf912e04c6aed17f49046122c6001d9a3a4071145ee3"
+    },
+    {
+      "file": "before/repairs-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 342968,
+      "sha256": "db7a5a3cf16f3d5cbfb11dbfe222f115f23f0ea9fb63ba968803289596a105b4"
+    },
+    {
+      "file": "before/repairs-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1088467,
+      "sha256": "47364b34319754e30ed65d9bc797659be3759effcd99b50f9e8bfcd364d6c764"
+    },
+    {
+      "file": "before/repairs-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 735651,
+      "sha256": "3dce58c7c8b2ae65bf498e52c1eb3f5594366c675d792770fa47fecaf2a64a9a"
+    },
+    {
+      "file": "before/return-classroom-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 344086,
+      "sha256": "a256c1336082e21c2c4b78839a0b259d1730810aa074cb6509e472c0a94a1764"
+    },
+    {
+      "file": "before/return-classroom-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 348846,
+      "sha256": "c0f6eda1be6d733f26130153fd7e76dc0286807aeafb6011a366fe9a3f7b1050"
+    },
+    {
+      "file": "before/return-classroom-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 636779,
+      "sha256": "94cbe886127621440f9e2147a231c3aaf3011203743ea30c2d7394397ec527c7"
+    },
+    {
+      "file": "before/return-classroom-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 645522,
+      "sha256": "67902ca85d20211508b33fa540f383e582c7f7a8b8bc98d448d722d1953d9605"
+    },
+    {
+      "file": "before/return-classroom-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1870011,
+      "sha256": "955738e15dce71b44a5671a036a595f7aa9b36c15e5ee2691b58392fc236ac79"
+    },
+    {
+      "file": "before/return-classroom-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1885739,
+      "sha256": "6f36b9fc7a85ec10c1360b6867472051be2ee9164ba234268d7b2451c5c97644"
+    },
+    {
+      "file": "before/topology-full-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 386337,
+      "sha256": "71c86140df07a0f83859b8d360d7cdc1d7f1d9dff480d51017e37b02777c0219"
+    },
+    {
+      "file": "before/topology-full-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 391117,
+      "sha256": "0a9d2ea44cfe8a8ef4b3b5b14268d8bdd39c54d9ebec472b16103d7f8243950b"
+    },
+    {
+      "file": "before/topology-full-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 671277,
+      "sha256": "6deea08ac7f02bb6c975c010e3dc0e319847836309b0f495274f234dd4d804c3"
+    },
+    {
+      "file": "before/topology-full-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 677527,
+      "sha256": "1ee281bfe188fc415f5854a8014747fe9d7c6cca88a6bf736e0e6b0220618ada"
+    },
+    {
+      "file": "before/topology-full-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1762176,
+      "sha256": "d6ddfa2979faf52bd9a80af8e66c1cbe68c167496966ced8da928199cd183f92"
+    },
+    {
+      "file": "before/topology-full-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1775760,
+      "sha256": "aab00fe310907f034c228610a8cc5b780bcd23e7b40729a9176b1a3779b5b1e2"
+    },
+    {
+      "file": "before/topology-gsm-1280-100-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 377965,
+      "sha256": "96750d4deed67ba572c4d0fc5573d95685409544f91feb263af870f61d4f795d"
+    },
+    {
+      "file": "before/topology-gsm-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 374878,
+      "sha256": "096605e848207dd35992952864be6fe191e33cd6ce559b79f73b6307d1a0e29c"
+    },
+    {
+      "file": "before/topology-gsm-1920-100-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 648222,
+      "sha256": "853a4f6e55dcff9f68f19a792b23bc33352bff1d78901b17ab25f77c7a3ef1f1"
+    },
+    {
+      "file": "before/topology-gsm-1920-130-gl_compatibility.png",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "bytes": 652839,
+      "sha256": "c3866a847609bbacc75eede339ff716e5d44c8e7b8cd8d7cdd6eb8e4bf945d7d"
+    },
+    {
+      "file": "before/topology-gsm-3840-100-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1704353,
+      "sha256": "bd6a5270c3ee20f259d4144f30f3a2677b122782d6766fc301a785905fdc7957"
+    },
+    {
+      "file": "before/topology-gsm-3840-130-gl_compatibility.png",
+      "pixels": [
+        3840,
+        2160
+      ],
+      "bytes": 1713789,
+      "sha256": "d15cc1dc86e2eada16f0fc01d9fabe23109deb9fa4f9c45a7bed9c992a4ed270"
+    },
+    {
+      "file": "before/vr-diagnostics-vr-1600x1200-100-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 213271,
+      "sha256": "f46b9079c09cd7b03ede6f5926ee812fe0d329d515ecf964e9f033c74c692775"
+    },
+    {
+      "file": "before/vr-diagnostics-vr-1600x1200-130-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 196202,
+      "sha256": "925dfe7dad5fa8d099e2109111af66424381e0179f44e16820bd2074bbc56293"
+    },
+    {
+      "file": "verification/package/native-review.png",
+      "pixels": [
+        1600,
+        900
+      ],
+      "bytes": 135509,
+      "sha256": "7a891d15df6a029403af8b47018d190ae93b9cced5a20734aeecf9cd672f910d"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/diagnostics-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 144928,
+      "sha256": "d5599185827ffe965fddf3854d478a0f9566e6b60ac094b089e74901e0631863"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/door-approach-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 310274,
+      "sha256": "e3013e18f280dba56940942cc1c49c891e5748de3729525ade883f258c9e55ff"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/door-open-control-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 288773,
+      "sha256": "4b94c3109d5a5134ac1a192d57f86c6ec2922dfba31a667eea8bfbcd3b68c9b3"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/gsm-workplace-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 260773,
+      "sha256": "38b7c6001053fb822148eb12984c310483237189dcdc2149b5bc781d2f25f5d7"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/repairs-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 199217,
+      "sha256": "11abe685d679d83bd371772f40486ff4dff91a900c1fa572d34671017269fe1b"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/return-classroom-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 365349,
+      "sha256": "0eb29257e8e70aaf6fe25e4b78fca66beff35d301569d09c56cbbe3beb4c6c8c"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/topology-full-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 394148,
+      "sha256": "5cd9728778010c593ff86d0d9018cac7e082058885ffe19cf712b75c4efc6c02"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/topology-gsm-1280-130-gl_compatibility.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "bytes": 356194,
+      "sha256": "2ed9cdc519bc0a538e7095e250d973a8f01b3b3becd722a7149dec0f1a3354a5"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/vr-diagnostics-vr-1600x1200-130-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 169005,
+      "sha256": "855e9bcf1af2ada5be10d18d53b32a15baf7acaee1019396fa09d640904ad8af"
+    },
+    {
+      "file": "verification/package/screenshots/2026-11-11-workshop-layout/after/vr-repairs-vr-1600x1200-130-gl_compatibility.png",
+      "pixels": [
+        1600,
+        1200
+      ],
+      "bytes": 144890,
+      "sha256": "7b78a75f07a3ce6b76b104f7665bc08238804b3a4892648151ab8dbac95a0fa7"
+    }
+  ]
+}

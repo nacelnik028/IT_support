@@ -1,0 +1,15 @@
+{
+  "runner_exit": 0,
+  "suites": 55,
+  "runtime_errors_or_warnings": 0,
+  "training_lessons_by_mode": {
+    "learn": 21,
+    "practice": 21,
+    "exam": 21
+  },
+  "training_ui_actions": 336,
+  "final_workshop_headless": 493,
+  "final_layout_headless": 293,
+  "layout_graphical_per_renderer": 805,
+  "note": "Complete Test-All plus focused final door-tip and physical-device routing checks. Synthetic XR; no physical headset."
+}

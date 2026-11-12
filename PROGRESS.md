@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Pracovní dílna a dveře dokončené, Windows EXE ověřené — 12. 11. 2026
+
+- Pět pracovních záložek, samostatný výběr ticketů/historie, stálé spodní akce a opakování zápisu. Měření ukazují skutečný zdroj, cíl, výsledek a zastaralost; detaily jsou rozbalovací. Sedm skupin oprav, skutečný stav kabelu/portů, pojmenované undo a potvrzený reset. Zachovaný fokus, posun, zařízení, kabel a analyzátor během návštěvy. Fyzický AP/port otevírají správnou skupinu bez zásahu do sítě.
+- Celá topologie je uvnitř tabule s odstupem od obložky, GSM sestava včetně cílů a kolizí je odsazená. Původní křídlo má závěs za rámem a ochranu celé nové dráhy včetně poloměru hráče. Ověřena chůze oběma směry, oba ovladače, fyzická SIM i GSM handover. Celé snímky HUD nepotvrdily oříznutí.
+- Celý Test-All: 55/55 PASS bez chyb a varování; 21 lekcí v každém ze tří režimů, 336 UI akcí. Finální cílená dílna 493 a rozložení 293 headless. Matice rozložení 805 v Compatibility i Forward+, šest PC kombinací a skutečný VR viewport 1600 × 1200, oba syntetické paprsky, klikání/posun/B/Y. Poslední změny ochranné oblasti a kontextu mají navíc ověření v přesném EXE.
+- `build/ITSupportSimulator.exe`: herní zdroj `fdcbe4b6fdfed21b0494442d1a8e29470f615b0e`, 104616280 B, SHA256 `78453fc4a61f05f537e28b2661aa07507cb267dc6420e8210db6d0b342fd23ba`. Nativní start s grafikou i bez ní, fyzická cesta do dílny, H a návrat ke směně PASS. Přesný vložený pack: 855 učebna, 493/499 dílna, 405 rozložení graficky, 7687 obsah; vše bez chyb a varování. Manifest všech 299 zdrojových herních souborů souhlasí.
+- Prohlédnuté porovnání, zdrojové matice a snímky z exportu: [protokol](docs/ui-review/2026-11-11-workshop-layout/README.md), 166 PNG s rozměry a SHA256. Godot MCP bez runtime chyby a nových statických varování; osm původních je evidovaných. Všechny katalogy a generátory včetně legacy24 zachované. Testy používají oddělené save i nastavení. Fyzický headset nebyl ověřený, APK zůstalo původní. Bez publikování a push.
+
 ## Dílna — kontext AP a portu po návratu ze 3D, 12. 11. 2026
 
 - Fyzický AP otevře vlastní skupinu Wi-Fi, port bez drženého kabelu nastavení VLAN přesně zvoleného portu. Nový kontext se nastaví až po uložení stavu opouštěného panelu; starý skrytý panel jej tedy nepřepíše. Přesný model zůstává beze změn, nový kontext začíná nahoře.

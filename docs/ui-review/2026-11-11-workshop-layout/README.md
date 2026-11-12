@@ -47,9 +47,45 @@ bezpečné opakování zápisu, stabilní fokus a posun, rozbalení, potvrzení 
 Tab/šipky/Enter/Esc/B/Y, 90 fyzikálních kroků pohybu křídla, oba ovladače,
 obousměrnou chůzi a fyzickou SIM s předáním hovoru mezi BTS.
 
-## Průběžný stav
+## Závěrečný výsledek
 
-Aktuálně 284 nových headless kontrol a 454 kontrol celé matice Forward+ PASS.
-Původní sada dílny po rozdělení navigace prošla 492 kontrolami. Kompletní
-55sadový runner, finální Compatibility a nový přesný EXE jsou ještě ověřované.
-Tato část bude po dokončení nahrazena skutečnými závěrečnými výsledky.
+- [Celý Test-All](verification/test-all.log): **55/55 PASS**, exit 0, bez chyb a
+  varování. 21 lekcí v každém ze tří režimů a 336 akcí UI. [Souhrn](verification/regressions.json).
+- [Finální dílna](verification/workshop-headless.log): **493 PASS**.
+  [Nové rozložení](verification/layout-headless.log): **293 PASS** včetně fyzického
+  kontextu AP/portu a ochrany nové špičky dveří.
+- Matice rozložení: [805 Compatibility](verification/layout-compatibility.log) a
+  [805 Forward+](verification/layout-forward.log). Po ní se měnila pouze ochranná
+  oblast křídla a kontext otevření skupiny ze 3D; jejich finální podoba znovu
+  prošla v přesném exportu včetně grafického 720p/130 % a skutečného VR panelu.
+- [Godot MCP finálního zdroje](verification/mcp-final.json): fyzický průchod,
+  H a návrat do směny PASS, žádná runtime chyba. Osm původních statických
+  varování mimo nový panel je zachovaných; nová varování nejsou potlačená.
+- [Chráněný obsah](verification/catalog.json): původních 40 úloh, 23 karet,
+  osm ticketů, kampaň/legacy, modely a generátory shodné s původním Git obsahem.
+  Záznam rozlišuje CRLF pracovních souborů od LF v Gitu; obsah se neměnil.
+- Windows EXE: zdroj `fdcbe4b6fdfed21b0494442d1a8e29470f615b0e`, **104616280 B**,
+  SHA256 `78453fc4a61f05f537e28b2661aa07507cb267dc6420e8210db6d0b342fd23ba`.
+  [Nativní a pack ověření](verification/package/results.json): samostatný EXE
+  s grafikou/bez ní, 855 učebna, 493 dílna headless, 499 dílna graficky,
+  405 nové rozložení graficky, 7687 obsah; vše PASS bez chyb a varování.
+  Exportní manifest všech 299 herních souborů souhlasí s pracovními zdroji.
+- [166 skutečných PNG, rozměry a SHA256](verification/screenshots.json).
+  Prohlédnuté porovnávací sestavy pokrývají šest PC kombinací v obou rendererech,
+  navíc plné 720p/130 % a VR panely. Prohlédnuté jsou také nové panely z přesného
+  packu a rozbor přímo ze samostatného EXE.
+
+[Diagnostika](after/diagnostics-1280-130-forward_plus.png) ·
+[Opravy](after/repairs-1280-130-forward_plus.png) ·
+[VR panel](after/vr-repairs-vr-1600x1200-130-forward_plus.png) ·
+[Příchod ke dveřím](after/door-approach-1280-130-forward_plus.png) ·
+[Otevřené dveře a ovladač](after/door-open-control-1280-130-forward_plus.png) ·
+[Návrat z dílny](after/return-classroom-1280-130-forward_plus.png) ·
+[Celá topologie](after/topology-full-1280-130-forward_plus.png) ·
+[GSM](after/gsm-workplace-1280-130-forward_plus.png) ·
+[Rozbor přímo z EXE](verification/package/native-review.png).
+
+PICO APK se nepřestavovalo a jeho SHA256 souhlasí s původním vydáním.
+**Fyzický headset nebyl dostupný**; všechny VR výsledky jsou syntetické.
+Vývojové neúspěšné běhy zůstávají mimo závěrečné protokoly v `test-output`.
+Vše je lokální, bez push nebo publikování.
