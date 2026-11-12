@@ -234,7 +234,7 @@ func build_demo():
 
 func sync():
 	if world.game==null: return
-	workshop.sync(world.game.network_workshop.model())
+	workshop.sync(world.game.workshop().model())
 	var lab = world.game.network_lab
 	var model = lab.current_network()
 	var active: bool = world.game.game_mode.is_network_lab()

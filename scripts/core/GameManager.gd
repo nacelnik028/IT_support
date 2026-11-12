@@ -27,6 +27,7 @@ var hub_probe = Callable()
 var network_lab_probe = Callable()
 var network_lab = preload("res://scripts/network_lab/LabSession.gd").new()
 var network_workshop = preload("res://scripts/network_lab/WorkshopSession.gd").new()
+var service_missions = preload("res://scripts/service/ServiceMissionManager.gd").new()
 var reconciling_room=false
 var programming = preload("res://scripts/programming/AcademyManager.gd").new()
 var english = preload("res://scripts/english/EnglishManager.gd").new()
@@ -77,6 +78,7 @@ func resume_lesson(id: int, mode: String) -> bool:
 
 func _init():
 	var owner_ref=weakref(self)
+	service_missions.owner_ref = owner_ref
 	shifts.owner_ref=owner_ref
 	network_lab.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
 	network_workshop.persist=func(): return owner_ref.get_ref().save() if owner_ref.get_ref()!=null else ERR_UNAVAILABLE
@@ -106,6 +108,7 @@ func _init():
 		english.load_progress(saved.get("english",{}))
 		network_lab.attempts = saved.get("network_lab",[])
 		network_workshop.attempts = saved.get("network_workshop",[])
+		service_missions.data.merge(saved.get("service_missions",{}),true)
 		programming.progress.merge(saved.get("programming",{}),true)
 		progress.merge(saved.get("progress",{}),true)
 		var normalized_scores={}
@@ -244,6 +247,7 @@ func leave_training() -> bool:
 	var previous_reconciling=reconciling_room
 	reconciling_room=true
 	cache_lesson()
+	service_missions.suspend()
 	programming.cancel()
 	english.cancel()
 	network_lab.cancel()
@@ -429,12 +433,14 @@ func undo() -> bool:
 
 func save(recover_invalid: bool = false) -> Error:
 	if introduction_active: return OK
+	if service_missions.checkpoint()!=OK:
+		last_save_error=ERR_INVALID_DATA; unsaved=true; pending_work_at=-1; save_message="Servisní Python koncept překračuje 128 KiB. Kód zůstal v paměti; zkrať jej a opakuj zápis."; persistence_changed.emit(); return last_save_error
 	if programming.checkpoint()!=OK:
 		last_save_error=ERR_INVALID_DATA; unsaved=true; pending_work_at=-1; save_message=programming.draft_error; persistence_changed.emit(); return last_save_error
 	cache_lesson()
 	shifts.checkpoint()
 	if active and session_kind=="random": education.random.session=snapshot()
-	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"network_lab":network_lab.attempts,"network_workshop":network_workshop.attempts,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
+	last_save_error = Saves.save_game({"progress":progress,"session":snapshot(),"education":education,"programming":programming.progress,"english":english.progress,"network_lab":network_lab.attempts,"network_workshop":network_workshop.attempts,"service_missions":service_missions.data,"suspended_campaign":suspended_campaign,"shifts":shifts.data,"work":work.data,"saved_at":Time.get_unix_time_from_system()},recover_invalid)
 	pending_work_at=-1
 	unsaved = last_save_error != OK
 	if not unsaved: last_saved_at=Time.get_unix_time_from_system()
@@ -442,6 +448,9 @@ func save(recover_invalid: bool = false) -> Error:
 	if not unsaved: load_warning = ""
 	persistence_changed.emit()
 	return last_save_error
+
+func workshop():
+	return service_missions.session if service_missions.active else network_workshop
 
 func snapshot() -> Dictionary:
 	if not active or session_kind=="shift": return {}

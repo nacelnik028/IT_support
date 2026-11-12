@@ -234,7 +234,7 @@ func _process(delta):
 			elif not lab.task.is_empty():
 				status_label.text = ("05 / "+lab.task.title+"\n"+lab.network.last_message).strip_edges()
 			if world.network_room.workshop.in_workshop:
-				var workshop = ui.game.network_workshop
+				var workshop = ui.game.workshop()
 				status_label.text = "05 / SÍŤOVÁ TRÉNINKOVÁ DÍLNA\n"+(workshop.task.title if not workshop.task.is_empty() else "Vyber ticket u servisního stolu.")
 				if workshop.tester.held: status_label.text += "\n"+workshop.tester.display(workshop.network)
 				elif workshop.network.cable!="": status_label.text += "\nKonektor "+workshop.network.cable+" / "+str(workshop.network.patch_map.get(workshop.network.cable,""))+" → vyber SW port"
@@ -573,7 +573,7 @@ func open_network_lab(page: String = ""):
 	if vr_active: xr_rig.monitor.place_in_front(xr_rig.head)
 
 func interact_network_workshop(id: String):
-	var lab = ui.game.network_workshop
+	var lab = ui.game.workshop()
 	if id.begins_with("door_"):
 		world.network_room.workshop.toggle()
 		return
@@ -605,19 +605,34 @@ func interact_network_workshop(id: String):
 
 func open_network_workshop(page: String = "", repair_group: String = ""):
 	if not ui.game.game_mode.is_network_lab(): return
-	if page!="": ui.game.network_workshop.view = page
+	if page!="": ui.game.workshop().view = page
 	for child in overlay.get_children():
 		overlay.remove_child(child)
 		child.queue_free()
 	# The previous panel first stores its state on exit; explicit 3D context
 	# then chooses the new repair group without changing the network.
 	if repair_group!="":
-		ui.game.network_workshop.panel_state["group"] = repair_group
-		ui.game.network_workshop.panel_state.get("positions",{}).erase("repair")
+		ui.game.workshop().panel_state["group"] = repair_group
+		ui.game.workshop().panel_state.get("positions",{}).erase("repair")
 	var panel_node = preload("res://scripts/network_lab/WorkshopPanel.gd").new()
 	panel_node.shell = self
 	set_mode("network_lab")
 	overlay.add_child(panel_node)
+	if vr_active: xr_rig.monitor.place_in_front(xr_rig.head)
+
+func open_service_editor():
+	var service = ui.game.service_missions
+	if not service.active or service.session.submitted or not ui.game.game_mode.is_network_lab(): return
+	for child in overlay.get_children():
+		overlay.remove_child(child)
+		child.queue_free()
+	if is_instance_valid(code_editor): code_editor.queue_free()
+	code_editor = preload("res://scripts/service/ServiceCodeEditor.gd").new()
+	code_editor.shell = self
+	code_editor.service = service
+	code_editor.manager = service.programming
+	overlay.add_child(code_editor)
+	set_mode("coding")
 	if vr_active: xr_rig.monitor.place_in_front(xr_rig.head)
 
 func open_english(station: String = "tickets", intro: bool = false):
@@ -977,6 +992,9 @@ func export_smoke():
 	print("EXPORT_SMOKE return_main=",not ui.game.game_mode.is_training())
 	preload("res://scripts/shifts/GameplaySmoke.gd").run(self)
 	await preload("res://scripts/network_lab/WorkshopSmoke.gd").run(self)
+	if not await preload("res://scripts/service/ServiceSmoke.gd").run(self):
+		get_tree().quit(1)
+		return
 	get_tree().quit()
 
 func smoke_question(english, topic: String):
@@ -989,7 +1007,10 @@ func show_tasks():
 		set_mode("tasks")
 		var v=panel("Rozcestník akademie","01 / Serverovna — kampaň a incidenty\n02 / IT trénink — cvičná infrastruktura\n03 / Programování — Python a web\n04 / English in London — B1–B2 a londýnský kvíz\n05 / Počítačové sítě — síťová laboratoř")
 		v.add_child(ui.button("Zpět do haly",return_to_world)); return
-	if ui.game.game_mode.is_network_lab(): open_network_lab(); return
+	if ui.game.game_mode.is_network_lab():
+		if ui.game.service_missions.active: open_network_workshop("ticket")
+		else: open_network_lab()
+		return
 	if ui.game.game_mode.is_english(): open_english(); return
 	if ui.game.game_mode.is_programming(): open_programming(); return
 	if not ui.game.active:

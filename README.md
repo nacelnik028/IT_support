@@ -1,5 +1,22 @@
 # IT Support Simulator: Training academy
 
+## Servisní rozšíření ve zdroji — 12. 11. 2026
+
+V pavilonu **05 → Tréninková dílna → Servisní stůl** jsou nové opakovatelné
+varianty A–H, přenosný tester, zákaznická komunikace a dvě společné servisní
+mise s Pythonem. Výběr režimu je společný na začátku seznamu. **Společné mise**
+mají vlastní odložení a pokračování i po restartu; běžné tickety zůstávají
+dočasné během návštěvy pavilonu. Síťový incident se při otevření editoru nemění.
+
+- [Varianty, tester a rozhovor](docs/NETWORK_WORKSHOP.md)
+- [Společné mise, ukládání a hodnocení](docs/SERVICE_MISSIONS.md)
+- [Zvuk, původ a reprodukce](docs/SERVICE_AUDIO.md)
+- [Snímky a protokoly](docs/ui-review/2026-11-12-service-missions/)
+
+Zdrojové cílené testy prošly; konečný Test-All a nové Windows EXE se nyní
+připravují. Následující údaje EXE popisují předchozí sestavení.
+
+
 **Windows EXE v `build/ITSupportSimulator.exe` obsahuje přehlednější pracovní
 panel síťové dílny: Ticket, Diagnostika, Opravy, Analyzátor a Rozbor, samostatný
 výběr ticketů a historii, stálou spodní lištu a měření s přesným zdrojem a stavem.**

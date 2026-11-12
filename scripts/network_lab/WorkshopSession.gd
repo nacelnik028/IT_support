@@ -183,7 +183,7 @@ func assessment() -> Dictionary:
 			if entry.kind==key and entry.revision<network.revision: observed = true
 		if not observed: missing.append("Chybí výchozí měření: "+str(key))
 	if not network.reachable("pc02","router") or not network.reachable("printer","router") or int(network.vlans[5])!=20 or not network.rules.guest_isolated or network.rules.management: missing.append("Zachovej PC 02, tiskárnu, správu a oddělení hostovské VLAN 20.")
-	if task.id in ["B","C","H"] and (network.lease.is_empty() or network.lease_source!="dhcp" or not network.dhcp_pool): missing.append("Požadován skutečný DHCP pronájem.")
+	if (task.id in ["B","C","H"] or task.get("require_dhcp",false)) and (network.lease.is_empty() or network.lease_source!="dhcp" or not network.dhcp_pool): missing.append("Požadován skutečný DHCP pronájem.")
 	if task.id=="C" and (network.lease.get("mask")!="255.255.255.0" or network.lease.get("gateway")!=network.IPS.router or network.lease.get("dns")!=network.IPS.resolver): missing.append("Ověř úplnou IPv4 konfiguraci.")
 	if task.id=="F" and (network.rules.management or not network.rules.guest_isolated): missing.append("Zachovej pravidla správy a izolace.")
 	if task.id=="H":

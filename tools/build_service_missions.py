@@ -20,9 +20,13 @@ def catalogue():
                            https='I restored the HTTPS service and its specific access rule as needed.', wifi='I moved the access point and checked both work areas.'),
         missions=[dict(id='SERVICE-PORTAL', title='Firemní portál po změně sítě', ticket='H', seed=1,
                        symptom='I can sign in locally, but the company portal will not open.',
+                       vlans={}, cause='Klientský port je ve VLAN 20 a portál používá starý překlad jména.',
+                       review='Obnov správný segment, dynamický pronájem a překlad aktuálního portálu; zopakuj všechny služby a kontrolní zařízení.',
                        dataset='logs', function='failed_checks', required=['dhcp','link','dns','tcp','https','printer','control']),
                   dict(id='SERVICE-MOVE', title='Přesunuté pracoviště a tisk', ticket='A', seed=1,
                        symptom='Since my desk was moved, I cannot print or open the company portal.',
+                       vlans={'7':20}, cause='Nedostupný port PC 04 a tiskárna v nesprávné VLAN.',
+                       review='Obnov fyzickou trasu PC 04, správné přiřazení tiskárny, úplný DHCP a služby obou stanic.',
                        dataset='clients', function='affected_clients', required=['dhcp','link','https','printer','control'])])
 
 def build():

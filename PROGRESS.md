@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — etapa E / společné servisní mise, 12. 11. 2026
+
+- SERVICE-PORTAL a SERVICE-MOVE u servisního stolu 05 propojují English support, skutečnou síť, Python a předání ve Výuce / Procvičování / Zkoušce. Jediný incident zůstává zachovaný při otevření původního CodeEdit editoru. Druhá mise vyžaduje výchozí i závěrečné měření fyzické trasy testerem a opravu tiskárny, první rozlišuje segment a starý překlad portálu.
+- Původní omezený PythonRuntime/CodeEvaluator beze změn: funkce analyzuje skutečná virtuální data aktuálního a výchozího incidentu, obrácenou a bezchybnou kontrolu. Není porovnáván zdrojový kód; ověřené i alternativní while řešení. Analýza má pokus, revizi, hash vstupu a zdroje; relevantní změna/undo/editace ji zneplatní. Neexistuje hostitelský síťový přístup ani filesystem.
+- Samostatné service_missions: dva rozepsané incidenty, 50 výsledků, síť/důkazy, přesný kód, pohled editoru, původní režim a dialog. Restart celé mise je potvrzený; běžné A–H zůstávají dočasné. Odchod misi odloží a obnoví kampaň/směnu. Jediné XP jen za zlepšení technického nejlepšího skóre úspěšně předané celé mise; program a síť nevytvářejí dvojí odměnu. Profil používá stejné jediné výsledky, jazykové a technické skóre odděleně.
+- service_missions 185 PASS; šest úplných skutečných PC UI průchodů + syntetické XR: 639 headless, grafická matice 696 v Compatibility i Forward+ PASS. Šest PC rozlišení/textu, VR 1600×1200 a oba paprsky, editor a klávesnice. service_continuation 88 PASS: skutečné reset/replay/pause/resume/restart a retry. Původní dílna 495, layout 293, profil 38, relace 124, fyzika 41 PASS po integraci; varianty znovu 1 067 PASS.
+- Godot MCP skutečně provedl obě mise a dekódoval sedm nenulových PCM klipů. Při revizi opravené počáteční nové stínění parametru; finální MCP má pouze osm původních statických varování, žádné nové ani runtime chyby. Plná současná regrese, závěrečné snímky a Windows EXE jsou další etapa; APK ani fyzický headset nebyly použité.
+
 ## Servisní rozšíření — etapa D / zákaznická komunikace, 12. 11. 2026
 
 - Pět běžných doptání v B1–B2, odpovědi z pozorování konkrétního incidentu. Zákazník nezná interní závadu; potvrzení po opravě se zkouší proti vlastní izolované kopii aktuální sítě a nevytváří technický důkaz. Rozhovor nemůže přepsat měření.

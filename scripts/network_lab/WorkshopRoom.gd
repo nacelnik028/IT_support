@@ -124,11 +124,11 @@ func toggle():
 	opened = not opened
 
 func _physics_process(delta):
-	if not is_instance_valid(world.player): return
+	if not is_instance_valid(world.player) or world.game==null: return
 	var p: Vector3 = world.player.global_position
 	if p.z< -29.2: in_workshop = true
 	elif p.z> -28.8: in_workshop = false
-	var session = world.game.network_workshop
+	var session = world.game.workshop()
 	if session.tester.held and (not in_workshop or not world.game.game_mode.is_network_lab()): session.tester.put_back()
 	if session.tester.held:
 		var controller = session.tester.hand.get_ref() if session.tester.hand!=null else null

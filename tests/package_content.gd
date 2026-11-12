@@ -43,6 +43,13 @@ func run():
 	var game=preload("res://scripts/core/GameManager.gd").new()
 	check(game.missions.size()==65 and game.tutorial.lessons.size()==21,"IT katalogy uvnitř balíčku")
 	check(game.english.catalog.content_version==2 and game.english.quiz.catalog.questions.size()==20,"Nové B1–B2 a 20 otázek uvnitř balíčku")
+	check(game.service_missions.catalog.missions.size()==2,"Obě společné servisní mise uvnitř balíčku")
+	var audio: Dictionary = JSON.parse_string(preload("res://scripts/core/ContentReader.gd").text("res://data/service_audio.json"))
+	for clip in audio.clips:
+		var stream = load(clip.path)
+		var source_path: String = reference+"/"+str(clip.path).trim_prefix("res://")
+		check(stream is AudioStreamWAV and stream.format==AudioStreamWAV.FORMAT_16_BITS and stream.mix_rate==16000,"Skutečně načtené PCM v exportu "+clip.id)
+		check(FileAccess.get_sha256(source_path)==clip.sha256 and stream.data==FileAccess.get_file_as_bytes(source_path).slice(44),"Každý skutečný audio vzorek odpovídá zdroji a manifestu "+clip.id)
 	var world=load("res://scenes/world/Datacenter3D.tscn").instantiate(); root.add_child(world)
 	# Let generated textures and SubViewports finish their first uploads before
 	# destroying the audited world; quitting during a queued GL upload leaks RIDs.

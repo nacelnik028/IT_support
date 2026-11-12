@@ -10,6 +10,8 @@ const GROUPS = {"cable":"Kabeláž a porty","vlan":"VLAN","dhcp":"DHCP a adresac
 var menu_mode := "practice"
 var menu_variant := false
 var start_pending := ""
+var replay_seed := -1
+var replay_mode := ""
 var repair_group := "cable"
 var expanded := {}
 var positions := {}
@@ -21,7 +23,7 @@ var owner_serial := -1
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	data_font.font_names = PackedStringArray(["Consolas","DejaVu Sans Mono"])
-	lab = shell.ui.game.network_workshop
+	lab = shell.ui.game.workshop()
 	ui = shell.ui
 	menu_mode = lab.mode
 	owner_serial = lab.attempt_serial
@@ -150,6 +152,7 @@ func draw(keep_position := true):
 			"history": workshop_history()
 			"tester": workshop_tester()
 			"customer": workshop_customer()
+			"service_history": service_history()
 	var footer_card := PanelContainer.new()
 	footer_card.name = "WorkFooter"
 	footer_card.add_theme_stylebox_override("panel",ui.box(Color("20313e"),Color("53616a"),6))
@@ -161,8 +164,15 @@ func draw(keep_position := true):
 		control(warning,"Zkusit uložit znovu",func(): ui.game.save(); draw(),false,"save:retry")
 	var commands = ui.hbox(footer,10)
 	if not lab.task.is_empty() and not lab.demo and not lab.submitted:
-		if lab.mode!="exam": control(commands,"Ověřit řešení",func(): lab.verify(); draw(),false,"attempt:verify")
-		if lab.mode!="free": primary(control(commands,"Odevzdat ticket",func(): lab.submit(); draw(),false,"attempt:submit"))
+		if lab.mode!="exam": control(commands,"Ověřit řešení",func():
+				if ui.game.service_missions.active: ui.game.service_missions.verify()
+				else: lab.verify()
+				draw(),false,"attempt:verify")
+		if lab.mode!="free":
+			primary(control(commands,"Odevzdat servisní misi" if ui.game.service_missions.active else "Odevzdat ticket",func():
+				if ui.game.service_missions.active: ui.game.service_missions.submit()
+				else: lab.submit()
+				draw(),false,"attempt:submit"))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	commands.add_child(spacer)
@@ -180,12 +190,15 @@ func draw(keep_position := true):
 	shell.world.network_room.workshop.sync(lab.model())
 	rebuilding = false
 
+func active_stale() -> bool:
+	return ui.game.service_missions.stale() if ui.game.service_missions.active else lab.stale()
+
 func attempt_status() -> String:
 	if lab.demo: return "Izolovaná ukázka"
 	if lab.submitted: return "Odevzdáno · uzavřený pokus"
 	if lab.task.is_empty(): return "Volná síť" if lab.mode=="free" else "Vyber ticket"
 	if lab.mode=="exam": return "Rozpracováno"
-	if lab.stale(): return "! Ověření zastaralé"
+	if active_stale(): return "! Ověření zastaralé"
 	if not lab.result.is_empty(): return "✓ Ověřeno" if lab.result.passed else "○ Ověřeno · nesplněno"
 	return "Rozpracováno · bez ověření"
 
@@ -344,7 +357,10 @@ func workshop_repairs():
 	if reset_pending:
 		paragraph("Obnovit výchozí stav? Rozpracované změny tohoto pokusu zmizí.")
 		var confirm := row()
-		control(confirm,"Potvrdit obnovení pokusu",func(): lab.reset_attempt(); expanded.clear(); positions.clear(); reset_pending = false; draw(false),false,"attempt:confirm-reset")
+		control(confirm,"Potvrdit obnovení pokusu",func():
+			if ui.game.service_missions.active: ui.game.service_missions.start(ui.game.service_missions.id,lab.mode)
+			else: lab.reset_attempt()
+			expanded.clear(); positions.clear(); reset_pending = false; draw(false),false,"attempt:confirm-reset")
 		control(confirm,"Zachovat rozpracovaný pokus",func(): reset_pending = false; draw())
 
 func edit_controls(changes: Array):
@@ -355,10 +371,13 @@ func workshop_review():
 	if lab.mode=="exam" and not lab.submitted:
 		paragraph("Rozbor bude dostupný po odevzdání.")
 		return
-	if lab.stale(): heading("! ZASTARALÉ OVĚŘENÍ / zopakuj měření a ověření")
+	if active_stale(): heading("! ZASTARALÉ OVĚŘENÍ / zopakuj měření a ověření")
 	elif not lab.result.is_empty(): heading("✓ Splněno" if lab.result.passed else "○ Nesplněno")
 	if not lab.result.is_empty():
 		for line in lab.result.missing: paragraph(line)
+	if ui.game.service_missions.active and not lab.result.is_empty():
+		paragraph("Technická část: %d / 100 · Komunikace: %d / 100" % [lab.result.technical.score,lab.result.communication.score])
+		paragraph("Výstup Pythonu: "+str(ui.game.service_missions.analysis.get("output","neověřeno")))
 	paragraph(lab.review_text())
 
 func workshop_home():
@@ -366,20 +385,20 @@ func workshop_home():
 	var modes := row()
 	for key in lab.MODES:
 		control(modes,lab.MODES[key],func(): menu_mode = key; draw(),menu_mode==key)
+	service_choices()
 	var variants := row()
 	control(variants,"Základní zadání",func(): menu_variant = false; draw(),not menu_variant)
 	control(variants,"Obměněné zadání",func(): menu_variant = true; draw(),menu_variant)
-	if start_pending!="":
-		paragraph("Nový pokus ukončí současný dočasný ticket. Změny se zahodí.")
+	if start_pending!="" and not start_pending.begins_with("SERVICE-"):
+		paragraph("Nový pokus nahradí dočasný ticket. Rozpracovaná společná mise se odloží.")
 		control(content,"Potvrdit nový pokus",func(): begin_ticket(start_pending); draw(false))
 		control(content,"Zachovat současný pokus",func(): start_pending = ""; draw())
 	if menu_mode=="free":
-		control(content,"Otevřít funkční výchozí síť",func(): lab.mode = "free"; lab.start(""); draw(false))
+		control(content,"Otevřít funkční výchozí síť",func(): request_ticket("_healthy"))
 	for task in lab.catalog.tasks:
 		paragraph("%s / %d. ročník / %s / %s" % [task.id,task.year,task.difficulty,task.service])
 		control(content,task.id+" / "+task.title,func():
-			if not lab.task.is_empty() and not lab.submitted: start_pending = task.id
-			else: begin_ticket(task.id)
+			request_ticket(task.id)
 			draw(false))
 
 func workshop_ticket():
@@ -387,6 +406,12 @@ func workshop_ticket():
 		paragraph("U servisního stolu výslovně vyber ticket nebo funkční síť pro volný trénink.")
 		return
 	heading("Ticket %s / %d. ročník / %s" % [lab.task.id,lab.task.year,lab.task.difficulty])
+	if ui.game.service_missions.active:
+		var service = ui.game.service_missions
+		paragraph("Společný incident / "+ui.game.persistence_caption()+". Odložení uchová celou misi; běžné tickety mají nadále dočasnou životnost.")
+		paragraph("Python analýza: "+("✓ aktuální a úspěšná" if service.analysis_current() else "! chybí nebo je zastaralá"))
+		control(content,"Python / analyzovat virtuální data incidentu",shell.open_service_editor).disabled = lab.submitted
+		control(content,"Odložit celou servisní misi",func(): service.suspend(); ui.game.save(); shell.open_network_workshop("home"))
 	paragraph(lab.task.ticket)
 	control(content,"Zákazník / English support",navigate.bind("customer"),false,"customer:open")
 	paragraph("Základní zadání" if lab.variant_seed==0 else "Obměněné zadání / stejné po celou dobu pokusu")
@@ -401,13 +426,13 @@ func workshop_ticket():
 		for key in lab.task.goals:
 			if lab.network.fresh(key): fresh += 1
 		paragraph("Průběh: výchozí měření %d/%d · zásahy %d · nové důkazy %d/%d" % [observed,lab.task.before.size(),lab.undo_stack.size(),fresh,lab.task.goals.size()])
-		control(content,"Komentovaná ukázka",func(): lab.start_demo(); draw())
+		if not ui.game.service_missions.active: control(content,"Komentovaná ukázka",func(): lab.start_demo(); draw())
 	if lab.mode not in ["exam","free"] and not lab.submitted:
 		control(content,"Nápověda na vyžádání",func(): lab.hint(); draw())
 		if lab.hints: paragraph(lab.task.hint)
 	if lab.task.id=="H" and not lab.submitted:
 		heading("Uzavření ticketu / vyber zjištěné příčiny")
-		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam"],["cable","Vadný kabel"],["https","Nedostupná služba HTTPS"]]:
+		for pair in [["vlan","Nesprávná VLAN"],["dns","Starý DNS záznam" if lab.variant_seed==0 else "Starý překlad jména / DNS nebo cache"],["cable","Vadný kabel" if lab.variant_seed==0 else "Nedostupná fyzická trasa"],["https","Nedostupná služba HTTPS"]]:
 			control(content,("✓ " if lab.causes.get(pair[0],false) else "○ ")+pair[1],func(): lab.causes[pair[0]] = not lab.causes.get(pair[0],false); draw(),false,"cause:"+pair[0])
 		heading("Důkazy o opravě / výběr musí odpovídat skutečnému měření")
 		for pair in [["dhcp","Úplný DHCP pronájem"],["services","HTTPS, tiskárna a PC 02"],["led_only","Stačí svítící LED"]]:
@@ -416,8 +441,14 @@ func workshop_ticket():
 	control(content,"Změřit",navigate.bind("measure"))
 
 
+func history_locked() -> bool:
+	if lab.mode=="exam" and not lab.submitted and not lab.task.is_empty(): return true
+	for draft in ui.game.service_missions.data.drafts.values():
+		if draft.mode=="exam": return true
+	return false
+
 func workshop_history():
-	if lab.mode=="exam" and not lab.submitted and not lab.task.is_empty():
+	if history_locked():
 		paragraph("Historie s rozborem bude dostupná po odevzdání zkoušky.")
 		return
 	heading("Odevzdané tickety / samostatná historie")
@@ -432,7 +463,7 @@ func workshop_history():
 		if selected_record.has("communication"): paragraph("Komunikace / %d bodů · technické hodnocení zůstává samostatné. Nejde o certifikát CEFR." % selected_record.communication.score)
 		if selected_record.has("variant"):
 			paragraph("Seed %d / generátor %d" % [selected_record.variant.seed,selected_record.variant.generator_version])
-			control(content,"Zopakovat tuto variantu",func(): lab.mode = selected_record.mode; lab.start(selected_record.id,int(selected_record.variant.seed)); draw(false))
+			control(content,"Zopakovat tuto variantu",func(): request_ticket(selected_record.id,int(selected_record.variant.seed),selected_record.mode))
 	var records: Array = lab.attempts.duplicate()
 	records.reverse()
 	for record in records:
@@ -454,10 +485,27 @@ func workshop_capture():
 		if lab.filter!="Vše" and not frame.title.contains(lab.filter): continue
 		control(content,"Rámec %02d / %s" % [index+1,frame.title],func(): lab.selected_frame = index; model.last_path = frame.path.duplicate(); draw())
 
+func request_ticket(id: String, seed_value := -1, mode_value := ""):
+	replay_seed = seed_value
+	replay_mode = mode_value
+	if not lab.task.is_empty() and not lab.submitted:
+		start_pending = id
+		navigate("home")
+	else: begin_ticket(id)
+
 func begin_ticket(id: String):
-	lab.mode = menu_mode
-	lab.start(id,randi_range(1,2147483646) if menu_variant else 0)
+	if ui.game.service_missions.active:
+		if not ui.game.service_missions.suspend():
+			ui.game.save()
+			return
+		ui.game.save()
+		lab = ui.game.network_workshop
+	lab.mode = replay_mode if replay_mode!="" else menu_mode
+	lab.start("" if id=="_healthy" else id,0 if id=="_healthy" else replay_seed if replay_seed>=0 else randi_range(1,2147483646) if menu_variant else 0)
 	start_pending = ""
+	replay_seed = -1
+	replay_mode = ""
+	shell.open_network_workshop()
 
 func workshop_tester():
 	heading("Přenosný tester fyzické trasy")
@@ -505,3 +553,46 @@ func workshop_customer():
 		support_reply("confirm","Could you try the portal and printing again and confirm that they work?")
 		support_reply("blame","It is your fault. There is no need to test it.")
 	if lab.mode!="exam": support_reply("translate","Česká jazyková opora / zaznamená pomoc")
+
+func service_choices():
+	heading("Společné servisní mise / síť + Python + English support")
+	paragraph("Pokračování obnoví celý uložený incident a původní režim. Nové spuštění nebo restart je výslovné. Kampaň i směna zůstávají oddělené.")
+	for d in ui.game.service_missions.catalog.missions:
+		if ui.game.service_missions.data.drafts.has(d.id):
+			var draft: Dictionary = ui.game.service_missions.data.drafts[d.id]
+			control(content,"Pokračovat v misi / "+d.title+" / "+lab.MODES[draft.mode],func():
+				if ui.game.service_missions.resume(d.id): shell.open_network_workshop("ticket"))
+		else:
+			control(content,"Zahájit misi / "+d.title,func():
+				if ui.game.service_missions.start(d.id,menu_mode): shell.open_network_workshop("ticket")).disabled = menu_mode=="free"
+		if ui.game.service_missions.data.drafts.has(d.id) or ui.game.service_missions.active and ui.game.service_missions.id==d.id:
+			control(content,"Restart celé mise / "+d.title,func(): start_pending = d.id; draw())
+	if start_pending.begins_with("SERVICE-"):
+		paragraph("Restart celé mise zahodí její uložený incident, kód a dialog. Výsledky i ostatní práce zůstanou.")
+		control(content,"Potvrdit restart celé mise",func():
+			ui.game.service_missions.start(start_pending,menu_mode if menu_mode!="free" else "practice")
+			start_pending = ""
+			shell.open_network_workshop("ticket"))
+		control(content,"Zachovat servisní misi",func(): start_pending = ""; draw())
+	control(content,"Výsledky společných misí",navigate.bind("service_history"))
+
+func service_history():
+	heading("Společné servisní mise / samostatné výsledky")
+	if history_locked():
+		paragraph("Rozbory budou přístupné po odevzdání zkoušky.")
+		return
+	var records: Array = ui.game.service_missions.data.history.duplicate()
+	records.reverse()
+	for record in records:
+		paragraph(record.id+" / "+lab.MODES[record.mode]+" / "+("SPLNĚNO" if record.passed else "NESPLNĚNO"))
+		paragraph("Technická část %d / komunikace %d / XP skutečně přidáno %d" % [record.technical.score,record.communication.score,record.xp])
+		paragraph("Příčina: "+record.cause+"\nZásahy: "+"; ".join(record.changes)+"\nPython: "+str(record.analysis.get("output","neověřeno")))
+		for proof in record.proof: paragraph(proof.detail)
+		paragraph("Doporučené konkrétní procvičení podle částí tohoto incidentu:")
+		if not record.technical.passed:
+			control(content,"Procvičit VLAN / dílna B",func(): menu_mode = "practice"; menu_variant = false; begin_ticket("B"))
+			control(content,"Procvičit Python / PY30",func(): preload("res://scripts/training/RecommendationRouter.gd").open(ui,{"area":"code","id":"PY30","mode":"practice"}))
+		if not record.communication.passed:
+			control(content,"Procvičit doptávání / LON01",func(): preload("res://scripts/training/RecommendationRouter.gd").open(ui,{"area":"english","id":"LON01","mode":"practice"}))
+		if record.passed:
+			control(content,"Další analýza / Python PY30",func(): preload("res://scripts/training/RecommendationRouter.gd").open(ui,{"area":"code","id":"PY30","mode":"practice"}))

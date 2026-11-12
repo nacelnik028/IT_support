@@ -171,3 +171,9 @@ otázek, přesná příčina, skutečný zásah, ověření a platné potvrzení
 částí po 20 bodech; nevhodné obviňování snižuje o 5. Česká opora je samostatně
 zaznamenaná pomoc; ve Zkoušce není dostupná. Historická skóre bez těchto dat
 se nedoplňují. Nový výsledek uchová dialog i samostatné hodnocení právě jednou.
+
+## Společné servisní mise
+
+Tentýž servisní stůl nabízí [dvě společné mise](SERVICE_MISSIONS.md) s Pythonem
+a English support. Mají výslovné odložení a pokračování po restartu, oddělené
+od původních dočasných A–H. Výběr mise samotný nemění jinou rozepsanou práci.

@@ -43,7 +43,7 @@ func _ready():
 		doors.append({"object":object,"last":object.global_transform,"moving":false,"source":source})
 	shell.world.player.ground_moved.connect(moved)
 	shell.ui.game.physical_event.connect(physical)
-	for model in [shell.ui.game.network_lab.network,shell.ui.game.network_workshop.network]:
+	for model in [shell.ui.game.network_lab.network,shell.ui.game.network_workshop.network,shell.ui.game.service_missions.session.network]:
 		model.physical_event.connect(func(kind: String, _device: String):
 			if shell.ui.game.game_mode.is_network_lab(): effect(kind,shell.world.player.global_position))
 

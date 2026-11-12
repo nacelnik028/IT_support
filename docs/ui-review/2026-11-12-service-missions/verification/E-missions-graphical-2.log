@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Skutečný klik aktivoval Odevzdat servisní misi / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:59)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Full real UI mission mission-3840-130{  } / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] run (res://tests/service_missions_ui.gd:133)
+       [2] use_button (res://tests/service_missions_ui.gd:18)
+       [3] click (res://tests/service_missions_ui.gd:9)
+       [4] click (res://tests/network_workshop.gd:59)
+       [5] frames (res://tests/pause_repair.gd:30)
+SERVICE MISSIONS UI: 696 checks, 2 failures; six PC mode playthroughs and synthetic XR

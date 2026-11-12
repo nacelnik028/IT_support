@@ -182,8 +182,8 @@ func pressed(hand: XRController3D, action: String):
 		if shell.ui.game.sim.state.world.held != "": attach_disk(hand)
 
 func released(_hand: XRController3D, action: String):
-	if action=="grip_click" and shell.ui.game.network_workshop.tester.held:
-		shell.ui.game.network_workshop.tester.release_hand()
+	if action=="grip_click" and shell.ui.game.workshop().tester.held:
+		shell.ui.game.workshop().tester.release_hand()
 	if action == "trigger_click" and (_hand==pointer_hand or pointer_hand==null):
 		monitor.click(false)
 		pointer_hand=null
@@ -208,7 +208,7 @@ func interact_target(object, grip: bool, hand: XRController3D):
 	shell.ui.game.reconcile_room()
 	if not allowed(object): return
 	if grip and "console" in object and object.console=="work:tester" and shell.ui.game.game_mode.is_network_lab():
-		var session = shell.ui.game.network_workshop
+		var session = shell.ui.game.workshop()
 		if not session.locked() and not session.demo: session.tester.take(grip_nodes[hand])
 		return
 	if shell.practical_intro.active:

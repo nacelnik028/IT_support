@@ -83,6 +83,13 @@ func restore(state: Dictionary):
 		var value = state[key]
 		set(key,value.duplicate(true) if value is Dictionary or value is Array else value)
 	bad_ports = bad_ports.map(func(port): return int(port))
+	for device in ports: ports[device] = int(ports[device])
+	var normalized := {}
+	for port in vlans: normalized[int(port)] = int(vlans[port])
+	vlans = normalized
+	var learned_tables := {}
+	for vlan in learned: learned_tables[int(vlan)] = learned[vlan].duplicate()
+	learned = learned_tables
 
 func change_network():
 	revision += 1
@@ -114,6 +121,7 @@ func set_dns(address: String):
 func renew() -> bool:
 	lease_source = "dhcp"
 	if not dhcp_pool:
+		revision += 1
 		lease.clear()
 		if link("pc04"): transmit("DHCP Discover","pc04",BROADCAST,"0x0800","0.0.0.0 → 255.255.255.255","UDP 68 → 67","Požadavek na pronájem.")
 		last_message = "PC 04 → DHCP · bez nabídky; rozsah "+pool_label()+" nemá volné adresy."
@@ -151,6 +159,9 @@ func arp(target: String, packet_ip: String, refresh := false) -> bool:
 
 func transmit(title: String, source: String, target: String, ether_type: String, ip: String, transport: String, application: String, source_mac: String = ""):
 	if not link(source): return
+	var actual_ip: String = lease.get("ip",IPS.pc04)
+	ip = ip.replace(IPS.pc04,actual_ip)
+	application = application.replace(IPS.pc04,actual_ip)
 	var vlan := segment(source)
 	if not learned.has(vlan): learned[vlan] = {}
 	var sender: String = gateway_mac if source=="router" else MACS[source]
@@ -190,6 +201,10 @@ func device_status(device: String) -> String:
 func edit(kind: String, value = null) -> bool:
 	if kind in ["pool","tcp","https_rule","management"] and not value is bool:
 		last_message = "Neplatná předvolba; původní konfigurace zůstává."
+		return false
+	var current_values := {"pool":dhcp_pool,"tcp":tcp_enabled,"https_rule":rules.https,"management":rules.management,"ap":ap_position}
+	if current_values.has(kind) and current_values[kind]==value or kind=="flush" and dns_cache=="" or kind=="arp" and not cache.has(IPS.router):
+		last_message = "Konfigurace beze změny."
 		return false
 	var before := snapshot()
 	match kind:

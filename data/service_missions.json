@@ -52,6 +52,9 @@
       "ticket": "H",
       "seed": 1,
       "symptom": "I can sign in locally, but the company portal will not open.",
+      "vlans": {},
+      "cause": "Klientský port je ve VLAN 20 a portál používá starý překlad jména.",
+      "review": "Obnov správný segment, dynamický pronájem a překlad aktuálního portálu; zopakuj všechny služby a kontrolní zařízení.",
       "dataset": "logs",
       "function": "failed_checks",
       "required": [
@@ -70,6 +73,11 @@
       "ticket": "A",
       "seed": 1,
       "symptom": "Since my desk was moved, I cannot print or open the company portal.",
+      "vlans": {
+        "7": 20
+      },
+      "cause": "Nedostupný port PC 04 a tiskárna v nesprávné VLAN.",
+      "review": "Obnov fyzickou trasu PC 04, správné přiřazení tiskárny, úplný DHCP a služby obou stanic.",
       "dataset": "clients",
       "function": "affected_clients",
       "required": [

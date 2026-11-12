@@ -1,0 +1,101 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Skutečný kurzor zasahuje tlačítko Zpět k incidentu / @MarginContainer@24935:<MarginContainer#1130918589867> / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:49)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Skutečný klik aktivoval Can you use any other services, such as printing? / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:59)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Skutečný kurzor zasahuje tlačítko + Explain the cause and hand over the service / @Control@25350:<Control#1164171026539> / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:49)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Skutečný klik aktivoval + Explain the cause and hand over the service / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:59)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply cause:vlan / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:37)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply action:vlan / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:38)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply cause:dns / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:37)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply action:dns / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:38)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply verify / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:39)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Missing support reply confirm / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] reply (res://tests/service_missions_ui.gd:6)
+       [2] customer (res://tests/service_missions_ui.gd:40)
+       [3] click (res://tests/network_workshop.gd:59)
+       [4] frames (res://tests/pause_repair.gd:30)
+ERROR: Actual customer handover / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] customer (res://tests/service_missions_ui.gd:41)
+       [2] click (res://tests/network_workshop.gd:59)
+       [3] frames (res://tests/pause_repair.gd:30)
+ERROR: Skutečný kurzor zasahuje tlačítko Odevzdat servisní misi / @Control@25350:<Control#1164171026539> / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:49)
+       [2] frames (res://tests/pause_repair.gd:30)
+ERROR: Skutečný klik aktivoval Odevzdat servisní misi / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/pause_repair.gd:27)
+       [1] click (res://tests/network_workshop.gd:59)
+       [2] frames (res://tests/pause_repair.gd:30)
+SCRIPT ERROR: Invalid access to property or key 'passed' on a base object of type 'Dictionary'.
+   at: run (res://tests/service_missions_ui.gd:125)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/service_missions_ui.gd:125)
+       [1] use_button (res://tests/service_missions_ui.gd:10)
+       [2] click (res://tests/network_workshop.gd:59)
+       [3] frames (res://tests/pause_repair.gd:30)

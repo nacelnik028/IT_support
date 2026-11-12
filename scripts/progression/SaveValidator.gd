@@ -44,6 +44,7 @@ func valid(data) -> bool:
 	if not english(data.get("english",{})): return false
 	if not network_attempts(data.get("network_lab",[])): return false
 	if not workshop_attempts(data.get("network_workshop",[])): return false
+	if not service_missions(data.get("service_missions",{})): return false
 	if not shifts(data.get("shifts",{})): return false
 	if data.has("saved_at") and (not typeof(data.saved_at) in [TYPE_INT,TYPE_FLOAT] or not is_finite(data.saved_at) or data.saved_at<0): return false
 	if not preload("res://scripts/progression/WorkArchive.gd").valid(data.get("work",{}),self): return false
@@ -445,4 +446,81 @@ func support_dialogue(value) -> bool:
 			if key not in ["cable","vlan","dhcp","arp","dns","https","wifi"] or not collection[key] is bool: return false
 	for entry in value.history:
 		if not required(entry,{"intent":"","reply":"","revision":0}) or entry.reply.length()>4000 or not integer(entry.revision,0): return false
+	return true
+
+func service_network(value) -> bool:
+	if not value is Dictionary: return false
+	for key in preload("res://scripts/network_lab/WorkshopNetwork.gd").FIELDS:
+		if not value.has(key): return false
+	if not required(value,{"ports":{"pc04":0,"pc02":0,"printer":0,"router":0,"resolver":0},"vlans":{},"lease":{},"cache":{},"learned":{},"capture":[],"dns_record":"","tcp_enabled":false,"revision":0,"cable":"","last_path":[],"last_message":"","dhcp_pool":false,"dns_cache":"","gateway_mac":"","ap_position":"","rules":{"https":false,"management":false,"guest_isolated":false},"measurements":{},"journal":[],"patch_map":{"pc04":"","pc02":"","printer":""},"lease_source":"","bad_ports":[],"pool_start":0,"pool_end":0,"offer":0,"old_dns":""}): return false
+	if value.ports.size()!=5 or value.ports.router!=1 or value.ports.resolver!=2 or value.vlans.size()!=8: return false
+	var used: Array = []
+	for port in value.ports.values():
+		if not integer(port,0,8) or (port!=0 and int(port) in used): return false
+		used.append(int(port))
+	for key in value.vlans:
+		if not str(key).is_valid_int() or int(key) not in range(1,9) or not integer(value.vlans[key],10,20) or int(value.vlans[key]) not in [10,20]: return false
+	for port in value.bad_ports:
+		if not integer(port,3,8): return false
+	if not integer(value.pool_start,1,253) or not integer(value.pool_end,int(value.pool_start),253) or not integer(value.offer,int(value.pool_start),int(value.pool_end)): return false
+	if not integer(value.revision,0) or value.capture.size()>40 or value.journal.size()>60 or value.measurements.size()>16: return false
+	if value.ap_position not in ["front","center","rear","corner","side"] or value.cable not in ["","pc04","pc02","printer"] or value.lease_source not in ["dhcp","static"]: return false
+	if value.last_path.size()>10 or value.last_message.length()>4000 or value.bad_ports.size()>6: return false
+	for table in value.learned.values():
+		if not table is Dictionary or table.size()>16: return false
+		for address in table:
+			if not address is String or address.length()>64 or not integer(table[address],1,8): return false
+	for key in value.learned:
+		if not str(key).is_valid_int() or int(key) not in [10,20]: return false
+	for frame in value.capture:
+		if not required(frame,{"title":"","frame":"","ip":"","transport":"","application":"","path":[]}): return false
+		if frame.path.size()>10: return false
+		for key in ["title","frame","ip","transport","application"]:
+			if frame[key].length()>4000: return false
+	if not value.lease.is_empty() and not required(value.lease,{"ip":"","mask":"","gateway":"","dns":""}): return false
+	for entry in value.journal+value.measurements.values():
+		if not required(entry,{"kind":"","source":"","target":"","passed":false,"detail":"","revision":0}) or entry.detail.length()>4000 or not integer(entry.revision,0,int(value.revision)): return false
+		if entry.source not in ["pc04","pc02","printer"] or entry.kind not in ["link","gateway","dhcp","arp","printer","control","dns","tcp","https","near","far","tester"]: return false
+	return true
+
+func service_analysis(value, attempt_key: String) -> bool:
+	if value is Dictionary and value.is_empty(): return true
+	if not required(value,{"attempt":"","revision":0,"hash":"","source_hash":"","passed":false,"output":"","score":0,"diagnostics":[]}): return false
+	for diagnostic in value.diagnostics:
+		if not required(diagnostic,{"file":"","line":0,"text":""}) or diagnostic.file!="main.py" or not integer(diagnostic.line,0) or diagnostic.text.length()>4000: return false
+	return value.attempt==attempt_key and integer(value.revision,0) and integer(value.score,0,100) and value.output.length()<=4000 and value.hash.length()==64 and value.source_hash.length()==64 and value.diagnostics.size()<=16
+
+func service_missions(value) -> bool:
+	if not value is Dictionary: return false
+	if value.is_empty(): return true
+	if not required(value,{"version":0,"drafts":{},"history":[],"best":{}}) or value.version!=1 or value.drafts.size()>2 or value.history.size()>50 or JSON.stringify(value).to_utf8_buffer().size()>4194304: return false
+	var ids := ["SERVICE-PORTAL","SERVICE-MOVE"]
+	for key in value.best:
+		if key not in ids or not integer(value.best[key],0,100): return false
+	for key in value.drafts:
+		var draft = value.drafts[key]
+		if key not in ids or not required(draft,{"id":"","version":0,"attempt":"","mode":"","seed":0,"generator_version":0,"network":{},"initial":{},"hints":0,"errors":0,"dialogue":{},"changes":[],"program":{"files":{"main.py":""},"views":{},"active":"","hints":0,"font_size":0},"input":{"attempt":"","revision":0,"records":[],"hash":""},"analysis":{}}): return false
+		if draft.id!=key or draft.version!=1 or draft.mode not in ["learn","practice","exam"] or draft.seed!=1 or draft.generator_version!=1 or draft.attempt.is_empty() or draft.attempt.length()>100: return false
+		if not service_network(draft.network) or not service_network(draft.initial) or not support_dialogue(draft.dialogue): return false
+		if not integer(draft.hints,0,1) or not integer(draft.errors,0) or draft.changes.size()>30: return false
+		for change in draft.changes:
+			if not change is String or change.length()>256: return false
+		var program = draft.program
+		if program.files.size()!=1 or program.active!="main.py" or program.files["main.py"].to_utf8_buffer().size()>131072 or JSON.stringify(program.views).length()>8192 or not integer(program.hints,0) or not integer(program.font_size,16,36): return false
+		var input_data = draft.input
+		if input_data.attempt!=draft.attempt or not integer(input_data.revision,0,int(draft.network.revision)) or input_data.records.size()>10 or input_data.hash!=JSON.stringify(JSON.parse_string(JSON.stringify(input_data.records))).sha256_text(): return false
+		for row in input_data.records:
+			if key=="SERVICE-PORTAL":
+				if not required(row,{"check":"","ok":false,"source":"","detail":""}): return false
+			elif not required(row,{"id":"","link":false,"port":0,"vlan":0}): return false
+		if not service_analysis(draft.analysis,draft.attempt): return false
+	var attempts: Array = []
+	for record in value.history:
+		if not required(record,{"id":"","attempt":"","version":0,"mode":"","variant":{"seed":0,"generator_version":0},"time":0,"passed":false,"score":0,"technical":{"passed":false,"missing":[],"score":0},"communication":{"score":0,"passed":false,"confirmed":false,"assisted":false,"questions":0,"cause_accurate":false,"intervention_accurate":false,"verified":false,"errors":0},"analysis":{},"proof":[],"changes":[],"dialogue":{},"cause":"","symptom":"","hints":0,"xp":0}): return false
+		if record.id not in ids or record.version!=1 or record.attempt in attempts or record.mode not in ["learn","practice","exam"] or not integer(record.score,0,100) or not integer(record.xp,0,200) or not integer(record.time,0,9999999999): return false
+		if record.variant.seed!=1 or record.variant.generator_version!=1 or not integer(record.hints,0) or not integer(record.communication.score,0,100) or not integer(record.technical.score,0,100) or not integer(record.communication.errors,0): return false
+		for proof in record.proof:
+			if not required(proof,{"kind":"","source":"","target":"","passed":false,"detail":"","revision":0}) or proof.detail.length()>4000 or not integer(proof.revision,0): return false
+		attempts.append(record.attempt)
+		if not service_analysis(record.analysis,record.attempt) or not support_dialogue(record.dialogue) or record.proof.size()>60 or record.changes.size()>30: return false
 	return true
