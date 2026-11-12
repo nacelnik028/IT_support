@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — etapa B / přenosný tester, 12. 11. 2026
+
+- Tester na servisním stole; E/trigger jej vezme, konektor vybere první sondu, SW port druhou, opakovaný port provede skutečné měření. PC i oba XR gripy, uvolnění k pasu, vrácení při odchodu z dílny. Panelová alternativa v Diagnostice, žádná fyzika kabelů. Jeden model/předmět, zrušení sond a vrácení.
+- Rozlišuje úplnou, přerušenou, nesouhlasící trasu a zapojenou trasu s nedostupným portem. Sdílí aktuální důkaz o lince s panelem, špatné konce nic neodmění; po zásahu displej hlásí zastaralost. Neodhaluje VLAN/DNS/aplikaci. Přidáno skutečné odpojení zvoleného zařízení s undo.
+- cable_tester: 39 headless, 43 grafických kontrol v Compatibility i Forward+ PASS; skutečný PC ray/interact, registrované grip poses / stisk / uvolnění obou syntetických ovladačů a jejich UI kliky. Prohlédnuté snímky panelu, nošeného displeje a skutečného VR viewportu. workshop_variants znovu 1 067 PASS. Opraven převod čísel JSON vadných portů na int při setup/restore, bez změny původní laboratoře.
+- Pokračuje zvuk, komunikace, společné mise a závěrečná regrese/export. Fyzický headset neověřený.
+
 ## Servisní rozšíření — etapa A / varianty, 12. 11. 2026
 
 - Zachované základní A–H (seed 0), tři funkční obměny každého ticketu; generátor verze 1, výslovná volba a opakování identity z historie. Reset/undo/ukázka respektují stejnou variantu, historie ukládá pouze nová metadata bez doplňování starých záznamů. Životnost dočasných dílenských pokusů se nemění.

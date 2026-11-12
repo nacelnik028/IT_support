@@ -31,6 +31,7 @@ var panel_state := {}
 var attempt_serial := 0
 var variant_seed := 0
 var generator_version := 1
+var tester = preload("res://scripts/network_lab/CableTester.gd").new()
 
 func variant(id: String, seed_value := 0, version_value := 1) -> Dictionary:
 	var base := definition(id).duplicate(true)
@@ -74,6 +75,7 @@ func start(id: String, seed_value := 0, version_value := 1):
 	evidence_summary = {}
 	demo = false
 	demo_step = 0
+	tester = preload("res://scripts/network_lab/CableTester.gd").new()
 
 func cancel():
 	start("")
@@ -108,6 +110,12 @@ func connect_port(port: int):
 	var state: Dictionary = network.snapshot()
 	network.connect_cable(port)
 	if state.revision!=network.revision: remember(state,"Přepojení "+str(network.NAMES.get(state.cable,state.cable))+" → SW %02d" % port)
+
+func unplug(device: String):
+	if locked() or demo: return
+	var state: Dictionary = network.snapshot()
+	network.unplug(device)
+	if state.revision!=network.revision: remember(state,"Odpojení "+network.NAMES[device])
 
 func undo():
 	if locked() or demo or undo_stack.is_empty(): return

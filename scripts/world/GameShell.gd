@@ -232,7 +232,8 @@ func _process(delta):
 			if world.network_room.workshop.in_workshop:
 				var workshop = ui.game.network_workshop
 				status_label.text = "05 / SÍŤOVÁ TRÉNINKOVÁ DÍLNA\n"+(workshop.task.title if not workshop.task.is_empty() else "Vyber ticket u servisního stolu.")
-				if workshop.network.cable!="": status_label.text += "\nKonektor "+workshop.network.cable+" / "+str(workshop.network.patch_map.get(workshop.network.cable,""))+" → vyber SW port"
+				if workshop.tester.held: status_label.text += "\n"+workshop.tester.display(workshop.network)
+				elif workshop.network.cable!="": status_label.text += "\nKonektor "+workshop.network.cable+" / "+str(workshop.network.patch_map.get(workshop.network.cable,""))+" → vyber SW port"
 				elif workshop.network.last_message!="": status_label.text += "\n"+workshop.network.last_message
 		if ui.game.game_mode.is_english():
 			status_label.text="ENGLISH IN LONDON\n%d / 6 situací • [Tab] přehled" % ui.game.english.progress.results.size()
@@ -572,7 +573,19 @@ func interact_network_workshop(id: String):
 	if id.begins_with("door_"):
 		world.network_room.workshop.toggle()
 		return
+	if id=="tester":
+		if lab.tester.held: lab.tester.put_back()
+		elif not lab.locked() and not lab.demo: lab.tester.take()
+		return
 	if id.begins_with("socket_") or id.begins_with("patch_"): id = id.get_slice("_",1)
+	if lab.tester.held:
+		if id in lab.network.CLIENTS:
+			lab.tester.select_source(id)
+			return
+		if id.is_valid_int():
+			if lab.tester.port==int(id) and not lab.locked(): lab.tester.measure(lab.network)
+			else: lab.tester.port = int(id)
+			return
 	if id in lab.network.CLIENTS and (not lab.task.is_empty() or lab.mode=="free"):
 		lab.select_cable(id)
 		return

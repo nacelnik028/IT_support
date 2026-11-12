@@ -135,3 +135,21 @@ provoz ani spouštění příkazů operačního systému.
 Katalog vytváří `tools/build_network_workshop.py`. Původní katalog 40 úloh,
 23 karet, prvních 24 misí, legacy katalog a jejich generátory jsou zachované.
 Ověření je v [protokolu a snímcích](ui-review/2026-11-11-workshop-layout/README.md).
+
+## Přenosný tester
+
+Tester leží na servisním stole vpravo od monitoru. E jej vezme/vrátí, ve VR jej
+uchopí také krátký grip obou ovladačů. Po uvolnění gripu zůstává u hráče.
+Vyber konektor PC nebo tiskárny, konkrétní port a tentýž port znovu pro měření.
+Opakovaný konektor zruší připojení sond. **Diagnostika → Přenosný tester trasy**
+nabízí stejné kroky tlačítky a čitelný celý výsledek. Displej ve 3D ukazuje
+koncové body a krátký stav, HUD také úplný naměřený popis.
+
+Nástroj modeluje trasu a dostupnost portu, nikoli jednotlivé páry vodičů.
+Rozlišuje úplné spojení, odpojení, nesouhlas konců a nedostupný port. Zelená
+trasa sama nepotvrzuje VLAN, IP, DNS nebo aplikaci. Měření správných konců je
+stejným důkazem linky jako panelová diagnostika. Chybná trasa tento důkaz
+nevytvoří. Změna sítě označí starý displej i důkaz za zastaralý; nové měření
+vyhodnotí aktuální zapojení. Ve Zkoušce neobsahuje skrytou příčinu ani pomoc.
+Odchod z dílny vrací jediný předmět domů, síťový pokus zůstává během návštěvy
+pavilonu. Opuštění pavilonu jej dosavadním způsobem ukončí.

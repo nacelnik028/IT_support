@@ -148,6 +148,7 @@ func draw(keep_position := true):
 			"capture": workshop_capture()
 			"review": workshop_review()
 			"history": workshop_history()
+			"tester": workshop_tester()
 	var footer_card := PanelContainer.new()
 	footer_card.name = "WorkFooter"
 	footer_card.add_theme_stylebox_override("panel",ui.box(Color("20313e"),Color("53616a"),6))
@@ -235,6 +236,7 @@ func device_summary(model) -> String:
 
 func workshop_measure():
 	var model = lab.model()
+	control(content,"Přenosný tester trasy",navigate.bind("tester"),false,"tester:open")
 	var wide: bool = not shell.vr_active and size.x/ui.display_settings.text_scale>=1400
 	var columns: Container
 	if wide: columns = HBoxContainer.new()
@@ -302,6 +304,7 @@ func workshop_repairs():
 			if repair_group=="cable":
 				var connectors := row()
 				for key in model.CLIENTS: control(connectors,"Konektor / "+model.NAMES[key],operate.bind(lab.select_cable.bind(key)),model.cable==key,"cable:"+key)
+				control(connectors,"Odpojit zvolené zařízení",operate.bind(lab.unplug.bind(lab.selected)))
 				control(connectors,"Odložit konektor",func(): model.cable = ""; draw())
 			var ports := row()
 			for port in range(3,9):
@@ -452,3 +455,20 @@ func begin_ticket(id: String):
 	lab.mode = menu_mode
 	lab.start(id,randi_range(1,2147483646) if menu_variant else 0)
 	start_pending = ""
+
+func workshop_tester():
+	heading("Přenosný tester fyzické trasy")
+	paragraph("Vyber konektor zařízení a cílový port. Nástroj ověřuje zapojení trasy a dostupnost portu. Neurčuje VLAN, DNS ani příčinu chyby aplikace. Ve 3D vyber port znovu pro spuštění měření.")
+	paragraph(lab.tester.display(lab.network))
+	if lab.locked() or lab.task.is_empty() and lab.mode!="free": return
+	var carry := row()
+	control(carry,"Vzít tester",func(): lab.tester.take(); draw())
+	control(carry,"Vrátit tester",func(): lab.tester.put_back(); draw())
+	var sources := row()
+	for device in lab.network.CLIENTS:
+		control(sources,"Tester / "+lab.network.NAMES[device],func(): lab.tester.select_source(device); draw(),lab.tester.source==device)
+	var endpoints := row()
+	for port in range(1,9):
+		control(endpoints,"Tester → SW %02d" % port,func(): lab.tester.port = port; draw(),lab.tester.port==port)
+	control(content,"Spustit měření testeru",func(): lab.tester.measure(lab.network); draw())
+	control(content,"Zrušit připojení sond",func(): lab.tester.source = ""; lab.tester.port = 0; draw())

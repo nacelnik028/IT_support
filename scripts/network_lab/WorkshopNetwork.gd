@@ -51,7 +51,7 @@ func setup(id: String, override_initial := {}):
 		gateway_mac = initial.gateway_mac
 		tcp_enabled = initial.tcp_enabled
 		ap_position = initial.ap_position
-		bad_ports = initial.get("bad_ports",[8]).duplicate()
+		bad_ports = initial.get("bad_ports",[8]).map(func(port): return int(port))
 		pool_start = int(initial.get("pool_start",20))
 		pool_end = int(initial.get("pool_end",49))
 		offer = int(initial.get("offer",23))
@@ -82,6 +82,7 @@ func restore(state: Dictionary):
 	for key in FIELDS:
 		var value = state[key]
 		set(key,value.duplicate(true) if value is Dictionary or value is Array else value)
+	bad_ports = bad_ports.map(func(port): return int(port))
 
 func change_network():
 	revision += 1

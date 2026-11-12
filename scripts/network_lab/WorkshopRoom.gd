@@ -15,6 +15,8 @@ var door: AnimatableBody3D
 var opened := false
 var angle := 0.0
 var in_workshop := false
+var tester_visual: Node3D
+var tester_display: Label3D
 
 func item(id: String, title: String, at: Vector3, size_value: Vector3, yaw := 0.0):
 	var object = world.item("WORK-"+id,title,"network_lab",at,size_value,"work:"+id)
@@ -76,6 +78,17 @@ func build(owner_room):
 	var desk = item("desk","Servisní stůl · výběr ticketu a historie",Vector3(5.7,1.38,-31.6),Vector3(1.95,0.75,0.13))
 	room.lab_sign(desk.visual,"SERVISNÍ STŮL / 05\nTickety A–H · volný trénink · výsledky",Vector3(0,0,0.08),0,0.0026)
 	Arch.board_stand(desk,1.95)
+	item("tester","Tester trasy · vzít / vrátit",Vector3(6.6,1.0,-31.3),Vector3(0.3,0.22,0.25)).visual.hide()
+	tester_visual = Node3D.new()
+	tester_visual.set_meta("dynamic",true)
+	add_child(tester_visual)
+	Geo.box(tester_visual,Vector3.ZERO,Vector3(0.22,0.3,0.07),AMBER)
+	Geo.box(tester_visual,Vector3(0,0.035,0.04),Vector3(0.2,0.22,0.015),Color("07151c"))
+	tester_display = room.lab_sign(tester_visual,"TESTER TRASY",Vector3(0,0.04,0.052),0,0.00065)
+	tester_display.font_size = 32
+	tester_display.width = 290
+	tester_display.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	sign_at("TESTER TRASY\nVezmi · konektor · port · změř",Vector3(6.6,1.3,-31.25),0,0.0018)
 	build_rack()
 	for row in [["pc04","PC 04",-33.4],["pc02","PC 02 / KONTROLA",-35.6],["printer","TISKÁRNA",-37.8]]:
 		table(Vector3(-1.1,0,row[2]),Vector2(1.6,1.65))
@@ -115,6 +128,16 @@ func _physics_process(delta):
 	var p: Vector3 = world.player.global_position
 	if p.z< -29.2: in_workshop = true
 	elif p.z> -28.8: in_workshop = false
+	var session = world.game.network_workshop
+	if session.tester.held and (not in_workshop or not world.game.game_mode.is_network_lab()): session.tester.put_back()
+	if session.tester.held:
+		var controller = session.tester.hand.get_ref() if session.tester.hand!=null else null
+		var anchor: Node3D = controller if is_instance_valid(controller) else world.player.camera
+		tester_visual.global_transform = anchor.global_transform
+		tester_visual.position += tester_visual.basis*Vector3(-0.26,-0.18,-0.5)
+	else:
+		tester_visual.transform = Transform3D(Basis.IDENTITY,Vector3(6.6,1.04,-31.3))
+	tester_display.text = session.tester.screen(session.network) if session.tester.held else "TESTER TRASY\nVezmi u servisního stolu"
 	var desired := -PI/2 if opened else 0.0
 	# A closing leaf waits while the player occupies any part of its sweep.
 	if not opened and p.x>6.4 and p.x<9.65 and p.z> -32.1 and p.z< -28.5: return
