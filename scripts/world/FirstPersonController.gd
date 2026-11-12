@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal focus_changed(target)
 signal interaction_requested(target)
+signal ground_moved(distance: float)
 
 @export var walk_speed = 3.1
 @export var fast_speed = 5.0
@@ -51,8 +52,15 @@ func _physics_process(delta):
 	velocity.z = move_toward(velocity.z,direction.z*speed,22.0*delta)
 	if not is_on_floor(): velocity.y -= 18.0*delta
 	else: velocity.y = -0.1
+	var before := global_position
 	move_and_slide()
+	report_ground_move(before,delta)
 	poll_target()
+
+func report_ground_move(before: Vector3, delta: float):
+	var distance := Vector2(global_position.x-before.x,global_position.z-before.z).length()
+	if is_on_floor() and distance>0.0001 and distance<=fast_speed*delta*1.5+0.02:
+		ground_moved.emit(distance)
 
 func poll_target():
 	ray.force_raycast_update()

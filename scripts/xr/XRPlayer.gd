@@ -363,7 +363,9 @@ func _physics_process(delta):
 	var offset=head.global_position-p.global_position
 	p.velocity=Vector3(offset.x,0,offset.z)/maxf(delta,0.001)
 	var previous=p.global_position
+	var movement_start: Vector3 = p.global_position
 	p.move_and_slide()
+	p.report_ground_move(movement_start,delta)
 	position-=p.global_basis.inverse()*(p.global_position-previous)
 	shell.ui.game.reconcile_room()
 	if shell.mode == "world":
@@ -376,7 +378,9 @@ func _physics_process(delta):
 		direction.y=0
 		p.velocity=direction.limit_length()*settings.speed if settings.locomotion=="smooth" else Vector3.ZERO
 		p.velocity.y=-0.5
+		var smooth_start: Vector3 = p.global_position
 		p.move_and_slide()
+		p.report_ground_move(smooth_start,delta)
 		if teleporting: update_teleport()
 		var aim=world_pointer if is_instance_valid(world_pointer) and world_pointer.get_has_tracking_data() else right
 		var hit=ray_hit(aim)

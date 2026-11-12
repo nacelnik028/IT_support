@@ -1,4 +1,5 @@
 extends RefCounted
+signal physical_event(kind: String, device: String)
 
 # Closed classroom model. Each transmission updates the same switch and capture
 # used by diagnostics. Campaign bridge and VM probes assume a different topology.
@@ -89,6 +90,7 @@ func connect_cable(port: int) -> bool:
 	if ports[device]!=port:
 		ports[device] = port
 		change_network()
+		physical_event.emit("cable_on",device)
 	last_message = "%s · port %02d · %s" % [NAMES[device],port,"linka aktivní" if link(device) else "bez linky"]
 	return true
 
@@ -96,6 +98,7 @@ func unplug(device: String):
 	if device not in CLIENTS or ports[device]==0: return
 	ports[device] = 0
 	change_network()
+	physical_event.emit("cable_off",device)
 	last_message = "%s · kabel odpojen" % NAMES[device]
 
 func set_vlan(port: int, vlan: int):

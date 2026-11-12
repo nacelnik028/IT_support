@@ -1,6 +1,7 @@
 extends RefCounted
 
 signal persistence_changed
+signal physical_event(kind: String, device: String)
 signal room_changed(training_room: bool)
 
 const Simulator = preload("res://scripts/simulation/InfrastructureSimulator.gd")
@@ -361,11 +362,15 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	var review_before=Review.values(sim.state)
 	var previous_errors=int(sim.state.errors)
 	var previous_risks=int(sim.state.risks)
+	var physical_before: Dictionary = sim.state.world.duplicate(true) if action.begins_with("physical_") else {}
 	var issue=shifts.action_error(action,params) if session_kind=="shift" else ""
 	var result
 	if issue!="": result=sim.reject(issue)
 	elif action=="shift_wait" and session_kind=="shift" and shifts.definition(shifts.data.session.id).get("advanced",false): result=shifts.Incidents.advance(self,params)
 	else: result=sim.act(action,params)
+	if result.ok and not physical_before.is_empty() and physical_before!=sim.state.world:
+		if action=="physical_cable": physical_event.emit("cable_on" if params.get("connected",true) else "cable_off",str(params.get("device","PVE-01")))
+		elif action in ["physical_spare","physical_return_spare","physical_remove","physical_insert"]: physical_event.emit("disk",str(params.get("device","")))
 	if result.ok and action in ["probe","verify"]:
 		if not sim.state.diagnostic.has("network_checks"): sim.state.diagnostic.network_checks={}
 		if action=="verify":

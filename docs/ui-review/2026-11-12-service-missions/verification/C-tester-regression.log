@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "movement_start" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scripts/xr/XRPlayer.gd:366)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/cable_tester.gd:5)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "smooth_start" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scripts/xr/XRPlayer.gd:381)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/cable_tester.gd:5)
+ERROR: Failed to load script "res://scripts/xr/XRPlayer.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/cable_tester.gd:5)
+SCRIPT ERROR: Invalid assignment of property or key 'shell' with value of type 'Node (GameShell.gd)' on a base object of type 'XROrigin3D'.
+   at: prepare_xr (res://tests/network_lab.gd:123)
+   GDScript backtrace (most recent call first):
+       [0] prepare_xr (res://tests/network_lab.gd:123)
+       [1] run (res://tests/cable_tester.gd:59)
+       [2] frames (res://tests/pause_repair.gd:30)
+SCRIPT ERROR: Invalid access to property or key 'left' on a base object of type 'XROrigin3D'.
+   at: run (res://tests/cable_tester.gd:61)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/cable_tester.gd:61)
+       [1] frames (res://tests/pause_repair.gd:30)

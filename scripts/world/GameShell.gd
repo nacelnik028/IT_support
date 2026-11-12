@@ -37,6 +37,7 @@ var xr_rig
 var vr_active = false
 var code_editor
 var speech
+var service_audio
 var english_dialog
 var diagnostics
 var practical_intro
@@ -75,6 +76,9 @@ func _ready():
 	speech=preload("res://scripts/english/LondonSpeech.gd").new(); speech.shell=self; add_child(speech)
 	london_navigation=preload("res://scripts/english/LondonNavigation.gd").new(); london_navigation.shell=self
 	world.game = ui.game
+	service_audio = preload("res://scripts/world/ServiceAudio.gd").new()
+	service_audio.shell = self
+	world.add_child(service_audio)
 	practical_intro=preload("res://scripts/world/PracticalIntroduction.gd").new()
 	practical_intro.shell=self; add_child(practical_intro)
 	ui.display_settings.apply_world(world)
@@ -583,7 +587,7 @@ func interact_network_workshop(id: String):
 			lab.tester.select_source(id)
 			return
 		if id.is_valid_int():
-			if lab.tester.port==int(id) and not lab.locked(): lab.tester.measure(lab.network)
+			if lab.tester.port==int(id) and not lab.locked(): lab.measure_tester()
 			else: lab.tester.port = int(id)
 			return
 	if id in lab.network.CLIENTS and (not lab.task.is_empty() or lab.mode=="free"):

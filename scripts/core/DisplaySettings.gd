@@ -12,6 +12,8 @@ const KEY_LABELS = {"walk_forward":"Vpřed","walk_back":"Vzad","walk_left":"Vlev
 var bindings = DEFAULT_KEYS.duplicate()
 var volume = 0.75
 var muted = false
+var environment_volume = 0.65
+var effects_volume = 0.75
 var text_scale = 1.0
 var quality = "Vysoká"
 var vsync = true
@@ -33,6 +35,9 @@ func load_settings():
 	if typeof(sensitivity) in [TYPE_INT,TYPE_FLOAT] and is_finite(sensitivity) and sensitivity>=0.0005 and sensitivity<=0.005: mouse_sensitivity=sensitivity
 	var level=config.get_value("audio","volume",0.75)
 	if typeof(level) in [TYPE_INT,TYPE_FLOAT] and is_finite(level): volume=clampf(level,0.0,1.0)
+	for key in ["environment_volume","effects_volume"]:
+		var value=config.get_value("audio",key,get(key))
+		if typeof(value) in [TYPE_INT,TYPE_FLOAT] and is_finite(value): set(key,clampf(value,0.0,1.0))
 	var mute=config.get_value("audio","muted",false)
 	if mute is bool: muted=mute
 	var text=config.get_value("interface","text_scale",1.0)
@@ -65,6 +70,8 @@ func save_settings() -> Error:
 	config.set_value("input","bindings",bindings)
 	config.set_value("audio","volume",volume)
 	config.set_value("audio","muted",muted)
+	config.set_value("audio","environment_volume",environment_volume)
+	config.set_value("audio","effects_volume",effects_volume)
 	config.set_value("audio","london_autoplay",london_autoplay)
 	config.set_value("interface","text_scale",text_scale)
 	config.set_value("interface","introduction_seen",introduction_seen)

@@ -134,6 +134,12 @@ func measure(kind: String) -> Dictionary:
 	if submitted: return {}
 	return model().probe(kind,selected)
 
+func measure_tester() -> Dictionary:
+	if locked() or demo: return {}
+	var observation: Dictionary = tester.measure(network)
+	if observation.has("state"): network.physical_event.emit("tester",tester.source)
+	return observation
+
 func start_demo():
 	if mode!="learn" or task.is_empty() or submitted: return
 	example.setup(task.id,task.initial)

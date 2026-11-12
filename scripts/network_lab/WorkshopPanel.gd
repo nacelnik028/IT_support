@@ -470,5 +470,5 @@ func workshop_tester():
 	var endpoints := row()
 	for port in range(1,9):
 		control(endpoints,"Tester → SW %02d" % port,func(): lab.tester.port = port; draw(),lab.tester.port==port)
-	control(content,"Spustit měření testeru",func(): lab.tester.measure(lab.network); draw())
+	control(content,"Spustit měření testeru",func(): lab.measure_tester(); draw())
 	control(content,"Zrušit připojení sond",func(): lab.tester.source = ""; lab.tester.port = 0; draw())

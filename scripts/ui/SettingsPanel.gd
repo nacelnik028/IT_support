@@ -59,6 +59,10 @@ static func draw(ui):
 			volume.drag_ended.connect(func(_changed): ui.save_preference("volume",volume.value/100.0))
 			volume.gui_input.connect(func(event):
 				if event is InputEventKey and not event.pressed: ui.save_preference("volume",volume.value/100.0))
+			for channel in [["environment_volume","Prostředí / racky"],["effects_volume","Efekty / kroky a servis"]]:
+				panel.add_child(ui.label(channel[1],16))
+				var slider=HSlider.new(); slider.min_value=0; slider.max_value=100; slider.step=1; slider.value=settings.get(channel[0])*100; panel.add_child(slider)
+				slider.value_changed.connect(func(value): ui.save_preference(channel[0],value/100.0))
 			var mute=CheckButton.new(); mute.text="Ztlumit zvuk"; mute.button_pressed=settings.muted; panel.add_child(mute)
 			mute.toggled.connect(func(on): ui.save_preference("muted",on)); ui.settings_controls.muted=mute
 		"Ovládání":

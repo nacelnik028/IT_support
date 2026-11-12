@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — etapa C / zvuk, 12. 11. 2026
+
+- Sedm vlastních procedurálních PCM zvuků, deterministický generátor a původ/licence/hash v data/service_audio.json. Čtyři sdílené prostorové racky sledují běh a napájení, čtyři opakovaně použité efekty a tři dveřní zdroje. Smyčka racku je periodická, napájení a ztišení při řeči mají plynulý přechod.
+- Kroky vznikají ze skutečného pohybu po zemi (PC/XR), nikoli z klávesy, teleportu, stání nebo otevřeného UI. Kabely a disky z úspěšné skutečné změny; odmítnuté operace jsou bez zvuku připojení. Dveře z pozorovaného pohybu křídla, tester z provedeného měření. Environment/Effects pod Master, Speech zůstává zachovaná, focus/tracking/pauza/menu vše zastaví.
+- service_audio 45 grafických PASS: nenulové dekódované PCM, skutečné hráče, napájení, chůze/teleport/UI, odmítnuté operace, skutečné vytažení/vložení disku, kanály/ztlumení, řeč/ducking a úklid scény. cable_tester 39 PASS po integraci. Lidský poslech není provedený.
+- Stejná kamera, 1920×1080, RTX 5060, VSync off / 240 snímků: Compatibility 3,790 → 3,862 ms; Forward+ 3,722 → 3,887 ms. Jde o průměr intervalu snímků, ne oddělený CPU/GPU čas ani výkon headsetu. Reprodukce a logy ve společné ui-review složce; před zvukem zdroj 51ca3e5.
+- Následuje zákaznická komunikace a dvě společné mise, konečný Test-All a nové EXE. APK se nepřestavuje.
+
 ## Servisní rozšíření — etapa B / přenosný tester, 12. 11. 2026
 
 - Tester na servisním stole; E/trigger jej vezme, konektor vybere první sondu, SW port druhou, opakovaný port provede skutečné měření. PC i oba XR gripy, uvolnění k pasu, vrácení při odchodu z dílny. Panelová alternativa v Diagnostice, žádná fyzika kabelů. Jeden model/předmět, zrušení sond a vrácení.

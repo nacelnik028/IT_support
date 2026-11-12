@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+SERVICE AUDIO BENCHMARK {"camera":[2,0.02,1],"draw_calls":2473.0,"mean_ms":3.86240833333333,"renderer":"gl_compatibility","resolution":"1920x1080","target":[0,1.4,-3]}

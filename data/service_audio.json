@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "generator": "tools/build_service_audio.py",
+  "seed": 42051,
+  "origin": "Original procedural synthesis for IT Support Simulator",
+  "license": "CC0-1.0",
+  "sample_rate": 16000,
+  "clips": [
+    {
+      "id": "rack",
+      "path": "res://assets/audio/service/rack.wav",
+      "duration": 1.0,
+      "frames": 16000,
+      "sha256": "e27fa6e66801af398a8519fc118b2e5389714b2e9873ee544410c0c302365d5f"
+    },
+    {
+      "id": "step",
+      "path": "res://assets/audio/service/step.wav",
+      "duration": 0.16,
+      "frames": 2560,
+      "sha256": "2935704071be7904273b7e8344a7872860424921b7594a0709665db1fd02c356"
+    },
+    {
+      "id": "door",
+      "path": "res://assets/audio/service/door.wav",
+      "duration": 0.5,
+      "frames": 8000,
+      "sha256": "8531af8c57a921e10095ff6e8f9ca474b1a88167eecdbe3d1a88276042a52ee7"
+    },
+    {
+      "id": "cable_on",
+      "path": "res://assets/audio/service/cable_on.wav",
+      "duration": 0.11,
+      "frames": 1760,
+      "sha256": "541cd0aa32359cec60a96171651905509a814000e92f76c9db1a6aa207363d04"
+    },
+    {
+      "id": "cable_off",
+      "path": "res://assets/audio/service/cable_off.wav",
+      "duration": 0.09,
+      "frames": 1440,
+      "sha256": "2235a121a06789366b86a1c93753a17242cd768d3cd51d0d240d14303ae50426"
+    },
+    {
+      "id": "disk",
+      "path": "res://assets/audio/service/disk.wav",
+      "duration": 0.23,
+      "frames": 3680,
+      "sha256": "4081a2e75c8ba9ce68f31c2cad7758beb69caf34d15b94c223fb045b8bea9df5"
+    },
+    {
+      "id": "tester",
+      "path": "res://assets/audio/service/tester.wav",
+      "duration": 0.09,
+      "frames": 1440,
+      "sha256": "3265c2918f0421145f70690375e73d4b9a08e91f8288f9668703d24b189fb173"
+    }
+  ]
+}
