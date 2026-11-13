@@ -1,0 +1,627 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE CONTINUATION UI: 92 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE MISSIONS: 199 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE MISSIONS UI: 639 checks, 0 failures; six PC mode playthroughs and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUPPORT UI: 34 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUPPORT DIALOGUE: 2124 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE AUDIO: 52 checks, 0 failures; nonzero PCM and actual players, no claimed human listening
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CABLE TESTER: 45 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORKSHOP VARIANTS: 1067 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NETWORK WORKSHOP: 495 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORKSHOP LAYOUT: 293 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+USABILITY: 273 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON REPAIR: 2755 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+VISIBLE ROWS 1280-100 V├Żstup p┼Öi otev┼Öen├ş: 6; code=9
+VISIBLE ROWS 1280-100 V├Żstup s necel├Żm posuvem: 6; code=9
+VISIBLE ROWS 1280-100 V├Żstup s rozbalen├Żmi vstupy: 8; code=8
+VISIBLE ROWS 1280-100 Rozbalen├ę podrobnosti test┼»: 6; code=8
+VISIBLE ROWS 1280-100 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 8; code=8
+VISIBLE ROWS 1280-100 Podrobnosti po n├ívratu na z├ílo┼żku: 6; code=8
+VISIBLE ROWS 1280-100 Podrobnosti a rozbalen├ę vstupy: 6; code=8
+VISIBLE ROWS 1280-100 Sbalen├Ż seznam: 6; code=8
+VISIBLE ROWS 1280-100 Zv─Ťt┼íen├ę podrobnosti: 18; code=0
+VISIBLE ROWS 1280-100 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 8; code=6
+VISIBLE ROWS 1280-100 Podrobnosti po resize: 10; code=8
+VISIBLE ROWS 1280-100 Podrobnosti po n├ívratu velikosti: 8; code=6
+VISIBLE ROWS 1280-100 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 7; code=6
+VISIBLE ROWS 1280-130 V├Żstup p┼Öi otev┼Öen├ş: 9; code=6
+VISIBLE ROWS 1280-130 V├Żstup s necel├Żm posuvem: 9; code=6
+VISIBLE ROWS 1280-130 V├Żstup s rozbalen├Żmi vstupy: 10; code=5
+VISIBLE ROWS 1280-130 Rozbalen├ę podrobnosti test┼»: 8; code=5
+VISIBLE ROWS 1280-130 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 10; code=5
+VISIBLE ROWS 1280-130 Podrobnosti po n├ívratu na z├ílo┼żku: 8; code=5
+VISIBLE ROWS 1280-130 Podrobnosti a rozbalen├ę vstupy: 8; code=5
+VISIBLE ROWS 1280-130 Sbalen├Ż seznam: 8; code=5
+VISIBLE ROWS 1280-130 Zv─Ťt┼íen├ę podrobnosti: 16; code=0
+VISIBLE ROWS 1280-130 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 6; code=6
+VISIBLE ROWS 1280-130 Podrobnosti po resize: 8; code=8
+VISIBLE ROWS 1280-130 Podrobnosti po n├ívratu velikosti: 6; code=6
+VISIBLE ROWS 1280-130 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 6; code=5
+VISIBLE ROWS 1920-100 V├Żstup p┼Öi otev┼Öen├ş: 11; code=8
+VISIBLE ROWS 1920-100 V├Żstup s necel├Żm posuvem: 11; code=8
+VISIBLE ROWS 1920-100 V├Żstup s rozbalen├Żmi vstupy: 14; code=7
+VISIBLE ROWS 1920-100 Rozbalen├ę podrobnosti test┼»: 12; code=7
+VISIBLE ROWS 1920-100 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 14; code=7
+VISIBLE ROWS 1920-100 Podrobnosti po n├ívratu na z├ílo┼żku: 12; code=7
+VISIBLE ROWS 1920-100 Podrobnosti a rozbalen├ę vstupy: 12; code=7
+VISIBLE ROWS 1920-100 Sbalen├Ż seznam: 12; code=7
+VISIBLE ROWS 1920-100 Zv─Ťt┼íen├ę podrobnosti: 22; code=0
+VISIBLE ROWS 1920-100 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 14; code=5
+VISIBLE ROWS 1920-100 Podrobnosti po resize: 10; code=5
+VISIBLE ROWS 1920-100 Podrobnosti po n├ívratu velikosti: 14; code=5
+VISIBLE ROWS 1920-100 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 11; code=5
+VISIBLE ROWS 1920-130 V├Żstup p┼Öi otev┼Öen├ş: 14; code=5
+VISIBLE ROWS 1920-130 V├Żstup s necel├Żm posuvem: 14; code=5
+VISIBLE ROWS 1920-130 V├Żstup s rozbalen├Żmi vstupy: 12; code=7
+VISIBLE ROWS 1920-130 Rozbalen├ę podrobnosti test┼»: 10; code=7
+VISIBLE ROWS 1920-130 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 12; code=7
+VISIBLE ROWS 1920-130 Podrobnosti po n├ívratu na z├ílo┼żku: 10; code=7
+VISIBLE ROWS 1920-130 Podrobnosti a rozbalen├ę vstupy: 10; code=7
+VISIBLE ROWS 1920-130 Sbalen├Ż seznam: 10; code=7
+VISIBLE ROWS 1920-130 Zv─Ťt┼íen├ę podrobnosti: 19; code=0
+VISIBLE ROWS 1920-130 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 12; code=5
+VISIBLE ROWS 1920-130 Podrobnosti po resize: 8; code=5
+VISIBLE ROWS 1920-130 Podrobnosti po n├ívratu velikosti: 12; code=5
+VISIBLE ROWS 1920-130 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 8; code=5
+VISIBLE ROWS 3840-100 V├Żstup p┼Öi otev┼Öen├ş: 24; code=13
+VISIBLE ROWS 3840-100 V├Żstup s necel├Żm posuvem: 24; code=13
+VISIBLE ROWS 3840-100 V├Żstup s rozbalen├Żmi vstupy: 27; code=10
+VISIBLE ROWS 3840-100 Rozbalen├ę podrobnosti test┼»: 25; code=10
+VISIBLE ROWS 3840-100 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 27; code=10
+VISIBLE ROWS 3840-100 Podrobnosti po n├ívratu na z├ílo┼żku: 25; code=10
+VISIBLE ROWS 3840-100 Podrobnosti a rozbalen├ę vstupy: 25; code=10
+VISIBLE ROWS 3840-100 Sbalen├Ż seznam: 25; code=10
+VISIBLE ROWS 3840-100 Zv─Ťt┼íen├ę podrobnosti: 39; code=0
+VISIBLE ROWS 3840-100 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 28; code=8
+VISIBLE ROWS 3840-100 Podrobnosti po resize: 10; code=5
+VISIBLE ROWS 3840-100 Podrobnosti po n├ívratu velikosti: 28; code=8
+VISIBLE ROWS 3840-100 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 22; code=8
+VISIBLE ROWS 3840-130 V├Żstup p┼Öi otev┼Öen├ş: 29; code=7
+VISIBLE ROWS 3840-130 V├Żstup s necel├Żm posuvem: 28; code=7
+VISIBLE ROWS 3840-130 V├Żstup s rozbalen├Żmi vstupy: 32; code=5
+VISIBLE ROWS 3840-130 Rozbalen├ę podrobnosti test┼»: 30; code=5
+VISIBLE ROWS 3840-130 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 32; code=5
+VISIBLE ROWS 3840-130 Podrobnosti po n├ívratu na z├ílo┼żku: 30; code=5
+VISIBLE ROWS 3840-130 Podrobnosti a rozbalen├ę vstupy: 30; code=5
+VISIBLE ROWS 3840-130 Sbalen├Ż seznam: 30; code=5
+VISIBLE ROWS 3840-130 Zv─Ťt┼íen├ę podrobnosti: 37; code=0
+VISIBLE ROWS 3840-130 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 27; code=7
+VISIBLE ROWS 3840-130 Podrobnosti po resize: 8; code=5
+VISIBLE ROWS 3840-130 Podrobnosti po n├ívratu velikosti: 27; code=7
+VISIBLE ROWS 3840-130 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 21; code=7
+VISIBLE ROWS vr-100 V├Żstup p┼Öi otev┼Öen├ş: 12; code=5
+VISIBLE ROWS vr-100 V├Żstup s necel├Żm posuvem: 12; code=5
+VISIBLE ROWS vr-100 V├Żstup s rozbalen├Żmi vstupy: 10; code=6
+VISIBLE ROWS vr-100 Rozbalen├ę podrobnosti test┼»: 8; code=6
+VISIBLE ROWS vr-100 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 10; code=6
+VISIBLE ROWS vr-100 Podrobnosti po n├ívratu na z├ílo┼żku: 8; code=6
+VISIBLE ROWS vr-100 Podrobnosti a rozbalen├ę vstupy: 8; code=6
+VISIBLE ROWS vr-100 Sbalen├Ż seznam: 8; code=6
+VISIBLE ROWS vr-100 Sbalen├Ż seznam s VR kl├ívesnic├ş: 8; code=6
+VISIBLE ROWS vr-100 Zv─Ťt┼íen├ę podrobnosti: 18; code=0
+VISIBLE ROWS vr-100 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 10; code=5
+VISIBLE ROWS vr-100 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 8; code=5
+VISIBLE ROWS vr-100 V├Żstup p┼Öi otev┼Öen├ş: 12; code=5
+VISIBLE ROWS vr-100 V├Żstup s necel├Żm posuvem: 12; code=5
+VISIBLE ROWS vr-100 V├Żstup s rozbalen├Żmi vstupy: 10; code=6
+VISIBLE ROWS vr-100 Rozbalen├ę podrobnosti test┼»: 8; code=6
+VISIBLE ROWS vr-100 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 10; code=6
+VISIBLE ROWS vr-100 Podrobnosti po n├ívratu na z├ílo┼żku: 8; code=6
+VISIBLE ROWS vr-100 Podrobnosti a rozbalen├ę vstupy: 8; code=6
+VISIBLE ROWS vr-100 Sbalen├Ż seznam: 8; code=6
+VISIBLE ROWS vr-100 Sbalen├Ż seznam s VR kl├ívesnic├ş: 8; code=6
+VISIBLE ROWS vr-100 Zv─Ťt┼íen├ę podrobnosti: 18; code=0
+VISIBLE ROWS vr-100 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 10; code=5
+VISIBLE ROWS vr-100 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 8; code=5
+VISIBLE ROWS vr-130 V├Żstup p┼Öi otev┼Öen├ş: 10; code=5
+VISIBLE ROWS vr-130 V├Żstup s necel├Żm posuvem: 10; code=5
+VISIBLE ROWS vr-130 V├Żstup s rozbalen├Żmi vstupy: 9; code=6
+VISIBLE ROWS vr-130 Rozbalen├ę podrobnosti test┼»: 6; code=6
+VISIBLE ROWS vr-130 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 9; code=6
+VISIBLE ROWS vr-130 Podrobnosti po n├ívratu na z├ílo┼żku: 6; code=6
+VISIBLE ROWS vr-130 Podrobnosti a rozbalen├ę vstupy: 6; code=6
+VISIBLE ROWS vr-130 Sbalen├Ż seznam: 6; code=6
+VISIBLE ROWS vr-130 Sbalen├Ż seznam s VR kl├ívesnic├ş: 6; code=6
+VISIBLE ROWS vr-130 Zv─Ťt┼íen├ę podrobnosti: 16; code=0
+VISIBLE ROWS vr-130 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 8; code=5
+VISIBLE ROWS vr-130 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 6; code=5
+VISIBLE ROWS vr-130 V├Żstup p┼Öi otev┼Öen├ş: 10; code=5
+VISIBLE ROWS vr-130 V├Żstup s necel├Żm posuvem: 10; code=5
+VISIBLE ROWS vr-130 V├Żstup s rozbalen├Żmi vstupy: 9; code=6
+VISIBLE ROWS vr-130 Rozbalen├ę podrobnosti test┼»: 6; code=6
+VISIBLE ROWS vr-130 V├Żstup po p┼Öepnut├ş z├ílo┼żky: 9; code=6
+VISIBLE ROWS vr-130 Podrobnosti po n├ívratu na z├ílo┼żku: 6; code=6
+VISIBLE ROWS vr-130 Podrobnosti a rozbalen├ę vstupy: 6; code=6
+VISIBLE ROWS vr-130 Sbalen├Ż seznam: 6; code=6
+VISIBLE ROWS vr-130 Sbalen├Ż seznam s VR kl├ívesnic├ş: 6; code=6
+VISIBLE ROWS vr-130 Zv─Ťt┼íen├ę podrobnosti: 16; code=0
+VISIBLE ROWS vr-130 N├ívrat k b─Ť┼żn├ęmu rozlo┼żen├ş: 8; code=5
+VISIBLE ROWS vr-130 ├Üsp─Ť┼ín├ę ov─Ť┼Öen├ş: 6; code=5
+EDITOR REPAIR: 1354 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PAUSE REPAIR: 217 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ARCHITECTURE REPAIR: 19170 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.86966)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.010831, 7.988563)
+WALK: (-0.4, 0.02, 18.8) -> (-0.4, -0.009164, 18.81879)
+WALK: (-0.4, 0.02, 8.0) -> (-0.4, -0.009165, 7.990468)
+WALK: (8.0, 0.02, 8.0) -> (8.011627, -0.009164, 7.999828)
+WALK: (8.0, 0.02, 18.8) -> (8.000157, -0.009161, 18.86984)
+WALK: (8.0, 0.02, 24.0) -> (8.000005, -0.009163, 24.01702)
+WALK: (0.0, 0.02, 24.0) -> (-0.047722, -0.009163, 24.00028)
+WALK: (0.0, 0.02, 28.3) -> (-0.001502, -0.009165, 28.31871)
+WALK: (0.0, 0.02, 24.0) -> (-0.000049, -0.009163, 23.99036)
+WALK: (20.45, 0.02, 24.0) -> (20.46426, -0.009163, 23.99993)
+WALK: (20.45, 0.02, 28.3) -> (20.45045, -0.009169, 28.31881)
+WALK: (20.45, 0.02, 24.0) -> (20.45002, -0.009163, 23.99045)
+WALK: (8.0, 0.02, 24.0) -> (7.985743, -0.009163, 23.99989)
+WALK: (8.0, 0.02, 18.8) -> (7.999633, -0.009162, 18.78552)
+WALK: (20.45, 0.02, 18.8) -> (20.46394, -0.009164, 18.79984)
+WALK: (20.45, 0.02, 9.5) -> (20.44162, -0.009163, 9.485408)
+WALK: (23.0, 0.02, 9.5) -> (23.02159, -0.009178, 9.499591)
+WALK: (23.0, 0.02, -11.5) -> (23.00014, -0.009906, -11.5943)
+WALK: (19.0, 0.02, -11.5) -> (18.95321, -0.009169, -11.50292)
+WALK: (16.0, 0.02, -5.0) -> (16.0391, -0.009167, -4.953448)
+WALK: (16.0, 0.02, 6.3) -> (16.00047, -0.009944, 6.390658)
+WALK: (10.0, 0.02, 6.3) -> (9.953368, -0.009933, 6.301965)
+LONDON GEOMETRY: 226 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST WINDOW FOCUS OUT / 1
+TEST WINDOW FOCUS OUT / 2
+TEST WINDOW FOCUS OUT / 3
+TEST WINDOW FOCUS OUT / 4
+TEST WINDOW FOCUS OUT / 5
+TEST WINDOW FOCUS OUT / 6
+TEST WINDOW FOCUS OUT / 7
+TEST WINDOW FOCUS OUT / 8
+TEST WINDOW FOCUS OUT / 9
+TEST WINDOW FOCUS OUT / 10
+TEST WINDOW FOCUS OUT / 11
+TEST WINDOW FOCUS OUT / 12
+CONTINUATION REVIEW: 239 checks, 0 failures; PC matrix and synthetic XR, no headset
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UNIFIED PROFILE: 38 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON LISTENING: 515 checks, 0 failures; audio decoded/player tested, no human listening claim
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ATTEMPT REVIEW: 49 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ADVANCED SHIFTS: 268 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SHIFT SCORING: 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORK PERSISTENCE: 69 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GAMEPLAY REVIEW: 104 checks, 0 failures; synthetic XR, no headset
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GAMEPLAY: 217 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SHIFTS: 136 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ACADEMY HUB: 55 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LONDON QUIZ: 527 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ENGLISH MODEL: 1809 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ENGLISH WORLD: 1097 checks, 0 failures (synthetic XR, no headset)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI WORKFLOW: 633 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING RUNTIME 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING CATALOG 1071 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING ACADEMY 64 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING INTEGRATION 766 checks, 0 failures; 252 generated variants
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST explicit Continue after desktop focus loss
+PROGRAMMING POLISH 29 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROGRAMMING LOCATION: 116 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+XR_MODES: 122 checks, 0 failures; synthetic tests, no hardware tracking claim
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TERMINAL SESSIONS: 64 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLATFORM CONTEXT: 396 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CONSOLE UX: 60 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI DESIGN MATRIX: 162 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORLD UI: 31 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STAGE 1 PASS: mise 1, chybn├Ż vstup, ov─Ť┼Öen├ş a ulo┼żen├ş
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MISSION 01 PASS: Prvn├ş pracovn├ş den
+MISSION 02 PASS: Nainstaluj Proxmox
+MISSION 03 PASS: Prvn├ş Linux server
+MISSION 04 PASS: Server bez internetu
+MISSION 05 PASS: Kam zmizelo m├şsto?
+MISSION 06 PASS: Z├íloha p┼Öed aktualizac├ş
+MISSION 07 PASS: V├Żpadek disku
+MISSION 08 PASS: Krizov├í noc
+MISSION 09 PASS: Windows hypervisor
+MISSION 10 PASS: Propoj virtu├íln├ş s├ş┼ą
+MISSION 11 PASS: Nov├Ż firemn├ş server
+MISSION 12 PASS: M├ílo pam─Ťti
+MISSION 13 PASS: Datov├Ż disk je pln├Ż
+MISSION 14 PASS: Nepoveden├í aktualizace
+MISSION 15 PASS: P┼Öesu┼ł server
+MISSION 16 PASS: Ztracen├í VM
+MISSION 17 PASS: Navrhni diskov├ę pole
+MISSION 18 PASS: Nov├ę disky v serveru
+MISSION 19 PASS: P┼Öiprav firemn├ş D:
+MISSION 20 PASS: Dojde m├şsto cel├ęmu odd─Ťlen├ş
+MISSION 21 PASS: Vadn├Ż disk v produkci
+MISSION 22 PASS: ├Ülo┼żi┼ít─Ť na hran─Ť
+MISSION 23 PASS: Sd├şlen├ę SAN
+MISSION 24 PASS: Fin├íln├ş zkou┼íka spr├ívce infrastruktury
+MISSION 25 PASS: Jm├ęno hostitele se nep┼Öekl├íd├í
+MISSION 26 PASS: PVE nem├í startup RAM
+MISSION 27 PASS: VM z┼»stala v instal├ítoru
+MISSION 28 PASS: Windows bez VirtIO ovlada─Ź┼»
+MISSION 29 PASS: LXC z├íloha bez objedn├ívek
+MISSION 30 PASS: Thin pool u┼ż nep┼Öij├şm├í z├ípisy
+MISSION 31 PASS: PBS zmizel ze storage s├şt─Ť
+MISSION 32 PASS: P┼Öevod Hyper-V slu┼żby do PVE
+MISSION 33 PASS: Hypervisor se nena─Źetl p┼Öi startu
+MISSION 34 PASS: Gen1 konfigurace pro UEFI disk
+MISSION 35 PASS: External switch na management NIC
+MISSION 36 PASS: Pam─Ť┼ąov├ę meze po importu
+MISSION 37 PASS: VHDX 200 GB, ale Windows st├íle100
+MISSION 38 PASS: AVHDX bez m├şsta pro merge
+MISSION 39 PASS: Backup hl├ís├ş chybu VSS writeru
+MISSION 40 PASS: Replica bez ohro┼żen├ş produkce
+MISSION 41 PASS: Disky pro transak─Źn├ş datab├ízi
+MISSION 42 PASS: ┼áest disk┼» v─Źetn─Ť rezervy
+MISSION 43 PASS: Dv─Ť poruchy v r┼»zn├Żch mirror p├írech
+MISSION 44 PASS: Chybn├Ż ┼ít├ştek na diskov├ę z├ísuvce
+MISSION 45 PASS: Propad v├Żkonu po poru┼íe cache
+MISSION 46 PASS: P┼»vodn├ş datov├Ż disk n├íhle RAW
+MISSION 47 PASS: Storage Spaces pro dokumenty
+MISSION 48 PASS: SAN pln├ę, Windows ukazuje volno
+MISSION 49 PASS: Po┼íkozen├ę soubory v jinak zdrav├ęm serveru
+MISSION 50 PASS: Audit spr├ívcovsk├ęho p┼Ö├şstupu
+MISSION 51 PASS: A01: najdi spr├ívn├Ż server
+MISSION 52 PASS: Vadn├Ż disk: LED a s├ęriov├ę ─Ź├şslo
+MISSION 53 PASS: Hot-swap a dokon─Źen├Ż rebuild
+MISSION 54 PASS: P┼Öeru┼íen├Ż fyzick├Ż uplink
+MISSION 55 PASS: Spr├ívn├Ż port podle ┼ít├ştku
+MISSION 56 PASS: Fyzick├í linka funguje, VLAN ne
+MISSION 57 PASS: Server se po ├║dr┼żb─Ť nespustil
+MISSION 58 PASS: Kompatibiln├ş n├íhrada ZFS disku
+MISSION 59 PASS: Obch┼»zka ├║lo┼żi┼í┼ą a z├íloh
+MISSION 60 PASS: P┼Öiprav za┼Ö├şzen├ş k instalaci PVE
+MISSION 61 PASS: Bezpe─Źn├Ż restart infrastruktury
+MISSION 62 PASS: Nov├í VM a fyzick├Ż monitoring
+MISSION 63 PASS: Kritick├í kapacita ve fyzick├ę serverovn─Ť
+MISSION 64 PASS: Obnova slu┼żby po v├Żpadku nap├íjen├ş
+MISSION 65 PASS: Kompletn├ş p┼Öej├şmka serverovny
+CAMPAIGN: 65 missions, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REGRESSION: 88 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+EXTENDED: 35 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SESSION SAFETY: 124 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SAVE SAFETY: 474 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PHYSICAL3D: 41 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORLD3D: 35 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DOOR3D: 17 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORLD PLAYTHROUGH: 35 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRAINING ROOMS A-H: 68 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FIRST TUTORIAL: 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GUIDED NAVIGATION 1001 PASS
+GUIDED NAVIGATION 1003 PASS
+GUIDED NAVIGATION 1004 PASS
+GUIDED NAVIGATION 1005 PASS
+GUIDED NAVIGATION 1006 PASS
+GUIDED NAVIGATION 1007 PASS
+GUIDED NAVIGATION 1008 PASS
+GUIDED NAVIGATION 1009 PASS
+GUIDED NAVIGATION 1010 PASS
+GUIDED NAVIGATION 1011 PASS
+GUIDED NAVIGATION 1012 PASS
+GUIDED NAVIGATION 1013 PASS
+GUIDED NAVIGATION 1014 PASS
+GUIDED NAVIGATION 1015 PASS
+GUIDED NAVIGATION 1016 PASS
+GUIDED NAVIGATION 1017 PASS
+GUIDED NAVIGATION 1018 PASS
+GUIDED NAVIGATION 1019 PASS
+GUIDED NAVIGATION 1020 PASS
+GUIDED NAVIGATION 1021 PASS
+TUTORIAL NAVIGATION: 700 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LESSON 1001 learn PASS
+LESSON 1002 learn PASS
+LESSON 1003 learn PASS
+LESSON 1004 learn PASS
+LESSON 1005 learn PASS
+LESSON 1006 learn PASS
+LESSON 1007 learn PASS
+LESSON 1008 learn PASS
+LESSON 1009 learn PASS
+LESSON 1010 learn PASS
+LESSON 1011 learn PASS
+LESSON 1012 learn PASS
+LESSON 1013 learn PASS
+LESSON 1014 learn PASS
+LESSON 1015 learn PASS
+LESSON 1016 learn PASS
+LESSON 1017 learn PASS
+LESSON 1018 learn PASS
+LESSON 1019 learn PASS
+LESSON 1020 learn PASS
+LESSON 1021 learn PASS
+LESSON 1001 practice PASS
+LESSON 1002 practice PASS
+LESSON 1003 practice PASS
+LESSON 1004 practice PASS
+LESSON 1005 practice PASS
+LESSON 1006 practice PASS
+LESSON 1007 practice PASS
+LESSON 1008 practice PASS
+LESSON 1009 practice PASS
+LESSON 1010 practice PASS
+LESSON 1011 practice PASS
+LESSON 1012 practice PASS
+LESSON 1013 practice PASS
+LESSON 1014 practice PASS
+LESSON 1015 practice PASS
+LESSON 1016 practice PASS
+LESSON 1017 practice PASS
+LESSON 1018 practice PASS
+LESSON 1019 practice PASS
+LESSON 1020 practice PASS
+LESSON 1021 practice PASS
+LESSON 1001 exam PASS
+LESSON 1002 exam PASS
+LESSON 1003 exam PASS
+LESSON 1004 exam PASS
+LESSON 1005 exam PASS
+LESSON 1006 exam PASS
+LESSON 1007 exam PASS
+LESSON 1008 exam PASS
+LESSON 1009 exam PASS
+LESSON 1010 exam PASS
+LESSON 1011 exam PASS
+LESSON 1012 exam PASS
+LESSON 1013 exam PASS
+LESSON 1014 exam PASS
+LESSON 1015 exam PASS
+LESSON 1016 exam PASS
+LESSON 1017 exam PASS
+LESSON 1018 exam PASS
+LESSON 1019 exam PASS
+LESSON 1020 exam PASS
+LESSON 1021 exam PASS
+LESSONS: 1075 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRAINING FEATURES: 199 checks, 0 failures, 76 distinct configurations
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI SAFETY: 32 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI MISSION 01 PASS
+UI MISSION 02 PASS
+UI MISSION 03 PASS
+UI MISSION 04 PASS
+UI MISSION 05 PASS
+UI MISSION 06 PASS
+UI MISSION 07 PASS
+UI MISSION 08 PASS
+UI MISSION 09 PASS
+UI MISSION 10 PASS
+UI MISSION 11 PASS
+UI MISSION 12 PASS
+UI MISSION 13 PASS
+UI MISSION 14 PASS
+UI MISSION 15 PASS
+UI MISSION 16 PASS
+UI MISSION 17 PASS
+UI MISSION 18 PASS
+UI MISSION 19 PASS
+UI MISSION 20 PASS
+UI MISSION 21 PASS
+UI MISSION 22 PASS
+UI MISSION 23 PASS
+UI MISSION 24 PASS
+UI MISSION 25 PASS
+UI MISSION 26 PASS
+UI MISSION 27 PASS
+UI MISSION 28 PASS
+UI MISSION 29 PASS
+UI MISSION 30 PASS
+UI MISSION 31 PASS
+UI MISSION 32 PASS
+UI MISSION 33 PASS
+UI MISSION 34 PASS
+UI MISSION 35 PASS
+UI MISSION 36 PASS
+UI MISSION 37 PASS
+UI MISSION 38 PASS
+UI MISSION 39 PASS
+UI MISSION 40 PASS
+UI MISSION 41 PASS
+UI MISSION 42 PASS
+UI MISSION 43 PASS
+UI MISSION 44 PASS
+UI MISSION 45 PASS
+UI MISSION 46 PASS
+UI MISSION 47 PASS
+UI MISSION 48 PASS
+UI MISSION 49 PASS
+UI MISSION 50 PASS
+UI MISSION 51 PASS
+UI MISSION 52 PASS
+UI MISSION 53 PASS
+UI MISSION 54 PASS
+UI MISSION 55 PASS
+UI MISSION 56 PASS
+UI MISSION 57 PASS
+UI MISSION 58 PASS
+UI MISSION 59 PASS
+UI MISSION 60 PASS
+UI MISSION 61 PASS
+UI MISSION 62 PASS
+UI MISSION 63 PASS
+UI MISSION 64 PASS
+UI MISSION 65 PASS
+UI SMOKE: 65 missions through form signals; 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRAINING UI 1001 learn PASS
+TRAINING UI 1002 learn PASS
+TRAINING UI 1003 learn PASS
+TRAINING UI 1004 learn PASS
+TRAINING UI 1005 learn PASS
+TRAINING UI 1006 learn PASS
+TRAINING UI 1007 learn PASS
+TRAINING UI 1008 learn PASS
+TRAINING UI 1009 learn PASS
+TRAINING UI 1010 learn PASS
+TRAINING UI 1011 learn PASS
+TRAINING UI 1012 learn PASS
+TRAINING UI 1013 learn PASS
+TRAINING UI 1014 learn PASS
+TRAINING UI 1015 learn PASS
+TRAINING UI 1016 learn PASS
+TRAINING UI 1017 learn PASS
+TRAINING UI 1018 learn PASS
+TRAINING UI 1019 learn PASS
+TRAINING UI 1020 learn PASS
+TRAINING UI 1021 learn PASS
+TRAINING UI 1001 practice PASS
+TRAINING UI 1002 practice PASS
+TRAINING UI 1003 practice PASS
+TRAINING UI 1004 practice PASS
+TRAINING UI 1005 practice PASS
+TRAINING UI 1006 practice PASS
+TRAINING UI 1007 practice PASS
+TRAINING UI 1008 practice PASS
+TRAINING UI 1009 practice PASS
+TRAINING UI 1010 practice PASS
+TRAINING UI 1011 practice PASS
+TRAINING UI 1012 practice PASS
+TRAINING UI 1013 practice PASS
+TRAINING UI 1014 practice PASS
+TRAINING UI 1015 practice PASS
+TRAINING UI 1016 practice PASS
+TRAINING UI 1017 practice PASS
+TRAINING UI 1018 practice PASS
+TRAINING UI 1019 practice PASS
+TRAINING UI 1020 practice PASS
+TRAINING UI 1021 practice PASS
+TRAINING UI 1001 exam PASS
+TRAINING UI 1002 exam PASS
+TRAINING UI 1003 exam PASS
+TRAINING UI 1004 exam PASS
+TRAINING UI 1005 exam PASS
+TRAINING UI 1006 exam PASS
+TRAINING UI 1007 exam PASS
+TRAINING UI 1008 exam PASS
+TRAINING UI 1009 exam PASS
+TRAINING UI 1010 exam PASS
+TRAINING UI 1011 exam PASS
+TRAINING UI 1012 exam PASS
+TRAINING UI 1013 exam PASS
+TRAINING UI 1014 exam PASS
+TRAINING UI 1015 exam PASS
+TRAINING UI 1016 exam PASS
+TRAINING UI 1017 exam PASS
+TRAINING UI 1018 exam PASS
+TRAINING UI 1019 exam PASS
+TRAINING UI 1020 exam PASS
+TRAINING UI 1021 exam PASS
+TRAINING UI: 336 actions, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DISPLAY SETTINGS: 68 checks, 0 failures

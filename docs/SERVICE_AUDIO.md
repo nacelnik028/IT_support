@@ -27,8 +27,12 @@ standard library, deterministický šum se seedem 42051, harmonické tóny a ob�
 Jde o vlastní syntézu pro projekt, žádné externí samply. Vygenerované vlny jsou
 poskytnuté pod CC0-1.0; zdrojový generátor zůstává součástí projektu.
 Rack používá celočíselné frekvence v přesně sekundové periodě. Godot načítá
-WAV jako sdílené prostředky, rack nastavuje na LOOP_FORWARD. Export obsahuje
-importované PCM a manifest. Runtime nepotřebuje Python ani internet.
+WAV jako sdílené prostředky, rack nastavuje na LOOP_FORWARD. Godot importuje
+WAV do AudioStreamWAV s nativní kompresí QOA (`compress/mode=2`); export
+obsahuje tento import a manifest, nikoli původní nekomprimované PCM bajty.
+Kontrola exportu porovnává přesné importované datové bloky se zdrojovým
+Godot importem, hash autorského WAV samostatně a skutečné dekódování/přehrávání.
+Runtime nepotřebuje Python ani internet.
 
 ## Ověření
 

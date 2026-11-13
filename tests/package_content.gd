@@ -48,8 +48,14 @@ func run():
 	for clip in audio.clips:
 		var stream = load(clip.path)
 		var source_path: String = reference+"/"+str(clip.path).trim_prefix("res://")
-		check(stream is AudioStreamWAV and stream.format==AudioStreamWAV.FORMAT_16_BITS and stream.mix_rate==16000,"Skutečně načtené PCM v exportu "+clip.id)
-		check(FileAccess.get_sha256(source_path)==clip.sha256 and stream.data==FileAccess.get_file_as_bytes(source_path).slice(44),"Každý skutečný audio vzorek odpovídá zdroji a manifestu "+clip.id)
+		# Godot's authored .import uses native QOA compression. Compare the
+		# actual imported payload, not compressed bytes with raw WAV PCM.
+		var settings := ConfigFile.new()
+		check(settings.load(source_path+".import")==OK,"Importní nastavení zvuku "+clip.id)
+		var imported_path: String = reference+"/"+str(settings.get_value("remap","path","")).trim_prefix("res://")
+		var expected = load(imported_path)
+		check(stream is AudioStreamWAV and stream.mix_rate==16000 and expected is AudioStreamWAV and stream.format==expected.format,"Skutečný importovaný zvuk v exportu "+clip.id)
+		check(FileAccess.get_sha256(source_path)==clip.sha256 and stream.data==expected.data and stream.stereo==expected.stereo,"Přesná importovaná zvuková data a hash autorského WAV "+clip.id)
 	var world=load("res://scenes/world/Datacenter3D.tscn").instantiate(); root.add_child(world)
 	# Let generated textures and SubViewports finish their first uploads before
 	# destroying the audited world; quitting during a queued GL upload leaks RIDs.

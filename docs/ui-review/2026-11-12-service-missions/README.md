@@ -69,5 +69,13 @@ ne VLAN/DNS. Python je bezpečná podporovaná podmnožina nad virtuálními dat
 Komunikace není certifikace CEFR. Fyzický headset a subjektivní poslech nebyly
 ověřené. APK zůstává dřívější, bez tohoto servisního rozšíření. Bez push/publikování.
 
+První běh exportního QA (`verification/package-harness-failed/`) odhalil chyby
+izolace a složek pro snímky v novém externím runneru. Zvuková kontrola také
+chybně předpokládala nekomprimované bajty: zdrojové importní nastavení používá
+nativní QOA. Finální kontrola zachovává kořen user://, izoluje názvy fixture
+i filtry záloh, vytváří cílové složky a porovnává přesná importovaná data se
+zdrojovým importem, hash autorského WAV zvlášť. Původní aserce zůstávají;
+herní zdroj ani EXE se těmito opravami ověření nezměnily.
+
 Podrobnosti: [dílna](../../NETWORK_WORKSHOP.md),
 [mise](../../SERVICE_MISSIONS.md), [zvuk](../../SERVICE_AUDIO.md).

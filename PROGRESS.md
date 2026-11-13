@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Úplná regrese a přesnost externího ověření — 13. 11. 2026
+
+- Celý současný Test-All 63/63 PASS bez chyb a varování nad herním zdrojem cc18d3a. Výukové UI: 21 lekcí v každém ze tří režimů, 336 akcí. Windows sestavené původním workflow: 104702320 B, SHA256 44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c.
+- První externí QA odhalilo chyby nového runneru: přepsaný kořen user:// a neexistující složky snímků. Izolace nyní mění názvy fixture i filtry záloh, nikoli samotný protokol/kořen. Původní test ukládání zůstává se všemi asercemi a nad přesným EXE má 474 PASS. Cílové složky ze zděděných testů vznikají před spuštěním.
+- Opravena chybná domněnka nové kontroly, že Godot import ukládá syrové PCM: původní .import používají QOA. Nová kontrola porovnává přesné nativní datové bloky se zdrojovým Godot importem, SHA256 autorských WAV zvlášť; dekódování a přehrávání ověřuje audio sada. Přesný pack 7931 PASS bez varování, všechny JSON hodnoty a všech sedm importů shodné. Herní zdroj, zvuky, EXE ani původní aserce se touto opravou ověření nemění.
+- Opakovaný balíčkový runner: dva nativní a všech 16 headless běhů PASS, tři grafické pokračují. Původní chybový běh je označený package-harness-failed. Konečná distribuční metadata následují po úplném úspěchu všech grafických kontrol.
+
 ## Skutečné dokončení audio mixeru — 13. 11. 2026
 
 - Úplná regrese zachytila občasné ponechání čtyř AudioStreamPlaybackWAV a jejich sdílené smyčky při rychlém konci původní network_lab. stop() pouze frontuje fade-out; samotné odpojení streamů nestačí. Při zániku scény ServiceAudio nyní vyčká dvě skutečné hranice mixeru, s pevným stropem 100 ms. Běžný pohyb/panely/místnosti nečekají.

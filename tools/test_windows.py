@@ -26,9 +26,13 @@ def run(args, cwd, log):
 
 
 def isolate_test(text, kind):
-    # Prefix every explicit test fixture path in the external copy. Resources
-    # still come from the actual pack; concurrent platforms cannot share saves.
-    return text.replace("user://", f"user://package_{kind}_{os.getpid()}_")
+    # Namespace fixture names, including backup-name filters. Keep user://
+    # itself valid for directory enumeration and paths assembled from filenames.
+    # One substitution pass handles overlapping fixture prefixes exactly once.
+    stems=set(re.findall(r'user://([A-Za-z0-9_-]+)',text))
+    if not stems: return text
+    pattern='|'.join(re.escape(stem) for stem in sorted(stems,key=len,reverse=True))
+    return re.sub(pattern,lambda match:f'package_{kind}_{os.getpid()}_'+match[0],text)
 
 
 def main():
