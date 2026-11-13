@@ -10,8 +10,8 @@
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104702320,
-      "sha256": "44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c"
+      "bytes": 104704152,
+      "sha256": "6ae0ab799bfb42d65ea39c79e51eeff5ceabc35afacace5654eb92851be99dee"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -27,7 +27,12 @@
     "source_files_verified": 331,
     "native_headless_smoke": true,
     "native_graphical_smoke": true,
-    "packaged_tests": {
+    "network_lab_exercises": 40,
+    "workshop_tickets": 8,
+    "additional_variants": 24,
+    "service_missions": 2,
+    "audio_clips": 7,
+    "pre_signing_packaged_tests": {
       "native-headless": true,
       "native-graphical": true,
       "workshop_variants": true,
@@ -50,11 +55,31 @@
       "cable_tester-graphical": true,
       "service_audio-graphical": true
     },
-    "network_lab_exercises": 40,
-    "workshop_tickets": 8,
-    "additional_variants": 24,
-    "service_missions": 2,
-    "audio_clips": 7
+    "packaged_tests": {
+      "signed_native_headless": true,
+      "signed_native_graphical": true,
+      "signature_and_tamper": true
+    },
+    "signing_verification": "docs/windows-debug-signing/results.json",
+    "pre_signing_sha256": "44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c",
+    "game_pack_unchanged_by_signing": true,
+    "code_signing": {
+      "type": "self-signed local debug",
+      "subject": "CN=Training academy Local Debug",
+      "thumbprint": "EFDEE35D7C51C2B6851D49E143DE2F8785FE4F7D",
+      "certificate_sha256": "8d42d41ad5cafefd4edc466e4818aba8bb9ac1981c5390b866d8d55546807627",
+      "not_after": "2029-11-13T10:41:42.0000000Z",
+      "hash_algorithm": "SHA256",
+      "cms_signature_verified": true,
+      "authenticode_status": "UnknownError",
+      "authenticode_message": "A certificate chain processed, but terminated in a root certificate which is not trusted by the trust provider",
+      "timestamped": false,
+      "trusted_publisher": false,
+      "trust_store_modified": false,
+      "private_key": "Non-exportable; Cert:\\CurrentUser\\My on the build computer",
+      "pe_digest_verified": true,
+      "embedded_pck_sha256": "d6f8d6e84475bdce38a6275d59dbd7afb9e3fea0c483d09a59d78c1fc56db6e8"
+    }
   },
   "source_regressions": {
     "source_commit": "cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d",

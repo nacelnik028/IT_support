@@ -1,4 +1,4 @@
-param([string]$GodotPath = '', [string]$PythonPath = '', [string]$TemplatePath = '')
+param([string]$GodotPath = '', [string]$PythonPath = '', [string]$TemplatePath = '', [switch]$SignDebug)
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 if (-not $GodotPath) {
@@ -10,6 +10,7 @@ $enginePath = (Resolve-Path -LiteralPath $GodotPath).Path
 $builder = Join-Path $PSScriptRoot 'build_windows.py'
 $buildArguments = @($builder, '--godot', $enginePath)
 if ($TemplatePath) { $buildArguments += @('--template', (Resolve-Path -LiteralPath $TemplatePath).Path) }
+if ($SignDebug) { $buildArguments += '--sign-debug' }
 if ($PythonPath) { & $PythonPath @buildArguments }
 elseif (Get-Command python -ErrorAction SilentlyContinue) { & python @buildArguments }
 elseif (Get-Command py -ErrorAction SilentlyContinue) { & py -3 @buildArguments }

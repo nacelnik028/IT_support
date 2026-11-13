@@ -1,5 +1,13 @@
 # Datacenter Academy — stav vývoje
 
+## Lokální Debug podpis Windows EXE — 13. 11. 2026
+
+- Stávající přesně ověřené Windows EXE podepsané vlastním certifikátem **Training academy Local Debug**, RSA 3072 / SHA256. Neexportovatelný soukromý klíč je jen v osobním úložišti `Cert:\CurrentUser\My`; není v Gitu ani hře. Důvěryhodná úložiště ani ochrany Windows se neměnily. Vlastní podpis nezaručuje zmizení SmartScreen ani odstranění antivirové detekce; návod to výslovně rozlišuje.
+- `Build-Windows.ps1 -SignDebug` / `build_windows.py --sign-debug` podepisuje dočasný export před kontrolou a publikováním do lokálního build/. Znovu používá tentýž klíč; bez přepínače zůstává export nepodepsaný. Není potřeba Windows SDK ani PFX. Kontrola vloženého packu podporuje připojenou tabulku Authenticode.
+- Ověřené skutečné CMS, SHA256 PE, shoda všech původních bajtů kromě checksumu a položky tabulky certifikátů, nezměněný celý herní pack. Nový test podepisuje dočasné kopie, ověřuje opětovné použití klíče a skutečný `HashMismatch` po změně herních dat. Nativní EXE-only start s grafikou i bez ní PASS: obě servisní mise, 7 PCM klipů, dílna a návrat k odložené směně. Použité existující `--test-world` a `SaveManager.path_override`, žádný hráčův save.
+- Distribuční EXE **104704152 B**, SHA256 `6ae0ab799bfb42d65ea39c79e51eeff5ceabc35afacace5654eb92851be99dee`, rezerva 153448 B pod 100 MiB. Herní zdroj i pack jsou původní `cc18d3a`; celý Test-All 63/63 a 21 balíčkových běhů jsou dřívější ověření před podpisem, nebyly vydávané za opakovaný běh. Metadata a kontrolní součty aktualizované, PICO beze změny.
+- Návod `docs/WINDOWS_DEBUG_SIGNING.md`, surové podpisové a runtime důkazy `docs/windows-debug-signing/`. Godot MCP ověřil projekt a verzi. Automatické zmizení uživatelova konkrétního upozornění nebylo možné potvrdit bez přesného hlášení. Bez push a publikování.
+
 ## Servisní rozšíření A–E a Windows EXE dokončené — 13. 11. 2026
 
 - Celý aktuální Test-All **63/63 PASS**, přísně bez runtime chyb/varování, včetně 21 lekcí v každém ze tří režimů a 336 UI akcí. Varianty 1 067, dialog 2 124, společné mise 199, UI 639 headless; samostatné grafické matice 696 v Compatibility i Forward+. Tester 45/49 a zvuk 52/52 PASS. Původní síťová učebna 855 a dílna 495 nadále PASS.

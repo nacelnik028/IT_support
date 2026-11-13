@@ -10,8 +10,8 @@ neresetuje. **Společné mise** lze odložit a obnovit po restartu, běžné tic
 zůstávají dočasné během návštěvy. Technika a komunikace mají samostatné skóre.
 
 Nové samostatné **[Windows EXE](build/ITSupportSimulator.exe)**: hra 1.5.0,
-zdroj `cc18d3a`, **104702320 B**, vložená data a zvuky. SHA256
-`44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c`. Celý přísný **Test-All 63/63 PASS**, včetně všech tří výukových
+zdroj `cc18d3a`, **104704152 B**, vložená data a zvuky, lokální Debug podpis. SHA256
+`6ae0ab799bfb42d65ea39c79e51eeff5ceabc35afacace5654eb92851be99dee`. Celý přísný **Test-All 63/63 PASS** před přidáním podpisu, včetně všech tří výukových
 režimů. Přesný EXE ověřený nativně s grafikou i bez ní a dalšími kontrolami packu.
 
 - [Varianty, tester a rozhovor](docs/NETWORK_WORKSHOP.md)
@@ -151,12 +151,14 @@ PICO APK a `build/VERIFICATION.json`. `build/pico4/BUILD_INFO.json` zaznamenáv�
 verzi, hash APK a otisky zdrojů použitých při sestavení.
 
 **SmartScreen „Windows protected your PC / Unknown publisher“:** sestavení
-nemá certifikát vydavatele a upozornění na reputaci může zůstat. Jde o jiný
+má vlastní lokální Debug podpis, nikoli certifikát důvěryhodného vydavatele;
+upozornění na reputaci může zůstat. Jde o jiný
 případ než konkrétní antivirová detekce. Přenosné EXE vzniká oficiálním Godot
 exportérem s vloženými daty v `build/ITSupportSimulator.exe`.
 Žádné nastavení ochrany Windows se nemění. Podrobný postup a kontrola původu
 jsou v [SPUSTENI-WINDOWS.txt](SPUSTENI-WINDOWS.txt), vysvětlení reputace
 v [dokumentaci Microsoftu](https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation).
+[Podpis, lokální klíč a další sestavení](docs/WINDOWS_DEBUG_SIGNING.md).
 
 **V Godotu:** importuj `project.godot` a stiskni **F5**. Hlavní scéna je
 `scenes/world/Game.tscn`. Součástí projektu je OpenXR Vendors **5.1.0-stable**
@@ -225,6 +227,8 @@ nebo multiplatformní `tools/build_windows.py` podle [build/README.md](build/REA
 Windows preset má `embed_pck=true`; skript exportuje do dočasné složky,
 ověří PE, vložený PCK, limit 100 MiB a běh samotného EXE, teprve potom
 atomicky nahradí `build/ITSupportSimulator.exe` a jeho SHA256.
+Volitelný přepínač `-SignDebug` (Python `--sign-debug`) přidá vlastní testovací
+podpis a ověří jej před nahrazením EXE. Klíč zůstává v osobním úložišti Windows.
 
 Nainstaluj oficiální export templates **4.7.2.stable** (shodné s editorem),
 JDK 17 a Android SDK. Skutečná přiložená 4.7.2 šablona používá compile SDK 36,

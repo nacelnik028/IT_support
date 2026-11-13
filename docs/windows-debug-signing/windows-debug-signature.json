@@ -1,0 +1,17 @@
+{
+  "type": "self-signed local debug",
+  "subject": "CN=Training academy Local Debug",
+  "thumbprint": "EFDEE35D7C51C2B6851D49E143DE2F8785FE4F7D",
+  "certificate_sha256": "8d42d41ad5cafefd4edc466e4818aba8bb9ac1981c5390b866d8d55546807627",
+  "not_after": "2029-11-13T10:41:42.0000000Z",
+  "hash_algorithm": "SHA256",
+  "cms_signature_verified": true,
+  "authenticode_status": "UnknownError",
+  "authenticode_message": "A certificate chain processed, but terminated in a root certificate which is not trusted by the trust provider",
+  "timestamped": false,
+  "trusted_publisher": false,
+  "trust_store_modified": false,
+  "private_key": "Non-exportable; Cert:\\CurrentUser\\My on the build computer",
+  "pe_digest_verified": true,
+  "embedded_pck_sha256": "d6f8d6e84475bdce38a6275d59dbd7afb9e3fea0c483d09a59d78c1fc56db6e8"
+}

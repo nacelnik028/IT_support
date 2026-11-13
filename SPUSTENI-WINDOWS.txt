@@ -37,7 +37,9 @@ už nestojí v cestě. Zaměř dveře nebo nástěnný ovladač a stiskni E.
 Lze použít také Esc → Programming Academy.
 
 UPOZORNĚNÍ SMARTSCREEN „WINDOWS PROTECTED YOUR PC / UNKNOWN PUBLISHER“
-Tento projekt nemá podpisový certifikát ověřeného vydavatele.
+EXE má vlastní testovací podpis Training academy Local Debug, ale nemá
+podpisový certifikát ověřeného vydavatele. Vlastní podpis automaticky nezajistí
+důvěru SmartScreen a neodstraní konkrétní antivirovou detekci.
 Upozornění na neznámou aplikaci samo o sobě není název nalezeného viru.
 Přenosné balení vytváří oficiální Godot exportér s vloženými daty. Nemění
 nastavení zabezpečení a nemůže zaručit zmizení reputačního upozornění SmartScreen.
@@ -54,3 +56,4 @@ Známý vydavatel vyžaduje platný podpisový certifikát a reputaci vydavatele
 ani nový platný podpis neslibuje okamžité odstranění reputačního upozornění.
 Podrobnosti Microsoftu:
 https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation
+Lokální klíč, opakované sestavení a ověření: docs/WINDOWS_DEBUG_SIGNING.md.

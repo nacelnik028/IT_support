@@ -8,15 +8,20 @@ Tréninková dílna → Servisní stůl. Tři režimy, odložení společné mis
 Herní zdroj `cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d`, Godot 4.7.2.stable.official.ed1daf0bf, hra 1.5.0.
 Windows x86_64 Debug, samostatné EXE s vloženými daty, bez sousedního PCK.
 
-- Velikost **104702320 B**, rezerva **155280 B** pod 100 MiB.
-- SHA256 `44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c`.
-- Celý přísný Test-All: **63/63 sad PASS**, bez runtime chyb a varování;
+- Velikost podepsaného EXE **104704152 B**, rezerva **153448 B** pod 100 MiB.
+- SHA256 `6ae0ab799bfb42d65ea39c79e51eeff5ceabc35afacace5654eb92851be99dee`.
+- Vlastní testovací podpis **Training academy Local Debug**, RSA 3072 / SHA256.
+  Neposkytuje důvěru vydavatele ani záruku odstranění SmartScreen. Klíč zůstává
+  v osobním úložišti Windows; [postup a ověření](../docs/WINDOWS_DEBUG_SIGNING.md).
+- Po podpisu ověřené CMS, skutečný PE digest, identita herního packu, zachycení
+  dodatečné změny a nativní start s grafikou i bez ní včetně servisních misí/zvuku.
+- Celý přísný Test-All před podpisem: **63/63 sad PASS**, bez runtime chyb a varování;
   21 lekcí v každém ze tří režimů, 336 akcí výukového rozhraní.
 - Grafická matice misí: **696 Compatibility + 696 Forward+**, 720p/1080p/4K,
   text 100/130 %, skutečný VR viewport 1600×1200, oba syntetické paprsky a klávesnice.
 - Samotný EXE v oddělené složce prošel nativním startem s grafikou i bez ní,
   původní dílnou a návratem ke směně, oběma servisními misemi a dekódováním 7 PCM.
-- Přesný vložený pack: **21 kontrolních běhů PASS** (2 nativní,
+- Přesný vložený pack před podpisem: **21 kontrolních běhů PASS** (2 nativní,
   16 headless sad a 3 grafické). Každý JSON odpovídá zdroji, každý ze sedmi
   importovaných QOA datových bloků zdrojovému Godot importu; autorské WAV mají
   samostatně ověřený SHA256. Skutečné dekódování/přehrávání také PASS.

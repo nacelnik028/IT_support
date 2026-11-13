@@ -1,5 +1,6 @@
 """Build and verify the standalone Windows Debug EXE with the matching official template."""
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -14,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def embedded_pack(binary):
-    if binary[:2] != b'MZ' or binary[-4:] != b'GDPC':
+    if binary[:2] != b'MZ':
         raise ValueError('Expected a Windows executable with an embedded Godot pack')
     pe = struct.unpack_from('<I', binary, 0x3c)[0]
     if binary[pe:pe + 4] != b'PE\0\0' or struct.unpack_from('<H', binary, pe + 4)[0] != 0x8664:
@@ -22,8 +23,25 @@ def embedded_pack(binary):
     count = struct.unpack_from('<H', binary, pe + 6)[0]
     optional_size = struct.unpack_from('<H', binary, pe + 20)[0]
     sections = pe + 24 + optional_size
-    pack_size = struct.unpack_from('<Q', binary, len(binary) - 12)[0]
-    pack_start = len(binary) - 12 - pack_size
+    # Authenticode appends a certificate table, after up to seven alignment
+    # bytes. The game pack still ends before that table, not at the EXE's EOF.
+    security_entry = pe + 24 + 112 + 4 * 8
+    certificate_start, certificate_size = struct.unpack_from('<II', binary, security_entry)
+    pack_end = len(binary)
+    if certificate_start or certificate_size:
+        if not certificate_start or certificate_size < 8 or certificate_start + certificate_size != len(binary):
+            raise ValueError('Invalid Authenticode certificate table')
+        for padding in range(8):
+            candidate = certificate_start - padding
+            if binary[candidate - 4:candidate] == b'GDPC' and not any(binary[candidate:certificate_start]):
+                pack_end = candidate
+                break
+        else:
+            raise ValueError('Embedded pack footer not found before Authenticode signature')
+    if binary[pack_end - 4:pack_end] != b'GDPC':
+        raise ValueError('Embedded pack footer not found')
+    pack_size = struct.unpack_from('<Q', binary, pack_end - 12)[0]
+    pack_start = pack_end - 12 - pack_size
     if pack_start <= sections + 40 * count or binary[pack_start:pack_start + 4] != b'GDPC':
         raise ValueError('Invalid embedded pack footer')
     for index in range(count):
@@ -36,9 +54,54 @@ def embedded_pack(binary):
     raise ValueError('Embedded pack PE section not found')
 
 
-def run(args, log, cwd=None):
+def sign_debug(executable, logs):
+    if os.name != 'nt':
+        raise ValueError('Local debug signing requires Windows')
+    original = executable.read_bytes()
+    original_pack = embedded_pack(original)
+    report = logs / 'windows-debug-signature.json'
+    signing_env = os.environ.copy()
+    # PowerShell 7's inherited module paths can break Windows PowerShell 5.1.
+    signing_env.pop('PSModulePath', None)
+    run(['powershell.exe', '-NoProfile', '-NonInteractive', '-File',
+         ROOT / 'tools/Sign-WindowsDebug.ps1', '-ExePath', executable,
+         '-ReportPath', report], logs / 'windows-debug-signing.log', env=signing_env)
+    info = json.loads(report.read_text(encoding='utf-8-sig'))
+    binary = executable.read_bytes()
+    signed_pack = embedded_pack(binary)
+    start, size = original_pack[2:]
+    signed_start, signed_size = signed_pack[2:]
+    if size != signed_size or original[start:start + size] != binary[signed_start:signed_start + signed_size]:
+        raise ValueError('Signing changed embedded game content')
+    verify_debug_signature(binary, info)
+    info.pop('signed_content_base64')
+    info['pe_digest_verified'] = True
+    info['embedded_pck_sha256'] = hashlib.sha256(binary[signed_start:signed_start + signed_size]).hexdigest()
+    report.write_text(json.dumps(info, indent=2) + '\n', encoding='utf-8')
+    return info
+
+
+def verify_debug_signature(binary, info):
+    # The CMS signature authenticates SpcIndirectDataContent. Confirm that its
+    # SHA256 DigestInfo is the digest of this exact PE, excluding only checksum,
+    # security-directory entry and the certificate table (Authenticode rules).
+    pe = struct.unpack_from('<I', binary, 0x3c)[0]
+    checksum = pe + 24 + 64
+    security_entry = pe + 24 + 112 + 4 * 8
+    certificate_start = struct.unpack_from('<I', binary, security_entry)[0]
+    digest = hashlib.sha256(binary[:checksum] + binary[checksum + 4:security_entry]
+                            + binary[security_entry + 8:certificate_start]).digest()
+    # Confirm this layout's computed digest against the Windows-signed content;
+    # templates with incompatible hashing layouts fail the comparison below.
+    content = base64.b64decode(info['signed_content_base64'])
+    sha256_digest_info = bytes.fromhex('3031300d060960864801650304020105000420') + digest
+    if not info['cms_signature_verified'] or not content.endswith(sha256_digest_info):
+        raise ValueError('Authenticode SHA256 does not match the signed executable')
+
+
+def run(args, log, cwd=None, env=None):
     result = subprocess.run([str(x) for x in args], cwd=cwd, capture_output=True,
-                            encoding='utf-8', errors='replace', timeout=300)
+                            encoding='utf-8', errors='replace', timeout=300, env=env)
     output = result.stdout + result.stderr
     log.write_text(output, encoding='utf-8')
     if result.returncode or re.search(r'(?m)^(?:SCRIPT ERROR:|ERROR:|WARNING:)', output):
@@ -51,6 +114,7 @@ def main():
     parser.add_argument('--godot', required=True, type=Path)
     parser.add_argument('--template', type=Path, help='Official matching Windows x86_64 Debug template')
     parser.add_argument('--runner', type=Path, help='Wine executable for Linux verification')
+    parser.add_argument('--sign-debug', action='store_true', help='Sign using a local self-signed Windows test certificate')
     args = parser.parse_args()
     engine = args.godot.resolve(strict=True)
     build = ROOT / 'build'
@@ -98,6 +162,7 @@ def main():
         run([engine, '--headless', '--path', project, '--script', ROOT / 'tools/compress_export_content.gd'], logs / 'windows-content-compression.log')
         result = temporary / 'ITSupportSimulator.exe'
         run([engine, '--headless', '--path', project, '--export-debug', 'Windows Desktop', result], logs / 'windows-build-export.log')
+        signature = sign_debug(result, logs) if args.sign_debug else None
         binary = result.read_bytes()
         embedded_pack(binary)
         if len(binary) >= 100*1024*1024:
@@ -126,6 +191,8 @@ def main():
               'sha256':hashlib.sha256(binary).hexdigest(),'embedded_pck':True,
               'verification':'Wine headless EXE-only smoke' if runner else 'Native Windows headless EXE-only smoke',
               'native_windows_graphical_verified':False,'json_export':'lossless whitespace compaction + native Godot ZSTD container in isolated build copy'}
+        if signature:
+            info['code_signing'] = signature
         source_files=[ROOT/'project.godot',ROOT/'export_presets.cfg']
         for folder in ['assets','data','scenes','scripts']:
             source_files+=sorted(path for path in (ROOT/folder).rglob('*') if path.is_file())
