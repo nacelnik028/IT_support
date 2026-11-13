@@ -373,7 +373,12 @@ func apply(action: String, params: Dictionary) -> Dictionary:
 	elif action=="shift_wait" and session_kind=="shift" and shifts.definition(shifts.data.session.id).get("advanced",false): result=shifts.Incidents.advance(self,params)
 	else: result=sim.act(action,params)
 	if result.ok and not physical_before.is_empty() and physical_before!=sim.state.world:
-		if action=="physical_cable": physical_event.emit("cable_on" if params.get("connected",true) else "cable_off",str(params.get("device","PVE-01")))
+		if action=="physical_cable":
+			var device_id := str(params.get("device","PVE-01"))
+			var was: Dictionary = physical_before.devices[device_id]
+			var now: Dictionary = sim.state.world.devices[device_id]
+			if was.cable_connected!=now.cable_connected or now.cable_connected and was.port!=now.port:
+				physical_event.emit("cable_on" if now.cable_connected else "cable_off",device_id)
 		elif action in ["physical_spare","physical_return_spare","physical_remove","physical_insert"]: physical_event.emit("disk",str(params.get("device","")))
 	if result.ok and action in ["probe","verify"]:
 		if not sim.state.diagnostic.has("network_checks"): sim.state.diagnostic.network_checks={}

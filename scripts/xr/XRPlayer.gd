@@ -82,6 +82,7 @@ func activate(render_xr: bool = true):
 
 func deactivate():
 	active=false
+	shell.ui.game.workshop().tester.release_hand()
 	hide()
 	monitor.hide()
 	cancel_ui_press()
@@ -108,6 +109,7 @@ func cancel_ui_press():
 func lose_focus():
 	if not active: return
 	focused = false
+	shell.ui.game.workshop().tester.release_hand()
 	if is_instance_valid(shell.speech): shell.speech.stop_speech()
 	teleporting = false
 	teleport_line.hide()
@@ -123,6 +125,7 @@ func mode_changed():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	monitor.visible = shell.mode != "world"
 	if monitor.visible:
+		shell.ui.game.workshop().tester.release_hand()
 		monitor.place_in_front(head)
 		monitor.viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	else:
@@ -182,7 +185,7 @@ func pressed(hand: XRController3D, action: String):
 		if shell.ui.game.sim.state.world.held != "": attach_disk(hand)
 
 func released(_hand: XRController3D, action: String):
-	if action=="grip_click" and shell.ui.game.workshop().tester.held:
+	if action=="grip_click" and shell.ui.game.workshop().tester.hand!=null and shell.ui.game.workshop().tester.hand.get_ref()==grip_nodes[_hand]:
 		shell.ui.game.workshop().tester.release_hand()
 	if action == "trigger_click" and (_hand==pointer_hand or pointer_hand==null):
 		monitor.click(false)

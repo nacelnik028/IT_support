@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření — závěrečný úklid a kontrola, 13. 11. 2026
+
+- Doplněné výslovné zastavení/uvolnění všech prostorových streamů při zániku scény. Rychlý headless úklid se kontroluje po hranici bloku mixeru, včetně skutečného uvolnění vlastníka. Tři po sobě jdoucí verbose průchody continuation 92 PASS bez úniků; audio 47 PASS. Původní přerušený společný log a následná zachycená cleanup chyba zůstávají oddělené od budoucího finálního běhu.
+- Tester se ve VR uchytí 14 cm od skutečné grip pose, uvolnění druhé ruky jej nepustí, odložený nástroj sleduje XR pohled. Focus, modalita a vypnutí XR uvolní uchopení. Cíleně 45 headless kontrol PASS, obě ruce a skutečné fyzikální transformace.
+- Obměna z historie i zdravá síť mají potvrzení nahrazení rozpracovaného ticketu. Volný režim nemůže potichu spustit hodnocenou misi; pokračování zkoušky zůstává v původním režimu. Upřesněné názvy resetu kódu, odpojeného zařízení a pravidla odložení. Závěrečný grafický continuation 93 PASS před doplněním poslední cleanup aserce; fyzika 41 PASS.
+- Chráněné katalogy/generátory odpovídají cca2787; původní A–H se shodují po odstranění nové větve variants. Nové katalogy i všech sedm audio souborů jsou po nezávislém generování shodné po bajtech. Následuje celý současný Test-All (63 sad), přesný Windows export a kontroly jeho packu. Bez push a APK.
+
 ## Servisní rozšíření — etapa E / společné servisní mise, 12. 11. 2026
 
 - SERVICE-PORTAL a SERVICE-MOVE u servisního stolu 05 propojují English support, skutečnou síť, Python a předání ve Výuce / Procvičování / Zkoušce. Jediný incident zůstává zachovaný při otevření původního CodeEdit editoru. Druhá mise vyžaduje výchozí i závěrečné měření fyzické trasy testerem a opravu tiskárny, první rozlišuje segment a starý překlad portálu.

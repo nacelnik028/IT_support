@@ -318,7 +318,7 @@ func workshop_repairs():
 			if repair_group=="cable":
 				var connectors := row()
 				for key in model.CLIENTS: control(connectors,"Konektor / "+model.NAMES[key],operate.bind(lab.select_cable.bind(key)),model.cable==key,"cable:"+key)
-				control(connectors,"Odpojit zvolené zařízení",operate.bind(lab.unplug.bind(lab.selected)))
+				control(connectors,"Odpojit / "+model.NAMES[lab.selected],operate.bind(lab.unplug.bind(lab.selected)))
 				control(connectors,"Odložit konektor",func(): model.cable = ""; draw())
 			var ports := row()
 			for port in range(3,9):
@@ -381,7 +381,7 @@ func workshop_review():
 	paragraph(lab.review_text())
 
 func workshop_home():
-	paragraph("Mezi učebnou a dílnou zůstávají oba pokusy zachované během jedné návštěvy. Odchod z celého pavilonu do haly, menu či jiné učebny dočasné pokusy ukončí. Uložené výsledky zůstanou.")
+	paragraph("Běžné tickety A–H a učební pokusy zůstávají během návštěvy pavilonu; odchod je ukončí. Společné servisní mise mají vlastní uložené pokračování níže. Výsledky a odložená hlavní práce zůstanou.")
 	var modes := row()
 	for key in lab.MODES:
 		control(modes,lab.MODES[key],func(): menu_mode = key; draw(),menu_mode==key)
@@ -566,13 +566,13 @@ func service_choices():
 			control(content,"Zahájit misi / "+d.title,func():
 				if ui.game.service_missions.start(d.id,menu_mode): shell.open_network_workshop("ticket")).disabled = menu_mode=="free"
 		if ui.game.service_missions.data.drafts.has(d.id) or ui.game.service_missions.active and ui.game.service_missions.id==d.id:
-			control(content,"Restart celé mise / "+d.title,func(): start_pending = d.id; draw())
+			control(content,"Restart celé mise / "+d.title,func(): start_pending = d.id; draw()).disabled = menu_mode=="free"
 	if start_pending.begins_with("SERVICE-"):
 		paragraph("Restart celé mise zahodí její uložený incident, kód a dialog. Výsledky i ostatní práce zůstanou.")
 		control(content,"Potvrdit restart celé mise",func():
-			ui.game.service_missions.start(start_pending,menu_mode if menu_mode!="free" else "practice")
+			ui.game.service_missions.start(start_pending,menu_mode)
 			start_pending = ""
-			shell.open_network_workshop("ticket"))
+			shell.open_network_workshop("ticket")).disabled = menu_mode=="free"
 		control(content,"Zachovat servisní misi",func(): start_pending = ""; draw())
 	control(content,"Výsledky společných misí",navigate.bind("service_history"))
 

@@ -132,9 +132,15 @@ func _physics_process(delta):
 	if session.tester.held and (not in_workshop or not world.game.game_mode.is_network_lab()): session.tester.put_back()
 	if session.tester.held:
 		var controller = session.tester.hand.get_ref() if session.tester.hand!=null else null
-		var anchor: Node3D = controller if is_instance_valid(controller) else world.player.camera
+		if is_instance_valid(controller) and not controller.get_has_tracking_data():
+			session.tester.release_hand()
+			controller = null
+		var anchor: Node3D = world.player.camera
+		var owner_shell = world.get_parent()
+		if "vr_active" in owner_shell and owner_shell.vr_active and is_instance_valid(owner_shell.xr_rig) and owner_shell.xr_rig.active: anchor = owner_shell.xr_rig.head
+		if is_instance_valid(controller): anchor = controller
 		tester_visual.global_transform = anchor.global_transform
-		tester_visual.position += tester_visual.basis*Vector3(-0.26,-0.18,-0.5)
+		tester_visual.position += tester_visual.basis*(Vector3(0,0,-0.14) if is_instance_valid(controller) else Vector3(-0.26,-0.18,-0.5))
 	else:
 		tester_visual.transform = Transform3D(Basis.IDENTITY,Vector3(6.6,1.04,-31.3))
 	tester_display.text = session.tester.screen(session.network) if session.tester.held else "TESTER TRASY\nVezmi u servisního stolu"

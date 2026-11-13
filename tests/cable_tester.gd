@@ -67,8 +67,13 @@ func run():
 		rig.pressed(hand_node,"grip_click")
 		check(s.tester.held and s.tester.hand!=null and s.tester.hand.get_ref()==rig.grip_nodes[hand_node],"XR grip holds tester / "+str(hand_index))
 		await frames()
+		check(shell.world.network_room.workshop.tester_visual.global_position.distance_to(rig.grip_nodes[hand_node].global_position)<0.25,"Instrument mounts at actual grip pose")
+		rig.released(rig.right if hand_index==0 else rig.left,"grip_click")
+		check(s.tester.hand!=null and s.tester.hand.get_ref()==rig.grip_nodes[hand_node],"Other hand release does not detach held instrument")
 		rig.released(hand_node,"grip_click")
 		check(s.tester.held and s.tester.hand==null,"XR release keeps tool available at waist / "+str(hand_index))
+		for tick in 3: await physics_frame
+		check(shell.world.network_room.workshop.tester_visual.global_position.distance_to(rig.head.global_position)<0.8,"Released tester follows XR user viewpoint")
 		shell.open_network_workshop("tester")
 		await frames()
 		await click(button("Tester / PC 04"),hand_index)

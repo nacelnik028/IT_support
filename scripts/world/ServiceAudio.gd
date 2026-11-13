@@ -90,6 +90,15 @@ func silence():
 	for entry in doors: entry.source.stop()
 	step_distance = 0
 
+func _exit_tree():
+	# Release mixer playbacks explicitly before the world disappears, just as
+	# the original UI and speech players do on scene teardown.
+	for source in racks.values()+effects+doors.map(func(entry): return entry.source):
+		if is_instance_valid(source):
+			source.stop()
+			source.stream = null
+	streams.clear()
+
 func _physics_process(delta):
 	var enabled := active()
 	duck = move_toward(duck,0.25 if shell.speech.playing else 1.0,delta*3)

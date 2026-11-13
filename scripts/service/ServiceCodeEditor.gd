@@ -8,6 +8,7 @@ func _ready():
 		if item.text=="NORTHSTAR  /  PROGRAMOVACÍ UČEBNA": item.text = "SERVISNÍ MISE / PYTHON"
 	for item in find_children("*","Button",true,false):
 		if item.text in ["Studium a postup","Sbalit seznam lekcí a úloh","Zpět do učebny  [Esc]"]: item.hide()
+		if item.text=="Resetovat": item.text = "Obnovit počáteční kód"
 	sidebar.hide()
 	instruction.reparent(save_row)
 	instruction.size_flags_horizontal = Control.SIZE_EXPAND_FILL
