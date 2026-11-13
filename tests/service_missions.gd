@@ -123,6 +123,13 @@ func run():
 	check(summary.filter(func(row): return row.skill=="Python")[0].count>=6,"Mission evidence reaches shared profile")
 	restored.Profile.skills(restored)
 	check(restored.progress.xp==profile_before,"Reading profile gives no second reward")
+	resumed.start("SERVICE-PORTAL","practice")
+	resumed.session.hint()
+	complete(resumed)
+	resumed.submit()
+	var separate: Array = restored.Profile.skills(restored)
+	check(separate.filter(func(row): return row.skill=="Anglické situace")[0].latest.help=="bez pomoci","Technical hint is not invented language assistance")
+	check(separate.filter(func(row): return row.skill=="Sítě")[0].latest.help!="bez pomoci","Actual technical hint stays attached to technical evidence")
 	# A real unwritable/missing parent: memory keeps one result until retry.
 	var original_path: String = Saves.path_override
 	Saves.path_override = original_path+".retry.json"

@@ -1,5 +1,10 @@
 # Datacenter Academy — stav vývoje
 
+## Oddělení pomoci v profilu — 13. 11. 2026
+
+- Jazykový důkaz servisní mise sleduje výuku a skutečnou jazykovou oporu. Síťová/Python nápověda se nadále projeví v technické části a nevydává se za neprovedenou jazykovou pomoc. Přidán skutečný průchod s technickou nápovědou a nezávislým anglickým předáním.
+- service_missions nyní 199 PASS. Závěrečná matice misí znovu 696 PASS v obou rendererech; tester 49 grafických PASS po opravě gripu. Probíhající částečný runner se odloží do archivu a konečný 63sadový běh se spustí nad touto poslední úpravou profilu.
+
 ## Servisní rozšíření — závěrečný úklid a kontrola, 13. 11. 2026
 
 - Doplněné výslovné zastavení/uvolnění všech prostorových streamů při zániku scény. Rychlý headless úklid se kontroluje po hranici bloku mixeru, včetně skutečného uvolnění vlastníka. Tři po sobě jdoucí verbose průchody continuation 92 PASS bez úniků; audio 47 PASS. Původní přerušený společný log a následná zachycená cleanup chyba zůstávají oddělené od budoucího finálního běhu.

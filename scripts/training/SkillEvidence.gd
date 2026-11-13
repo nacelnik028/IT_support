@@ -106,7 +106,7 @@ static func summarize(game) -> Array:
 		var known_technical: bool = record.technical.has("errors")
 		for skill in ["Sítě","Diagnostika","Python"]:
 			add(rows,skill,int(record.technical.score),"Servisní mise / společný incident",record.id,record.mode,"výuka / nápověda" if support else "bez pomoci" if known_technical else "nezaznamenané chyby",known_technical,record.technical.passed,0 if record.technical.passed else 1,int(record.time),record.technical.passed and known_technical and not support and int(record.technical.get("errors",0))==0 and int(record.technical.score)>=90)
-		var language_help: bool = support or record.communication.assisted
+		var language_help: bool = record.mode=="learn" or record.communication.assisted
 		add(rows,"Anglické situace",int(record.communication.score),"Servisní English support / volba replik",record.id,record.mode,"jazyková opora / výuka" if language_help else "bez pomoci",true,record.communication.passed,int(record.communication.errors),int(record.time),record.communication.passed and not language_help)
 	var output=[]
 	for name in NAMES:
