@@ -1,0 +1,9 @@
+Service audio: 7 original deterministic PCM clips
+Traceback (most recent call last):
+  File "C:\Users\vit\Documents\�kola\2026-2027\WVA\Godot_v4.7.2-stable_win64.exe\projekty\IT_support\tools\verify_service_content.py", line 60, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "C:\Users\vit\Documents\�kola\2026-2027\WVA\Godot_v4.7.2-stable_win64.exe\projekty\IT_support\tools\verify_service_content.py", line 54, in main
+    assert len(lab['tasks'])==40 and len(lab['chapters'])==23
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

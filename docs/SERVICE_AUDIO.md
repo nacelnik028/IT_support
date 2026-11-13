@@ -31,7 +31,9 @@ WAV jako sdílené prostředky, rack nastavuje na LOOP_FORWARD. Godot importuje
 WAV do AudioStreamWAV s nativní kompresí QOA (`compress/mode=2`); export
 obsahuje tento import a manifest, nikoli původní nekomprimované PCM bajty.
 Kontrola exportu porovnává přesné importované datové bloky se zdrojovým
-Godot importem, hash autorského WAV samostatně a skutečné dekódování/přehrávání.
+Godot importem rekonstruovaným přímo z WAV a importních voleb, bez závislosti
+na zdrojové `.godot` cache. Hash autorského WAV ověřuje samostatně, stejně jako
+skutečné dekódování/přehrávání.
 Runtime nepotřebuje Python ani internet.
 
 ## Ověření

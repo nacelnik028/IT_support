@@ -1,0 +1,7 @@
+Exception: C:\Users\vit\Documents\škola\2026-2027\WVA\Godot_v4.7.2-stable_win64.exe\projekty\IT_support\test-output\run-service-release.ps1:18
+Line |
+  18 |  … XITCODE -ne 0) { throw 'Exact Windows package verification failed.' }
+     |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Exact Windows package verification failed.
+
+

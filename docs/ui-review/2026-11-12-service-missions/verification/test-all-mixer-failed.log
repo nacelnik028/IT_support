@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE CONTINUATION UI: 92 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE MISSIONS: 199 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE MISSIONS UI: 639 checks, 0 failures; six PC mode playthroughs and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUPPORT UI: 34 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUPPORT DIALOGUE: 2124 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVICE AUDIO: 47 checks, 0 failures; nonzero PCM and actual players, no claimed human listening
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CABLE TESTER: 45 checks, 0 failures; PC and synthetic XR
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORKSHOP VARIANTS: 1067 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NETWORK WORKSHOP: 495 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WORKSHOP LAYOUT: 293 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR
+WARNING: 5 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+Exception: C:\Users\vit\Documents\škola\2026-2027\WVA\Godot_v4.7.2-stable_win64.exe\projekty\IT_support\tools\Test-All.ps1:14
+Line |
+  14 |  … ?m)^(SCRIPT ERROR:|ERROR:|WARNING:)')) { throw "Test $test selhal." }
+     |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Test network_lab selhal.
+
+

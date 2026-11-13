@@ -1,38 +1,28 @@
 # IT Support Simulator: Training academy
 
-## Servisní rozšíření ve zdroji — 12. 11. 2026
+## Servisní rozšíření — dokončené Windows vydání 13. 11. 2026
 
-V pavilonu **05 → Tréninková dílna → Servisní stůl** jsou nové opakovatelné
-varianty A–H, přenosný tester, zákaznická komunikace a dvě společné servisní
-mise s Pythonem. Výběr režimu je společný na začátku seznamu. **Společné mise**
-mají vlastní odložení a pokračování i po restartu; běžné tickety zůstávají
-dočasné během návštěvy pavilonu. Síťový incident se při otevření editoru nemění.
+V pavilonu **05 → Tréninková dílna → Servisní stůl** jsou dostupné původní
+A–H a 24 skutečných obměn, přenosný 3D tester, zákaznická komunikace v angličtině,
+sedm prostorových zvuků a dvě společné servisní mise se sítí, Pythonem a předáním.
+Výuka / Procvičování / Zkouška používají jeden skutečný incident; editor jej
+neresetuje. **Společné mise** lze odložit a obnovit po restartu, běžné tickety
+zůstávají dočasné během návštěvy. Technika a komunikace mají samostatné skóre.
+
+Nové samostatné **[Windows EXE](build/ITSupportSimulator.exe)**: hra 1.5.0,
+zdroj `cc18d3a`, **104702320 B**, vložená data a zvuky. SHA256
+`44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c`. Celý přísný **Test-All 63/63 PASS**, včetně všech tří výukových
+režimů. Přesný EXE ověřený nativně s grafikou i bez ní a dalšími kontrolami packu.
 
 - [Varianty, tester a rozhovor](docs/NETWORK_WORKSHOP.md)
 - [Společné mise, ukládání a hodnocení](docs/SERVICE_MISSIONS.md)
-- [Zvuk, původ a reprodukce](docs/SERVICE_AUDIO.md)
-- [Snímky a protokoly](docs/ui-review/2026-11-12-service-missions/)
+- [Zvuk, původ, reprodukce a výkon](docs/SERVICE_AUDIO.md)
+- [Snímky a protokoly](docs/ui-review/2026-11-12-service-missions/README.md)
+- [Podrobnosti aktuálního EXE](build/BUILD_INFO.md)
 
-Zdrojové cílené testy prošly; konečný Test-All a nové Windows EXE se nyní
-připravují. Následující údaje EXE popisují předchozí sestavení.
-
-
-**Windows EXE v `build/ITSupportSimulator.exe` obsahuje přehlednější pracovní
-panel síťové dílny: Ticket, Diagnostika, Opravy, Analyzátor a Rozbor, samostatný
-výběr ticketů a historii, stálou spodní lištu a měření s přesným zdrojem a stavem.**
-Tabule, dveře a GSM mají upravené uspořádání. Cesta: rozcestník → 05 → vzadu
-vpravo → Tréninková dílna. Zachováno všech 40 úloh učebny, 23 karet a osm ticketů.
-
-Sestaveno 12. 11. 2026 ze zdroje `fdcbe4b`, verze 1.5.0, 104616280 B.
-Kontrolní součet je v `build/SHA256SUMS`.
-
-Všech **55 sad Test-All** prošlo včetně 21 lekcí v každém ze tří režimů.
-Ověřený také přesný nový EXE s grafikou a bez ní.
-[Windows EXE](build/BUILD_INFO.md) · [Ovládání dílny](docs/NETWORK_WORKSHOP.md) ·
-[Snímky a ověření](docs/ui-review/2026-11-11-workshop-layout/README.md).
-
-**PICO APK je starší vydání 1.5.0 / code 6.**
-Jeho zdroj a hash uvádějí [distribuční metadata](build/BUILD_INFO.md).
+**PICO APK je starší 1.5.0 / code 6 a nebylo přestavěné.** PC a syntetické XR jsou
+ověřené; fyzický headset a subjektivní poslech nikoli. Python pracuje pouze
+s bezpečnými virtuálními daty. Bez push a publikování.
 
 Celá navazující etapa a ovládání: [ukládání, směny, rozbor, poslech a profil](docs/CONTINUATION_RELEASE.md). Přímý průchod serverovna–Londýn je zazděný; používej východní chodbu rozcestníku.
 

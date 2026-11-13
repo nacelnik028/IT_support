@@ -1,0 +1,93 @@
+WorkerThreadPool: 28 threads, 8 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/network_lab.gd remapped: res://tests/network_lab.gd
+Completed load for: 'res://tests/network_lab.gd' remapped 'res://tests/network_lab.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+Loading resource: res://scenes/world/Game.tscn remapped: res://scenes/world/Game.tscn
+Loading resource: res://scripts/world/GameShell.gd remapped: res://scripts/world/GameShell.gd
+Loading resource: res://scenes/world/Datacenter3D.tscn remapped: res://scenes/world/Datacenter3D.tscn
+Loading resource: res://scripts/world/Datacenter3D.gd remapped: res://scripts/world/Datacenter3D.gd
+Loading resource: res://scenes/programming_academy/academy_room.tscn remapped: res://scenes/programming_academy/academy_room.tscn
+Loading resource: res://scripts/programming/AcademyRoom.gd remapped: res://scripts/programming/AcademyRoom.gd
+Loading resource: res://assets/materials/raised_floor.gdshader remapped: res://assets/materials/raised_floor.gdshader
+Completed load for: 'res://assets/materials/raised_floor.gdshader' remapped 'res://assets/materials/raised_floor.gdshader' at thread -1
+Completed load for: 'res://scripts/programming/AcademyRoom.gd' remapped 'res://scripts/programming/AcademyRoom.gd' at thread -1
+Completed load for: 'res://scenes/programming_academy/academy_room.tscn' remapped 'res://scenes/programming_academy/academy_room.tscn' at thread -1
+Loading resource: res://scenes/english_london/EnglishLondon.tscn remapped: res://scenes/english_london/EnglishLondon.tscn
+Loading resource: res://scripts/english/EnglishRoom.gd remapped: res://scripts/english/EnglishRoom.gd
+Completed load for: 'res://scripts/english/EnglishRoom.gd' remapped 'res://scripts/english/EnglishRoom.gd' at thread -1
+Completed load for: 'res://scenes/english_london/EnglishLondon.tscn' remapped 'res://scenes/english_london/EnglishLondon.tscn' at thread -1
+Loading resource: res://scenes/world/Player.tscn remapped: res://scenes/world/Player.tscn
+Loading resource: res://scripts/world/FirstPersonController.gd remapped: res://scripts/world/FirstPersonController.gd
+Completed load for: 'res://scripts/world/FirstPersonController.gd' remapped 'res://scripts/world/FirstPersonController.gd' at thread -1
+Completed load for: 'res://scenes/world/Player.tscn' remapped 'res://scenes/world/Player.tscn' at thread -1
+Loading resource: res://assets/materials/perforated_metal.gdshader remapped: res://assets/materials/perforated_metal.gdshader
+Completed load for: 'res://assets/materials/perforated_metal.gdshader' remapped 'res://assets/materials/perforated_metal.gdshader' at thread -1
+Loading resource: res://assets/materials/interior_reflection.gdshader remapped: res://assets/materials/interior_reflection.gdshader
+Completed load for: 'res://assets/materials/interior_reflection.gdshader' remapped 'res://assets/materials/interior_reflection.gdshader' at thread -1
+Completed load for: 'res://scripts/world/Datacenter3D.gd' remapped 'res://scripts/world/Datacenter3D.gd' at thread -1
+Completed load for: 'res://scenes/world/Datacenter3D.tscn' remapped 'res://scenes/world/Datacenter3D.tscn' at thread -1
+Loading resource: res://scenes/main_menu/Main.tscn remapped: res://scenes/main_menu/Main.tscn
+Loading resource: res://scripts/ui/UIController.gd remapped: res://scripts/ui/UIController.gd
+Loading resource: res://scenes/datacenter/Datacenter.tscn remapped: res://scenes/datacenter/Datacenter.tscn
+Loading resource: res://scripts/ui/RackView.gd remapped: res://scripts/ui/RackView.gd
+Completed load for: 'res://scripts/ui/RackView.gd' remapped 'res://scripts/ui/RackView.gd' at thread -1
+Completed load for: 'res://scenes/datacenter/Datacenter.tscn' remapped 'res://scenes/datacenter/Datacenter.tscn' at thread -1
+Loading resource: res://scenes/training/TrainingCenter.tscn remapped: res://scenes/training/TrainingCenter.tscn
+Completed load for: 'res://scenes/training/TrainingCenter.tscn' remapped 'res://scenes/training/TrainingCenter.tscn' at thread -1
+Loading resource: res://scenes/results/Review.tscn remapped: res://scenes/results/Review.tscn
+Completed load for: 'res://scenes/results/Review.tscn' remapped 'res://scenes/results/Review.tscn' at thread -1
+Completed load for: 'res://scripts/ui/UIController.gd' remapped 'res://scripts/ui/UIController.gd' at thread -1
+Completed load for: 'res://scenes/main_menu/Main.tscn' remapped 'res://scenes/main_menu/Main.tscn' at thread -1
+Loading resource: res://scenes/xr/XRPlayer.tscn remapped: res://scenes/xr/XRPlayer.tscn
+Loading resource: res://scripts/xr/XRPlayer.gd remapped: res://scripts/xr/XRPlayer.gd
+Completed load for: 'res://scripts/xr/XRPlayer.gd' remapped 'res://scripts/xr/XRPlayer.gd' at thread -1
+Completed load for: 'res://scenes/xr/XRPlayer.tscn' remapped 'res://scenes/xr/XRPlayer.tscn' at thread -1
+Loading resource: res://assets/icons/academy.svg remapped: res://assets/icons/academy.svg
+Loading resource: res://.godot/imported/academy.svg-dbfb141333ee29e5af965600f0f39be2.ctex remapped: res://.godot/imported/academy.svg-dbfb141333ee29e5af965600f0f39be2.ctex
+Completed load for: 'res://assets/icons/academy.svg' remapped 'res://assets/icons/academy.svg' at thread -1
+Completed load for: 'res://scripts/world/GameShell.gd' remapped 'res://scripts/world/GameShell.gd' at thread -1
+Completed load for: 'res://scenes/world/Game.tscn' remapped 'res://scenes/world/Game.tscn' at thread -1
+Loading resource: res://assets/audio/service/rack.wav remapped: res://assets/audio/service/rack.wav
+Loading resource: res://.godot/imported/rack.wav-8b61aad9d01f0c4edb55ba293c0bc28b.sample remapped: res://.godot/imported/rack.wav-8b61aad9d01f0c4edb55ba293c0bc28b.sample
+Completed load for: 'res://assets/audio/service/rack.wav' remapped 'res://assets/audio/service/rack.wav' at thread -1
+Loading resource: res://assets/audio/service/step.wav remapped: res://assets/audio/service/step.wav
+Loading resource: res://.godot/imported/step.wav-4ea8b95608dff30c72bb38b6717df1a9.sample remapped: res://.godot/imported/step.wav-4ea8b95608dff30c72bb38b6717df1a9.sample
+Completed load for: 'res://assets/audio/service/step.wav' remapped 'res://assets/audio/service/step.wav' at thread -1
+Loading resource: res://assets/audio/service/door.wav remapped: res://assets/audio/service/door.wav
+Loading resource: res://.godot/imported/door.wav-87525d0ad13c50543a46dcc4a08ef49b.sample remapped: res://.godot/imported/door.wav-87525d0ad13c50543a46dcc4a08ef49b.sample
+Completed load for: 'res://assets/audio/service/door.wav' remapped 'res://assets/audio/service/door.wav' at thread -1
+Loading resource: res://assets/audio/service/cable_on.wav remapped: res://assets/audio/service/cable_on.wav
+Loading resource: res://.godot/imported/cable_on.wav-94cced6e340e69e0331808ea9b94511c.sample remapped: res://.godot/imported/cable_on.wav-94cced6e340e69e0331808ea9b94511c.sample
+Completed load for: 'res://assets/audio/service/cable_on.wav' remapped 'res://assets/audio/service/cable_on.wav' at thread -1
+Loading resource: res://assets/audio/service/cable_off.wav remapped: res://assets/audio/service/cable_off.wav
+Loading resource: res://.godot/imported/cable_off.wav-7afd13b7f81c0b942226a7e51de5a99f.sample remapped: res://.godot/imported/cable_off.wav-7afd13b7f81c0b942226a7e51de5a99f.sample
+Completed load for: 'res://assets/audio/service/cable_off.wav' remapped 'res://assets/audio/service/cable_off.wav' at thread -1
+Loading resource: res://assets/audio/service/disk.wav remapped: res://assets/audio/service/disk.wav
+Loading resource: res://.godot/imported/disk.wav-d5b0b1a87a323d754ad11d08d144ecc1.sample remapped: res://.godot/imported/disk.wav-d5b0b1a87a323d754ad11d08d144ecc1.sample
+Completed load for: 'res://assets/audio/service/disk.wav' remapped 'res://assets/audio/service/disk.wav' at thread -1
+Loading resource: res://assets/audio/service/tester.wav remapped: res://assets/audio/service/tester.wav
+Loading resource: res://.godot/imported/tester.wav-ced43f7281c082353be784071a6986ea.sample remapped: res://.godot/imported/tester.wav-ced43f7281c082353be784071a6986ea.sample
+Completed load for: 'res://assets/audio/service/tester.wav' remapped 'res://assets/audio/service/tester.wav' at thread -1
+NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Leaked instance: AudioStreamPlaybackWAV:9223372539684726784 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372539701506623 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372539718283840 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372539667952972 - Reference count: 1
+Leaked instance: AudioStreamWAV:9223372330321851921 - Reference count: 4
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Orphan StringName: Environment (static: 0, total: 8)
+StringName: 1 unclaimed string names at exit.
+WARNING: 5 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

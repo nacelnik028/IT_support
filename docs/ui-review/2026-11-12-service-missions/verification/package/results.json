@@ -1,0 +1,28 @@
+{
+  "sha256": "44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c",
+  "bytes": 104702320,
+  "runtime": "Native Windows EXE alone; editor regressions on its embedded pack",
+  "results": {
+    "native-headless": true,
+    "native-graphical": true,
+    "workshop_variants": true,
+    "support_dialogue": true,
+    "service_missions": true,
+    "service_continuation": true,
+    "service_missions_ui": true,
+    "cable_tester": true,
+    "service_audio": true,
+    "support_ui": true,
+    "network_lab": true,
+    "network_workshop": true,
+    "session_safety": true,
+    "save_safety": true,
+    "programming_runtime": true,
+    "english_model": true,
+    "xr_modes": true,
+    "package_content": true,
+    "service_missions_ui-graphical": true,
+    "cable_tester-graphical": true,
+    "service_audio-graphical": true
+  }
+}

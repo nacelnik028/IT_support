@@ -4,6 +4,36 @@ Zdrojové etapy A–E rozšiřují existující dílnu a původní editor/interp
 Vstup: Rozcestník → 05 / Počítačové sítě → vzadu vpravo Tréninková dílna →
 Servisní stůl. Vyber režim a společnou misi nebo běžný ticket/variantu.
 
+## Finální regrese a export
+
+Zdroj `cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d`. **63/63 sad Test-All PASS**, všech 21 lekcí v každém ze tří
+režimů a 336 UI akcí; bez runtime chyb a varování. [Úplný log](verification/test-all-release.log),
+[souhrn](verification/test-all-summary.json), [kontrola generátorů](verification/final-content.log).
+
+Nové EXE **104702320 B**, SHA256 `44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c`. Nativní start samotného
+EXE s grafikou i bez ní, obě dokončené mise a 7 nenulových PCM. Dalších 16
+headless a tři grafické sady běží proti přesně témuž vloženému packu, game
+resources nejsou nahrazené: [výsledky](verification/package/results.json),
+[nativní snímek](verification/package/native-service-review.png).
+Inventář kontroluje všechny JSON hodnoty a přesné nativní QOA bloky sedmi
+zvuků proti zdrojovému Godot importu, vedle hashů původních WAV. Dekódování
+nenulového PCM a přehrávání je samostatně ověřené.
+Manifest všech 331 herních souborů souhlasí se zdrojem.
+
+[Soupis 164 PNG, rozměry a SHA256](verification/screenshots.json).
+
+Reprodukce z kořene projektu (Godot 4.7.2):
+
+```powershell
+./tools/Test-All.ps1 -GodotPath '..\..\Godot_v4.7.2-stable_win64_console.exe'
+python tools/verify_service_content.py
+python tools/build_windows.py --godot '..\..\Godot_v4.7.2-stable_win64_console.exe'
+python tools/test_service_package.py --godot '..\..\Godot_v4.7.2-stable_win64_console.exe'
+```
+
+Zvukové bloky se pro porovnání nově rekonstruují přímo z autorských WAV a
+importních voleb, takže kontrola nepotřebuje předchozí zdrojovou `.godot` cache.
+
 ## Co protokoly prokazují
 
 - `workshop_variants`: 1 067 kontrol, seed 0 a tři skutečné obměny každého A–H,
@@ -41,6 +71,12 @@ editoru a klávesnice ve VR, přenosného displeje a závěrečného rozboru.
 - [Stejné měření pravým XR paprskem](tester-vr-1--gl_compatibility.png)
 - [Souhrn výsledku](mission-result-mission-3840-130-forward_plus.png)
 - [Skutečný průchod Godot MCP](mcp-service-review.png)
+- [Editor a XR klávesnice přesného exportu](export/mission-editor-keyboard-mission-vr-130-gl_compatibility.png)
+- [Tester ve 3D přesného exportu](export/tester-carried--gl_compatibility.png)
+
+Exportní PNG jsou v krátké složce `export/`, aby šly uložit do Gitu i při
+hluboko vnořené Windows cestě projektu. Relokace zachovala bajty; tři grafické
+sady byly zopakované s touto cestou. [Protokol](verification/short-evidence-paths.log).
 
 ## Zvuk a výkon
 

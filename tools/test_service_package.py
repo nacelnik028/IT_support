@@ -40,13 +40,12 @@ def main():
         for path in (ROOT/'tests').glob('*.gd'):
             text=isolate_test(path.read_text(encoding='utf-8-sig'),'service_pack')
             text=text.replace('res://tests/',tests.as_posix()+'/')
-            destination=OUT/'screenshots'/path.stem
+            # A shared short folder keeps evidence portable under Windows'
+            # path limit, even when the user's checkout is deeply nested.
+            destination=OUT.parent/'export'
             destination.mkdir(parents=True,exist_ok=True)
-            # Child suites set their own capture folder after the parent's
-            # _init. Create those authored directories in the external copy.
-            for folder in re.findall(r'''["'](res://(?:docs/ui-review|test-output)/[^"']*/)["']''',text):
-                mapped=folder.replace('res://docs/ui-review/',destination.as_posix()+'/').replace('res://test-output/',destination.as_posix()+'/')
-                Path(mapped).mkdir(parents=True,exist_ok=True)
+            # Both parent _init and the child run() must use that same folder.
+            text=re.sub(r'''res://docs/ui-review/[^"']*/''',destination.as_posix()+'/',text)
             text=text.replace('res://docs/ui-review/',destination.as_posix()+'/')
             text=text.replace('res://test-output/',destination.as_posix()+'/')
             (tests/path.name).write_text(text,encoding='utf-8')

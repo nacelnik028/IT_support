@@ -1,0 +1,5 @@
+WARNING: Property not found: 'xr/openxr/extensions/hand_tracking'.
+   at: get_setting_with_override (core/config/project_settings.cpp:435)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PACK CONTENT: 7931 checks, 0 failures; 344 packaged files; 339 materials

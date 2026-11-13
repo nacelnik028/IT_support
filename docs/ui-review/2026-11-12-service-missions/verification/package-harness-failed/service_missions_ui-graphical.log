@@ -1,0 +1,409 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-PORTAL-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-PORTAL-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-PORTAL-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-PORTAL-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-SERVICE-PORTAL-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / SERVICE-PORTAL-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-MOVE-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-MOVE-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-MOVE-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-MOVE-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-SERVICE-MOVE-learn-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / SERVICE-MOVE-learn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-PORTAL-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-PORTAL-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-PORTAL-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-PORTAL-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-SERVICE-PORTAL-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / SERVICE-PORTAL-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-MOVE-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-MOVE-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-MOVE-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-MOVE-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-SERVICE-MOVE-practice-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / SERVICE-MOVE-practice
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-PORTAL-exam-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-PORTAL-exam-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-SERVICE-PORTAL-exam-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / SERVICE-PORTAL-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-SERVICE-MOVE-exam-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / SERVICE-MOVE-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-SERVICE-MOVE-exam-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / SERVICE-MOVE-exam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-1280-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-1280-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-1280-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-1280-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-1280-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-1280-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-1280-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-1280-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-1280-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-1280-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-1920-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-1920-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-1920-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-1920-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-1920-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-1920-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-1920-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-1920-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-1920-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-1920-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-1920-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-1920-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-3840-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-3840-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-3840-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-3840-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-3840-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-3840-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-python-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-python / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-customer-mission-3840-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-customer / mission-3840-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-vr-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-keyboard-mission-vr-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor-keyboard / mission-vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-vr-100-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-vr-100
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-ticket-mission-vr-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-ticket / mission-vr-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-editor-keyboard-mission-vr-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-editor-keyboard / mission-vr-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-dialog-mission-vr-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-dialog / mission-vr-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Can't save PNG at path: 'C:/Users/vit/Documents/škola/2026-2027/WVA/Godot_v4.7.2-stable_win64.exe/projekty/IT_support/docs/ui-review/2026-11-12-service-missions/verification/package/screenshots/service_missions_ui/2026-11-12-service-missions/mission-result-mission-vr-130-gl_compatibility.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+ERROR: Snímek mission-result / mission-vr-130
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:27)
+       [1] capture (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/pause_repair.gd:75)
+SERVICE MISSIONS UI: 696 checks, 45 failures; six PC mode playthroughs and synthetic XR

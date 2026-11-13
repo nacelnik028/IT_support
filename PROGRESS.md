@@ -1,5 +1,12 @@
 # Datacenter Academy — stav vývoje
 
+## Servisní rozšíření A–E a Windows EXE dokončené — 13. 11. 2026
+
+- Celý aktuální Test-All **63/63 PASS**, přísně bez runtime chyb/varování, včetně 21 lekcí v každém ze tří režimů a 336 UI akcí. Varianty 1 067, dialog 2 124, společné mise 199, UI 639 headless; samostatné grafické matice 696 v Compatibility i Forward+. Tester 45/49 a zvuk 52/52 PASS. Původní síťová učebna 855 a dílna 495 nadále PASS.
+- Nové samostatné Windows EXE: zdroj `cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d`, **104702320 B**, SHA256 `44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c`. Použité existující atomické build workflow a oficiální shodná šablona, vložený pack; nativní EXE-only průchody s grafikou a bez ní. Dále 16 headless a tři grafické sady nad přesným exportem: všech 21 běhů PASS. Každý katalog a všech sedm importovaných QOA datových bloků porovnaných se zdrojovým Godot importem, autorské WAV mají samostatný hash; manifest 331 herních souborů souhlasí.
+- Zachované původní kampaně/legacy, 40 síťových úloh a 23 karet, původní A–H i bezpečné odložení kampaně/směny. Generátory a audio nezávisle reprodukované. Přezkoumané snímky: 720p/1080p/4K při 100/130 %, skutečný VR viewport, oba paprsky/gripy a klávesnice; soupis 164 PNG s rozměry a SHA256.
+- PROGRESS, README, dokumentace dílny, misí, testeru, zvuku i distribuční metadata aktualizované. Podrobnosti a surové protokoly v `docs/ui-review/2026-11-12-service-missions/README.md`. Godot MCP bez runtime chyb a nových statických varování, osm původních evidováno. Tři třídy obměn na ticket, omezený interpret/virtuální síť; fyzický headset a lidský poslech neověřené. PICO APK beze změny, bez push/publikování.
+
 ## Úplná regrese a přesnost externího ověření — 13. 11. 2026
 
 - Celý současný Test-All 63/63 PASS bez chyb a varování nad herním zdrojem cc18d3a. Výukové UI: 21 lekcí v každém ze tří režimů, 336 akcí. Windows sestavené původním workflow: 104702320 B, SHA256 44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c.

@@ -52,8 +52,11 @@ func run():
 		# actual imported payload, not compressed bytes with raw WAV PCM.
 		var settings := ConfigFile.new()
 		check(settings.load(source_path+".import")==OK,"Importní nastavení zvuku "+clip.id)
-		var imported_path: String = reference+"/"+str(settings.get_value("remap","path","")).trim_prefix("res://")
-		var expected = load(imported_path)
+		var options := {}
+		for key in settings.get_section_keys("params"): options[key] = settings.get_value("params",key)
+		# Reimport directly from authored WAV/options: no source .godot cache
+		# or previously imported resource can mask a packaging error.
+		var expected = AudioStreamWAV.load_from_file(source_path,options)
 		check(stream is AudioStreamWAV and stream.mix_rate==16000 and expected is AudioStreamWAV and stream.format==expected.format,"Skutečný importovaný zvuk v exportu "+clip.id)
 		check(FileAccess.get_sha256(source_path)==clip.sha256 and stream.data==expected.data and stream.stereo==expected.stereo,"Přesná importovaná zvuková data a hash autorského WAV "+clip.id)
 	var world=load("res://scenes/world/Datacenter3D.tscn").instantiate(); root.add_child(world)

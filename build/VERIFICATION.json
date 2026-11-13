@@ -1,15 +1,17 @@
 {
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "game_version": "1.5.0",
-  "date": "2026-11-12",
-  "source_commit": "fdcbe4b6fdfed21b0494442d1a8e29470f615b0e",
-  "source_manifest_sha256": "cd8f997c3f38bd55eb4727e72d98995f557ef7b8a394c045e9e14ba33daf13fb",
+  "date": "2026-11-13",
+  "source_commit": "cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d",
+  "source_manifest_sha256": "59a5780b01fb2cae9c09dc3915d1c25273a6d932736985f8858d461e8a17aa72",
+  "source_manifest_matches_workspace": true,
   "source_manifests_match": false,
+  "source_manifests_note": "Windows is current; PICO retains its earlier source and unchanged APK.",
   "artifacts": [
     {
       "file": "build/ITSupportSimulator.exe",
-      "bytes": 104616280,
-      "sha256": "78453fc4a61f05f537e28b2661aa07507cb267dc6420e8210db6d0b342fd23ba"
+      "bytes": 104702320,
+      "sha256": "44d2e068f51e7e21d20beccb0d1814d6e264fef7c4e63bdbf41d5e1a4eec324c"
     },
     {
       "file": "build/pico4/ITSupportSimulator-PICO4.apk",
@@ -21,41 +23,116 @@
     "rebuilt": true,
     "export": "Windows x86_64 Debug",
     "embedded_pck": true,
-    "source_commit": "fdcbe4b6fdfed21b0494442d1a8e29470f615b0e",
+    "source_commit": "cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d",
+    "source_files_verified": 331,
     "native_headless_smoke": true,
     "native_graphical_smoke": true,
     "packaged_tests": {
       "native-headless": true,
       "native-graphical": true,
-      "network_lab-headless": true,
-      "network_workshop-headless": true,
-      "network_workshop-graphical": true,
-      "workshop_layout-graphical": true,
-      "package_content-headless": true
-    },
-    "packaged_checks": {
-      "network_lab_headless": 855,
-      "workshop_headless": 493,
-      "workshop_graphical": 499,
-      "layout_graphical": 405,
-      "package_content": 7687
+      "workshop_variants": true,
+      "support_dialogue": true,
+      "service_missions": true,
+      "service_continuation": true,
+      "service_missions_ui": true,
+      "cable_tester": true,
+      "service_audio": true,
+      "support_ui": true,
+      "network_lab": true,
+      "network_workshop": true,
+      "session_safety": true,
+      "save_safety": true,
+      "programming_runtime": true,
+      "english_model": true,
+      "xr_modes": true,
+      "package_content": true,
+      "service_missions_ui-graphical": true,
+      "cable_tester-graphical": true,
+      "service_audio-graphical": true
     },
     "network_lab_exercises": 40,
-    "workshop_tickets": 8
+    "workshop_tickets": 8,
+    "additional_variants": 24,
+    "service_missions": 2,
+    "audio_clips": 7
   },
   "source_regressions": {
-    "suites": 55,
-    "passed_suites": 55,
+    "source_commit": "cc18d3adec9bedd1494ff9ea1a09ce7f91fb831d",
+    "suites": 63,
+    "passed_suites": 63,
+    "exit_code": 0,
+    "completed_utc": "2026-11-13T06:48:30.0829409Z",
     "training_lessons_by_mode": {
       "learn": 21,
       "practice": 21,
       "exam": 21
     },
     "training_ui_actions": 336,
-    "final_workshop_headless": 493,
-    "final_layout_headless": 293,
-    "graphical_layout_per_renderer": 805,
-    "note": "Complete Test-All followed by final door-tip safety and physical-device context checks; all final code verified again in the exact embedded pack."
+    "log_sha256": "3917d9122354523cfc25d446df25594f4a20f16e34b98f7c2ab130a8bd1a82cc",
+    "checks": [
+      "SERVICE CONTINUATION UI: 92 checks, 0 failures",
+      "SERVICE MISSIONS: 199 checks, 0 failures",
+      "SERVICE MISSIONS UI: 639 checks, 0 failures; six PC mode playthroughs and synthetic XR",
+      "SUPPORT UI: 34 checks, 0 failures; PC and synthetic XR",
+      "SUPPORT DIALOGUE: 2124 checks, 0 failures",
+      "SERVICE AUDIO: 52 checks, 0 failures; nonzero PCM and actual players, no claimed human listening",
+      "CABLE TESTER: 45 checks, 0 failures; PC and synthetic XR",
+      "WORKSHOP VARIANTS: 1067 checks, 0 failures",
+      "NETWORK WORKSHOP: 495 checks, 0 failures",
+      "WORKSHOP LAYOUT: 293 checks, 0 failures",
+      "NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR",
+      "USABILITY: 273 checks, 0 failures",
+      "LONDON REPAIR: 2755 checks, 0 failures",
+      "EDITOR REPAIR: 1354 checks, 0 failures; PC and synthetic XR",
+      "PAUSE REPAIR: 217 checks, 0 failures; PC and synthetic XR",
+      "ARCHITECTURE REPAIR: 19170 checks, 0 failures",
+      "LONDON GEOMETRY: 226 checks, 0 failures",
+      "CONTINUATION REVIEW: 239 checks, 0 failures; PC matrix and synthetic XR, no headset",
+      "UNIFIED PROFILE: 38 checks, 0 failures",
+      "LONDON LISTENING: 515 checks, 0 failures; audio decoded/player tested, no human listening claim",
+      "ATTEMPT REVIEW: 49 checks, 0 failures",
+      "ADVANCED SHIFTS: 268 checks, 0 failures",
+      "SHIFT SCORING: 31 checks, 0 failures",
+      "WORK PERSISTENCE: 69 checks, 0 failures",
+      "GAMEPLAY REVIEW: 104 checks, 0 failures; synthetic XR, no headset",
+      "GAMEPLAY: 217 checks, 0 failures",
+      "SHIFTS: 136 checks, 0 failures",
+      "ACADEMY HUB: 55 checks, 0 failures",
+      "LONDON QUIZ: 527 checks, 0 failures",
+      "ENGLISH MODEL: 1809 checks, 0 failures",
+      "ENGLISH WORLD: 1097 checks, 0 failures (synthetic XR, no headset)",
+      "UI WORKFLOW: 633 checks, 0 failures",
+      "PROGRAMMING RUNTIME 31 checks, 0 failures",
+      "PROGRAMMING CATALOG 1071 checks, 0 failures",
+      "PROGRAMMING ACADEMY 64 checks, 0 failures",
+      "PROGRAMMING INTEGRATION 766 checks, 0 failures; 252 generated variants",
+      "PROGRAMMING POLISH 29 checks, 0 failures",
+      "PROGRAMMING LOCATION: 116 checks, 0 failures",
+      "XR_MODES: 122 checks, 0 failures; synthetic tests, no hardware tracking claim",
+      "TERMINAL SESSIONS: 64 checks, 0 failures",
+      "PLATFORM CONTEXT: 396 checks, 0 failures",
+      "CONSOLE UX: 60 checks, 0 failures",
+      "UI DESIGN MATRIX: 162 checks, 0 failures",
+      "WORLD UI: 31 checks, 0 failures",
+      "CAMPAIGN: 65 missions, 0 failures",
+      "REGRESSION: 88 checks, 0 failures",
+      "EXTENDED: 35 checks, 0 failures",
+      "SESSION SAFETY: 124 checks, 0 failures",
+      "SAVE SAFETY: 474 checks, 0 failures",
+      "PHYSICAL3D: 41 checks, 0 failures",
+      "WORLD3D: 35 checks, 0 failures",
+      "DOOR3D: 17 checks, 0 failures",
+      "WORLD PLAYTHROUGH: 35 checks, 0 failures",
+      "TRAINING ROOMS A-H: 68 checks, 0 failures",
+      "FIRST TUTORIAL: 0 failures",
+      "TUTORIAL NAVIGATION: 700 checks, 0 failures",
+      "LESSONS: 1075 checks, 0 failures",
+      "TRAINING FEATURES: 199 checks, 0 failures, 76 distinct configurations",
+      "UI SAFETY: 32 checks, 0 failures",
+      "UI SMOKE: 65 missions through form signals; 0 failures",
+      "TRAINING UI: 336 actions, 0 failures",
+      "DISPLAY SETTINGS: 68 checks, 0 failures"
+    ]
   },
   "pico4": {
     "rebuilt": false,
@@ -64,9 +141,9 @@
     "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
     "previous_verification": "docs/ui-review/2026-11-05-exe-menu/verification/previous-distributions.json"
   },
-  "hardware": "Physical PICO not tested; synthetic XR only",
+  "hardware": "Windows PC RTX 5060; synthetic XR; physical headset and human listening not tested",
   "graphical_matrices": {
-    "workshop_layout": {
+    "service_missions": {
       "source_renderers": [
         "gl_compatibility",
         "forward_plus"
@@ -89,20 +166,25 @@
         100,
         130
       ],
-      "checks_per_renderer": 805,
+      "checks_per_renderer": 696,
       "synthetic_vr": {
         "viewport": [
           1600,
           1200
         ],
         "both_rays": true,
-        "click_and_scroll": true,
-        "by_return": true
-      },
-      "followup": "Final door-tip sensor and 3D repair context tested headless and against the exact export; no layout change after the full source matrix.",
-      "screenshots": "docs/ui-review/2026-11-11-workshop-layout/verification/screenshots.json"
+        "keyboard": true
+      }
+    },
+    "tester": {
+      "headless": 45,
+      "graphical": 49,
+      "both_grips": true
+    },
+    "audio": {
+      "headless": 52,
+      "graphical": 52
     }
   },
-  "evidence": "docs/ui-review/2026-11-11-workshop-layout/README.md",
-  "source_manifest_matches_workspace": true
+  "evidence": "docs/ui-review/2026-11-12-service-missions/README.md"
 }

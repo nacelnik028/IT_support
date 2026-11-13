@@ -1,0 +1,39 @@
+native-headless: exit=0, clean=True
+native-graphical: exit=0, clean=True
+workshop_variants: exit=0, clean=True
+WORKSHOP VARIANTS: 1067 checks, 0 failures
+support_dialogue: exit=0, clean=True
+SUPPORT DIALOGUE: 2124 checks, 0 failures
+service_missions: exit=0, clean=True
+SERVICE MISSIONS: 199 checks, 0 failures
+service_continuation: exit=0, clean=True
+SERVICE CONTINUATION UI: 92 checks, 0 failures
+service_missions_ui: exit=0, clean=True
+SERVICE MISSIONS UI: 639 checks, 0 failures; six PC mode playthroughs and synthetic XR
+cable_tester: exit=0, clean=True
+CABLE TESTER: 45 checks, 0 failures; PC and synthetic XR
+service_audio: exit=0, clean=True
+SERVICE AUDIO: 52 checks, 0 failures; nonzero PCM and actual players, no claimed human listening
+support_ui: exit=0, clean=True
+SUPPORT UI: 34 checks, 0 failures; PC and synthetic XR
+network_lab: exit=0, clean=True
+NETWORK LAB: 855 checks, 0 failures; PC and synthetic XR
+network_workshop: exit=0, clean=True
+NETWORK WORKSHOP: 495 checks, 0 failures
+session_safety: exit=0, clean=True
+SESSION SAFETY: 124 checks, 0 failures
+save_safety: exit=4294967295, clean=False
+programming_runtime: exit=0, clean=True
+PROGRAMMING RUNTIME 31 checks, 0 failures
+english_model: exit=0, clean=True
+ENGLISH MODEL: 1809 checks, 0 failures
+xr_modes: exit=0, clean=True
+XR_MODES: 122 checks, 0 failures; synthetic tests, no hardware tracking claim
+package_content: exit=1, clean=False
+PACK CONTENT: 7924 checks, 14 failures; 344 packaged files; 339 materials
+service_missions_ui-graphical: exit=1, clean=False
+SERVICE MISSIONS UI: 696 checks, 45 failures; six PC mode playthroughs and synthetic XR
+cable_tester-graphical: exit=1, clean=False
+CABLE TESTER: 49 checks, 4 failures; PC and synthetic XR
+service_audio-graphical: exit=0, clean=True
+SERVICE AUDIO: 52 checks, 0 failures; nonzero PCM and actual players, no claimed human listening

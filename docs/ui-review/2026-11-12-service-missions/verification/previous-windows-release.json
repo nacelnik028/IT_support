@@ -1,0 +1,108 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "game_version": "1.5.0",
+  "date": "2026-11-12",
+  "source_commit": "fdcbe4b6fdfed21b0494442d1a8e29470f615b0e",
+  "source_manifest_sha256": "cd8f997c3f38bd55eb4727e72d98995f557ef7b8a394c045e9e14ba33daf13fb",
+  "source_manifests_match": false,
+  "artifacts": [
+    {
+      "file": "build/ITSupportSimulator.exe",
+      "bytes": 104616280,
+      "sha256": "78453fc4a61f05f537e28b2661aa07507cb267dc6420e8210db6d0b342fd23ba"
+    },
+    {
+      "file": "build/pico4/ITSupportSimulator-PICO4.apk",
+      "bytes": 90829657,
+      "sha256": "bed5560e0aeaec612f8724e7a1a25347b0dadd65ba09139cc698d37b37e846ef"
+    }
+  ],
+  "portable_windows": {
+    "rebuilt": true,
+    "export": "Windows x86_64 Debug",
+    "embedded_pck": true,
+    "source_commit": "fdcbe4b6fdfed21b0494442d1a8e29470f615b0e",
+    "native_headless_smoke": true,
+    "native_graphical_smoke": true,
+    "packaged_tests": {
+      "native-headless": true,
+      "native-graphical": true,
+      "network_lab-headless": true,
+      "network_workshop-headless": true,
+      "network_workshop-graphical": true,
+      "workshop_layout-graphical": true,
+      "package_content-headless": true
+    },
+    "packaged_checks": {
+      "network_lab_headless": 855,
+      "workshop_headless": 493,
+      "workshop_graphical": 499,
+      "layout_graphical": 405,
+      "package_content": 7687
+    },
+    "network_lab_exercises": 40,
+    "workshop_tickets": 8
+  },
+  "source_regressions": {
+    "suites": 55,
+    "passed_suites": 55,
+    "training_lessons_by_mode": {
+      "learn": 21,
+      "practice": 21,
+      "exam": 21
+    },
+    "training_ui_actions": 336,
+    "final_workshop_headless": 493,
+    "final_layout_headless": 293,
+    "graphical_layout_per_renderer": 805,
+    "note": "Complete Test-All followed by final door-tip safety and physical-device context checks; all final code verified again in the exact embedded pack."
+  },
+  "pico4": {
+    "rebuilt": false,
+    "status": "Previous 1.5.0 / code 6",
+    "source_commit": "a6d58e3caf4072defac47d03d98abfb4fbd97be8",
+    "source_manifest_sha256": "3723c98d56314e39be0b5f56b891ba510c63a76a03fa11914620f3f7b029f022",
+    "previous_verification": "docs/ui-review/2026-11-05-exe-menu/verification/previous-distributions.json"
+  },
+  "hardware": "Physical PICO not tested; synthetic XR only",
+  "graphical_matrices": {
+    "workshop_layout": {
+      "source_renderers": [
+        "gl_compatibility",
+        "forward_plus"
+      ],
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          3840,
+          2160
+        ]
+      ],
+      "text_percent": [
+        100,
+        130
+      ],
+      "checks_per_renderer": 805,
+      "synthetic_vr": {
+        "viewport": [
+          1600,
+          1200
+        ],
+        "both_rays": true,
+        "click_and_scroll": true,
+        "by_return": true
+      },
+      "followup": "Final door-tip sensor and 3D repair context tested headless and against the exact export; no layout change after the full source matrix.",
+      "screenshots": "docs/ui-review/2026-11-11-workshop-layout/verification/screenshots.json"
+    }
+  },
+  "evidence": "docs/ui-review/2026-11-11-workshop-layout/README.md",
+  "source_manifest_matches_workspace": true
+}

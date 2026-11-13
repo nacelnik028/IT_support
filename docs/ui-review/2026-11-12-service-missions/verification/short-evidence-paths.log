@@ -1,0 +1,7 @@
+service_missions_ui-graphical: exit=0, clean=True
+SERVICE MISSIONS UI: 696 checks, 0 failures; six PC mode playthroughs and synthetic XR
+cable_tester-graphical: exit=0, clean=True
+CABLE TESTER: 49 checks, 0 failures; PC and synthetic XR
+service_audio-graphical: exit=0, clean=True
+SERVICE AUDIO: 52 checks, 0 failures; nonzero PCM and actual players, no claimed human listening
+SHORT EVIDENCE PATHS PASS: all three graphical suites and 164 screenshot hashes

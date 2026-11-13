@@ -1,0 +1,73 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Skutečně načtené PCM v exportu rack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu rack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu step
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu step
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu door
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu door
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu cable_on
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu cable_on
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu cable_off
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu cable_off
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu disk
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu disk
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+ERROR: Skutečně načtené PCM v exportu tester
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:51)
+ERROR: Každý skutečný audio vzorek odpovídá zdroji a manifestu tester
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:19)
+       [1] run (C:/Users/vit/AppData/Local/Temp/service-exe-verify-an1tyw8s/tests/package_content.gd:52)
+PACK CONTENT: 7924 checks, 14 failures; 344 packaged files; 339 materials
