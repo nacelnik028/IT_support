@@ -89,9 +89,6 @@ func run():
 	var audio_ref: WeakRef = weakref(shell.service_audio)
 	shell.queue_free()
 	await frames()
-	# Let the audio mixer release its queued playback references at its own
-	# block boundary; fast headless process frames do not advance that thread.
-	await create_timer(0.12).timeout
 	check(audio_ref.get_ref()==null,"Continuation scene releases its spatial audio owner")
 	print("SERVICE CONTINUATION UI: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

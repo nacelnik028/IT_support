@@ -1,5 +1,11 @@
 # Datacenter Academy — stav vývoje
 
+## Skutečné dokončení audio mixeru — 13. 11. 2026
+
+- Úplná regrese zachytila občasné ponechání čtyř AudioStreamPlaybackWAV a jejich sdílené smyčky při rychlém konci původní network_lab. stop() pouze frontuje fade-out; samotné odpojení streamů nestačí. Při zániku scény ServiceAudio nyní vyčká dvě skutečné hranice mixeru, s pevným stropem 100 ms. Běžný pohyb/panely/místnosti nečekají.
+- Nový test ničí scénu se čtyřmi běžícími racky a přes weakref ověřuje zánik samotných playback objektů, bez časovače v testu. Audio 52 PASS bez grafiky i graficky; continuation 92 PASS bez dřívějšího čekání. Pět po sobě jdoucích původních network_lab průchodů po 855 kontrolách bez chyb, varování a úniků. Žádná původní aserce ani přísnost Test-All se nemění.
+- Godot MCP znovu obě mise a sedm nenulových PCM PASS; pouze osm evidovaných původních statických varování. Katalogy/generátory a sedm audio souborů reprodukované přesně. Následuje nový celý 63sadový runner, export a přesné balíčkové kontroly.
+
 ## Oddělení pomoci v profilu — 13. 11. 2026
 
 - Jazykový důkaz servisní mise sleduje výuku a skutečnou jazykovou oporu. Síťová/Python nápověda se nadále projeví v technické části a nevydává se za neprovedenou jazykovou pomoc. Přidán skutečný průchod s technickou nápovědou a nezávislým anglickým předáním.

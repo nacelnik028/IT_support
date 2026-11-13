@@ -119,8 +119,17 @@ func run():
 	await ticks(3)
 	check(audio.racks.values().all(func(source): return not source.playing) and audio.effects.all(func(source): return not source.playing),"Menu has no lingering sound")
 	var weak_audio: WeakRef = weakref(audio)
+	# Destroy a scene with four running looped voices, as the original fast
+	# headless world tests do. Observe the actual playback objects too.
+	shell.return_to_world()
+	await ticks(3)
+	var playback_refs: Array = []
+	for source in audio.racks.values():
+		check(source.playing,"Rack live immediately before scene destruction")
+		playback_refs.append(weakref(source.get_stream_playback()))
 	shell.queue_free()
 	await frames()
 	check(weak_audio.get_ref()==null,"Scene cleanup releases all sources")
+	check(playback_refs.all(func(ref): return ref.get_ref()==null),"Mixer releases all looped playback objects without a test timer")
 	print("SERVICE AUDIO: %d checks, %d failures; nonzero PCM and actual players, no claimed human listening" % [checks,failures])
 	quit(1 if failures else 0)

@@ -13,6 +13,11 @@ stání a otevřený UI je nevytvářejí. Dveře sledují pohyb křídla, takž
 zavření nemá motorový zvuk. Zvuky kabelu a disku vzniknou až z úspěšné změny
 modelu. Tester pípne při měření také při neúspěšném výsledku, bez tvrzení opravy.
 Pauza, ztráta focus/tracking a menu zastaví zdroje. Zánik scény je uvolní.
+Při zániku vlastník výslovně zastaví streamy a počká na dvě skutečné hranice
+mixeru (nejvýše 100 ms). Godot stop frontuje do audio vlákna; rychlé headless
+snímky samotné jeho doběhnutí nezaručují. Čekání není součástí chůze, přepnutí
+panelu, místnosti ani pauzy. Regrese sleduje slabé reference všech čtyř živých
+loopovaných přehrávačů po zániku, bez dodatečného časovače v testu.
 
 ## Původ a reprodukce
 

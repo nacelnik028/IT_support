@@ -91,13 +91,22 @@ func silence():
 	step_distance = 0
 
 func _exit_tree():
-	# Release mixer playbacks explicitly before the world disappears, just as
-	# the original UI and speech players do on scene teardown.
+	# stop() queues a mixer fade-out; dropping the Node alone does not retire
+	# its looping playback. Drain two real mixer boundaries before releasing
+	# the scene. This only runs on destruction, never on a room/menu change.
 	for source in racks.values()+effects+doors.map(func(entry): return entry.source):
 		if is_instance_valid(source):
 			source.stop()
 			source.stream = null
 	streams.clear()
+	var deadline := Time.get_ticks_msec()+100
+	var previous := AudioServer.get_time_since_last_mix()
+	var boundaries := 0
+	while boundaries<2 and Time.get_ticks_msec()<deadline:
+		OS.delay_msec(1)
+		var current := AudioServer.get_time_since_last_mix()
+		if current<previous: boundaries += 1
+		previous = current
 
 func _physics_process(delta):
 	var enabled := active()
